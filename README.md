@@ -95,27 +95,27 @@ jobs:
 ```
 
 This needs a `WEBSITE_DISPATCH_TOKEN` secret on each app repo — a fine-
-grained GitHub PAT scoped to `silo-website` with `Contents: Read` and
-`Actions: Read & Write` permissions. Standard pattern, set once per repo.
+grained GitHub PAT scoped to `silo-server.github.io` with `Contents: Read`
+and `Actions: Read & Write` permissions. Standard pattern, set once per
+repo.
 
 The 6-hour cron is a fallback for missed dispatches and edits that
 happen outside a release (changed README, added a new app, etc).
 
 ## Deployment
 
-GitHub Pages, configured by `.github/workflows/deploy.yml`. Initial
-setup:
-
-1. Push this repo to `github.com/Silo-Server/silo-website`
-2. **Settings → Pages → Source:** GitHub Actions
-3. First deploy runs automatically on the first push to `main`
+GitHub Pages, configured by `.github/workflows/deploy.yml`. The repo is
+named `silo-server.github.io` — GitHub recognizes that as the org's
+root site, so the deployed URL is **`https://silo-server.github.io/`**
+with no subpath.
 
 ### Custom domain
 
 When you have a domain ready (e.g. `silo.example.com`):
 
 1. Add a `CNAME` file in `public/` containing the bare domain
-2. Set repo variables: `SITE=https://silo.example.com` and `BASE_PATH=/`
+2. Set repo variable `SITE=https://silo.example.com`
+   (`BASE_PATH` is already `/` for the org-page setup)
 3. Create a DNS `CNAME` record pointing the domain at
    `silo-server.github.io`
 4. **Settings → Pages → Custom domain:** enter the domain, enable

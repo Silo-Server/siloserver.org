@@ -48,7 +48,7 @@ jobs:
           # the site moves to a custom domain. SITE is the canonical origin
           # used for OpenGraph/sitemap; BASE_PATH is the URL prefix.
           SITE: ${{ vars.SITE || 'https://silo-server.github.io' }}
-          BASE_PATH: ${{ vars.BASE_PATH || '/silo-website' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
         run: bun run build
 
       - name: Upload artifact
