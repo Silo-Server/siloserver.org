@@ -1,0 +1,48 @@
+---
+import { features } from "../data/features";
+import { REPOS, repoUrl } from "../data/siteConfig";
+---
+
+<section class="section section--features" id="features">
+  <div class="container">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="section__eyebrow">// 02 — what it does</p>
+        <h2 class="section__title">
+          Nine things that <br />
+          <span class="ink-blue">matter</span>.
+        </h2>
+      </div>
+      <p class="section__lede">
+        What the modern stack actually gets you: smarter playback,
+        household-aware profiles, real recommendations, and a server that
+        grows past one box when you need it to.
+      </p>
+    </header>
+
+    <div class="feature-grid">
+      {
+        features.map((f) => (
+          <article class="feature">
+            <div class="feature__id">{f.id}</div>
+            <h3 class="feature__title">{f.title}</h3>
+            <p class="feature__body">{f.body}</p>
+            <ul class="feature__chips">
+              {f.chips.map((c) => {
+                if (c.repo && c.repo in REPOS) {
+                  const repoName = REPOS[c.repo as keyof typeof REPOS];
+                  return (
+                    <li>
+                      <a href={repoUrl(repoName)}>{c.label} ↗</a>
+                    </li>
+                  );
+                }
+                return <li>{c.label}</li>;
+              })}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

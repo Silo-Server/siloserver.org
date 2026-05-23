@@ -1,0 +1,37 @@
+---
+// Faux terminal demo shown in the hero — purely visual, no live data.
+---
+
+<div
+  class="terminal"
+  role="img"
+  aria-label="Terminal showing docker compose up output"
+>
+  <div class="terminal__chrome">
+    <span class="terminal__lights" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </span>
+    <span class="terminal__title">silo@home:~/silo</span>
+    <span class="terminal__tabs">
+      <span class="terminal__tab terminal__tab--active">compose</span>
+      <span class="terminal__tab">logs</span>
+      <span class="terminal__tab">psql</span>
+    </span>
+  </div>
+  <pre class="terminal__body" aria-hidden="true"><span class="t-mute">$</span> <span class="t-cmd">docker compose up -d</span>
+<span class="t-mute">[+] Running 4/4</span>
+ <span class="t-ok">✓</span> Network silo_default       Created             <span class="t-mute">0.1s</span>
+ <span class="t-ok">✓</span> Container silo_postgres    Started             <span class="t-mute">1.4s</span>
+ <span class="t-ok">✓</span> Container silo_redis       Started             <span class="t-mute">1.2s</span>
+ <span class="t-ok">✓</span> Container silo_server      Started             <span class="t-mute">2.1s</span>
+
+<span class="t-mute">$</span> <span class="t-cmd">curl -s localhost:8090/health | jq</span>
+&lbrace;
+  <span class="t-key">"status"</span>: <span class="t-str">"ok"</span>,
+  <span class="t-key">"mode"</span>: <span class="t-str">"integrated"</span>,
+  <span class="t-key">"transcode"</span>: &lbrace; <span class="t-key">"hwaccel"</span>: <span class="t-str">"qsv"</span>, <span class="t-key">"gpu"</span>: <span class="t-str">"Intel Arc A380"</span> &rbrace;,
+  <span class="t-key">"db"</span>: <span class="t-str">"postgres 18 (pgvector 0.8.0)"</span>
+&rbrace;
+
+<span class="t-mute">$</span> <span class="t-cmd">open http<wbr/>://localhost:8090</span><span class="t-cursor">█</span></pre>
+</div>

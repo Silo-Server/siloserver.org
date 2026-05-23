@@ -1,0 +1,29 @@
+---
+import SiloBars from "./SiloBars.astro";
+import { SITE, REPOS, repoUrl } from "../data/siteConfig";
+---
+
+<footer class="bottombar" aria-label="Footer">
+  <div class="bottombar__inner">
+    <span class="bottombar__cell">
+      <SiloBars size="xs" />
+      {SITE.name}
+    </span>
+    <span class="bottombar__cell bottombar__cell--mono">{SITE.license}</span>
+    <span class="bottombar__cell bottombar__cell--mono bottombar__hide-sm">
+      <span class="bottombar__dot bottombar__dot--green"></span>
+      <a href={repoUrl(REPOS.server)}>silo-server</a>
+      ·
+      <a href={repoUrl(REPOS.apple)}>silo-apple</a>
+      ·
+      <a href={repoUrl(REPOS.android)}>silo-android</a>
+      ·
+      <a href={repoUrl(REPOS.pluginSdk)}>plugin-sdk</a>
+    </span>
+    <span class="bottombar__spacer"></span>
+    <span class="bottombar__cell bottombar__cell--mono">
+      built with <span class="ink-red">♥</span> +
+      <span class="ink-blue">ffmpeg</span>
+    </span>
+  </div>
+</footer>

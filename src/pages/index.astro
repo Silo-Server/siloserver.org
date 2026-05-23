@@ -1,0 +1,66 @@
+---
+import Base from "../layouts/Base.astro";
+import StatusBar from "../components/StatusBar.astro";
+import Hero from "../components/Hero.astro";
+import Pillars from "../components/Pillars.astro";
+import Features from "../components/Features.astro";
+import Deployment from "../components/Deployment.astro";
+import Clients from "../components/Clients.astro";
+import FAQ from "../components/FAQ.astro";
+import CTA from "../components/CTA.astro";
+import Bottombar from "../components/Bottombar.astro";
+---
+
+<Base>
+  <StatusBar />
+  <main id="main">
+    <Hero />
+    <Pillars />
+    <Features />
+    <Deployment />
+    <Clients />
+    <FAQ />
+    <CTA />
+  </main>
+  <Bottombar />
+
+  <script>
+    // Click-to-copy on the primary "docker compose up -d" button.
+    (() => {
+      const flash = (el: HTMLElement, text: string) => {
+        el.classList.add("copied");
+        const note = document.createElement("span");
+        note.className = "copy-toast";
+        note.textContent = text;
+        el.appendChild(note);
+        setTimeout(() => {
+          note.remove();
+          el.classList.remove("copied");
+        }, 1400);
+      };
+
+      const copy = async (text: string) => {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
+      document.querySelectorAll<HTMLAnchorElement>(".btn--primary").forEach(
+        (btn) => {
+          const cmd = btn
+            .querySelector("span:nth-child(2)")
+            ?.textContent?.trim();
+          if (!cmd || !cmd.startsWith("docker")) return;
+          btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const ok = await copy(cmd);
+            if (ok) flash(btn, "copied ✓");
+          });
+        },
+      );
+    })();
+  </script>
+</Base>

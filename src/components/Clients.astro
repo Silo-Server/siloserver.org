@@ -1,0 +1,86 @@
+---
+import { nativeClients, compatClients } from "../data/clients";
+import { REPOS, repoUrl } from "../data/siteConfig";
+import { releaseFor, downloadLinkFor } from "../data/releases";
+---
+
+<section class="section section--clients" id="clients">
+  <div class="container">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="section__eyebrow">// 04 — clients</p>
+        <h2 class="section__title">
+          First-party where it counts. <br />Open everywhere else.
+        </h2>
+      </div>
+      <p class="section__lede">
+        We ship our own apps for every screen worth shipping on, written
+        against the native platform — SwiftUI on Apple, Compose on Android.
+        And the Jellyfin-protocol compatibility layer means the third-party
+        clients you already trust still work.
+      </p>
+    </header>
+
+    <h3 class="cluster__title">
+      <span class="cluster__line"></span>
+      <span>first-party clients</span>
+      <span class="cluster__line"></span>
+    </h3>
+
+    <div class="client-grid">
+      {
+        nativeClients.map((c) => {
+          const repoKey = c.repo as keyof typeof REPOS;
+          const repoName = REPOS[repoKey];
+          const release = releaseFor(repoKey);
+          const downloadHref = downloadLinkFor(repoKey);
+          return (
+            <article class="client client--native">
+              <div class="client__icon" aria-hidden="true">
+                {c.icon}
+              </div>
+              <h4>{c.name}</h4>
+              <p class="client__platform">{c.platform}</p>
+              <p class="client__body">{c.body}</p>
+              <div class="client__footer">
+                <span class={`client__status client__status--${c.status}`}>
+                  {c.statusLabel}
+                  {release && (
+                    <span class="client__version"> · {release.tag}</span>
+                  )}
+                </span>
+                <a class="client__source" href={downloadHref}>
+                  {repoName} ↗
+                </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <h3 class="cluster__title">
+      <span class="cluster__line"></span>
+      <span>jellyfin-compatible third-party clients</span>
+      <span class="cluster__line"></span>
+    </h3>
+
+    <p class="cluster__caption">
+      Silo speaks the full Jellyfin protocol on port <code>:8096</code>.
+      Auth, items, sessions, websockets, the Jellyfin web SPA — all served.
+      Point any of these at <code>http://silo:8096</code> and it just works.
+    </p>
+
+    <div class="compat-grid">
+      {
+        compatClients.map((c) => (
+          <div class="compat">
+            <span class="compat__name">{c.name}</span>
+            <span class="compat__platforms">{c.platforms}</span>
+            <span class="compat__status">{c.status}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

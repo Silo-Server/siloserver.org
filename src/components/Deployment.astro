@@ -1,0 +1,68 @@
+---
+import SiloBars from "./SiloBars.astro";
+---
+
+<section class="section section--arch">
+  <div class="container container--narrow">
+    <header class="section__head">
+      <p class="section__eyebrow">// 03 — deployment shapes</p>
+      <h2 class="section__title">
+        One box, or your <br />whole cluster.
+      </h2>
+      <p class="section__lede">
+        Start with everything in a single container on a mini PC. When the
+        homelab grows up — three Proxmox nodes, a couple of NUCs, whatever
+        the rack looks like — drop a transcode and proxy worker into an LXC
+        on each node. They register themselves and the server routes streams
+        across them.
+      </p>
+    </header>
+
+    <div class="arch">
+      <div class="arch__pane arch__pane--single">
+        <div class="arch__pane-head">
+          <SiloBars size="xs" />
+          <span>single-host integrated</span>
+          <span class="arch__pane-tag">DEFAULT</span>
+        </div>
+        <pre class="arch__diagram">
+┌──────────────────────────────────────────────┐
+│  silo (MODE=integrated)                      │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │  api     │ │ scanner  │ │transcode │      │
+│  └──────────┘ └──────────┘ └──────────┘      │
+│       └─────────────┬───────────┘            │
+│                     ▼                        │
+│           ┌─────────────────────┐            │
+│           │ postgres + pgvector │            │
+│           │ redis               │            │
+│           └─────────────────────┘            │
+└──────────────────────────────────────────────┘</pre>
+      </div>
+
+      <div class="arch__pane arch__pane--split">
+        <div class="arch__pane-head">
+          <SiloBars size="xs" />
+          <span>proxmox cluster</span>
+          <span class="arch__pane-tag arch__pane-tag--red">MULTI-NODE</span>
+        </div>
+        <pre class="arch__diagram">
+┌─ proxmox cluster ────────────────────────────────────┐
+│                                                      │
+│  pve01              pve02              pve03         │
+│  ┌──────────────┐   ┌──────────────┐   ┌──────────┐  │
+│  │ silo (api)   │   │ lxc:         │   │ lxc:     │  │
+│  │ postgres     │   │  transcode   │ ● │  trans.  │● │
+│  │ redis        │   │  +proxy      │   │  +proxy  │  │
+│  │ +tc/proxy lxc│   └──────┬───────┘   └────┬─────┘  │
+│  └──────┬───────┘          │                │        │
+│         └──────────────────┴────────────────┘        │
+│                            ▼                         │
+│              shared db + redis pool                  │
+│                                                      │
+│      streams: least-connections across nodes         │
+└──────────────────────────────────────────────────────┘</pre>
+      </div>
+    </div>
+  </div>
+</section>

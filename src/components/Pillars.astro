@@ -1,0 +1,46 @@
+---
+import { pillars } from "../data/pillars";
+---
+
+<section class="section section--infra" id="stack">
+  <div class="container">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="section__eyebrow">// 01 — what's underneath</p>
+        <h2 class="section__title">
+          Built like <br />
+          <span class="ink-blue">infrastructure</span>.
+        </h2>
+      </div>
+      <p class="section__lede">
+        Most self-hosted media servers were architected when single-binary +
+        SQLite was state of the art. Silo bets on a modern stack — typed,
+        concurrent, horizontally scalable, and boring in all the right
+        places.
+      </p>
+    </header>
+
+    <div class="pillars">
+      {
+        pillars.map((p) => (
+          <article class={`pillar pillar--${p.color}`}>
+            <div class="pillar__head">
+              <span class="pillar__bar" aria-hidden="true" />
+              <span class="pillar__label">{p.label}</span>
+            </div>
+            <h3 class="pillar__title">{p.title}</h3>
+            <p class="pillar__body">{p.body}</p>
+            <dl class="pillar__specs">
+              {p.specs.map((s) => (
+                <div>
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

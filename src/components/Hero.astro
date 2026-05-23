@@ -1,0 +1,78 @@
+---
+import SiloBars from "./SiloBars.astro";
+import Terminal from "./Terminal.astro";
+import { SITE } from "../data/siteConfig";
+---
+
+<section class="hero">
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__inner container">
+    <div class="hero__col hero__col--lede">
+      <p class="hero__eyebrow">
+        <SiloBars size="sm" />
+        <span>// stack: Go · Postgres · gRPC · scaled out</span>
+      </p>
+
+      <h1 class="hero__title">
+        <span>a self-hosted</span>
+        <span>media server,</span>
+        <span class="hero__title--accent">on modern infra<em>.</em></span>
+      </h1>
+
+      <p class="hero__sub">
+        <strong>Go 1.26</strong> on the backend.
+        <strong>PostgreSQL 18</strong> with pgvector. gRPC plugins.
+        Hardware-accelerated transcode. Horizontal scale-out across worker
+        nodes. Plays nice with the Jellyfin ecosystem — clients like
+        <strong>Infuse</strong>, <strong>Findroid</strong>, and
+        <strong>VidHub</strong> work out of the box, alongside our own native
+        apps for <strong>iOS</strong>, <strong>tvOS</strong>,
+        <strong>macOS</strong>, <strong>Android</strong>,
+        <strong>Android TV</strong>, and the web.
+      </p>
+
+      <div class="hero__actions">
+        <a href={SITE.github.readmeUrl} class="btn btn--primary">
+          <span class="btn__cmd">$</span>
+          <span>docker compose up -d</span>
+        </a>
+        <a
+          href={`${SITE.github.orgUrl}/silo-server`}
+          class="btn btn--ghost"
+        >
+          view source <span class="btn__arrow">↗</span>
+        </a>
+      </div>
+
+      <ul class="hero__meta">
+        <li>
+          <span class="hero__meta-label">backend</span>
+          <span class="hero__meta-value">Go 1.26</span>
+        </li>
+        <li>
+          <span class="hero__meta-label">store</span>
+          <span class="hero__meta-value">postgres 18 + pgvector</span>
+        </li>
+        <li>
+          <span class="hero__meta-label">media</span>
+          <span class="hero__meta-value">ffmpeg · QSV · VAAPI</span>
+        </li>
+        <li>
+          <span class="hero__meta-label">deploy</span>
+          <span class="hero__meta-value">docker · bare metal</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero__col hero__col--demo">
+      <Terminal />
+    </div>
+  </div>
+
+  <div class="hero__rule" aria-hidden="true">
+    <SiloBars size="row" />
+    <span class="hero__rule-line"></span>
+    <span class="hero__rule-text">README · scroll for the honest part</span>
+    <span class="hero__rule-line"></span>
+  </div>
+</section>

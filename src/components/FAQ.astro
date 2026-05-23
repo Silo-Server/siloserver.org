@@ -1,0 +1,23 @@
+---
+import { faq } from "../data/faq";
+---
+
+<section class="section section--faq">
+  <div class="container container--narrow">
+    <header class="section__head">
+      <p class="section__eyebrow">// 05 — questions</p>
+      <h2 class="section__title">Worth asking up front.</h2>
+    </header>
+
+    <dl class="faq">
+      {
+        faq.map((item) => (
+          <div class="faq__item">
+            <dt>{item.question}</dt>
+            <dd set:html={item.answer} />
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

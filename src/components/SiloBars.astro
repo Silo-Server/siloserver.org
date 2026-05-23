@@ -1,0 +1,16 @@
+---
+// The recurring silo mark: three skewed colored bars (blue, red, orange).
+// Used in the statusbar, hero eyebrow, section dividers, and the footer.
+
+interface Props {
+  size?: "xs" | "sm" | "md" | "lg" | "row";
+  class?: string;
+}
+
+const { size = "md", class: extra = "" } = Astro.props;
+const modifier = size === "md" ? "" : ` silo-bars--${size}`;
+---
+
+<span class={`silo-bars${modifier} ${extra}`} aria-hidden="true">
+  <i></i><i></i><i></i>
+</span>

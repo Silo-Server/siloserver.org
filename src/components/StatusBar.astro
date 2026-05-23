@@ -1,0 +1,27 @@
+---
+import SiloBars from "./SiloBars.astro";
+import { SITE, REPOS, repoUrl } from "../data/siteConfig";
+---
+
+<header class="statusbar" aria-label="Project status">
+  <div class="statusbar__inner">
+    <span class="statusbar__cell statusbar__cell--brand">
+      <SiloBars />
+      <span class="statusbar__wordmark">{SITE.name}</span>
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono">
+      <span class="statusbar__dot statusbar__dot--green"></span>
+      {SITE.status}
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono statusbar__hide-sm">
+      {SITE.license}
+    </span>
+    <span class="statusbar__spacer"></span>
+    <nav class="statusbar__nav" aria-label="Primary">
+      <a href="#features">features</a>
+      <a href="#clients">clients</a>
+      <a href="#stack">stack</a>
+      <a href={repoUrl(REPOS.server)} class="statusbar__github">github ↗</a>
+    </nav>
+  </div>
+</header>

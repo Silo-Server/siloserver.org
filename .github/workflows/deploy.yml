@@ -1,0 +1,68 @@
+name: Deploy site
+
+on:
+  # Rebuild when site code changes.
+  push:
+    branches: [main]
+  # Rebuild every 6 hours so version numbers stay fresh even if
+  # cross-repo dispatches are missed.
+  schedule:
+    - cron: "0 */6 * * *"
+  # Rebuild when a sibling repo publishes a release.
+  # See README for how to wire this up in each silo-* repo.
+  repository_dispatch:
+    types: [release-published]
+  # Manual trigger from the Actions tab.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow at most one concurrent deploy, but don't cancel an in-flight deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build site
+        env:
+          # Used by src/data/releases.ts to raise the GitHub API rate limit.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Override these in the workflow (or set repo secrets/vars) when
+          # the site moves to a custom domain. SITE is the canonical origin
+          # used for OpenGraph/sitemap; BASE_PATH is the URL prefix.
+          SITE: ${{ vars.SITE || 'https://silo-server.github.io' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/silo-website' }}
+        run: bun run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
