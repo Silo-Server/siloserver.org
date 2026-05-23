@@ -29,11 +29,11 @@ export const faq: FaqItem[] = [
   {
     question: "Who pays for this?",
     answer:
-      "Nobody. It's a one-developer project, no company, no funding. If that ever changes you'll hear about it before you read about it. <a href=\"https://github.com/sponsors\" class=\"ghost-link\">Sponsor on GitHub ↗</a> if you want it to keep going.",
+      "Nobody — it's an unfunded open-source project. Built by maintainers and community contributors, no company or investors behind it. If that ever changes you'll hear about it before you read about it. <a href=\"https://github.com/sponsors\" class=\"ghost-link\">Sponsor on GitHub ↗</a> if you want it to keep going.",
   },
   {
     question: "What's broken right now?",
     answer:
-      "Live TV. Audiobooks (working, but rough). Books (alpha). Photo libraries (not started). macOS and Android TV clients are still alpha. Anything not in the feature list above is probably not yet a thing.",
+      "Audiobooks (working, but rough). Books (alpha). Photo libraries (not started). macOS and Android TV clients are still alpha. Anything not in the feature list above is probably not yet a thing.",
   },
 ];
