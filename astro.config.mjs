@@ -1,9 +1,10 @@
 import { defineConfig } from "astro/config";
 
-// GitHub Pages defaults — org page at silo-server.github.io (root path).
-// Override SITE and BASE_PATH env vars in CI when moving to a custom domain.
-//   SITE=https://silo.example.com BASE_PATH=/  bun run build
-const site = process.env.SITE ?? "https://silo-server.github.io";
+// Canonical URL for the deployed site. Used for OpenGraph and sitemap.
+// The actual hosting (GitHub Pages on the silo-server.github.io repo)
+// serves at the custom domain via the CNAME file in public/.
+// Override with SITE / BASE_PATH env vars if you ever change hosting.
+const site = process.env.SITE ?? "https://siloserver.org";
 const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({

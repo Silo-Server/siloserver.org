@@ -104,25 +104,14 @@ happen outside a release (changed README, added a new app, etc).
 
 ## Deployment
 
-GitHub Pages, configured by `.github/workflows/deploy.yml`. The repo is
-named `silo-server.github.io` — GitHub recognizes that as the org's
-root site, so the deployed URL is **`https://silo-server.github.io/`**
-with no subpath.
+GitHub Pages, configured by `.github/workflows/deploy.yml`. The repo
+is named `silo-server.github.io` (so GitHub treats it as the org's
+root site) and the canonical domain is **`https://siloserver.org`**,
+configured via `public/CNAME`.
 
-### Custom domain
-
-When you have a domain ready (e.g. `silo.example.com`):
-
-1. Add a `CNAME` file in `public/` containing the bare domain
-2. Set repo variable `SITE=https://silo.example.com`
-   (`BASE_PATH` is already `/` for the org-page setup)
-3. Create a DNS `CNAME` record pointing the domain at
-   `silo-server.github.io`
-4. **Settings → Pages → Custom domain:** enter the domain, enable
-   "Enforce HTTPS" once the certificate provisions (usually a few minutes)
-
-The workflow honors `vars.SITE` and `vars.BASE_PATH` so the same code
-deploys to either URL shape without code changes.
+If you ever change hosting or domain, override the build with repo
+variables (`vars.SITE`, `vars.BASE_PATH`) — the workflow honors both,
+so the same code deploys to a different URL shape without code changes.
 
 ## Design system
 
