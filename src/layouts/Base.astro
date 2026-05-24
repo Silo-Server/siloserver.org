@@ -12,7 +12,8 @@ const pageTitle = title
   ? `${title} · ${SITE.name}`
   : `${SITE.name} — ${SITE.tagline}`;
 const pageDesc = description ?? SITE.description;
-const iconHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/assets/silo-icon.png`;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const href = (path: string) => `${baseUrl}${path}`;
 ---
 
 <!doctype html>
@@ -30,11 +31,27 @@ const iconHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/assets/silo-ico
       rel="stylesheet"
     />
 
-    <link rel="icon" type="image/png" href={iconHref} />
+    <link rel="icon" href={href("/favicon.ico")} sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href={href("/web-app-icon-192.png")}
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href={href("/web-app-icon-512.png")}
+    />
+    <link rel="apple-touch-icon" href={href("/apple-touch-icon.png")} />
+    <link rel="manifest" href={href("/site.webmanifest")} />
+    <meta name="theme-color" content="#0a0b0e" />
 
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={href("/web-app-icon-512.png")} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
