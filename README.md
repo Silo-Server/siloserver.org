@@ -20,6 +20,7 @@ Node 20+ also works; Bun is preferred for parity with the server's tooling.
 ```
 src/
 ├── components/    one .astro file per page section + small reusables
+├── content/docs/  Starlight docs content — Markdown under docs/
 ├── data/          content + config — edit copy here, not in templates
 │   ├── siteConfig.ts   site-wide constants (name, license, repo names)
 │   ├── pillars.ts      infrastructure pillars (section 01)
@@ -43,11 +44,21 @@ src/
 | FAQ items                       | `src/data/faq.ts`                         |
 | Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
 | Architecture diagrams           | `src/components/Deployment.astro`         |
+| Documentation pages             | `src/content/docs/docs/*.md`              |
 | Colors, spacing, typography     | `src/styles/global.css`                   |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
 deliberate — the components don't need to be touched unless the layout
 itself changes.
+
+## Documentation
+
+Docs are built with [Astro Starlight](https://starlight.astro.build/) and
+served under `/docs`. Add or edit Markdown files in `src/content/docs/docs/`.
+
+The extra nested `docs/` directory is intentional: Starlight routes pages
+from `src/content/docs/`, so nesting the public docs there gives the site
+the `/docs` URL prefix while keeping everything in the same Astro project.
 
 ## Versions on client cards
 
