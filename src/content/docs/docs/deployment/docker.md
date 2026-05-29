@@ -46,7 +46,7 @@ The checked-in Compose file includes commented examples for `proxy` and `transco
 - Default service, ports, and media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L35-L58).
 - Raw Compose download: [`docker-compose.yml`](https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.yml).
 - Compose Postgres config mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L12-L15) and [`postgresql.conf`](https://github.com/Silo-Server/silo-server/blob/main/postgres/postgresql.conf).
-- Commented proxy and transcode examples: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L60-L109).
+- Commented proxy and transcode examples: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L62-L111).
 - Published image setting: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L16-L17).
 - Docker publish workflow: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L20-L22) and [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L99-L110).
 - Debian runtime image: [`Dockerfile`](https://github.com/Silo-Server/silo-server/blob/main/Dockerfile#L41-L59).
