@@ -28,7 +28,7 @@ export const nativeClients: NativeClient[] = [
     icon: "▢",
     platform: "SwiftUI · AVKit",
     body:
-      "Native iOS app. Direct play and HLS playback, offline downloads, Picture-in-Picture, Now Playing integration.",
+      "Native iOS app. Direct play and HLS playback, Picture-in-Picture, Now Playing integration.",
     status: "beta",
     statusLabel: "● beta",
     repo: "apple",

@@ -46,7 +46,7 @@ Autoscan
 
 ## Source notes
 
-- First-run setup route and server-side setup: [`App.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/App.tsx#L331) and [`auth.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/api/handlers/auth.go#L195-L243).
+- First-run setup route and setup-required redirect, plus server-side setup: [`App.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/App.tsx#L332) (redirect at [L158](https://github.com/Silo-Server/silo-server/blob/main/web/src/App.tsx#L158)), the HTTP handlers in [`auth.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/api/handlers/auth.go#L196-L248), and the first-admin-when-no-users logic in [`service.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/auth/service.go#L285-L307).
 - Wizard step order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts#L28-L78).
 - Skippable wizard steps: [`WizardContext.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/WizardContext.tsx#L8-L23).
 - Server/storage wizard fields: [`ServerStorageStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/ServerStorageStep.tsx#L248-L514).

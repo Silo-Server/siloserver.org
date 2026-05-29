@@ -40,7 +40,7 @@ export const features: Feature[] = [
     id: "FEAT_03",
     title: "Built for your homelab cluster",
     body:
-      "Got a Proxmox cluster? Drop a transcode and proxy worker into an LXC on every node, point them at the shared database, and Silo will route streams to whichever node has spare CPU. No manual scheduling, no master node.",
+      "Got a Proxmox cluster? Drop a transcode and proxy worker into an LXC on every node, point them at the shared database, and Silo will route streams to whichever node is least busy. No manual scheduling, no master node.",
     chips: [
       { label: "Proxmox-friendly" },
       { label: "Per-node workers" },
