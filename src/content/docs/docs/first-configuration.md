@@ -51,7 +51,7 @@ Autoscan
 - Skippable wizard steps: [`WizardContext.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/WizardContext.tsx#L8-L23).
 - Server/storage wizard fields: [`ServerStorageStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/ServerStorageStep.tsx#L248-L514).
 - Library wizard fields and scan-after-create behavior: [`LibraryStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/LibraryStep.tsx#L20-L140).
-- Admin sidebar pages: [`AdminSidebar.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/components/AdminSidebar.tsx#L70-L180).
+- Admin sidebar pages: [`AdminSidebar.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/components/AdminSidebar.tsx#L74-L193).
 - Admin settings tabs: [`AdminSettingsLayout.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/admin-settings/AdminSettingsLayout.tsx#L38-L56).
 - Public asset S3 recommendation in the UI: [`StorageSettings.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/admin-settings/StorageSettings.tsx#L158-L230).
 - Chapter thumbnails require public asset S3 when enabled: [`libraries.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/api/handlers/libraries.go#L524-L526).
