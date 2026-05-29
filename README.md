@@ -106,7 +106,7 @@ jobs:
 ```
 
 This needs a `WEBSITE_DISPATCH_TOKEN` secret on each app repo — a fine-
-grained GitHub PAT scoped to `silo-server.github.io` with `Contents: Read`
+grained GitHub PAT scoped to `siloserver.org` with `Contents: Read`
 and `Actions: Read & Write` permissions. Standard pattern, set once per
 repo.
 
