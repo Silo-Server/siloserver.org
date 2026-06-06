@@ -107,13 +107,13 @@ Separate movie and series libraries are more predictable than mixed libraries. M
 
 ## Autoscan
 
-Autoscan must send paths that match Silo's configured roots after Autoscan rewrite rules run. Silo cleans and matches the path, but Silo does not apply a separate Autoscan path rewrite layer.
+Autoscan paths must match Silo's configured roots after rewrites. With the preferred Silo Autoscan flow, rewrites are configured per source in Admin > Autoscan and are applied by Silo before the path is resolved. With the legacy Jellyfin target, rewrites are configured in external Autoscan before it posts to Silo.
 
-| Autoscan sends | Silo library root | Result |
-| --- | --- | --- |
-| `/mnt/media/tv/Show/Season 01` | `/mnt/media/tv` | Subtree scan |
-| `/tv/Show/Season 01` rewritten to `/mnt/media/tv/Show/Season 01` | `/mnt/media/tv` | Subtree scan |
-| `/downloads/complete/Movie.mkv` | `/mnt/media/movies` | Only valid if rewritten under the library root |
+| Source path | Silo library root | Rewrite location | Result |
+| --- | --- | --- | --- |
+| `/mnt/media/tv/Show/Season 01` | `/mnt/media/tv` | none | Subtree scan |
+| `/tv/Show/Season 01` rewritten to `/mnt/media/tv/Show/Season 01` | `/mnt/media/tv` | Silo source rewrite or legacy Autoscan rewrite | Subtree scan |
+| `/downloads/complete/Movie.mkv` | `/mnt/media/movies` | none | Only valid if rewritten under the library root |
 
 ## Source notes
 

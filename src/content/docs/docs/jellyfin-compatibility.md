@@ -15,7 +15,7 @@ http://localhost:8096
 
 Use this endpoint when connecting compatible third-party clients.
 
-Silo also uses this endpoint for Jellyfin-style integrations such as [Autoscan](/docs/integrations/autoscan).
+Silo also keeps this endpoint for Jellyfin-style integrations such as the legacy [Autoscan](/docs/integrations/autoscan) Jellyfin target. For new Sonarr/Radarr scan triggers, prefer Silo's built-in Autoscan implementation instead.
 
 ## Reverse Proxy
 

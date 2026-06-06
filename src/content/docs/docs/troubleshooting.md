@@ -35,7 +35,9 @@ If you used Claude, Codex, or another tool for debugging, put that under `Techni
 
 ## Autoscan
 
-For Autoscan issues, include the Silo library root, the path Autoscan received from the trigger, the path after Autoscan rewrite, and the Jellyfin target URL. Most Autoscan failures are path-shape mismatches: the final path must land under one Silo library root.
+For preferred Silo Autoscan issues, include the source type, source connection, poll event status, raw source path, path after Silo source rewrites, Silo library root, and any Activity tab error. Most Autoscan failures are path-shape mismatches: the final path must land under one Silo library root.
+
+For the legacy Jellyfin target, also include the external Autoscan config and the Jellyfin-compatible target URL.
 
 ## Libraries
 

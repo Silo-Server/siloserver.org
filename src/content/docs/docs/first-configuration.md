@@ -23,9 +23,10 @@ The wizard can skip server, integrations, downloads, recommendations, and librar
 
 The wizard is intentionally not every admin screen. After the first scan, review these areas as needed:
 
-- Admin > API Keys: create an admin API key for [Autoscan](/docs/integrations/autoscan).
+- Admin > Autoscan: configure scan-source plugins, Sonarr/Radarr connections, source rewrites, polling, and activity review.
+- Admin > API Keys: create an admin API key only if you use the legacy [Autoscan](/docs/integrations/autoscan) Jellyfin target.
 - Admin > Libraries: add more roots, check mounts, configure per-library provider chains, and adjust advanced library options.
-- Admin > Plugins: manage plugin-provided metadata or auth providers.
+- Admin > Plugins: manage plugin-provided metadata, auth providers, and scan-source providers.
 - Admin > Users: manage users, devices, invite codes, and signup flow.
 - Admin > Settings: review General, Theming, Playback, Scanner & Matcher, Rate Limiting, Downloads, Integrations, Jellyfin Compat, Database, Storage, Log Retention, and Card Overlays.
 - Admin > Nodes: add worker nodes if you move proxy or transcode work off the integrated server.
@@ -39,10 +40,10 @@ S3 storage
 : You can leave S3 blank for a basic install. If you enable image caching or chapter thumbnails, configure public asset S3 first. Most installs should keep the bucket private and use presigned URLs.
 
 Jellyfin compatibility
-: Set the public URL if compatible clients or Autoscan will access Silo through a reverse proxy or from another container.
+: Set the public URL if compatible clients or the legacy Autoscan Jellyfin target will access Silo through a reverse proxy or from another container.
 
 Autoscan
-: Add libraries and create an admin API key before configuring Autoscan. Autoscan must send paths that match Silo's library roots after any Autoscan rewrite rules run.
+: Add libraries before configuring Autoscan. For the preferred Sonarr/Radarr flow, install the scan-source plugin, add Autoscan connections, then add source rewrites when Sonarr/Radarr paths differ from Silo library roots. Create an admin API key only for the legacy Jellyfin target.
 
 ## Source notes
 

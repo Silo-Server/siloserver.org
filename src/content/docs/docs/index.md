@@ -15,7 +15,7 @@ These docs are intentionally source-controlled Markdown. Every page lives in thi
 - [Configuration](/docs/configuration) separates environment variables from admin-managed settings.
 - [Libraries](/docs/libraries) documents the supported media path contract.
 - [S3 storage](/docs/storage/s3) explains public asset and private internal buckets.
-- [Autoscan](/docs/integrations/autoscan) shows how to connect Autoscan through Silo's Jellyfin-compatible target.
+- [Autoscan](/docs/integrations/autoscan) shows the preferred Silo-native Sonarr/Radarr setup and the legacy Jellyfin target path.
 - [Clients](/docs/clients) describes the native and Jellyfin-compatible client options.
 
 ## Project status
