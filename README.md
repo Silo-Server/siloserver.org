@@ -13,7 +13,7 @@ bun run build    # → dist/
 bun run preview  # serves the built dist/
 ```
 
-Node 20+ also works; Bun is preferred for parity with the server's tooling.
+Node 20+ also works; Bun is preferred for parity with the site's build tooling.
 
 ## Project layout
 
@@ -98,7 +98,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
         run: |
-          gh api repos/Silo-Server/silo-website/dispatches \
+          gh api repos/Silo-Server/siloserver.org/dispatches \
             --method POST \
             -f event_type=release-published \
             -f client_payload[repo]=${{ github.repository }} \
@@ -106,7 +106,7 @@ jobs:
 ```
 
 This needs a `WEBSITE_DISPATCH_TOKEN` secret on each app repo — a fine-
-grained GitHub PAT scoped to `silo-server.github.io` with `Contents: Read`
+grained GitHub PAT scoped to `siloserver.org` with `Contents: Read`
 and `Actions: Read & Write` permissions. Standard pattern, set once per
 repo.
 
@@ -116,8 +116,8 @@ happen outside a release (changed README, added a new app, etc).
 ## Deployment
 
 GitHub Pages, configured by `.github/workflows/deploy.yml`. The repo
-is named `silo-server.github.io` (so GitHub treats it as the org's
-root site) and the canonical domain is **`https://siloserver.org`**,
+is named `siloserver.org` and the canonical domain is
+**`https://siloserver.org`**,
 configured via `public/CNAME`.
 
 If you ever change hosting or domain, override the build with repo
