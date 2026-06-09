@@ -75,23 +75,107 @@ export const nativeClients: NativeClient[] = [
   },
 ];
 
+export interface CompatLink {
+  label: string;
+  href: string;
+}
+
 export interface CompatClient {
   name: string;
   platforms: string;
   status: string;
+  links: CompatLink[];
 }
 
 export const compatClients: CompatClient[] = [
-  { name: "Infuse", platforms: "iOS · tvOS · macOS", status: "verified" },
-  { name: "Findroid", platforms: "Android", status: "verified" },
-  { name: "VidHub", platforms: "iOS · tvOS · macOS", status: "verified" },
-  { name: "JellyCon", platforms: "Kodi", status: "verified" },
-  { name: "Streamyfin", platforms: "iOS · Android", status: "verified" },
+  {
+    name: "Infuse",
+    platforms: "iOS · tvOS · macOS",
+    status: "verified",
+    links: [
+      { label: "firecore.com", href: "https://firecore.com/infuse" },
+      {
+        label: "app store",
+        href: "https://apps.apple.com/app/infuse/id1136220934",
+      },
+    ],
+  },
+  {
+    name: "Findroid",
+    platforms: "Android",
+    status: "verified",
+    links: [
+      {
+        label: "github",
+        href: "https://github.com/jarnedemeulemeester/findroid",
+      },
+      {
+        label: "play store",
+        href: "https://play.google.com/store/apps/details?id=dev.jdtech.jellyfin",
+      },
+    ],
+  },
+  {
+    name: "VidHub",
+    platforms: "iOS · tvOS · macOS",
+    status: "verified",
+    links: [
+      { label: "okaapps.com", href: "https://okaapps.com/product/1659622164" },
+      {
+        label: "app store",
+        href: "https://apps.apple.com/app/vidhub-video-library-player/id1659622164",
+      },
+    ],
+  },
+  {
+    name: "JellyCon",
+    platforms: "Kodi",
+    status: "verified",
+    links: [{ label: "github", href: "https://github.com/jellyfin/jellycon" }],
+  },
+  {
+    name: "Streamyfin",
+    platforms: "iOS · Android",
+    status: "verified",
+    links: [
+      { label: "github", href: "https://github.com/streamyfin/streamyfin" },
+      {
+        label: "app store",
+        href: "https://apps.apple.com/app/streamyfin/id6593660679",
+      },
+      {
+        label: "play store",
+        href: "https://play.google.com/store/apps/details?id=com.fredrikburmester.streamyfin",
+      },
+    ],
+  },
   {
     name: "Wholphin",
     platforms: "Android TV",
     status: "verified · recommended",
+    links: [
+      { label: "github", href: "https://github.com/damontecres/Wholphin" },
+      {
+        label: "play store",
+        href: "https://play.google.com/store/apps/details?id=com.github.damontecres.wholphin",
+      },
+    ],
   },
-  { name: "Jellyfin Web", platforms: "browser", status: "vendored at /web/" },
-  { name: "mpv (libmpv)", platforms: "any", status: "verified" },
+  {
+    name: "Jellyfin Web",
+    platforms: "browser",
+    status: "vendored at /web/",
+    links: [
+      { label: "github", href: "https://github.com/jellyfin/jellyfin-web" },
+    ],
+  },
+  {
+    name: "mpv (libmpv)",
+    platforms: "any",
+    status: "verified",
+    links: [
+      { label: "mpv.io", href: "https://mpv.io" },
+      { label: "github", href: "https://github.com/mpv-player/mpv" },
+    ],
+  },
 ];

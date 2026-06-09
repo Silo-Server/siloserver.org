@@ -1315,6 +1315,22 @@ samp {
 .compat__status::before {
   content: "✓ ";
 }
+.compat__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin-top: 6px;
+}
+.compat__link {
+  font-family: var(--ff-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  transition: color 0.14s ease;
+}
+.compat__link:hover {
+  color: var(--blue);
+}
 
 .ghost-link {
   font-family: var(--ff-mono);

@@ -83,6 +83,13 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
             <span class="compat__name">{c.name}</span>
             <span class="compat__platforms">{c.platforms}</span>
             <span class="compat__status">{c.status}</span>
+            <span class="compat__links">
+              {c.links.map((l) => (
+                <a class="compat__link" href={l.href}>
+                  {l.label} ↗
+                </a>
+              ))}
+            </span>
           </div>
         ))
       }
