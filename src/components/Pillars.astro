@@ -6,7 +6,10 @@ import { pillars } from "../data/pillars";
   <div class="container">
     <header class="section__head section__head--split">
       <div>
-        <p class="section__eyebrow">// 01 — what's underneath</p>
+        <p class="section__eyebrow">
+          <span class="hatch ink-blue" aria-hidden="true"></span>
+          <span>sec. 01 — what's underneath</span>
+        </p>
         <h2 class="section__title">
           Built like <br />
           <span class="ink-blue">infrastructure</span>.
@@ -22,11 +25,14 @@ import { pillars } from "../data/pillars";
 
     <div class="pillars">
       {
-        pillars.map((p) => (
+        pillars.map((p, i) => (
           <article class={`pillar pillar--${p.color}`}>
             <div class="pillar__head">
               <span class="pillar__bar" aria-hidden="true" />
               <span class="pillar__label">{p.label}</span>
+              <span class="pillar__index">
+                {String(i + 1).padStart(2, "0")}/04
+              </span>
             </div>
             <h3 class="pillar__title">{p.title}</h3>
             <p class="pillar__body">{p.body}</p>

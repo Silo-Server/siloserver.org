@@ -5,19 +5,27 @@ import { faq } from "../data/faq";
 <section class="section section--faq">
   <div class="container container--narrow">
     <header class="section__head">
-      <p class="section__eyebrow">// 05 — questions</p>
+      <p class="section__eyebrow">
+        <span class="hatch ink-orange" aria-hidden="true"></span>
+        <span>sec. 05 — questions</span>
+      </p>
       <h2 class="section__title">Worth asking up front.</h2>
     </header>
 
-    <dl class="faq">
+    <div class="faq">
       {
-        faq.map((item) => (
-          <div class="faq__item">
-            <dt>{item.question}</dt>
-            <dd set:html={item.answer} />
-          </div>
+        faq.map((item, i) => (
+          <article class="faq__item">
+            <span class="faq__num" aria-hidden="true">
+              Q.{String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="faq__q">{item.question}</h3>
+              <div class="faq__a" set:html={item.answer} />
+            </div>
+          </article>
         ))
       }
-    </dl>
+    </div>
   </div>
 </section>

@@ -30,7 +30,7 @@ export const nativeClients: NativeClient[] = [
     body:
       "Native iOS app. Direct play and HLS playback, Picture-in-Picture, Now Playing integration.",
     status: "beta",
-    statusLabel: "● beta",
+    statusLabel: "● beta · nearly ready",
     repo: "apple",
   },
   {
@@ -40,7 +40,7 @@ export const nativeClients: NativeClient[] = [
     body:
       "Apple TV native, with Top Shelf integration, focus-engine navigation, and a custom player tuned for Dolby Vision.",
     status: "beta",
-    statusLabel: "● beta",
+    statusLabel: "● beta · nearly ready",
     repo: "apple",
   },
   {
@@ -60,7 +60,7 @@ export const nativeClients: NativeClient[] = [
     body:
       "Phone and tablet. Built on Media3 with a bundled ffmpeg AAR decoder for tracks the platform won't touch.",
     status: "beta",
-    statusLabel: "● beta",
+    statusLabel: "● beta · WIP",
     repo: "android",
   },
   {
@@ -87,7 +87,11 @@ export const compatClients: CompatClient[] = [
   { name: "VidHub", platforms: "iOS · tvOS · macOS", status: "verified" },
   { name: "JellyCon", platforms: "Kodi", status: "verified" },
   { name: "Streamyfin", platforms: "iOS · Android", status: "verified" },
-  { name: "Wholphin", platforms: "tvOS", status: "probably" },
+  {
+    name: "Wholphin",
+    platforms: "Android TV",
+    status: "verified · recommended",
+  },
   { name: "Jellyfin Web", platforms: "browser", status: "vendored at /web/" },
   { name: "mpv (libmpv)", platforms: "any", status: "verified" },
 ];

@@ -126,15 +126,19 @@ so the same code deploys to a different URL shape without code changes.
 
 ## Design system
 
-Three typefaces (loaded from Google Fonts at runtime):
+The site uses an industrial-datasheet aesthetic: warm paper surfaces,
+ink hairline tables, blueprint figures, and a single dark "instrument
+console" panel in the hero. Three typefaces (loaded from Google Fonts
+at runtime):
 
-- **Hubot Sans** — display, variable width axis
-- **Geist** — body
-- **Geist Mono** — code, labels, status
+- **Big Shoulders** — display, condensed industrial
+- **Archivo** — body
+- **IBM Plex Mono** — code, spec labels, status
 
 Colors live as CSS custom properties at the top of `src/styles/global.css`.
 The brand mark — three skewed bars in blue, red, orange — recurs as a
-design element throughout the page via the `SiloBars` component.
+design element throughout the page via the `SiloBars` component. The
+Starlight docs are themed to match via `src/styles/docs.css`.
 
 ## License
 

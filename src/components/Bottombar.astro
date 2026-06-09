@@ -3,27 +3,36 @@ import SiloBars from "./SiloBars.astro";
 import { SITE, REPOS, repoUrl } from "../data/siteConfig";
 ---
 
-<footer class="bottombar" aria-label="Footer">
-  <div class="bottombar__inner">
-    <span class="bottombar__cell">
-      <SiloBars size="xs" />
-      {SITE.name}
-    </span>
-    <span class="bottombar__cell bottombar__cell--mono">{SITE.license}</span>
-    <span class="bottombar__cell bottombar__cell--mono bottombar__hide-sm">
-      <span class="bottombar__dot bottombar__dot--green"></span>
-      <a href={repoUrl(REPOS.server)}>silo-server</a>
-      ·
-      <a href={repoUrl(REPOS.apple)}>silo-apple</a>
-      ·
-      <a href={repoUrl(REPOS.android)}>silo-android</a>
-      ·
-      <a href={repoUrl(REPOS.pluginSdk)}>plugin-sdk</a>
-    </span>
-    <span class="bottombar__spacer"></span>
-    <span class="bottombar__cell bottombar__cell--mono">
-      built with <span class="ink-red">♥</span> +
-      <span class="ink-blue">ffmpeg</span>
-    </span>
+<footer class="titleblock" aria-label="Footer">
+  <div class="titleblock__inner">
+    <div class="titleblock__cell">
+      <span class="titleblock__brand">
+        <SiloBars size="sm" />
+        {SITE.name}
+      </span>
+    </div>
+    <div class="titleblock__cell">
+      <span class="titleblock__label">repositories</span>
+      <span class="titleblock__value">
+        <a href={repoUrl(REPOS.server)}>silo-server</a>
+        <a href={repoUrl(REPOS.apple)}>silo-apple</a>
+        <a href={repoUrl(REPOS.android)}>silo-android</a>
+        <a href={repoUrl(REPOS.pluginSdk)}>plugin-sdk</a>
+      </span>
+    </div>
+    <div class="titleblock__cell">
+      <span class="titleblock__label">license</span>
+      <span class="titleblock__value">{SITE.license}</span>
+    </div>
+    <div class="titleblock__cell">
+      <span class="titleblock__label">drawn with</span>
+      <span class="titleblock__value">
+        <span class="ink-red">♥</span> + <span class="ink-blue">ffmpeg</span>
+      </span>
+    </div>
+    <div class="titleblock__cell">
+      <span class="titleblock__label">sheet</span>
+      <span class="titleblock__value">01 / 01 · rev {SITE.status}</span>
+    </div>
   </div>
 </footer>
