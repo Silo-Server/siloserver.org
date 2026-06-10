@@ -29,7 +29,9 @@ The Silo service maps:
 
 - `8090` on the host to the web/API service on `8080` in the container.
 - `8096` on the host to the Jellyfin-compatible service on `8096` in the container.
+- `13378` on the host to the Audiobookshelf-compatible service on `13378` in the container.
 - `MEDIA_ROOT` on the host to `MEDIA_CONTAINER_ROOT` in the container, read-only.
+- `MEDIA_BOOKS_ROOT` (optional) on the host to `${MEDIA_CONTAINER_ROOT}/books` in the container, read-only. Falls back to `MEDIA_ROOT` when unset.
 
 ## Commented distributed examples
 

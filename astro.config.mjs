@@ -46,6 +46,8 @@ export default defineConfig({
           items: [
             { slug: "docs/deployment/docker" },
             { slug: "docs/libraries" },
+            { slug: "docs/audiobooks" },
+            { slug: "docs/ebooks" },
             { slug: "docs/ai-services" },
             { slug: "docs/storage/s3" },
             { slug: "docs/deployment/reverse-proxy" },
@@ -58,6 +60,7 @@ export default defineConfig({
             { slug: "docs/integrations/autoscan" },
             { slug: "docs/clients" },
             { slug: "docs/jellyfin-compatibility" },
+            { slug: "docs/audiobookshelf-compatibility" },
           ],
         },
       ],

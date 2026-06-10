@@ -34,6 +34,6 @@ export const faq: FaqItem[] = [
   {
     question: "What's broken right now?",
     answer:
-      "Audiobooks (working, but rough). Books (alpha). Photo libraries (not started). macOS and Android TV clients are still alpha. Anything not in the feature list above is probably not yet a thing.",
+      "Audiobooks and ebooks just landed — solid, but expect rough edges. Podcasts (stubbed). Photo libraries (not started). macOS and Android TV clients are still alpha. Anything not in the feature list above is probably not yet a thing.",
   },
 ];

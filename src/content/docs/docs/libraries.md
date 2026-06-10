@@ -18,6 +18,8 @@ With the default Compose file, `MEDIA_ROOT=/srv/media` on the host is mounted at
 
 Silo does not support URL-style library roots such as `s3://...`, `https://...`, or `file://...`.
 
+This page covers movie and series naming. Book library types have their own conventions — see [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks).
+
 ## Movies
 
 Recommended:

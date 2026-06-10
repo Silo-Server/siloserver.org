@@ -104,6 +104,17 @@ export const features: Feature[] = [
   },
   {
     id: "FEAT_09",
+    title: "Audiobooks and ebooks, same shelf",
+    body:
+      "Audiobook libraries with chapters, series progression, and smart resume — plus an Audiobookshelf-compatible endpoint, so apps like Plappa and the official ABS app connect as-is. Ebooks get a built-in EPUB reader with synced progress.",
+    chips: [
+      { label: "ABS protocol" },
+      { label: "EPUB reader" },
+      { label: "Series progression" },
+    ],
+  },
+  {
+    id: "FEAT_10",
     title: "Bring your watch history",
     body:
       "Don't lose what you've watched switching servers. Import from Jellyfin, Emby, or Plex on day one, then keep everything in sync with Trakt or Simkl going forward.",

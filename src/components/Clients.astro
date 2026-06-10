@@ -1,5 +1,5 @@
 ---
-import { nativeClients, compatClients } from "../data/clients";
+import { nativeClients, compatClients, absClients } from "../data/clients";
 import { REPOS, repoUrl } from "../data/siteConfig";
 import { releaseFor, downloadLinkFor } from "../data/releases";
 ---
@@ -79,6 +79,38 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
     <div class="compat-grid">
       {
         compatClients.map((c) => (
+          <div class="compat">
+            <span class="compat__name">{c.name}</span>
+            <span class="compat__platforms">{c.platforms}</span>
+            <span class="compat__status">{c.status}</span>
+            <span class="compat__links">
+              {c.links.map((l) => (
+                <a class="compat__link" href={l.href}>
+                  {l.label} ↗
+                </a>
+              ))}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <h3 class="cluster__title">
+      <span class="cluster__line"></span>
+      <span>audiobookshelf-compatible clients</span>
+      <span class="cluster__line"></span>
+    </h3>
+
+    <p class="cluster__caption">
+      Audiobook libraries are also served over the Audiobookshelf protocol
+      on port <code>:13378</code>. Point any of these at
+      <code>http://silo:13378</code>, sign in with your Silo credentials,
+      and listen — progress, chapters, and bookmarks all sync.
+    </p>
+
+    <div class="compat-grid">
+      {
+        absClients.map((c) => (
           <div class="compat">
             <span class="compat__name">{c.name}</span>
             <span class="compat__platforms">{c.platforms}</span>

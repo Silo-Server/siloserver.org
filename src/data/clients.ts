@@ -1,4 +1,4 @@
-// Section 04 — Native first-party clients + Jellyfin-compatible third-party clients.
+// Section 04 — Native first-party clients + Jellyfin- and Audiobookshelf-compatible third-party clients.
 
 export type ClientStatus = "ok" | "beta" | "alpha";
 
@@ -177,5 +177,48 @@ export const compatClients: CompatClient[] = [
       { label: "mpv.io", href: "https://mpv.io" },
       { label: "github", href: "https://github.com/mpv-player/mpv" },
     ],
+  },
+];
+
+// Audiobookshelf-compatible listening apps, served on :13378.
+export const absClients: CompatClient[] = [
+  {
+    name: "Audiobookshelf app",
+    platforms: "iOS · Android",
+    status: "verified",
+    links: [
+      {
+        label: "github",
+        href: "https://github.com/advplyr/audiobookshelf-app",
+      },
+    ],
+  },
+  {
+    name: "Plappa",
+    platforms: "iOS",
+    status: "verified",
+    links: [
+      {
+        label: "app store",
+        href: "https://apps.apple.com/app/plappa/id6475201956",
+      },
+    ],
+  },
+  {
+    name: "AudioBooth",
+    platforms: "iOS",
+    status: "verified",
+    links: [
+      {
+        label: "app store",
+        href: "https://apps.apple.com/app/audiobooth-audiobooks-player/id6753017503",
+      },
+    ],
+  },
+  {
+    name: "AudiobookshelfFully",
+    platforms: "Android",
+    status: "verified",
+    links: [],
   },
 ];

@@ -1,9 +1,9 @@
 ---
 title: Clients
-description: First-party Silo clients and verified Jellyfin-compatible third-party clients.
+description: First-party Silo clients and verified Jellyfin- and Audiobookshelf-compatible third-party clients.
 ---
 
-Silo is designed for native clients and compatibility with parts of the Jellyfin client ecosystem.
+Silo is designed for native clients and compatibility with parts of the Jellyfin and Audiobookshelf client ecosystems.
 
 ## First-party clients
 
@@ -34,3 +34,14 @@ Silo includes a [compatibility layer](/docs/jellyfin-compatibility) for clients 
 | [mpv (libmpv)](https://mpv.io) | any | verified | [GitHub](https://github.com/mpv-player/mpv) |
 
 Compatibility is evolving, so client behavior can vary by app and by feature area. See [Jellyfin compatibility](/docs/jellyfin-compatibility) for endpoint setup, reverse-proxy guidance, and what to include when reporting issues.
+
+## Audiobookshelf-compatible clients
+
+Silo serves [audiobook libraries](/docs/audiobooks) through an [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility) (`http://localhost:13378` by default). Point any of these at that endpoint and sign in with your Silo credentials.
+
+| Client | Platforms | Status | Get it |
+| --- | --- | --- | --- |
+| [Audiobookshelf app](https://github.com/advplyr/audiobookshelf-app) | iOS, Android | verified | [GitHub](https://github.com/advplyr/audiobookshelf-app) |
+| [Plappa](https://apps.apple.com/app/plappa/id6475201956) | iOS | verified | [App Store](https://apps.apple.com/app/plappa/id6475201956) |
+| [AudioBooth](https://apps.apple.com/app/audiobooth-audiobooks-player/id6753017503) | iOS | verified | [App Store](https://apps.apple.com/app/audiobooth-audiobooks-player/id6753017503) |
+| AudiobookshelfFully | Android | verified | — |

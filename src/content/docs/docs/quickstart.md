@@ -38,7 +38,7 @@ Start the integrated stack:
 docker compose up -d
 ```
 
-The web app is available at `http://localhost:8090`. The Jellyfin-compatible endpoint is available at `http://localhost:8096`.
+The web app is available at `http://localhost:8090`. The Jellyfin-compatible endpoint is available at `http://localhost:8096`, and the Audiobookshelf-compatible endpoint at `http://localhost:13378`.
 
 ## Use the setup wizard
 

@@ -11,10 +11,11 @@ The default Docker stack exposes:
 
 - `8090` for the web app
 - `8096` for the Jellyfin-compatible endpoint
+- `13378` for the Audiobookshelf-compatible endpoint
 
 Route your public hostname to the port that matches the client behavior you want to expose.
 
-For Jellyfin-compatible clients, prefer a second hostname that routes directly to `8096`, for example `https://silojf.example.com`. Keep the regular Silo web app on its own hostname routed to `8090`.
+For Jellyfin-compatible clients, prefer a second hostname that routes directly to `8096`, for example `https://silojf.example.com`. The same applies to Audiobookshelf-compatible clients with `13378`, for example `https://siloabs.example.com`. Keep the regular Silo web app on its own hostname routed to `8090`.
 
 ## Operator notes
 
