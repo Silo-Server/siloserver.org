@@ -46,6 +46,7 @@ export default defineConfig({
           items: [
             { slug: "docs/deployment/docker" },
             { slug: "docs/libraries" },
+            { slug: "docs/ai-services" },
             { slug: "docs/storage/s3" },
             { slug: "docs/deployment/reverse-proxy" },
             { slug: "docs/troubleshooting" },
