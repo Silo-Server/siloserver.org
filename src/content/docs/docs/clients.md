@@ -16,7 +16,7 @@ Silo is designed for native clients and compatibility with parts of the Jellyfin
 | Silo for Android | phone, tablet | beta | [silo-android](https://github.com/Silo-Server/silo-android) |
 | Silo for Android TV | Android TV, Fire TV | alpha | [silo-android](https://github.com/Silo-Server/silo-android) |
 
-See the [project organization on GitHub](https://github.com/Silo-Server) for current release status.
+See the [project organization on GitHub](https://github.com/Silo-Server) for current release status, and [client feature parity](/docs/feature-parity) for a feature-by-feature comparison of what each client supports.
 
 ## Jellyfin-compatible clients
 

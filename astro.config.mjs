@@ -59,6 +59,7 @@ export default defineConfig({
           items: [
             { slug: "docs/integrations/autoscan" },
             { slug: "docs/clients" },
+            { slug: "docs/feature-parity" },
             { slug: "docs/jellyfin-compatibility" },
             { slug: "docs/audiobookshelf-compatibility" },
           ],
