@@ -115,6 +115,17 @@ export const features: Feature[] = [
   },
   {
     id: "FEAT_10",
+    title: "Knows when your show is back",
+    body:
+      "New episode of something you watch? Silo tells you — in-app, browser push, email digest, Discord DM, or your own webhook. Seeded libraries never flood, season packs get batched, and every profile picks its own channels.",
+    chips: [
+      { label: "Web push" },
+      { label: "Email · Discord" },
+      { label: "Webhooks" },
+    ],
+  },
+  {
+    id: "FEAT_11",
     title: "Bring your watch history",
     body:
       "Don't lose what you've watched switching servers. Import from Jellyfin, Emby, or Plex on day one, then keep everything in sync with Trakt or Simkl going forward.",

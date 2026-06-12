@@ -49,6 +49,7 @@ export default defineConfig({
             { slug: "docs/audiobooks" },
             { slug: "docs/ebooks" },
             { slug: "docs/ai-services" },
+            { slug: "docs/notifications" },
             { slug: "docs/storage/s3" },
             { slug: "docs/deployment/reverse-proxy" },
             { slug: "docs/troubleshooting" },

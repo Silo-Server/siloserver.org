@@ -15,6 +15,7 @@ These docs are intentionally source-controlled Markdown. Every page lives in thi
 - [Configuration](/docs/configuration) separates environment variables from admin-managed settings.
 - [Libraries](/docs/libraries) documents the supported media path contract.
 - [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks) cover the book library types, formats, and metadata.
+- [Notifications](/docs/notifications) covers new-episode and request notifications across the inbox, web push, email, Discord, and webhooks.
 - [S3 storage](/docs/storage/s3) explains public asset and private internal buckets.
 - [Autoscan](/docs/integrations/autoscan) shows the preferred Silo-native Sonarr/Radarr setup and the legacy Jellyfin target path.
 - [Clients](/docs/clients) describes the native, Jellyfin-compatible, and Audiobookshelf-compatible client options.

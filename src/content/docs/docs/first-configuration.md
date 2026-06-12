@@ -28,7 +28,8 @@ The wizard is intentionally not every admin screen. After the first scan, review
 - Admin > Libraries: add more roots, check mounts, configure per-library provider chains, and adjust advanced library options.
 - Admin > Plugins: manage plugin-provided metadata, auth providers, and scan-source providers.
 - Admin > Users: manage users, devices, invite codes, and signup flow.
-- Admin > Settings: review General, Theming, Playback, Scanner & Matcher, Rate Limiting, Downloads, Integrations, Jellyfin Compat, Database, Storage, Log Retention, and Card Overlays.
+- Admin > Settings: review General, Theming, Card Overlays, Scanner & Matcher, Intro Markers, Subtitles, AI Services, Playback, Downloads, Watch Providers, Integrations, Email, Notifications, Compatibility Proxies, Rate Limiting, Database, Storage, and Log Retention.
+- Admin > Settings > Notifications: [notifications](/docs/notifications) work out of the box for the in-app inbox and web push. Configure SMTP (under Email) for email notifications, and opt in to outbound webhooks or the Discord integration if you want them.
 - Admin > Nodes: add worker nodes if you move proxy or transcode work off the integrated server.
 
 ## What to decide first

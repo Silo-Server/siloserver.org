@@ -75,7 +75,8 @@ The **Jellyfin compat** column describes what the [compatibility API](/docs/jell
 | Profiles | Yes | Partial — editing not yet available | Yes | Partial — sign in as `username#profile` |
 | Profile PIN protection | Yes | Yes | Yes | Yes — append the PIN as `password#pin` |
 | Media requests | Yes | No | No | No |
-| Notifications inbox | Yes | No | No | No |
+| [Notifications](/docs/notifications) inbox | Yes | No | No | No |
+| Notification settings (web push, email, Discord, webhooks) | Yes | No | No | No |
 
 ## Sign-in
 
