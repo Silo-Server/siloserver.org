@@ -60,6 +60,94 @@
   --container-wide: 1280px;
 }
 
+/* ---- Dark theme -----------------------------------------
+   Warm-charcoal inversion of the datasheet. Tokens flip; the
+   console + blueprint stay dark in both modes (they're the
+   instruments). Toggled via [data-theme="dark"] on <html>. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #17120a;
+  --paper-high: #211b12;
+  --paper-dim: #100c06;
+  --paper-press: #0c0a05;
+  --ink: #efe8da;
+  --ink-soft: #d4ccbb;
+  --ink-mute: #a39a86;
+  --ink-faint: #766e5b;
+  --rule: #3a3327;
+  --rule-soft: #28221a;
+  --blue: #6f9bcf;
+  --blue-deep: #93bce6;
+  --blue-wash: rgba(111, 155, 207, 0.14);
+  --red: #ff6f63;
+  --red-wash: rgba(255, 111, 99, 0.14);
+  --orange: #ffa64f;
+  --orange-wash: rgba(255, 166, 79, 0.14);
+  --green: #57c98a;
+  --console: #100c07;
+  --console-elev: #18130c;
+  --console-rule: #2c261c;
+}
+[data-theme="dark"] body {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 250, 240, 0.014) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255, 250, 240, 0.01) 0 1px, transparent 1px 3px),
+    radial-gradient(1200px 700px at 50% -12%, rgba(126, 149, 255, 0.05), transparent 65%),
+    var(--paper);
+}
+[data-theme="dark"] .statusbar {
+  background: rgba(23, 19, 10, 0.9);
+}
+
+/* ---- Theme toggle (statusbar) ---------------------------- */
+.statusbar__theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin-left: 6px;
+  background: transparent;
+  color: var(--ink-mute);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.statusbar__theme:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.statusbar__theme svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.statusbar__theme .sun,
+.statusbar__theme .moon {
+  display: none;
+}
+.statusbar__theme .sys {
+  display: block;
+}
+[data-mode="light"] .statusbar__theme .sys {
+  display: none;
+}
+[data-mode="light"] .statusbar__theme .sun {
+  display: block;
+}
+[data-mode="dark"] .statusbar__theme .sys {
+  display: none;
+}
+[data-mode="dark"] .statusbar__theme .moon {
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .statusbar__theme {
+    transition: none;
+  }
+}
+
 /* ---- Reset & base ---------------------------------------- */
 *,
 *::before,

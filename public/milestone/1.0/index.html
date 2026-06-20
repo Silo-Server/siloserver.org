@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silo v1.0 — Release Definition (expanded)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,300..900&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#f1ecdf; --paper-high:#faf7ef; --paper-dim:#e7e0cd; --paper-press:#ded5bf;
+    --ink:#181511; --ink-soft:#3f3a31; --ink-mute:#6f6757; --ink-faint:#9a917e;
+    --rule:#c9c0a9; --rule-soft:#ded6c1;
+    --blue:#2447c9; --blue-wash:rgba(36,71,201,.08);
+    --red:#c92f23; --red-wash:rgba(201,47,35,.08);
+    --orange:#df7014; --orange-wash:rgba(223,112,20,.1);
+    --green:#1d7a44; --green-wash:rgba(29,122,68,.1);
+    /* legacy names remapped onto the datasheet */
+    --bg:var(--paper); --panel:var(--paper-high); --panel-2:#f4f0e4; --border:var(--rule);
+    --text:var(--ink-soft); --muted:var(--ink-mute); --head:var(--ink);
+    --accent:var(--blue); --accent-soft:var(--blue-wash); --yellow:var(--orange);
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --sans:'Archivo',system-ui,sans-serif;
+    --disp:'Big Shoulders','Archivo',sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink);
+    background:
+      repeating-linear-gradient(0deg,rgba(24,21,17,.013) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(24,21,17,.009) 0 1px,transparent 1px 3px),
+      radial-gradient(1200px 700px at 50% -12%,rgba(255,253,246,.7),transparent 65%),
+      var(--paper);
+    font-family: var(--sans); line-height: 1.6; font-size: 16px; -webkit-font-smoothing:antialiased;
+  }
+  ::selection { background: var(--blue); color: var(--paper-high); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 48px 28px 120px; }
+  header.hero { border-bottom: 1px solid var(--rule); padding-bottom: 30px; margin-bottom: 8px; }
+  .eyebrow { font-family: var(--mono); color: var(--ink-mute); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; font-size: 11.5px; }
+  h1 { font-family: var(--disp); font-size: clamp(44px,7vw,84px); line-height: .9; margin: 14px 0 12px; color: var(--ink); font-weight: 800; text-transform: uppercase; letter-spacing: .01em; }
+  .sub { color: var(--ink-soft); font-size: 17px; max-width: 760px; }
+  h2 {
+    font-family: var(--disp); font-size: clamp(30px,4.6vw,52px); color: var(--ink); margin: 64px 0 8px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .01em; line-height: .95;
+    padding-bottom: 12px; border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 16px;
+    scroll-margin-top: 88px;
+  }
+  h2 .num { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: .08em; border: 1px solid var(--ink); background: var(--paper-high); padding: 4px 9px; position: relative; top: -4px; }
+  a.num { text-decoration: none; transition: background .15s, color .15s; }
+  a.num:hover { background: var(--blue); color: var(--paper); }
+  a.num:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  h2 .num::before { content: "SEC.0"; }
+  h3 { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin: 34px 0 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .14em; }
+  p { margin: 13px 0; }
+  a { color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--blue-wash); }
+  a:hover { border-bottom-color: var(--blue); }
+  strong { color: var(--ink); font-weight: 700; }
+  code {
+    background: var(--blue-wash); border: 1px solid var(--rule);
+    padding: 1px 5px; font-size: 13px; font-family: var(--mono); color: var(--blue);
+  }
+  ul, ol { margin: 13px 0; padding-left: 22px; }
+  li { margin: 7px 0; }
+  .lede { color: var(--ink-mute); font-size: 14.5px; margin: 6px 0 16px; max-width: 800px; }
+
+  /* TOC — index ledger */
+  nav.toc { background: var(--paper-high); border: 1.5px solid var(--ink); padding: 22px 26px; margin: 30px 0 8px; }
+  nav.toc h4 { margin: 0 0 12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .16em; color: var(--ink-mute); font-weight: 600; }
+  nav.toc ol { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 44px; }
+  nav.toc li { margin: 0; break-inside: avoid; border-top: 1px solid var(--rule); padding: 9px 2px; }
+  nav.toc a { color: var(--ink); font-size: 14px; font-family: var(--mono); }
+  nav.toc a:hover { color: var(--blue); }
+
+  /* Definition blocks */
+  .def { background: var(--paper-high); border: 1.5px solid var(--ink); border-left-width: 5px; border-left-color: var(--green); padding: 20px 26px; margin: 20px 0; }
+  .def.amber { border-left-color: var(--orange); }
+  .def .grp { margin: 18px 0 0; }
+  .def .grp:first-of-type { margin-top: 4px; }
+  .def .grp > b { color: var(--ink); display: block; margin-bottom: 8px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+  .def ul { margin: 6px 0 0; padding-left: 20px; }
+  .def li { font-size: 14px; margin: 7px 0; }
+  .def li::marker { color: var(--blue); }
+  .def .add { margin-top: 16px; font-size: 13.5px; color: var(--ink-mute); border-top: 1px dashed var(--rule); padding-top: 12px; }
+  .def .add b { color: var(--ink); }
+  .def li em, .def .add em { color: var(--ink-mute); font-style: italic; }
+
+  /* Library cards — spec bays */
+  .libgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 18px 0; }
+  .libcard { background: var(--paper-high); border: 1.5px solid var(--ink); padding: 20px; transition: transform .16s ease, box-shadow .16s ease; }
+  .libcard:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--paper-press); }
+  .libcard h4 { margin: 8px 0 6px; font-family: var(--disp); font-size: 26px; color: var(--ink); font-weight: 750; text-transform: uppercase; letter-spacing: .01em; }
+  .libcard p { margin: 0; font-size: 13px; color: var(--ink-mute); line-height: 1.55; }
+
+  /* Platform list — ruled module table */
+  .plat { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 18px 0; background: var(--ink); border: 1.5px solid var(--ink); }
+  .platcard { background: var(--paper-high); padding: 15px 18px; }
+  .platcard.wide { grid-column: 1 / -1; text-align: center; }
+  .platcard b { color: var(--ink); font-family: var(--disp); font-size: 20px; font-weight: 750; text-transform: uppercase; letter-spacing: .01em; }
+  .platcard span { display: block; font-size: 13px; color: var(--ink-mute); margin-top: 3px; }
+
+  /* chips — uniform mono tags */
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 500; padding: 2px 8px; letter-spacing: .02em; white-space: nowrap; line-height: 1.6; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-mute); }
+
+  /* Filter bar */
+  .filterbar {
+    position: sticky; top: 0; z-index: 10; background: rgba(241,236,223,.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 14px 0 12px; margin: 12px 0 6px; border-bottom: 2px solid var(--ink);
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .filterbar .flabel { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .14em; color: var(--ink-mute); margin-right: 4px; }
+  .fbtn {
+    cursor: pointer; font-family: var(--mono); font-size: 12px; font-weight: 500; padding: 5px 13px;
+    background: var(--paper-high); color: var(--ink-mute); border: 1px solid var(--ink); user-select: none;
+    -webkit-appearance: none; appearance: none; border-radius: 0; line-height: 1.2;
+  }
+  .fbtn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .fbtn:hover { color: var(--blue); }
+  .fbtn.active { background: var(--ink); color: var(--paper-high); border-color: var(--ink); }
+  .fcount { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin-left: auto; }
+
+  /* Feature cards */
+  .fgroup { margin: 0 0 6px; }
+  .fcard { background: var(--paper-high); border: 1.5px solid var(--ink); padding: 18px 22px; margin: 13px 0; transition: transform .16s ease, box-shadow .16s ease; }
+  .fcard:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--paper-press); }
+  .fcard-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .fcard h4 { margin: 0; font-family: var(--disp); font-size: 24px; color: var(--ink); font-weight: 750; text-transform: uppercase; letter-spacing: .01em; line-height: 1; }
+  .fcard .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fcard .what { color: var(--ink-mute); font-size: 13.5px; margin: 10px 0 4px; }
+  .fcard ul.ac { margin: 8px 0 0; padding-left: 0; list-style: none; }
+  .fcard ul.ac li { font-size: 13.5px; margin: 7px 0; color: var(--ink-soft); padding-left: 18px; position: relative; }
+  .fcard ul.ac li::before { content: "\2014"; position: absolute; left: 0; color: var(--blue); }
+  .hidden { display: none !important; }
+
+  /* Deferred — parts table */
+  .deferred { border: 1.5px solid var(--ink); margin: 18px 0; }
+  table.defer { border-collapse: collapse; width: 100%; }
+  table.defer td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.defer tr:last-child td { border-bottom: none; }
+  table.defer td.dname { color: var(--ink); font-weight: 750; white-space: nowrap; font-size: 18px; font-family: var(--disp); text-transform: uppercase; letter-spacing: .01em; }
+  table.defer td.dwhy { color: var(--ink-mute); font-size: 13.5px; }
+
+  .footer { margin-top: 64px; padding-top: 20px; border-top: 2px solid var(--ink); color: var(--ink-mute); font-size: 12px; font-family: var(--mono); letter-spacing: .04em; }
+
+  @media (max-width: 760px) {
+    nav.toc ol { columns: 1; }
+    .libgrid, .plat { grid-template-columns: 1fr; }
+    h1 { font-size: 40px; }
+    .fcount { display: none; }
+  }
+  /* ---- dark theme ------------------------------------------ */
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --paper:#17120a; --paper-high:#211b12; --paper-dim:#100c06; --paper-press:#0c0a05;
+    --ink:#efe8da; --ink-soft:#d4ccbb; --ink-mute:#a39a86; --ink-faint:#766e5b;
+    --rule:#3a3327; --rule-soft:#28221a;
+    --blue:#6f9bcf; --blue-deep:#93bce6; --blue-wash:rgba(111,155,207,.14);
+    --red:#ff6f63; --red-wash:rgba(255,111,99,.14);
+    --orange:#ffa64f; --orange-wash:rgba(255,166,79,.14);
+    --green:#57c98a; --green-wash:rgba(87,201,138,.15);
+    --console:#100c07; --console-elev:#18130c; --console-rule:#2c261c;
+  }
+  [data-theme="dark"] body{
+    background:
+      repeating-linear-gradient(0deg,rgba(255,250,240,.014) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(255,250,240,.010) 0 1px,transparent 1px 3px),
+      radial-gradient(1200px 700px at 50% -12%,rgba(126,149,255,.05),transparent 65%),
+      var(--paper);
+  }
+  [data-theme="dark"] .statusbar{background:rgba(23,19,10,.92)}
+  .silo-bars{display:inline-flex;flex-direction:column;gap:2px;width:14px;flex-shrink:0}
+  .silo-bars i{display:block;height:4px;width:100%;transform:skewX(-22deg)}
+  .silo-bars i:nth-child(1){background:var(--blue)}
+  .silo-bars i:nth-child(2){background:var(--red);width:75%}
+  .silo-bars i:nth-child(3){background:var(--orange);width:90%}
+  .statusbar{position:sticky;top:0;z-index:200;border-bottom:2px solid var(--ink);
+    background:rgba(250,247,239,.92);backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%)}
+  .statusbar a{border-bottom:none}
+  .statusbar__inner{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:0;padding:0 22px;
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);min-height:50px}
+  .statusbar__cell{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:0 18px;border-right:1px solid var(--rule);align-self:stretch}
+  .statusbar__cell:first-child{padding-left:0}
+  .statusbar__cell--brand{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:.04em;color:var(--ink);text-transform:uppercase}
+  .statusbar__dot{width:8px;height:8px;display:inline-block}
+  .statusbar__dot--green{background:var(--green)}
+  .statusbar__spacer{flex:1;border:0}
+  .statusbar__nav{display:flex;gap:16px;align-items:center}
+  .statusbar__nav a{color:var(--ink-mute);transition:color .14s ease}
+  .statusbar__nav a:hover{color:var(--blue)}
+  .statusbar__github{color:var(--paper-high)!important;background:var(--ink);padding:6px 14px;border:1px solid var(--ink);transition:background .14s ease,color .14s ease}
+  .statusbar__github:hover{background:var(--blue);border-color:var(--blue)}
+  .statusbar .silo-bars i{animation:silo-pulse 4.2s ease-in-out infinite}
+  .statusbar .silo-bars i:nth-child(2){animation-delay:.5s}
+  .statusbar .silo-bars i:nth-child(3){animation-delay:1s}
+  @keyframes silo-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .statusbar__theme{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;
+    background:transparent;color:var(--ink-mute);border:1px solid var(--rule);cursor:pointer;transition:color .12s ease,border-color .12s ease}
+  .statusbar__theme:hover{color:var(--ink);border-color:var(--ink)}
+  .statusbar__theme svg{width:16px;height:16px;display:block}
+  .statusbar__theme .sun,.statusbar__theme .moon{display:none}
+  .statusbar__theme .sys{display:block}
+  [data-mode="light"] .statusbar__theme .sys{display:none}
+  [data-mode="light"] .statusbar__theme .sun{display:block}
+  [data-mode="dark"] .statusbar__theme .sys{display:none}
+  [data-mode="dark"] .statusbar__theme .moon{display:block}
+  @media (max-width:820px){.statusbar__hide-sm{display:none}.statusbar__nav{gap:12px}.statusbar__nav a:not(.statusbar__github){display:none}}
+  @media (prefers-reduced-motion:reduce){.statusbar__theme{transition:none}.statusbar .silo-bars i{animation:none}}
+</style>
+<script>(function(){try{var K='starlight-theme',e=document.documentElement,c=localStorage.getItem(K),m=(c==='light'||c==='dark'||c==='auto')?c:'auto',d=(m==='dark')||(m!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);e.setAttribute('data-theme',d?'dark':'light');e.setAttribute('data-mode',m);}catch(e){}})();</script>
+</head>
+<body>
+<header class="statusbar" aria-label="Project status">
+  <div class="statusbar__inner">
+    <span class="statusbar__cell statusbar__cell--brand">
+      <span class="silo-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="statusbar__wordmark">silo</span>
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono">
+      <span class="statusbar__dot statusbar__dot--green"></span>pre-1.0
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono statusbar__hide-sm">AGPL-3.0-or-later</span>
+    <span class="statusbar__spacer"></span>
+    <nav class="statusbar__nav" aria-label="Primary">
+      <a href="/#features">features</a>
+      <a href="/#clients">clients</a>
+      <a href="/#stack">stack</a>
+      <a href="/docs">docs</a>
+      <a href="https://github.com/Silo-Server/silo-server" class="statusbar__github">github ↗</a>
+      <button type="button" id="themeToggle" class="statusbar__theme" aria-label="Theme: auto (follow system)" title="Cycle theme — auto / light / dark">
+        <svg class="sys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="13" rx="1.5"/><path d="M8.5 21h7M12 17.5V21"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.8A8.2 8.2 0 0 1 9.2 3.5 7.2 7.2 0 1 0 20.5 14.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Silo &middot; Release Definition</div>
+  <h1>Silo v1.0</h1>
+  <p class="sub">The definition of the first public release: the library types, the core experience every client must deliver, the full feature set with acceptance criteria, the gates that make it releasable, and what is explicitly held for later. This is the scope of record.</p>
+</header>
+
+<nav class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#summary">1. Release summary</a></li>
+    <li><a href="#platforms">2. Platforms &amp; clients</a></li>
+    <li><a href="#libraries">3. Library types</a></li>
+    <li><a href="#core">4. Core experience (Library-user acceptance)</a></li>
+    <li><a href="#features">5. Features in v1.0</a></li>
+    <li><a href="#readiness">6. Release-readiness gates</a></li>
+    <li><a href="#deferred">7. Not in v1.0</a></li>
+  </ol>
+</nav>
+
+<!-- ===== 1. SUMMARY ===== -->
+<h2 id="summary"><a class="num" href="#summary">1</a>Release summary</h2>
+<p>Silo v1.0 is a self-hosted media server for <strong>movies, series, and audiobooks</strong>, delivered with native clients on <strong>iPhone/iPad, Apple TV, Android phone, and Android TV</strong>, plus a <strong>web app</strong> for both viewing and server administration. The core promise is a complete <strong>browse &rarr; metadata &rarr; play</strong> experience at parity on every client, surrounded by a mature server: multi-profile households with access control, personalization, distributed and hardware-accelerated transcoding, casting, offline downloads, plugin extensibility, and migration tools for moving in from Plex, Jellyfin, and Emby &mdash; including drop-in compatibility for existing Jellyfin and Audiobookshelf clients.</p>
+
+<!-- ===== 2. PLATFORMS ===== -->
+<h2 id="platforms"><a class="num" href="#platforms">2</a>Platforms &amp; clients</h2>
+<p class="lede">v1.0 ships four native clients plus a web app &mdash; five consumption surfaces &mdash; at feature parity for the core experience. The web app is also the server&rsquo;s administration surface.</p>
+<div class="plat">
+  <div class="platcard wide"><b>Web app</b><span>Browse and play in the browser, plus the full admin surface: user management, metadata editing, plugin marketplace, migration tools.</span></div>
+  <div class="platcard"><b>iPhone / iPad (iOS)</b><span>Full client. Includes offline downloads and casting.</span></div>
+  <div class="platcard"><b>Android phone</b><span>Full client. Includes offline downloads.</span></div>
+  <div class="platcard"><b>Apple TV (tvOS)</b><span>Full 10-foot client, remote-driven.</span></div>
+  <div class="platcard"><b>Android TV</b><span>Full 10-foot client, remote-driven.</span></div>
+</div>
+<p style="font-size:13.5px; color:var(--ink-mute);"><strong>What &ldquo;parity&rdquo; means.</strong> Core-experience parity (browse &rarr; metadata &rarr; play, section&nbsp;4) is mandatory and identical on every surface. Beyond that, parity is per-feature: <strong>each feature&rsquo;s surface tags are its parity contract</strong>. Deliberate asymmetry &mdash; web-only admin, mobile-only downloads &mdash; is by design; a platform lacking a feature it isn&rsquo;t tagged for is not a gap.</p>
+
+<!-- ===== 3. LIBRARIES ===== -->
+<h2 id="libraries"><a class="num" href="#libraries">3</a>Library types</h2>
+<p class="lede">Three library types ship in v1.0, each at full parity across every client. Each must clear the Core Experience bar in section&nbsp;4.</p>
+<div class="libgrid">
+  <div class="libcard"><h4>Movies</h4><p>TMDB metadata. Extras and edition labels where present.</p></div>
+  <div class="libcard"><h4>Series</h4><p>TMDB + TVDB metadata. Season/episode hierarchy, Next Up, specials, watched roll-up.</p></div>
+  <div class="libcard"><h4>Audiobooks</h4><p>Chapter navigation, playback speed, sleep timer, exact-second resume, author/narrator.</p></div>
+</div>
+<p style="font-size:13.5px; color:var(--muted);">Sports content is supported as a <em>series</em> library via the Sportarr metadata plugin; there is no separate sports library type. Ebooks, manga, music, and podcasts are not v1.0 library types &mdash; see section&nbsp;7.</p>
+<p style="font-size:13.5px; color:var(--muted);"><strong>Plugin contract.</strong> Library and marker support is delivered through plugins. <strong>Metadata:</strong> a library type counts as first-party-supported only once at least one first-party metadata plugin validates against it (Movies&nbsp;&rarr;&nbsp;TMDB, Series&nbsp;&rarr;&nbsp;TMDB&nbsp;+&nbsp;TVDB, Audiobooks&nbsp;&rarr;&nbsp;audiobook-metadata). <strong>Marker:</strong> Movie/Series libraries only. <strong>Request:</strong> the request system is first-party and extensible; community-maintained plugins can automate how requests are sourced. <strong>Autoscan:</strong> Silo owns the scan intake API; community-maintained adapters connect specific automation stacks or file-change sources.</p>
+
+<!-- ===== 4. CORE ===== -->
+<h2 id="core"><a class="num" href="#core">4</a>Core experience &mdash; Library-user acceptance</h2>
+<p class="lede">The Core Experience is the consumer&rsquo;s experience, so it is written as <strong>library-user acceptance</strong> &mdash; the journey a person takes through any shipping library type, validated on every client &mdash; with a separate <strong>admin acceptance</strong> group for the server-side guarantees a user never touches directly. Budgets are p95 ranges on stated reference hardware. Each item states what is in and, where relevant, what is out (forward-only progress, single-quality transcode sessions, mid-stream track-switch restarts the transcode).</p>
+
+<div class="def">
+  <div class="grp">
+    <b>Library-user acceptance &mdash; every client (iOS / tvOS / Android phone / Android TV / web)</b>
+    <ul>
+      <li><strong>Find:</strong> the library appears in nav with an artwork grid/list, sort + filter, lazy-load, and a defined empty state; its items <em>and people</em> are searchable, results-as-you-type, filterable by type.</li>
+      <li><strong>Understand:</strong> a detail screen shows full metadata, artwork, and related/cast where applicable.</li>
+      <li><strong>Play:</strong> starts from detail and from resume; direct-play when codecs allow, remux/transcode fallback otherwise; HDR plays correctly on capable displays and tone-maps/transcodes to SDR elsewhere rather than failing. Cold-start transcode reaches first frame within a stated budget; seeking past the buffered region works; switching audio/subtitle mid-playback resumes at position (a brief rebuffer is expected). <em>Adaptive bitrate is out of scope; manual quality selection is provided.</em></li>
+      <li><strong>Keep my place:</strong> resume position is monotonic-forward across devices and profiles; two devices converge to the furthest position; mark watched/unwatched works and series roll-up updates; Continue Watching reflects it.</li>
+      <li><strong>Recover:</strong> server unreachable mid-browse &rarr; non-destructive error + retry, no crash; token expiry &rarr; silent refresh, re-login only when the refresh token is dead; mid-stream drop &rarr; pause and auto-resume on reconnect. A no-metadata item still appears (filename title, placeholder art) and plays; a corrupt / 0-byte file gives a clear error without crashing the player or list; mixed-codec libraries work.</li>
+      <li><strong>Accessibility:</strong> selected subtitles/captions render legibly and on time; core browse/detail honor the system text-size setting. <em>Full screen-reader support and caption styling are post-1.0.</em></li>
+      <li><strong>App lifecycle:</strong> backgrounding/resuming during browse and playback restores state without crash or forced re-login; rotate/resize does not crash the player.</li>
+      <li><strong>In-player controls:</strong> play/pause/seek/scrub, audio + subtitle selection, next-item/autoplay where relevant.</li>
+    </ul>
+  </div>
+  <div class="grp">
+    <b>TV-specific acceptance (tvOS / Android TV)</b>
+    <ul>
+      <li>Every control in browse, detail, and player is reachable and operable by <strong>D-pad / remote alone</strong>; focus is always visible and never trapped.</li>
+      <li>Play/resume is reachable within a bounded number of D-pad moves from a focused tile; search uses the on-screen keyboard.</li>
+      <li>Mark watched / favorite is a <strong>focusable control</strong> on the detail screen, not a gesture.</li>
+    </ul>
+  </div>
+  <div class="grp">
+    <b>Admin acceptance &mdash; server (validated by an admin, not a library user)</b>
+    <ul>
+      <li>A configured folder <strong>scans to completion</strong>; rescans reflect added / changed / removed files, are idempotent (no dupes), and <strong>preserve existing watch progress &amp; history</strong>.</li>
+      <li>Every item is <strong>matched to metadata</strong>; unmatched items stay visible and are <strong>manually fixable</strong> (identify, match-search, field + artwork edit).</li>
+      <li>Browse endpoints paginate; the first page of a large reference library (state the size, e.g.&nbsp;~10k items) returns within a <strong>p95 budget (e.g. &le;1&nbsp;s)</strong> while transcodes run.</li>
+      <li>Profile <strong>library access and content rating are enforced server-side on both browse and stream</strong> endpoints &mdash; the access resolver is the boundary, not UI hiding.</li>
+      <li><em>Release-gate criteria (first-run, upgrade safety, play-path security, observability) live in section&nbsp;6.</em></li>
+    </ul>
+  </div>
+  <p class="add"><b>Type-specific add-ons.</b> <b>Series:</b> season/episode hierarchy, Next Up, specials, watched roll-up. &nbsp; <b>Audiobooks:</b> chapter nav, playback speed, sleep timer, exact-second resume, author/narrator. &nbsp; <b>Movies:</b> an edition label is shown where present; where a title has multiple versions, the server resolves a preferred version that plays by default.</p>
+</div>
+
+<!-- ===== 5. FEATURES ===== -->
+<h2 id="features"><a class="num" href="#features">5</a>Features in v1.0</h2>
+<p class="lede">Everything below is in scope for v1.0, with acceptance criteria shown in full. Each feature is tagged with the surfaces it ships on. Use the filter to narrow by platform or scope.</p>
+
+<div class="filterbar">
+  <span class="flabel">Filter</span>
+  <button type="button" class="fbtn active" aria-pressed="true" onclick="filterScope('all', this)">All</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('ios', this)">iOS</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('tvos', this)">tvOS</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('android', this)">Android</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('androidtv', this)">Android TV</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('web', this)">Web</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('admin', this)">Web admin</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('server', this)">Server</button>
+  <span class="fcount" id="fcount">39 features</span>
+</div>
+
+<!-- Discovery & browsing -->
+<div class="fgroup">
+<h3>Discovery &amp; browsing</h3>
+
+  <div class="fcard" data-scope="admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Collections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Named sets of titles &mdash; shared (everyone sees) or private (owner only), hand-picked or rule-filled. Authoring is web-only; every client browses.</p>
+    <ul class="ac">
+      <li>Browse a Collections section and open one to list its members on every client.</li>
+      <li>Shared collections show for everyone; private ones only for their owner.</li>
+      <li>Smart/rule collections auto-populate and stay current; an empty one renders an empty state.</li>
+      <li>A collection spanning a restricted library shows only the allowed members.</li>
+      <li><strong>Shared and smart/rule collections are created and managed by an admin or an authorized user in web admin</strong> &mdash; members, rules, ordering, artwork.</li>
+      <li><strong>Any user creates and manages their own private collections in the web app;</strong> private collections respect profile access &mdash; a kids profile cannot add restricted content.</li>
+      <li><strong>Authoring is web-only:</strong> mobile and TV consume collections, with no create/manage entry point in release builds.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Calendar</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <p class="what">A release schedule of upcoming episodes, movies, and seasons, a week at a time.</p>
+    <ul class="ac">
+      <li>Week view lists upcoming episodes + movie/season releases; season premieres are distinguished.</li>
+      <li>Shows only libraries the active profile can access; dates correct across time zones.</li>
+      <li>An empty range renders a defined empty state.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Curated home sections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Server-assembled home rows &mdash; trending, seasonal, editorial, mood &mdash; authored centrally in web admin.</p>
+    <ul class="ac">
+      <li><strong>An admin or an authorized user builds, reorders, and schedules home rows in a web-admin builder</strong> &mdash; no config-file editing, in keeping with the section&nbsp;6 first-run gate.</li>
+      <li>A change to the row set updates the home screen without an app update; every client renders the same available rows.</li>
+      <li><strong>Each user reorders their own profile&rsquo;s section order manually;</strong> the personalized order persists per profile while the available rows stay centrally defined. The order is a profile-level edit, visible and settable by an admin in the device &amp; override audit.</li>
+      <li>On Apple and Android, "featured" content appears as a media row (these platforms have no hero concept).</li>
+      <li>A profile never sees rows/tiles for content it can&rsquo;t open; a row resolving to zero accessible items is omitted.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Person / cast &amp; crew browsing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <p class="what">Tap an actor or director to browse their other in-library work.</p>
+    <ul class="ac">
+      <li>A person page lists their other in-library work, with photo and a missing-photo fallback, on every client.</li>
+      <li>People are searchable &mdash; search returns matching cast/crew, not only titles.</li>
+      <li><strong>Person metadata is backfilled proactively:</strong> a person&rsquo;s photo/bio is present without a user having to open the page first, and entries that are missing or stale beyond a threshold are refreshed within a bounded window.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Recommendations</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <p class="what">Personalized "For You" suggestions, kept varied, with sensible cold-start picks. Produced server-side, rendered everywhere.</p>
+    <ul class="ac">
+      <li>The server produces a personalized, varied set per profile, refreshed in the background, with sensible picks for a new profile.</li>
+      <li>Clients render it where present; if the recommender has no output, clients fall back to a default row rather than an empty shelf.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Playback -->
+<div class="fgroup">
+<h3>Playback</h3>
+
+  <div class="fcard" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Markers / skip intro &amp; credits</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <p class="what">Auto-detected intro/recap/credits segments with a Skip button. Detected server-side, consumed everywhere.</p>
+    <ul class="ac">
+      <li>Server auto-detects intro/recap/credits on the reference test set within an accuracy target; no manual tagging required.</li>
+      <li>Every client shows a Skip control at the right time with a countdown.</li>
+      <li>Manual seek always works; a wrong or missed detection never blocks playback.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin web">
+    <div class="fcard-head"><h4>Marker authoring &amp; editing</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Admins and authorized users create, adjust, and remove intro/recap/credits markers in the web app, alongside automatic detection. Movie &amp; Series libraries only.</p>
+    <ul class="ac">
+      <li>From the web app, an admin or an authorized user adds, edits the in/out points of, or deletes a marker on a Movie or Series item; the change takes effect on every client without a rescan.</li>
+      <li><strong>Marker-edit permission is grantable to an authorized (non-admin) user</strong> and enforced server-side.</li>
+      <li>Manual edits win over and survive re-detection and rescans (lock-on-edit); audiobook and other library types expose no marker editor.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Chapter / marker preview thumbnails</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <p class="what">Thumbnail previews at chapter and marker positions (per-library setting). Not full timeline trickplay.</p>
+    <ul class="ac">
+      <li>Where thumbnails are generated, clients show the preview image at chapter/marker points; absence degrades silently.</li>
+      <li>Full timeline scrubbing-trickplay is out of scope.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Subtitle playback &amp; appearance</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <p class="what">Per-profile subtitle behavior and appearance &mdash; auto-selected by audio language, customizable, with series-level overrides that sync across every client.</p>
+    <ul class="ac">
+      <li><strong>Subtitle display settings (font, size, color, background, position, timing) are a profile-level preference, applied automatically</strong> and carried across devices for that profile.</li>
+      <li><strong>Subtitles auto-select based on the detected audio language</strong> &mdash; e.g. foreign or partially-foreign audio surfaces the matching/forced subtitle track without the user choosing each time.</li>
+      <li><strong>A manual subtitle override (track choice or on/off) applies to the entire series</strong>, not a single episode, and persists.</li>
+      <li><strong>Changes to subtitle preferences or overrides are reflected on every client</strong> &mdash; the preference is server-synced per profile.</li>
+      <li>Appearance renders consistently across clients; selected captions stay legible and on time, per the section&nbsp;4 accessibility bar.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server web ios tvos android androidtv">
+    <div class="fcard-head"><h4>Subtitles &mdash; search / download / upload</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <p class="what">Find and download human subtitles from providers, or upload your own. Search + upload on web; all clients consume.</p>
+    <ul class="ac">
+      <li>Upload is available to any user; the search button is hidden until a provider is configured.</li>
+      <li>Subtitle actions live in the subtitles panel, not the overflow menu.</li>
+      <li>Search + upload happen on web; mobile and TV consume subtitles only.</li>
+      <li>A downloaded/uploaded sub is immediately selectable; a malformed upload is rejected with a clear message.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server admin web ios tvos android androidtv">
+    <div class="fcard-head"><h4>AI generated subtitles</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <p class="what">On-demand transcription/translation of a title&rsquo;s audio into a subtitle track. Generation is triggered in web admin; every client consumes the result like any other subtitle.</p>
+    <ul class="ac">
+      <li>From web admin, generating subtitles for an item produces a selectable subtitle track; <strong>no in-player generation trigger ships on any client</strong>.</li>
+      <li>A generated track is immediately selectable on every client and is labeled as machine-generated.</li>
+      <li>Generation is rate- and cost-guarded and the provider path complies with the section&nbsp;6 provider-compliance gate; a failed generation reports a clear reason and never blocks playback.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios android">
+    <div class="fcard-head"><h4>Downloads / offline</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span></div></div>
+    <p class="what">Download titles to watch offline on a phone, under server-enforced limits. Mobile only.</p>
+    <ul class="ac">
+      <li>On a mobile client: download a title, manage downloads, and play with no connection, under the server&rsquo;s bandwidth/storage limits.</li>
+      <li>An interrupted download resumes or fails cleanly &mdash; no corrupt half-file presented as playable.</li>
+      <li>The offline copy respects profile access and any server-enforced expiry. tvOS and Android TV are out of scope.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios tvos android androidtv">
+    <div class="fcard-head"><h4>Send to the TV app (SiloRemote)</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span></div></div>
+    <p class="what">From the Silo mobile app, send a title to the Silo TV app on the same network and use the phone as a full remote. The TV app plays it <strong>directly from the server</strong> &mdash; the phone hands off and controls playback, it doesn&rsquo;t relay or cast the video. Cross-platform, same-LAN.</p>
+    <ul class="ac">
+      <li>From the Silo mobile app, send a title to a Silo TV app on the same LAN (Android phone &rarr; Apple TV, Android TV &rarr; Apple TV, and same-platform pairs); the TV app pulls the stream <strong>directly from the server</strong>, not from the phone.</li>
+      <li>After handoff the phone acts as a full remote (play/pause, seek, audio/subtitle, quality, volume) and stays in sync; it never transcodes or relays the stream.</li>
+      <li>Same-LAN only. If the TV app drops, the phone surfaces a disconnect and recovers rather than hanging.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Hardware transcoding</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">GPU-accelerated transcoding (NVENC / QSV / VAAPI) with tone-mapping.</p>
+    <ul class="ac">
+      <li>On a host with a supported GPU, hardware encode/decode is auto-detected and used, with config to force or disable it; falls back to software cleanly.</li>
+      <li>HDR &rarr; SDR tone-mapping produces correct color on the hardware path.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Distributed transcode nodes</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Transcoding spread across multiple worker nodes with per-node caps and live monitoring.</p>
+    <ul class="ac">
+      <li>An admin can register a node, place it in a co-location group, set job + bandwidth caps, and see live node sessions; a node going away fails over without orphaning a stream.</li>
+      <li>Single-node is the zero-config default; multi-node is opt-in.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Personalization & accounts -->
+<div class="fgroup">
+<h3>Personalization &amp; accounts</h3>
+
+  <div class="fcard" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Multi-profile / PIN / kids</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <p class="what">Multiple profiles per account, each with its own progress, optional PIN, and library limits.</p>
+    <ul class="ac">
+      <li>Switch profiles on every client; each has independent progress and preferences.</li>
+      <li>PIN gate enforced; kids mode hides restricted libraries and content.</li>
+      <li>Library restrictions are enforced server-side &mdash; a restricted profile cannot reach content via deep link, search, person page, or stream URL.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Watchlist / Favorites / Ratings</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <p class="what">Save for later, mark favorites, rate titles &mdash; per profile, synced across devices.</p>
+    <ul class="ac">
+      <li>Toggle watchlist/favorite/rating from a title page on every client; state is per-profile and syncs across devices.</li>
+      <li>Dedicated lists are easily discoverable in nav and fully browsable.</li>
+      <li>Toggling while offline queues and syncs on reconnect, or fails visibly &mdash; never a false "saved".</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="web">
+    <div class="fcard-head"><h4>Sessions &amp; API keys</h4><div class="chips"><span class="chip web">Web</span></div></div>
+    <p class="what">See active sessions across devices and revoke one; generate API keys for automation. Web only for v1; the apps consume their session but don&rsquo;t surface management.</p>
+    <ul class="ac">
+      <li>A user lists active sessions with device/last-seen and revokes one; the revoked session loses access on its next request.</li>
+      <li>API-key create/list/delete works; keys carry a tier/scope.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="tvos androidtv web">
+    <div class="fcard-head"><h4>Device-code login</h4><div class="chips"><span class="chip tvos">tvOS</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <p class="what">Keyboard-less TV login: the TV shows a code, you approve it from a browser.</p>
+    <ul class="ac">
+      <li>A TV client shows a device code; approving it in a browser signs the TV in within the code&rsquo;s validity.</li>
+      <li>An expired/mismatched code fails closed and can be retried.</li>
+      <li>Offered alongside Silo mobile app TV onboarding and typed-credential sign-in, never as the only path.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="ios android tvos androidtv">
+    <div class="fcard-head"><h4>Silo mobile app TV onboarding</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip tvos">tvOS</span><span class="chip androidtv">Android TV</span></div></div>
+    <p class="what">Set up a TV without typing: a phone finds it on Wi-Fi and hands over signed-in servers after a confirm code. Cross-platform, same-LAN.</p>
+    <ul class="ac">
+      <li>A phone (either platform) discovers a TV (either platform) on the LAN and hands off signed-in servers after a confirm code.</li>
+      <li>Manual fallbacks &mdash; type the server URL, sign in with credentials &mdash; are always present and offered.</li>
+      <li>A confirm-code mismatch or expiry fails closed.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Server, admin & operations -->
+<div class="fgroup">
+<h3>Server, admin &amp; operations</h3>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>User management / invites / sharing</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Create accounts, invite people, and share specific libraries while keeping the rest private.</p>
+    <ul class="ac">
+      <li>From web admin: create accounts, invite users, share specific libraries.</li>
+      <li>A shared user sees only granted libraries, enforced server-side. Not surfaced in the apps.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server admin">
+    <div class="fcard-head"><h4>Admin impersonation</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <p class="what">An admin acts as a non-admin user to reproduce and diagnose what that user sees.</p>
+    <ul class="ac">
+      <li>From web admin, an admin starts an impersonation session for a <strong>non-admin</strong> user and sees the experience as that user.</li>
+      <li>Impersonation cannot target another admin or escalate privileges; it ends cleanly and returns the admin to their own identity.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="web admin">
+    <div class="fcard-head"><h4>Requests</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <p class="what">A self-contained request system: a user asks for a movie or show the server doesn&rsquo;t have, an admin approves it, and when the content is later scanned in and identified it&rsquo;s marked available and the requester is notified.</p>
+    <ul class="ac">
+      <li>From the web app, a user searches for and requests a movie or show the server doesn&rsquo;t have; a request for content that already exists is prevented, and if the title is <strong>already requested</strong> the user can add themselves to be notified when it becomes available instead of requesting it again.</li>
+      <li>A request moves through a status lifecycle (pending &rarr; approved/declined &rarr; available); an admin can approve or decline, and per-user request permissions/limits are enforced.</li>
+      <li>A user can be set to <strong>auto-approve</strong> on a per-user basis &mdash; their requests skip the pending state and go straight to approved.</li>
+      <li>The loop closes on its own: when matching content is scanned in and identified, the server marks the request <strong>available</strong> &mdash; no external service is required.</li>
+      <li>Everyone who requested or followed the title is notified when it becomes available.</li>
+      <li>The request system is <strong>extensible</strong> through a request-router plugin interface; community-maintained extensions can be installed to automate how requests are sourced.</li>
+      <li><strong>Web only for v1:</strong> no request entry point ships in any first-party app; any built-but-hidden client path stays unreachable in release builds.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>Active sessions / now-playing / remote control</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">See every active stream and remotely stop/pause/resume or broadcast a message.</p>
+    <ul class="ac">
+      <li>Web admin lists active sessions (who, what, transcode vs direct, node); admin can stop/pause/resume one and send a message clients surface.</li>
+      <li>A stopped session ends cleanly on the client. No mobile/TV admin surface.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>Manual metadata edit / identify / artwork</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Re-identify, fix fields, and choose artwork for mismatched items.</p>
+    <ul class="ac">
+      <li>Re-identify an item against providers, apply a match, edit core fields, and pick from available artwork.</li>
+      <li>Changes persist and survive rescans (lock-on-edit where supported).</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server admin web">
+    <div class="fcard-head"><h4>AI metadata translation</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <p class="what">Auto-translate titles, overviews, and other metadata into a user or profile&rsquo;s primary language. Translations can be generated while browsing and cached; admins can still prewarm translations from web admin.</p>
+    <ul class="ac">
+      <li>A user/profile primary language controls the preferred metadata language on every client; clients render localized fields where present and fall back to the source language otherwise.</li>
+      <li>While browsing, the server can generate missing metadata translations on demand and cache them so v1.0 does not require pre-translating every item in the library.</li>
+      <li>From web admin, translating an item or library can prewarm missing localized fields for a selected language.</li>
+      <li>Machine-translated fields are marked as such and do not overwrite human- or provider-supplied translations.</li>
+      <li>The provider path is rate- and cost-guarded and complies with the section&nbsp;6 provider-compliance gate.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>Server limits &amp; audit logs</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Bandwidth/quota limits, API rate limiting, and a filterable audit log.</p>
+    <ul class="ac">
+      <li>Admin sets global + per-user bandwidth/quota limits and they are enforced; rate limits throttle abuse.</li>
+      <li>An audit log records user and permission actions and is filterable, with live streaming.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4>Device &amp; override auditing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <p class="what">The server tracks every device a profile signs in from and resolves settings per device and per profile. Admins audit devices and overrides in web admin; users set overrides for their own devices and reorder their own profile&rsquo;s sections.</p>
+    <ul class="ac">
+      <li>The server registers each device a profile uses (id, name, platform, last-seen) and records each login as a session with device + IP; an admin lists devices in web admin &mdash; sorted by recency, with each device&rsquo;s override count and the profiles using it &mdash; and opens a device to see its detail and overrides.</li>
+      <li>Settings resolve by precedence &mdash; <strong>device override &rarr; profile/user value &rarr; default</strong> &mdash; and the effective value reports its source (device / user / default).</li>
+      <li>A user sets and clears overrides for their own device (e.g. preferred quality, audio language, auto-skip intro/recap/credits, HDR, playback speed, subtitle sync) for the active profile; overrides are <strong>profile-scoped</strong> &mdash; switching profiles on the same device sees its own values.</li>
+      <li>An admin, from the device audit, can view and set <strong>both device-level overrides and profile-level edits</strong> (including a profile&rsquo;s home section order) for any user, and remove a single override, all overrides for a key, or all overrides on a device.</li>
+      <li>Anomalies are surfaced &mdash; e.g. stale devices that still hold overrides, or outlier override counts &mdash; via saved views.</li>
+      <li><strong>Boundary:</strong> device tracking is automatic from client-reported headers and enforced server-side; v1.0 has no device blocking/approval and no trusted/blocked device state.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>Plugin management / marketplace</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Install metadata and marker plugins from the first-party catalog, and request/source-adapter plugins from the community catalog once enabled; they auto-update.</p>
+    <ul class="ac">
+      <li>From web admin, install a plugin from the catalog; it loads and is usable.</li>
+      <li>Auto-update is signature-verified; an incompatible/failed plugin degrades gracefully.</li>
+      <li>The first-party catalog is enabled by default; the community catalog is off until an admin explicitly enables it.</li>
+      <li>Every plugin displays its tier &mdash; first-party, community-vetted, or external &mdash; and community/external plugins show their disclaimer notice.</li>
+      <li>A plugin installed from a URL outside the configured catalogs is marked <em>Unverified</em>.</li>
+      <li>No plugin-management UI in mobile/TV clients.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>PostgreSQL support</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Run Silo on PostgreSQL as the durable production database.</p>
+    <ul class="ac">
+      <li>A fresh install using the default Docker Compose stack starts with a provisioned PostgreSQL service; an external PostgreSQL deployment works once the operator provides a database, credentials, and connection string.</li>
+      <li>Core server state survives app restarts and container replacement.</li>
+      <li>Database connection or migration failures are visible and block the server from reporting ready.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Redis support</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Use Redis for runtime coordination and cache-style server state.</p>
+    <ul class="ac">
+      <li>A fresh install using the default Docker Compose stack starts with a Redis service; an external Redis deployment works once the operator provides a reachable Redis connection.</li>
+      <li>Redis outages are visible and block ready status where Redis is required.</li>
+      <li>Restarting Redis may interrupt transient work but does not corrupt durable library, user, or playback history data.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server admin">
+    <div class="fcard-head"><h4>Server branding / theming</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <p class="what">Brand the server &mdash; name, logo, favicon, login background, accent color.</p>
+    <ul class="ac">
+      <li>Server stores and serves name/logo/favicon/login-background/accent and applies them on its web surfaces.</li>
+      <li>First-party clients do not adopt server branding.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Autoscan</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">A self-contained scan intake system: an external source tells Silo that files changed, Silo maps the signal to a library/path, and the server performs a targeted rescan without waiting for the schedule.</p>
+    <ul class="ac">
+      <li>Silo exposes an authenticated scan intake path that accepts a library/path change signal; when matching content is scanned in and identified, it appears in the library without waiting for the scheduled scan.</li>
+      <li>The loop closes on its own: the server owns signal intake, path mapping, debouncing, scan queueing, and result reconciliation &mdash; no external media-server refresh endpoint is required.</li>
+      <li>Signals are debounced so bursts of changes do not hammer the scanner.</li>
+      <li>The scan intake system is <strong>extensible</strong> through a source-adapter plugin interface; community-maintained extensions can be installed to connect automation tools, download clients, or other file-change sources.</li>
+      <li><strong>Server only for v1:</strong> no first-party client UI ships for configuring source adapters; setup happens through server/admin configuration.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Notifications (delivery)</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Alerts for opted-in events via Discord, email/digests, web push, and webhooks.</p>
+    <ul class="ac">
+      <li>The server delivers opted-in events (e.g. requested content arrived) through its channels.</li>
+      <li>In-app notification inboxes on the apps are post-1.0.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server ios android">
+    <div class="fcard-head"><h4>Push notifications (mobile)</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip server">Server</span></div></div>
+    <p class="what">Native push to phones and tablets for opted-in events, delivered through APNs and FCM via a first-party maintained relay. The relay only wakes the device; notification contents stay on the user&rsquo;s Silo server and are fetched by the client after wake.</p>
+    <ul class="ac">
+      <li>An opted-in event (e.g. a request was fulfilled) wakes iOS and Android through APNs/FCM; the push payload contains no media title, server URL, user name, or notification body.</li>
+      <li>A first-party maintained relay is used only to satisfy APNs/FCM delivery requirements; it receives an opaque device/registration target and never learns the server identity, notification contents, or library contents.</li>
+      <li>After wake, the client connects directly to its own Silo server to fetch pending notification contents and deep-link context; tapping the notification opens the relevant item once fetched.</li>
+      <li>A user registers/unregisters a device and chooses which event types push; tokens are revoked server-side on sign-out or session revoke.</li>
+      <li>tvOS and Android TV are out of scope, and no in-app notification inbox ships (post-1.0).</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Webhook ingestion</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Reconcile watched-status from Plex/Jellyfin webhooks.</p>
+    <ul class="ac">
+      <li>Plex/Jellyfin webhooks keep watched-status in agreement. Server-side only.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Migration & interoperability -->
+<div class="fgroup">
+<h3>Migration &amp; interoperability</h3>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>Watch-history import (Plex / Jellyfin / Emby)</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Bring watch history in when moving from another server.</p>
+    <ul class="ac">
+      <li>Import watched status, play counts, last-watched, and resume positions, matched by IMDb/TMDB/TVDB IDs.</li>
+      <li>Emby imports can use Emby Connect to discover a server, then import from the selected source server; Plex and Jellyfin use their own source-server sign-in/token flows.</li>
+      <li>Live progress shown; unmatched items reported; re-running doesn&rsquo;t double-count; a partial import can be re-run safely.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="admin">
+    <div class="fcard-head"><h4>User import (Plex / Jellyfin / Emby)</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <p class="what">Pull the external user list and map each onto a Silo profile so history lands on the right person.</p>
+    <ul class="ac">
+      <li>Admin pulls the external user list and maps each to an existing Silo profile; the mapping persists and drives history import.</li>
+      <li>Documented boundary: does not create accounts/profiles or carry library permissions.</li>
+    </ul>
+  </div>
+
+  <div class="fcard" data-scope="server">
+    <div class="fcard-head"><h4>Compatibility layers (Jellyfin / Audiobookshelf)</h4><div class="chips"><span class="chip server">Server</span></div></div>
+    <p class="what">Silo exposes Jellyfin-compatible and Audiobookshelf-compatible APIs so existing third-party clients can connect, browse, and play.</p>
+    <ul class="ac">
+      <li>A representative third-party Jellyfin client and Audiobookshelf client can authenticate, browse, and play against Silo &mdash; covered by an explicit smoke-test matrix.</li>
+      <li>The compat surfaces respect the same profile access and content rating as the native API.</li>
+      <li>Documented boundary: which client features are in or out of the compatibility promise.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 6. READINESS ===== -->
+<h2 id="readiness"><a class="num" href="#readiness">6</a>Release-readiness gates</h2>
+<p class="lede">Cross-cutting criteria a public, self-hosted 1.0 must clear, independent of any single feature.</p>
+<div class="def amber">
+  <div class="grp">
+    <ul>
+      <li><strong>First-run:</strong> a fresh install reaches usable (create admin &rarr; add a library &rarr; scan &rarr; browse &rarr; play) via documented steps, with no manual DB or config-file editing on the happy path.</li>
+      <li><strong>Upgrade safety:</strong> upgrading from the prior release runs migrations automatically and non-destructively; a failed migration aborts and leaves the DB on the prior schema; a documented rollback path exists.</li>
+      <li><strong>Backup &amp; restore:</strong> a documented backup/restore path covers the database, object storage, server config, and the <strong>secret-encryption key</strong>; restoring onto a clean host reproduces a working server. Redis is treated as disposable cache/session state, not a backup target.</li>
+      <li><strong>Secret handling:</strong> provider tokens, SMTP credentials, S3 keys, watch-sync OAuth tokens, and plugin credentials are encrypted at rest, redacted in logs and API responses, and survive migration.</li>
+      <li><strong>Observability:</strong> a failed scan / transcode / metadata match is visible to the admin (item identity + reason), not a silent no-op; <code>/health</code> and <code>/ready</code> reflect dependency outages.</li>
+      <li><strong>Security of the play path:</strong> stream/media URLs require a valid, expiring, per-profile token; an unauthenticated or wrong-profile segment request is rejected; no shared/compiled-in secret grants playback or cast control across servers.</li>
+      <li><strong>Frozen stability contracts:</strong> the client&harr;server API, plugin SDK, and DB migration path are versioned with a published min-version policy.</li>
+      <li><strong>API versioning:</strong> stable public HTTP APIs are major-versioned by path (e.g. <code>/api/v1</code>); Silo 1.x releases preserve <code>/api/v1</code> compatibility, additive changes remain in v1, and breaking changes require a new major API path.</li>
+      <li><strong>Client/server compatibility checks:</strong> the server exposes a lightweight version/capabilities response, and first-party apps use it to check the API major and advertised capabilities before enabling features; apps are tested against the declared Silo 1.x server compatibility floor, unsupported API majors or below-minimum servers fail with a clear upgrade message, and features tied to missing same-major capabilities are hidden or degrade gracefully instead of forcing exact minor-version lockstep.</li>
+      <li><strong>Published API reference:</strong> stable public integration surfaces &mdash; API keys, webhooks, scan intake, plugin SDK, and compatibility endpoints &mdash; are documented in versioned docs on siloserver.org; the self-hosted server does not serve public interactive API documentation by default.</li>
+      <li><strong>Scope enforcement:</strong> a release build exposes no deferred surface &mdash; deferred routes are feature-flag-off or report capability <em>unsupported</em>, carry no client entry point, and are excluded from public docs; an automated release-build check enforces this (see section&nbsp;7).</li>
+      <li><strong>Provider compliance:</strong> first-party metadata/subtitle plugins comply with provider ToS and rate limits at public scale; bundled keys are audited.</li>
+      <li><strong>Localization floor:</strong> dates/times display in the device locale and timezone; non-ASCII titles and paths scan, browse, and play correctly. Full UI translation is post-1.0.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 7. DEFERRED ===== -->
+<h2 id="deferred"><a class="num" href="#deferred">7</a>Not in v1.0</h2>
+<p class="lede">Explicitly held for later. &ldquo;Deferred&rdquo; is enforced, not aspirational: a feature is out of v1.0 only when no release build can <em>reach or advertise</em> it &mdash; the bar is reachability, not whether the code exists.</p>
+
+<p style="font-size:13.5px; color:var(--ink-mute);">The gate tiers below apply to surfaces deferred across <strong>all</strong> release builds. A feature that is in-scope on one platform but absent on another is not a gating concern &mdash; that asymmetry is governed by each feature's surface tags (see section&nbsp;2), enforced per-platform, not by these gates.</p>
+
+<div class="def amber">
+  <div class="grp">
+    <b>Release-gate policy for deferred surfaces</b>
+    <ul>
+      <li><strong>Default gate:</strong> no client entry point, removed from public docs, the capability probe reports <strong>unsupported</strong>, and the route stays authenticated &mdash; mounted but inert and unadvertised.</li>
+      <li><strong>Strict gate:</strong> the above <em>plus</em> a release feature-flag off, so the route returns 404/501 in release builds. Used where a stray reachable surface is a reputational, legal, or maturity risk &mdash; e.g. ebooks/manga and Watch Party.</li>
+      <li><strong>Removed:</strong> genuinely abandoned, no-roadmap, or misleading code is deleted rather than gated &mdash; e.g. client music shells.</li>
+      <li><strong>Verified:</strong> a release-build check asserts deferred routes are flag-off / capability-unsupported / unlinked, so the boundary cannot silently drift (the section&nbsp;6 scope-enforcement gate).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="deferred"><table class="defer">
+  <tbody>
+    <tr><td class="dname">Ebooks + Manga</td><td class="dwhy">A different media type &mdash; read, not played &mdash; needing a full reader. Targeted as the headline of 1.1, which also allows the metadata story to mature.</td></tr>
+    <tr><td class="dname">Music</td><td class="dwhy">No server scanner and no metadata agent. Client "music" shells are removed for v1.0.</td></tr>
+    <tr><td class="dname">Podcasts</td><td class="dwhy">Server plays them, but metadata is tag-only and no client has a browse experience.</td></tr>
+    <tr><td class="dname">In-app notification inbox</td><td class="dwhy">Server delivery and native mobile push (iOS / Android) ship in v1.0; the in-app notification inbox UI on the clients is post-1.0.</td></tr>
+    <tr><td class="dname">In-client admin</td><td class="dwhy">Administration happens on the web admin; no in-app admin entry point ships.</td></tr>
+    <tr><td class="dname">Watch Party</td><td class="dwhy">Real-time synced viewing. Built server-side but no client entry point ships.</td></tr>
+    <tr><td class="dname">Trakt two-way sync</td><td class="dwhy">Outbound scrobble may exist; reliable two-way sync is not finished.</td></tr>
+    <tr><td class="dname">AI Audio Tracks / dubbing</td><td class="dwhy">Not built; only normal audio-track switching exists.</td></tr>
+    <tr><td class="dname">Multi-version / edition switching</td><td class="dwhy">An edition label is displayed; selectable variant switching is post-1.0.</td></tr>
+    <tr><td class="dname">Timeline scrubbing-trickplay</td><td class="dwhy">Chapter/marker thumbnails ship; full BIF-style timeline previews do not.</td></tr>
+    <tr><td class="dname">Native macOS app</td><td class="dwhy">The iOS app on Apple Silicon is the v1.0 Mac story; a native SiloMac app is post-1.0.</td></tr>
+    <tr><td class="dname">Full UI localization</td><td class="dwhy">Beyond the timezone + non-ASCII floor in section 6.</td></tr>
+  </tbody>
+</table></div>
+
+</div>
+<script>
+function filterScope(scope, btn){
+  document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-pressed','true');
+  document.querySelectorAll('.fcard').forEach(function(c){
+    var toks = c.getAttribute('data-scope').split(' ');
+    var show = (scope === 'all') || toks.indexOf(scope) >= 0;
+    c.classList.toggle('hidden', !show);
+  });
+  document.querySelectorAll('.fgroup').forEach(function(g){
+    var anyVisible = g.querySelector('.fcard:not(.hidden)');
+    g.classList.toggle('hidden', !anyVisible);
+  });
+  var n = document.querySelectorAll('.fcard:not(.hidden)').length;
+  var cnt = document.getElementById('fcount');
+  if (cnt) cnt.textContent = n + (n === 1 ? ' feature' : ' features');
+}
+</script>
+<script>(function(){var K='starlight-theme',r=document.documentElement,b=document.getElementById('themeToggle');if(!b)return;var mq=matchMedia('(prefers-color-scheme:dark)');function s(){try{return localStorage.getItem(K)}catch(e){return null}}function md(v){return(v==='light'||v==='dark'||v==='auto')?v:'auto'}function eff(m){return(m==='dark'||m==='light')?m:(mq.matches?'dark':'light')}function lbl(m){b.setAttribute('aria-label','Theme: '+(m==='auto'?'auto (follow system)':m))}function apply(){var m=md(s());r.setAttribute('data-mode',m);r.setAttribute('data-theme',eff(m));lbl(m)}apply();b.addEventListener('click',function(){var c=md(s()),n=(c==='auto')?'light':(c==='light')?'dark':'auto';try{localStorage.setItem(K,n)}catch(e){}apply()});mq.addEventListener('change',function(){if(md(s())==='auto')apply()})})();</script>
+</body>
+</html>

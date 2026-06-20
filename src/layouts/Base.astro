@@ -24,6 +24,25 @@ const href = (path: string) => `${baseUrl}${path}`;
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
 
+    <!-- Theme: set before paint to avoid a flash. Shares the
+         `starlight-theme` key so the choice carries into /docs. -->
+    <script is:inline>
+      (function () {
+        try {
+          var KEY = "starlight-theme";
+          var el = document.documentElement;
+          var c = localStorage.getItem(KEY);
+          var m = c === "light" || c === "dark" || c === "auto" ? c : "auto";
+          var d =
+            m === "dark" ||
+            (m !== "light" &&
+              matchMedia("(prefers-color-scheme: dark)").matches);
+          el.setAttribute("data-theme", d ? "dark" : "light");
+          el.setAttribute("data-mode", m);
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -57,5 +76,58 @@ const href = (path: string) => `${baseUrl}${path}`;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
+    <script is:inline>
+      (function () {
+        var KEY = "starlight-theme";
+        var r = document.documentElement;
+        var b = document.getElementById("themeToggle");
+        if (!b) return;
+        var mq = matchMedia("(prefers-color-scheme: dark)");
+        function stored() {
+          try {
+            return localStorage.getItem(KEY);
+          } catch (e) {
+            return null;
+          }
+        }
+        function mode(v) {
+          return v === "light" || v === "dark" || v === "auto" ? v : "auto";
+        }
+        function effective(m) {
+          return m === "dark" || m === "light"
+            ? m
+            : mq.matches
+              ? "dark"
+              : "light";
+        }
+        function label(m) {
+          b.setAttribute(
+            "aria-label",
+            "Theme: " + (m === "auto" ? "auto (follow system)" : m),
+          );
+        }
+        function apply() {
+          var m = mode(stored());
+          r.setAttribute("data-mode", m);
+          r.setAttribute("data-theme", effective(m));
+          label(m);
+        }
+        // Sync the label to the persisted mode on load, not just on click.
+        apply();
+        // Cycle: auto (follow system) → light → dark → auto.
+        // Each state has its own icon: monitor / sun / moon.
+        b.addEventListener("click", function () {
+          var c = mode(stored());
+          var n = c === "auto" ? "light" : c === "light" ? "dark" : "auto";
+          try {
+            localStorage.setItem(KEY, n);
+          } catch (e) {}
+          apply();
+        });
+        mq.addEventListener("change", function () {
+          if (mode(stored()) === "auto") apply();
+        });
+      })();
+    </script>
   </body>
 </html>
