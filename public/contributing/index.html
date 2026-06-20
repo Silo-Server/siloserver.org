@@ -108,6 +108,22 @@
   .dd .mk.y{color:var(--green)} .dd .mk.n{color:var(--red)}
   .dd b{color:var(--ink)}
 
+  /* tracking tree — parent issue + per-surface subs */
+  .tracktree{margin-top:13px}
+  .tt-parent{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    border:1.5px solid var(--ink);background:var(--paper);padding:11px 14px}
+  .tt-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--blue);border:1px solid var(--blue);padding:2px 7px}
+  .tt-parent b{font-family:var(--disp);font-weight:750;font-size:19px;text-transform:uppercase;
+    letter-spacing:.01em;color:var(--ink)}
+  .tt-meta{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-left:auto}
+  .tt-subs{margin:0 0 0 19px;padding-left:18px;border-left:1px dashed var(--rule)}
+  .tt-sub{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 0;
+    border-bottom:1px solid var(--rule-soft);font-size:13.5px;color:var(--ink-soft)}
+  .tt-sub:last-child{border-bottom:none}
+  .tt-nm{flex:1;min-width:150px}
+  .tt-sub .pill{font-size:10px}
+
   .eyebrow.cap{display:block;margin-bottom:6px}
 
   /* chips / pills */
@@ -137,6 +153,10 @@
   .arrow{color:var(--ink-faint);font-family:var(--mono)}
   .gate-note{margin-top:14px;font-size:13.5px;color:var(--ink-soft)}
   .gate-note b{color:var(--ink)}
+  .failpath{display:flex;gap:11px;align-items:flex-start;margin:14px 0 0;padding:11px 14px;
+    border:1px dashed var(--rule);background:var(--paper);font-size:13px;color:var(--ink-soft)}
+  .failpath .fp-arrow{font-family:var(--mono);color:var(--orange);font-size:17px;line-height:1.15;flex:none}
+  .failpath b{color:var(--ink)}
 
   /* console */
   .term{background:var(--console);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--paper-press);
@@ -364,13 +384,34 @@
   <!-- 04 TRACKING -->
   <section class="station reveal" id="art-04">
     <div class="st-head"><a class="st-code" href="#art-04">04</a><h2>How your work is tracked</h2></div>
-    <p class="st-sub">Once a capability is locked it becomes a <b>parent issue</b> in its home repo, added to the <b>active release project</b>. Its acceptance criteria become a checklist; every surface it ships on gets its own <b>sub-issue</b>.</p>
+    <p class="st-sub">Every locked capability is tracked as <b>one parent issue</b> with <b>one sub-issue per surface</b> it ships on. The parent lives in the repo that owns the capability and holds the acceptance criteria; each sub tracks that capability on a single client &mdash; and is validated on its own, <b>even when it lives in a different repo</b> than the parent. The parent can&rsquo;t close until every sub is green.</p>
+
+    <div class="panel">
+      <span class="eyebrow cap">What one tracked capability looks like</span>
+      <div class="tracktree">
+        <div class="tt-parent">
+          <span class="tt-tag">parent</span>
+          <b>Collections</b>
+          <span class="repo">silo-server</span>
+          <span class="tt-meta">v1.0 milestone &middot; AC = the checklist</span>
+        </div>
+        <div class="tt-subs">
+          <div class="tt-sub"><span class="repo">silo-apple</span><span class="tt-nm">Collections &mdash; iOS</span><span class="pill val-go">validated</span></div>
+          <div class="tt-sub"><span class="repo">silo-apple</span><span class="tt-nm">Collections &mdash; tvOS</span><span class="pill val-hold">needs-validation</span></div>
+          <div class="tt-sub"><span class="repo">silo-android</span><span class="tt-nm">Collections &mdash; Android</span><span class="pill val-go">validated</span></div>
+          <div class="tt-sub"><span class="repo">silo-android</span><span class="tt-nm">Collections &mdash; Android TV</span><span class="pill">in progress</span></div>
+          <div class="tt-sub"><span class="repo">silo-server</span><span class="tt-nm">Collections &mdash; Web</span><span class="pill val-go">validated</span></div>
+          <div class="tt-sub"><span class="repo">silo-server</span><span class="tt-nm">Collections &mdash; Web admin</span><span class="pill val-hold">needs-validation</span></div>
+        </div>
+      </div>
+      <p class="muted" style="font-size:12.5px;margin:13px 0 0">Server-only and admin capabilities (transcoding, audit logs) skip the per-surface split and track as a single issue. Roadmap progress reads <b style="color:var(--ink-soft)">% validated</b>, never % coded.</p>
+    </div>
 
     <div class="panel">
       <ul class="dd">
-        <li><span class="mk y">&rarr;</span><span>Link every PR to the item it serves with <code>Part of #NNN</code>. A sub-issue is validated on its own, <b>even when it lives in a different repo</b> than the parent.</span></li>
-        <li><span class="mk y">&rarr;</span><span>Don&rsquo;t invent parallel trackers. The acceptance criteria on the parent issue <em>are</em> the definition of done &mdash; tick those boxes, don&rsquo;t write your own.</span></li>
-        <li><span class="mk y">&rarr;</span><span>A library type also feeds the project&rsquo;s <b>Library</b> field and carries a plugin-validation sub alongside its surface subs.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>PRs land against either level</b> &mdash; link to the one your change serves with <code>Part of #NNN</code>. Use the <b>surface sub</b> when the work is confined to one client; use the <b>parent</b> for anything not surface-specific &mdash; the shared server/API core, schema, or a change that spans clients. The parent isn&rsquo;t just an umbrella to track the subs; it&rsquo;s where the capability&rsquo;s own code lands.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>Don&rsquo;t invent parallel trackers.</b> The acceptance criteria on the parent <em>are</em> the definition of done &mdash; tick those boxes, don&rsquo;t write your own list.</span></li>
+        <li><span class="mk y">&rarr;</span><span>A <b>library type</b> also feeds the project&rsquo;s <b>Library</b> field and carries a <b>plugin-validation</b> sub alongside its surface subs.</span></li>
       </ul>
     </div>
   </section>
@@ -378,7 +419,7 @@
   <!-- 05 DEFINITION OF DONE -->
   <section class="station reveal" id="art-05">
     <div class="st-head"><a class="st-code" href="#art-05">05</a><h2>Definition of done</h2></div>
-    <p class="st-sub">Code-complete is not done. A developer can mark code ready; only a <b>maintainer testing on the real device</b> flips a surface green.</p>
+    <p class="st-sub">Code-complete is not done. A developer can mark code ready; only a <b>maintainer testing on the real device</b> flips a surface green &mdash; or sends it back.</p>
 
     <div class="panel">
       <div class="flow">
@@ -388,7 +429,11 @@
         <span class="arrow">&rarr;</span>
         <span class="state go"><span class="big"></span>validated &middot; closed</span>
       </div>
-      <p class="gate-note">When your code is ready, label the surface <code>needs-validation</code> &mdash; do not close it yourself. A maintainer runs it on the actual device, ticks the acceptance-criteria boxes, applies <code>validated</code>, and closes it. The same signal runs feature subs <b>and</b> the library-user acceptance suites (the spec &sect;4 consumer journey, run per library type on each surface). <b>A feature or library type only goes green when every one of its surfaces is green</b> &mdash; and the admin-track <code>readiness-gate</code> issues (first-run, upgrade safety, play-path security from spec &sect;6) gate the milestone right alongside it.</p>
+      <p class="gate-note">There are <b>two working labels over a default</b>: a surface starts with neither &mdash; that&rsquo;s <b>in progress</b>. When your code is ready, label it <code>needs-validation</code> and stop &mdash; <b>do not close it yourself</b>. A maintainer runs it on the actual device, ticks the acceptance-criteria boxes, applies <code>validated</code>, and closes it. The same signal runs feature subs <b>and</b> the library-user acceptance suites (the spec &sect;4 consumer journey, run per library type on each surface). <b>A feature or library type only goes green when every one of its surfaces is green</b> &mdash; and the admin-track <code>readiness-gate</code> issues (first-run, upgrade safety, play-path security from spec &sect;6) gate the milestone right alongside it.</p>
+      <div class="failpath">
+        <span class="fp-arrow">&#8617;</span>
+        <span><b>If it fails on device, it loops back.</b> The maintainer un-ticks the failing boxes, leaves notes, and removes <code>needs-validation</code> &mdash; which returns the surface to <b>in progress</b> until it&rsquo;s fixed and re-submitted. There&rsquo;s <b>no separate &ldquo;needs-changes&rdquo; label</b>: a bounce just clears the validation flag, and the un-ticked boxes plus the maintainer&rsquo;s comment carry the &ldquo;why.&rdquo;</span>
+      </div>
     </div>
   </section>
 
