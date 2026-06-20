@@ -146,6 +146,8 @@
   @media (max-width: 760px) {
     nav.toc ol { columns: 1; }
     .libgrid, .plat { grid-template-columns: 1fr; }
+    /* Single column: the web card no longer spans two, so drop the centering. */
+    .platcard.wide { text-align: left; }
     h1 { font-size: 40px; }
     .fcount { display: none; }
   }
