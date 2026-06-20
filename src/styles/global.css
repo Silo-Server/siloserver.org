@@ -66,16 +66,16 @@
    instruments). Toggled via [data-theme="dark"] on <html>. */
 [data-theme="dark"] {
   color-scheme: dark;
-  --paper: #17120a;
-  --paper-high: #211b12;
-  --paper-dim: #100c06;
-  --paper-press: #0c0a05;
-  --ink: #efe8da;
-  --ink-soft: #d4ccbb;
-  --ink-mute: #a39a86;
-  --ink-faint: #766e5b;
-  --rule: #3a3327;
-  --rule-soft: #28221a;
+  --paper: #221c14;
+  --paper-high: #2c2519;
+  --paper-dim: #1b1610;
+  --paper-press: #15110b;
+  --ink: #e8e0d0;
+  --ink-soft: #cdc4b1;
+  --ink-mute: #a0977f;
+  --ink-faint: #786f5b;
+  --rule: #423a2d;
+  --rule-soft: #302820;
   --blue: #6f9bcf;
   --blue-deep: #93bce6;
   --blue-wash: rgba(111, 155, 207, 0.14);
@@ -96,7 +96,7 @@
     var(--paper);
 }
 [data-theme="dark"] .statusbar {
-  background: rgba(23, 19, 10, 0.9);
+  background: rgba(34, 28, 20, 0.9);
 }
 
 /* ---- Theme toggle (statusbar) ---------------------------- */
@@ -1056,6 +1056,15 @@ samp {
   position: relative;
   transition: background 0.16s ease;
 }
+/* blank cells that complete the last 3-col row (no exposed ruling) */
+.feature--filler {
+  pointer-events: none;
+}
+@media (max-width: 980px) {
+  .feature--filler {
+    display: none;
+  }
+}
 .feature:hover {
   background: var(--paper);
 }
@@ -1511,6 +1520,16 @@ samp {
     var(--orange) 14px 28px
   );
   opacity: 0.85;
+}
+/* In dark mode --ink is light cream, which makes the caution tape glare.
+   Swap the light stripe for a muted tan and ease the opacity. */
+[data-theme="dark"] .section--cta::before {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--ink-mute) 0 14px,
+    var(--orange) 14px 28px
+  );
+  opacity: 0.5;
 }
 .cta {
   display: inline-flex;
