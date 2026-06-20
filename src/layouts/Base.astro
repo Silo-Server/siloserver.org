@@ -100,11 +100,20 @@ const href = (path: string) => `${baseUrl}${path}`;
               ? "dark"
               : "light";
         }
+        function label(m) {
+          b.setAttribute(
+            "aria-label",
+            "Theme: " + (m === "auto" ? "auto (follow system)" : m),
+          );
+        }
         function apply() {
           var m = mode(stored());
           r.setAttribute("data-mode", m);
           r.setAttribute("data-theme", effective(m));
+          label(m);
         }
+        // Sync the label to the persisted mode on load, not just on click.
+        apply();
         // Cycle: auto (follow system) → light → dark → auto.
         // Each state has its own icon: monitor / sun / moon.
         b.addEventListener("click", function () {
@@ -114,10 +123,6 @@ const href = (path: string) => `${baseUrl}${path}`;
             localStorage.setItem(KEY, n);
           } catch (e) {}
           apply();
-          b.setAttribute(
-            "aria-label",
-            "Theme: " + (n === "auto" ? "auto (follow system)" : n),
-          );
         });
         mq.addEventListener("change", function () {
           if (mode(stored()) === "auto") apply();

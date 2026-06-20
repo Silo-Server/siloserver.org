@@ -45,8 +45,12 @@
     font-family: var(--disp); font-size: clamp(30px,4.6vw,52px); color: var(--ink); margin: 64px 0 8px; font-weight: 800;
     text-transform: uppercase; letter-spacing: .01em; line-height: .95;
     padding-bottom: 12px; border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 16px;
+    scroll-margin-top: 88px;
   }
   h2 .num { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: .08em; border: 1px solid var(--ink); background: var(--paper-high); padding: 4px 9px; position: relative; top: -4px; }
+  a.num { text-decoration: none; transition: background .15s, color .15s; }
+  a.num:hover { background: var(--blue); color: var(--paper); }
+  a.num:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
   h2 .num::before { content: "SEC.0"; }
   h3 { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin: 34px 0 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .14em; }
   p { margin: 13px 0; }
@@ -109,7 +113,9 @@
   .fbtn {
     cursor: pointer; font-family: var(--mono); font-size: 12px; font-weight: 500; padding: 5px 13px;
     background: var(--paper-high); color: var(--ink-mute); border: 1px solid var(--ink); user-select: none;
+    -webkit-appearance: none; appearance: none; border-radius: 0; line-height: 1.2;
   }
+  .fbtn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
   .fbtn:hover { color: var(--blue); }
   .fbtn.active { background: var(--ink); color: var(--paper-high); border-color: var(--ink); }
   .fcount { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin-left: auto; }
@@ -162,29 +168,73 @@
       radial-gradient(1200px 700px at 50% -12%,rgba(126,149,255,.05),transparent 65%),
       var(--paper);
   }
-  .theme-toggle{position:fixed;top:14px;right:14px;z-index:200;width:40px;height:40px;
-    display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
-    background:var(--paper-high);color:var(--ink);border:1.5px solid var(--ink);
-    box-shadow:3px 3px 0 var(--paper-press);transition:transform .12s ease,box-shadow .12s ease}
-  .theme-toggle:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--paper-press)}
-  .theme-toggle:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--paper-press)}
-  .theme-toggle svg{width:18px;height:18px;display:block}
-  .theme-toggle .sun,.theme-toggle .moon{display:none}
-  .theme-toggle .sys{display:block}
-  [data-mode="light"] .theme-toggle .sys{display:none}
-  [data-mode="light"] .theme-toggle .sun{display:block}
-  [data-mode="dark"] .theme-toggle .sys{display:none}
-  [data-mode="dark"] .theme-toggle .moon{display:block}
-  @media (prefers-reduced-motion:reduce){.theme-toggle{transition:none}}
+  [data-theme="dark"] .statusbar{background:rgba(23,19,10,.92)}
+  .silo-bars{display:inline-flex;flex-direction:column;gap:2px;width:14px;flex-shrink:0}
+  .silo-bars i{display:block;height:4px;width:100%;transform:skewX(-22deg)}
+  .silo-bars i:nth-child(1){background:var(--blue)}
+  .silo-bars i:nth-child(2){background:var(--red);width:75%}
+  .silo-bars i:nth-child(3){background:var(--orange);width:90%}
+  .statusbar{position:sticky;top:0;z-index:200;border-bottom:2px solid var(--ink);
+    background:rgba(250,247,239,.92);backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%)}
+  .statusbar a{border-bottom:none}
+  .statusbar__inner{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:0;padding:0 22px;
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);min-height:50px}
+  .statusbar__cell{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:0 18px;border-right:1px solid var(--rule);align-self:stretch}
+  .statusbar__cell:first-child{padding-left:0}
+  .statusbar__cell--brand{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:.04em;color:var(--ink);text-transform:uppercase}
+  .statusbar__dot{width:8px;height:8px;display:inline-block}
+  .statusbar__dot--green{background:var(--green)}
+  .statusbar__spacer{flex:1;border:0}
+  .statusbar__nav{display:flex;gap:16px;align-items:center}
+  .statusbar__nav a{color:var(--ink-mute);transition:color .14s ease}
+  .statusbar__nav a:hover{color:var(--blue)}
+  .statusbar__github{color:var(--paper-high)!important;background:var(--ink);padding:6px 14px;border:1px solid var(--ink);transition:background .14s ease,color .14s ease}
+  .statusbar__github:hover{background:var(--blue);border-color:var(--blue)}
+  .statusbar .silo-bars i{animation:silo-pulse 4.2s ease-in-out infinite}
+  .statusbar .silo-bars i:nth-child(2){animation-delay:.5s}
+  .statusbar .silo-bars i:nth-child(3){animation-delay:1s}
+  @keyframes silo-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .statusbar__theme{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;
+    background:transparent;color:var(--ink-mute);border:1px solid var(--rule);cursor:pointer;transition:color .12s ease,border-color .12s ease}
+  .statusbar__theme:hover{color:var(--ink);border-color:var(--ink)}
+  .statusbar__theme svg{width:16px;height:16px;display:block}
+  .statusbar__theme .sun,.statusbar__theme .moon{display:none}
+  .statusbar__theme .sys{display:block}
+  [data-mode="light"] .statusbar__theme .sys{display:none}
+  [data-mode="light"] .statusbar__theme .sun{display:block}
+  [data-mode="dark"] .statusbar__theme .sys{display:none}
+  [data-mode="dark"] .statusbar__theme .moon{display:block}
+  @media (max-width:820px){.statusbar__hide-sm{display:none}.statusbar__nav{gap:12px}.statusbar__nav a:not(.statusbar__github){display:none}}
+  @media (prefers-reduced-motion:reduce){.statusbar__theme{transition:none}.statusbar .silo-bars i{animation:none}}
 </style>
 <script>(function(){try{var K='starlight-theme',e=document.documentElement,c=localStorage.getItem(K),m=(c==='light'||c==='dark'||c==='auto')?c:'auto',d=(m==='dark')||(m!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);e.setAttribute('data-theme',d?'dark':'light');e.setAttribute('data-mode',m);}catch(e){}})();</script>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="Theme: auto (follow system)" title="Cycle theme — auto / light / dark">
-  <svg class="sys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="13" rx="1.5"/><path d="M8.5 21h7M12 17.5V21"/></svg>
-  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg>
-  <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.8A8.2 8.2 0 0 1 9.2 3.5 7.2 7.2 0 1 0 20.5 14.8z"/></svg>
-</button>
+<header class="statusbar" aria-label="Project status">
+  <div class="statusbar__inner">
+    <span class="statusbar__cell statusbar__cell--brand">
+      <span class="silo-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="statusbar__wordmark">silo</span>
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono">
+      <span class="statusbar__dot statusbar__dot--green"></span>pre-1.0
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono statusbar__hide-sm">AGPL-3.0-or-later</span>
+    <span class="statusbar__spacer"></span>
+    <nav class="statusbar__nav" aria-label="Primary">
+      <a href="/#features">features</a>
+      <a href="/#clients">clients</a>
+      <a href="/#stack">stack</a>
+      <a href="/docs">docs</a>
+      <a href="https://github.com/Silo-Server/silo-server" class="statusbar__github">github ↗</a>
+      <button type="button" id="themeToggle" class="statusbar__theme" aria-label="Theme: auto (follow system)" title="Cycle theme — auto / light / dark">
+        <svg class="sys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="13" rx="1.5"/><path d="M8.5 21h7M12 17.5V21"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.8A8.2 8.2 0 0 1 9.2 3.5 7.2 7.2 0 1 0 20.5 14.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
 <div class="wrap">
 
 <header class="hero">
@@ -207,11 +257,11 @@
 </nav>
 
 <!-- ===== 1. SUMMARY ===== -->
-<h2 id="summary"><span class="num">1</span>Release summary</h2>
+<h2 id="summary"><a class="num" href="#summary">1</a>Release summary</h2>
 <p>Silo v1.0 is a self-hosted media server for <strong>movies, series, and audiobooks</strong>, delivered with native clients on <strong>iPhone/iPad, Apple TV, Android phone, and Android TV</strong>, plus a <strong>web app</strong> for both viewing and server administration. The core promise is a complete <strong>browse &rarr; metadata &rarr; play</strong> experience at parity on every client, surrounded by a mature server: multi-profile households with access control, personalization, distributed and hardware-accelerated transcoding, casting, offline downloads, plugin extensibility, and migration tools for moving in from Plex, Jellyfin, and Emby &mdash; including drop-in compatibility for existing Jellyfin and Audiobookshelf clients.</p>
 
 <!-- ===== 2. PLATFORMS ===== -->
-<h2 id="platforms"><span class="num">2</span>Platforms &amp; clients</h2>
+<h2 id="platforms"><a class="num" href="#platforms">2</a>Platforms &amp; clients</h2>
 <p class="lede">v1.0 ships four native clients plus a web app &mdash; five consumption surfaces &mdash; at feature parity for the core experience. The web app is also the server&rsquo;s administration surface.</p>
 <div class="plat">
   <div class="platcard wide"><b>Web app</b><span>Browse and play in the browser, plus the full admin surface: user management, metadata editing, plugin marketplace, migration tools.</span></div>
@@ -223,7 +273,7 @@
 <p style="font-size:13.5px; color:var(--ink-mute);"><strong>What &ldquo;parity&rdquo; means.</strong> Core-experience parity (browse &rarr; metadata &rarr; play, section&nbsp;4) is mandatory and identical on every surface. Beyond that, parity is per-feature: <strong>each feature&rsquo;s surface tags are its parity contract</strong>. Deliberate asymmetry &mdash; web-only admin, mobile-only downloads &mdash; is by design; a platform lacking a feature it isn&rsquo;t tagged for is not a gap.</p>
 
 <!-- ===== 3. LIBRARIES ===== -->
-<h2 id="libraries"><span class="num">3</span>Library types</h2>
+<h2 id="libraries"><a class="num" href="#libraries">3</a>Library types</h2>
 <p class="lede">Three library types ship in v1.0, each at full parity across every client. Each must clear the Core Experience bar in section&nbsp;4.</p>
 <div class="libgrid">
   <div class="libcard"><h4>Movies</h4><p>TMDB metadata. Extras and edition labels where present.</p></div>
@@ -234,7 +284,7 @@
 <p style="font-size:13.5px; color:var(--muted);"><strong>Plugin contract.</strong> Library and marker support is delivered through plugins. <strong>Metadata:</strong> a library type counts as first-party-supported only once at least one first-party metadata plugin validates against it (Movies&nbsp;&rarr;&nbsp;TMDB, Series&nbsp;&rarr;&nbsp;TMDB&nbsp;+&nbsp;TVDB, Audiobooks&nbsp;&rarr;&nbsp;audiobook-metadata). <strong>Marker:</strong> Movie/Series libraries only. <strong>Request:</strong> the request system is first-party and extensible; community-maintained plugins can automate how requests are sourced. <strong>Autoscan:</strong> Silo owns the scan intake API; community-maintained adapters connect specific automation stacks or file-change sources.</p>
 
 <!-- ===== 4. CORE ===== -->
-<h2 id="core"><span class="num">4</span>Core experience &mdash; Library-user acceptance</h2>
+<h2 id="core"><a class="num" href="#core">4</a>Core experience &mdash; Library-user acceptance</h2>
 <p class="lede">The Core Experience is the consumer&rsquo;s experience, so it is written as <strong>library-user acceptance</strong> &mdash; the journey a person takes through any shipping library type, validated on every client &mdash; with a separate <strong>admin acceptance</strong> group for the server-side guarantees a user never touches directly. Budgets are p95 ranges on stated reference hardware. Each item states what is in and, where relevant, what is out (forward-only progress, single-quality transcode sessions, mid-stream track-switch restarts the transcode).</p>
 
 <div class="def">
@@ -273,19 +323,19 @@
 </div>
 
 <!-- ===== 5. FEATURES ===== -->
-<h2 id="features"><span class="num">5</span>Features in v1.0</h2>
+<h2 id="features"><a class="num" href="#features">5</a>Features in v1.0</h2>
 <p class="lede">Everything below is in scope for v1.0, with acceptance criteria shown in full. Each feature is tagged with the surfaces it ships on. Use the filter to narrow by platform or scope.</p>
 
 <div class="filterbar">
   <span class="flabel">Filter</span>
-  <span class="fbtn active" onclick="filterScope('all', this)">All</span>
-  <span class="fbtn" onclick="filterScope('ios', this)">iOS</span>
-  <span class="fbtn" onclick="filterScope('tvos', this)">tvOS</span>
-  <span class="fbtn" onclick="filterScope('android', this)">Android</span>
-  <span class="fbtn" onclick="filterScope('androidtv', this)">Android TV</span>
-  <span class="fbtn" onclick="filterScope('web', this)">Web</span>
-  <span class="fbtn" onclick="filterScope('admin', this)">Web admin</span>
-  <span class="fbtn" onclick="filterScope('server', this)">Server</span>
+  <button type="button" class="fbtn active" aria-pressed="true" onclick="filterScope('all', this)">All</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('ios', this)">iOS</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('tvos', this)">tvOS</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('android', this)">Android</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('androidtv', this)">Android TV</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('web', this)">Web</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('admin', this)">Web admin</button>
+  <button type="button" class="fbtn" aria-pressed="false" onclick="filterScope('server', this)">Server</button>
   <span class="fcount" id="fcount">39 features</span>
 </div>
 
@@ -715,7 +765,7 @@
 </div>
 
 <!-- ===== 6. READINESS ===== -->
-<h2 id="readiness"><span class="num">6</span>Release-readiness gates</h2>
+<h2 id="readiness"><a class="num" href="#readiness">6</a>Release-readiness gates</h2>
 <p class="lede">Cross-cutting criteria a public, self-hosted 1.0 must clear, independent of any single feature.</p>
 <div class="def amber">
   <div class="grp">
@@ -738,7 +788,7 @@
 </div>
 
 <!-- ===== 7. DEFERRED ===== -->
-<h2 id="deferred"><span class="num">7</span>Not in v1.0</h2>
+<h2 id="deferred"><a class="num" href="#deferred">7</a>Not in v1.0</h2>
 <p class="lede">Explicitly held for later. &ldquo;Deferred&rdquo; is enforced, not aspirational: a feature is out of v1.0 only when no release build can <em>reach or advertise</em> it &mdash; the bar is reachability, not whether the code exists.</p>
 
 <p style="font-size:13.5px; color:var(--ink-mute);">The gate tiers below apply to surfaces deferred across <strong>all</strong> release builds. A feature that is in-scope on one platform but absent on another is not a gating concern &mdash; that asymmetry is governed by each feature's surface tags (see section&nbsp;2), enforced per-platform, not by these gates.</p>
@@ -772,15 +822,12 @@
   </tbody>
 </table></div>
 
-<div class="footer">
-  Silo v1.0 Release Definition (expanded) &middot; scope of record &middot; 2026-06-19
-</div>
-
 </div>
 <script>
 function filterScope(scope, btn){
-  document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
   btn.classList.add('active');
+  btn.setAttribute('aria-pressed','true');
   document.querySelectorAll('.fcard').forEach(function(c){
     var toks = c.getAttribute('data-scope').split(' ');
     var show = (scope === 'all') || toks.indexOf(scope) >= 0;
@@ -795,6 +842,6 @@ function filterScope(scope, btn){
   if (cnt) cnt.textContent = n + (n === 1 ? ' feature' : ' features');
 }
 </script>
-<script>(function(){var K='starlight-theme',r=document.documentElement,b=document.getElementById('themeToggle');if(!b)return;var mq=matchMedia('(prefers-color-scheme:dark)');function s(){try{return localStorage.getItem(K)}catch(e){return null}}function md(v){return(v==='light'||v==='dark'||v==='auto')?v:'auto'}function eff(m){return(m==='dark'||m==='light')?m:(mq.matches?'dark':'light')}function apply(){var m=md(s());r.setAttribute('data-mode',m);r.setAttribute('data-theme',eff(m))}b.addEventListener('click',function(){var c=md(s()),n=(c==='auto')?'light':(c==='light')?'dark':'auto';try{localStorage.setItem(K,n)}catch(e){}apply();b.setAttribute('aria-label','Theme: '+(n==='auto'?'auto (follow system)':n))});mq.addEventListener('change',function(){if(md(s())==='auto')apply()})})();</script>
+<script>(function(){var K='starlight-theme',r=document.documentElement,b=document.getElementById('themeToggle');if(!b)return;var mq=matchMedia('(prefers-color-scheme:dark)');function s(){try{return localStorage.getItem(K)}catch(e){return null}}function md(v){return(v==='light'||v==='dark'||v==='auto')?v:'auto'}function eff(m){return(m==='dark'||m==='light')?m:(mq.matches?'dark':'light')}function lbl(m){b.setAttribute('aria-label','Theme: '+(m==='auto'?'auto (follow system)':m))}function apply(){var m=md(s());r.setAttribute('data-mode',m);r.setAttribute('data-theme',eff(m));lbl(m)}apply();b.addEventListener('click',function(){var c=md(s()),n=(c==='auto')?'light':(c==='light')?'dark':'auto';try{localStorage.setItem(K,n)}catch(e){}apply()});mq.addEventListener('change',function(){if(md(s())==='auto')apply()})})();</script>
 </body>
 </html>
