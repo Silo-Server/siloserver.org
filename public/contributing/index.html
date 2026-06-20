@@ -406,7 +406,7 @@
 
     <div class="panel">
       <ul class="dd">
-        <li><span class="mk y">&rarr;</span><span><b>Link every PR to the issue it serves</b> with <code>Part of #NNN</code> &mdash; the surface sub when your change is for one client, the parent when it&rsquo;s cross-cutting.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>PRs land against either level</b> &mdash; link to the one your change serves with <code>Part of #NNN</code>. Use the <b>surface sub</b> when the work is confined to one client; use the <b>parent</b> for anything not surface-specific &mdash; the shared server/API core, schema, or a change that spans clients. The parent isn&rsquo;t just an umbrella to track the subs; it&rsquo;s where the capability&rsquo;s own code lands.</span></li>
         <li><span class="mk y">&rarr;</span><span><b>Don&rsquo;t invent parallel trackers.</b> The acceptance criteria on the parent <em>are</em> the definition of done &mdash; tick those boxes, don&rsquo;t write your own list.</span></li>
         <li><span class="mk y">&rarr;</span><span>A <b>library type</b> also feeds the project&rsquo;s <b>Library</b> field and carries a <b>plugin-validation</b> sub alongside its surface subs.</span></li>
       </ul>
