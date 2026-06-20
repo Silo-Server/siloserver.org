@@ -33,15 +33,15 @@
   --sl-color-accent-low: #1c2a5e;
   --sl-color-accent: #92aaff;
   --sl-color-accent-high: #c4d1ff;
-  --sl-color-white: #ece5d3;
-  --sl-color-gray-1: #d8d1bd;
+  --sl-color-white: #e8e0d0;
+  --sl-color-gray-1: #d0c8b5;
   --sl-color-gray-2: #b3ac98;
   --sl-color-gray-3: #8d8674;
   --sl-color-gray-4: #5c5747;
-  --sl-color-gray-5: #2e2a21;
-  --sl-color-gray-6: #1e1b15;
-  --sl-color-gray-7: #1a1712;
-  --sl-color-black: #161410;
+  --sl-color-gray-5: #423a2d;
+  --sl-color-gray-6: #2e2619;
+  --sl-color-gray-7: #2a2318;
+  --sl-color-black: #221c14;
 }
 
 /* Headings in the display face */

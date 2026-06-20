@@ -46,6 +46,13 @@ import { REPOS, repoUrl } from "../data/siteConfig";
           </article>
         ))
       }
+      {/* Fill the trailing cells of the 3-col row so the grid's ruling
+          background (var(--ink)) isn't exposed as a bright block. */}
+      {
+        Array.from({ length: (3 - (features.length % 3)) % 3 }).map(() => (
+          <span class="feature feature--filler" aria-hidden="true" />
+        ))
+      }
     </div>
   </div>
 </section>
