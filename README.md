@@ -140,6 +140,13 @@ The brand mark — three skewed bars in blue, red, orange — recurs as a
 design element throughout the page via the `SiloBars` component. The
 Starlight docs are themed to match via `src/styles/docs.css`.
 
-## License
+## License & Trademarks
 
-AGPL-3.0-or-later, matching the rest of the Silo project.
+The site's source is licensed `AGPL-3.0-or-later`, matching the rest of the Silo
+project. See [LICENSE](LICENSE).
+
+The **Silo name, logo, and wordmark are trademarks of Silo Media L.L.C.** and
+are **not** covered by the AGPL. You're free to fork and redistribute the code,
+but forks and redistributions must not use the Silo brand as their identity and
+must remove or replace the brand assets. See [TRADEMARK.md](TRADEMARK.md) for
+what's permitted — including referential use like "compatible with Silo."
