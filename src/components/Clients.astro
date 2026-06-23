@@ -1,6 +1,6 @@
 ---
 import { nativeClients, compatClients, absClients } from "../data/clients";
-import { REPOS, repoUrl } from "../data/siteConfig";
+import { REPOS } from "../data/siteConfig";
 import { releaseFor, downloadLinkFor } from "../data/releases";
 ---
 
@@ -10,25 +10,21 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
       <div>
         <p class="section__eyebrow">
           <span class="hatch ink-orange" aria-hidden="true"></span>
-          <span>sec. 04 — clients</span>
+          <span>sec. 03 — clients</span>
         </p>
         <h2 class="section__title">
-          First-party where it counts. <br />Open everywhere else.
+          Use the app <br />you like.
         </h2>
       </div>
       <p class="section__lede">
-        The web app ships with the server, and we're building native apps
-        for every other screen worth shipping on — SwiftUI on Apple,
-        Compose on Android. Those are still work-in-progress, with iOS and
-        tvOS nearly ready. Until they land, the Jellyfin-protocol
-        compatibility layer means the third-party clients you already
-        trust just work.
+        Silo ships with a web app, has native clients in progress, and speaks
+        open protocols so existing apps can connect.
       </p>
     </header>
 
     <h3 class="cluster__title">
       <span class="cluster__line"></span>
-      <span>first-party clients</span>
+      <span>Silo clients</span>
       <span class="cluster__line"></span>
     </h3>
 
@@ -66,14 +62,12 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
 
     <h3 class="cluster__title">
       <span class="cluster__line"></span>
-      <span>jellyfin-compatible third-party clients</span>
+      <span>Jellyfin-compatible</span>
       <span class="cluster__line"></span>
     </h3>
 
     <p class="cluster__caption">
-      Silo speaks the full Jellyfin protocol on port <code>:8096</code>.
-      Auth, items, sessions, websockets, the Jellyfin web SPA — all served.
-      Point any of these at <code>http://silo:8096</code> and it just works.
+      Point compatible video clients at <code>http://silo:8096</code>.
     </p>
 
     <div class="compat-grid">
@@ -97,15 +91,12 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
 
     <h3 class="cluster__title">
       <span class="cluster__line"></span>
-      <span>audiobookshelf-compatible clients</span>
+      <span>Audiobookshelf-compatible</span>
       <span class="cluster__line"></span>
     </h3>
 
     <p class="cluster__caption">
-      Audiobook libraries are also served over the Audiobookshelf protocol
-      on port <code>:13378</code>. Point any of these at
-      <code>http://silo:13378</code>, sign in with your Silo credentials,
-      and listen — progress, chapters, and bookmarks all sync.
+      Point audiobook apps at <code>http://silo:13378</code>.
     </p>
 
     <div class="compat-grid">
