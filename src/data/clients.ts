@@ -1,4 +1,4 @@
-// Section 04 — Native first-party clients + Jellyfin- and Audiobookshelf-compatible third-party clients.
+// Native first-party clients + Jellyfin- and Audiobookshelf-compatible third-party clients.
 
 export type ClientStatus = "ok" | "beta" | "alpha";
 
@@ -14,63 +14,30 @@ export interface NativeClient {
 
 export const nativeClients: NativeClient[] = [
   {
-    name: "Silo for Web",
+    name: "Silo Web",
     icon: "▦",
-    platform: "React · TypeScript · Vite",
-    body:
-      "The admin and viewing UI that ships with the server. Dark by default, cinematic, with the Ken Burns hero you'd expect.",
+    platform: "Browser",
+    body: "The built-in app for setup, admin, and playback.",
     status: "ok",
     statusLabel: "● shipping",
     repo: "server",
   },
   {
-    name: "Silo for iOS",
+    name: "Silo for Apple",
     icon: "▢",
-    platform: "SwiftUI · AVKit",
-    body:
-      "Native iOS app. Direct play and HLS playback, Picture-in-Picture, Now Playing integration.",
+    platform: "iOS · tvOS · macOS",
+    body: "Native SwiftUI apps for Apple screens.",
     status: "beta",
-    statusLabel: "● beta · nearly ready",
-    repo: "apple",
-  },
-  {
-    name: "Silo for tvOS",
-    icon: "▭",
-    platform: "SwiftUI · Top Shelf",
-    body:
-      "Apple TV native, with Top Shelf integration, focus-engine navigation, and a custom player tuned for Dolby Vision.",
-    status: "beta",
-    statusLabel: "● beta · nearly ready",
-    repo: "apple",
-  },
-  {
-    name: "Silo for macOS",
-    icon: "⌘",
-    platform: "SwiftUI · AppKit bridge",
-    body:
-      "Native Mac client. Multi-window, drag-and-drop, the same playback core as the iOS app.",
-    status: "alpha",
-    statusLabel: "● alpha",
+    statusLabel: "● beta",
     repo: "apple",
   },
   {
     name: "Silo for Android",
     icon: "▴",
-    platform: "Compose · Media3",
-    body:
-      "Phone and tablet. Built on Media3 with a bundled ffmpeg AAR decoder for tracks the platform won't touch.",
+    platform: "Android · Android TV",
+    body: "Compose and Media3 clients for phones, tablets, and TVs.",
     status: "beta",
-    statusLabel: "● beta · WIP",
-    repo: "android",
-  },
-  {
-    name: "Silo for Android TV",
-    icon: "▥",
-    platform: "Compose for TV · Media3",
-    body:
-      "Designed for the remote. D-pad first navigation, big posters, fast resume. Compose for TV under the hood.",
-    status: "alpha",
-    statusLabel: "● alpha",
+    statusLabel: "● beta",
     repo: "android",
   },
 ];
@@ -116,24 +83,6 @@ export const compatClients: CompatClient[] = [
     ],
   },
   {
-    name: "VidHub",
-    platforms: "iOS · tvOS · macOS",
-    status: "verified",
-    links: [
-      { label: "okaapps.com", href: "https://okaapps.com/product/1659622164" },
-      {
-        label: "app store",
-        href: "https://apps.apple.com/app/vidhub-video-library-player/id1659622164",
-      },
-    ],
-  },
-  {
-    name: "JellyCon",
-    platforms: "Kodi",
-    status: "verified",
-    links: [{ label: "github", href: "https://github.com/jellyfin/jellycon" }],
-  },
-  {
     name: "Streamyfin",
     platforms: "iOS · Android",
     status: "verified",
@@ -150,32 +99,11 @@ export const compatClients: CompatClient[] = [
     ],
   },
   {
-    name: "Wholphin",
-    platforms: "Android TV",
-    status: "verified · recommended",
-    links: [
-      { label: "github", href: "https://github.com/damontecres/Wholphin" },
-      {
-        label: "play store",
-        href: "https://play.google.com/store/apps/details?id=com.github.damontecres.wholphin",
-      },
-    ],
-  },
-  {
     name: "Jellyfin Web",
     platforms: "browser",
     status: "vendored at /web/",
     links: [
       { label: "github", href: "https://github.com/jellyfin/jellyfin-web" },
-    ],
-  },
-  {
-    name: "mpv (libmpv)",
-    platforms: "any",
-    status: "verified",
-    links: [
-      { label: "mpv.io", href: "https://mpv.io" },
-      { label: "github", href: "https://github.com/mpv-player/mpv" },
     ],
   },
 ];
@@ -203,22 +131,5 @@ export const absClients: CompatClient[] = [
         href: "https://apps.apple.com/app/plappa/id6475201956",
       },
     ],
-  },
-  {
-    name: "AudioBooth",
-    platforms: "iOS",
-    status: "verified",
-    links: [
-      {
-        label: "app store",
-        href: "https://apps.apple.com/app/audiobooth-audiobooks-player/id6753017503",
-      },
-    ],
-  },
-  {
-    name: "AudiobookshelfFully",
-    platforms: "Android",
-    status: "verified",
-    links: [],
   },
 ];
