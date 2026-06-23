@@ -2,9 +2,9 @@
 
 export const SITE = {
   name: "silo",
-  tagline: "a self-hosted media server, on modern infra.",
+  tagline: "self-hosted media, built to scale.",
   description:
-    "Silo is a self-hosted media server. Go + Postgres. Performance-first. Native clients for Apple, Android, and Web. Plays nice with the Jellyfin client ecosystem.",
+    "Silo is a self-hosted media server built with Go, Postgres, ffmpeg, and open client protocols.",
   status: "pre-1.0",
   license: "AGPL-3.0-or-later",
   github: {
