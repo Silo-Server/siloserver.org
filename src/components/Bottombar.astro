@@ -1,6 +1,8 @@
 ---
 import SiloBars from "./SiloBars.astro";
 import { SITE, REPOS, repoUrl } from "../data/siteConfig";
+
+const docsHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/docs`;
 ---
 
 <footer class="titleblock" aria-label="Footer">
@@ -12,12 +14,11 @@ import { SITE, REPOS, repoUrl } from "../data/siteConfig";
       </span>
     </div>
     <div class="titleblock__cell">
-      <span class="titleblock__label">repositories</span>
+      <span class="titleblock__label">links</span>
       <span class="titleblock__value">
-        <a href={repoUrl(REPOS.server)}>silo-server</a>
-        <a href={repoUrl(REPOS.apple)}>silo-apple</a>
-        <a href={repoUrl(REPOS.android)}>silo-android</a>
-        <a href={repoUrl(REPOS.pluginSdk)}>plugin-sdk</a>
+        <a href={docsHref}>docs</a>
+        <a href={repoUrl(REPOS.server)}>source</a>
+        <a href={SITE.github.orgUrl}>org</a>
       </span>
     </div>
     <div class="titleblock__cell">
@@ -25,14 +26,8 @@ import { SITE, REPOS, repoUrl } from "../data/siteConfig";
       <span class="titleblock__value">{SITE.license}</span>
     </div>
     <div class="titleblock__cell">
-      <span class="titleblock__label">drawn with</span>
-      <span class="titleblock__value">
-        <span class="ink-red">♥</span> + <span class="ink-blue">ffmpeg</span>
-      </span>
-    </div>
-    <div class="titleblock__cell">
-      <span class="titleblock__label">sheet</span>
-      <span class="titleblock__value">01 / 01 · rev {SITE.status}</span>
+      <span class="titleblock__label">status</span>
+      <span class="titleblock__value">{SITE.status}</span>
     </div>
   </div>
 </footer>

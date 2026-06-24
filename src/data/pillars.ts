@@ -1,4 +1,4 @@
-// Section 01 — "What's underneath" infrastructure pillars.
+// Section 02 — concise infrastructure pillars.
 // Each pillar gets a colored accent bar and a 4-cell spec sheet.
 
 export type PillarColor = "blue" | "red" | "orange" | "multi";
@@ -21,25 +21,25 @@ export interface Pillar {
 export const pillars: Pillar[] = [
   {
     label: "/* storage */",
-    title: "PostgreSQL 18 + pgvector",
+    title: "Postgres for the catalog",
     color: "blue",
     body:
-      "Your catalog is a relational database you can backup, migrate, replicate, and query — not an opaque blob inside an application directory. pgvector handles the embeddings that power recommendations without bolting on a second datastore.",
+      "Metadata, users, watch history, and recommendations live in a database you can back up and inspect.",
     specs: [
       { label: "primary", value: "postgres 18" },
-      { label: "vectors", value: "pgvector 0.8" },
-      { label: "cache", value: "redis (optional)" },
+      { label: "vectors", value: "pgvector" },
+      { label: "cache", value: "redis optional" },
       { label: "objects", value: "S3-compatible" },
     ],
   },
   {
     label: "/* runtime */",
-    title: "Go 1.26, end to end",
+    title: "Fast Go backend",
     color: "red",
     body:
-      "Predictable memory, fast cold-start, real concurrency. Transcode sessions, scanner walks, and the realtime hub are all goroutines — no thread pool to tune, no GC pauses long enough to disrupt a stream.",
+      "Scanning, sessions, realtime updates, and transcode orchestration run in one predictable Go service.",
     specs: [
-      { label: "backend", value: "go 1.26" },
+      { label: "backend", value: "go" },
       { label: "frontend", value: "react + vite" },
       { label: "tooling", value: "bun · pnpm" },
       { label: "tests", value: "testcontainers" },
@@ -47,10 +47,10 @@ export const pillars: Pillar[] = [
   },
   {
     label: "/* plugins */",
-    title: "gRPC, out of process",
+    title: "Plugins stay outside",
     color: "orange",
     body:
-      "Plugins are self-contained Go binaries that speak protobuf to the host over a local gRPC socket. Out-of-process means a misbehaving plugin can crash or be hot-reloaded without taking the host down. Capability families for metadata, analyzers, scheduled tasks, HTTP routes, and auth.",
+      "Plugins speak protobuf over gRPC, so metadata providers and analyzers can change without forking the server.",
     specs: [
       { label: "wire", value: "gRPC + protobuf" },
       { label: "SDK", value: "silo-plugin-sdk" },
@@ -60,10 +60,10 @@ export const pillars: Pillar[] = [
   },
   {
     label: "/* scale */",
-    title: "Cluster-aware by default",
+    title: "One box or many",
     color: "multi",
     body:
-      "One image, four modes. Run everything in a single container on a mini PC, or drop a transcode and proxy worker into every node of your Proxmox / K3s / Docker Swarm cluster. The pool balances streams across whichever workers are up.",
+      "Run everything together, or split API, proxy, and transcode workers across the machines you already have.",
     specs: [
       { label: "modes", value: "integrated · api · proxy · transcode" },
       { label: "fits", value: "proxmox · k3s · bare metal" },
