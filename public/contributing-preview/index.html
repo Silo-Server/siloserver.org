@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silo — Contributor Rules of Engagement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,300..900&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1ecdf; --paper-high:#faf7ef; --paper-dim:#e7e0cd; --paper-press:#ded5bf;
+    --ink:#181511; --ink-soft:#3f3a31; --ink-mute:#6f6757; --ink-faint:#9a917e;
+    --rule:#c9c0a9; --rule-soft:#ded6c1;
+    --blue:#2447c9; --blue-wash:rgba(36,71,201,.08);
+    --red:#c92f23; --red-wash:rgba(201,47,35,.08);
+    --orange:#df7014; --orange-wash:rgba(223,112,20,.1);
+    --green:#1d7a44; --green-wash:rgba(29,122,68,.1);
+    --console:#161410; --console-elev:#1e1b15; --console-rule:#2e2a21; --console-ink:#ece5d3; --console-mute:#8d8674; --console-dim:#5c5747;
+    --bp:#1b3a96; --bp-deep:#142c75; --bp-line:#ecf1ff; --bp-grid:rgba(173,197,255,.16); --bp-mute:#93aae8;
+    /* legacy names remapped onto the datasheet so existing inline styles adopt it */
+    --panel:var(--paper-high); --panel-2:#f4f0e4; --line:var(--rule);
+    --text:var(--ink-soft); --head:var(--ink); --muted:var(--ink-mute);
+    --rail:var(--blue); --go:var(--green); --hold:var(--orange); --stop:var(--red);
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --sans:'Archivo',system-ui,sans-serif;
+    --disp:'Big Shoulders','Archivo',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:
+      repeating-linear-gradient(0deg,rgba(24,21,17,.013) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(24,21,17,.009) 0 1px,transparent 1px 3px),
+      radial-gradient(1200px 700px at 50% -12%,rgba(255,253,246,.7),transparent 65%),
+      var(--paper);
+    color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--blue);color:var(--paper-high)}
+  a{color:var(--blue);text-decoration:none}
+  strong{color:var(--ink);font-weight:700}
+  code{font-family:var(--mono);font-size:.86em;background:var(--blue-wash);border:1px solid var(--rule);
+    padding:1px 5px;color:var(--blue)}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-mute);font-weight:500}
+  .muted{color:var(--ink-mute)}
+
+  /* ===== header — datasheet cover ===== */
+  header.hero{padding:58px 0 30px;border-bottom:1px solid var(--rule)}
+  .hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,82px);line-height:.92;
+    letter-spacing:.01em;text-transform:uppercase;color:var(--ink);margin:16px 0 0;}
+  .hero h1 .em{color:var(--blue)}
+  .hero .lede{max-width:700px;color:var(--ink-soft);font-size:16.5px;margin:22px 0 0}
+  .hero .lede b{color:var(--ink);font-weight:600}
+  .herometa{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+  .herometa .chip{font-size:11px}
+
+  /* ===== section layout ===== */
+  main{padding:6px 0 80px}
+  .station{position:relative;padding:54px 0 8px;border-top:1px solid var(--rule);scroll-margin-top:84px}
+  .station:first-child{border-top:none}
+  .st-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  .st-code{font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:600;letter-spacing:.1em;
+    border:1px solid var(--ink);padding:4px 9px;background:var(--paper-high);
+    text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+  a.st-code:hover{background:var(--blue);color:var(--paper)}
+  a.st-code:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .st-code::before{content:"ART."}
+  .st-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.4vw,46px);letter-spacing:.01em;
+    text-transform:uppercase;line-height:.95;color:var(--ink);margin:0}
+  .st-sub{color:var(--ink-soft);max-width:760px;margin:12px 0 0;font-size:15.5px}
+  .st-sub b{color:var(--ink);font-weight:600}
+
+  .panel{background:var(--paper-high);border:1.5px solid var(--ink);padding:20px 22px;margin:20px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+  /* ===== the rule callout ===== */
+  .rule{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--ink);border-left-width:5px;
+    border-left-color:var(--orange);background:var(--paper-high);padding:15px 18px;margin:18px 0}
+  .rule.stop{border-left-color:var(--red)}
+  .rule.go{border-left-color:var(--green)}
+  .rule .tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--orange);font-weight:600;white-space:nowrap;margin-top:2px}
+  .rule.stop .tag{color:var(--red)}
+  .rule.go .tag{color:var(--green)}
+  .rule p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .rule p b{color:var(--ink)}
+
+  .lane{border:1.5px solid var(--ink);padding:16px 18px;margin:14px 0;background:var(--paper-high)}
+  .lane h4{margin:0 0 3px;font-family:var(--disp);font-weight:750;font-size:22px;text-transform:uppercase;
+    letter-spacing:.01em;color:var(--ink)}
+  .lane .lwhat{margin:0 0 12px;font-size:13px;color:var(--ink-mute)}
+  .reporow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .repo{font-family:var(--mono);font-size:12px;color:var(--ink-soft);background:var(--paper);
+    border:1px solid var(--rule);padding:4px 9px;white-space:nowrap}
+  .repo.lock{border-color:var(--ink);color:var(--ink)}
+
+  /* do / don't list */
+  .dd{list-style:none;margin:12px 0 0;padding:0}
+  .dd li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--rule-soft);font-size:13.5px;color:var(--ink-soft)}
+  .dd li:first-child{border-top:none}
+  .dd .mk{font-family:var(--mono);font-weight:700;flex:none;width:18px;text-align:center}
+  .dd .mk.y{color:var(--green)} .dd .mk.n{color:var(--red)}
+  .dd b{color:var(--ink)}
+
+  /* tracking tree — parent issue + per-surface subs */
+  .tracktree{margin-top:13px}
+  .tt-parent{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    border:1.5px solid var(--ink);background:var(--paper);padding:11px 14px}
+  .tt-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--blue);border:1px solid var(--blue);padding:2px 7px}
+  .tt-parent b{font-family:var(--disp);font-weight:750;font-size:19px;text-transform:uppercase;
+    letter-spacing:.01em;color:var(--ink)}
+  .tt-meta{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-left:auto}
+  .tt-subs{margin:0 0 0 19px;padding-left:18px;border-left:1px dashed var(--rule)}
+  .tt-sub{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 0;
+    border-bottom:1px solid var(--rule-soft);font-size:13.5px;color:var(--ink-soft)}
+  .tt-sub:last-child{border-bottom:none}
+  .tt-nm{flex:1;min-width:150px}
+  .tt-sub .pill{font-size:10px}
+
+  .eyebrow.cap{display:block;margin-bottom:6px}
+
+  /* roadmap + group bands */
+  .roadmap{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);background:var(--paper-high);margin:26px 0 0}
+  .rm-group{padding:15px 18px;border-left:1px solid var(--rule)}
+  .rm-group:first-child{border-left:none}
+  .rm-group h4{margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .rm-group a{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);padding:5px 0;border-top:1px solid var(--rule-soft)}
+  .rm-group a:hover{color:var(--blue)}
+  .groupband{display:flex;align-items:center;gap:11px;margin:48px 0 -10px;color:var(--blue);
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+  .groupband::before{content:"";width:22px;height:2px;background:var(--blue);flex:none}
+  @media (max-width:820px){
+    .roadmap{grid-template-columns:1fr}
+    .rm-group{border-left:none;border-top:1px solid var(--rule)}
+    .rm-group:first-child{border-top:none}
+  }
+
+  /* chips / pills */
+  .chip{font-family:var(--mono);font-size:10.5px;font-weight:500;padding:2px 8px;
+    border:1px solid var(--rule);background:var(--paper);color:var(--ink-mute);white-space:nowrap;letter-spacing:.02em}
+  .labelset h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-mute);margin:16px 0 8px;font-weight:600}
+  .labelset h5:first-child{margin-top:0}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{font-family:var(--mono);font-size:11px;padding:3px 10px;font-weight:500;
+    border:1px solid var(--rule);background:var(--paper);color:var(--ink-soft)}
+  .pill.plat{background:var(--blue-wash);color:var(--blue);border-color:var(--blue)}
+  .pill.lib{background:var(--blue-wash);color:var(--blue);border-color:var(--blue)}
+  .pill.val-hold{background:var(--orange-wash);color:var(--orange);border-color:var(--orange)}
+  .pill.val-go{background:var(--green-wash);color:var(--green);border-color:var(--green)}
+  .pill.val-prog{background:var(--blue-wash);color:var(--blue);border-color:var(--blue)}
+  .pill.scope{border-color:var(--ink-faint);color:var(--ink-soft)}
+  .pill.gate{background:var(--red-wash);color:var(--red);border-color:var(--red)}
+
+  /* validation signal */
+  .flow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 4px}
+  .state{display:inline-flex;align-items:center;gap:9px;border:1.5px solid var(--ink);
+    padding:10px 15px;background:var(--paper);font-family:var(--mono);font-size:12px}
+  .state .big{width:11px;height:11px}
+  .state.todo .big{background:transparent;border:1px solid var(--ink-mute)} .state.todo{color:var(--ink-mute)}
+  .state.hold .big{background:var(--orange)} .state.hold{color:var(--orange)}
+  .state.prog .big{background:var(--blue)} .state.prog{color:var(--blue)}
+  .state.go .big{background:var(--green)} .state.go{color:var(--green)}
+  .arrow{color:var(--ink-faint);font-family:var(--mono)}
+  .gate-note{margin-top:14px;font-size:13.5px;color:var(--ink-soft)}
+  .gate-note b{color:var(--ink)}
+  .failpath{display:flex;gap:11px;align-items:flex-start;margin:14px 0 0;padding:11px 14px;
+    border:1px dashed var(--rule);background:var(--paper);font-size:13px;color:var(--ink-soft)}
+  .failpath .fp-arrow{font-family:var(--mono);color:var(--orange);font-size:17px;line-height:1.15;flex:none}
+  .failpath b{color:var(--ink)}
+
+  /* console */
+  .term{background:var(--console);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--paper-press);
+    overflow:hidden;margin:18px 0}
+  .term .bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--console-rule);
+    background:var(--console-elev)}
+  .term .bar i{width:9px;height:9px;display:block}
+  .term .bar i:nth-child(1){background:var(--red)} .term .bar i:nth-child(2){background:var(--orange)}
+  .term .bar i:nth-child(3){background:var(--green)}
+  .term .bar span{font-family:var(--mono);font-size:11.5px;color:var(--console-mute);margin-left:8px}
+  .term pre{margin:0;padding:16px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.7;
+    color:var(--console-ink);overflow-x:auto;white-space:pre}
+  .term .c{color:var(--console-dim)} .term .k{color:#92aaff} .term .g{color:#4cba74} .term .a{color:#ffb066}
+
+  /* tables */
+  .ftab{border-collapse:collapse;width:100%;font-size:13px}
+  .ftab th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;padding:0 12px 10px}
+  .ftab td{text-align:left;padding:11px 12px;border-top:1px solid var(--rule);vertical-align:top;color:var(--ink-soft)}
+  .ftab td.feat{font-family:var(--mono);color:var(--ink);white-space:nowrap}
+  .ftab td.feat span{color:var(--red);font-weight:600}
+
+  .foot{margin-top:36px;padding:18px 0 0;border-top:2px solid var(--ink);color:var(--ink-mute);font-size:12px;
+    font-family:var(--mono);letter-spacing:.04em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  /* JS disabled: content must still render. */
+  .no-js .reveal{opacity:1;transform:none}
+
+  @media (max-width:820px){
+    .grid2,.grid3{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+  /* ---- dark theme ------------------------------------------ */
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --paper:#17120a; --paper-high:#211b12; --paper-dim:#100c06; --paper-press:#0c0a05;
+    --ink:#efe8da; --ink-soft:#d4ccbb; --ink-mute:#a39a86; --ink-faint:#766e5b;
+    --rule:#3a3327; --rule-soft:#28221a;
+    --blue:#6f9bcf; --blue-deep:#93bce6; --blue-wash:rgba(111,155,207,.14);
+    --red:#ff6f63; --red-wash:rgba(255,111,99,.14);
+    --orange:#ffa64f; --orange-wash:rgba(255,166,79,.14);
+    --green:#57c98a; --green-wash:rgba(87,201,138,.15);
+    --console:#100c07; --console-elev:#18130c; --console-rule:#2c261c;
+  }
+  [data-theme="dark"] body{
+    background:
+      repeating-linear-gradient(0deg,rgba(255,250,240,.014) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(255,250,240,.010) 0 1px,transparent 1px 3px),
+      radial-gradient(1200px 700px at 50% -12%,rgba(126,149,255,.05),transparent 65%),
+      var(--paper);
+  }
+  [data-theme="dark"] .statusbar{background:rgba(23,19,10,.92)}
+  .silo-bars{display:inline-flex;flex-direction:column;gap:2px;width:14px;flex-shrink:0}
+  .silo-bars i{display:block;height:4px;width:100%;transform:skewX(-22deg)}
+  .silo-bars i:nth-child(1){background:var(--blue)}
+  .silo-bars i:nth-child(2){background:var(--red);width:75%}
+  .silo-bars i:nth-child(3){background:var(--orange);width:90%}
+  .statusbar{position:sticky;top:0;z-index:200;border-bottom:2px solid var(--ink);
+    background:rgba(250,247,239,.92);backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%)}
+  .statusbar a{border-bottom:none}
+  .statusbar__inner{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:0;padding:0 22px;
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);min-height:50px}
+  .statusbar__cell{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:0 18px;border-right:1px solid var(--rule);align-self:stretch}
+  .statusbar__cell:first-child{padding-left:0}
+  .statusbar__cell--brand{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:.04em;color:var(--ink);text-transform:uppercase}
+  .statusbar__dot{width:8px;height:8px;display:inline-block}
+  .statusbar__dot--green{background:var(--green)}
+  .statusbar__spacer{flex:1;border:0}
+  .statusbar__nav{display:flex;gap:16px;align-items:center}
+  .statusbar__nav a{color:var(--ink-mute);transition:color .14s ease}
+  .statusbar__nav a:hover{color:var(--blue)}
+  .statusbar__github{color:var(--paper-high)!important;background:var(--ink);padding:6px 14px;border:1px solid var(--ink);transition:background .14s ease,color .14s ease}
+  .statusbar__github:hover{background:var(--blue);border-color:var(--blue)}
+  .statusbar .silo-bars i{animation:silo-pulse 4.2s ease-in-out infinite}
+  .statusbar .silo-bars i:nth-child(2){animation-delay:.5s}
+  .statusbar .silo-bars i:nth-child(3){animation-delay:1s}
+  @keyframes silo-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .statusbar__theme{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;
+    background:transparent;color:var(--ink-mute);border:1px solid var(--rule);cursor:pointer;transition:color .12s ease,border-color .12s ease}
+  .statusbar__theme:hover{color:var(--ink);border-color:var(--ink)}
+  .statusbar__theme svg{width:16px;height:16px;display:block}
+  .statusbar__theme .sun,.statusbar__theme .moon{display:none}
+  .statusbar__theme .sys{display:block}
+  [data-mode="light"] .statusbar__theme .sys{display:none}
+  [data-mode="light"] .statusbar__theme .sun{display:block}
+  [data-mode="dark"] .statusbar__theme .sys{display:none}
+  [data-mode="dark"] .statusbar__theme .moon{display:block}
+  @media (max-width:820px){.statusbar__hide-sm{display:none}.statusbar__nav{gap:12px}.statusbar__nav a:not(.statusbar__github){display:none}}
+  @media (prefers-reduced-motion:reduce){.statusbar__theme{transition:none}.statusbar .silo-bars i{animation:none}}
+</style>
+<script>(function(){try{var K='starlight-theme',e=document.documentElement,c=localStorage.getItem(K),m=(c==='light'||c==='dark'||c==='auto')?c:'auto',d=(m==='dark')||(m!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);e.setAttribute('data-theme',d?'dark':'light');e.setAttribute('data-mode',m);e.classList.remove('no-js');}catch(e){}})();</script>
+</head>
+<body>
+<header class="statusbar" aria-label="Project status">
+  <div class="statusbar__inner">
+    <span class="statusbar__cell statusbar__cell--brand">
+      <span class="silo-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="statusbar__wordmark">silo</span>
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono">
+      <span class="statusbar__dot statusbar__dot--green"></span>pre-1.0
+    </span>
+    <span class="statusbar__cell statusbar__cell--mono statusbar__hide-sm">AGPL-3.0-or-later</span>
+    <span class="statusbar__spacer"></span>
+    <nav class="statusbar__nav" aria-label="Primary">
+      <a href="/#features">features</a>
+      <a href="/#clients">clients</a>
+      <a href="/#stack">stack</a>
+      <a href="/docs">docs</a>
+      <a href="https://github.com/Silo-Server/silo-server" class="statusbar__github">github ↗</a>
+      <button type="button" id="themeToggle" class="statusbar__theme" aria-label="Theme: auto (follow system)" title="Cycle theme — auto / light / dark">
+        <svg class="sys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="13" rx="1.5"/><path d="M8.5 21h7M12 17.5V21"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.8A8.2 8.2 0 0 1 9.2 3.5 7.2 7.2 0 1 0 20.5 14.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Silo &middot; Contributor rules of engagement</div>
+    <h1>Read this<br>before you<br><span class="em">branch</span>.</h1>
+    <p class="lede">Silo ships in <b>locked release cycles</b> &mdash; each release fixes its scope so client teams build against a stable core, and these rules keep the shipped line safe while the backlog grows underneath it. They apply to <b>every contributor in every repo</b>. Read the colors as signals: <b>amber</b> waits on validation, <b>green</b> is cleared, <b>red</b> is a hard stop &mdash; and if a rule here conflicts with habit, the rule wins.</p>
+    <div class="herometa">
+      <span class="chip" style="border-color:var(--ink);color:var(--ink)">current cycle: v1.0</span>
+      <span class="chip">scope of record: docs/architecture/v1-scope.md</span>
+      <span class="chip">org: Silo-Server</span>
+      <span class="chip">companion: the release-engineering playbook</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <nav class="roadmap" aria-label="Contents">
+    <div class="rm-group">
+      <h4>Before you write</h4>
+      <a href="#art-01">01 &middot; Where work happens</a>
+      <a href="#art-02">02 &middot; Check scope first</a>
+      <a href="#art-03">03 &middot; Proposing new work</a>
+    </div>
+    <div class="rm-group">
+      <h4>How work is tracked</h4>
+      <a href="#art-04">04 &middot; How your work is tracked</a>
+      <a href="#art-05">05 &middot; Definition of done</a>
+      <a href="#art-06">06 &middot; Readiness gates</a>
+      <a href="#art-07">07 &middot; Types, fields &amp; labels</a>
+    </div>
+    <div class="rm-group">
+      <h4>Contracts to respect</h4>
+      <a href="#art-08">08 &middot; The API contract</a>
+      <a href="#art-09">09 &middot; Versioning</a>
+      <a href="#art-10">10 &middot; Plugins &amp; trust tiers</a>
+    </div>
+    <div class="rm-group">
+      <h4>Shipping</h4>
+      <a href="#art-11">11 &middot; Opening a pull request</a>
+    </div>
+  </nav>
+
+  <div class="groupband">Before you write</div>
+
+  <!-- 01 BRANCHES -->
+  <section class="station reveal" id="art-01">
+    <div class="st-head"><a class="st-code" href="#art-01">01</a><h2>Where work happens</h2></div>
+    <p class="st-sub"><code>main</code> is the protected release line &mdash; whatever version is shipping next. The backlog lives on <code>next</code>. The community works in forks. A branch is not the shipped surface &mdash; so nothing that isn&rsquo;t in a release epic ever reaches the build.</p>
+
+    <div class="rule stop">
+      <span class="tag">Hard stop</span>
+      <p><b>Never push to <code>main</code>.</b> It changes only through reviewed, milestone-linked PRs. Direct pushes, force-pushes, and un-reviewed merges are blocked by ruleset &mdash; don&rsquo;t try to route around them.</p>
+    </div>
+
+    <div class="panel">
+      <span class="eyebrow cap">Pick your base by what the work is</span>
+      <ul class="dd">
+        <li><span class="mk y">&rarr;</span><span><b>Fixing a bug, or building a capability already locked for the current release</b> &mdash; branch from <code>main</code>, PR into <code>main</code>. This is in-scope release work.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>Anything beyond the current release, or not yet scoped</b> &mdash; branch from <code>next</code>, PR into <code>next</code>. It rides the backlog line and never touches the shipped code.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>Not a core maintainer</b> &mdash; fork, then PR from your fork into the matching base above. You don&rsquo;t need write access to contribute.</span></li>
+      </ul>
+      <p class="muted" style="font-size:12.5px;margin:13px 0 0"><code>main</code> is merged <em>down</em> into <code>next</code> regularly so the backlog never drifts from the release. <b style="color:var(--ink-soft)">Never rebase a shared branch</b> &mdash; <code>main</code> and <code>next</code> are merged, not rebased.</p>
+    </div>
+  </section>
+
+  <!-- 02 SCOPE GATE -->
+  <section class="station reveal" id="art-02">
+    <div class="st-head"><a class="st-code" href="#art-02">02</a><h2>Check scope before you write code</h2></div>
+    <p class="st-sub">The locked scope lives in the release&rsquo;s scope-of-record file (currently <code>docs/architecture/v1-scope.md</code>). It is the source of record for what the current release contains &mdash; not an issue thread, not a Discord message, not this page.</p>
+
+    <div class="rule stop">
+      <span class="tag">Hard stop</span>
+      <p><b>Do not open a feature PR for a capability that isn&rsquo;t locked.</b> If it isn&rsquo;t in <code>v1-scope.md</code> &mdash; or the file says scope isn&rsquo;t locked yet &mdash; file a <b>capability proposal</b> issue and wait for triage. A PR with no locked scope item behind it will be closed.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="panel" style="margin:0;border-left:3px solid var(--go)">
+        <span class="eyebrow cap" style="color:var(--go)">Proceeds without a proposal</span>
+        <ul class="dd">
+          <li><span class="mk y">&check;</span><span>Bug fixes</span></li>
+          <li><span class="mk y">&check;</span><span>Refactors &amp; cleanup that don&rsquo;t change behavior</span></li>
+          <li><span class="mk y">&check;</span><span>Work on a capability already locked in <code>v1-scope.md</code></span></li>
+        </ul>
+      </div>
+      <div class="panel" style="margin:0;border-left:3px solid var(--hold)">
+        <span class="eyebrow cap" style="color:var(--hold)">Needs a proposal + triage first</span>
+        <ul class="dd">
+          <li><span class="mk n">&bull;</span><span>Any new <b>user-facing capability</b></span></li>
+          <li><span class="mk n">&bull;</span><span>A new <b>library type</b> (see Article 03)</span></li>
+          <li><span class="mk n">&bull;</span><span>Anything that adds surface to the client&harr;server API</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PROPOSALS -->
+  <section class="station reveal" id="art-03">
+    <div class="st-head"><a class="st-code" href="#art-03">03</a><h2>Proposing new work</h2></div>
+    <p class="st-sub">Two parent templates, one chooser, in <code>Silo-Server/.github/ISSUE_TEMPLATE</code>. Pick by <em>what kind of thing</em> you&rsquo;re proposing &mdash; the gates differ. Each creates a typed parent issue &mdash; a <b>Feature</b> or a <b>Library&nbsp;Type</b>; the per-surface work then arrives as <b>Task</b> sub-issues, and defects as <b>Bug</b>s.</p>
+
+    <div class="grid2">
+      <div class="lane" style="margin:14px 0 0">
+        <h4>feature.yml</h4>
+        <p class="lwhat">A generic user-facing capability.</p>
+        <ul class="dd">
+          <li><span class="mk n">&bull;</span><span>One proposal per capability &mdash; not per PR, not per endpoint.</span></li>
+          <li><span class="mk n">&bull;</span><span>User value: why this release rather than a later one.</span></li>
+          <li><span class="mk n">&bull;</span><span>Per-client impact (android / apple / web) &mdash; &ldquo;none&rdquo; is a valid answer.</span></li>
+        </ul>
+      </div>
+      <div class="lane" style="margin:14px 0 0;border-left:3px solid var(--hold)">
+        <h4>library-type.yml</h4>
+        <p class="lwhat">A new kind of library &mdash; carries an extra gate.</p>
+        <ul class="dd">
+          <li><span class="mk n">&bull;</span><span>Everything <code>feature.yml</code> asks, <b>plus</b>:</span></li>
+          <li><span class="mk n">&bull;</span><span>The validating <b>first-party metadata plugin</b>(s).</span></li>
+          <li><span class="mk n">&bull;</span><span>Marker applicability (Movie/Series only) &amp; provider priority.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="tag">Rule</span>
+      <p>A capability <b>cannot be locked without its API surface filled in</b> &mdash; endpoints, methods, payloads. A library type <b>cannot be filed without naming the first-party plugin that validates it</b>. The template enforces the contract so the boundary is real, not aspirational.</p>
+    </div>
+  </section>
+
+  <div class="groupband">How work is tracked</div>
+
+  <!-- 04 TRACKING -->
+  <section class="station reveal" id="art-04">
+    <div class="st-head"><a class="st-code" href="#art-04">04</a><h2>How your work is tracked</h2></div>
+    <p class="st-sub">Every locked capability is tracked as <b>one parent issue</b> &mdash; a <b>Feature</b> or <b>Library&nbsp;Type</b> &mdash; with <b>one Task sub-issue per surface</b> it ships on. The parent holds the acceptance criteria but <b>carries no surface of its own</b>; it&rsquo;s the umbrella. Each Task tracks the capability on a single surface, in its own repo, and is validated on its own. The parent can&rsquo;t close until every sub is <b>Done</b>.</p>
+
+    <div class="panel">
+      <span class="eyebrow cap">What one tracked capability looks like</span>
+      <div class="tracktree">
+        <div class="tt-parent">
+          <span class="tt-tag">Feature</span>
+          <b>Collections</b>
+          <span class="tt-meta">surface: &mdash; &middot; v1.0 milestone &middot; AC = the checklist</span>
+        </div>
+        <div class="tt-subs">
+          <div class="tt-sub"><span class="repo">silo-server</span><span class="tt-nm">Collections &mdash; Server</span><span class="pill plat">server</span><span class="pill val-go">Done</span></div>
+          <div class="tt-sub"><span class="repo">silo-server</span><span class="tt-nm">Collections &mdash; Web</span><span class="pill plat">web</span><span class="pill val-hold">Needs validation</span></div>
+          <div class="tt-sub"><span class="repo">silo-server</span><span class="tt-nm">Collections &mdash; Web admin</span><span class="pill plat">admin</span><span class="pill val-prog">In progress</span></div>
+          <div class="tt-sub"><span class="repo">silo-apple</span><span class="tt-nm">Collections &mdash; iOS</span><span class="pill plat">ios</span><span class="pill val-go">Done</span></div>
+          <div class="tt-sub"><span class="repo">silo-apple</span><span class="tt-nm">Collections &mdash; tvOS</span><span class="pill plat">tvos</span><span class="pill val-hold">Needs validation</span></div>
+          <div class="tt-sub"><span class="repo">silo-android</span><span class="tt-nm">Collections &mdash; Android</span><span class="pill plat">android</span><span class="pill val-prog">In progress</span></div>
+          <div class="tt-sub"><span class="repo">silo-android</span><span class="tt-nm">Collections &mdash; Android TV</span><span class="pill plat">androidtv</span><span class="pill">To do</span></div>
+        </div>
+      </div>
+      <p class="muted" style="font-size:12.5px;margin:13px 0 0">The shared server/core work is its own <b style="color:var(--ink-soft)">Server</b> sub, not the parent. A genuinely single-surface capability skips the split and tracks as one issue carrying that surface. Roadmap progress reads <b style="color:var(--ink-soft)">% Done</b>, never % coded.</p>
+    </div>
+
+    <div class="panel">
+      <ul class="dd">
+        <li><span class="mk y">&rarr;</span><span><b>PRs land against the level your change serves</b> &mdash; link it with <code>Part of #NNN</code>. A <b>surface Task</b> for client work; the <b>Server sub</b> for the shared API/core. The parent stays an umbrella &mdash; it coordinates the subs, it doesn&rsquo;t hold code of its own.</span></li>
+        <li><span class="mk y">&rarr;</span><span><b>Don&rsquo;t invent parallel trackers.</b> The acceptance criteria on the parent <em>are</em> the definition of done &mdash; tick those boxes, don&rsquo;t write your own list.</span></li>
+        <li><span class="mk y">&rarr;</span><span>A <b>Library&nbsp;Type</b> parent carries one extra sub alongside its surfaces &mdash; a <b>plugin-validation</b> Task: at least one first-party metadata plugin must validate before the type counts as supported.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 DEFINITION OF DONE -->
+  <section class="station reveal" id="art-05">
+    <div class="st-head"><a class="st-code" href="#art-05">05</a><h2>Definition of done</h2></div>
+    <p class="st-sub">Code-complete is not done. A developer can mark code ready; only a <b>maintainer testing on the real device</b> moves a surface to Done &mdash; or sends it back.</p>
+
+    <div class="panel">
+      <div class="flow">
+        <span class="state todo"><span class="big"></span>To do</span>
+        <span class="arrow">&rarr;</span>
+        <span class="state prog"><span class="big"></span>In progress</span>
+        <span class="arrow">&rarr;</span>
+        <span class="state hold"><span class="big"></span>Needs validation</span>
+        <span class="arrow">&rarr;</span>
+        <span class="state go"><span class="big"></span>Done</span>
+      </div>
+      <p class="gate-note"><b>Status is a Project field</b> &mdash; one lane every Task moves through. A surface sits at <b>To do</b> until it&rsquo;s picked up, moves to <b>In progress</b> while it&rsquo;s built (the PR is opened and code-reviewed here), then to <b>Needs validation</b> when you&rsquo;re ready &mdash; and you <b>stop there; do not close it yourself</b>. A maintainer runs it on the actual device, ticks the acceptance-criteria boxes, and moves it to <b>Done</b>.</p>
+      <p class="gate-note" style="margin-top:12px"><b>A feature or library type only reaches Done when every one of its surfaces is Done.</b> The same lane also runs the library-user acceptance suites (spec &sect;4, run per library type on each surface), and the <code>readiness-gate</code> issues (spec &sect;6 &mdash; first-run, upgrade safety, play-path security) gate the milestone right alongside them.</p>
+      <div class="failpath">
+        <span class="fp-arrow">&#8617;</span>
+        <span><b>If it fails on device, it loops back.</b> The maintainer un-ticks the failing boxes, leaves notes, and moves the Task from <b>Needs validation</b> back to <b>In progress</b> until it&rsquo;s fixed and re-submitted. There&rsquo;s <b>no separate &ldquo;needs-changes&rdquo; state</b>: the bounce is just the status moving back, and the un-ticked boxes plus the maintainer&rsquo;s comment carry the &ldquo;why.&rdquo;</span>
+      </div>
+      <p class="muted" style="font-size:12.5px;margin:14px 0 0">Status is a field, so anyone with write access <em>can</em> move a card &mdash; that <b style="color:var(--ink)">only a maintainer moves a card to Done</b> is a rule this document sets, not a lock.</p>
+    </div>
+  </section>
+
+  <!-- 06 READINESS GATES -->
+  <section class="station reveal" id="art-06">
+    <div class="st-head"><a class="st-code" href="#art-06">06</a><h2>Readiness gates</h2></div>
+    <p class="st-sub">Some bars a public release must clear belong to no single feature &mdash; first-run, upgrade safety, backup/restore, play-path security, observability (spec &sect;6). Every feature being Done does not make the release shippable; the gates do.</p>
+
+    <div class="panel">
+      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-soft)">A readiness gate is a <code>Task</code> carrying the <span class="pill gate" style="font-size:10px">readiness-gate</span> label, in the <code>v1.0</code> milestone. It rides the same status lane as everything else &mdash; but <b>Needs validation</b> here means a maintainer runs the real scenario: a fresh install, a real upgrade from the prior version, a wrong-profile stream URL that must be rejected.</p>
+      <div class="rule">
+        <span class="tag">Ship rule</span>
+        <p>Tag a release only when <b>every Feature and Library Type parent is Done</b> and <b>every <code>readiness-gate</code> issue is Done</b>. The gates sit in the milestone, and the release waits on both.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 TYPES, FIELDS & LABELS -->
+  <section class="station reveal" id="art-07">
+    <div class="st-head"><a class="st-code" href="#art-07">07</a><h2>Types, fields &amp; labels</h2></div>
+    <p class="st-sub">Every fact about an issue has one home &mdash; a <b>type</b>, a <b>field</b>, the <b>milestone</b>, or a <b>label</b>. A normal surface Task carries no labels at all; labels are kept to a few cross-cutting flags.</p>
+
+    <div class="panel" style="overflow-x:auto">
+      <span class="eyebrow cap">What lives where</span>
+      <table class="ftab">
+        <thead><tr><th style="width:150px">Axis</th><th>Home</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td class="feat">What kind</td><td>Issue type</td><td>Feature &middot; Library&nbsp;Type &middot; Task &middot; Bug</td></tr>
+          <tr><td class="feat">Hierarchy</td><td>Native sub-issues</td><td>parent &rarr; per-surface Tasks</td></tr>
+          <tr><td class="feat">State</td><td>Project status</td><td>To&nbsp;do &rarr; In&nbsp;progress &rarr; Needs&nbsp;validation &rarr; Done</td></tr>
+          <tr><td class="feat">Triage</td><td>Project priority</td><td>Untriaged &rarr; Proposed &rarr; Locked / Stretch / Out</td></tr>
+          <tr><td class="feat">Surface</td><td>Project field (on Tasks)</td><td>admin &middot; server &middot; web &middot; android &middot; androidtv &middot; ios &middot; tvos</td></tr>
+          <tr><td class="feat">Release</td><td>Milestone (per repo)</td><td>v1.0 &mdash; also the merge-to-<code>main</code> gate</td></tr>
+          <tr><td class="feat">Cross-cutting flags</td><td>Labels</td><td>readiness-gate &middot; deferred &middot; scope:compatible</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel labelset">
+      <span class="eyebrow cap">The label vocabulary</span>
+      <h5>Release &amp; scope flags</h5>
+      <div class="pills"><span class="pill gate">readiness-gate</span><span class="pill scope">deferred</span><span class="pill scope">scope:compatible</span></div>
+      <h5>Community</h5>
+      <div class="pills"><span class="pill scope">good first issue</span><span class="pill scope">help wanted</span></div>
+      <p class="muted" style="font-size:12px;margin:14px 0 0">Applied org-wide from the <code>.github</code> repo, so a filter means the same thing in <code>silo-apple</code> as in <code>silo-server</code>. The version rides the <b style="color:var(--ink-soft)">milestone</b>, never a label &mdash; so nothing here changes between cycles.</p>
+    </div>
+  </section>
+
+  <div class="groupband">Contracts you must respect</div>
+
+  <!-- 08 API CONTRACT -->
+  <section class="station reveal" id="art-08">
+    <div class="st-head"><a class="st-code" href="#art-08">08</a><h2>The API contract</h2></div>
+    <p class="st-sub">The client&harr;server API is one of three frozen contracts (Article 09). Client teams plan against it, so within a major it only ever grows.</p>
+
+    <div class="rule stop">
+      <span class="tag">Hard stop</span>
+      <p>Within <code>/api/v1</code>, changes are <b>additive-only</b>. Never rename or remove a response field, change a field&rsquo;s type, or repurpose a status code on an existing endpoint. Break this and you break every shipped client.</p>
+    </div>
+
+    <div class="panel">
+      <ul class="dd">
+        <li><span class="mk y">&check;</span><span>New functionality adds <b>new fields or new endpoints</b> &mdash; never mutates existing ones.</span></li>
+        <li><span class="mk y">&check;</span><span>Expose <b>capability endpoints</b> for feature detection. Clients ask what a server can do; they don&rsquo;t sniff version numbers.</span></li>
+        <li><span class="mk n">&times;</span><span>Removals go through the <b>Deprecation / Sunset header</b> flow only &mdash; never a silent drop. Contract tooling: issue&nbsp;#135.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 09 VERSIONING -->
+  <section class="station reveal" id="art-09">
+    <div class="st-head"><a class="st-code" href="#art-09">09</a><h2>Versioning</h2></div>
+    <p class="st-sub">Semantic versioning, measured against three <b>frozen contracts</b>: the client&harr;server API, the plugin SDK, and the DB migration path. The bump is decided by what <em>breaks</em> &mdash; not by whether it felt like a feature.</p>
+
+    <div class="panel" style="overflow-x:auto">
+      <table class="ftab">
+        <thead><tr><th style="width:90px">Bump</th><th>When</th><th style="width:34%">Examples</th></tr></thead>
+        <tbody>
+          <tr><td class="feat"><span>MAJOR</span></td><td>Breaks a contract &mdash; a 1.x client can&rsquo;t reach the server, a 1.x plugin won&rsquo;t load, or a non-reversible migration.</td><td>redesign client&harr;server API &middot; plugin SDK v2 &middot; drop an auth scheme</td></tr>
+          <tr><td class="feat" style="color:var(--blue)">MINOR</td><td>Adds capability, backward-compatible &mdash; old clients and plugins keep working.</td><td>ebooks/manga &middot; Watch Party &middot; new optional fields</td></tr>
+          <tr><td class="feat" style="color:var(--green)">PATCH</td><td>Fixes behavior, no new surface, no contract change.</td><td>playback bug &middot; metadata mismatch &middot; crash fix</td></tr>
+        </tbody>
+      </table>
+      <p class="muted" style="font-size:12.5px;margin:13px 0 0">Design APIs <b style="color:var(--ink-soft)">additively</b> to stay in minor-land (Article 08). <b style="color:var(--ink-soft)">Clients ride the server major</b> &mdash; they float on minor/patch and check advertised capabilities. <b style="color:var(--ink-soft)">Plugins keep their own clock</b>, gated only by the SDK major. Pre-release tagging on <code>next</code> is detailed in the release-engineering playbook.</p>
+    </div>
+  </section>
+
+  <!-- 10 PLUGINS -->
+  <section class="station reveal" id="art-10">
+    <div class="st-head"><a class="st-code" href="#art-10">10</a><h2>Plugins &amp; the trust tiers</h2></div>
+    <p class="st-sub">A plugin&rsquo;s tier is the <b>scope of the promise</b> behind it, not where its code happens to live. Three tiers; know which one you&rsquo;re building for before you start.</p>
+
+    <div class="grid3">
+      <div style="border-left:3px solid var(--go);padding:4px 0 4px 14px">
+        <span class="eyebrow cap" style="color:var(--go)">First-party</span>
+        <p style="margin:6px 0 0;font-size:12.5px;color:var(--ink-soft)">Silo builds and owns it. <code>silo.*</code> id, Silo-Server org, default catalog, Silo release key.</p>
+        <div class="reporow" style="margin-top:9px"><span class="repo lock">tmdb</span><span class="repo lock">tvdb</span><span class="repo lock">markers-introdb</span></div>
+      </div>
+      <div style="border-left:3px solid var(--hold);padding:4px 0 4px 14px">
+        <span class="eyebrow cap" style="color:var(--hold)">Community-vetted</span>
+        <p style="margin:6px 0 0;font-size:12.5px;color:var(--ink-soft)">Community-authored, maintainer-reviewed for <b>function &amp; safety only</b>. <code>community.*</code> id, Silo-Community org, opt-in feed.</p>
+        <div class="reporow" style="margin-top:9px"><span class="repo">autoscan-arr</span><span class="repo">requests-seerr</span></div>
+      </div>
+      <div style="border-left:3px solid var(--ink-faint);padding:4px 0 4px 14px">
+        <span class="eyebrow cap">External</span>
+        <p style="margin:6px 0 0;font-size:12.5px;color:var(--ink-soft)">Anyone, anywhere, installed by URL. No review &mdash; the server marks it <b>Unverified</b>.</p>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="tag">Rule</span>
+      <p>If you build an <b>acquisition or automation-stack adapter</b>, it ships from <b>Silo-Community</b> under the <code>community.*</code> namespace &mdash; never <code>Silo-Server</code>, never <code>silo.*</code>. To enter the vetted tier it must be <b>mechanism-only</b> (a rescan trigger, a request hand-off); bundle an indexer, tracker, or source list and it&rsquo;s rejected to External. Silo vouches that a vetted plugin <em>works and is safe</em> &mdash; never for what you point it at.</p>
+    </div>
+  </section>
+
+  <div class="groupband">Shipping</div>
+
+  <!-- 11 PRs -->
+  <section class="station reveal" id="art-11">
+    <div class="st-head"><a class="st-code" href="#art-11">11</a><h2>Opening a pull request</h2></div>
+    <p class="st-sub">Every PR is one concern, traceable to a scope item, and green on the checks before a human looks at it.</p>
+
+    <div class="rule">
+      <span class="tag">Rule</span>
+      <p>Link the scope item with <code>Part of #NNN</code>. <b>One concern per PR.</b> Use a Conventional Commit subject (<code>feat(playback): &hellip;</code>). <b>Disclose AI use</b> in the body. PRs with no linked scope item will be questioned at review.</p>
+    </div>
+
+    <div class="rule">
+      <span class="tag">Rule</span>
+      <p>Before you request review, <b>rebase your branch onto its base</b> (<code>main</code> or <code>next</code>) and resolve conflicts locally, so the PR is current and reviews against the latest line &mdash; don&rsquo;t pull the base in with merge commits. Rebasing <em>your own</em> branch is expected. The &ldquo;never rebase a shared branch&rdquo; rule (Article&nbsp;01) still holds: it governs <code>main</code>, <code>next</code>, and any branch others have built on &mdash; <b>not</b> your unshared topic branch.</p>
+    </div>
+
+    <div class="rule go">
+      <span class="tag">Integration</span>
+      <p>PRs land by <b>squash-merge</b> through the merge queue &mdash; one commit per PR on <code>main</code>/<code>next</code>, so history stays linear and reads as a changelog (your Conventional Commit title becomes that commit). A maintainer may <b>rebase-merge</b> a curated multi-commit PR where the internal history is genuinely atomic; <b>merge commits are never used.</b> Don&rsquo;t base a branch on another un-merged branch &mdash; after the parent squashes, the child carries duplicate commits.</p>
+    </div>
+
+    <div class="term">
+      <div class="bar"><i></i><i></i><i></i><span>pre-push checklist &middot; server repo</span></div>
+<pre><span class="k">make</span> lint
+<span class="k">cd</span> web &amp;&amp; <span class="k">pnpm</span> run lint &amp;&amp; <span class="k">pnpm</span> run format:check
+<span class="k">make</span> verify-local-paths
+<span class="c"># Go tests in a libvips-capable container —</span>
+<span class="c"># a bare-host `go test ./...` silently skips CGO packages</span></pre>
+    </div>
+    <p class="muted" style="font-size:12.5px;margin:6px 0 0">Each repo publishes its own checklist; the server&rsquo;s is shown as the canonical shape. Run it locally &mdash; don&rsquo;t outsource the first lint to CI.</p>
+  </section>
+
+</div>
+</main>
+
+<script>
+  // Reveal is a progressive enhancement: if IntersectionObserver is missing,
+  // show everything immediately rather than leaving sections at opacity:0.
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+<script>(function(){var K='starlight-theme',r=document.documentElement,b=document.getElementById('themeToggle');if(!b)return;var mq=matchMedia('(prefers-color-scheme:dark)');function s(){try{return localStorage.getItem(K)}catch(e){return null}}function md(v){return(v==='light'||v==='dark'||v==='auto')?v:'auto'}function eff(m){return(m==='dark'||m==='light')?m:(mq.matches?'dark':'light')}function lbl(m){b.setAttribute('aria-label','Theme: '+(m==='auto'?'auto (follow system)':m))}function apply(){var m=md(s());r.setAttribute('data-mode',m);r.setAttribute('data-theme',eff(m));lbl(m)}apply();b.addEventListener('click',function(){var c=md(s()),n=(c==='auto')?'light':(c==='light')?'dark':'auto';try{localStorage.setItem(K,n)}catch(e){}apply()});mq.addEventListener('change',function(){if(md(s())==='auto')apply()})})();</script>
+</body>
+</html>
