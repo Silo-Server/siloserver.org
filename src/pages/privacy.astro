@@ -1,0 +1,297 @@
+---
+// Privacy policy for the Silo client apps. Linked from the Play Store /
+// App Store listings, so this URL (/privacy) must stay stable and public.
+import Base from "../layouts/Base.astro";
+import Bottombar from "../components/Bottombar.astro";
+import SiloBars from "../components/SiloBars.astro";
+import { SITE } from "../data/siteConfig";
+
+const EFFECTIVE = "July 1, 2026";
+const CONTACT_EMAIL = "feedback@siloserver.org";
+---
+
+<Base
+  title="privacy policy"
+  description="Privacy policy for the Silo client apps. Silo apps collect no analytics and send your data only to the server you point them at."
+>
+  <header class="policy-bar">
+    <a class="policy-bar__brand" href="/">
+      <SiloBars size="sm" />
+      <span>{SITE.name}</span>
+    </a>
+    <nav class="policy-bar__nav" aria-label="Primary">
+      <a href="/">home</a>
+      <a href="/docs">docs</a>
+      <a href={SITE.github.orgUrl}>github ↗</a>
+    </nav>
+  </header>
+
+  <main id="main" class="policy">
+    <article class="policy__body">
+      <p class="policy__eyebrow">legal / 01</p>
+      <h1>Privacy Policy — Silo Apps</h1>
+      <p class="policy__meta">Effective {EFFECTIVE}</p>
+
+      <p class="policy__lede">
+        Silo is self-hosted software. The Silo apps exist to connect to a
+        server that <em>you</em> (or someone you know) run. We do not operate
+        accounts, we do not run analytics, and we do not receive your media
+        library, watch history, or personal information. The short version:
+        <strong>your data goes to your server, not to us.</strong>
+      </p>
+
+      <h2>1. Scope</h2>
+      <p>
+        This policy covers the first-party Silo client applications: Silo for
+        Android, Silo for Android TV, Silo for iOS, Silo for tvOS, and Silo
+        for macOS (together, "the apps"), published by the Silo project. A
+        short note on this website is included at the end. It does not cover
+        the Silo server software you install yourself, or third-party apps
+        that can connect to a Silo server.
+      </p>
+
+      <h2>2. Data we collect</h2>
+      <p>
+        <strong>None.</strong> The apps contain no analytics, no advertising,
+        no crash-reporting service, and no tracking SDKs. They do not create
+        an account with us and do not transmit usage data, identifiers, or
+        telemetry to the Silo project.
+      </p>
+
+      <h2>3. Data the apps store on your device</h2>
+      <p>To function, the apps keep some data locally on your device:</p>
+      <ul>
+        <li>the address of the Silo server you enter;</li>
+        <li>
+          the sign-in token issued by your server after you log in, so you
+          stay signed in;
+        </li>
+        <li>
+          cached metadata and artwork for your library, and playback
+          positions, so browsing and resume are fast;
+        </li>
+        <li>media you explicitly download for offline playback;</li>
+        <li>app settings and preferences.</li>
+      </ul>
+      <p>
+        This data stays on the device. Uninstalling the app (or clearing its
+        data in system settings) removes all of it.
+      </p>
+
+      <h2>4. Where your data goes</h2>
+      <p>
+        The apps communicate with exactly one place: the Silo server whose
+        address you configure. Sign-in credentials, playback progress, search
+        queries, and streaming requests all go to that server and nowhere
+        else. Who can see that data is governed by whoever operates the
+        server — for most people, that's themselves. We recommend serving
+        Silo over HTTPS; whether the connection is encrypted depends on how
+        the server is set up.
+      </p>
+
+      <h2>5. Accounts and deletion</h2>
+      <p>
+        User accounts live on your Silo server, not with us. They are created
+        and deleted by the server's administrator using the server's admin
+        tools. If you use someone else's Silo server and want your account or
+        history deleted, contact the person who runs it. We have no access to
+        any server's accounts and cannot delete data we never receive.
+      </p>
+
+      <h2>6. Push notifications</h2>
+      <p>
+        Notifications the apps show for playback controls and download
+        progress are generated locally on the device and involve no external
+        service.
+      </p>
+      <p>
+        Remote push notifications are optional and off unless you and your
+        server administrator enable them (currently available on Apple
+        platforms; Android support is planned). If you enable them, your Silo
+        server sends a content-free request to Silo's push relay so the
+        notification can be delivered through the platform push service
+        (Apple Push Notification service, or Google's Firebase Cloud
+        Messaging when Android support ships). The relay does not receive
+        notification titles, message bodies, media names, user names, profile
+        names, or your server URL. It does process technical metadata needed
+        to deliver and operate the service: an opaque deployment identifier,
+        push delivery timing and request status, the app topic, the IP
+        address your server uses to contact the relay, and a hashed device
+        push token. Apple or Google may also process standard delivery
+        metadata under their own policies. Pushes are generic; the app
+        fetches the actual content directly from your server after being
+        woken up.
+      </p>
+
+      <h2>7. App permissions</h2>
+      <p>The Android apps request only what playback needs:</p>
+      <ul>
+        <li>
+          <strong>Internet / network state</strong> — to reach your server
+          and adapt streaming quality;
+        </li>
+        <li>
+          <strong>Foreground services and wake lock</strong> — to keep audio
+          playing and downloads running with the screen off;
+        </li>
+        <li>
+          <strong>Notifications</strong> — to show local playback controls
+          and download progress;
+        </li>
+        <li>
+          <strong>TV channel/EPG access (Android TV only)</strong> — to
+          publish your library's rows and channels into the Android TV home
+          screen.
+        </li>
+      </ul>
+      <p>
+        No permission is used to collect data for us. The apps do not request
+        location, contacts, camera, or microphone access.
+      </p>
+
+      <h2>8. Third parties</h2>
+      <p>
+        The apps are distributed through Google Play and the Apple App Store.
+        Those platforms may collect install, crash, and diagnostics data
+        under their own privacy policies, independently of us. Beyond the
+        optional push relay described above and the platform stores, the apps
+        integrate no third-party services.
+      </p>
+
+      <h2>9. Children</h2>
+      <p>
+        The apps are general-audience tools for accessing a media server and
+        are not directed at children. We collect no data from anyone,
+        children included.
+      </p>
+
+      <h2>10. This website</h2>
+      <p>
+        siloserver.org is a static site hosted on GitHub Pages and runs no
+        analytics of ours. GitHub may log standard access data (such as IP
+        addresses) as the host, per GitHub's privacy statement, and the site
+        loads web fonts from Google Fonts, which involves a request to
+        Google's servers.
+      </p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>
+        If the apps' data practices change — for example, when Android push
+        support ships — we will update this page and its effective date.
+        Because we collect nothing, changes will almost always be additions
+        of detail, not new collection.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        Questions about privacy? Open an issue on
+        <a href={SITE.github.orgUrl}>GitHub</a> or email
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+      </p>
+    </article>
+  </main>
+  <Bottombar />
+</Base>
+
+<style>
+  .policy-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .policy-bar__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .policy-bar__nav {
+    display: flex;
+    gap: 1.25rem;
+    font-family: var(--ff-mono);
+    font-size: 0.8rem;
+  }
+  .policy-bar__nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .policy-bar__nav a:hover {
+    color: var(--blue);
+  }
+
+  .policy {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4.5rem;
+  }
+  .policy__eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 0.75rem;
+  }
+  .policy h1 {
+    font-family: var(--ff-display);
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+  }
+  .policy__meta {
+    font-family: var(--ff-mono);
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+    margin: 0 0 2rem;
+  }
+  .policy__lede {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--blue);
+    padding-left: 1rem;
+    margin: 0 0 2.5rem;
+  }
+  .policy h2 {
+    font-family: var(--ff-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 2.2rem 0 0.6rem;
+    color: var(--ink);
+  }
+  .policy p,
+  .policy li {
+    font-family: var(--ff-body);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .policy p {
+    margin: 0 0 0.9rem;
+  }
+  .policy ul {
+    margin: 0 0 0.9rem;
+    padding-left: 1.4rem;
+  }
+  .policy li {
+    margin-bottom: 0.35rem;
+  }
+  .policy a {
+    color: var(--blue);
+  }
+  .policy strong {
+    color: var(--ink);
+  }
+</style>
