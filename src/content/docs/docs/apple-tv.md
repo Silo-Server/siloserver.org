@@ -26,14 +26,16 @@ The most common question: **does Silo do Atmos passthrough like a Shield?** The 
 
 Within that platform ceiling, Silo delivers everything that is technically possible:
 
-| Source audio | What you get with Silo | Platform limit? |
+| Source audio | What you get with Silo | Anything lost? Whose limit? |
 | --- | --- | --- |
-| Dolby Digital Plus Atmos (E-AC-3 JOC) | **Full Dolby Atmos.** The stream is passed to the system untouched with correct Atmos signalling; tvOS outputs it as Dolby MAT | This *is* the maximum any tvOS app can deliver |
-| TrueHD Atmos (lossless, Blu-ray remux) | 7.1 lossless bed as PCM; the Atmos object metadata is dropped | Yes — tvOS has no TrueHD decoder, no bitstream path, and no way to author MAT. Lossless Atmos is impossible for every Apple TV app |
-| DD+ Atmos companion track (present in most remuxes alongside TrueHD) | Select it to get real (lossy) Atmos — usually the better spatial experience | Standard tvOS workaround |
-| DTS-HD MA / DTS:X | Decoded multichannel bed as PCM; no DTS:X objects | Yes — tvOS has no DTS output path at all |
-| AC-3 / plain DD+ 5.1 (no Atmos) | Direct play — decoded on-device and output as 5.1 LPCM, with nothing lost (see note below) | No |
-| Atmos on AirPods / spatial audio | Works via the system spatializer | No |
+| Dolby Digital Plus Atmos (E-AC-3 JOC) | **Full Dolby Atmos.** The stream is passed to the system untouched with correct Atmos signalling; tvOS outputs it as Dolby MAT | **Nothing lost.** This *is* the maximum any tvOS app can deliver |
+| TrueHD Atmos (lossless, Blu-ray remux) | 7.1 lossless bed as PCM; the Atmos object metadata is dropped | **Atmos objects lost — platform ceiling.** tvOS has no TrueHD decoder, no bitstream path, and no way to author MAT. Lossless Atmos is impossible for every Apple TV app |
+| DD+ Atmos companion track (present in most remuxes alongside TrueHD) | Select it to get real (lossy) Atmos — usually the better spatial experience | **Nothing lost vs. any other tvOS app** — this is the standard tvOS workaround, fully supported |
+| DTS-HD MA / DTS:X | Decoded multichannel bed as PCM; no DTS:X objects | **DTS:X objects lost — platform ceiling.** tvOS has no DTS output path at all; no app can do better |
+| AC-3 / plain DD+ 5.1 (no Atmos) | Direct play — decoded on-device and output as 5.1 LPCM (see note below) | **Nothing lost.** Full source quality |
+| Atmos on AirPods / spatial audio | Works via the system spatializer | **Nothing lost.** Full platform support |
+
+Read the last column top to bottom and the pattern is the point: **Silo delivers 100% of what the Apple TV hardware allows.** Where something is missing (lossless Atmos, DTS:X objects), it's a tvOS platform ceiling that applies equally to every app on the box — Infuse, Plex, and everything else included.
 
 **Why does my receiver show "PCM 5.1" instead of "Dolby Digital"?** Because the Apple TV decodes Dolby audio on-device and sends uncompressed multichannel LPCM over HDMI. This is a lossless decode of the lossy source — the receiver gets exactly the same 5.1 audio it would have produced by decoding the bitstream itself, so no quality is lost; only the badge changes. Every Apple TV app outputs non-Atmos surround this way. If you'd rather see "Dolby Digital" on the receiver, set **Settings → Video and Audio → Audio Format → Change Format** to **Dolby Digital 5.1** — but note that forcing that format disables Atmos output, so leave it off if you play Atmos content.
 
