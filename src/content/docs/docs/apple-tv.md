@@ -32,8 +32,10 @@ Within that platform ceiling, Silo delivers everything that is technically possi
 | TrueHD Atmos (lossless, Blu-ray remux) | 7.1 lossless bed as PCM; the Atmos object metadata is dropped | Yes — tvOS has no TrueHD decoder, no bitstream path, and no way to author MAT. Lossless Atmos is impossible for every Apple TV app |
 | DD+ Atmos companion track (present in most remuxes alongside TrueHD) | Select it to get real (lossy) Atmos — usually the better spatial experience | Standard tvOS workaround |
 | DTS-HD MA / DTS:X | Decoded multichannel bed as PCM; no DTS:X objects | Yes — tvOS has no DTS output path at all |
-| AC-3 / plain DD+ 5.1 | Direct play, 5.1 output | No |
+| AC-3 / plain DD+ 5.1 (no Atmos) | Direct play — decoded on-device and output as 5.1 LPCM, with nothing lost (see note below) | No |
 | Atmos on AirPods / spatial audio | Works via the system spatializer | No |
+
+**Why does my receiver show "PCM 5.1" instead of "Dolby Digital"?** Because the Apple TV decodes Dolby audio on-device and sends uncompressed multichannel LPCM over HDMI. This is a lossless decode of the lossy source — the receiver gets exactly the same 5.1 audio it would have produced by decoding the bitstream itself, so no quality is lost; only the badge changes. Every Apple TV app outputs non-Atmos surround this way. If you'd rather see "Dolby Digital" on the receiver, set **Settings → Video and Audio → Audio Format → Change Format** to **Dolby Digital 5.1** — but note that forcing that format disables Atmos output, so leave it off if you play Atmos content.
 
 If lossless Atmos or DTS:X bitstreaming matters to you, that requires different hardware (an Nvidia Shield, HTPC, or Blu-ray player) — no client-side work can change it on Apple TV.
 
