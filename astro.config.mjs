@@ -45,6 +45,7 @@ export default defineConfig({
           label: "Operations",
           items: [
             { slug: "docs/deployment/docker" },
+            { slug: "docs/logging" },
             { slug: "docs/libraries" },
             { slug: "docs/audiobooks" },
             { slug: "docs/ebooks" },

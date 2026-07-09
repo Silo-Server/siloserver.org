@@ -13,6 +13,7 @@ These docs are intentionally source-controlled Markdown. Every page lives in thi
 - [Installation](/docs/installation) explains the supported install paths.
 - [First configuration](/docs/first-configuration) follows the setup wizard and the admin pages to review afterward.
 - [Configuration](/docs/configuration) separates environment variables from admin-managed settings.
+- [Logging and Telemetry](/docs/logging) covers built-in logs, OTLP export, redaction, and retention.
 - [Libraries](/docs/libraries) documents the supported media path contract.
 - [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks) cover the book library types, formats, and metadata.
 - [Notifications](/docs/notifications) covers new-episode and request notifications across the inbox, web push, email, Discord, and webhooks.

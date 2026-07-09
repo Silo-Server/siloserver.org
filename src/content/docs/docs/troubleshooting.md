@@ -33,6 +33,23 @@ Technical notes:
 
 If you used Claude, Codex, or another tool for debugging, put that under `Technical notes` after the workflow and reproduction steps.
 
+## Logs
+
+For the default Docker Compose deployment, capture service status and the relevant Silo, PostgreSQL, and Redis logs around the failure:
+
+```sh
+docker compose ps
+docker compose logs --since=30m --timestamps silo postgres redis
+```
+
+For startup failures, always collect Docker stderr. Database connection, migration, startup-tuning, and telemetry-setup errors can occur before the Admin Logs and OTLP handlers are installed. Include the exact failure time and timezone, deployed image tag or commit, and any container health or restart state.
+
+For runtime failures, also check Admin > Logs and include any relevant request ID, playback-session ID, component, or node identity. If OpenTelemetry is enabled, collect the same time window from the collector or backend, filtered to `service.name=silo-server` and the affected `service.instance.id`. Include Collector service logs when export itself is failing.
+
+Silo redacts common secret-keyed structured attributes, but redaction is key-based rather than value-based. Review snippets before sharing and remove free-text secrets, tokens, cookies, credentials, and URL query strings. Preserve a sanitized hostname, port, and path shape when they are relevant to reproduction.
+
+See [Logging and telemetry](/docs/logging) for sink behavior, OTLP setup, redaction boundaries, and retention.
+
 ## Autoscan
 
 For preferred Silo Autoscan issues, include the source type, source connection, poll event status, raw source path, path after Silo source rewrites, Silo library root, and any Activity tab error. Most Autoscan failures are path-shape mismatches: the final path must land under one Silo library root.

@@ -53,6 +53,12 @@ After bootstrap, most settings live in the admin UI and server settings database
 
 Use the setup wizard for the first pass through account, profile, server, integrations, downloads, recommendations, library, and optional nodes. Afterward, use Admin Settings for the broader settings surface: General, Theming, Playback, Scanner & Matcher, Rate Limiting, Downloads, Integrations, Jellyfin Compat, Database, Storage, Log Retention, and Card Overlays.
 
+## Logging
+
+Silo writes runtime logs to stderr and to the database-backed Admin > Logs view. Optional OpenTelemetry export can send the runtime stream to an OTLP collector or vendor backend without replacing either built-in destination.
+
+See [Logging and telemetry](/docs/logging) for log controls, redaction limits, retention, a working local Collector example, and the current tracing limitations.
+
 ## Server modes
 
 | Mode | Description |
@@ -64,8 +70,8 @@ Use the setup wizard for the first pass through account, profile, server, integr
 
 ## Source notes
 
-- `.env` defaults and environment variables: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L1-L42).
-- Compose bind mounts and default service environment: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L35-L58).
-- Source-run configuration and server modes: [`README.md`](https://github.com/Silo-Server/silo-server/blob/main/README.md#L206-L217).
+- `.env` defaults and environment variables: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L1-L86).
+- Compose bind mounts and default service environment: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L54-L88).
+- Source-run configuration and server modes: [`README.md`](https://github.com/Silo-Server/silo-server/blob/main/README.md#L117-L128).
 - Wizard step order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts#L28-L78).
-- Admin settings tabs: [`AdminSettingsLayout.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/admin-settings/AdminSettingsLayout.tsx#L38-L56).
+- Admin settings tabs: [`adminSettingsSearch.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/lib/adminSettingsSearch.ts#L42-L503).
