@@ -49,7 +49,7 @@ For multi-file books, tags are read from the first file in sort order, so tag at
 
 ## Metadata enrichment
 
-The first-party [`silo-plugin-audiobook-metadata`](https://github.com/Silo-Server/silo-plugin-audiobook-metadata) plugin enriches scanned books with covers, series data, and people. It wraps Audnexus, AudiMeta, iTunes, Audible, Storytel, BookBeat, Audioteka, and AudiobookCovers, and searches providers in parallel.
+The first-party [`silo-plugin-metadata-audiobook`](https://github.com/Silo-Server/silo-plugin-metadata-audiobook) plugin enriches scanned books with covers, series data, and people. It wraps Audnexus, AudiMeta, iTunes, Audible, Storytel, BookBeat, Audioteka, and AudiobookCovers, and searches providers in parallel.
 
 An embedded ASIN tag gives the most reliable matches, since Audnexus and AudiMeta look books up directly by ASIN.
 
@@ -65,4 +65,4 @@ Third-party listening apps connect through the [Audiobookshelf-compatible endpoi
 - Folder parsing, tag mapping, and title cleanup: [`audiobook.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/audiobook.go).
 - Supported audio extensions: [`audio_extensions.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/audio_extensions.go#L10-L17).
 - Books media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L53-L54).
-- Metadata plugin providers: [`silo-plugin-audiobook-metadata`](https://github.com/Silo-Server/silo-plugin-audiobook-metadata).
+- Metadata plugin providers: [`silo-plugin-metadata-audiobook`](https://github.com/Silo-Server/silo-plugin-metadata-audiobook).

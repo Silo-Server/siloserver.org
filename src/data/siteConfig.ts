@@ -20,8 +20,8 @@ export const REPOS = {
   apple: "silo-apple",
   android: "silo-android",
   pluginSdk: "silo-plugin-sdk",
-  pluginTmdb: "silo-plugin-tmdb",
-  pluginTvdb: "silo-plugin-tvdb",
+  pluginTmdb: "silo-plugin-metadata-tmdb",
+  pluginTvdb: "silo-plugin-metadata-tvdb",
   plugins: "silo-plugins",
   themes: "silo-themes",
 } as const;
