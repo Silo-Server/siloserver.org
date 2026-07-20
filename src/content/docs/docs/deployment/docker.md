@@ -3,11 +3,55 @@ title: Docker deployment
 description: Run Silo with the default Docker Compose stack.
 ---
 
-The default Compose stack is integrated-first. It is the right starting point for a single-host install.
+The default [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) stack runs everything on one host — PostgreSQL, Redis, and the integrated Silo service. It is the right starting point for most installs.
 
 ## Image support
 
-Silo publishes `ghcr.io/silo-server/silo-server:latest` from the server repository. The verified build path is Linux: the publish workflow runs on a Linux runner and the Docker runtime stage uses Debian Bookworm. The workflow does not declare a multi-platform matrix, so do not assume a specific architecture from the docs alone.
+Silo publishes one image, `ghcr.io/silo-server/silo-server:latest`, built for both x86-64 (`linux/amd64`) and arm64 (`linux/arm64`) Linux. `docker pull` picks the right one for your machine automatically — no special tags or flags.
+
+## Supported platforms
+
+| Platform | Image | Hardware transcoding |
+| --- | --- | --- |
+| Linux on x86-64 | `amd64` | Intel Quick Sync, NVIDIA |
+| Linux on arm64 (Graviton, Raspberry Pi 4/5) | `arm64` | No — software only |
+| macOS — Docker Desktop or OrbStack | `arm64` on Apple Silicon, `amd64` on Intel | No — software only |
+| Windows — Docker Desktop with WSL 2 | `amd64` (`arm64` on Windows on ARM) | No — software only |
+
+### Hosts without a GPU
+
+The default [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L89-L90) passes the host's GPU device (`/dev/dri`) through to the container for hardware transcoding. On a host without that device — macOS, Windows, and most arm64 servers — Docker refuses to start the service.
+
+If that's you, delete (or comment out) these two lines from your `docker-compose.yml`:
+
+```yaml
+    devices:
+      - /dev/dri:/dev/dri
+```
+
+### Linux on x86-64
+
+Works on any distribution with Docker Engine and the Compose plugin. This is the only platform with hardware transcoding: Intel Quick Sync works out of the box via the default [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L89-L90), and NVIDIA GPUs via the [`docker-compose.nvidia.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.nvidia.yml) overlay.
+
+### Linux on arm64
+
+Covers arm64 servers such as AWS Graviton and single-board computers such as the Raspberry Pi 4/5. Two requirements:
+
+- A 64-bit OS. 32-bit (`armv7`/`armhf`) systems are not supported — on a Raspberry Pi, use the 64-bit variant of Raspberry Pi OS.
+- If the host has no `/dev/dri` (most cloud instances), remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu).
+
+Transcoding runs on the CPU. A Pi handles direct play well but will struggle to transcode high-bitrate video, so prefer clients that can play your media natively.
+
+### macOS (Docker Desktop or OrbStack)
+
+Apple Silicon Macs run the `arm64` image natively; Intel Macs run `amd64`. The Docker VM has no `/dev/dri`, so remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu).
+
+- Keep media on a fast local path. File sharing into the VM is the usual bottleneck, and OrbStack's sharing is much faster than Docker Desktop's for large libraries.
+- Transcoding runs on the CPU — Linux containers cannot use the Mac's VideoToolbox hardware encoder.
+
+### Windows (Docker Desktop with WSL 2)
+
+The WSL 2 VM has no `/dev/dri`, so remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu). Keep media on a path WSL 2 can reach; Windows drive shares under `/mnt/c/...` work but are slower than storage inside the WSL filesystem. Transcoding runs on the CPU.
 
 ## Default profile
 
@@ -50,5 +94,7 @@ The checked-in Compose file includes commented examples for `proxy` and `transco
 - Compose Postgres config mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L12-L15) and [`postgresql.conf`](https://github.com/Silo-Server/silo-server/blob/main/postgres/postgresql.conf).
 - Commented proxy and transcode examples: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L62-L111).
 - Published image setting: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L16-L17).
-- Docker publish workflow: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L20-L22) and [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L99-L110).
+- Docker publish workflow and platform list: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L20-L22) and [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L99-L111).
 - Debian runtime image: [`Dockerfile`](https://github.com/Silo-Server/silo-server/blob/main/Dockerfile#L41-L59).
+- `/dev/dri` device mapping on the default service: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L89-L90).
+- NVIDIA overlay: [`docker-compose.nvidia.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.nvidia.yml).
