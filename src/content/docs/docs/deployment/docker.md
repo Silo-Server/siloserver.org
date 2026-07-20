@@ -18,19 +18,16 @@ Silo publishes one image, `ghcr.io/silo-server/silo-server:latest`, built for bo
 | macOS — Docker Desktop or OrbStack | `arm64` on Apple Silicon, `amd64` on Intel | No — software only |
 | Windows — Docker Desktop with WSL 2 | `amd64` (`arm64` on Windows on ARM) | No — software only |
 
-### Hosts without an Intel GPU
+### Hosts without a GPU
 
-The default [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L89-L90) passes the host's Intel GPU device (`/dev/dri`) into the container for hardware transcoding. If your host has no `/dev/dri` — true on macOS, Windows, and most arm64 servers — Docker refuses to start the service.
+The default [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L89-L90) passes the host's GPU device (`/dev/dri`) through to the container for hardware transcoding. On a host without that device — macOS, Windows, and most arm64 servers — Docker refuses to start the service.
 
-The fix is a two-line override. Create `docker-compose.override.yml` next to `docker-compose.yml`:
+If that's you, delete (or comment out) these two lines from your `docker-compose.yml`:
 
 ```yaml
-services:
-  silo:
-    devices: !reset []
+    devices:
+      - /dev/dri:/dev/dri
 ```
-
-Compose reads this file automatically (v2.24 or newer); no extra flags are needed.
 
 ### Linux on x86-64
 
@@ -41,20 +38,20 @@ Works on any distribution with Docker Engine and the Compose plugin. This is the
 Covers arm64 servers such as AWS Graviton and single-board computers such as the Raspberry Pi 4/5. Two requirements:
 
 - A 64-bit OS. 32-bit (`armv7`/`armhf`) systems are not supported — on a Raspberry Pi, use the 64-bit variant of Raspberry Pi OS.
-- If the host has no `/dev/dri` (most cloud instances), add the [override above](#hosts-without-an-intel-gpu).
+- If the host has no `/dev/dri` (most cloud instances), remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu).
 
 Transcoding runs on the CPU. A Pi handles direct play well but will struggle to transcode high-bitrate video, so prefer clients that can play your media natively.
 
 ### macOS (Docker Desktop or OrbStack)
 
-Apple Silicon Macs run the `arm64` image natively; Intel Macs run `amd64`. Add the [override above](#hosts-without-an-intel-gpu) — the Docker VM has no `/dev/dri`.
+Apple Silicon Macs run the `arm64` image natively; Intel Macs run `amd64`. The Docker VM has no `/dev/dri`, so remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu).
 
 - Keep media on a fast local path. File sharing into the VM is the usual bottleneck, and OrbStack's sharing is much faster than Docker Desktop's for large libraries.
 - Transcoding runs on the CPU — Linux containers cannot use the Mac's VideoToolbox hardware encoder.
 
 ### Windows (Docker Desktop with WSL 2)
 
-Add the [override above](#hosts-without-an-intel-gpu) — the WSL 2 VM has no `/dev/dri`. Keep media on a path WSL 2 can reach; Windows drive shares under `/mnt/c/...` work but are slower than storage inside the WSL filesystem. Transcoding runs on the CPU.
+The WSL 2 VM has no `/dev/dri`, so remove the device mapping as described in [Hosts without a GPU](#hosts-without-a-gpu). Keep media on a path WSL 2 can reach; Windows drive shares under `/mnt/c/...` work but are slower than storage inside the WSL filesystem. Transcoding runs on the CPU.
 
 ## Default profile
 
