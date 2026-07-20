@@ -16,7 +16,7 @@ docker compose up -d
 
 Set `MEDIA_ROOT` before starting the stack. It is mounted read-only into the Silo container at `MEDIA_CONTAINER_ROOT`, which defaults to `/mnt/media`. You can also override `SILO_DATA_ROOT` if you do not want bind mounts under `/opt/silo`.
 
-The published image defaults to `ghcr.io/silo-server/silo-server:latest`. It is a Linux multi-architecture image: the publish workflow builds `linux/amd64` and `linux/arm64` and pushes a single manifest list, so `docker pull` selects the right variant automatically. See [Docker deployment](/docs/deployment/docker/) for per-platform notes.
+The published image defaults to `ghcr.io/silo-server/silo-server:latest` and is built for both x86-64 (`linux/amd64`) and arm64 (`linux/arm64`) Linux — `docker pull` picks the right one for your machine automatically. See [Docker deployment](/docs/deployment/docker/) for per-platform instructions, including macOS, Windows, and Raspberry Pi.
 
 ## Build from source
 
