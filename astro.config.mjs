@@ -8,10 +8,21 @@ import starlight from "@astrojs/starlight";
 const site = process.env.SITE ?? "https://siloserver.org";
 const base = process.env.BASE_PATH ?? "/";
 
+// The dev/preview server binds every interface so the site is reachable over
+// Tailscale, not just on localhost. Set DEV_HOST to a single address to narrow
+// that, e.g. DEV_HOST=100.x.y.z to bind only the tailnet interface.
+const devHost = process.env.DEV_HOST ?? true;
+
 export default defineConfig({
   site,
   base,
   trailingSlash: "never",
+  server: {
+    host: devHost,
+    // Vite rejects unknown Host headers as DNS-rebinding protection. Bare IPs
+    // are accepted already; this adds MagicDNS names like host.tailnet.ts.net.
+    allowedHosts: [".ts.net"],
+  },
   integrations: [
     starlight({
       title: "silo docs",
