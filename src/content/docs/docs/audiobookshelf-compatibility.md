@@ -56,7 +56,7 @@ https://siloabs.example.com  -> Audiobookshelf-compatible endpoint on port 13378
 
 ## Source notes
 
-- Default port in Compose: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L52).
+- Default port in Compose: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
 - Listener default and enable flag: [`db_loader.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/db_loader.go#L361-L369).
 - Route surface and client notes: [`handler.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/audiobooks/abs/handler.go).
 - Token lifetimes and login settings: [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/audiobooks/config.go).

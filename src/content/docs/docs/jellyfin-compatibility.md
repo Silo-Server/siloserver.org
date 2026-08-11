@@ -44,6 +44,6 @@ When reporting compatibility issues, include:
 
 ## Source notes
 
-- Default Jellyfin-compatible port in Compose: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L43-L45).
+- Default Jellyfin-compatible port in Compose: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
 - Jellyfin compatibility default listen/public URL settings: [`db_loader.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/db_loader.go#L358-L365).
 - Compatibility server starts in `integrated` or `api` mode: [`main.go`](https://github.com/Silo-Server/silo-server/blob/main/cmd/silo/main.go#L1544-L1545).

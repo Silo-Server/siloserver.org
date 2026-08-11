@@ -29,6 +29,7 @@ The wizard is intentionally not every admin screen. After the first scan, review
 - Admin > Plugins: manage plugin-provided metadata, auth providers, and scan-source providers.
 - Admin > Users: manage users, devices, invite codes, and signup flow.
 - Admin > Settings: review General, Theming, Card Overlays, Scanner & Matcher, Intro Markers, Subtitles, AI Services, Playback, Downloads, Watch Providers, Integrations, Email, Notifications, Compatibility Proxies, Rate Limiting, Database, Storage, and Log Retention.
+- Admin > Settings > Search: PostgreSQL full-text search works without setup. If you started the optional Meilisearch Compose profile, select Meilisearch, configure `http://meilisearch:7700` with its master key, test the connection, save, restart Silo, and rebuild the catalog search index.
 - Admin > Settings > Notifications: [notifications](/docs/notifications) work out of the box for the in-app inbox and web push. Configure SMTP (under Email) for email notifications, and opt in to outbound webhooks or the Discord integration if you want them.
 - Admin > Nodes: add worker nodes if you move proxy or transcode work off the integrated server.
 

@@ -13,7 +13,9 @@ Create a library with type "Audiobooks" in Admin > Libraries, using a container-
 /mnt/media/books/audiobooks
 ```
 
-The default Compose file mounts an optional separate books root: `MEDIA_BOOKS_ROOT` on the host is mounted at `${MEDIA_CONTAINER_ROOT}/books` in the container, falling back to `MEDIA_ROOT` when unset.
+Audiobooks use the same `MEDIA_ROOT` mount as every other library type. The example path assumes
+your host media root contains `books/audiobooks`; use the matching container-visible path for your
+own folder layout.
 
 ## Folder layout
 
@@ -64,5 +66,5 @@ Third-party listening apps connect through the [Audiobookshelf-compatible endpoi
 - Library type and scan walk: [`scanner.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/scanner.go#L311-L318), [`audiobook_scan.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/audiobook_scan.go#L140-L175).
 - Folder parsing, tag mapping, and title cleanup: [`audiobook.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/audiobook.go).
 - Supported audio extensions: [`audio_extensions.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/audio_extensions.go#L10-L17).
-- Books media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L53-L54).
+- Media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
 - Metadata plugin providers: [`silo-plugin-metadata-audiobook`](https://github.com/Silo-Server/silo-plugin-metadata-audiobook).
