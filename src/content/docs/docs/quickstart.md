@@ -1,74 +1,116 @@
 ---
 title: Quickstart
-description: Run Silo locally with Docker Compose.
+description: Install Silo with the official Docker Compose stack.
 ---
 
-The recommended first install uses Docker Compose. The default stack starts Silo with PostgreSQL, Redis, FFmpeg, and the integrated application service. After the container is running, Silo's setup wizard handles most first-run configuration.
+Silo's recommended install is the official Docker Compose stack. Compose runs Silo, PostgreSQL,
+Redis, and FFmpeg together; you do not install those dependencies separately.
 
-## Prerequisites
+## 1. Install Docker and Docker Compose
 
-- Docker with Compose support
-- A host directory containing your media
-- Either a clone of the [`silo-server`](https://github.com/Silo-Server/silo-server) repository or the latest Compose install files
+Install [Docker Engine](https://docs.docker.com/engine/install/) on Linux, or
+[Docker Desktop](https://docs.docker.com/desktop/) on macOS or Windows. Linux operators also need
+the [Docker Compose plugin](https://docs.docker.com/compose/install/linux/).
 
-## Start Silo
+Verify both commands before continuing:
 
-From the [`silo-server`](https://github.com/Silo-Server/silo-server) repository:
+```sh
+docker --version
+docker compose version
+```
+
+Silo requires Compose 2.24 or newer (`docker compose`), not the legacy `docker-compose` command.
+
+## 2. Get the Compose file
+
+From a clone of the [`silo-server`](https://github.com/Silo-Server/silo-server) repository:
 
 ```sh
 cp .env.example .env
+printf '\nPOSTGRES_PASSWORD=%s\nSECRET_KEY=%s\n' \
+  "$(openssl rand -hex 24)" "$(openssl rand -base64 48)" >> .env
 ```
 
-Or download only the latest Compose install files:
+Or download only the two files needed for an install:
 
 ```sh
-mkdir -p postgres && curl -fsSLo docker-compose.yml https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.yml && curl -fsSLo .env.example https://raw.githubusercontent.com/Silo-Server/silo-server/main/.env.example && curl -fsSLo postgres/postgresql.conf https://raw.githubusercontent.com/Silo-Server/silo-server/main/postgres/postgresql.conf && cp -n .env.example .env
+mkdir silo && cd silo
+curl -fsSLO https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.yml
+curl -fsSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/.env.example -o .env
+printf '\nPOSTGRES_PASSWORD=%s\nSECRET_KEY=%s\n' \
+  "$(openssl rand -hex 24)" "$(openssl rand -base64 48)" >> .env
 ```
 
-Before starting, edit `.env` and set `MEDIA_ROOT` to the host path containing your media. New installs can usually keep `MEDIA_CONTAINER_ROOT=/mnt/media`; this is the path Silo sees inside the container.
+These commands replace the template's development database password and generate the key that
+protects credentials stored by Silo. Back up `.env` separately from your PostgreSQL backups;
+losing `SECRET_KEY` makes encrypted credentials unrecoverable.
+
+## 3. Set your media path
+
+Edit `.env` and set `MEDIA_ROOT` to the host directory containing your media:
 
 ```dotenv
 MEDIA_ROOT=/srv/media
-MEDIA_CONTAINER_ROOT=/mnt/media
 ```
 
-Start the integrated stack:
+Keep `MEDIA_CONTAINER_ROOT=/mnt/media` unless you are migrating an existing install whose saved
+library paths use a different container path. Movies, shows, music, audiobooks, and ebooks can all
+live anywhere below the same media root; books do not need a separate Docker mount.
+
+## 4. Start Silo
 
 ```sh
 docker compose up -d
+docker compose ps
 ```
 
-The web app is available at `http://localhost:8090`. The Jellyfin-compatible endpoint is available at `http://localhost:8096`, and the Audiobookshelf-compatible endpoint at `http://localhost:13378`.
+The default stack starts PostgreSQL, Redis, and the integrated Silo service. Open
+`http://localhost:8090` when the `silo` container is healthy.
 
-## Use the setup wizard
+Jellyfin-compatible access is disabled until an administrator enables it during setup or under
+Admin Settings. The Audiobookshelf-compatible service uses port `13378`.
 
-Open `http://localhost:8090` and follow the setup wizard. The wizard is the normal path for first-run application setup.
+## 5. Finish setup in the browser
+
+The setup wizard follows this order:
 
 1. Create the first admin account.
-2. Create a profile.
-3. Review server settings: Redis, playback, Jellyfin compatibility, public asset S3, private internal S3, and image caching.
-4. Configure optional subtitle integrations.
-5. Configure optional downloads and recommendations.
-6. Add the first library and keep "Scan after creating" enabled.
-7. Finish, or add optional proxy/transcode nodes if you are building a distributed deployment.
+2. Create the first household profile.
+3. Review server, playback, storage, and optional Jellyfin-compatible settings.
+4. Configure optional subtitle integrations, downloads, and recommendations.
+5. Add a library using its container path, such as `/mnt/media/movies`, and leave **Scan after creating** enabled.
+6. Finish setup; add separate proxy or transcode nodes only for a distributed deployment.
 
-For the library path, use the container-visible path. With the default `.env` example, a host path like `/srv/media/movies` is entered in Silo as `/mnt/media/movies`.
+Only account and profile creation are required. The other steps can be skipped and revisited in
+the admin UI. See [First configuration](/docs/first-configuration) for the settings worth reviewing
+after the first scan.
 
-The server, integrations, downloads, recommendations, and library steps can be skipped and revisited later from the admin UI. After the wizard, review [first configuration](/docs/first-configuration) for the admin pages not covered by first-run setup, and [library paths](/docs/libraries) before adding automation.
+## Optional Meilisearch
 
-## Docker image
+PostgreSQL full-text search is the default and requires no extra service. To run the optional
+Meilisearch container, add a key to `.env` and start the `search` profile:
 
-The published image is a Linux container image. The Docker publish workflow runs on a Linux runner and the runtime image is based on Debian. The workflow does not declare a multi-platform matrix or publish Windows/macOS container images.
+```sh
+printf '\nMEILI_MASTER_KEY=%s\n' "$(openssl rand -hex 32)" >> .env
+docker compose --profile search up -d
+```
+
+Then open **Admin > Settings > Search**, choose **Meilisearch**, set the URL to
+`http://meilisearch:7700`, enter the same key as the API key, test the connection, and save. Silo
+requires a restart when the provider changes, so run `docker compose restart silo`, return to the
+Search page, and rebuild the catalog search index. Silo falls back to PostgreSQL search if
+Meilisearch is unavailable.
+
+## PostgreSQL configuration
+
+No `postgresql.conf` download or manual database tuning is required. The Compose stack starts
+PostgreSQL with pgvector, and Silo applies its automatic PostgreSQL recommendations through
+`ALTER SYSTEM`. Advanced operators can disable this with `POSTGRES_TUNE=off`.
 
 ## Source notes
 
-- Default Compose services, ports, and media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L1-L58).
-- Raw Compose download: [`docker-compose.yml`](https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.yml).
-- Required `.env` media settings and default image: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L1-L42).
-- Compose Postgres config mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L12-L15) and [`postgresql.conf`](https://github.com/Silo-Server/silo-server/blob/main/postgres/postgresql.conf).
-- Docker publish workflow and image tags: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L20-L22) and [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml#L90-L110).
-- Linux runtime image: [`Dockerfile`](https://github.com/Silo-Server/silo-server/blob/main/Dockerfile#L41-L59).
-- Setup wizard step order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts#L28-L78).
-- Skippable wizard steps: [`WizardContext.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/WizardContext.tsx#L8-L23).
-- Server/storage wizard fields: [`ServerStorageStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/ServerStorageStep.tsx#L248-L514).
-- Library wizard fields and scan-after-create behavior: [`LibraryStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/LibraryStep.tsx#L20-L140).
+- Official stack: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
+- Environment template: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example).
+- Published image workflow: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml).
+- Setup wizard order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts).
+- PostgreSQL auto-tuning: [`postgres_tune.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/database/postgres_tune.go).

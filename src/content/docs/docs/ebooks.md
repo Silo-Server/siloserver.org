@@ -13,7 +13,9 @@ Create a library with type "Ebooks" in Admin > Libraries, using a container-visi
 /mnt/media/books/ebooks
 ```
 
-The default Compose file mounts an optional separate books root: `MEDIA_BOOKS_ROOT` on the host is mounted at `${MEDIA_CONTAINER_ROOT}/books` in the container, falling back to `MEDIA_ROOT` when unset.
+Ebooks use the same `MEDIA_ROOT` mount as every other library type. The example path assumes your
+host media root contains `books/ebooks`; use the matching container-visible path for your own
+folder layout.
 
 ## Supported formats
 
@@ -46,4 +48,4 @@ Ebook endpoints on the [Audiobookshelf-compatible API](/docs/audiobookshelf-comp
 - Supported formats and per-format parsers: [`ebook.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/scanner/ebook.go#L29-L95).
 - Enrichment and retry behavior: [`enrichment.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/ebooks/enrichment.go).
 - Web reader: [`FoliateBookReader.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/reader/FoliateBookReader.tsx), [`EbookReader.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/EbookReader.tsx).
-- Books media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L53-L54).
+- Media mount: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).

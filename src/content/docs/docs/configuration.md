@@ -16,14 +16,20 @@ The default Docker path keeps environment configuration small. Set the media pat
 `SILO_DATA_ROOT`
 : Host path for PostgreSQL, Redis, plugin cache, transcode output, and catalog seed bind mounts. The default is `/opt/silo`.
 
+`SECRET_KEY`
+: Required master key for credentials encrypted by Silo. Generate it with `openssl rand -base64 48` and back it up separately from PostgreSQL.
+
 `DATABASE_URL`
 : PostgreSQL connection string. Required when running from source or against external PostgreSQL. The default Compose stack wires this automatically.
 
 `REDIS_URL`
 : Redis connection string. The default Compose stack wires this automatically.
 
-`PORT` and `JF_PORT`
-: Optional host port overrides for the web app and Jellyfin-compatible endpoint.
+`PORT`, `JF_PORT`, and `ABS_PORT`
+: Optional host port overrides for the web app, Jellyfin-compatible endpoint, and Audiobookshelf-compatible endpoint. The container listeners stay fixed at `8080`, `8096`, and `13378`.
+
+`MEILI_MASTER_KEY`
+: Required only when starting the optional Compose `search` profile. Generate it with `openssl rand -hex 32`, then configure the same key under Admin > Settings > Search.
 
 `MODE`
 : Optional server mode. The default Compose service runs `integrated`.
@@ -34,8 +40,9 @@ MEDIA_CONTAINER_ROOT=/mnt/media
 SILO_DATA_ROOT=/opt/silo
 SILO_IMAGE=ghcr.io/silo-server/silo-server:latest
 POSTGRES_USER=silo
-POSTGRES_PASSWORD=silo
+POSTGRES_PASSWORD=replace-with-output-of-openssl-rand-hex-24
 POSTGRES_DB=silo
+SECRET_KEY=replace-with-output-of-openssl-rand-base64-48
 ```
 
 ## Data layout
@@ -44,14 +51,27 @@ The deploy-oriented Compose files use bind mounts instead of Docker-managed volu
 
 - `/opt/silo/postgres`
 - `/opt/silo/redis`
+- `/opt/silo/plugins`
+- `/opt/silo/compat`
 - `/opt/silo/transcode`
 - `/opt/silo/catalog-seeds`
+
+The optional Meilisearch profile adds `/opt/silo/meilisearch`.
+
+Movies, series, music, audiobooks, and ebooks all use the single `MEDIA_ROOT` mount. There is no
+separate books mount.
 
 ## Admin-managed settings
 
 After bootstrap, most settings live in the admin UI and server settings database, not in `.env`.
 
-Use the setup wizard for the first pass through account, profile, server, integrations, downloads, recommendations, library, and optional nodes. Afterward, use Admin Settings for the broader settings surface: General, Theming, Playback, Scanner & Matcher, Rate Limiting, Downloads, Integrations, Jellyfin Compat, Database, Storage, Log Retention, and Card Overlays.
+Use the setup wizard for the first pass through account, profile, server, integrations, downloads, recommendations, library, and optional nodes. Afterward, use Admin Settings for the broader settings surface, including Search when you run optional Meilisearch.
+
+## PostgreSQL tuning
+
+The default stack does not use a checked-in `postgresql.conf`. Silo applies automatic PostgreSQL
+recommendations through `ALTER SYSTEM`. Set `POSTGRES_TUNE=off` if you manage database tuning
+yourself.
 
 ## Logging
 
@@ -70,8 +90,8 @@ See [Logging and telemetry](/docs/logging) for log controls, redaction limits, r
 
 ## Source notes
 
-- `.env` defaults and environment variables: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example#L1-L86).
-- Compose bind mounts and default service environment: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml#L54-L88).
-- Source-run configuration and server modes: [`README.md`](https://github.com/Silo-Server/silo-server/blob/main/README.md#L117-L128).
+- `.env` defaults and environment variables: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example).
+- Compose bind mounts and default service environment: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
+- Source-run configuration and server modes: [`README.md`](https://github.com/Silo-Server/silo-server/blob/main/README.md).
 - Wizard step order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts#L28-L78).
 - Admin settings tabs: [`adminSettingsSearch.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/lib/adminSettingsSearch.ts#L42-L503).
