@@ -1,0 +1,113 @@
+---
+// Public URL supplied to app stores for account-deletion instructions.
+import PolicyPage from "../components/PolicyPage.astro";
+
+const UPDATED = "August 12, 2026";
+const CONTACT_EMAIL = "feedback@siloserver.org";
+---
+
+<PolicyPage
+  title="delete a Silo account"
+  description="How Silo Media Player users request deletion of an account and associated data from the operator of their self-hosted Silo server."
+  eyebrow="legal / 02"
+  heading="Delete a Silo account"
+  meta={`Last updated ${UPDATED}`}
+>
+  <p class="policy__lede">
+    Silo Media Player does not provide or host centralized user accounts. An
+    account created in the app belongs to the self-hosted Silo server selected
+    by the user. That server's operator—not the Silo project—controls the
+    account and its associated data.
+  </p>
+
+  <h2>Request deletion from your server operator</h2>
+  <ol>
+    <li>
+      Identify the person or organization that gave you the Silo server
+      address, invitation, or login. That is normally the server operator.
+    </li>
+    <li>
+      Contact that operator and ask them to delete your Silo user account and
+      associated data.
+    </li>
+    <li>
+      Give the operator the username or email address used on that server so
+      they can locate the correct account. Share the server address and account
+      details only with that operator—not with the Silo project.
+    </li>
+  </ol>
+  <p>
+    The Silo project cannot identify the operator of an arbitrary self-hosted
+    server, access its administration tools, verify its users, or delete data
+    from it.
+  </p>
+
+  <h2>Instructions for a Silo server administrator</h2>
+  <ol>
+    <li>Sign in to the self-hosted Silo web application as an administrator.</li>
+    <li>Open <strong>Administration → Users</strong>.</li>
+    <li>Select the requesting user and choose <strong>Delete user</strong>.</li>
+    <li>Confirm the permanent deletion.</li>
+  </ol>
+  <p>
+    Account deletion is performed by the self-hosted server. It does not send
+    account information or a deletion request to the Silo project.
+  </p>
+
+  <h2>Data deleted from the live server</h2>
+  <p>
+    Deleting a user removes the account from the live Silo database and
+    invalidates its active sessions. Associated user-scoped records are also
+    deleted, including, where present:
+  </p>
+  <ul>
+    <li>profiles and profile access assignments;</li>
+    <li>authentication sessions, API keys, and registered device records;</li>
+    <li>settings and preferences;</li>
+    <li>watch history, playback progress, ratings, favorites, and watchlist;</li>
+    <li>personal collections and related user-created state; and</li>
+    <li>user-scoped download, notification, request, and synchronization state.</li>
+  </ul>
+
+  <h2>Data that may be kept</h2>
+  <p>
+    A server operator may retain backups, security logs, audit records, or
+    information required by law or legitimate security needs. The operator
+    determines those retention periods and is responsible for explaining them
+    to the user. Some shared library metadata or administrative records may
+    remain without being associated with the deleted account.
+  </p>
+
+  <h2>Data stored on your device</h2>
+  <p>
+    Removing a server from Silo Media Player, signing out, clearing the app's
+    storage, or uninstalling the app removes the applicable local credentials,
+    caches, settings, and downloaded media. These actions do not delete the
+    account held by the self-hosted server; the server operator must still
+    complete the steps above.
+  </p>
+
+  <h2>Silo-managed diagnostics and push delivery</h2>
+  <p>
+    Optional Silo-managed diagnostic reports are not linked to an account on a
+    self-hosted server, so deleting that account does not identify or delete a
+    previously sent report. Diagnostic reports expire within 30 days. To
+    request earlier report deletion, email
+    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and include the
+    report reference shown in the app.
+  </p>
+  <p>
+    The content-free Silo push relay does not hold self-hosted account records.
+    Revoking a device or deleting the user on the self-hosted server stops that
+    server from sending future pushes for the deleted account.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    Questions about these instructions may be sent to
+    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Do not send your
+    password, authentication token, private server address, or other account
+    credentials. Silo cannot forward a deletion request to an unknown
+    self-hosted server operator.
+  </p>
+</PolicyPage>
