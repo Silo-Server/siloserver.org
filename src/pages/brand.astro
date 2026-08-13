@@ -1,0 +1,753 @@
+---
+import Base from "../layouts/Base.astro";
+import StatusBar from "../components/StatusBar.astro";
+import Bottombar from "../components/Bottombar.astro";
+import SiloBars from "../components/SiloBars.astro";
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const assetHref = (name: string) => `${baseUrl}/brand/${name}`;
+const policyHref =
+  "https://github.com/Silo-Server/siloserver.org/blob/main/TRADEMARK.md";
+---
+
+<Base
+  title="brand assets"
+  description="Official Silo logos, icons, colors, and practical guidance for using the Silo brand."
+>
+  <StatusBar />
+
+  <main id="main" class="brand-page">
+    <header class="brand-hero">
+      <div class="brand-hero__copy">
+        <p class="brand-kicker">
+          <SiloBars size="sm" />
+          brand manual / rev 01
+        </p>
+        <h1>Silo brand assets.</h1>
+        <p class="brand-hero__lede">
+          Official artwork for articles, integrations, presentations, and
+          other places where you need to identify Silo clearly.
+        </p>
+        <p class="brand-hero__meta">
+          3 asset types / 4 files <span>·</span> PNG <span>·</span> © 2026
+          Silo Media L.L.C.
+        </p>
+      </div>
+
+      <div class="brand-hero__specimen" aria-label="Silo wordmark specimen">
+        <img
+          src={assetHref("silo-wordmark-white.png")}
+          alt="Silo"
+          width="191"
+          height="100"
+        />
+        <span>primary horizontal lockup / full color + white</span>
+      </div>
+    </header>
+
+    <section class="brand-section" aria-labelledby="downloads-title">
+      <div class="brand-section__heading">
+        <p>01 / assets</p>
+        <div>
+          <h2 id="downloads-title">Download the originals</h2>
+          <p>
+            These files come directly from the Silo Server and Silo Apple
+            repositories. Use them as supplied—there is no need to redraw the
+            mark or typeset the name.
+          </p>
+        </div>
+      </div>
+
+      <div class="asset-grid">
+        <article class="asset-card asset-card--wide">
+          <div class="asset-card__preview asset-card__preview--wordmark">
+            <img
+              src={assetHref("silo-wordmark-white.png")}
+              alt="Full-color Silo mark with a white Silo wordmark"
+              width="191"
+              height="100"
+            />
+          </div>
+          <div class="asset-card__body">
+            <p class="asset-card__index">LOGO / 01</p>
+            <h3>Horizontal wordmark</h3>
+            <p>
+              The preferred lockup for partner pages, articles, slides, and
+              other horizontal placements. Choose dark lettering for light
+              fields or white lettering for deep blue and dark fields.
+            </p>
+            <dl>
+              <div><dt>format</dt><dd>2 transparent PNGs</dd></div>
+              <div><dt>canvas</dt><dd>191 × 100 px</dd></div>
+            </dl>
+            <div class="asset-downloads">
+              <a
+                class="asset-download"
+                href={assetHref("silo-wordmark-dark.png")}
+                download="silo-wordmark-dark.png"
+              >for light fields <span>↓</span></a>
+              <a
+                class="asset-download"
+                href={assetHref("silo-wordmark-white.png")}
+                download="silo-wordmark-white.png"
+              >for dark fields <span>↓</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="asset-card">
+          <div class="asset-card__preview asset-card__preview--icon">
+            <img
+              src={assetHref("silo-project-icon.png")}
+              alt="Silo project icon"
+              width="256"
+              height="256"
+            />
+          </div>
+          <div class="asset-card__body">
+            <p class="asset-card__index">MARK / 02</p>
+            <h3>Project icon</h3>
+            <p>
+              A compact square for directories, avatars, and integrations
+              where the horizontal wordmark will not fit.
+            </p>
+            <dl>
+              <div><dt>format</dt><dd>PNG</dd></div>
+              <div><dt>canvas</dt><dd>256 × 256 px</dd></div>
+            </dl>
+            <a
+              class="asset-download"
+              href={assetHref("silo-project-icon.png")}
+              download="silo-project-icon.png"
+            >download PNG <span>↓</span></a>
+          </div>
+        </article>
+
+        <article class="asset-card">
+          <div class="asset-card__preview asset-card__preview--icon">
+            <img
+              src={assetHref("silo-app-icon.png")}
+              alt="Silo app icon"
+              width="1024"
+              height="1024"
+            />
+          </div>
+          <div class="asset-card__body">
+            <p class="asset-card__index">APP / 03</p>
+            <h3>App icon</h3>
+            <p>
+              The high-resolution official product artwork. It is provided
+              for press and editorial coverage, not as an identity for
+              third-party apps or forks.
+            </p>
+            <dl>
+              <div><dt>format</dt><dd>PNG</dd></div>
+              <div><dt>canvas</dt><dd>1024 × 1024 px</dd></div>
+            </dl>
+            <a
+              class="asset-download"
+              href={assetHref("silo-app-icon.png")}
+              download="silo-app-icon.png"
+            >download PNG <span>↓</span></a>
+          </div>
+        </article>
+      </div>
+
+      <p class="asset-notice">
+        Downloads are Silo trademarks and remain © Silo Media L.L.C. See the
+        <a href={assetHref("NOTICE.txt")}>asset notice</a> and guidance below.
+      </p>
+    </section>
+
+    <section class="brand-section brand-section--rules" aria-labelledby="usage-title">
+      <div class="brand-section__heading">
+        <p>02 / usage</p>
+        <div>
+          <h2 id="usage-title">Keep it unmistakably Silo</h2>
+          <p>
+            Consistency matters more than decoration. Pick the asset that fits
+            the space, keep the artwork intact, and make the relationship to
+            Silo clear.
+          </p>
+        </div>
+      </div>
+
+      <div class="rules-grid">
+        <article class="rules-card rules-card--do">
+          <p class="rules-card__label">Do</p>
+          <ul>
+            <li>Use the supplied artwork without redrawing it.</li>
+            <li>Leave comfortable clear space on every side.</li>
+            <li>Use the wordmark variant with clear background contrast.</li>
+            <li>Describe third-party work as “compatible with Silo.”</li>
+            <li>Keep your own product name and identity more prominent.</li>
+          </ul>
+        </article>
+
+        <article class="rules-card rules-card--dont">
+          <p class="rules-card__label">Don’t</p>
+          <ul>
+            <li>Stretch, skew, rotate, crop, or rearrange the artwork.</li>
+            <li>Recolor the mark or add shadows, outlines, or effects.</li>
+            <li>Typeset “Silo” as a substitute for the supplied wordmark.</li>
+            <li>Use the icon as the identity of a fork or third-party app.</li>
+            <li>Imply sponsorship, endorsement, or official status.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="context-table" role="region" aria-label="Asset selection guide" tabindex="0">
+        <table>
+          <thead>
+            <tr><th>asset</th><th>best for</th><th>background</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>horizontal wordmark</td>
+              <td>articles, decks, partner and compatibility pages</td>
+              <td>dark art on light; white art on dark</td>
+            </tr>
+            <tr>
+              <td>project icon</td>
+              <td>avatars, directories, compact square placements</td>
+              <td>use the complete supplied canvas</td>
+            </tr>
+            <tr>
+              <td>app icon</td>
+              <td>press coverage of official Silo applications</td>
+              <td>use the complete supplied canvas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="brand-section brand-section--palette" aria-labelledby="palette-title">
+      <div class="brand-section__heading">
+        <p>03 / palette</p>
+        <div>
+          <h2 id="palette-title">Logo palette</h2>
+          <p>
+            When the logo appears beside supporting graphics, these colors
+            keep the surrounding material in the same visual family. Do not
+            use them to recolor the supplied artwork.
+          </p>
+        </div>
+      </div>
+
+      <div class="swatches" aria-label="Silo logo colors">
+        <div class="swatch" style="--swatch: #0034fb">
+          <span></span><strong>signal blue</strong><code>#0034FB</code>
+        </div>
+        <div class="swatch" style="--swatch: #f50b4f">
+          <span></span><strong>signal red</strong><code>#F50B4F</code>
+        </div>
+        <div class="swatch" style="--swatch: #fa7604">
+          <span></span><strong>signal orange</strong><code>#FA7604</code>
+        </div>
+        <div class="swatch" style="--swatch: #070b82">
+          <span></span><strong>deep field</strong><code>#070B82</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="permission" aria-labelledby="permission-title">
+      <p class="permission__index">04 / permissions</p>
+      <div>
+        <h2 id="permission-title">Open source code. Protected identity.</h2>
+        <p>
+          You may use the Silo name and artwork to refer truthfully to Silo,
+          redistribute official unmodified builds, and for editorial or
+          educational coverage. Forks must rebrand. Silo-branded app-store
+          releases, merchandise, commercial uses, and modified distributions
+          require written permission.
+        </p>
+        <div class="permission__actions">
+          <a href={policyHref}>read the full trademark policy ↗</a>
+          <a href="mailto:trademark@siloserver.org">trademark@siloserver.org</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Bottombar />
+</Base>
+
+<style>
+  .brand-page {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    background: color-mix(in srgb, var(--paper) 96%, transparent);
+  }
+
+  .brand-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.62fr);
+    min-height: 420px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .brand-hero__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .brand-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.5rem;
+    font: 500 0.72rem/1 var(--ff-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .brand-hero h1 {
+    max-width: 620px;
+    margin: 0;
+    font: 800 clamp(3.2rem, 6vw, 5.4rem)/0.92 var(--ff-display);
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .brand-hero__lede {
+    max-width: 630px;
+    margin: 1.5rem 0 0;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .brand-hero__meta {
+    margin: 1.75rem 0 0;
+    font: 500 0.7rem/1.6 var(--ff-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .brand-hero__meta span {
+    padding: 0 0.35rem;
+    color: var(--orange);
+  }
+  .brand-hero__specimen {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #0b169f, #070b82 68%, #060864);
+    border-left: 1px solid var(--ink);
+  }
+  .brand-hero__specimen img {
+    position: relative;
+    z-index: 1;
+    width: min(52%, 210px);
+    height: auto;
+  }
+  .brand-hero__specimen span {
+    position: absolute;
+    right: 28px;
+    bottom: 26px;
+    left: 28px;
+    z-index: 1;
+    font: 500 0.62rem/1.4 var(--ff-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .brand-section {
+    padding: clamp(3.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--rule);
+  }
+  .brand-section__heading {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.25fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.25rem;
+  }
+  .brand-section__heading > p,
+  .permission__index {
+    margin: 0.45rem 0 0;
+    font: 500 0.68rem/1.4 var(--ff-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .brand-section__heading h2,
+  .permission h2 {
+    margin: 0;
+    font: 800 clamp(2.1rem, 4vw, 3.4rem)/1 var(--ff-display);
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .brand-section__heading div > p {
+    max-width: 720px;
+    margin: 1.1rem 0 0;
+    color: var(--ink-soft);
+  }
+
+  .asset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+  }
+  .asset-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--paper-high);
+  }
+  .asset-card--wide {
+    grid-column: auto;
+  }
+  .asset-card__preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 230px;
+    padding: 1.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .asset-card__preview--wordmark {
+    background: #070b82;
+  }
+  .asset-card__preview--wordmark img {
+    width: min(68%, 220px);
+    height: auto;
+  }
+  .asset-card__preview--icon {
+    background: var(--paper-dim);
+  }
+  .asset-card__preview--icon img {
+    width: min(62%, 170px);
+    height: auto;
+    box-shadow: 0 10px 24px rgba(11, 10, 8, 0.14);
+  }
+  .asset-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .asset-card__index,
+  .rules-card__label {
+    margin: 0 0 1rem;
+    font: 600 0.65rem/1 var(--ff-mono);
+    letter-spacing: 0.16em;
+    color: var(--blue);
+  }
+  .asset-card h3 {
+    margin: 0;
+    font: 800 clamp(1.7rem, 2.5vw, 2.35rem)/1 var(--ff-display);
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .asset-card__body > p:not(.asset-card__index) {
+    margin: 1rem 0 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .asset-card dl {
+    width: 100%;
+    margin: auto 0 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .asset-card dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    font: 500 0.67rem/1.4 var(--ff-mono);
+  }
+  .asset-card dt {
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .asset-card dd {
+    margin: 0;
+    color: var(--ink);
+  }
+  .asset-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-width: 180px;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper-high);
+    font: 600 0.68rem/1 var(--ff-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.14s ease, border-color 0.14s ease;
+  }
+  .asset-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .asset-downloads .asset-download {
+    flex: 1 1 145px;
+    min-width: 0;
+  }
+  .asset-download:hover {
+    border-color: var(--blue);
+    background: var(--blue);
+  }
+  .asset-download span {
+    font-size: 1rem;
+  }
+  .asset-notice {
+    margin: 1rem 0 0;
+    font: 500 0.68rem/1.6 var(--ff-mono);
+    color: var(--ink-mute);
+  }
+  .asset-notice a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .brand-section--rules {
+    background: var(--paper-dim);
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+  }
+  .rules-card {
+    padding: clamp(1.75rem, 4vw, 3.25rem);
+    background: var(--paper-high);
+  }
+  .rules-card--do {
+    border-top: 5px solid var(--blue);
+  }
+  .rules-card--dont {
+    border-top: 5px solid var(--red);
+  }
+  .rules-card--dont .rules-card__label {
+    color: var(--red);
+  }
+  .rules-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .rules-card li {
+    position: relative;
+    padding: 0.85rem 0 0.85rem 1.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink-soft);
+  }
+  .rules-card li:last-child {
+    border-bottom: 0;
+  }
+  .rules-card li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font: 600 1rem/1.6 var(--ff-mono);
+  }
+  .rules-card--dont li::before {
+    content: "×";
+    color: var(--red);
+  }
+  .context-table {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--ink);
+  }
+  .context-table table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    background: var(--paper-high);
+  }
+  .context-table th,
+  .context-table td {
+    padding: 0.9rem 1.1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+  }
+  .context-table th:last-child,
+  .context-table td:last-child {
+    border-right: 0;
+  }
+  .context-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .context-table th {
+    background: var(--ink);
+    color: var(--paper-high);
+    font: 600 0.65rem/1 var(--ff-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .context-table td {
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+  }
+  .context-table td:first-child {
+    color: var(--ink);
+    font-family: var(--ff-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+  }
+  .swatch {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    background: var(--paper-high);
+  }
+  .swatch > span {
+    grid-column: 1 / -1;
+    display: block;
+    height: 100px;
+    background: var(--swatch);
+    border-bottom: 1px solid var(--ink);
+  }
+  .swatch strong,
+  .swatch code {
+    padding: 0.8rem 0.9rem;
+    font: 500 0.65rem/1 var(--ff-mono);
+  }
+  .swatch strong {
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  .swatch code {
+    color: var(--ink-mute);
+  }
+
+  .permission {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.25fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding: clamp(3.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    background: var(--console);
+    color: var(--console-ink);
+  }
+  .permission__index {
+    color: var(--console-mute);
+  }
+  .permission h2 {
+    max-width: 850px;
+    color: var(--console-ink);
+  }
+  .permission p {
+    max-width: 820px;
+    margin: 1.5rem 0 0;
+    color: var(--console-mute);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .permission__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    margin-top: 2rem;
+  }
+  .permission__actions a {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--console-rule);
+    color: var(--console-ink);
+    font: 500 0.68rem/1 var(--ff-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .permission__actions a:hover {
+    border-color: var(--blue);
+    color: #fff;
+    background: var(--blue);
+  }
+
+  @media (max-width: 980px) {
+    .brand-hero {
+      grid-template-columns: 1fr;
+    }
+    .brand-hero__specimen {
+      min-height: 380px;
+      border-top: 1px solid var(--ink);
+      border-left: 0;
+    }
+    .asset-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .asset-card--wide {
+      grid-column: 1 / -1;
+    }
+    .asset-card--wide {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+    }
+    .swatches {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .brand-page {
+      border-right: 0;
+      border-left: 0;
+    }
+    .brand-hero {
+      min-height: 0;
+    }
+    .brand-hero__copy {
+      padding: 4rem 1.25rem;
+    }
+    .brand-hero h1 {
+      font-size: clamp(3rem, 16vw, 4.6rem);
+    }
+    .brand-hero__specimen {
+      min-height: 310px;
+    }
+    .brand-section,
+    .permission {
+      padding: 3.5rem 1.25rem;
+    }
+    .brand-section__heading,
+    .permission {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .asset-grid,
+    .rules-grid,
+    .swatches {
+      grid-template-columns: 1fr;
+    }
+    .asset-card--wide {
+      grid-column: auto;
+      display: flex;
+    }
+    .asset-card__preview {
+      min-height: 260px;
+    }
+    .swatch > span {
+      height: 110px;
+    }
+  }
+</style>

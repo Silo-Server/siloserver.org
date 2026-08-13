@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Bottombar from "./Bottombar.astro";
-import SiloBars from "./SiloBars.astro";
+import BrandLockup from "./BrandLockup.astro";
 import { SITE } from "../data/siteConfig";
 
 interface Props {
@@ -17,13 +17,13 @@ const { title, description, eyebrow, heading, meta } = Astro.props;
 
 <Base title={title} description={description}>
   <header class="policy-bar">
-    <a class="policy-bar__brand" href="/">
-      <SiloBars size="sm" />
-      <span>{SITE.name}</span>
+    <a class="policy-bar__brand" href="/" aria-label={`${SITE.name} home`}>
+      <BrandLockup />
     </a>
     <nav class="policy-bar__nav" aria-label="Primary">
       <a href="/">home</a>
       <a href="/docs">docs</a>
+      <a href="/brand">brand</a>
       <a href="/privacy">privacy</a>
       <a href="/account-deletion">account deletion</a>
       <a href={SITE.github.orgUrl}>github ↗</a>

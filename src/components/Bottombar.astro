@@ -1,15 +1,14 @@
 ---
-import SiloBars from "./SiloBars.astro";
+import BrandLockup from "./BrandLockup.astro";
 import { SITE, REPOS, repoUrl } from "../data/siteConfig";
 ---
 
 <footer class="titleblock" aria-label="Footer">
   <div class="titleblock__inner">
     <div class="titleblock__cell">
-      <span class="titleblock__brand">
-        <SiloBars size="sm" />
-        {SITE.name}
-      </span>
+      <a class="titleblock__brand" href="/" aria-label={`${SITE.name} home`}>
+        <BrandLockup />
+      </a>
     </div>
     <div class="titleblock__cell">
       <span class="titleblock__label">repositories</span>
@@ -27,6 +26,7 @@ import { SITE, REPOS, repoUrl } from "../data/siteConfig";
     <div class="titleblock__cell">
       <span class="titleblock__label">legal</span>
       <span class="titleblock__value">
+        <a href="/brand">brand assets</a>
         <a href="/privacy">privacy policy</a>
         <a href="/account-deletion">account deletion</a>
       </span>

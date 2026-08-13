@@ -136,8 +136,9 @@ at runtime):
 - **IBM Plex Mono** — code, spec labels, status
 
 Colors live as CSS custom properties at the top of `src/styles/global.css`.
-The brand mark — three skewed bars in blue, red, orange — recurs as a
-design element throughout the page via the `SiloBars` component. The
+The official horizontal wordmark is rendered by `BrandLockup` and the
+downloadable originals live under `public/brand/`. Three skewed bars in blue,
+red, and orange recur as a decorative (non-logo) motif via `SiloBars`. The
 Starlight docs are themed to match via `src/styles/docs.css`.
 
 ## License & Trademarks

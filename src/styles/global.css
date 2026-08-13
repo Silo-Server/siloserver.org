@@ -248,7 +248,7 @@ samp {
 }
 
 /* ============================================================
-   SILO BARS — the recurring brand motif
+   SILO BARS — a recurring decorative color motif
    3 stacked skewed rectangles (blue, red, orange)
    ============================================================ */
 .silo-bars {
@@ -308,6 +308,33 @@ samp {
   height: 6px;
 }
 
+/* ---- Official Silo wordmark lockup ----------------------- */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 50px;
+  width: 96px;
+  overflow: hidden;
+  background: transparent;
+}
+.brand-lockup img {
+  display: block;
+  width: 96px;
+  height: 50px;
+  max-width: none;
+}
+.brand-lockup__on-dark {
+  display: none !important;
+}
+[data-theme="dark"] .brand-lockup__on-light {
+  display: none !important;
+}
+[data-theme="dark"] .brand-lockup__on-dark {
+  display: block !important;
+}
+
 /* ---- Hatch chip — engineering fill pattern ---------------- */
 .hatch {
   display: inline-block;
@@ -362,12 +389,7 @@ samp {
   padding-left: 0;
 }
 .statusbar__cell--brand {
-  font-family: var(--ff-display);
-  font-weight: 800;
-  font-size: 24px;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  text-transform: uppercase;
+  padding-right: 18px;
 }
 .statusbar__dot {
   width: 8px;
@@ -413,26 +435,6 @@ samp {
   }
   .statusbar__nav a:not(.statusbar__github) {
     display: none;
-  }
-}
-
-/* Brand mark pulse, statusbar only — like a live plotter */
-.statusbar .silo-bars i {
-  animation: silo-pulse 4.2s ease-in-out infinite;
-}
-.statusbar .silo-bars i:nth-child(2) {
-  animation-delay: 0.5s;
-}
-.statusbar .silo-bars i:nth-child(3) {
-  animation-delay: 1s;
-}
-@keyframes silo-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.45;
   }
 }
 
@@ -1631,15 +1633,9 @@ samp {
   color: var(--blue);
 }
 .titleblock__brand {
-  font-family: var(--ff-display);
-  font-weight: 800;
-  font-size: 26px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink);
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  width: fit-content;
 }
 
 /* ============================================================
@@ -1933,7 +1929,15 @@ samp {
     font-size: 10.5px;
   }
   .statusbar__cell--brand {
-    font-size: 20px;
+    padding-right: 10px;
+  }
+  .statusbar__cell--brand .brand-lockup {
+    height: 46px;
+    width: 88px;
+  }
+  .statusbar__cell--brand .brand-lockup img {
+    width: 88px;
+    height: auto;
   }
   .statusbar__github {
     padding: 5px 10px;
