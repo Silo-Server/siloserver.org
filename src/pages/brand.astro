@@ -29,7 +29,7 @@ const policyHref =
           other places where you need to identify Silo clearly.
         </p>
         <p class="brand-hero__meta">
-          5 asset types / 16 files <span>·</span> SVG masters + PNG renders +
+          5 asset types / 18 files <span>·</span> SVG masters + PNG renders +
           motion <span>·</span> © 2026 Silo Media L.L.C.
         </p>
       </div>
@@ -501,6 +501,52 @@ const policyHref =
             </div>
           </div>
         </article>
+
+        <article class="motion-card">
+          <div class="motion-card__stage motion-card__stage--square">
+            <img
+              class="motion-anim"
+              src={assetHref("silo-motion-play-alpha.gif")}
+              alt="The Silo mark opening into a play button, which is pressed and reassembles the mark"
+              width="512"
+              height="512"
+              loading="lazy"
+            />
+            <img
+              class="motion-still"
+              src={assetHref("silo-app-icon.svg")}
+              alt="The assembled Silo mark on the icon field"
+              width="512"
+              height="512"
+              loading="lazy"
+            />
+          </div>
+          <div class="motion-card__body">
+            <p class="asset-card__index">MOTION / 03</p>
+            <h3>Play loop</h3>
+            <p>
+              Rests on the finished mark, so it reads as the logo while it is
+              stopped. The bars spin away, the triangle becomes a play button,
+              and pressing it puts the mark back together.
+            </p>
+            <dl>
+              <div><dt>format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
+              <div><dt>loop</dt><dd>2.9 s · 50 fps</dd></div>
+            </dl>
+            <div class="asset-downloads">
+              <a
+                class="asset-download"
+                href={assetHref("silo-motion-play.gif")}
+                download="silo-motion-play.gif"
+              >GIF / icon field <span>↓</span></a>
+              <a
+                class="asset-download asset-download--ghost"
+                href={assetHref("silo-motion-play-alpha.gif")}
+                download="silo-motion-play-alpha.gif"
+              >GIF / transparent <span>↓</span></a>
+            </div>
+          </div>
+        </article>
       </div>
 
       <p class="asset-notice">
@@ -957,7 +1003,7 @@ const policyHref =
   }
   .motion-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1px;
     border: 1px solid var(--ink);
     background: var(--ink);
@@ -965,10 +1011,13 @@ const policyHref =
   .motion-card {
     display: flex;
     flex-direction: column;
+    grid-column: span 3;
     background: var(--paper-high);
   }
   .motion-card--wide {
-    grid-column: span 2;
+    grid-column: span 6;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
   .motion-card__stage {
     display: flex;
@@ -1136,11 +1185,12 @@ const policyHref =
     .build-grid {
       grid-template-columns: 1fr;
     }
-    .motion-grid {
-      grid-template-columns: 1fr;
+    .motion-card,
+    .motion-card--wide {
+      grid-column: span 6;
     }
     .motion-card--wide {
-      grid-column: auto;
+      grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
     }
     .swatches {
       grid-template-columns: 1fr 1fr;
@@ -1179,6 +1229,11 @@ const policyHref =
     .build-grid,
     .motion-grid {
       grid-template-columns: 1fr;
+    }
+    .motion-card,
+    .motion-card--wide {
+      grid-column: auto;
+      display: flex;
     }
     .asset-card--wide {
       grid-column: auto;
