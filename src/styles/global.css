@@ -322,7 +322,7 @@ samp {
 .brand-lockup img {
   display: block;
   width: 96px;
-  height: 50px;
+  height: auto;
   max-width: none;
 }
 .brand-lockup__on-dark {
