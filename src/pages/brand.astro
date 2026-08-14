@@ -29,7 +29,7 @@ const policyHref =
           other places where you need to identify Silo clearly.
         </p>
         <p class="brand-hero__meta">
-          5 asset types / 15 files <span>·</span> SVG masters + PNG renders +
+          5 asset types / 16 files <span>·</span> SVG masters + PNG renders +
           motion <span>·</span> © 2026 Silo Media L.L.C.
         </p>
       </div>
@@ -480,17 +480,25 @@ const policyHref =
             <p>
               A square, looping cut with the wordmark dropped, for avatars,
               chat emoji, and anywhere the horizontal lockup would be too small
-              to read.
+              to read. Take the transparent version when the background is
+              unknown or already dark.
             </p>
             <dl>
-              <div><dt>format</dt><dd>GIF · 512 × 512 px</dd></div>
+              <div><dt>format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
               <div><dt>loop</dt><dd>2.0 s · 50 fps</dd></div>
             </dl>
-            <a
-              class="asset-download"
-              href={assetHref("silo-motion-mark.gif")}
-              download="silo-motion-mark.gif"
-            >download GIF <span>↓</span></a>
+            <div class="asset-downloads">
+              <a
+                class="asset-download"
+                href={assetHref("silo-motion-mark.gif")}
+                download="silo-motion-mark.gif"
+              >GIF / icon field <span>↓</span></a>
+              <a
+                class="asset-download asset-download--ghost"
+                href={assetHref("silo-motion-mark-alpha.gif")}
+                download="silo-motion-mark-alpha.gif"
+              >GIF / transparent <span>↓</span></a>
+            </div>
           </div>
         </article>
       </div>
