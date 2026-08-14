@@ -29,8 +29,8 @@ const policyHref =
           other places where you need to identify Silo clearly.
         </p>
         <p class="brand-hero__meta">
-          4 asset types / 12 files <span>·</span> SVG masters + PNG renders
-          <span>·</span> © 2026 Silo Media L.L.C.
+          5 asset types / 15 files <span>·</span> SVG masters + PNG renders +
+          motion <span>·</span> © 2026 Silo Media L.L.C.
         </p>
       </div>
 
@@ -400,8 +400,109 @@ const policyHref =
       </div>
     </section>
 
+    <section class="brand-section brand-section--motion" aria-labelledby="motion-title">
+      <div class="brand-section__heading">
+        <p>05 / motion</p>
+        <div>
+          <h2 id="motion-title">The logo in motion</h2>
+          <p>
+            The animation our apps play on launch, built from the same vector
+            masters. The mark assembles a bar at a time, then slides aside to
+            let the wordmark out from behind it.
+          </p>
+        </div>
+      </div>
+
+      <div class="motion-grid">
+        <article class="motion-card motion-card--wide">
+          <div class="motion-card__stage">
+            <video
+              src={assetHref("silo-motion-splash.mp4")}
+              width="1920"
+              height="1080"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="metadata"
+              aria-label="The Silo logo assembling, then revealing the wordmark"
+            ></video>
+          </div>
+          <div class="motion-card__body">
+            <p class="asset-card__index">MOTION / 01</p>
+            <h3>Startup splash</h3>
+            <p>
+              Four seconds, ending on the horizontal lockup. Use it for launch
+              screens, intros, and title cards. The Lottie cut is vector, so it
+              stays sharp at any size and weighs a fraction of the video.
+            </p>
+            <dl>
+              <div><dt>video</dt><dd>3840 × 2160 · 60 fps · 4.0 s</dd></div>
+              <div><dt>lottie</dt><dd>vector · 62 KB</dd></div>
+            </dl>
+            <div class="asset-downloads">
+              <a
+                class="asset-download"
+                href={assetHref("silo-motion-splash.json")}
+                download="silo-motion-splash.json"
+              >Lottie JSON <span>↓</span></a>
+              <a
+                class="asset-download asset-download--ghost"
+                href={assetHref("silo-motion-splash.mp4")}
+                download="silo-motion-splash.mp4"
+              >MP4 / 4K <span>↓</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="motion-card">
+          <div class="motion-card__stage motion-card__stage--square">
+            <img
+              class="motion-anim"
+              src={assetHref("silo-motion-mark.gif")}
+              alt="The Silo mark assembling one bar at a time"
+              width="512"
+              height="512"
+              loading="lazy"
+            />
+            <img
+              class="motion-still"
+              src={assetHref("silo-app-icon.svg")}
+              alt="The assembled Silo mark on the icon field"
+              width="512"
+              height="512"
+              loading="lazy"
+            />
+          </div>
+          <div class="motion-card__body">
+            <p class="asset-card__index">MOTION / 02</p>
+            <h3>Animated mark</h3>
+            <p>
+              A square, looping cut with the wordmark dropped, for avatars,
+              chat emoji, and anywhere the horizontal lockup would be too small
+              to read.
+            </p>
+            <dl>
+              <div><dt>format</dt><dd>GIF · 512 × 512 px</dd></div>
+              <div><dt>loop</dt><dd>2.0 s · 50 fps</dd></div>
+            </dl>
+            <a
+              class="asset-download"
+              href={assetHref("silo-motion-mark.gif")}
+              download="silo-motion-mark.gif"
+            >download GIF <span>↓</span></a>
+          </div>
+        </article>
+      </div>
+
+      <p class="asset-notice">
+        Keep the timing and the artwork as supplied—the animation is part of the
+        mark. Do not re-time it, add effects, or loop the splash as a spinner.
+      </p>
+    </section>
+
     <section class="permission" aria-labelledby="permission-title">
-      <p class="permission__index">05 / permissions</p>
+      <p class="permission__index">06 / permissions</p>
       <div>
         <h2 id="permission-title">Open source code. Protected identity.</h2>
         <p>
@@ -421,6 +522,18 @@ const policyHref =
 
   <Bottombar />
 </Base>
+
+<script>
+  // CSS can gate the GIF but not video autoplay, so hand the splash back to the
+  // reader when they've asked for less motion.
+  const splash = document.querySelector<HTMLVideoElement>(".motion-card video");
+  if (splash && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    splash.autoplay = false;
+    splash.loop = false;
+    splash.controls = true;
+    splash.pause();
+  }
+</script>
 
 <style>
   .brand-page {
@@ -831,6 +944,98 @@ const policyHref =
     color: var(--ink-soft);
   }
 
+  .brand-section--motion {
+    background: var(--paper-dim);
+  }
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+  }
+  .motion-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper-high);
+  }
+  .motion-card--wide {
+    grid-column: span 2;
+  }
+  .motion-card__stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-bottom: 1px solid var(--rule);
+    background: #000;
+  }
+  .motion-card__stage video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .motion-card__stage--square {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--paper-dim);
+  }
+  .motion-card__stage--square img {
+    width: min(70%, 200px);
+    height: auto;
+  }
+  /* The GIF's last frame is the app icon, so the still is an exact stand-in. */
+  .motion-still {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .motion-anim {
+      display: none;
+    }
+    .motion-still {
+      display: block;
+    }
+  }
+  .motion-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .motion-card__body h3 {
+    margin: 0;
+    font: 800 clamp(1.7rem, 2.5vw, 2.35rem)/1 var(--ff-display);
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .motion-card__body > p:not(.asset-card__index) {
+    margin: 1rem 0 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .motion-card dl {
+    width: 100%;
+    margin: auto 0 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .motion-card dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    font: 500 0.67rem/1.4 var(--ff-mono);
+  }
+  .motion-card dt {
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .motion-card dd {
+    margin: 0;
+    color: var(--ink);
+  }
+
   .swatches {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -923,6 +1128,12 @@ const policyHref =
     .build-grid {
       grid-template-columns: 1fr;
     }
+    .motion-grid {
+      grid-template-columns: 1fr;
+    }
+    .motion-card--wide {
+      grid-column: auto;
+    }
     .swatches {
       grid-template-columns: 1fr 1fr;
     }
@@ -957,7 +1168,8 @@ const policyHref =
     .asset-grid,
     .rules-grid,
     .swatches,
-    .build-grid {
+    .build-grid,
+    .motion-grid {
       grid-template-columns: 1fr;
     }
     .asset-card--wide {
