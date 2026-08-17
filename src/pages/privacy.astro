@@ -70,18 +70,23 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>4. Third-party artwork, avatars, and trailers</h2>
   <p>
-    The apps and the first-party web client may contact external providers
-    directly to display the following resources. These requests do not pass
-    through the Silo-managed diagnostics collector or push relay.
+    The apps and the first-party web client may cause external providers to be
+    contacted, either directly or through your self-hosted server, to provide
+    the following resources. These requests do not pass through the
+    Silo-managed diagnostics collector or push relay.
   </p>
   <ul>
     <li>
-      <strong>TMDB artwork.</strong> Request-related posters and backdrops may
-      load directly from <code>image.tmdb.org</code> when a request search,
-      discovery, or detail screen is displayed. Search text, Silo credentials,
-      and the address of your Silo server are sent to your self-hosted server,
-      not directly to TMDB by the client. The separate image request includes
-      the requested image path and size.
+      <strong>TMDB request discovery and artwork.</strong> When Silo's Requests
+      feature is enabled, request searches and discovery use the self-hosted
+      server's built-in TMDB integration. This integration operates independently
+      of metadata plugins, so the server may send search text and request or
+      discovery queries to TMDB even when no TMDB metadata plugin is installed
+      or enabled. The client sends those queries to your self-hosted server, not
+      directly to TMDB, and does not send TMDB your Silo credentials. Posters and
+      backdrops returned for request search, discovery, or detail screens may
+      then load directly from <code>image.tmdb.org</code>. The separate image
+      request includes the requested image path and size.
     </li>
     <li>
       <strong>DiceBear avatars.</strong> Generated avatar previews and saved
