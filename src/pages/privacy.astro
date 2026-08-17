@@ -3,7 +3,7 @@
 import PolicyPage from "../components/PolicyPage.astro";
 import { SITE } from "../data/siteConfig";
 
-const EFFECTIVE = "August 12, 2026";
+const EFFECTIVE = "August 16, 2026";
 const CONTACT_EMAIL = "feedback@siloserver.org";
 ---
 
@@ -15,11 +15,12 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
   meta={`Effective ${EFFECTIVE}`}
 >
   <p class="policy__lede">
-    Silo is self-hosted software. Your account, media library, and viewing
-    activity live on the Silo server that you choose, not in a central Silo
-    account. The apps contain no advertising or tracking SDKs. Optional
-    Silo-managed diagnostics and push delivery use only the limited technical
-    data described below.
+    Silo is self-hosted software. Your account records, media library, and
+    viewing history live on the Silo server that you choose, not in a central
+    Silo account. Some screens load artwork, avatars, or trailer information
+    from external providers as described below. The apps contain no advertising
+    or tracking SDKs. Optional Silo-managed diagnostics and push delivery use
+    only the limited technical data described below.
   </p>
 
   <h2>1. Scope</h2>
@@ -28,8 +29,10 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     Android, Silo for Android TV, Silo for iOS, Silo for tvOS, and Silo for
     macOS (together, "the apps"), published by the Silo project. It also
     describes the optional Silo-managed diagnostics collector and push relay.
-    It does not govern a self-hosted Silo server or a third-party client. The
-    operator of each self-hosted server controls that server and its data.
+    Section 4 also describes equivalent external-resource requests made by the
+    first-party web client bundled with a self-hosted Silo server. This policy
+    does not otherwise govern a self-hosted Silo server or a third-party client.
+    The operator of each self-hosted server controls that server and its data.
   </p>
 
   <h2>2. Self-hosted accounts and media activity</h2>
@@ -65,7 +68,78 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     an account or data held by a self-hosted server.
   </p>
 
-  <h2>4. Optional diagnostics</h2>
+  <h2>4. Third-party artwork, avatars, and trailers</h2>
+  <p>
+    The apps and the first-party web client may cause external providers to be
+    contacted, either directly or through your self-hosted server, to provide
+    the following resources. These requests do not pass through the
+    Silo-managed diagnostics collector or push relay.
+  </p>
+  <ul>
+    <li>
+      <strong>TMDB request discovery and artwork.</strong> When Silo's Requests
+      feature is enabled, request searches and discovery use the self-hosted
+      server's built-in TMDB integration. This integration operates independently
+      of metadata plugins, so the server may send search text and request or
+      discovery queries to TMDB even when no TMDB metadata plugin is installed
+      or enabled. The client sends those queries to your self-hosted server, not
+      directly to TMDB, and does not send TMDB your Silo credentials. Posters and
+      backdrops returned for request search, discovery, or detail screens may
+      then load directly from <code>image.tmdb.org</code>. The separate image
+      request includes the requested image path and size.
+    </li>
+    <li>
+      <strong>DiceBear avatars.</strong> Generated avatar previews and saved
+      preset avatars may load directly from <code>api.dicebear.com</code> while
+      an avatar picker, profile-selection screen, or other profile display is
+      rendered. The request includes the selected style, seed, image format,
+      size, and other image options. Most presets use generated word-pair seeds.
+      The current Apple and Android TV initials-avatar flows instead use the
+      profile name as the DiceBear seed; after that choice is saved, another
+      Silo client may request the same name-based seed when it displays the
+      profile. Silo does not send DiceBear a Silo password, sign-in token, email
+      address, or self-hosted server address as part of an avatar-image request.
+    </li>
+    <li>
+      <strong>YouTube trailers.</strong> The Apple apps and first-party web
+      client may load a trailer thumbnail directly from
+      <code>i.ytimg.com</code> before you select the trailer. The request
+      includes the YouTube video identifier. Selecting a trailer in an Apple
+      app attempts to open the installed YouTube app with that identifier. In
+      the web client, selecting a trailer loads a player from
+      <code>youtube-nocookie.com</code>. YouTube then handles the playback
+      interaction. Silo does not download, proxy, or restream YouTube videos.
+    </li>
+  </ul>
+  <p>
+    A self-hosted server may also return an absolute artwork or avatar URL. If
+    a Silo client displays that resource, the device contacts the URL's host
+    directly. The self-hosted server operator controls whether it supplies such
+    URLs and is responsible for its own provider choices and disclosures.
+  </p>
+  <p>
+    Each direct request necessarily reveals the connection IP address, request
+    time, requested URL, and standard app, browser, device, and transport
+    metadata to the provider and its delivery infrastructure. An artwork or
+    video identifier may reveal the media title or trailer being displayed; an
+    avatar seed identifies the generated avatar and, in the initials-avatar
+    cases described above, may contain the profile name. Resources may be
+    cached on the device or by the browser, which can avoid some repeat
+    requests.
+  </p>
+  <p>
+    Silo does not control these providers' logs, uses, retention, or deletion
+    practices. See the privacy information published by
+    <a href="https://www.themoviedb.org/privacy-policy">TMDB</a>,
+    <a href="https://www.iubenda.com/privacy-policy/57216581/full-legal"
+      >DiceBear</a
+    >, and <a href="https://policies.google.com/privacy">Google</a>. Their
+    practices and retention periods may differ, and their public policies do
+    not provide a resource-request-specific retention period for every item
+    listed above.
+  </p>
+
+  <h2>5. Optional diagnostics</h2>
   <p>
     The Silo apps can create diagnostic reports for crashes, hangs,
     application-not-responding events, playback, networking, focus, casting,
@@ -130,7 +204,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     server operator.
   </p>
 
-  <h2>5. Push notifications</h2>
+  <h2>6. Push notifications</h2>
   <p>
     Notifications for playback controls and download progress are generated
     locally. Remote push is optional and off unless the user and server
@@ -158,7 +232,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     >.
   </p>
 
-  <h2>6. Analytics, advertising, and sale of data</h2>
+  <h2>7. Analytics, advertising, and sale of data</h2>
   <p>
     The apps contain no advertising or cross-app tracking SDKs. Silo does not
     sell personal data. Optional diagnostics are used only for application
@@ -166,7 +240,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     only for delivery, reliability, and abuse prevention.
   </p>
 
-  <h2>7. App permissions</h2>
+  <h2>8. App permissions</h2>
   <p>The Android apps request permissions needed for app functionality:</p>
   <ul>
     <li>
@@ -191,16 +265,19 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     for diagnostics.
   </p>
 
-  <h2>8. Service providers and app stores</h2>
+  <h2>9. External providers and app stores</h2>
   <p>
     Cloudflare hosts the optional diagnostics collector and push relay as a
     service provider to Silo. The apps are distributed through Google Play
     and the Apple App Store, which may independently collect install, crash,
     and diagnostics information under their own policies. Apple and Google
-    also operate the platform push services described above.
+    also operate the platform push services described above. TMDB, DiceBear,
+    and Google/YouTube receive the direct resource requests described in
+    Section 4 under their own policies; Silo does not describe them as acting
+    solely on Silo's instructions.
   </p>
 
-  <h2>9. Children</h2>
+  <h2>10. Children</h2>
   <p>
     The apps are general-audience tools for accessing a media server and are
     not directed at children. Hosted diagnostic capture and upload are disabled
@@ -208,7 +285,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     or tracking.
   </p>
 
-  <h2>10. This website</h2>
+  <h2>11. This website</h2>
   <p>
     siloserver.org is a static site hosted on GitHub Pages and runs no Silo
     analytics. GitHub may log standard access data, such as IP addresses, as
@@ -216,7 +293,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     request to Google's servers.
   </p>
 
-  <h2>11. Changes to this policy</h2>
+  <h2>12. Changes to this policy</h2>
   <p>
     We will update this page and its effective date when the apps' data
     practices materially change. We intend to keep private account and media
@@ -224,7 +301,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     technical data necessary for their stated purposes.
   </p>
 
-  <h2>12. Contact</h2>
+  <h2>13. Contact</h2>
   <p>
     For privacy questions, open an issue on
     <a href={SITE.github.orgUrl}>GitHub</a> or email
