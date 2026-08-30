@@ -265,12 +265,12 @@
 <div class="wrap">
 
 <header class="hero">
-  <div class="eyebrow">Silo &middot; Release Definition &middot; Revision: August 2026</div>
+  <div class="eyebrow">Silo &middot; Release Definition &middot; Revision: September 2026</div>
   <h1>Silo v1.0</h1>
   <p class="sub">This is the definition of the first public release: the library types, the core experience every client must deliver, the feature set and its acceptance criteria, the release gates, and what is held for later.</p>
   <p class="sub" style="font-size:14px; color:var(--ink-mute); margin-top:10px;"><strong>Originally published &middot; June 20, 2026.</strong> This is the baseline release definition.</p>
-  <p class="sub" style="font-size:14px; color:var(--ink-mute); margin-top:10px;"><strong>August 2026 revision.</strong> This update aligns the definition with shipped code. It moves unfinished surfaces to post-1.0, makes release blockers and validation gates explicit work, and sets the first-release compatibility rule: controlled client/server version skew now, with an additive Silo&nbsp;1.x contract going forward.</p>
-  <div class="revision-legend"><span class="revision-marker" aria-hidden="true"></span><span><strong>August 2026 revision:</strong> content added or substantively revised from the June 20, 2026 baseline.</span></div>
+  <p class="sub" style="font-size:14px; color:var(--ink-mute); margin-top:10px;"><strong>September 2026 revision.</strong> This update aligns the definition with shipped code. It moves unfinished surfaces to post-1.0, makes release blockers and validation gates explicit work, and sets the first-release compatibility rule: controlled client/server version skew now, with an additive Silo&nbsp;1.x contract going forward.</p>
+  <div class="revision-legend"><span class="revision-marker" aria-hidden="true"></span><span><strong>September 2026 revision:</strong> content added or substantively revised from the June 20, 2026 baseline.</span></div>
 </header>
 
 <nav class="toc">
@@ -289,11 +289,11 @@
 
 <!-- ===== 1. SUMMARY ===== -->
 <h2 id="summary"><a class="num" href="#summary">1</a>Release summary</h2>
-<p><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Silo v1.0 is a self-hosted media server for <strong>movies, series, and audiobooks</strong>, delivered with native clients on <strong>iPhone, iPad, Apple TV, Android phone, Android tablet, and Android TV</strong>, plus a <strong>web app</strong> for both viewing and server administration. Every client must deliver the full <strong>browse &rarr; metadata &rarr; play</strong> experience. The server supports multi-profile households with access control, personalization, distributed and hardware-accelerated transcoding, casting, offline downloads, a self-contained request system, plugins, and migration from Plex, Jellyfin, and Emby, including drop-in compatibility for existing Jellyfin and Audiobookshelf clients.</p>
-<p style="font-size:13.5px; color:var(--ink-mute);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span><strong>What changed.</strong> The original definition predates most of the implementation. Where shipped code goes further, including requests in the apps and collection authoring on mobile, the scope follows the code. <strong>A library type ships only when every first-party client supports it</strong>, so ebooks remain deferred even though web and Android readers exist. Gating those surfaces is tracked work (section&nbsp;8). Where the code falls short, including backup &amp; restore and chapter-preview thumbnails on clients, the item is a release blocker or moves to section&nbsp;7. Capabilities that exist but still need hardware or third-party certification, including HDR&rarr;SDR tone-mapping, remain release work until their RC matrix passes. Each feature&rsquo;s surface tags remain its parity contract.</p>
+<p><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Silo v1.0 is a self-hosted media server for <strong>movies, series, and audiobooks</strong>, delivered with native clients on <strong>iPhone, iPad, Apple TV, Android phone, Android tablet, and Android TV</strong>, plus a <strong>web app</strong> for both viewing and server administration. Every client must deliver the full <strong>browse &rarr; metadata &rarr; play</strong> experience. The server supports multi-profile households with access control, personalization, distributed and hardware-accelerated transcoding, casting, offline downloads, a self-contained request system, plugins, and migration from Plex, Jellyfin, and Emby, including drop-in compatibility for existing Jellyfin and Audiobookshelf clients.</p>
+<p style="font-size:13.5px; color:var(--ink-mute);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span><strong>What changed.</strong> The original definition predates most of the implementation. Where shipped code goes further, including requests in the apps and collection authoring on mobile, the scope follows the code. <strong>A library type ships only when every first-party client supports it</strong>, so ebooks remain deferred even though web and Android readers exist. Gating those surfaces is tracked work (section&nbsp;8). Where the code falls short, including backup &amp; restore and chapter-preview thumbnails on clients, the item is a release blocker or moves to section&nbsp;7. Capabilities that exist but still need hardware or third-party certification, including HDR&rarr;SDR tone-mapping, remain release work until their RC matrix passes. Each feature&rsquo;s surface tags remain its parity contract.</p>
 
 <!-- ===== 2. PLATFORMS ===== -->
-<h2 id="platforms"><a class="num" href="#platforms">2</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Platforms &amp; clients</span></h2>
+<h2 id="platforms"><a class="num" href="#platforms">2</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Platforms &amp; clients</span></h2>
 <p class="lede">v1.0 ships four native clients plus a web app. Together they cover seven consumption form factors: iPhone, iPad, Apple TV, Android phone, Android tablet, Android TV, and web. The web app is also the server&rsquo;s administration surface.</p>
 <div class="plat">
   <div class="platcard wide"><b>Web app</b><span>Browse and play in the browser, plus the full admin surface: user management, metadata editing, plugin marketplace, migration tools.</span></div>
@@ -314,12 +314,12 @@
   <div class="libcard"><h4>Series</h4><p>TMDB + TVDB metadata. Season/episode hierarchy, Next Up, specials, watched roll-up.</p></div>
   <div class="libcard"><h4>Audiobooks</h4><p>Chapter navigation, playback speed, sleep timer, exact-second resume, author/narrator.</p></div>
 </div>
-<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span><strong>The library-type rule.</strong> Features may ship on a declared subset of surfaces (section&nbsp;2), but <strong>a library type ships only when every first-party client supports it</strong>, including iPhone, iPad, Android phone, and Android tablet. A library that exists on the server but is unavailable on a household&rsquo;s TV does not meet that bar. This is why ebooks stay deferred despite working readers on web and Android: the Apple readers complete the set in 1.1. Until then, ebook surfaces are strict-gated in release builds (section&nbsp;7, blocker&nbsp;8 in section&nbsp;8).</p>
-<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Sports content is supported as a <em>series</em> library via the Sportarr metadata plugin. It is supported as a plugin, but <em>not</em> part of the first-party validation matrix. Ebooks, manga, music, and podcasts are not v1.0 library types; see section&nbsp;7.</p>
-<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span><strong>Plugin contract.</strong> Library and marker support is delivered through plugins. <strong>Metadata:</strong> a library type counts as first-party-supported only once at least one first-party metadata plugin validates against it (Movies&nbsp;&rarr;&nbsp;TMDB, Series&nbsp;&rarr;&nbsp;TMDB&nbsp;+&nbsp;TVDB, Audiobooks&nbsp;&rarr;&nbsp;audiobook-metadata). <strong>Marker:</strong> Movie/Series libraries only. <strong>Request:</strong> the request system is first-party and extensible; community-maintained plugins can automate how requests are sourced. <strong>Autoscan:</strong> Silo owns the scan intake API; community-maintained adapters connect specific automation stacks or file-change sources.</p>
+<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span><strong>The library-type rule.</strong> Features may ship on a declared subset of surfaces (section&nbsp;2), but <strong>a library type ships only when every first-party client supports it</strong>, including iPhone, iPad, Android phone, and Android tablet. A library that exists on the server but is unavailable on a household&rsquo;s TV does not meet that bar. This is why ebooks stay deferred despite working readers on web and Android: the Apple readers complete the set in 1.1. Until then, ebook surfaces are strict-gated in release builds (section&nbsp;7, blocker&nbsp;8 in section&nbsp;8).</p>
+<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Sports content is supported as a <em>series</em> library via the Sportarr metadata plugin. It is supported as a plugin, but <em>not</em> part of the first-party validation matrix. Ebooks, manga, music, and podcasts are not v1.0 library types; see section&nbsp;7.</p>
+<p style="font-size:13.5px; color:var(--muted);"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span><strong>Plugin contract.</strong> Library and marker support is delivered through plugins. <strong>Metadata:</strong> a library type counts as first-party-supported only once at least one first-party metadata plugin validates against it (Movies&nbsp;&rarr;&nbsp;TMDB, Series&nbsp;&rarr;&nbsp;TMDB&nbsp;+&nbsp;TVDB, Audiobooks&nbsp;&rarr;&nbsp;audiobook-metadata). <strong>Marker:</strong> Movie/Series libraries only. <strong>Request:</strong> the request system is first-party and extensible; community-maintained plugins can automate how requests are sourced. <strong>Autoscan:</strong> Silo owns the scan intake API; community-maintained adapters connect specific automation stacks or file-change sources.</p>
 
 <!-- ===== 4. CORE ===== -->
-<h2 id="core"><a class="num" href="#core">4</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Core experience: Library-user acceptance</span></h2>
+<h2 id="core"><a class="num" href="#core">4</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Core experience: Library-user acceptance</span></h2>
 <p class="lede">The Core Experience describes what a person must be able to do with any shipping library type on every client. A separate <strong>admin acceptance</strong> group covers server-side guarantees users do not touch directly. Budgets are p95 ranges on stated reference hardware. Each item also states relevant limits, including forward-only progress, single-quality transcode sessions, and a transcode restart after a mid-stream track switch.</p>
 
 <div class="def">
@@ -388,7 +388,7 @@
 <h3>Discovery &amp; browsing</h3>
 
   <div class="fcard" data-scope="admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Collections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Collections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Named sets of titles: shared (everyone sees) or private (owner only), hand-picked or rule-filled. Shared/smart authoring is web-admin; private authoring on web and Android; every client browses.</p>
     <ul class="ac">
       <li>Browse a Collections section and open one to list its members on every client.</li>
@@ -412,7 +412,7 @@
   </div>
 
   <div class="fcard" data-scope="admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Curated home sections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Curated home sections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Server-assembled home rows, including trending, seasonal, editorial, and mood rows, are authored centrally in web admin.</p>
     <ul class="ac">
       <li><strong>An admin builds and reorders home rows in a web-admin builder</strong>; no config-file editing is required. Scheduled publication is post-1.0.</li>
@@ -448,7 +448,7 @@
 <h3>Playback</h3>
 
   <div class="fcard" data-scope="server ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Markers / skip intro &amp; credits</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Markers / skip intro &amp; credits</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Intro/recap/credits segments with a Skip button. The server detects markers locally or obtains them from enabled marker-provider plugins; every client consumes the resolved markers.</p>
     <ul class="ac">
       <li>The server detects intro/recap/credits locally or retrieves them from an enabled marker provider on the reference test set, within an accuracy target; no manual tagging required.</li>
@@ -469,7 +469,7 @@
   </div>
 
   <div class="fcard" data-scope="server web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Chapter thumbnails (server + web)</h4><div class="chips"><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails (server + web)</h4><div class="chips"><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">The server generates thumbnails at chapter and marker positions, and the web app displays them. Native clients support chapter navigation without preview images; native preview rendering is post-1.0.</p>
     <ul class="ac">
       <li>The server generates chapter/marker thumbnails (per-library setting) including on hardware-accelerated paths; absence degrades silently.</li>
@@ -491,7 +491,7 @@
   </div>
 
   <div class="fcard" data-scope="server web ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Subtitles: search / download / upload</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Subtitles: search / download / upload</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Find and download human subtitles from providers on every first-party player, or upload your own from the web app.</p>
     <ul class="ac">
       <li>Upload is available to any user; the search button is hidden until a provider is configured.</li>
@@ -502,7 +502,7 @@
   </div>
 
   <div class="fcard" data-scope="server admin web ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>AI generated subtitles</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>AI generated subtitles</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">During playback, a user can translate an existing text subtitle or generate subtitles from an audio track when the server enables AI subtitles. The completed track is saved on the item and consumed like any other subtitle.</p>
     <ul class="ac">
       <li>Every first-party player exposes the AI subtitle action when the server reports translation or transcription available. A user can translate a compatible text subtitle, transcribe an audio track, or transcribe and translate it.</li>
@@ -523,7 +523,7 @@
   </div>
 
   <div class="fcard" data-scope="ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Send to the TV app (SiloRemote)</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Send to the TV app (SiloRemote)</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span></div></div>
     <p class="what">From the Silo mobile app on a phone or tablet, send a title to the Silo TV app on the same network and use the mobile device as a full remote. The TV app plays it <strong>directly from the server</strong>; the mobile device hands off and controls playback, and does not relay or cast the video. This works across platforms on the same LAN.</p>
     <ul class="ac">
       <li>Any signed-in first-party mobile app on iPhone, iPad, Android phone, or Android tablet can discover and control either Apple TV or Android TV on the same LAN. Selecting the TV or sending a title completes the secure profile handoff automatically in the normal flow; the user is not asked to pair or confirm the connection. Platform pairing does not matter.</li>
@@ -556,7 +556,7 @@
 <h3>Personalization &amp; accounts</h3>
 
   <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Multi-profile / PIN / kids</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Multi-profile / PIN / kids</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">Multiple profiles per account, each with its own progress, optional PIN, and library limits.</p>
     <ul class="ac">
       <li>Switch profiles on every client; each has independent progress and preferences.</li>
@@ -578,7 +578,7 @@
   </div>
 
   <div class="fcard" data-scope="web admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Account sessions</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Account sessions</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Users manage their own signed-in clients on the web, and server admins can invalidate a client session for any user. Mobile and TV apps do not surface session management in v1.0.</p>
     <ul class="ac">
       <li>A user lists active sessions with device/last-seen and revokes one; the revoked session loses access on its next request.</li>
@@ -587,7 +587,7 @@
   </div>
 
   <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>API keys</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>API keys</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Server admins create scoped API keys for server automation and integrations. Regular users and mobile/TV clients do not manage API keys in v1.0.</p>
     <ul class="ac">
       <li>Only a server admin can create, view metadata for, rotate, or revoke API keys. Each key has a defined scope and its secret is shown only when it is created.</li>
@@ -612,7 +612,7 @@
 <h3>Server, admin &amp; operations</h3>
 
   <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>User management / access groups / invites</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>User management / access groups / invites</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Create accounts, set up household or guest access groups, and invite people with the right library access and limits from the start.</p>
     <ul class="ac">
       <li>From web admin, an admin creates accounts, access groups, and invitations.</li>
@@ -633,7 +633,7 @@
   </div>
 
   <div class="fcard" data-scope="web admin ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Requests</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Requests</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">A self-contained request system: a user asks for a movie or show the server doesn&rsquo;t have, an admin approves it, and when the content is later scanned in and identified it&rsquo;s marked available and the requester is notified.</p>
     <ul class="ac">
       <li>From the web app, a user searches for and requests a movie or show the server doesn&rsquo;t have; a request for content that already exists is prevented, and if the title is <strong>already requested</strong> the user can add themselves to be notified when it becomes available instead of requesting it again.</li>
@@ -686,7 +686,7 @@
   </div>
 
   <div class="fcard" data-scope="server admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Device &amp; override auditing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Device &amp; override auditing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">The server tracks devices and resolves settings per device and per profile. In web admin, an operator can inspect the effective setting for a device/profile combination, see where it came from, and correct an override when needed. The layout of that control surface is not prescribed.</p>
     <ul class="ac">
       <li>The server registers each device a profile uses (id, name, platform, last-seen) and records each login as a session with device + IP. Web admin provides a practical way to find a device and inspect its settings and overrides.</li>
@@ -698,7 +698,7 @@
   </div>
 
   <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Plugin management / marketplace</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin management / marketplace</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Install metadata and marker plugins from the first-party catalog, and request/source-adapter plugins from the community catalog once enabled; they auto-update.</p>
     <ul class="ac">
       <li>From web admin, install a plugin from the catalog; it loads and is usable.</li>
@@ -720,7 +720,7 @@
   </div>
 
   <div class="fcard" data-scope="server admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Autoscan</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Autoscan</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">A self-contained scan intake system: an external source tells Silo that files changed, Silo maps the signal to a library/path, and the server performs a targeted rescan without waiting for the schedule.</p>
     <ul class="ac">
       <li>Silo exposes an authenticated scan intake path that accepts a library/path change signal; when matching content is scanned in and identified, it appears in the library without waiting for the scheduled scan.</li>
@@ -732,7 +732,7 @@
   </div>
 
   <div class="fcard" data-scope="server web ios android">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Notifications</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Notifications</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Alerts for opted-in events through the web inbox, Discord, email/digests, web push, webhooks, and native push to phones and tablets.</p>
     <ul class="ac">
       <li><strong>Delivery:</strong> the server delivers opted-in events (e.g. requested content arrived) through every supported channel.</li>
@@ -759,7 +759,7 @@
 <h3>Migration &amp; interoperability</h3>
 
   <div class="fcard" data-scope="admin web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Watch-history import (Plex / Jellyfin / Emby)</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Watch-history import (Plex / Jellyfin / Emby)</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Bring watch history in when moving from another server. Users can import their own history, and an admin can assist with household-wide migration and repair.</p>
     <ul class="ac">
       <li>A signed-in user connects their own Plex, Jellyfin, or Emby account and imports watched status, play counts, last-watched, and resume positions into one of their own Silo profiles, matched by IMDb/TMDB/TVDB IDs.</li>
@@ -784,7 +784,7 @@
 </div>
 
 <!-- ===== 6. READINESS ===== -->
-<h2 id="readiness"><a class="num" href="#readiness">6</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Release-readiness gates</span></h2>
+<h2 id="readiness"><a class="num" href="#readiness">6</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Release-readiness gates</span></h2>
 <p class="lede">Cross-cutting criteria a public, self-hosted 1.0 must clear, independent of any single feature.</p>
 <p style="font-size:13.5px; color:var(--ink-mute);"><strong>Tracking model.</strong> These gates are separate from the 35 feature parents and from Movies / Series / Audiobooks certification. A feature may be deferred and made unreachable; an applicable release gate may not be waived. Track the criteria below as nine gate issues, each closed only against an identified release-candidate build with a named validator, procedure, evidence, and pass/fail result. The full tracking and validation process lives in the server repo at <code>docs/release/1.0-readiness.md</code>.</p>
 <div class="def amber">
@@ -823,29 +823,29 @@
 
 <div class="deferred"><table class="defer">
   <tbody>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Ebooks</td><td class="dwhy">The readers exist on web and Android, but the library-type rule (section&nbsp;3) requires full client support before a library type ships, and the Apple readers do not exist. Ebooks are planned for 1.1. <strong>Strict gating is release work</strong>: today&rsquo;s builds expose the reader on web and Android, so blocker&nbsp;8 (section&nbsp;8) covers gating both plus fixing the Apple clients&rsquo; handling of ebook files (an ebook must never open the video player).</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Manga</td><td class="dwhy">Scanner and reader plumbing exist, but the metadata story is immature. Strict-gated in release builds alongside ebooks.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Ebooks</td><td class="dwhy">The readers exist on web and Android, but the library-type rule (section&nbsp;3) requires full client support before a library type ships, and the Apple readers do not exist. Ebooks are planned for 1.1. <strong>Strict gating is release work</strong>: today&rsquo;s builds expose the reader on web and Android, so blocker&nbsp;8 (section&nbsp;8) covers gating both plus fixing the Apple clients&rsquo; handling of ebook files (an ebook must never open the video player).</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Manga</td><td class="dwhy">Scanner and reader plumbing exist, but the metadata story is immature. Strict-gated in release builds alongside ebooks.</td></tr>
     <tr><td class="dname">Music</td><td class="dwhy">No music library kind, scanner, or metadata agent. Client "music" shells (dead tabs) are <strong>removed</strong> for v1.0, and the server README stops advertising music until it exists.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Podcasts</td><td class="dwhy">The server scans and serves them, but no first-party client has a browse experience. Creating a podcast library is gated in release builds so no user can build a library no client can open.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Native notification inboxes</td><td class="dwhy">Server delivery, the web notification inbox, and native mobile push (iOS / Android) ship in v1.0. Inbox UI inside the native mobile and TV clients is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Scheduled home-section publication</td><td class="dwhy">Admins build and reorder home sections in web admin for v1.0. Time-windowed or scheduled publication is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Plugin publisher signatures</td><td class="dwhy">v1.0 verifies catalog artifacts with mandatory SHA-256 checksums and labels catalog trust. Cryptographic publisher-signature verification is post-1.0.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Podcasts</td><td class="dwhy">The server scans and serves them, but no first-party client has a browse experience. Creating a podcast library is gated in release builds so no user can build a library no client can open.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Native notification inboxes</td><td class="dwhy">Server delivery, the web notification inbox, and native mobile push (iOS / Android) ship in v1.0. Inbox UI inside the native mobile and TV clients is post-1.0.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Scheduled home-section publication</td><td class="dwhy">Admins build and reorder home sections in web admin for v1.0. Time-windowed or scheduled publication is post-1.0.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin publisher signatures</td><td class="dwhy">v1.0 verifies catalog artifacts with mandatory SHA-256 checksums and labels catalog trust. Cryptographic publisher-signature verification is post-1.0.</td></tr>
     <tr><td class="dname">In-client admin</td><td class="dwhy">Administration happens on the web admin; no in-app admin entry point ships.</td></tr>
     <tr><td class="dname">Watch Party</td><td class="dwhy">Real-time synced viewing. Built server-side but no client entry point ships.</td></tr>
     <tr><td class="dname">Trakt two-way sync</td><td class="dwhy">Outbound scrobble may exist; reliable two-way sync is not finished.</td></tr>
     <tr><td class="dname">AI Audio Tracks / dubbing</td><td class="dwhy">Not built; only normal audio-track switching exists.</td></tr>
     <tr><td class="dname">Multi-version / edition switching</td><td class="dwhy">An edition label is displayed; selectable variant switching is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Chapter thumbnails on native clients</td><td class="dwhy">Server generation and web rendering ship (section&nbsp;5); iOS/tvOS/Android rendering of preview images is post-1.0. Absence degrades silently; chapter navigation still works everywhere.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails on native clients</td><td class="dwhy">Server generation and web rendering ship (section&nbsp;5); iOS/tvOS/Android rendering of preview images is post-1.0. Absence degrades silently; chapter navigation still works everywhere.</td></tr>
     <tr><td class="dname">Timeline scrubbing-trickplay</td><td class="dwhy">Full BIF-style timeline previews are post-1.0 on every surface.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Automatic account/profile creation during watch-history import</td><td class="dwhy">v1.0 maps external Plex/Jellyfin/Emby users onto existing Silo profiles; bulk <em>creation</em> of Silo accounts or profiles from an external user list is post-1.0. The boundary is documented on the import screen.</td></tr>
+    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Automatic account/profile creation during watch-history import</td><td class="dwhy">v1.0 maps external Plex/Jellyfin/Emby users onto existing Silo profiles; bulk <em>creation</em> of Silo accounts or profiles from an external user list is post-1.0. The boundary is documented on the import screen.</td></tr>
     <tr><td class="dname">Native macOS app</td><td class="dwhy">The iOS app on Apple Silicon is the v1.0 Mac story; a native SiloMac app is post-1.0.</td></tr>
     <tr><td class="dname">Full UI localization</td><td class="dwhy">Beyond the timezone + non-ASCII floor in section 6.</td></tr>
   </tbody>
 </table></div>
 
 <!-- ===== 8. PATH ===== -->
-<h2 id="path"><a class="num" href="#path">8</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">August 2026 revision: </span>Release blockers</span></h2>
-<p class="lede">Added in the August 2026 revision. These are the known gaps between this document and the shipped code, in priority order. Nothing ships until every item is closed. The <a href="https://github.com/orgs/Silo-Server/projects/5">Silo v1 project board</a> holds sequencing, epics, and day-to-day tracking; the server repo&rsquo;s <code>docs/release/1.0-readiness.md</code> defines the release process.</p>
+<h2 id="path"><a class="num" href="#path">8</a><span><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Release blockers</span></h2>
+<p class="lede">Added in the September 2026 revision. These are the known gaps between this document and the shipped code, in priority order. Nothing ships until every item is closed. The <a href="https://github.com/orgs/Silo-Server/projects/5">Silo v1 project board</a> holds sequencing, epics, and day-to-day tracking; the server repo&rsquo;s <code>docs/release/1.0-readiness.md</code> defines the release process.</p>
 
 <div class="def">
   <div class="grp">
