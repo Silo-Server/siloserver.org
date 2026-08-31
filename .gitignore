@@ -19,3 +19,7 @@ bun-debug.log*
 .env
 .env.local
 .env.production
+
+# Local agent/tooling state
+/.agents/
+/.claude/

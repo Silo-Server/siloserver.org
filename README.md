@@ -1,4 +1,4 @@
-# silo-website
+# Silo Website
 
 The project site for [Silo](https://github.com/Silo-Server) — a self-hosted
 media server. Built with [Astro](https://astro.build), deployed to GitHub
@@ -151,3 +151,9 @@ are **not** covered by the AGPL. You're free to fork and redistribute the code,
 but forks and redistributions must not use the Silo brand as their identity and
 must remove or replace the brand assets. See [TRADEMARK.md](TRADEMARK.md) for
 what's permitted — including referential use like "compatible with Silo."
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Site-wide
+design, navigation, deployment, and product-claim changes should start as an
+issue.
