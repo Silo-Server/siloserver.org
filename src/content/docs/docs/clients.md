@@ -12,9 +12,9 @@ Silo is designed for native clients and compatibility with parts of the Jellyfin
 | Silo for Web | browser (ships with the server) | shipping | [silo-server](https://github.com/Silo-Server/silo-server) |
 | Silo for iOS | iPhone, iPad | beta | [silo-apple](https://github.com/Silo-Server/silo-apple) |
 | Silo for tvOS | Apple TV | beta | [silo-apple](https://github.com/Silo-Server/silo-apple) |
-| Silo for macOS | Mac | alpha | [silo-apple](https://github.com/Silo-Server/silo-apple) |
+| Silo for macOS | Mac | beta | [silo-apple](https://github.com/Silo-Server/silo-apple) |
 | Silo for Android | phone, tablet | beta | [silo-android](https://github.com/Silo-Server/silo-android) |
-| Silo for Android TV | Android TV, Fire TV | alpha | [silo-android](https://github.com/Silo-Server/silo-android) |
+| Silo for Android TV | Android TV, Fire TV | beta | [silo-android](https://github.com/Silo-Server/silo-android) |
 
 See the [project organization on GitHub](https://github.com/Silo-Server) for current release status, and [client feature parity](/docs/feature-parity) for a feature-by-feature comparison of what each client supports. For Apple TV playback capabilities — Dolby Vision, Dolby Atmos, and platform limits — see the [Apple TV page](/docs/apple-tv).
 

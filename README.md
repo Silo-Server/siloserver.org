@@ -60,12 +60,13 @@ The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site
 the `/docs` URL prefix while keeping everything in the same Astro project.
 
-## Versions on client cards
+## Release links on client cards
 
-The client cards in section 04 show the latest release of each app repo
+The client cards in section 04 link to the latest release of each app repo
 (`silo-server`, `silo-apple`, `silo-android`). These are fetched from the
 GitHub API at build time by `src/data/releases.ts` and baked into the
-static HTML — no client-side JS, no runtime API calls.
+static HTML — no client-side JS, no runtime API calls. Cards show a plain
+status (shipping or beta) and never a version number.
 
 The data is refreshed on three triggers:
 
@@ -74,8 +75,7 @@ The data is refreshed on three triggers:
 3. Every time a sibling repo publishes a release (cross-repo dispatch)
 
 If the API is unreachable or rate-limited at build time, cards fall back
-to a "view repo" link with no version label. The build never fails for
-this reason.
+to the repo home page instead. The build never fails for this reason.
 
 ## Cross-repo release dispatch
 

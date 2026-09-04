@@ -4,7 +4,7 @@ import { faq } from "../data/faq";
 
 <section class="section section--faq">
   <div class="container container--narrow">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="section__eyebrow">
         <span class="hatch ink-orange" aria-hidden="true"></span>
         <span>sec. 05 — questions</span>
@@ -12,10 +12,10 @@ import { faq } from "../data/faq";
       <h2 class="section__title">Worth asking up front.</h2>
     </header>
 
-    <div class="faq">
+    <div class="faq" data-reveal-stagger>
       {
         faq.map((item, i) => (
-          <article class="faq__item">
+          <article class="faq__item" data-reveal>
             <span class="faq__num" aria-hidden="true">
               Q.{String(i + 1).padStart(2, "0")}
             </span>

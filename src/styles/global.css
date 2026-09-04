@@ -398,6 +398,16 @@ samp {
 }
 .statusbar__dot--green {
   background: var(--green);
+  animation: led-pulse 2.6s ease-in-out infinite;
+}
+@keyframes led-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(29, 122, 68, 0.45);
+  }
+  45% {
+    box-shadow: 0 0 0 4px rgba(29, 122, 68, 0);
+  }
 }
 .statusbar__spacer {
   flex: 1;
@@ -799,6 +809,18 @@ samp {
   height: 1px;
   background: var(--ink-mute);
   position: relative;
+  animation: rule-draw 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.75s both;
+}
+.hero__rule-line:first-of-type {
+  transform-origin: right center;
+}
+.hero__rule-line:last-of-type {
+  transform-origin: left center;
+}
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
 }
 .hero__rule-line::before,
 .hero__rule-line::after {
@@ -1705,6 +1727,33 @@ samp {
 }
 
 /* ============================================================
+   SCROLL REVEAL — section heads and grids rise into place once.
+   Only active with JS (html.js). A grid (data-reveal-stagger) is
+   the unit: when it enters, its children animate with a short
+   stagger via --reveal-delay. Backwards fill keeps hover transforms
+   on cards working once the reveal has finished.
+   ============================================================ */
+html.js :not([data-reveal-stagger]) > [data-reveal]:not(.is-in),
+html.js [data-reveal-stagger]:not(.is-in) > [data-reveal] {
+  opacity: 0;
+}
+html.js :not([data-reveal-stagger]) > [data-reveal].is-in,
+html.js [data-reveal-stagger].is-in > [data-reveal] {
+  animation: reveal-rise 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
    COPY FEEDBACK
    ============================================================ */
 .btn--primary {
@@ -1979,8 +2028,16 @@ samp {
   .hero__actions,
   .hero__meta,
   .hero__col--demo,
-  .hero__stamp {
+  .hero__stamp,
+  [data-reveal],
+  [data-reveal-stagger] > [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+  .hero__rule-line {
+    animation: none;
+  }
+  .statusbar__dot--green {
+    animation: none;
   }
 }

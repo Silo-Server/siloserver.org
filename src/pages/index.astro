@@ -62,5 +62,55 @@ import Bottombar from "../components/Bottombar.astro";
         },
       );
     })();
+
+    // Scroll reveal: each section head and each grid rises into place once
+    // as it enters the viewport. A grid reveals as one unit with a short
+    // stagger across its children, so rows never pop in one card at a time.
+    // Reduced motion shows everything immediately.
+    (() => {
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const groups = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-reveal-stagger]"),
+      );
+      const singles = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-reveal]"),
+      ).filter((el) => !el.parentElement?.hasAttribute("data-reveal-stagger"));
+      let pending = [...groups, ...singles];
+      if (reduce) {
+        pending.forEach((t) => t.classList.add("is-in"));
+        return;
+      }
+      groups.forEach((group) => {
+        group
+          .querySelectorAll<HTMLElement>(":scope > [data-reveal]")
+          .forEach((child, i) => {
+            child.style.setProperty("--reveal-delay", `${Math.min(i, 11) * 40}ms`);
+          });
+      });
+      const check = () => {
+        // A hidden or not-yet-laid-out tab reports a zero viewport; fall
+        // back to a generous height so nothing is left invisible.
+        const vh = innerHeight || document.documentElement.clientHeight || 900;
+        pending = pending.filter((el) => {
+          const r = el.getBoundingClientRect();
+          // Anything at or above the viewport counts as seen, so jumping to
+          // an anchor never leaves the sections above it blank.
+          if (r.top < vh) {
+            el.classList.add("is-in");
+            return false;
+          }
+          return true;
+        });
+        if (!pending.length) {
+          removeEventListener("scroll", check);
+          removeEventListener("resize", check);
+          document.removeEventListener("visibilitychange", check);
+        }
+      };
+      addEventListener("scroll", check, { passive: true });
+      addEventListener("resize", check);
+      document.addEventListener("visibilitychange", check);
+      check();
+    })();
   </script>
 </Base>

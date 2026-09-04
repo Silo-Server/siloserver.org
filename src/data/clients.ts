@@ -18,7 +18,7 @@ export const nativeClients: NativeClient[] = [
     icon: "▦",
     platform: "React · TypeScript · Vite",
     body:
-      "The admin and viewing UI that ships with the server. Dark by default, cinematic, with the Ken Burns hero you'd expect.",
+      "The viewing and admin UI that ships with the server, and the reference client: every feature lands here first.",
     status: "ok",
     statusLabel: "● shipping",
     repo: "server",
@@ -26,31 +26,31 @@ export const nativeClients: NativeClient[] = [
   {
     name: "Silo for iOS",
     icon: "▢",
-    platform: "SwiftUI · AVKit",
+    platform: "SwiftUI · AetherEngine",
     body:
-      "Native iOS app. Direct play and HLS playback, Picture-in-Picture, Now Playing integration.",
+      "Native iPhone and iPad app. Direct play and HLS, Picture in Picture, offline downloads, and Now Playing on the lock screen.",
     status: "beta",
-    statusLabel: "● beta · nearly ready",
+    statusLabel: "● beta",
     repo: "apple",
   },
   {
     name: "Silo for tvOS",
     icon: "▭",
-    platform: "SwiftUI · Top Shelf",
+    platform: "SwiftUI · AetherEngine · Top Shelf",
     body:
-      "Apple TV native, with Top Shelf integration, focus-engine navigation, and a custom player tuned for Dolby Vision.",
+      "Built for the Siri Remote, with Top Shelf and focus-engine navigation. An FFmpeg-based player handles Dolby Vision profiles 5, 7, and 8 and lossless multichannel audio.",
     status: "beta",
-    statusLabel: "● beta · nearly ready",
+    statusLabel: "● beta",
     repo: "apple",
   },
   {
     name: "Silo for macOS",
     icon: "⌘",
-    platform: "SwiftUI · AppKit bridge",
+    platform: "SwiftUI · AetherEngine",
     body:
-      "Native Mac client. Multi-window, drag-and-drop, the same playback core as the iOS app.",
-    status: "alpha",
-    statusLabel: "● alpha",
+      "Native Mac app with the same playback core as iOS, including Dolby Vision and lossless multichannel audio.",
+    status: "beta",
+    statusLabel: "● beta",
     repo: "apple",
   },
   {
@@ -58,9 +58,9 @@ export const nativeClients: NativeClient[] = [
     icon: "▴",
     platform: "Compose · Media3",
     body:
-      "Phone and tablet. Built on Media3 with a bundled ffmpeg AAR decoder for tracks the platform won't touch.",
+      "Phone and tablet. Built on Media3 with a bundled FFmpeg audio decoder for TrueHD, DTS, and other tracks the platform won't decode, plus refresh-rate matching.",
     status: "beta",
-    statusLabel: "● beta · WIP",
+    statusLabel: "● beta",
     repo: "android",
   },
   {
@@ -68,9 +68,9 @@ export const nativeClients: NativeClient[] = [
     icon: "▥",
     platform: "Compose for TV · Media3",
     body:
-      "Designed for the remote. D-pad first navigation, big posters, fast resume. Compose for TV under the hood.",
-    status: "alpha",
-    statusLabel: "● alpha",
+      "Designed for the remote: D-pad first, big posters, fast resume. HDR and Dolby Vision output, audio passthrough, and refresh-rate matching.",
+    status: "beta",
+    statusLabel: "● beta",
     repo: "android",
   },
 ];
@@ -164,7 +164,7 @@ export const compatClients: CompatClient[] = [
   {
     name: "Jellyfin Web",
     platforms: "browser",
-    status: "vendored at /web/",
+    status: "optional · served at /web/",
     links: [
       { label: "github", href: "https://github.com/jellyfin/jellyfin-web" },
     ],

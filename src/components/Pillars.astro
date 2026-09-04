@@ -4,7 +4,7 @@ import { pillars } from "../data/pillars";
 
 <section class="section section--infra" id="stack">
   <div class="container">
-    <header class="section__head section__head--split">
+    <header class="section__head section__head--split" data-reveal>
       <div>
         <p class="section__eyebrow">
           <span class="hatch ink-blue" aria-hidden="true"></span>
@@ -16,17 +16,16 @@ import { pillars } from "../data/pillars";
         </h2>
       </div>
       <p class="section__lede">
-        Most self-hosted media servers were architected when single-binary +
-        SQLite was state of the art. Silo bets on a modern stack — typed,
-        concurrent, horizontally scalable, and boring in all the right
-        places.
+        Most self-hosted media servers were designed around a single binary
+        and a SQLite file. Silo bets on a stack that is typed, concurrent,
+        scalable across hosts, and boring in all the right places.
       </p>
     </header>
 
-    <div class="pillars">
+    <div class="pillars" data-reveal-stagger>
       {
         pillars.map((p, i) => (
-          <article class={`pillar pillar--${p.color}`}>
+          <article class={`pillar pillar--${p.color}`} data-reveal>
             <div class="pillar__head">
               <span class="pillar__bar" aria-hidden="true" />
               <span class="pillar__label">{p.label}</span>

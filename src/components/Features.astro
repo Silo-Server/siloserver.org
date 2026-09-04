@@ -5,28 +5,28 @@ import { REPOS, repoUrl } from "../data/siteConfig";
 
 <section class="section section--features" id="features">
   <div class="container">
-    <header class="section__head section__head--split">
+    <header class="section__head section__head--split" data-reveal>
       <div>
         <p class="section__eyebrow">
           <span class="hatch ink-red" aria-hidden="true"></span>
           <span>sec. 02 — what it does</span>
         </p>
         <h2 class="section__title">
-          Ten things that <br />
+          Eleven things that <br />
           <span class="ink-blue">matter</span>.
         </h2>
       </div>
       <p class="section__lede">
-        What the modern stack actually gets you: smarter playback,
-        household-aware profiles, real recommendations, and a server that
-        grows past one box when you need it to.
+        What the stack actually buys you: smarter playback, profiles that
+        fit a household, recommendations that learn, and a server that grows
+        past one box when you need it to.
       </p>
     </header>
 
-    <div class="feature-grid">
+    <div class="feature-grid" data-reveal-stagger>
       {
         features.map((f) => (
-          <article class="feature">
+          <article class="feature" data-reveal>
             <div class="feature__id">{f.id}</div>
             <h3 class="feature__title">{f.title}</h3>
             <p class="feature__body">{f.body}</p>

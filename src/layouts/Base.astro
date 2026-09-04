@@ -28,6 +28,7 @@ const href = (path: string) => `${baseUrl}${path}`;
          `starlight-theme` key so the choice carries into /docs. -->
     <script is:inline>
       (function () {
+        document.documentElement.classList.add("js");
         try {
           var KEY = "starlight-theme";
           var el = document.documentElement;

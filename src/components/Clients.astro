@@ -1,12 +1,12 @@
 ---
 import { nativeClients, compatClients, absClients } from "../data/clients";
 import { REPOS, repoUrl } from "../data/siteConfig";
-import { releaseFor, downloadLinkFor } from "../data/releases";
+import { downloadLinkFor } from "../data/releases";
 ---
 
 <section class="section section--clients" id="clients">
   <div class="container">
-    <header class="section__head section__head--split">
+    <header class="section__head section__head--split" data-reveal>
       <div>
         <p class="section__eyebrow">
           <span class="hatch ink-orange" aria-hidden="true"></span>
@@ -17,12 +17,12 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
         </h2>
       </div>
       <p class="section__lede">
-        The web app ships with the server, and we're building native apps
-        for every other screen worth shipping on — SwiftUI on Apple,
-        Compose on Android. Those are still work-in-progress, with iOS and
-        tvOS nearly ready. Until they land, the Jellyfin-protocol
-        compatibility layer means the third-party clients you already
-        trust just work.
+        The web app ships with the server. Native apps cover every other
+        screen worth shipping on: SwiftUI on Apple, Compose on Android. All
+        of them are in beta and nearly feature-complete, with Dolby Vision,
+        lossless audio, and offline downloads where the platform allows.
+        If you would rather keep the app you already use, the
+        Jellyfin-protocol compatibility layer means it just works.
       </p>
     </header>
 
@@ -32,15 +32,14 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
       <span class="cluster__line"></span>
     </h3>
 
-    <div class="client-grid">
+    <div class="client-grid" data-reveal-stagger>
       {
         nativeClients.map((c) => {
           const repoKey = c.repo as keyof typeof REPOS;
           const repoName = REPOS[repoKey];
-          const release = releaseFor(repoKey);
           const downloadHref = downloadLinkFor(repoKey);
           return (
-            <article class="client client--native">
+            <article class="client client--native" data-reveal>
               <div class="client__icon" aria-hidden="true">
                 {c.icon}
               </div>
@@ -50,9 +49,6 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
               <div class="client__footer">
                 <span class={`client__status client__status--${c.status}`}>
                   {c.statusLabel}
-                  {release && (
-                    <span class="client__version"> · {release.tag}</span>
-                  )}
                 </span>
                 <a class="client__source" href={downloadHref}>
                   {repoName} ↗
@@ -71,15 +67,16 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
     </h3>
 
     <p class="cluster__caption">
-      Silo speaks the full Jellyfin protocol on port <code>:8096</code>.
-      Auth, items, sessions, websockets, the Jellyfin web SPA — all served.
-      Point any of these at <code>http://silo:8096</code> and it just works.
+      Silo speaks the Jellyfin protocol on port <code>:8096</code>: auth,
+      items, sessions, and websockets, plus the Jellyfin web app if you
+      install it from the admin panel. Point any of these at
+      <code>http://silo:8096</code> and sign in as usual.
     </p>
 
-    <div class="compat-grid">
+    <div class="compat-grid" data-reveal-stagger>
       {
         compatClients.map((c) => (
-          <div class="compat">
+          <div class="compat" data-reveal>
             <span class="compat__name">{c.name}</span>
             <span class="compat__platforms">{c.platforms}</span>
             <span class="compat__status">{c.status}</span>
@@ -102,16 +99,16 @@ import { releaseFor, downloadLinkFor } from "../data/releases";
     </h3>
 
     <p class="cluster__caption">
-      Audiobook libraries are also served over the Audiobookshelf protocol
-      on port <code>:13378</code>. Point any of these at
-      <code>http://silo:13378</code>, sign in with your Silo credentials,
-      and listen — progress, chapters, and bookmarks all sync.
+      Audiobook and podcast libraries are also served over the
+      Audiobookshelf protocol on port <code>:13378</code>. Point any of
+      these at <code>http://silo:13378</code>, sign in with your Silo
+      credentials, and listen. Progress and chapters sync.
     </p>
 
-    <div class="compat-grid">
+    <div class="compat-grid" data-reveal-stagger>
       {
         absClients.map((c) => (
-          <div class="compat">
+          <div class="compat" data-reveal>
             <span class="compat__name">{c.name}</span>
             <span class="compat__platforms">{c.platforms}</span>
             <span class="compat__status">{c.status}</span>

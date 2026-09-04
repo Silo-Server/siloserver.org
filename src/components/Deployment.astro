@@ -4,7 +4,7 @@ import SiloBars from "./SiloBars.astro";
 
 <section class="section section--arch">
   <div class="container container--narrow">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="section__eyebrow">
         <span class="hatch ink-blue" aria-hidden="true"></span>
         <span>sec. 03 — deployment shapes</span>
@@ -14,15 +14,15 @@ import SiloBars from "./SiloBars.astro";
       </h2>
       <p class="section__lede">
         Start with everything in a single container on a mini PC. When the
-        homelab grows up — three Proxmox nodes, a couple of NUCs, whatever
-        the rack looks like — drop a transcode and proxy worker into an LXC
-        on each node. They register themselves and the server routes streams
-        across them.
+        homelab grows up, whether that is three Proxmox nodes, a couple of
+        NUCs, or whatever the rack looks like, run a transcode and proxy
+        worker on each host against the same database. Register each node
+        once in the admin panel and the server routes streams across them.
       </p>
     </header>
 
     <div class="arch">
-      <div class="arch__pane arch__pane--single">
+      <div class="arch__pane arch__pane--single" data-reveal>
         <div class="arch__pane-head">
           <SiloBars size="xs" />
           <span>fig. 02 — single-host integrated</span>
@@ -43,27 +43,27 @@ import SiloBars from "./SiloBars.astro";
 └──────────────────────────────────────────────┘</pre>
       </div>
 
-      <div class="arch__pane arch__pane--split">
+      <div class="arch__pane arch__pane--split" data-reveal>
         <div class="arch__pane-head">
           <SiloBars size="xs" />
-          <span>fig. 03 — proxmox cluster</span>
+          <span>fig. 03 — three-node homelab</span>
           <span class="arch__pane-tag arch__pane-tag--red">MULTI-NODE</span>
         </div>
         <pre class="arch__diagram">
-┌─ proxmox cluster ────────────────────────────────────┐
+┌─ homelab ────────────────────────────────────────────┐
 │                                                      │
-│  pve01              pve02              pve03         │
+│  node01             node02             node03        │
 │  ┌──────────────┐   ┌──────────────┐   ┌──────────┐  │
-│  │ silo (api)   │   │ lxc:         │   │ lxc:     │  │
+│  │ silo (api)   │   │ silo:        │   │ silo:    │  │
 │  │ postgres     │   │  transcode   │ ● │  trans.  │● │
 │  │ redis        │   │  +proxy      │   │  +proxy  │  │
-│  │ +tc/proxy lxc│   └──────┬───────┘   └────┬─────┘  │
+│  │ +transcode   │   └──────┬───────┘   └────┬─────┘  │
 │  └──────┬───────┘          │                │        │
 │         └──────────────────┴────────────────┘        │
 │                            ▼                         │
-│              shared db + redis pool                  │
+│              shared postgres + redis                 │
 │                                                      │
-│      streams: least-connections across nodes         │
+│   transcode: least-connections · proxy: round-robin  │
 └──────────────────────────────────────────────────────┘</pre>
       </div>
     </div>
