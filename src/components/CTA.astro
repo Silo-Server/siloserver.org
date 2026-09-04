@@ -12,10 +12,15 @@ import { SITE } from "../data/siteConfig";
       </h2>
       <p class="cta__sub">
         A self-hosted media server, built in the open. The best feedback
-        you can send is a commit hash, a stack trace, and an opinion.
+        you can send is a commit hash, a stack trace, and an opinion. The
+        Discord is where the maintainers actually are: ask questions, report
+        what broke, and see what is shipping next.
       </p>
       <div class="cta__actions">
-        <a href={SITE.github.orgUrl} class="btn btn--primary">
+        <a href={SITE.discord} class="btn btn--primary btn--discord">
+          join the Discord <span class="btn__arrow">↗</span>
+        </a>
+        <a href={SITE.github.orgUrl} class="btn btn--ghost">
           github.com/Silo-Server <span class="btn__arrow">↗</span>
         </a>
         <a href={SITE.github.readmeUrl} class="btn btn--ghost">

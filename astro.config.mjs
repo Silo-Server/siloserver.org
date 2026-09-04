@@ -36,6 +36,11 @@ export default defineConfig({
       },
       social: [
         {
+          icon: "discord",
+          label: "Discord",
+          href: "https://discord.gg/siloserver",
+        },
+        {
           icon: "github",
           label: "GitHub",
           href: "https://github.com/Silo-Server",

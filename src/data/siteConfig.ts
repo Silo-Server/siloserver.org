@@ -7,6 +7,7 @@ export const SITE = {
     "Silo is a self-hosted media server. Go + Postgres. Performance-first. Native clients for Apple, Android, and Web. Plays nice with the Jellyfin client ecosystem.",
   status: "pre-1.0",
   license: "AGPL-3.0-or-later",
+  discord: "https://discord.gg/siloserver",
   github: {
     org: "Silo-Server",
     orgUrl: "https://github.com/Silo-Server",
