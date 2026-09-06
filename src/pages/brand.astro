@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import StatusBar from "../components/StatusBar.astro";
 import Bottombar from "../components/Bottombar.astro";
 import SiloBars from "../components/SiloBars.astro";
+import { SITE } from "../data/siteConfig";
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const assetHref = (name: string) => `${baseUrl}/brand/${name}`;
@@ -241,15 +242,114 @@ const policyHref =
       <div class="brand-section__heading">
         <p>02 / usage</p>
         <div>
-          <h2 id="usage-title">Keep it unmistakably Silo</h2>
+          <h2 id="usage-title">Most uses need no permission</h2>
           <p>
-            Consistency matters more than decoration. Pick the asset that fits
-            the space, keep the artwork intact, and make the relationship to
-            Silo clear.
+            If you are writing about Silo, building something that works with
+            it, or running it yourself, use the name and artwork freely. The
+            only thing we ask is that your own project keeps its own identity,
+            so nobody mistakes it for an official Silo release.
           </p>
         </div>
       </div>
 
+      <div class="rules-grid">
+        <article class="rules-card rules-card--do">
+          <p class="rules-card__label">Go ahead</p>
+          <ul>
+            <li>Say your work is “compatible with Silo,” “a Silo client,” “a plugin for Silo,” or “based on Silo.”</li>
+            <li>Show the logo next to your product to signal that the two work together.</li>
+            <li>Write articles, tutorials, reviews, and talks about Silo, with the artwork.</li>
+            <li>Redistribute official, unmodified builds under the Silo name.</li>
+            <li>Run, modify, and self-host Silo for yourself or your organization.</li>
+          </ul>
+        </article>
+
+        <article class="rules-card rules-card--dont">
+          <p class="rules-card__label">Ask us first</p>
+          <ul>
+            <li>Shipping a modified build under the Silo name or logo.</li>
+            <li>Publishing an app to any app store as Silo, or with a look-alike identity.</li>
+            <li>Putting Silo in your company, product, domain, or app name.</li>
+            <li>Merchandise or other commercial use of the logo or wordmark.</li>
+            <li>Anything that suggests we run, sponsor, or endorse your offering.</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="rules-intro rules-intro--after">
+        We say yes to most reasonable requests. The policy exists to prevent
+        confusion, not to stop people building on Silo. Never use the name or
+        logo to promote piracy or to impersonate the project.
+      </p>
+
+      <h3 class="rules-subhead" id="naming-title">Naming your project</h3>
+      <p class="rules-intro">
+        Pick a name that is yours, then mention Silo in the tagline. That is
+        how the official products are told apart: the server is
+        <strong>Silo Server</strong>, and official apps join “Silo” to a
+        product word with no space, such as SiloRemote and SiloMac. So that
+        pattern, and “Silo” on its own, are reserved.
+      </p>
+
+      <div class="rules-grid">
+        <article class="rules-card rules-card--do">
+          <p class="rules-card__label">Works well</p>
+          <ul>
+            <li>“Bramble — a Silo client for Android TV”</li>
+            <li>“Lantern, a lightweight Silo web player”</li>
+            <li>“Trakt sync plugin for Silo”</li>
+            <li>Repository and package names such as <code>silo-plugin-trakt</code>, where “silo” only describes what it plugs into.</li>
+          </ul>
+        </article>
+
+        <article class="rules-card rules-card--dont">
+          <p class="rules-card__label">Please avoid</p>
+          <ul>
+            <li>“Silo” alone, or as the first word of a product name.</li>
+            <li>“Silo[word]” names such as SiloTV, SiloPlay, or SiloFlix, which read as official apps.</li>
+            <li>“[word]Silo” names such as OpenSilo or MySilo, which read as the project itself.</li>
+            <li>Misspellings and look-alikes such as Sylo or Si1o.</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3 class="rules-subhead" id="writing-title">Writing the name</h3>
+      <div class="context-table" role="region" aria-label="How to write the Silo name" tabindex="0">
+        <table>
+          <thead>
+            <tr><th>context</th><th>write it as</th><th>example</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>prose and UI text</td>
+              <td>Silo, capital S, one word</td>
+              <td>“Connect to your Silo server.”</td>
+            </tr>
+            <tr>
+              <td>the server product</td>
+              <td>Silo Server, two words</td>
+              <td>“Requires Silo Server 1.0 or later.”</td>
+            </tr>
+            <tr>
+              <td>repositories, packages, binaries</td>
+              <td>lowercase silo</td>
+              <td><code>silo-server</code>, <code>silo-plugin-trakt</code></td>
+            </tr>
+            <tr>
+              <td>paths and config directories</td>
+              <td>follow the platform convention</td>
+              <td><code>/var/lib/silo</code>, <code>~/Library/Application Support/Silo</code></td>
+            </tr>
+            <tr>
+              <td>never</td>
+              <td>SILO, SiLo, Si-lo, or a typeset “Silo” in place of the wordmark</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="rules-subhead" id="artwork-title">Handling the artwork</h3>
       <div class="rules-grid">
         <article class="rules-card rules-card--do">
           <p class="rules-card__label">Do</p>
@@ -257,7 +357,6 @@ const policyHref =
             <li>Use the supplied artwork without redrawing it.</li>
             <li>Leave comfortable clear space on every side.</li>
             <li>Use the wordmark variant with clear background contrast.</li>
-            <li>Describe third-party work as “compatible with Silo.”</li>
             <li>Keep your own product name and identity more prominent.</li>
           </ul>
         </article>
@@ -267,9 +366,8 @@ const policyHref =
           <ul>
             <li>Stretch, skew, rotate, crop, or rearrange the artwork.</li>
             <li>Recolor the mark or add shadows, outlines, or effects.</li>
-            <li>Typeset “Silo” as a substitute for the supplied wordmark.</li>
+            <li>Build the mark into your own logo.</li>
             <li>Use the icon as the identity of a fork or third-party app.</li>
-            <li>Imply sponsorship, endorsement, or official status.</li>
           </ul>
         </article>
       </div>
@@ -373,7 +471,10 @@ const policyHref =
           <p>
             When the logo appears beside supporting graphics, these colors
             keep the surrounding material in the same visual family. Do not
-            use them to recolor the supplied artwork.
+            use them to recolor the supplied artwork. You are welcome to use
+            the colors, and the three-bar motif from the website, in your own
+            client or plugin interface. The mark itself is what we reserve, so
+            keep your own logo a different shape.
           </p>
         </div>
       </div>
@@ -560,14 +661,16 @@ const policyHref =
       <div>
         <h2 id="permission-title">Open source code. Protected identity.</h2>
         <p>
-          You may use the Silo name and artwork to refer truthfully to Silo,
-          redistribute official unmodified builds, and for editorial or
-          educational coverage. Forks must rebrand. Silo-branded app-store
-          releases, merchandise, commercial uses, and modified distributions
-          require written permission.
+          The code is AGPL and yours to fork. The name and logo identify the
+          official project, so a distributed fork picks its own name and logo
+          and says it is “based on Silo.” This page is the practical guide;
+          the trademark policy on GitHub is the canonical text. Not sure
+          whether your use is fine? Ask in Discord or email us. We answer
+          quickly and usually say yes.
         </p>
         <div class="permission__actions">
           <a href={policyHref}>read the full trademark policy ↗</a>
+          <a href={SITE.discord}>ask in discord ↗</a>
           <a href="mailto:trademark@siloserver.org">trademark@siloserver.org</a>
         </div>
       </div>
@@ -873,6 +976,29 @@ const policyHref =
   }
   .rules-card--dont .rules-card__label {
     color: var(--red);
+  }
+  .rules-subhead {
+    margin: 3rem 0 1rem;
+    font: 800 clamp(1.3rem, 2vw, 1.7rem)/1.1 var(--ff-display);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .rules-intro {
+    max-width: 720px;
+    margin: 0 0 1.5rem;
+    color: var(--ink-soft);
+  }
+  .rules-intro--after {
+    margin: 1.5rem 0 0;
+  }
+  .rules-card code,
+  .context-table code {
+    font: 500 0.85em/1 var(--ff-mono);
+    color: var(--ink);
+  }
+  .rules-grid + .rules-subhead,
+  .context-table + .rules-subhead {
+    margin-top: 3rem;
   }
   .rules-card ul {
     margin: 0;
