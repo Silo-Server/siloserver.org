@@ -128,6 +128,12 @@
   /* Feature cards */
   .fgroup { margin: 0 0 6px; }
   .fcard { background: var(--paper-high); border: 1.5px solid var(--ink); padding: 18px 22px; margin: 13px 0; transition: transform .16s ease, box-shadow .16s ease; }
+  .fcard, table.defer tr { scroll-margin-top: var(--feature-scroll-offset, 190px); }
+  .feature-link { color: inherit; border-bottom: 0; }
+  .anchor-mark { color: var(--blue); font-family: var(--mono); font-size: .7em; white-space: nowrap; }
+  .feature-link:hover { color: var(--blue); }
+  .feature-link:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+  .fcard:target, table.defer tr:target { outline: 2px solid var(--blue); outline-offset: 3px; }
   .fcard:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--paper-press); }
   .fcard-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
   .fcard h4 { margin: 0; font-family: var(--disp); font-size: 24px; color: var(--ink); font-weight: 750; text-transform: uppercase; letter-spacing: .01em; line-height: 1; }
@@ -387,8 +393,8 @@
 <div class="fgroup">
 <h3>Discovery &amp; browsing</h3>
 
-  <div class="fcard" data-scope="admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Collections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-collections" data-scope="admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-collections"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Collections <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Named sets of titles: shared (everyone sees) or private (owner only), hand-picked or rule-filled. Shared/smart authoring is web-admin; private authoring on web and Android; every client browses.</p>
     <ul class="ac">
       <li>Browse a Collections section and open one to list its members on every client.</li>
@@ -401,8 +407,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4>Calendar</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+  <div class="fcard" id="feature-calendar" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-calendar">Calendar <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">A release schedule of upcoming episodes, movies, and seasons, a week at a time.</p>
     <ul class="ac">
       <li>Week view lists upcoming episodes + movie/season releases; season premieres are distinguished.</li>
@@ -411,8 +417,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Curated home sections</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-curated-home-sections" data-scope="admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-curated-home-sections"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Curated home sections <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Server-assembled home rows, including trending, seasonal, editorial, and mood rows, are authored centrally in web admin.</p>
     <ul class="ac">
       <li><strong>An admin builds and reorders home rows in a web-admin builder</strong>; no config-file editing is required. Scheduled publication is post-1.0.</li>
@@ -423,8 +429,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4>Person / cast &amp; crew browsing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+  <div class="fcard" id="feature-person-cast-crew-browsing" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-person-cast-crew-browsing">Person / cast &amp; crew browsing <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">Tap an actor or director to browse their other in-library work.</p>
     <ul class="ac">
       <li>A person page lists their other in-library work, with photo and a missing-photo fallback, on every client.</li>
@@ -433,8 +439,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server ios tvos android androidtv web">
-    <div class="fcard-head"><h4>Recommendations</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-recommendations" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-recommendations">Recommendations <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Personalized "For You" suggestions with enough variety to avoid repeating the same titles, plus useful choices for a new profile. Produced server-side and shown everywhere.</p>
     <ul class="ac">
       <li>The server produces a personalized, varied set per profile, refreshed in the background, with sensible picks for a new profile.</li>
@@ -447,8 +453,8 @@
 <div class="fgroup">
 <h3>Playback</h3>
 
-  <div class="fcard" data-scope="server ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Markers / skip intro &amp; credits</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-markers-skip-intro-credits" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-markers-skip-intro-credits"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Markers / skip intro &amp; credits <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Intro/recap/credits segments with a Skip button. The server detects markers locally or obtains them from enabled marker-provider plugins; every client consumes the resolved markers.</p>
     <ul class="ac">
       <li>The server detects intro/recap/credits locally or retrieves them from an enabled marker provider on the reference test set, within an accuracy target; no manual tagging required.</li>
@@ -458,8 +464,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin web">
-    <div class="fcard-head"><h4>Marker authoring &amp; editing</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-marker-authoring-editing" data-scope="admin web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-marker-authoring-editing">Marker authoring &amp; editing <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Admins and authorized users create, adjust, and remove intro/recap/credits markers in the web app, including markers supplied by a provider. Movie &amp; Series libraries only.</p>
     <ul class="ac">
       <li>From the web app, an admin or an authorized user adds, edits the in/out points of, or deletes a marker on a Movie or Series item; the change takes effect on every client without a rescan.</li>
@@ -468,8 +474,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails (server + web)</h4><div class="chips"><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-chapter-thumbnails-server-web" data-scope="server web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-chapter-thumbnails-server-web"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails (server + web) <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">The server generates thumbnails at chapter and marker positions, and the web app displays them. Native clients support chapter navigation without preview images; native preview rendering is post-1.0.</p>
     <ul class="ac">
       <li>The server generates chapter/marker thumbnails (per-library setting) including on hardware-accelerated paths; absence degrades silently.</li>
@@ -478,8 +484,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server ios tvos android androidtv web">
-    <div class="fcard-head"><h4>Subtitle playback &amp; appearance</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-subtitle-playback-appearance" data-scope="server ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-subtitle-playback-appearance">Subtitle playback &amp; appearance <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Per-profile subtitle behavior and appearance, auto-selected by audio language and customizable, with series-level overrides that sync across every client.</p>
     <ul class="ac">
       <li><strong>Subtitle display settings (font, size, color, background, position, timing) are a profile-level preference, applied automatically</strong> and carried across devices for that profile.</li>
@@ -490,8 +496,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server web ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Subtitles: search / download / upload</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-subtitles-search-download-upload" data-scope="server web ios tvos android androidtv">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-subtitles-search-download-upload"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Subtitles: search / download / upload <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Find and download human subtitles from providers on every first-party player, or upload your own from the web app.</p>
     <ul class="ac">
       <li>Upload is available to any user; the search button is hidden until a provider is configured.</li>
@@ -501,8 +507,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin web ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>AI generated subtitles</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-ai-generated-subtitles" data-scope="server admin web ios tvos android androidtv">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-ai-generated-subtitles"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>AI generated subtitles <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">During playback, a user can translate an existing text subtitle or generate subtitles from an audio track when the server enables AI subtitles. The completed track is saved on the item and consumed like any other subtitle.</p>
     <ul class="ac">
       <li>Every first-party player exposes the AI subtitle action when the server reports translation or transcription available. A user can translate a compatible text subtitle, transcribe an audio track, or transcribe and translate it.</li>
@@ -512,8 +518,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios android">
-    <div class="fcard-head"><h4>Downloads / offline</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span></div></div>
+  <div class="fcard" id="feature-downloads-offline" data-scope="ios android">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-downloads-offline">Downloads / offline <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span></div></div>
     <p class="what">Download titles to watch offline on a phone or tablet, under server-enforced limits. iOS and Android only.</p>
     <ul class="ac">
       <li>On a mobile client: download a title, manage downloads, and play with no connection, under the server&rsquo;s bandwidth/storage limits.</li>
@@ -522,8 +528,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Send to the TV app (SiloRemote)</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span></div></div>
+  <div class="fcard" id="feature-send-to-the-tv-app-siloremote" data-scope="ios tvos android androidtv">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-send-to-the-tv-app-siloremote"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Send to the TV app (SiloRemote) <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span></div></div>
     <p class="what">From the Silo mobile app on a phone or tablet, send a title to the Silo TV app on the same network and use the mobile device as a full remote. The TV app plays it <strong>directly from the server</strong>; the mobile device hands off and controls playback, and does not relay or cast the video. This works across platforms on the same LAN.</p>
     <ul class="ac">
       <li>Any signed-in first-party mobile app on iPhone, iPad, Android phone, or Android tablet can discover and control either Apple TV or Android TV on the same LAN. Selecting the TV or sending a title completes the secure profile handoff automatically in the normal flow; the user is not asked to pair or confirm the connection. Platform pairing does not matter.</li>
@@ -532,8 +538,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server">
-    <div class="fcard-head"><h4>Hardware transcoding</h4><div class="chips"><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-hardware-transcoding" data-scope="server">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-hardware-transcoding">Hardware transcoding <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip server">Server</span></div></div>
     <p class="what">GPU-accelerated transcoding (NVENC / QSV / VAAPI / VideoToolbox) with tone-mapping.</p>
     <ul class="ac">
       <li>On a host with a supported GPU, hardware encode/decode is auto-detected and used, with config to force or disable it; falls back to software cleanly.</li>
@@ -541,8 +547,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server">
-    <div class="fcard-head"><h4>Distributed transcode nodes</h4><div class="chips"><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-distributed-transcode-nodes" data-scope="server">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-distributed-transcode-nodes">Distributed transcode nodes <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip server">Server</span></div></div>
     <p class="what">Transcoding spread across multiple worker nodes with per-node caps and live monitoring.</p>
     <ul class="ac">
       <li>An admin can register a node, place it in a co-location group, set job + bandwidth caps, and see live node sessions; a node going away fails over without orphaning a stream.</li>
@@ -555,8 +561,8 @@
 <div class="fgroup">
 <h3>Personalization &amp; accounts</h3>
 
-  <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Multi-profile / PIN / kids</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+  <div class="fcard" id="feature-multi-profile-pin-kids" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-multi-profile-pin-kids"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Multi-profile / PIN / kids <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">Multiple profiles per account, each with its own progress, optional PIN, and library limits.</p>
     <ul class="ac">
       <li>Switch profiles on every client; each has independent progress and preferences.</li>
@@ -567,8 +573,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4>Watchlist / Favorites / Ratings</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+  <div class="fcard" id="feature-watchlist-favorites-ratings" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-watchlist-favorites-ratings">Watchlist / Favorites / Ratings <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">Save for later, mark favorites, and rate titles per profile, synced across devices.</p>
     <ul class="ac">
       <li>Toggle watchlist/favorite/rating from a title page on every client; state is per-profile and syncs across devices.</li>
@@ -577,8 +583,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="web admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Account sessions</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-account-sessions" data-scope="web admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-account-sessions"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Account sessions <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Users manage their own signed-in clients on the web, and server admins can invalidate a client session for any user. Mobile and TV apps do not surface session management in v1.0.</p>
     <ul class="ac">
       <li>A user lists active sessions with device/last-seen and revokes one; the revoked session loses access on its next request.</li>
@@ -586,8 +592,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>API keys</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-api-keys" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-api-keys"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>API keys <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Server admins create scoped API keys for server automation and integrations. Regular users and mobile/TV clients do not manage API keys in v1.0.</p>
     <ul class="ac">
       <li>Only a server admin can create, view metadata for, rotate, or revoke API keys. Each key has a defined scope and its secret is shown only when it is created.</li>
@@ -595,8 +601,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="ios tvos android androidtv web">
-    <div class="fcard-head"><h4>TV client sign-in &amp; onboarding</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
+  <div class="fcard" id="feature-tv-client-sign-in-onboarding" data-scope="ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-tv-client-sign-in-onboarding">TV client sign-in &amp; onboarding <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span></div></div>
     <p class="what">Set up a TV without typing credentials by approving its device code in a browser or handing over signed-in servers from a phone or tablet on the same LAN.</p>
     <ul class="ac">
       <li>A TV client shows a device code; approving it in a browser signs the TV in within the code&rsquo;s validity.</li>
@@ -611,8 +617,8 @@
 <div class="fgroup">
 <h3>Server, admin &amp; operations</h3>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>User management / access groups / invites</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-user-management-access-groups-invites" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-user-management-access-groups-invites"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>User management / access groups / invites <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Create accounts, set up household or guest access groups, and invite people with the right library access and limits from the start.</p>
     <ul class="ac">
       <li>From web admin, an admin creates accounts, access groups, and invitations.</li>
@@ -623,8 +629,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin">
-    <div class="fcard-head"><h4>Admin impersonation</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-admin-impersonation" data-scope="server admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-admin-impersonation">Admin impersonation <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">An admin acts as a non-admin user to reproduce and diagnose what that user sees.</p>
     <ul class="ac">
       <li>From web admin, an admin starts an impersonation session for a <strong>non-admin</strong> user and sees the experience as that user.</li>
@@ -632,8 +638,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="web admin ios tvos android androidtv">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Requests</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-requests" data-scope="web admin ios tvos android androidtv">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-requests"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Requests <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">A self-contained request system: a user asks for a movie or show the server doesn&rsquo;t have, an admin approves it, and when the content is later scanned in and identified it&rsquo;s marked available and the requester is notified.</p>
     <ul class="ac">
       <li>From the web app, a user searches for and requests a movie or show the server doesn&rsquo;t have; a request for content that already exists is prevented, and if the title is <strong>already requested</strong> the user can add themselves to be notified when it becomes available instead of requesting it again.</li>
@@ -646,8 +652,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4>Active sessions / now-playing / remote control</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-active-sessions-now-playing-remote-control" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-active-sessions-now-playing-remote-control">Active sessions / now-playing / remote control <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">See every active stream and remotely stop/pause/resume or broadcast a message.</p>
     <ul class="ac">
       <li>Web admin lists active sessions (who, what, transcode vs direct, node); admin can stop/pause/resume one and send a message clients surface.</li>
@@ -655,8 +661,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4>Manual metadata edit / identify / artwork</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-manual-metadata-edit-identify-artwork" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-manual-metadata-edit-identify-artwork">Manual metadata edit / identify / artwork <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Re-identify, fix fields, and choose artwork for mismatched items.</p>
     <ul class="ac">
       <li>Re-identify an item against providers, apply a match, edit core fields, and pick from available artwork.</li>
@@ -664,8 +670,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin web">
-    <div class="fcard-head"><h4>AI metadata translation</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-ai-metadata-translation" data-scope="server admin web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-ai-metadata-translation">AI metadata translation <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">Auto-translate titles, overviews, and other metadata into a user or profile&rsquo;s primary language. Translations can be generated while browsing and cached; admins can still prewarm translations from web admin.</p>
     <ul class="ac">
       <li>A user/profile primary language controls the preferred metadata language on every client; clients render localized fields where present and fall back to the source language otherwise.</li>
@@ -676,8 +682,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4>Server limits &amp; audit logs</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-server-limits-audit-logs" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-server-limits-audit-logs">Server limits &amp; audit logs <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Bandwidth/quota limits, API rate limiting, and a filterable audit log.</p>
     <ul class="ac">
       <li>Admin sets global + per-user bandwidth/quota limits and they are enforced; rate limits throttle abuse.</li>
@@ -685,8 +691,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin ios tvos android androidtv web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Device &amp; override auditing</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-device-override-auditing" data-scope="server admin ios tvos android androidtv web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-device-override-auditing"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Device &amp; override auditing <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip tvos">tvOS</span><span class="chip android">Android</span><span class="chip androidtv">Android TV</span><span class="chip web">Web</span><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">The server tracks devices and resolves settings per device and per profile. In web admin, an operator can inspect the effective setting for a device/profile combination, see where it came from, and correct an override when needed. The layout of that control surface is not prescribed.</p>
     <ul class="ac">
       <li>The server registers each device a profile uses (id, name, platform, last-seen) and records each login as a session with device + IP. Web admin provides a practical way to find a device and inspect its settings and overrides.</li>
@@ -697,8 +703,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin management / marketplace</h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-plugin-management-marketplace" data-scope="admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-plugin-management-marketplace"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin management / marketplace <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span></div></div>
     <p class="what">Install metadata and marker plugins from the first-party catalog, and request/source-adapter plugins from the community catalog once enabled; they auto-update.</p>
     <ul class="ac">
       <li>From web admin, install a plugin from the catalog; it loads and is usable.</li>
@@ -710,8 +716,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin">
-    <div class="fcard-head"><h4>Server branding / theming</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-server-branding-theming" data-scope="server admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-server-branding-theming">Server branding / theming <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">Brand the server: name, logo, favicon, login background, and accent color.</p>
     <ul class="ac">
       <li>Server stores and serves name/logo/favicon/login-background/accent and applies them on its web surfaces.</li>
@@ -719,8 +725,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server admin">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Autoscan</h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-autoscan" data-scope="server admin">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-autoscan"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Autoscan <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip admin">Web admin</span><span class="chip server">Server</span></div></div>
     <p class="what">A self-contained scan intake system: an external source tells Silo that files changed, Silo maps the signal to a library/path, and the server performs a targeted rescan without waiting for the schedule.</p>
     <ul class="ac">
       <li>Silo exposes an authenticated scan intake path that accepts a library/path change signal; when matching content is scanned in and identified, it appears in the library without waiting for the scheduled scan.</li>
@@ -731,8 +737,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server web ios android">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Notifications</h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-notifications" data-scope="server web ios android">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-notifications"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Notifications <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip ios">iOS</span><span class="chip android">Android</span><span class="chip web">Web</span><span class="chip server">Server</span></div></div>
     <p class="what">Alerts for opted-in events through the web inbox, Discord, email/digests, web push, webhooks, and native push to phones and tablets.</p>
     <ul class="ac">
       <li><strong>Delivery:</strong> the server delivers opted-in events (e.g. requested content arrived) through every supported channel.</li>
@@ -745,8 +751,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server">
-    <div class="fcard-head"><h4>Webhook ingestion</h4><div class="chips"><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-webhook-ingestion" data-scope="server">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-webhook-ingestion">Webhook ingestion <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip server">Server</span></div></div>
     <p class="what">Reconcile watched-status from Plex/Jellyfin webhooks.</p>
     <ul class="ac">
       <li>Plex/Jellyfin webhooks keep watched-status in agreement. Server-side only.</li>
@@ -758,8 +764,8 @@
 <div class="fgroup">
 <h3>Migration &amp; interoperability</h3>
 
-  <div class="fcard" data-scope="admin web">
-    <div class="fcard-head"><h4><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Watch-history import (Plex / Jellyfin / Emby)</h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
+  <div class="fcard" id="feature-watch-history-import-plex-jellyfin-emby" data-scope="admin web">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-watch-history-import-plex-jellyfin-emby"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Watch-history import (Plex / Jellyfin / Emby) <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip web">Web</span><span class="chip admin">Web admin</span></div></div>
     <p class="what">Bring watch history in when moving from another server. Users can import their own history, and an admin can assist with household-wide migration and repair.</p>
     <ul class="ac">
       <li>A signed-in user connects their own Plex, Jellyfin, or Emby account and imports watched status, play counts, last-watched, and resume positions into one of their own Silo profiles, matched by IMDb/TMDB/TVDB IDs.</li>
@@ -771,8 +777,8 @@
     </ul>
   </div>
 
-  <div class="fcard" data-scope="server">
-    <div class="fcard-head"><h4>Compatibility layers (Jellyfin / Audiobookshelf)</h4><div class="chips"><span class="chip server">Server</span></div></div>
+  <div class="fcard" id="feature-compatibility-layers-jellyfin-audiobookshelf" data-scope="server">
+    <div class="fcard-head"><h4><a class="feature-link" href="#feature-compatibility-layers-jellyfin-audiobookshelf">Compatibility layers (Jellyfin / Audiobookshelf) <span class="anchor-mark" aria-hidden="true">#</span></a></h4><div class="chips"><span class="chip server">Server</span></div></div>
     <p class="what">Silo exposes Jellyfin-compatible and Audiobookshelf-compatible APIs so existing third-party clients can connect, browse, and play.</p>
     <ul class="ac">
       <li>A representative third-party Jellyfin client and Audiobookshelf client can authenticate, browse, and play against Silo, covered by an explicit smoke-test matrix.</li>
@@ -823,23 +829,23 @@
 
 <div class="deferred"><table class="defer">
   <tbody>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Ebooks</td><td class="dwhy">The readers exist on web and Android, but the library-type rule (section&nbsp;3) requires full client support before a library type ships, and the Apple readers do not exist. Ebooks are planned for 1.1. <strong>Strict gating is release work</strong>: today&rsquo;s builds expose the reader on web and Android, so blocker&nbsp;8 (section&nbsp;8) covers gating both plus fixing the Apple clients&rsquo; handling of ebook files (an ebook must never open the video player).</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Manga</td><td class="dwhy">Scanner and reader plumbing exist, but the metadata story is immature. Strict-gated in release builds alongside ebooks.</td></tr>
-    <tr><td class="dname">Music</td><td class="dwhy">No music library kind, scanner, or metadata agent. Client "music" shells (dead tabs) are <strong>removed</strong> for v1.0, and the server README stops advertising music until it exists.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Podcasts</td><td class="dwhy">The server scans and serves them, but no first-party client has a browse experience. Creating a podcast library is gated in release builds so no user can build a library no client can open.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Native notification inboxes</td><td class="dwhy">Server delivery, the web notification inbox, and native mobile push (iOS / Android) ship in v1.0. Inbox UI inside the native mobile and TV clients is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Scheduled home-section publication</td><td class="dwhy">Admins build and reorder home sections in web admin for v1.0. Time-windowed or scheduled publication is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin publisher signatures</td><td class="dwhy">v1.0 verifies catalog artifacts with mandatory SHA-256 checksums and labels catalog trust. Cryptographic publisher-signature verification is post-1.0.</td></tr>
-    <tr><td class="dname">In-client admin</td><td class="dwhy">Administration happens on the web admin; no in-app admin entry point ships.</td></tr>
-    <tr><td class="dname">Watch Party</td><td class="dwhy">Real-time synced viewing. Built server-side but no client entry point ships.</td></tr>
-    <tr><td class="dname">Trakt two-way sync</td><td class="dwhy">Outbound scrobble may exist; reliable two-way sync is not finished.</td></tr>
-    <tr><td class="dname">AI Audio Tracks / dubbing</td><td class="dwhy">Not built; only normal audio-track switching exists.</td></tr>
-    <tr><td class="dname">Multi-version / edition switching</td><td class="dwhy">An edition label is displayed; selectable variant switching is post-1.0.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails on native clients</td><td class="dwhy">Server generation and web rendering ship (section&nbsp;5); iOS/tvOS/Android rendering of preview images is post-1.0. Absence degrades silently; chapter navigation still works everywhere.</td></tr>
-    <tr><td class="dname">Timeline scrubbing-trickplay</td><td class="dwhy">Full BIF-style timeline previews are post-1.0 on every surface.</td></tr>
-    <tr><td class="dname"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Automatic account/profile creation during watch-history import</td><td class="dwhy">v1.0 maps external Plex/Jellyfin/Emby users onto existing Silo profiles; bulk <em>creation</em> of Silo accounts or profiles from an external user list is post-1.0. The boundary is documented on the import screen.</td></tr>
-    <tr><td class="dname">Native macOS app</td><td class="dwhy">The iOS app on Apple Silicon is the v1.0 Mac story; a native SiloMac app is post-1.0.</td></tr>
-    <tr><td class="dname">Full UI localization</td><td class="dwhy">Beyond the timezone + non-ASCII floor in section 6.</td></tr>
+    <tr id="deferred-ebooks"><td class="dname"><a class="feature-link" href="#deferred-ebooks"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Ebooks <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">The readers exist on web and Android, but the library-type rule (section&nbsp;3) requires full client support before a library type ships, and the Apple readers do not exist. Ebooks are planned for 1.1. <strong>Strict gating is release work</strong>: today&rsquo;s builds expose the reader on web and Android, so blocker&nbsp;8 (section&nbsp;8) covers gating both plus fixing the Apple clients&rsquo; handling of ebook files (an ebook must never open the video player).</td></tr>
+    <tr id="deferred-manga"><td class="dname"><a class="feature-link" href="#deferred-manga"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Manga <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Scanner and reader plumbing exist, but the metadata story is immature. Strict-gated in release builds alongside ebooks.</td></tr>
+    <tr id="deferred-music"><td class="dname"><a class="feature-link" href="#deferred-music">Music <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">No music library kind, scanner, or metadata agent. Client "music" shells (dead tabs) are <strong>removed</strong> for v1.0, and the server README stops advertising music until it exists.</td></tr>
+    <tr id="deferred-podcasts"><td class="dname"><a class="feature-link" href="#deferred-podcasts"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Podcasts <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">The server scans and serves them, but no first-party client has a browse experience. Creating a podcast library is gated in release builds so no user can build a library no client can open.</td></tr>
+    <tr id="deferred-native-notification-inboxes"><td class="dname"><a class="feature-link" href="#deferred-native-notification-inboxes"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Native notification inboxes <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Server delivery, the web notification inbox, and native mobile push (iOS / Android) ship in v1.0. Inbox UI inside the native mobile and TV clients is post-1.0.</td></tr>
+    <tr id="deferred-scheduled-home-section-publication"><td class="dname"><a class="feature-link" href="#deferred-scheduled-home-section-publication"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Scheduled home-section publication <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Admins build and reorder home sections in web admin for v1.0. Time-windowed or scheduled publication is post-1.0.</td></tr>
+    <tr id="deferred-plugin-publisher-signatures"><td class="dname"><a class="feature-link" href="#deferred-plugin-publisher-signatures"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Plugin publisher signatures <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">v1.0 verifies catalog artifacts with mandatory SHA-256 checksums and labels catalog trust. Cryptographic publisher-signature verification is post-1.0.</td></tr>
+    <tr id="deferred-in-client-admin"><td class="dname"><a class="feature-link" href="#deferred-in-client-admin">In-client admin <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Administration happens on the web admin; no in-app admin entry point ships.</td></tr>
+    <tr id="deferred-watch-party"><td class="dname"><a class="feature-link" href="#deferred-watch-party">Watch Party <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Real-time synced viewing. Built server-side but no client entry point ships.</td></tr>
+    <tr id="deferred-trakt-two-way-sync"><td class="dname"><a class="feature-link" href="#deferred-trakt-two-way-sync">Trakt two-way sync <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Outbound scrobble may exist; reliable two-way sync is not finished.</td></tr>
+    <tr id="deferred-ai-audio-tracks-dubbing"><td class="dname"><a class="feature-link" href="#deferred-ai-audio-tracks-dubbing">AI Audio Tracks / dubbing <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Not built; only normal audio-track switching exists.</td></tr>
+    <tr id="deferred-multi-version-edition-switching"><td class="dname"><a class="feature-link" href="#deferred-multi-version-edition-switching">Multi-version / edition switching <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">An edition label is displayed; selectable variant switching is post-1.0.</td></tr>
+    <tr id="deferred-chapter-thumbnails-on-native-clients"><td class="dname"><a class="feature-link" href="#deferred-chapter-thumbnails-on-native-clients"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Chapter thumbnails on native clients <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Server generation and web rendering ship (section&nbsp;5); iOS/tvOS/Android rendering of preview images is post-1.0. Absence degrades silently; chapter navigation still works everywhere.</td></tr>
+    <tr id="deferred-timeline-scrubbing-trickplay"><td class="dname"><a class="feature-link" href="#deferred-timeline-scrubbing-trickplay">Timeline scrubbing-trickplay <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Full BIF-style timeline previews are post-1.0 on every surface.</td></tr>
+    <tr id="deferred-automatic-account-profile-creation-during-watch-history-import"><td class="dname"><a class="feature-link" href="#deferred-automatic-account-profile-creation-during-watch-history-import"><span class="revision-marker" aria-hidden="true"></span><span class="sr-only">September 2026 revision: </span>Automatic account/profile creation during watch-history import <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">v1.0 maps external Plex/Jellyfin/Emby users onto existing Silo profiles; bulk <em>creation</em> of Silo accounts or profiles from an external user list is post-1.0. The boundary is documented on the import screen.</td></tr>
+    <tr id="deferred-native-macos-app"><td class="dname"><a class="feature-link" href="#deferred-native-macos-app">Native macOS app <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">The iOS app on Apple Silicon is the v1.0 Mac story; a native SiloMac app is post-1.0.</td></tr>
+    <tr id="deferred-full-ui-localization"><td class="dname"><a class="feature-link" href="#deferred-full-ui-localization">Full UI localization <span class="anchor-mark" aria-hidden="true">#</span></a></td><td class="dwhy">Beyond the timezone + non-ASCII floor in section 6.</td></tr>
   </tbody>
 </table></div>
 
@@ -883,6 +889,27 @@ function filterScope(scope, btn){
   var cnt = document.getElementById('fcount');
   if (cnt) cnt.textContent = n + (n === 1 ? ' feature' : ' features');
 }
+// Keep direct links clear of the sticky navigation and wrapping scope controls.
+var filterbar = document.querySelector('.filterbar');
+function updateFeatureScrollOffset(){
+  var top = parseFloat(getComputedStyle(filterbar).top) || 0;
+  document.documentElement.style.setProperty('--feature-scroll-offset', (top + filterbar.offsetHeight + 20) + 'px');
+}
+updateFeatureScrollOffset();
+new ResizeObserver(updateFeatureScrollOffset).observe(filterbar);
+function revealLinkedFeature(){
+  var id;
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+  var target = document.getElementById(id);
+  if (!target || !target.matches('.fcard, table.defer tr')) return;
+  if (target.classList.contains('hidden')) {
+    filterScope('all', document.querySelector('.fbtn'));
+  }
+  updateFeatureScrollOffset();
+  target.scrollIntoView({behavior: 'instant', block: 'start'});
+}
+window.addEventListener('hashchange', revealLinkedFeature);
+window.addEventListener('load', revealLinkedFeature);
 </script>
 <script>(function(){var K='starlight-theme',r=document.documentElement,b=document.getElementById('themeToggle');if(!b)return;var mq=matchMedia('(prefers-color-scheme:dark)');function s(){try{return localStorage.getItem(K)}catch(e){return null}}function md(v){return(v==='light'||v==='dark'||v==='auto')?v:'auto'}function eff(m){return(m==='dark'||m==='light')?m:(mq.matches?'dark':'light')}function lbl(m){b.setAttribute('aria-label','Theme: '+(m==='auto'?'auto (follow system)':m))}function apply(){var m=md(s());r.setAttribute('data-mode',m);r.setAttribute('data-theme',eff(m));lbl(m)}apply();b.addEventListener('click',function(){var c=md(s()),n=(c==='auto')?'light':(c==='light')?'dark':'auto';try{localStorage.setItem(K,n)}catch(e){}apply()});mq.addEventListener('change',function(){if(md(s())==='auto')apply()})})();</script>
 </body>
