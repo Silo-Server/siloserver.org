@@ -47,7 +47,8 @@ jobs:
         run: bun run build
 
       - name: Keep previews out of search indexes
-        run: printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
+        run: |
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
 
       - name: Record pull request context for the deploy workflow
         run: |
