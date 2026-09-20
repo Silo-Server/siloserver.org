@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import { sidebar } from "./src/data/sidebar.mjs";
+import previewBanner from "./scripts/preview-banner.mjs";
 
 // Canonical URL for the deployed site. Used for OpenGraph and sitemap.
 // The actual hosting (GitHub Pages on the silo-server.github.io repo)
@@ -40,7 +41,6 @@ export default defineConfig({
         starlightLinksValidator({ errorOnRelativeLinks: false }),
       ],
       components: {
-        Banner: "./src/components/starlight/Banner.astro",
         Head: "./src/components/starlight/Head.astro",
       },
       social: [
@@ -57,6 +57,7 @@ export default defineConfig({
       ],
       sidebar,
     }),
+    previewBanner(),
   ],
   build: {
     assets: "_astro",
