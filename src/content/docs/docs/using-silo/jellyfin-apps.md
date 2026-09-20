@@ -1,9 +1,12 @@
 ---
-title: Jellyfin compatibility
-description: How Silo approaches Jellyfin-compatible client support.
+title: Connect a Jellyfin-compatible app
+description: Enter your Silo server address, account, profile, and PIN in a Jellyfin-compatible app.
 ---
 
-Silo includes a compatibility API for clients that expect Jellyfin or Emby-style endpoints.
+Use this guide to sign in to Silo from a Jellyfin-compatible app. Ask your
+server administrator for the Jellyfin-compatible address and your Silo
+account details. If you run the server, start with
+[Enable third-party client access](/docs/running-a-server/third-party-access).
 
 ## Endpoint
 
@@ -13,9 +16,9 @@ The default Docker stack exposes the compatibility endpoint at:
 http://localhost:8096
 ```
 
-Use this endpoint when connecting compatible third-party clients.
-
-Silo also keeps this endpoint for Jellyfin-style integrations such as the legacy [Autoscan](/docs/integrations/autoscan) Jellyfin target. For new Sonarr/Radarr scan triggers, prefer Silo's built-in Autoscan implementation instead.
+This local example works only on the server machine. On a phone, TV, or
+another computer, use the reachable address your administrator provides.
+The compatibility address may differ from the Silo web address.
 
 ## Signing in
 
@@ -91,16 +94,9 @@ Jellyfin apps have no way to switch profiles, so to use a different one, sign ou
 
 ## Reverse Proxy
 
-If you expose Silo publicly and want to use Jellyfin-compatible clients, create a separate reverse proxy hostname for the compatibility endpoint.
-
-Recommended shape:
-
-```text
-https://silo.example.com    -> Silo web app on port 8090
-https://silojf.example.com  -> Jellyfin-compatible endpoint on port 8096
-```
-
-Use the Jellyfin hostname when signing in from Jellyfin-compatible clients. In Silo settings, set the Jellyfin compatibility public URL to that same hostname.
+Use the Jellyfin-compatible HTTPS address your administrator gives you.
+Administrators can find the hostname and port setup in
+[External access](/docs/running-a-server/third-party-access#external-access).
 
 ## Scope
 

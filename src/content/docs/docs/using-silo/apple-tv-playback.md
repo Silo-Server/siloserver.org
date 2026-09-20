@@ -1,7 +1,14 @@
 ---
-title: Apple TV
+title: Apple TV playback reference
 description: Playback capabilities of the Silo tvOS client — Dolby Vision, HDR, Dolby Atmos, lossless audio, and where the Apple TV platform sets the ceiling.
 ---
+
+:::note[Playback reference, not sign-in instructions]
+This existing format reference is being carried forward separately from TV
+setup guidance. It has not been revalidated against named app, tvOS, and
+receiver versions in this documentation pass. Treat the format claims below
+as requiring verification for your setup, not as 1.0 certification.
+:::
 
 Silo for tvOS is a first-party client for Apple TV 4K, built for direct play: video and audio are served to the system player in their original form whenever the platform can handle them, with no server-side transcoding required.
 

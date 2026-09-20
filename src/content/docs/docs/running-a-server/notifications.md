@@ -1,9 +1,15 @@
 ---
-title: Notifications
-description: New-episode and request notifications across the in-app inbox, browser push, email, Discord, and webhooks — and what admins configure for each channel.
+title: Configure notification delivery
+description: Configure server delivery channels, event safeguards, retention, and broadcast destinations.
 ---
 
-Silo notifies each profile when new episodes become available for series that profile cares about, and when a media request is fulfilled. Notifications land in a durable in-app inbox and can additionally be delivered over browser push, email, Discord DMs, and user-defined webhooks. Admins can also create server channels that broadcast new content and request activity to a community destination such as a Discord server.
+This guide is for server administrators configuring notification delivery.
+For personal preferences, inbox controls, and subscriptions, see
+[Manage your notifications](/docs/using-silo/notifications).
+
+Silo can notify profiles when new episodes become available and requests are
+fulfilled. Administrators configure delivery channels and can also create
+server-owned broadcast destinations, such as a community Discord channel.
 
 ## What triggers a notification
 
@@ -18,7 +24,12 @@ Each reason has its own toggle under Settings > Notifications > New Episode Noti
 
 Request-fulfilled notifications fire when content a profile requested becomes available, and are delivered across the same channels.
 
-Per-profile movie notifications are not in v1 — new-movie events exist only for admin [server channels](#server-channels). Native mobile push (APNs/FCM) is also deferred; mobile apps rely on the inbox sync API for now.
+New-movie events in this guide apply to admin [server channels](#server-channels).
+Native phone and tablet push is included in the
+[1.0 release plan](https://siloserver.org/milestone/1.0/#feature-notifications); an inbox inside the
+native apps is a separate, deferred feature. This page's channel instructions
+cover the existing web, email, Discord, and webhook configuration, not a
+validated native-push setup procedure.
 
 ## Flood safety
 
@@ -30,22 +41,10 @@ Notifications are designed to never flood on day one:
 
 ## Channels for users
 
-Everything below lives under Settings > Notifications in the web app.
-
-In-app inbox
-: Always on (per the profile's preference toggles). The Notifications page lists deliveries newest-first with unread tracking, mark-read, and mark-all-read; the sidebar shows an unread badge and connected clients update in realtime over a websocket.
-
-Browser notifications (Web Push)
-: Subscribe the current browser to native push notifications. Payloads are end-to-end encrypted (RFC 8291) and contain no content — the app wakes and fetches from the server. Subscriptions are listed with their delivery health and can be removed at any time.
-
-Email
-: Each profile verifies its own address (a confirmation link is sent; nothing is delivered until verified — there is deliberately no fallback to the login account's email). Choose per-episode emails, a daily digest, or both; every email includes an unsubscribe link that works without logging in. Child profiles cannot set an address. Requires the admin to have configured SMTP.
-
-Discord DMs
-: Link your Discord account via OAuth, then receive DMs from the server's bot — rich embeds with posters, ratings, and provider links, per-episode or as a daily digest. The link is account-level: one Discord account per Silo login. Available only when the admin has enabled the Discord integration.
-
-Webhooks
-: Point notifications at your own automation. Two types: **generic** (JSON POST, HMAC-SHA256 signed with a per-webhook secret using a Stripe-style `X-Silo-Signature: t=<timestamp>,v1=<hex>` header) and **Discord** (webhook URL, rich embeds). Each webhook has its own per-reason toggles (these can narrow but never re-enable a reason disabled at the profile level), a test button, secret rotation, and delivery health. Destinations must be HTTPS and may not point at private addresses; failed deliveries retry with backoff and a webhook that keeps failing is auto-disabled with an in-app notice. Available only when the admin has enabled outbound webhooks.
+Users manage their channels under **Settings > Notifications** in the web
+app. Send them the [delivery setup instructions](/docs/using-silo/notifications#set-up-delivery)
+after enabling the channels below. Enabling a server channel does not
+subscribe a user's browser, verify their email address, or link their Discord account.
 
 ## Admin configuration
 
@@ -88,6 +87,7 @@ Admin-owned broadcast destinations, managed inside the same settings tab — a D
 
 - Webhook and server-channel destinations must be HTTPS, and private/internal addresses are blocked at registration and again at connect time (DNS-rebinding safe). Destination URLs, signing secrets, SMTP password, and Discord credentials are encrypted at rest.
 - Generic webhook payloads are HMAC-SHA256 signed and never include your server's origin URL. Emails include deep links only when you explicitly configure the external URL.
+- Generic webhook signatures use `X-Silo-Signature: t=<timestamp>,v1=<hex>` with a per-webhook secret. Users can rotate secrets and test delivery in their webhook settings.
 - Web push payloads are encrypted per RFC 8291 and carry no media details; VAPID keys are self-provisioned on first use, with the private key encrypted at rest.
 - Realtime websocket connections authenticate with single-use, short-lived tickets so credentials never appear in proxy access logs.
 

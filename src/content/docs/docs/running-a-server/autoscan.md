@@ -1,5 +1,5 @@
 ---
-title: Autoscan
+title: Keep libraries updated with Autoscan
 description: Configure Silo Autoscan and the legacy Jellyfin-target Autoscan path.
 ---
 

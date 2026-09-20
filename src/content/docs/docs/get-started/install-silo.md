@@ -1,5 +1,5 @@
 ---
-title: Quickstart
+title: Install Silo
 description: Install Silo with the official Docker Compose stack.
 ---
 
@@ -82,24 +82,15 @@ The setup wizard follows this order:
 6. Finish setup; add separate proxy or transcode nodes only for a distributed deployment.
 
 Only account and profile creation are required. The other steps can be skipped and revisited in
-the admin UI. See [First configuration](/docs/first-configuration) for the settings worth reviewing
+the admin UI. See [First configuration](/docs/running-a-server/after-installation) for the settings worth reviewing
 after the first scan.
 
 ## Optional Meilisearch
 
-PostgreSQL full-text search is the default and requires no extra service. To run the optional
-Meilisearch container, add a key to `.env` and start the `search` profile:
-
-```sh
-printf '\nMEILI_MASTER_KEY=%s\n' "$(openssl rand -hex 32)" >> .env
-docker compose --profile search up -d
-```
-
-Then open **Admin > Settings > Search**, choose **Meilisearch**, set the URL to
-`http://meilisearch:7700`, enter the same key as the API key, test the connection, and save. Silo
-requires a restart when the provider changes, so run `docker compose restart silo`, return to the
-Search page, and rebuild the catalog search index. Silo falls back to PostgreSQL search if
-Meilisearch is unavailable.
+PostgreSQL full-text search is the default and requires no extra service.
+You can leave it in place for your first installation. For optional
+Meilisearch setup, follow the
+[Docker search recipe](/docs/running-a-server/docker#optional-meilisearch).
 
 ## PostgreSQL configuration
 

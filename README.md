@@ -44,8 +44,9 @@ src/
 | FAQ items                       | `src/data/faq.ts`                         |
 | Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
 | Architecture diagrams           | `src/components/Deployment.astro`         |
-| Documentation pages             | `src/content/docs/docs/*.md`              |
+| Documentation pages             | `src/content/docs/docs/**/*.md`           |
 | Documentation sidebar           | `src/data/sidebar.mjs`                    |
+| Old documentation URLs          | `src/data/docs-redirects.mjs`              |
 | Colors, spacing, typography     | `src/styles/global.css`                   |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
@@ -58,6 +59,24 @@ Docs are built with [Astro Starlight](https://starlight.astro.build/) and
 served under `/docs`. Add or edit Markdown files in `src/content/docs/docs/`.
 New pages are listed in `src/data/sidebar.mjs`; `astro.config.mjs` does not
 need to change.
+
+Organize pages by the reader's task and audience:
+
+- `get-started/`: app choice, prerequisites, and the default installation walkthrough.
+- `using-silo/`: personal settings, client use, and connecting other apps.
+- `running-a-server/`: administration, integrations, deployment, and operator reference.
+- `developers/`: API, plugin, and code-contribution entry points.
+- `help/`: troubleshooting entry points, reports, and documentation contributions.
+
+Use the existing sidebar data file to curate the reading order. Do not add
+empty pages for planned features. A guide can link to another audience's
+guide instead of repeating its setup steps. Old published paths are retained
+in `src/data/docs-redirects.mjs`; update internal links to canonical paths.
+Run `bun run test:docs` and `bun run build` when changing this structure.
+
+See [the organization notes](docs/documentation-organization.md) for this
+first pass's page moves, intentionally retained prerelease content, and
+remaining writing/verification gaps.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site

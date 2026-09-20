@@ -1,9 +1,17 @@
 ---
-title: S3 storage
+title: S3 storage reference
 description: Public asset and private internal S3-compatible storage.
 ---
 
 Silo supports S3-compatible object storage for generated and operational assets. It is not a media library path backend.
+
+:::caution[Storage setup needs a version check]
+This existing S3 reference does not cover all current local-artwork storage
+behavior or migration restrictions. Check the server's
+[artwork-storage guide](https://github.com/Silo-Server/silo-server/blob/main/docs/wiki/admin/artwork-storage.md)
+for the version you run before changing backends or paths. The provider
+recommendations and pricing below were last checked in June 2026.
+:::
 
 ## Buckets
 

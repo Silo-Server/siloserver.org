@@ -1,5 +1,5 @@
 ---
-title: Installation
+title: Requirements and installation options
 description: Supported ways to install and run Silo.
 ---
 
@@ -29,13 +29,13 @@ The default stack includes:
 - Redis
 - Optional Meilisearch through the `search` profile
 
-Follow the [Quickstart](/docs/quickstart) to download `docker-compose.yml`, create `.env`, set the
+Follow the [Quickstart](/docs/get-started/install-silo) to download `docker-compose.yml`, create `.env`, set the
 media path and encryption key, and run `docker compose up -d`. No `postgresql.conf` or separate
 database setup is required.
 
 The Silo image is published for x86-64 (`linux/amd64`) and arm64 (`linux/arm64`) Linux. Docker
 selects the correct image automatically. The default Compose stack is CPU-safe; hardware
-transcoding is enabled with a Linux-only overlay described in [Docker deployment](/docs/deployment/docker).
+transcoding is enabled with a Linux-only overlay described in [Docker deployment](/docs/running-a-server/docker).
 
 ## Existing infrastructure
 

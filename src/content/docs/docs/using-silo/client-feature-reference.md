@@ -1,9 +1,17 @@
 ---
-title: Client feature parity
+title: Client feature reference
 description: Feature-by-feature comparison of the Silo web app, Apple and Android clients, and the Jellyfin compatibility layer.
 ---
 
-This page tracks which server features each client supports today. The web app ships with the server and is the reference client; the native apps and the compatibility layers are catching up at different rates.
+:::caution[Earlier development snapshot]
+This table predates the current documentation reorganization and has not
+been revalidated against named server and app builds. Its broad Apple and
+Android columns do not distinguish phones, tablets, and TVs. Do not use it
+as the 1.0 acceptance record or assume every entry describes your version.
+The [milestone](https://siloserver.org/milestone/1.0/) records planned scope, not test results.
+:::
+
+The earlier comparison uses the following status values:
 
 Status values:
 
@@ -12,7 +20,7 @@ Status values:
 - **No** — not yet available on that client
 - **—** — not applicable, or intentionally out of scope
 
-The **Jellyfin compat** column describes what the [compatibility API](/docs/jellyfin-compatibility) supports. Actual behavior also depends on the third-party client you use — see [clients](/docs/clients) for verified apps.
+The **Jellyfin compat** column describes what the [compatibility API](/docs/using-silo/jellyfin-apps) supports. Actual behavior also depends on the third-party client you use — see [clients](/docs/get-started/choose-an-app) for verified apps.
 
 ## Media types
 
@@ -20,7 +28,7 @@ The **Jellyfin compat** column describes what the [compatibility API](/docs/jell
 | --- | --- | --- | --- | --- |
 | Movies | Yes | Yes | Yes | Yes |
 | TV series, seasons, episodes | Yes | Yes | Yes | Yes |
-| Audiobooks | Yes | Yes | No | — served via the [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility) |
+| Audiobooks | Yes | Yes | No | — served via the [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps) |
 | eBooks (EPUB, PDF, comics) | Yes | No | No | — |
 | Podcasts | No | No | No | — Audiobookshelf-compatible endpoint |
 
@@ -75,7 +83,7 @@ The **Jellyfin compat** column describes what the [compatibility API](/docs/jell
 | Profiles | Yes | Partial — editing not yet available | Yes | Partial — sign in as `username#profile` |
 | Profile PIN protection | Yes | Yes | Yes | Yes — append the PIN as `password#pin` |
 | Media requests | Yes | No | No | No |
-| [Notifications](/docs/notifications) inbox | Yes | No | No | No |
+| [Notifications](/docs/running-a-server/notifications) inbox | Yes | No | No | No |
 | Notification settings (web push, email, Discord, webhooks) | Yes | No | No | No |
 
 ## Sign-in
@@ -107,5 +115,5 @@ The **Jellyfin compat** column describes what the [compatibility API](/docs/jell
 
 ## Notes
 
-- The Jellyfin compatibility layer is intentionally scoped to movies and TV. Audiobooks and podcasts are served through the [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility) instead.
-- This page reflects active development and is updated as clients ship features. If a client behaves differently from what's listed here, please [open an issue](https://github.com/Silo-Server).
+- The Jellyfin compatibility layer is intentionally scoped to movies and TV. Audiobooks and podcasts are served through the [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps) instead.
+- If your client behaves differently, include the app and server versions when [reporting a problem](/docs/help/report-a-problem).

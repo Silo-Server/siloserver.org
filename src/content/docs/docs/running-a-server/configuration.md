@@ -1,5 +1,5 @@
 ---
-title: Configuration
+title: Configuration reference
 description: The initial configuration values Silo operators should know.
 ---
 
@@ -77,7 +77,7 @@ yourself.
 
 Silo writes runtime logs to stderr and to the database-backed Admin > Logs view. Optional OpenTelemetry export can send the runtime stream to an OTLP collector or vendor backend without replacing either built-in destination.
 
-See [Logging and telemetry](/docs/logging) for log controls, redaction limits, retention, a working local Collector example, and the current tracing limitations.
+See [Logging and telemetry](/docs/running-a-server/logging) for log controls, redaction limits, retention, a working local Collector example, and the current tracing limitations.
 
 ## Server modes
 

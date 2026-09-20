@@ -1,11 +1,11 @@
 ---
-title: Docker deployment
+title: Docker deployment reference
 description: Run Silo with the official Docker Compose stack.
 ---
 
 The official [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml)
 runs Silo, PostgreSQL, and Redis on one host. It is the recommended starting point for most
-installs. See the [Quickstart](/docs/quickstart) for the shortest working setup.
+installs. See the [Quickstart](/docs/get-started/install-silo) for the shortest working setup.
 
 ## Image and platform support
 
@@ -25,22 +25,9 @@ transcoding. On macOS and Windows, Linux containers cannot use the host's native
 
 ## Default stack
 
-Download the two install files if you are not using a server repository clone:
-
-```sh
-mkdir silo && cd silo
-curl -fsSLO https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.yml
-curl -fsSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/.env.example -o .env
-printf '\nPOSTGRES_PASSWORD=%s\nSECRET_KEY=%s\n' \
-  "$(openssl rand -hex 24)" "$(openssl rand -base64 48)" >> .env
-```
-
-Set `MEDIA_ROOT` in `.env`, then start the stack:
-
-```sh
-docker compose up -d
-docker compose ps
-```
+Follow [Install Silo](/docs/get-started/install-silo) to download the files,
+generate credentials, set your media path, and start the stack. This page
+explains its services, mounts, and optional deployment configuration.
 
 The default services are:
 

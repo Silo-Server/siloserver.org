@@ -1,5 +1,5 @@
 ---
-title: Logging and Telemetry
+title: View and manage logs
 description: View, export, redact, and retain Silo logs.
 ---
 

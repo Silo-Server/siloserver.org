@@ -1,9 +1,14 @@
 ---
-title: AI Services
-description: Configure subtitle translation, subtitle generation from audio, and description translation, with recommended providers.
+title: Configure AI services
+description: Configure server endpoints for subtitle translation, audio transcription, and description translation.
 ---
 
-Silo's AI features share one OpenAI-compatible endpoint configuration under Admin > Settings > AI Services:
+This guide is for administrators configuring AI services, not viewers
+choosing a subtitle track. Provider/model recommendations, prices, and
+performance estimates below are carried forward from the earlier guide and
+need checking against current provider documentation before use.
+
+Silo's AI features are configured under Admin > Settings > AI Services:
 
 - Subtitle translation: translate any text subtitle track from the player ("Translate with AI"). The finished track is stored server-side and served to every client.
 - Subtitle generation from audio: Whisper transcription for media with no usable text subtitles, including bitmap-only releases. `transcribe_translate` chains transcription into translation for any target language.

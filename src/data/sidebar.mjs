@@ -8,39 +8,80 @@
 
 export const sidebar = [
   {
-    label: "Start here",
+    label: "Get started",
     items: [
       { slug: "docs" },
-      { slug: "docs/quickstart" },
-      { slug: "docs/installation" },
-      { slug: "docs/first-configuration" },
-      { slug: "docs/configuration" },
+      { slug: "docs/get-started/choose-an-app" },
+      { slug: "docs/get-started/installation-options" },
+      { slug: "docs/get-started/install-silo" },
     ],
   },
   {
-    label: "Operations",
+    label: "Using Silo",
     items: [
-      { slug: "docs/deployment/docker" },
-      { slug: "docs/logging" },
-      { slug: "docs/libraries" },
-      { slug: "docs/audiobooks" },
-      { slug: "docs/ebooks" },
-      { slug: "docs/ai-services" },
-      { slug: "docs/notifications" },
-      { slug: "docs/storage/s3" },
-      { slug: "docs/deployment/reverse-proxy" },
-      { slug: "docs/troubleshooting" },
+      { slug: "docs/using-silo/notifications" },
+      {
+        label: "Connect other apps",
+        items: [
+          { slug: "docs/using-silo/jellyfin-apps" },
+          { slug: "docs/using-silo/audiobookshelf-apps" },
+        ],
+      },
+      {
+        label: "Client reference",
+        collapsed: true,
+        items: [
+          { slug: "docs/using-silo/apple-tv-playback" },
+          { slug: "docs/using-silo/client-feature-reference" },
+        ],
+      },
     ],
   },
   {
-    label: "Ecosystem",
+    label: "Running a server",
     items: [
-      { slug: "docs/integrations/autoscan" },
-      { slug: "docs/clients" },
-      { slug: "docs/apple-tv" },
-      { slug: "docs/feature-parity" },
-      { slug: "docs/jellyfin-compatibility" },
-      { slug: "docs/audiobookshelf-compatibility" },
+      { slug: "docs/running-a-server/after-installation" },
+      {
+        label: "Libraries and metadata",
+        collapsed: true,
+        items: [
+          { slug: "docs/running-a-server/media-folders" },
+          { slug: "docs/running-a-server/audiobook-libraries" },
+          { slug: "docs/running-a-server/ai-services" },
+        ],
+      },
+      {
+        label: "Connections and integrations",
+        collapsed: true,
+        items: [
+          { slug: "docs/running-a-server/reverse-proxy" },
+          { slug: "docs/running-a-server/third-party-access" },
+          { slug: "docs/running-a-server/autoscan" },
+          { slug: "docs/running-a-server/notifications" },
+        ],
+      },
+      {
+        label: "Deployment and reference",
+        collapsed: true,
+        items: [
+          { slug: "docs/running-a-server/docker" },
+          { slug: "docs/running-a-server/configuration" },
+          { slug: "docs/running-a-server/s3-storage" },
+          { slug: "docs/running-a-server/logging" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Developers & integrations",
+    items: [{ slug: "docs/developers" }],
+  },
+  {
+    label: "Help & contribute",
+    items: [
+      { slug: "docs/help" },
+      { slug: "docs/help/report-a-problem" },
+      { slug: "docs/help/improve-the-docs" },
     ],
   },
 ];

@@ -1,9 +1,13 @@
 ---
-title: Troubleshooting
+title: Report a problem
 description: What to collect when reporting install, playback, or performance issues.
 ---
 
 Good issue reports start with the user workflow and exact reproduction steps.
+
+First check [Find help](/docs/help) for the relevant connection or setup
+guide. If you do not administer the server, ask its operator to collect the
+server-side logs rather than sharing your sign-in credentials.
 
 ## Report template
 
@@ -48,7 +52,7 @@ For runtime failures, also check Admin > Logs and include any relevant request I
 
 Silo redacts common secret-keyed structured attributes, but redaction is key-based rather than value-based. Review snippets before sharing and remove free-text secrets, tokens, cookies, credentials, and URL query strings. Preserve a sanitized hostname, port, and path shape when they are relevant to reproduction.
 
-See [Logging and telemetry](/docs/logging) for sink behavior, OTLP setup, redaction boundaries, and retention.
+See [Logging and telemetry](/docs/running-a-server/logging) for sink behavior, OTLP setup, redaction boundaries, and retention.
 
 ## Autoscan
 

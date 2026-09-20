@@ -1,5 +1,5 @@
 ---
-title: Libraries
+title: Prepare movie and series folders
 description: Supported media library paths, naming patterns, and scan behavior.
 ---
 
@@ -18,7 +18,8 @@ With the default Compose file, `MEDIA_ROOT=/srv/media` on the host is mounted at
 
 Silo does not support URL-style library roots such as `s3://...`, `https://...`, or `file://...`.
 
-This page covers movie and series naming. Book library types have their own conventions — see [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks).
+This page covers movie and series naming. For audiobook folder and tag
+conventions, see [Set up an audiobook library](/docs/running-a-server/audiobook-libraries).
 
 ## Movies
 

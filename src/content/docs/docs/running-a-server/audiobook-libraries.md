@@ -1,11 +1,9 @@
 ---
-title: Audiobooks
+title: Set up an audiobook library
 description: Audiobook libraries, supported formats, folder layout, and metadata.
 ---
 
-> **Beta.** Audiobook libraries work as described here but are outside the 1.0 support promise. A consolidated Books effort will replace them later; existing libraries and progress carry over.
-
-Silo supports first-class audiobook libraries. Audiobooks play in the Silo web app and in Audiobookshelf-compatible clients through a dedicated [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility).
+Silo supports first-class audiobook libraries. Audiobooks play in the Silo web app and in Audiobookshelf-compatible clients through a dedicated [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps).
 
 ## Create an audiobook library
 
@@ -61,7 +59,7 @@ An embedded ASIN tag gives the most reliable matches, since Audnexus and AudiMet
 
 The Silo web app includes a dedicated audiobook player with chapter navigation, per-book playback speed, smart rewind on resume, and keyboard shortcuts. Listening progress, Continue Listening, and series progression are tracked per profile.
 
-Third-party listening apps connect through the [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility) on port `13378`.
+Third-party listening apps connect through the [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps) on port `13378`.
 
 ## Source notes
 

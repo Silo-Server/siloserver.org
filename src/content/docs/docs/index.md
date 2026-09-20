@@ -1,26 +1,38 @@
 ---
 title: Silo documentation
-description: Start here for installing, configuring, and operating Silo.
+description: Join a Silo server, use your apps, or install and run a server of your own.
 ---
 
-Silo is a self-hosted media server with a Go backend, React frontend, PostgreSQL storage, and native clients.
-
-These docs are intentionally source-controlled Markdown. Every page lives in this repository under `src/content/docs/docs/`, so changes can be reviewed in pull requests and deployed with the website.
+Use these guides to connect to someone's Silo server or run a server of your own.
+You do not need to install the server to use an existing one.
 
 ## What to read first
 
-- [Quickstart](/docs/quickstart) gets a fresh Docker Compose install running.
-- [Installation](/docs/installation) explains the supported install paths.
-- [First configuration](/docs/first-configuration) follows the setup wizard and the admin pages to review afterward.
-- [Configuration](/docs/configuration) separates environment variables from admin-managed settings.
-- [Logging and Telemetry](/docs/logging) covers built-in logs, OTLP export, redaction, and retention.
-- [Libraries](/docs/libraries) documents the supported media path contract.
-- [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks) cover the book library types, formats, and metadata.
-- [Notifications](/docs/notifications) covers new-episode and request notifications across the inbox, web push, email, Discord, and webhooks.
-- [S3 storage](/docs/storage/s3) explains public asset and private internal buckets.
-- [Autoscan](/docs/integrations/autoscan) shows the preferred Silo-native Sonarr/Radarr setup and the legacy Jellyfin target path.
-- [Clients](/docs/clients) describes the native, Jellyfin-compatible, and Audiobookshelf-compatible client options.
+### Someone has invited you to their server
+
+Start with [Choose an app](/docs/get-started/choose-an-app). Ask the server
+administrator for the server address and your sign-in details. Installation,
+storage, and provider setup are the administrator's responsibility.
+
+- [Manage your notifications](/docs/using-silo/notifications).
+- [Connect a Jellyfin-compatible app](/docs/using-silo/jellyfin-apps).
+- [Connect an Audiobookshelf-compatible app](/docs/using-silo/audiobookshelf-apps).
+
+### You want to run a server
+
+Check the [requirements and installation options](/docs/get-started/installation-options),
+then follow [Install Silo](/docs/get-started/install-silo). Once it is running,
+use [After installation](/docs/running-a-server/after-installation) to find the
+library, integration, and maintenance guides relevant to your setup.
+
+### You need help or want to contribute
+
+- [Find help with a problem](/docs/help), or [prepare a useful report](/docs/help/report-a-problem).
+- [Improve these docs](/docs/help/improve-the-docs) with a correction or clearer example.
+- [Find developer and integration resources](/docs/developers) for the server, apps, and plugins.
 
 ## Project status
 
-Silo is pre-1.0. Expect the docs to evolve with the server and clients, and prefer linking to a focused page from pull requests when behavior changes.
+Silo is pre-1.0, and these guides are being expanded and checked against the
+server and apps. The [1.0 milestone](https://siloserver.org/milestone/1.0/) describes the release plan,
+not a guarantee that every planned feature works in your installed build.

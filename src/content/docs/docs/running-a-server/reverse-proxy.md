@@ -1,5 +1,5 @@
 ---
-title: Reverse proxy
+title: Reverse proxy and external access
 description: Notes for placing Silo behind an external proxy.
 ---
 

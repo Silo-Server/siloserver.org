@@ -1,11 +1,20 @@
 ---
-title: Ebooks
-description: Ebook libraries, supported formats, the built-in reader, and reading progress.
+title: Ebooks (prerelease reference)
+description: Earlier ebook implementation notes, outside the supported 1.0 release scope.
+pagefind: false
+prev: false
+next: false
 ---
 
-> **Beta.** Ebook libraries and the reader work as described here but are outside the 1.0 support promise. A consolidated Books effort will replace them later; existing libraries and progress carry over.
+:::caution[Outside the 1.0 release scope]
+Ebooks are deferred in the [1.0 milestone](https://siloserver.org/milestone/1.0/). These earlier
+implementation notes are retained at their existing URL for reference, not
+as a supported 1.0 setup guide. They are excluded from the manual's sidebar
+and search. Behavior may differ from your installed build.
+:::
 
-Silo supports first-class ebook libraries with a built-in web reader, per-profile reading progress, and metadata enrichment.
+The earlier implementation includes ebook libraries with a web reader,
+per-profile reading progress, and metadata enrichment.
 
 ## Create an ebook library
 
@@ -42,7 +51,7 @@ A metadata enrichment pass fills in missing details and artwork. Enrichment fail
 
 The Silo web app includes an EPUB reader (built on Foliate) with per-user reader profiles for font, theme, and layout preferences, plus annotations and bookmarks. Reading progress is tracked per profile; a book counts as finished at 90% read, and in-progress books surface in a Continue Reading section on the library home.
 
-Ebook endpoints on the [Audiobookshelf-compatible API](/docs/audiobookshelf-compatibility) are still stubs, so reading in Audiobookshelf clients and send-to-ereader delivery are not available yet. Use the web reader.
+Ebook endpoints on the [Audiobookshelf-compatible API](/docs/using-silo/audiobookshelf-apps) are still stubs, so reading in Audiobookshelf clients and send-to-ereader delivery are not available yet. Use the web reader.
 
 ## Source notes
 
