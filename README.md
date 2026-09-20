@@ -45,6 +45,7 @@ src/
 | Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
 | Architecture diagrams           | `src/components/Deployment.astro`         |
 | Documentation pages             | `src/content/docs/docs/*.md`              |
+| Documentation sidebar           | `src/data/sidebar.mjs`                    |
 | Colors, spacing, typography     | `src/styles/global.css`                   |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
@@ -55,6 +56,8 @@ itself changes.
 
 Docs are built with [Astro Starlight](https://starlight.astro.build/) and
 served under `/docs`. Add or edit Markdown files in `src/content/docs/docs/`.
+New pages are listed in `src/data/sidebar.mjs`; `astro.config.mjs` does not
+need to change.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site
@@ -112,6 +115,69 @@ repo.
 
 The 6-hour cron is a fallback for missed dispatches and edits that
 happen outside a release (changed README, added a new app, etc).
+
+## Pull request checks and previews
+
+Every pull request runs `.github/workflows/pr-build.yml`: a full `bun run build`
+with internal-link validation (`starlight-links-validator`). The build fails on
+a broken `/docs` link or anchor, so fix those before asking for review.
+
+The same workflow builds the site as a **preview** and hands the output to
+`preview-deploy.yml`, which uploads it to Cloudflare Pages and posts one sticky
+comment on the pull request with the URL:
+
+```
+https://pr-<number>.siloserver-org.pages.dev
+```
+
+The alias is updated after a successful build and deployment. Previews show an orange banner
+linking back to the pull request, carry `noindex`, and are deleted by
+`preview-teardown.yml` when the pull request is merged or closed (plus a weekly
+sweep of anything older than 30 days).
+
+The split into two workflows is deliberate: `pr-build.yml` runs contributor
+code, including from forks, with no secrets and no write permissions.
+`preview-deploy.yml` holds the Cloudflare token but never checks out or
+executes pull request code. It checks out deployment tooling from the trusted
+workflow commit and installs Wrangler with its committed npm lockfile before
+uploading the built artifact. It verifies that Cloudflare reports terminal
+deployment success before publishing the preview link. Deploy and teardown
+share a concurrency queue, so cleanup cannot be overtaken by publication.
+This serializes preview operations across the project, including weekly sweeps. Keep it that
+way, and do not add a token to the build job.
+
+For the same reason, the deploy workflow derives the pull request number and
+commit from the trusted `workflow_run` event and the GitHub API, never from
+the artifact. A fork can edit the build workflow and write anything into an
+artifact, so artifact contents must not decide where a deployment lands or
+which comment and commit status are written.
+
+One visible consequence: the build job has no `GITHUB_TOKEN`, so the
+build-time release lookup in `src/data/releases.ts` may be rate-limited on
+shared runners. Client cards then fall back to plain repository links instead
+of showing a version. That is expected in a preview and never fails the build.
+
+### One-time setup
+
+1. Create a Cloudflare Pages project (direct upload, no Git integration);
+   production stays on GitHub Pages. The project name is set once per workflow
+   as `PREVIEW_PROJECT`, currently `siloserver-org`. Keep this value consistent
+   across the three preview workflows.
+2. Create a GitHub environment named `Preview`, restrict its deployment branches
+   to **Selected branches and tags → branch `main`**, and
+   add `CLOUDFLARE_API_TOKEN` (Account · Cloudflare Pages · Edit, scoped to that
+   one account) and `CLOUDFLARE_ACCOUNT_ID` as **environment** secrets. Keeping
+   them out of repository secrets and restricting the environment to `main`
+   prevents PR workflows from reading them, including workflows edited on
+   same-repository branches. Do not allow `refs/pull/*/merge` or arbitrary tags.
+3. Require the GitHub Actions `build` check on `main` using a branch ruleset
+   or branch protection.
+
+When editing preview workflows, run `python3 scripts/test-preview-workflows.py`
+(requires Python 3, Node.js, Bun, and jq). These checks mock the provider APIs to cover
+cleanup failures, pagination, timestamp formats, deployment status, and PR
+closure or reopening during queued operations.
+The PR build runs them before building the site.
 
 ## Deployment
 

@@ -34,9 +34,15 @@ bun install --frozen-lockfile
 bun run build
 ```
 
-Preview visible changes at desktop and mobile widths, check keyboard navigation
-for interactive elements, and verify changed links. Include screenshots for
-visual changes.
+The build fails on broken internal documentation links, so run it before
+pushing. Preview visible changes at desktop and mobile widths, check keyboard
+navigation for interactive elements, and verify changed links. Include
+screenshots for visual changes.
+
+Every pull request also gets a hosted preview. A bot comment links to
+`https://pr-<number>.siloserver-org.pages.dev`, updated on each push and removed
+when the pull request closes. Reviewers use it instead of checking out the
+branch; link to specific preview pages in the pull request description.
 
 ## Open the pull request
 

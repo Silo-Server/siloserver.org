@@ -1,0 +1,218 @@
+name: Preview deploy
+
+# Privileged: runs on the default branch with the Cloudflare credentials from
+# the Preview environment, after "PR build" finishes. It never checks out or
+# executes pull request code. Its tooling comes from the trusted workflow commit.
+#
+# The pull request identity (number and commit) is derived from the trusted
+# workflow_run event and the GitHub API, never from the artifact. A fork can
+# change the build workflow and put anything in an artifact, so artifact
+# contents must not decide where a deployment lands or which comment and
+# commit status get written.
+#
+# Third-party actions are pinned to commit SHAs: these jobs hold credentials,
+# and a moved tag would run unreviewed code against them.
+
+on:
+  workflow_run:
+    workflows: ["PR build"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+  actions: read
+
+# Share this lock with teardown, including publication and the weekly sweep.
+# Queue pending runs instead of replacing a close event with a later deploy.
+concurrency:
+  group: preview-lifecycle
+  cancel-in-progress: false
+  queue: max
+
+env:
+  PREVIEW_PROJECT: siloserver-org
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    # Cloudflare credentials live in this environment, not at repository level,
+    # so the unprivileged PR build cannot read them.
+    environment: Preview
+    steps:
+      - name: Resolve the pull request from trusted event data
+        id: ctx
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const sha = context.payload.workflow_run.head_sha;
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+            const run = context.payload.workflow_run;
+            const pr = prs.find((p) => p.state === 'open' && p.head.sha === sha &&
+              p.head.repo?.full_name === run.head_repository.full_name &&
+              p.head.ref === run.head_branch);
+            if (!pr) {
+              core.info(`No open pull request has ${sha} as its head commit; skipping.`);
+              core.setOutput('skip', 'true');
+              return;
+            }
+            core.setOutput('skip', 'false');
+            core.setOutput('pr', String(pr.number));
+            core.setOutput('sha', sha);
+            core.setOutput('short', sha.slice(0, 7));
+
+      - name: Download build
+        if: steps.ctx.outputs.skip == 'false'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: preview-site
+          path: dist
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout trusted deployment tooling
+        if: steps.ctx.outputs.skip == 'false'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: trusted-preview
+          sparse-checkout: .github/preview-tools
+          persist-credentials: false
+
+      - name: Install locked deployment tooling
+        if: steps.ctx.outputs.skip == 'false'
+        run: npm ci --prefix trusted-preview/.github/preview-tools --no-audit --no-fund
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.ctx.outputs.skip == 'false'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PR_NUMBER: ${{ steps.ctx.outputs.pr }}
+          PR_SHA: ${{ steps.ctx.outputs.sha }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/preview-deployment.ndjson
+        run: |
+          rm -f "$WRANGLER_OUTPUT_FILE_PATH"
+          trusted-preview/.github/preview-tools/node_modules/.bin/wrangler pages deploy dist --project-name="$PREVIEW_PROJECT" --branch="pr-$PR_NUMBER" --commit-hash="$PR_SHA" --commit-dirty=true
+
+      - name: Verify terminal deployment success
+        if: steps.ctx.outputs.skip == 'false'
+        timeout-minutes: 8
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PR_NUMBER: ${{ steps.ctx.outputs.pr }}
+          PR_SHA: ${{ steps.ctx.outputs.sha }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/preview-deployment.ndjson
+        with:
+          script: |
+            const fs = require('node:fs');
+            const records = fs.readFileSync(process.env.WRANGLER_OUTPUT_FILE_PATH, 'utf8')
+              .trim().split('\n').filter(Boolean).map((line) => JSON.parse(line));
+            const uploads = records.filter((record) => record.type === 'pages-deploy' &&
+              record.pages_project === process.env.PREVIEW_PROJECT);
+            if (uploads.length !== 1 || !uploads[0].deployment_id) {
+              throw new Error('Wrangler did not return exactly one deployment ID for this project.');
+            }
+            const id = uploads[0].deployment_id;
+            const api = `https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/pages/projects/${process.env.PREVIEW_PROJECT}/deployments/${encodeURIComponent(id)}`;
+            for (let attempt = 0; attempt < 30; attempt++) {
+              const response = await fetch(api, {
+                headers: { Authorization: `Bearer ${process.env.CF_API_TOKEN}` },
+                signal: AbortSignal.timeout(10000),
+              });
+              const data = await response.json();
+              if (!response.ok || !data.success) throw new Error(`Reading deployment failed: ${JSON.stringify(data.errors)}`);
+              const deployment = data.result;
+              const metadata = deployment.deployment_trigger?.metadata;
+              if (deployment.id !== id || metadata?.branch !== `pr-${process.env.PR_NUMBER}` ||
+                  metadata?.commit_hash !== process.env.PR_SHA) {
+                throw new Error('Deployment identity does not match this pull request build.');
+              }
+              const stage = deployment.latest_stage;
+              if (stage?.name === 'deploy' && stage.status === 'success') return;
+              if (['failure', 'canceled'].includes(stage?.status)) {
+                throw new Error(`Deployment ${id} ended with ${stage.status}.`);
+              }
+              if (attempt < 29) await new Promise((resolve) => setTimeout(resolve, 5000));
+            }
+            throw new Error(`Timed out waiting for deployment ${id} to succeed.`);
+
+      - name: Recheck PR and remove uploads made after closure
+        if: steps.ctx.outputs.skip == 'false'
+        id: reconcile
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PR_NUMBER: ${{ steps.ctx.outputs.pr }}
+          PR_SHA: ${{ steps.ctx.outputs.sha }}
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              ...context.repo, pull_number: Number(process.env.PR_NUMBER),
+            });
+            core.setOutput('publish', 'false');
+            if (pr.state === 'open') {
+              core.setOutput('publish', String(pr.head.sha === process.env.PR_SHA));
+              return;
+            }
+            // Teardown may have completed before our upload. Delete all of this
+            // closed PR's deployments, collecting every page before deleting.
+            const api = `https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/pages/projects/${process.env.PREVIEW_PROJECT}/deployments`;
+            const headers = { Authorization: `Bearer ${process.env.CF_API_TOKEN}` };
+            const ids = [];
+            for (let page = 1; ; page++) {
+              const response = await fetch(`${api}?env=preview&page=${page}&per_page=25`, { headers });
+              const data = await response.json();
+              if (!response.ok || !data.success) throw new Error(`Listing previews failed: ${JSON.stringify(data.errors)}`);
+              if (!data.result.length) break;
+              for (const deployment of data.result) {
+                if (deployment.deployment_trigger?.metadata?.branch === `pr-${pr.number}`) ids.push(deployment.id);
+              }
+            }
+            for (const id of ids) {
+              const response = await fetch(`${api}/${id}?force=true`, { method: 'DELETE', headers });
+              const data = await response.json();
+              // Cloudflare reports repeated deletion with provider code 8000009.
+              if (data.errors?.length && data.errors.every((error) => error.code === 8000009)) continue;
+              if (!response.ok || !data.success) throw new Error(`Deleting preview ${id} failed: ${JSON.stringify(data.errors)}`);
+            }
+            core.info(`Removed ${ids.length} deployment(s) for closed PR #${pr.number}.`);
+
+      - name: Comment on the pull request
+        if: steps.reconcile.outputs.publish == 'true'
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          number: ${{ steps.ctx.outputs.pr }}
+          header: preview
+          message: |
+            **Preview deployed:** https://pr-${{ steps.ctx.outputs.pr }}.${{ env.PREVIEW_PROJECT }}.pages.dev
+
+            | | |
+            | --- | --- |
+            | Commit | `${{ steps.ctx.outputs.short }}` |
+
+            The alias updates after a successful build and deployment. The preview is removed when this pull request closes.
+
+      - name: Report status on the commit
+        if: steps.reconcile.outputs.publish == 'true'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ steps.ctx.outputs.sha }}',
+              state: 'success',
+              context: 'preview',
+              description: 'Preview deployed',
+              target_url: 'https://pr-${{ steps.ctx.outputs.pr }}.${{ env.PREVIEW_PROJECT }}.pages.dev',
+            });

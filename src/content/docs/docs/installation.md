@@ -35,7 +35,7 @@ database setup is required.
 
 The Silo image is published for x86-64 (`linux/amd64`) and arm64 (`linux/arm64`) Linux. Docker
 selects the correct image automatically. The default Compose stack is CPU-safe; hardware
-transcoding is enabled with a Linux-only overlay described in [Docker deployment](/docs/deployment/docker/).
+transcoding is enabled with a Linux-only overlay described in [Docker deployment](/docs/deployment/docker).
 
 ## Existing infrastructure
 

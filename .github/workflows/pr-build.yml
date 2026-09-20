@@ -1,0 +1,68 @@
+name: PR build
+
+# Unprivileged: runs pull request code (including from forks) with NO secrets
+# and no write permissions. It builds the site as a preview and hands the
+# output to preview-deploy.yml via an artifact. Also the required build check.
+#
+# Do not add secrets, tokens, or write permissions to this workflow. The
+# preview deployment's safety depends on this job being untrusted.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  PREVIEW_PROJECT: siloserver-org
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Check preview lifecycle
+        run: python3 scripts/test-preview-workflows.py
+
+      - name: Build preview
+        env:
+          # No GITHUB_TOKEN here on purpose. src/data/releases.ts falls back to
+          # plain repository links when the release lookup is rate-limited,
+          # which is an acceptable difference in a preview and keeps this job
+          # free of credentials that contributor code could read.
+          #
+          # Preview alias: pr-<number>.<project>.pages.dev. Cloudflare repoints
+          # it to the newest upload for the branch, so the URL stays stable.
+          SITE: https://pr-${{ github.event.pull_request.number }}.${{ env.PREVIEW_PROJECT }}.pages.dev
+          BASE_PATH: /
+          PUBLIC_PREVIEW_PR_NUMBER: ${{ github.event.pull_request.number }}
+          PUBLIC_PREVIEW_PR_URL: ${{ github.event.pull_request.html_url }}
+          PUBLIC_PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+        run: bun run build
+
+      - name: Keep previews out of search indexes
+        run: |
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
+
+      - name: Upload site
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-site
+          path: dist
+          retention-days: 3
