@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import { SITE } from "../data/siteConfig";
 import { PREVIEW } from "../data/preview";
-import PreviewBanner from "../components/PreviewBanner.astro";
 
 interface Props {
   title?: string;
@@ -79,7 +78,6 @@ const href = (path: string) => `${baseUrl}${path}`;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <PreviewBanner />
     <slot />
     <script is:inline>
       (function () {

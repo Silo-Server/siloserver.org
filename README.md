@@ -135,6 +135,11 @@ linking back to the pull request, carry `noindex`, and are deleted by
 `preview-teardown.yml` when the pull request is merged or closed (plus a weekly
 sweep of anything older than 30 days).
 
+`scripts/preview-banner.mjs` adds the banner to every built HTML file, including
+standalone pages copied from `public/`, documentation, and redirects. It runs
+only when valid preview metadata is supplied. The banner reserves space above
+navigation and adjusts when its text wraps; production HTML is unchanged.
+
 The split into two workflows is deliberate: `pr-build.yml` runs contributor
 code, including from forks, with no secrets and no write permissions.
 `preview-deploy.yml` holds the Cloudflare token but never checks out or
