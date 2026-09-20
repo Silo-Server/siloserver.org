@@ -1,8 +1,11 @@
 name: PR build
 
-# Unprivileged: runs pull request code (including from forks) with no secrets.
-# Builds the site as a preview and hands the output to preview-deploy.yml via
-# an artifact. Also acts as the required build check.
+# Unprivileged: runs pull request code (including from forks) with NO secrets
+# and no write permissions. It builds the site as a preview and hands the
+# output to preview-deploy.yml via an artifact. Also the required build check.
+#
+# Do not add secrets, tokens, or write permissions to this workflow. The
+# preview deployment's safety depends on this job being untrusted.
 
 on:
   pull_request:
@@ -34,9 +37,11 @@ jobs:
 
       - name: Build preview
         env:
-          # Same build-time release lookup as production, so client cards in a
-          # preview show versions instead of the rate-limited fallback.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No GITHUB_TOKEN here on purpose. src/data/releases.ts falls back to
+          # plain repository links when the release lookup is rate-limited,
+          # which is an acceptable difference in a preview and keeps this job
+          # free of credentials that contributor code could read.
+          #
           # Preview alias: pr-<number>.<project>.pages.dev. Cloudflare repoints
           # it to the newest upload for the branch, so the URL stays stable.
           SITE: https://pr-${{ github.event.pull_request.number }}.${{ env.PREVIEW_PROJECT }}.pages.dev
@@ -50,22 +55,9 @@ jobs:
         run: |
           printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
 
-      - name: Record pull request context for the deploy workflow
-        run: |
-          mkdir -p meta
-          echo "${{ github.event.pull_request.number }}" > meta/pr-number
-          echo "${{ github.event.pull_request.head.sha }}" > meta/sha
-
       - name: Upload site
         uses: actions/upload-artifact@v4
         with:
           name: preview-site
           path: dist
-          retention-days: 3
-
-      - name: Upload context
-        uses: actions/upload-artifact@v4
-        with:
-          name: preview-meta
-          path: meta
           retention-days: 3

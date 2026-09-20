@@ -136,9 +136,21 @@ linking back to the pull request, carry `noindex`, and are deleted by
 sweep of anything older than 30 days).
 
 The split into two workflows is deliberate: `pr-build.yml` runs contributor
-code, including from forks, with no secrets. `preview-deploy.yml` holds the
-Cloudflare token but never checks out or executes pull request code; it only
-uploads the built artifact. Keep it that way.
+code, including from forks, with no secrets and no write permissions.
+`preview-deploy.yml` holds the Cloudflare token but never checks out or
+executes pull request code; it only uploads the built artifact. Keep it that
+way, and do not add a token to the build job.
+
+For the same reason, the deploy workflow derives the pull request number and
+commit from the trusted `workflow_run` event and the GitHub API, never from
+the artifact. A fork can edit the build workflow and write anything into an
+artifact, so artifact contents must not decide where a deployment lands or
+which comment and commit status are written.
+
+One visible consequence: the build job has no `GITHUB_TOKEN`, so the
+build-time release lookup in `src/data/releases.ts` may be rate-limited on
+shared runners. Client cards then fall back to plain repository links instead
+of showing a version. That is expected in a preview and never fails the build.
 
 ### One-time setup
 

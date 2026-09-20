@@ -1,8 +1,13 @@
 name: Preview teardown
 
 # Deletes a pull request's preview deployments when it is merged or closed,
-# and sweeps stale previews weekly. Checks out nothing and runs no PR code,
-# so pull_request_target is safe here.
+# and sweeps stale previews weekly. Checks out nothing and runs no pull
+# request code, so pull_request_target is safe here.
+#
+# This talks to the Cloudflare REST API rather than `wrangler pages deployment
+# list`, because wrangler renames the fields for display (Branch, Deployment)
+# and does not expose creation time or paginate. The API returns the raw
+# records this needs.
 
 on:
   pull_request_target:
@@ -23,37 +28,59 @@ jobs:
     runs-on: ubuntu-latest
     environment: Preview
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
       - name: Delete previews
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # Set for pull request closes; empty for the scheduled sweep.
           PR_BRANCH: ${{ github.event.pull_request && format('pr-{0}', github.event.pull_request.number) || '' }}
-          MAX_AGE_DAYS: 30
+          MAX_AGE_DAYS: "30"
         run: |
           set -euo pipefail
-          npx --yes wrangler@3 pages deployment list \
-            --project-name "$PREVIEW_PROJECT" --environment preview --json > deployments.json
+          api="https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/${PREVIEW_PROJECT}/deployments"
+
           if [ -n "$PR_BRANCH" ]; then
-            filter='.[] | select(.deployment_trigger.metadata.branch == $b) | .id'
+            filter='.result[] | select((.deployment_trigger.metadata.branch // "") == $b) | .id'
           else
-            filter='.[] | select((.deployment_trigger.metadata.branch | startswith("pr-")) and (.created_on | fromdateiso8601) < (now - ($days | tonumber) * 86400)) | .id'
+            filter='.result[] | select(((.deployment_trigger.metadata.branch // "") | startswith("pr-")) and ((.created_on | fromdateiso8601) < (now - ($days | tonumber) * 86400))) | .id'
           fi
-          ids="$(jq -r --arg b "$PR_BRANCH" --arg days "$MAX_AGE_DAYS" "$filter" deployments.json)"
-          if [ -z "$ids" ]; then echo "No preview deployments to delete."; exit 0; fi
-          for id in $ids; do
-            echo "Deleting $id"
-            npx --yes wrangler@3 pages deployment delete "$id" --project-name "$PREVIEW_PROJECT" --force
+
+          : > ids.txt
+          page=1
+          while : ; do
+            resp="$(curl -sS -H "Authorization: Bearer ${CF_API_TOKEN}" \
+              "${api}?env=preview&page=${page}&per_page=25")"
+            if [ "$(jq -r '.success' <<<"$resp")" != "true" ]; then
+              jq -r '.errors' <<<"$resp" >&2
+              exit 1
+            fi
+            count="$(jq '.result | length' <<<"$resp")"
+            [ "$count" -eq 0 ] && break
+            jq -r --arg b "$PR_BRANCH" --arg days "$MAX_AGE_DAYS" "$filter" <<<"$resp" >> ids.txt
+            page=$((page + 1))
+            [ "$page" -gt 100 ] && break
           done
+
+          total="$(wc -l < ids.txt | tr -d ' ')"
+          if [ "$total" -eq 0 ]; then
+            echo "No preview deployments to delete."
+            exit 0
+          fi
+          echo "Deleting ${total} preview deployment(s)."
+          while read -r id; do
+            [ -n "$id" ] || continue
+            out="$(curl -sS -X DELETE -H "Authorization: Bearer ${CF_API_TOKEN}" \
+              "${api}/${id}?force=true")"
+            if [ "$(jq -r '.success' <<<"$out")" = "true" ]; then
+              echo "  deleted ${id}"
+            else
+              echo "  FAILED ${id}: $(jq -c '.errors' <<<"$out")" >&2
+            fi
+          done < ids.txt
 
       - name: Update the pull request comment
         if: github.event_name == 'pull_request_target'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           number: ${{ github.event.pull_request.number }}
           header: preview

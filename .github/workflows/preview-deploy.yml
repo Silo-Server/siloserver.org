@@ -1,8 +1,17 @@
 name: Preview deploy
 
-# Privileged: runs on the default branch with repository secrets, after
-# "PR build" finishes. It never checks out or executes pull request code; it
-# only downloads the built artifact and uploads it to Cloudflare Pages.
+# Privileged: runs on the default branch with the Cloudflare credentials from
+# the Preview environment, after "PR build" finishes. It never checks out or
+# executes pull request code; it only downloads the built artifact.
+#
+# The pull request identity (number and commit) is derived from the trusted
+# workflow_run event and the GitHub API, never from the artifact. A fork can
+# change the build workflow and put anything in an artifact, so artifact
+# contents must not decide where a deployment lands or which comment and
+# commit status get written.
+#
+# Third-party actions are pinned to commit SHAs: these jobs hold credentials,
+# and a moved tag would run unreviewed code against them.
 
 on:
   workflow_run:
@@ -12,7 +21,14 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  statuses: write
   actions: read
+
+# One deploy at a time per source branch, so a slower older upload cannot land
+# after a newer one and leave the stable alias on stale content.
+concurrency:
+  group: preview-deploy-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
 
 env:
   PREVIEW_PROJECT: temp-siloserver-org
@@ -25,42 +41,50 @@ jobs:
     # so the unprivileged PR build cannot read them.
     environment: Preview
     steps:
+      - name: Resolve the pull request from trusted event data
+        id: ctx
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const sha = context.payload.workflow_run.head_sha;
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+            const pr = prs.find((p) => p.state === 'open' && p.head.sha === sha);
+            if (!pr) {
+              core.info(`No open pull request has ${sha} as its head commit; skipping.`);
+              core.setOutput('skip', 'true');
+              return;
+            }
+            core.setOutput('skip', 'false');
+            core.setOutput('pr', String(pr.number));
+            core.setOutput('sha', sha);
+            core.setOutput('short', sha.slice(0, 7));
+
       - name: Download build
-        uses: actions/download-artifact@v4
+        if: steps.ctx.outputs.skip == 'false'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: preview-site
           path: dist
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download context
-        uses: actions/download-artifact@v4
-        with:
-          name: preview-meta
-          path: meta
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Read context
-        id: ctx
-        run: |
-          pr="$(tr -dc '0-9' < meta/pr-number)"
-          sha="$(tr -dc 'a-f0-9' < meta/sha)"
-          test -n "$pr" && test -n "$sha"
-          echo "pr=$pr" >> "$GITHUB_OUTPUT"
-          echo "sha=$sha" >> "$GITHUB_OUTPUT"
-          echo "short=${sha:0:7}" >> "$GITHUB_OUTPUT"
-
       - name: Deploy to Cloudflare Pages
+        if: steps.ctx.outputs.skip == 'false'
         id: deploy
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "3.114.0"
           command: pages deploy dist --project-name=${{ env.PREVIEW_PROJECT }} --branch=pr-${{ steps.ctx.outputs.pr }} --commit-hash=${{ steps.ctx.outputs.sha }} --commit-dirty=true
 
       - name: Comment on the pull request
-        uses: marocchino/sticky-pull-request-comment@v2
+        if: steps.ctx.outputs.skip == 'false'
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           number: ${{ steps.ctx.outputs.pr }}
           header: preview
@@ -70,13 +94,13 @@ jobs:
             | | |
             | --- | --- |
             | Commit | `${{ steps.ctx.outputs.short }}` |
-            | Built | ${{ github.event.workflow_run.updated_at }} |
             | This upload | ${{ steps.deploy.outputs.deployment-url }} |
 
             The alias above always shows the latest push. The preview is removed when this pull request closes.
 
       - name: Report status on the commit
-        uses: actions/github-script@v7
+        if: steps.ctx.outputs.skip == 'false'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             await github.rest.repos.createCommitStatus({
