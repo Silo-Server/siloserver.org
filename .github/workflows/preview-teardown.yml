@@ -1,0 +1,61 @@
+name: Preview teardown
+
+# Deletes a pull request's preview deployments when it is merged or closed,
+# and sweeps stale previews weekly. Checks out nothing and runs no PR code,
+# so pull_request_target is safe here.
+
+on:
+  pull_request_target:
+    types: [closed]
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  PREVIEW_PROJECT: temp-siloserver-org
+
+jobs:
+  teardown:
+    runs-on: ubuntu-latest
+    environment: Preview
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Delete previews
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Set for pull request closes; empty for the scheduled sweep.
+          PR_BRANCH: ${{ github.event.pull_request && format('pr-{0}', github.event.pull_request.number) || '' }}
+          MAX_AGE_DAYS: 30
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@3 pages deployment list \
+            --project-name "$PREVIEW_PROJECT" --environment preview --json > deployments.json
+          if [ -n "$PR_BRANCH" ]; then
+            filter='.[] | select(.deployment_trigger.metadata.branch == $b) | .id'
+          else
+            filter='.[] | select((.deployment_trigger.metadata.branch | startswith("pr-")) and (.created_on | fromdateiso8601) < (now - ($days | tonumber) * 86400)) | .id'
+          fi
+          ids="$(jq -r --arg b "$PR_BRANCH" --arg days "$MAX_AGE_DAYS" "$filter" deployments.json)"
+          if [ -z "$ids" ]; then echo "No preview deployments to delete."; exit 0; fi
+          for id in $ids; do
+            echo "Deleting $id"
+            npx --yes wrangler@3 pages deployment delete "$id" --project-name "$PREVIEW_PROJECT" --force
+          done
+
+      - name: Update the pull request comment
+        if: github.event_name == 'pull_request_target'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ github.event.pull_request.number }}
+          header: preview
+          message: |
+            Preview removed after this pull request was closed.

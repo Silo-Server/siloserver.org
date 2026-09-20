@@ -1,0 +1,9 @@
+---
+// Starlight Banner override: prepend the preview banner on documentation
+// pages, then render Starlight's own per-page banner if a page sets one.
+import Default from "@astrojs/starlight/components/Banner.astro";
+import PreviewBanner from "../PreviewBanner.astro";
+---
+
+<PreviewBanner />
+<Default><slot /></Default>

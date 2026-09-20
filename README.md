@@ -45,6 +45,7 @@ src/
 | Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
 | Architecture diagrams           | `src/components/Deployment.astro`         |
 | Documentation pages             | `src/content/docs/docs/*.md`              |
+| Documentation sidebar           | `src/data/sidebar.mjs`                    |
 | Colors, spacing, typography     | `src/styles/global.css`                   |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
@@ -55,6 +56,8 @@ itself changes.
 
 Docs are built with [Astro Starlight](https://starlight.astro.build/) and
 served under `/docs`. Add or edit Markdown files in `src/content/docs/docs/`.
+New pages are listed in `src/data/sidebar.mjs`; `astro.config.mjs` does not
+need to change.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site
@@ -112,6 +115,44 @@ repo.
 
 The 6-hour cron is a fallback for missed dispatches and edits that
 happen outside a release (changed README, added a new app, etc).
+
+## Pull request checks and previews
+
+Every pull request runs `.github/workflows/pr-build.yml`: a full `bun run build`
+with internal-link validation (`starlight-links-validator`). The build fails on
+a broken `/docs` link or anchor, so fix those before asking for review.
+
+The same workflow builds the site as a **preview** and hands the output to
+`preview-deploy.yml`, which uploads it to Cloudflare Pages and posts one sticky
+comment on the pull request with the URL:
+
+```
+https://pr-<number>.temp-siloserver-org.pages.dev
+```
+
+The alias always points at the latest push. Previews show an orange banner
+linking back to the pull request, carry `noindex`, and are deleted by
+`preview-teardown.yml` when the pull request is merged or closed (plus a weekly
+sweep of anything older than 30 days).
+
+The split into two workflows is deliberate: `pr-build.yml` runs contributor
+code, including from forks, with no secrets. `preview-deploy.yml` holds the
+Cloudflare token but never checks out or executes pull request code; it only
+uploads the built artifact. Keep it that way.
+
+### One-time setup
+
+1. Create a Cloudflare Pages project (direct upload, no Git integration);
+   production stays on GitHub Pages. The project name is set once per workflow
+   as `PREVIEW_PROJECT`, currently `temp-siloserver-org`. When the project moves
+   to an organization-owned Cloudflare account, create it there under the final
+   name and update that value in the three preview workflows.
+2. Create a GitHub environment named `Preview` with no protection rules, and
+   add `CLOUDFLARE_API_TOKEN` (Account · Cloudflare Pages · Edit, scoped to that
+   one account) and `CLOUDFLARE_ACCOUNT_ID` as **environment** secrets. Keeping
+   them out of repository secrets is what stops `pr-build.yml`, which runs
+   contributor code, from being able to read them.
+3. Mark the `build` job of "PR build" as a required status check on `main`.
 
 ## Deployment
 

@@ -1,0 +1,70 @@
+name: PR build
+
+# Unprivileged: runs pull request code (including from forks) with no secrets.
+# Builds the site as a preview and hands the output to preview-deploy.yml via
+# an artifact. Also acts as the required build check.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  PREVIEW_PROJECT: temp-siloserver-org
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build preview
+        env:
+          # Same build-time release lookup as production, so client cards in a
+          # preview show versions instead of the rate-limited fallback.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Preview alias: pr-<number>.<project>.pages.dev. Cloudflare repoints
+          # it to the newest upload for the branch, so the URL stays stable.
+          SITE: https://pr-${{ github.event.pull_request.number }}.${{ env.PREVIEW_PROJECT }}.pages.dev
+          BASE_PATH: /
+          PUBLIC_PREVIEW_PR_NUMBER: ${{ github.event.pull_request.number }}
+          PUBLIC_PREVIEW_PR_URL: ${{ github.event.pull_request.html_url }}
+          PUBLIC_PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+        run: bun run build
+
+      - name: Keep previews out of search indexes
+        run: printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
+
+      - name: Record pull request context for the deploy workflow
+        run: |
+          mkdir -p meta
+          echo "${{ github.event.pull_request.number }}" > meta/pr-number
+          echo "${{ github.event.pull_request.head.sha }}" > meta/sha
+
+      - name: Upload site
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-site
+          path: dist
+          retention-days: 3
+
+      - name: Upload context
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-meta
+          path: meta
+          retention-days: 3

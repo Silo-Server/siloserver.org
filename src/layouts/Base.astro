@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import { SITE } from "../data/siteConfig";
+import { PREVIEW } from "../data/preview";
+import PreviewBanner from "../components/PreviewBanner.astro";
 
 interface Props {
   title?: string;
@@ -73,9 +75,11 @@ const href = (path: string) => `${baseUrl}${path}`;
     <meta property="og:type" content="website" />
     <meta property="og:image" content={href("/web-app-icon-512.png")} />
     <meta name="twitter:card" content="summary_large_image" />
+    {PREVIEW && <meta name="robots" content="noindex, nofollow" />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <PreviewBanner />
     <slot />
     <script is:inline>
       (function () {

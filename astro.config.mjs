@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightLinksValidator from "starlight-links-validator";
+import { sidebar } from "./src/data/sidebar.mjs";
 
 // Canonical URL for the deployed site. Used for OpenGraph and sitemap.
 // The actual hosting (GitHub Pages on the silo-server.github.io repo)
@@ -31,8 +33,15 @@ export default defineConfig({
       favicon: "/favicon.ico",
       customCss: ["./src/styles/docs.css"],
       editLink: {
-        baseUrl:
-          "https://github.com/Silo-Server/silo-website/edit/main/",
+        baseUrl: "https://github.com/Silo-Server/siloserver.org/edit/main/",
+      },
+      plugins: [
+        // Fails the build on broken internal links or anchors in docs pages.
+        starlightLinksValidator({ errorOnRelativeLinks: false }),
+      ],
+      components: {
+        Banner: "./src/components/starlight/Banner.astro",
+        Head: "./src/components/starlight/Head.astro",
       },
       social: [
         {
@@ -46,44 +55,7 @@ export default defineConfig({
           href: "https://github.com/Silo-Server",
         },
       ],
-      sidebar: [
-        {
-          label: "Start here",
-          items: [
-            { slug: "docs" },
-            { slug: "docs/quickstart" },
-            { slug: "docs/installation" },
-            { slug: "docs/first-configuration" },
-            { slug: "docs/configuration" },
-          ],
-        },
-        {
-          label: "Operations",
-          items: [
-            { slug: "docs/deployment/docker" },
-            { slug: "docs/logging" },
-            { slug: "docs/libraries" },
-            { slug: "docs/audiobooks" },
-            { slug: "docs/ebooks" },
-            { slug: "docs/ai-services" },
-            { slug: "docs/notifications" },
-            { slug: "docs/storage/s3" },
-            { slug: "docs/deployment/reverse-proxy" },
-            { slug: "docs/troubleshooting" },
-          ],
-        },
-        {
-          label: "Ecosystem",
-          items: [
-            { slug: "docs/integrations/autoscan" },
-            { slug: "docs/clients" },
-            { slug: "docs/apple-tv" },
-            { slug: "docs/feature-parity" },
-            { slug: "docs/jellyfin-compatibility" },
-            { slug: "docs/audiobookshelf-compatibility" },
-          ],
-        },
-      ],
+      sidebar,
     }),
   ],
   build: {

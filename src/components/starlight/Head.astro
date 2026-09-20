@@ -1,0 +1,8 @@
+---
+// Starlight Head override: keep preview deployments out of search indexes.
+import Default from "@astrojs/starlight/components/Head.astro";
+import { PREVIEW } from "../../data/preview";
+---
+
+<Default><slot /></Default>
+{PREVIEW && <meta name="robots" content="noindex, nofollow" />}

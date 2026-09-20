@@ -73,3 +73,27 @@ h1[data-page-title] {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* Pull request preview banner (src/components/PreviewBanner.astro).
+   Rendered only on preview deployments. */
+.preview-banner {
+  background: var(--orange, #df7014);
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font:
+    500 0.875rem/1.4 "IBM Plex Mono",
+    ui-monospace,
+    monospace;
+}
+.preview-banner a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.preview-banner code {
+  font: inherit;
+  background: none;
+  padding: 0;
+  opacity: 0.9;
+}
