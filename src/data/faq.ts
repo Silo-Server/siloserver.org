@@ -34,6 +34,6 @@ export const faq: FaqItem[] = [
   {
     question: "What's broken right now?",
     answer:
-      "The 1.0 milestone covers movies and series. Audiobooks and ebooks are deferred to a consolidated Books effort with no assigned release date; Audiobookshelf compatibility is also deferred and remains beta. Podcasts are outside 1.0 too. The native apps are in beta and close to feature parity with the web app; Watch Together, subtitle search, and the admin tools are still web-only. Anything not in the feature list above is probably not yet a thing.",
+      "The 1.0 milestone covers movies and series. Audiobooks and ebooks are deferred to a consolidated Books effort with no assigned release date; Audiobookshelf compatibility is also deferred and remains beta. Podcasts are outside 1.0 too. The native apps are in beta and close to feature parity with the web app; Watch Together, subtitle upload, and the admin tools are still web-only. Anything not in the feature list above is probably not yet a thing.",
   },
 ];
