@@ -11,6 +11,10 @@ with the server's reachable address.
 Use the filter to find an endpoint group. Expand an operation to see its
 parameters, required permissions, request body, and possible responses.
 
+The reference can include endpoints for [Beta features](/docs/beta).
+An endpoint appearing in the schema does not make its feature part of the
+supported 1.0 scope or establish client coverage.
+
 ## Download the OpenAPI document
 
 The same server provides **/api/v2/openapi.json**. Save that document when

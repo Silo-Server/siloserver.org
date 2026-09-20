@@ -1,9 +1,9 @@
 ---
 title: Prepare media folders and filenames
-description: Arrange movie, series, and audiobook files so Silo can find and identify them.
+description: Arrange movie and series files so Silo can find and identify them.
 ---
 
-Start with separate folders for movies, series, and audiobooks. A clear title and year help Silo identify files; a provider ID helps when several titles share a name.
+Start with separate folders for movies and series. A clear title and year help Silo identify files; a provider ID helps when several titles share a name.
 
 ## Library Paths
 
@@ -15,7 +15,6 @@ With the default Docker setup, `MEDIA_ROOT=/srv/media` maps the host's media to 
 | --- | --- |
 | `/srv/media/movies` | `/mnt/media/movies` |
 | `/srv/media/tv` | `/mnt/media/tv` |
-| `/srv/media/audiobooks` | `/mnt/media/audiobooks` |
 
 Mount network shares on the host first. Check that the files are visible and readable before you [add the library](/docs/running-a-server/libraries).
 
@@ -53,7 +52,8 @@ Do not put unrelated shows into one flat episode folder. Bare `E01`, `1x02`, and
 
 ## Audiobooks
 
-Put each book's audio files in a separate folder. Number files in listening order and check their embedded title and author tags. Follow the [audiobook guide](/docs/running-a-server/audiobook-libraries) for single-file books and chapters.
+Audiobooks are beta. Their folder and chapter instructions live in the
+[Beta audiobook guide](/docs/beta/audiobook-libraries).
 
 ## Provider IDs
 

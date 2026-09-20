@@ -10,10 +10,10 @@ a phone, tablet, TV, and browser do not have identical controls.
 
 ## Media types
 
-The 1.0 manual covers movies, series, and audiobooks. Start with
-[video playback](/docs/using-silo/watch-movies-and-series) or
-[audiobook listening](/docs/using-silo/listen-to-audiobooks).
-Ebooks and podcasts are outside this manual's 1.0 scope.
+The 1.0 library types are movies and series. Start with
+[video playback](/docs/using-silo/watch-movies-and-series).
+Audiobooks, ebooks, and additional capabilities belong to the
+[Beta section](/docs/beta), with client-specific availability and limits.
 
 ## Playback
 
@@ -44,7 +44,7 @@ Your active profile controls personal progress and preferences.
 [Join a server](/docs/get-started/join-a-server) or
 [set up a TV](/docs/get-started/tv-sign-in). Third-party apps use their
 [Jellyfin](/docs/using-silo/jellyfin-apps) or
-[Audiobookshelf](/docs/using-silo/audiobookshelf-apps) connection instructions.
+[Audiobookshelf (Beta)](/docs/beta/audiobookshelf) connection instructions.
 
 ## Downloads and offline
 

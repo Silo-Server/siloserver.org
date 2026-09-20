@@ -50,11 +50,12 @@ whether they provide Silo's Jellyfin-compatible endpoint. Follow
 [Connect a Jellyfin-compatible app](/docs/using-silo/jellyfin-apps).
 Its address and profile sign-in syntax differ from the native Silo app.
 
-## Audiobookshelf-compatible clients
+## Beta listening and reading
 
-For a listening app that expects Audiobookshelf, ask for the
-Audiobookshelf-compatible address and follow
-[its connection guide](/docs/using-silo/audiobookshelf-apps).
+Audiobooks and ebooks are outside the supported 1.0 scope. See
+[Beta features](/docs/beta) for client coverage, or
+[Audiobookshelf-compatible apps (Beta)](/docs/beta/audiobookshelf)
+for a dedicated listening app.
 
 Protocol compatibility does not certify every app or feature. If you have
 trouble, include both the app and server versions in your report. See

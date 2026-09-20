@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import test from 'node:test';
 import { sidebar } from '../src/data/sidebar.mjs';
 import { docsRedirects } from '../src/data/docs-redirects.mjs';
@@ -20,10 +20,10 @@ function markdown(dir) {
   });
 }
 
-test('five audience groups contain real, non-draft articles without duplicates', () => {
+test('audience groups and Beta contain real articles without duplicates', () => {
   assert.deepEqual(sidebar.map(group => group.label), [
     'Get started', 'Using Silo', 'Running a server',
-    'Developers & integrations', 'Help & contribute',
+    'Beta', 'Developers & integrations', 'Help & contribute',
   ]);
   const slugs = entries(sidebar);
   assert.equal(new Set(slugs).size, slugs.length);
@@ -34,6 +34,11 @@ test('five audience groups contain real, non-draft articles without duplicates',
 });
 
 test('all previous public article URLs retain a page or a direct redirect', () => {
+  for (const [legacy, target] of Object.entries(docsRedirects)) {
+    assert.ok(!docsRedirects[target], `Chained redirect: ${legacy}`);
+    assert.ok(source(target.slice(1)), `Missing redirect target: ${target}`);
+    assert.ok(!source(legacy.slice(1)), `Redirect conflicts with page: ${legacy}`);
+  }
   const old = ['clients', 'installation', 'quickstart', 'first-configuration',
     'deployment/docker', 'deployment/reverse-proxy', 'libraries', 'audiobooks',
     'configuration', 'logging', 'storage/s3', 'ai-services', 'notifications',
@@ -61,9 +66,22 @@ test('documentation links use canonical paths rather than redirects', () => {
   }
 });
 
-test('ebook notes are preserved but excluded from normal discovery', () => {
-  assert.ok(!entries(sidebar).includes('docs/ebooks'));
-  const text = readFileSync(source('docs/ebooks'), 'utf8');
-  assert.match(text, /^pagefind:\s*false$/m);
-  assert.match(text, /Outside the 1\.0 release scope/);
+test('beta guides are labeled and confined to the Beta group', () => {
+  const beta = sidebar.find(group => group.label === 'Beta');
+  assert.ok(beta);
+  const betaSlugs = entries(beta.items);
+  assert.ok(betaSlugs.includes('docs/beta/audiobooks'));
+  assert.ok(betaSlugs.includes('docs/beta/ebooks'));
+  for (const slug of betaSlugs) {
+    assert.ok(slug === 'docs/beta' || slug.startsWith('docs/beta/'));
+    assert.match(readFileSync(source(slug), 'utf8'), /^title: .*Beta.*$/m);
+  }
+  for (const group of sidebar.filter(group => group !== beta)) {
+    assert.ok(entries(group.items).every(slug => !slug.startsWith('docs/beta')));
+  }
+  for (const path of markdown(join(content, 'docs', 'beta'))) {
+    const slug = relative(content, path).replaceAll('\\', '/').replace(/\.md$/, '').replace(/\/index$/, '');
+    assert.ok(betaSlugs.includes(slug), `Unlisted beta guide: ${slug}`);
+    assert.match(readFileSync(path, 'utf8'), /:::caution\[Beta\]/);
+  }
 });

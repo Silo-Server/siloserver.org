@@ -49,14 +49,11 @@ export const sidebar = [
         ]
       },
       {
-        "label": "Watch and listen",
+        "label": "Watch",
         "collapsed": true,
         "items": [
           {
             "slug": "docs/using-silo/watch-movies-and-series"
-          },
-          {
-            "slug": "docs/using-silo/listen-to-audiobooks"
           },
           {
             "slug": "docs/using-silo/subtitles"
@@ -104,9 +101,6 @@ export const sidebar = [
             "slug": "docs/using-silo/jellyfin-apps"
           },
           {
-            "slug": "docs/using-silo/audiobookshelf-apps"
-          },
-          {
             "slug": "docs/using-silo/apple-tv-playback"
           },
           {
@@ -130,9 +124,6 @@ export const sidebar = [
           },
           {
             "slug": "docs/running-a-server/media-folders"
-          },
-          {
-            "slug": "docs/running-a-server/audiobook-libraries"
           },
           {
             "slug": "docs/running-a-server/metadata"
@@ -260,6 +251,27 @@ export const sidebar = [
         ],
         "collapsed": true
       }
+    ]
+  },
+  {
+    "label": "Beta",
+    "collapsed": true,
+    "items": [
+      { "slug": "docs/beta" },
+      { "slug": "docs/beta/audiobooks" },
+      { "slug": "docs/beta/audiobook-libraries" },
+      { "slug": "docs/beta/audiobookshelf" },
+      { "slug": "docs/beta/ebooks" },
+      { "slug": "docs/beta/library-types" },
+      { "slug": "docs/beta/watch-together" },
+      { "slug": "docs/beta/watch-sync" },
+      { "slug": "docs/beta/versions-and-previews" },
+      { "slug": "docs/beta/browser-downloads" },
+      { "slug": "docs/beta/native-inboxes" },
+      { "slug": "docs/beta/custom-themes" },
+      { "slug": "docs/beta/catalog-seeds" },
+      { "slug": "docs/beta/native-macos" },
+      { "slug": "docs/beta/unfinished-features" }
     ]
   },
   {

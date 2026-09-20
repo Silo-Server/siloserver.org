@@ -1,7 +1,14 @@
 ---
-title: Connect an Audiobookshelf-compatible app
+title: Audiobookshelf-compatible apps (Beta)
 description: Connect a dedicated listening app to Silo's audiobook endpoint.
 ---
+
+:::caution[Beta]
+Audiobooks and their compatibility endpoint are outside the supported 1.0
+release scope. This guide does not certify any third-party client. The
+endpoint does not enforce a separate profile PIN; review household access
+before allowing it.
+:::
 
 Ask the administrator for the Audiobookshelf-compatible address and your
 Silo credentials. This address may differ from both the Silo web address
@@ -37,9 +44,18 @@ The third-party app controls its own download storage and playback interface.
 
 ## Scope
 
-This connection serves audiobooks. Podcast and ebook workflows are outside
-the 1.0 manual. For playback without a third-party app, use
-[Silo's audiobook player](/docs/using-silo/listen-to-audiobooks).
+This guide covers audiobook connections. It does not promise podcast,
+ebook, or send-to-ereader support through an Audiobookshelf client. For
+playback without a third-party app, use
+[Silo's audiobook player](/docs/beta/audiobooks).
+
+## Server setup
+
+An administrator opens **Admin > Settings > Compatibility** and turns on
+**Allow Audiobookshelf apps to connect**. Save and follow any restart notice.
+The default Compose endpoint is port `13378`, separate from Silo's web app.
+Give listeners a reachable address for this endpoint. Keep it on your trusted
+network or place it behind HTTPS before allowing remote access.
 
 ## Reverse Proxy
 

@@ -65,6 +65,9 @@ Organize pages by the reader's task and audience:
 - `get-started/`: app choice, prerequisites, and the default installation walkthrough.
 - `using-silo/`: personal settings, client use, and connecting other apps.
 - `running-a-server/`: administration, integrations, deployment, and operator reference.
+- `beta/`: features outside the supported 1.0 scope, including audiobooks,
+  ebooks, and Audiobookshelf compatibility. Keep availability tables and
+  feature instructions here, with explicit Beta titles and notices.
 - `developers/`: API, plugin, and code-contribution entry points.
 - `help/`: troubleshooting entry points, reports, and documentation contributions.
 
@@ -78,6 +81,12 @@ See [the manual review](docs/review-manual-integration.md) for source revisions,
 executed checks, and procedures still awaiting hands-on validation. The
 [feature map](docs/manual-feature-coverage.md) links the 35 milestone features
 to their guide sources. A mapped page is not a completed acceptance check.
+
+The [beta audit](docs/review-beta-integration.md) records the server, Apple,
+and Android source revisions, coverage limits, and checks for the Beta section.
+Keep an ordinary guide's reference to a beta feature short and link to that
+section instead of duplicating instructions. Preserve old URLs with direct
+redirects when moving pages.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site

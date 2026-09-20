@@ -12,7 +12,7 @@ them before changing server settings or removing a saved connection.
    If it does not load, check the address with the administrator. A working
    internet connection does not mean the server is reachable.
 2. Confirm you are using the Silo address for a Silo app. Jellyfin and
-   Audiobookshelf apps need [their own connection addresses](/docs/running-a-server/third-party-access).
+   Audiobookshelf apps need their own connection addresses: [Jellyfin](/docs/running-a-server/third-party-access) or [Audiobookshelf (Beta)](/docs/beta/audiobookshelf).
 3. If the server opens but sign-in fails, check the account name and password.
    An account password and a profile PIN are different. Ask the administrator
    for help with a forgotten password; do not share it in a bug report.

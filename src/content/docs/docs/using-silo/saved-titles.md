@@ -9,7 +9,7 @@ active profile.
 
 ## Save a title in the web app
 
-1. Open the movie, series, or audiobook detail page.
+1. Open the movie or series detail page.
 2. Select the heart to add it to **Favorites**. Select it again to remove it.
 3. For a watchlist entry, open the detail page's more-options menu and choose
    **Add to Watchlist**. The same menu offers **Remove from Watchlist** later.

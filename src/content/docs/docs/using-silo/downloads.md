@@ -36,8 +36,5 @@ Select a downloaded item and use **Delete Download** to free device storage.
 This removes the local copy, not the media in the server library. Reconnect
 after offline viewing before expecting progress on another device.
 
-The Apple download instructions above cover movies and episodes. Android
-also offers **Download** on audiobook details, using the original file rather
-than video quality presets. Check every part you need for a multipart book;
-a completed download of one file is not proof that the whole book is offline.
-Third-party listening apps manage their own downloads.
+Audiobook and ebook downloads are beta. See the [audiobook](/docs/beta/audiobooks#downloads)
+and [ebook](/docs/beta/ebooks) guides for client and file-format limits.

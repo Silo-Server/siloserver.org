@@ -84,7 +84,7 @@ Open `http://localhost:8090` on the server, or `http://SERVER-IP:8090` from anot
 1. Create the admin account with your username, email, and password. Create your first profile if asked.
 2. Give the server a name. Leave playback settings at their defaults for the first test.
 3. At **Storage**, keep local artwork storage for a single-host install. Choose storage before scanning: the artwork location locks after the first write.
-4. At **Libraries**, enter a name, choose **Movies**, **Series**, or **Audiobooks**, and add the container path. For example, use `/mnt/media/movies`. Select **Add library**, then continue.
+4. At **Libraries**, enter a name, choose **Movies** or **Series**, and add the container path. For example, use `/mnt/media/movies`. Select **Add library**, then continue.
 5. Skip subtitle services, app integrations, and other optional features you do not need yet. Finish the wizard.
 
 Open **Admin > Libraries** to check the scan. If it has not started, use that library's **Scan** action. For missing posters or descriptions, check the library's metadata providers using [Add and manage libraries](/docs/running-a-server/libraries).

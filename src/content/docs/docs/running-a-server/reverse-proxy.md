@@ -39,7 +39,7 @@ If remote nodes or object storage send clients to other addresses, those address
 | --- | --- |
 | Silo web and native clients | 8090 |
 | Jellyfin-compatible clients | 8096 |
-| Audiobookshelf-compatible clients | 13378 |
+| Audiobookshelf-compatible clients (Beta) | 13378 |
 
 Only publish the protocols your users need. A separate hostname for each compatibility endpoint avoids mixing protocol routes. Follow [third-party access](/docs/running-a-server/third-party-access) for those settings.
 

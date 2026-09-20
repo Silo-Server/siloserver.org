@@ -38,11 +38,12 @@ This is a manuscript map, not acceptance evidence. Every milestone feature has a
 | Notifications | [using-silo/notifications](../src/content/docs/docs/using-silo/notifications.md), [running-a-server/notifications](../src/content/docs/docs/running-a-server/notifications.md), [help/privacy](../src/content/docs/docs/help/privacy.md) |
 | Webhook ingestion | [running-a-server/watch-state-webhooks](../src/content/docs/docs/running-a-server/watch-state-webhooks.md) |
 | Watch-history import | [using-silo/import-watch-history](../src/content/docs/docs/using-silo/import-watch-history.md), [running-a-server/watch-history-import](../src/content/docs/docs/running-a-server/watch-history-import.md) |
-| Compatibility layers | [using-silo/jellyfin-apps](../src/content/docs/docs/using-silo/jellyfin-apps.md), [using-silo/audiobookshelf-apps](../src/content/docs/docs/using-silo/audiobookshelf-apps.md), [running-a-server/third-party-access](../src/content/docs/docs/running-a-server/third-party-access.md) |
+| Compatibility layer (Jellyfin) | [using-silo/jellyfin-apps](../src/content/docs/docs/using-silo/jellyfin-apps.md), [running-a-server/third-party-access](../src/content/docs/docs/running-a-server/third-party-access.md) |
 
 ## Beyond the feature cards
 
-- Movies, Series, and Audiobooks: installation, library setup, naming, metadata, playback/listening, and progress guides.
+- Movies and Series: installation, library setup, naming, metadata, playback, and progress guides.
+- Audiobooks, ebooks, and Audiobookshelf compatibility are outside 1.0. Books is a consolidated later effort with no assigned release date; beta/reference guides are not 1.0 acceptance evidence.
 - First-run and dependencies: install, configuration, Docker, and server-health guides.
 - Recovery: backup inventory and update/bridge guidance exist; complete clean-host restore and exact release commands remain outstanding.
 - Compatibility: client reference and installed-server API viewer guidance exist; centrally hosted versioned OpenAPI still needs implementation.

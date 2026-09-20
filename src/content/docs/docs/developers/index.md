@@ -11,7 +11,7 @@ Choose the task you want to work on:
 
 To connect an existing player, use the
 [Jellyfin](/docs/using-silo/jellyfin-apps) or
-[Audiobookshelf](/docs/using-silo/audiobookshelf-apps) guide instead.
+[Audiobookshelf (Beta)](/docs/beta/audiobookshelf) guide instead.
 
 ## Server and API
 

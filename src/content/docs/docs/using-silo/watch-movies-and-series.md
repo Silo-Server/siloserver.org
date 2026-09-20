@@ -9,8 +9,9 @@ correct profile is active before watching on a shared device.
 
 ## Before you play
 
-When the detail page offers multiple versions, select the version you want
-before playback. Check the audio and subtitle choices too. Extras and
+Check the audio and subtitle choices before playback. Manual selection among
+multiple files is covered in [Versions and previews (Beta)](/docs/beta/versions-and-previews).
+Extras and
 trailers are separate items; selecting one does not resume the main movie.
 
 ## In the web player
@@ -41,7 +42,7 @@ On Apple TV, show the playback controls and select **Info and options**.
 The **Audio**, **Subtitles**, **Video**, and **Chapters** tabs hold the
 available choices. Empty track or chapter tabs may be absent.
 
-On Android TV, choose the version and audio/subtitle tracks from the title's
+On Android TV, choose audio/subtitle tracks from the title's
 detail page before pressing **Play** or **Resume**. During playback, use
 the remote's play/pause and directional controls to show and move through
 the player's controls.
@@ -62,7 +63,8 @@ on available markers and episodes.
 
 ## If playback fails
 
-Try another title, then another available version of the failing title.
+Try another title. If you are testing beta version selection, try another
+available version of the failing title too.
 Record the time, chosen version, app version, and error. Tell the administrator
 whether sound, picture, or both failed. Avoid repeatedly restarting a title
 while the server is already reporting a limit.

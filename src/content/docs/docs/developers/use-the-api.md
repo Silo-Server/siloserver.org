@@ -5,7 +5,8 @@ description: Explore the installed server's API and make a read-only request wit
 
 Build new integrations against **/api/v2**. Use the reference served by the
 server you are connecting to, so the documented operations match that build.
-Jellyfin and Audiobookshelf compatibility endpoints have separate contracts.
+Jellyfin and [Audiobookshelf (Beta)](/docs/beta/audiobookshelf) compatibility
+endpoints have separate contracts.
 
 ## Before you start
 

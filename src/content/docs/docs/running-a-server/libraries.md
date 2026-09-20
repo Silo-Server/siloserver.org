@@ -1,6 +1,6 @@
 ---
 title: Add and manage libraries
-description: Add movie, series, or audiobook folders and check their scans.
+description: Add movie or series folders and check their scans.
 ---
 
 Use the web app as a server administrator. A library groups one kind of media and gives it its own folders and metadata settings.
@@ -9,11 +9,15 @@ Use the web app as a server administrator. A library groups one kind of media an
 
 1. [Prepare your folders](/docs/running-a-server/media-folders). In Docker, find the path inside the container, for example `/mnt/media/movies`.
 2. Open **Admin > Libraries** and select **Add Library**.
-3. Enter a name and choose **Movies**, **Series**, or **Audiobooks**. Add the folder under **Folders**. You can add more than one folder for the same type.
+3. Enter a name and choose **Movies** or **Series**. Add the folder under **Folders**. You can add more than one folder for the same type.
 4. Review **Metadata Language** and **Provider Priority**. Keep the providers you want checked and order them from most preferred to least preferred. If an online provider is missing, install and configure its plugin under **Admin > Plugins**.
 5. Save the library. Use its **Scan** action, then watch its scan status.
 
-Open the library in the normal browsing view. Check one title, its poster, and a playable file. For an audiobook, also check the [book's title and chapter order](/docs/running-a-server/audiobook-libraries).
+Open the library in the normal browsing view. Check one title, its poster, and a playable file.
+
+Other types shown by your server are outside the supported 1.0 scope. See
+[Beta libraries](/docs/beta/library-types) or the
+[audiobook setup guide](/docs/beta/audiobook-libraries) before using them.
 
 ## Files are missing
 

@@ -12,7 +12,7 @@ address. They take care of storing and sharing the media.
 
 1. [Choose an app](/docs/get-started/choose-an-app) for your phone, tablet, TV, or browser.
 2. [Sign in to the server](/docs/get-started/join-a-server), or follow the [TV setup guide](/docs/get-started/tv-sign-in).
-3. [Watch a movie or episode](/docs/using-silo/watch-movies-and-series), or [listen to an audiobook](/docs/using-silo/listen-to-audiobooks).
+3. [Watch a movie or episode](/docs/using-silo/watch-movies-and-series).
 
 Your **account** is your sign-in for that server. A **profile** keeps one
 household member's progress and preferences separate from the others. Choose
@@ -47,3 +47,7 @@ helps you choose what to do next.
 These guides cover the [1.0 milestone](https://siloserver.org/milestone/1.0/)
 using current prerelease software. Your installed app may have different
 controls. Keep the app and server versions handy when asking for help.
+
+Movies and series are the 1.0 library types. Audiobooks, ebooks, and other
+features outside the release scope have their own [Beta section](/docs/beta).
+It explains what you can try and which clients have access.

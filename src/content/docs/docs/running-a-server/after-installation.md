@@ -7,7 +7,7 @@ You can use Silo as soon as your first library scans and an item plays. Most adm
 
 ## Step-by-step
 
-If you have not reached playback yet, finish [Install Silo](/docs/get-started/install-silo#5-finish-setup-in-the-browser). Try one movie, episode, or audiobook in the web app, then on the device you expect to use most. Check sound, seeking, and resume.
+If you have not reached playback yet, finish [Install Silo](/docs/get-started/install-silo#5-finish-setup-in-the-browser). Try one movie or episode in the web app, then on the device you expect to use most. Check sound, seeking, and resume.
 
 ## What to decide first
 

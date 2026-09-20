@@ -1,5 +1,5 @@
 ---
-title: Find a movie, series, or audiobook
+title: Find a movie or series
 description: Browse libraries, narrow results, and explore cast and crew.
 ---
 
