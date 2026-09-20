@@ -1,124 +1,73 @@
 ---
 title: Docker deployment reference
-description: Run Silo with the official Docker Compose stack.
+description: Understand the default services, mounts, and optional search service.
 ---
 
-The official [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml)
-runs Silo, PostgreSQL, and Redis on one host. It is the recommended starting point for most
-installs. See the [Quickstart](/docs/get-started/install-silo) for the shortest working setup.
+For a new server, follow [Install Silo](/docs/get-started/install-silo). This reference explains the default stack and where to make later changes.
 
 ## Image and platform support
 
-Silo publishes `ghcr.io/silo-server/silo-server:latest` for x86-64 (`linux/amd64`) and arm64
-(`linux/arm64`) Linux. Docker selects the matching image automatically.
+The image is `ghcr.io/silo-server/silo-server`, built for Linux x86-64 and arm64. `latest` is a moving tag. Record the version and image digest you actually run, especially before reporting a problem or updating.
 
-| Platform | Image | Hardware transcoding |
-| --- | --- | --- |
-| Linux on x86-64 | `amd64` | Optional Intel Quick Sync, VA-API, or NVIDIA NVENC |
-| Linux on arm64 (including Raspberry Pi 4/5) | `arm64` | Software only in the supported Compose path |
-| macOS with Docker Desktop or OrbStack | `arm64` on Apple Silicon, `amd64` on Intel | Software only |
-| Windows with Docker Desktop and WSL 2 | `amd64`, or `arm64` on Windows on ARM | Software only |
-
-The default stack does not assume the host has a GPU, so it starts without `/dev/dri`. A
-Raspberry Pi is well suited to direct play but will struggle with high-bitrate software
-transcoding. On macOS and Windows, Linux containers cannot use the host's native video encoders.
+Use an explicit published tag or digest when you need a repeatable deployment. Read its release notes before changing an existing installation.
 
 ## Default stack
 
-Follow [Install Silo](/docs/get-started/install-silo) to download the files,
-generate credentials, set your media path, and start the stack. This page
-explains its services, mounts, and optional deployment configuration.
-
-The default services are:
-
-| Service | Purpose | Host ports |
+| Service | Role | Default host ports |
 | --- | --- | --- |
-| `silo` | Integrated web, API, scanner, proxy, and transcoder | `8090`, `8096`, `13378` |
-| `postgres` | Durable application data with pgvector | `5432`, bound to host loopback |
-| `redis` | Coordination and cache-style state | `6379`, bound to host loopback |
+| `silo` | Web app, API, scanning, and playback | 8090, 8096, 13378 |
+| `postgres` | Database with pgvector | 5432, host loopback only |
+| `redis` | Shared coordination and cache state | 6379, host loopback only |
 
-The default Silo service mounts:
+Ports 8096 and 13378 serve compatibility clients. Exposing a port and allowing a protocol in Silo settings are separate decisions. See [third-party access](/docs/running-a-server/third-party-access).
 
-- `MEDIA_ROOT` at `MEDIA_CONTAINER_ROOT` (default `/mnt/media`), read-only. Every library type,
-  including audiobooks and ebooks, uses this one media mount.
-- `${SILO_DATA_ROOT}/plugins` for installed plugin artifacts.
-- `${SILO_DATA_ROOT}/compat` for managed compatibility assets.
-- `${SILO_DATA_ROOT}/transcode` for transient transcode output.
-- `${SILO_DATA_ROOT}/catalog-seeds` at `/catalog-seeds`, read-only, for explicit local catalog imports.
-- Host `/proc/meminfo` read-only so automatic PostgreSQL tuning can budget memory against the host.
+The media mount is read-only. Silo's writable directories live below `SILO_DATA_ROOT`, which defaults to `/opt/silo`:
 
-`SILO_DATA_ROOT` defaults to `/opt/silo`. PostgreSQL and Redis also store their data below this
-directory. Back up PostgreSQL and `.env`; Redis and transcode output are disposable.
+| Directory | Contents |
+| --- | --- |
+| `postgres` | PostgreSQL files |
+| `redis` | Redis persistence |
+| `plugins` | Installed plugin files |
+| `artwork` | Local artwork |
+| `compat` | Compatibility assets |
+| `transcode` | Temporary transcode and prepared media output |
+| `catalog-seeds` | Catalog seed inputs, mounted read-only |
+| `meilisearch` | Optional search index |
+
+These mounts are not a complete backup procedure. See [Backups](/docs/running-a-server/backup-restore), particularly if an older install uses SQLite profile storage or other local paths.
 
 ## Optional Meilisearch
 
-Meilisearch is present behind the `search` profile and is not started by default:
+PostgreSQL search works without this service. To add Meilisearch:
 
-```sh
-printf '\nMEILI_MASTER_KEY=%s\n' "$(openssl rand -hex 32)" >> .env
-docker compose --profile search up -d
-```
+1. Generate a key with `openssl rand -hex 32` and set `MEILI_MASTER_KEY` in `.env`. Keep it private.
+2. Start the optional service with `docker compose --profile search up -d`.
+3. Open the server's **Search** settings. Select Meilisearch, enter `http://meilisearch:7700`, and use the same key.
+4. Check the connection, save, and follow the restart instruction.
+5. Rebuild the catalog search index from that page, then test a known title.
 
-Starting the container does not change Silo's search provider. Under **Admin > Settings > Search**,
-choose Meilisearch, use `http://meilisearch:7700`, enter the same key as the API key, test the
-connection, and save. Restart Silo with `docker compose restart silo`, then rebuild the catalog
-search index from the Search page. PostgreSQL full-text search remains the safe default and
-fallback.
+Do not expose port 7700 publicly. Starting the container alone does not switch Silo's search provider.
 
 ## Hardware transcoding on Linux
 
+Use the matching GPU overlay and then test a real transcode. The complete procedure is in [Set up transcoding](/docs/running-a-server/playback).
+
 ### Intel Quick Sync or VA-API
 
-On a Linux host with `/dev/dri`, download and layer the VA-API device overlay:
-
-```sh
-curl -fsSLO https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.vaapi.yml
-docker compose -f docker-compose.yml -f docker-compose.vaapi.yml up -d
-```
-
-To reuse the overlay with ordinary `docker compose` commands, set this in `.env`:
-
-```dotenv
-COMPOSE_FILE=docker-compose.yml:docker-compose.vaapi.yml
-```
+The VA-API overlay passes `/dev/dri` into the container. The host must have a working device and driver.
 
 ### NVIDIA NVENC
 
-Install the NVIDIA driver and NVIDIA Container Toolkit, then download and layer the NVIDIA
-overlay:
-
-```sh
-curl -fsSLO https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.nvidia.yml
-docker compose -f docker-compose.yml -f docker-compose.nvidia.yml up -d
-```
-
-Linux and macOS use `:` between files in `COMPOSE_FILE`; Windows uses `;`.
+The NVIDIA overlay requests a GPU through the NVIDIA container runtime. Install the host driver and toolkit first.
 
 ## PostgreSQL tuning
 
-The stack does not mount a custom `postgresql.conf`. Silo applies pgtune-style OLTP
-recommendations with `ALTER SYSTEM`, which persists them in PostgreSQL's own
-`postgresql.auto.conf`. Reloadable settings take effect immediately; if Silo reports restart-only
-changes, apply them once with:
+The default stack lets Silo apply tuning with `ALTER SYSTEM`. If startup reports settings that need a database restart, schedule that restart while no one is using the server.
 
-```sh
-docker compose restart postgres
-```
-
-Set `POSTGRES_TUNE=off` when an external database administrator owns PostgreSQL tuning.
+Set `POSTGRES_TUNE=off` when a database administrator manages tuning. An external PostgreSQL host may need its own memory and CPU budget; do not size it from the Silo container's host.
 
 ## Distributed examples
 
-The checked-in Compose file includes commented examples for separate proxy and transcode workers.
-Most single-host installations should leave them commented because the integrated `silo` service
-already performs both roles. Multi-host operators can use the examples as a starting point for a
-dedicated worker Compose file connected to shared PostgreSQL and Redis services.
+The Compose file's worker examples are commented out. They require shared services, matching media paths, and addresses reachable from the API and clients. See [Transcode nodes](/docs/running-a-server/transcode-nodes).
 
-## Source notes
-
-- Default stack: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
-- Environment template: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example).
-- Intel/AMD overlay: [`docker-compose.vaapi.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.vaapi.yml).
-- NVIDIA overlay: [`docker-compose.nvidia.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.nvidia.yml).
-- PostgreSQL tuning implementation: [`postgres_tune.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/database/postgres_tune.go).
-- Image build and platforms: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml).
+For external PostgreSQL or Redis, use a reviewed deployment file. The default service's explicit connection settings override values merely added to `.env`; see [configuration](/docs/running-a-server/configuration).

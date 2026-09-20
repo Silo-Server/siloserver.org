@@ -1,65 +1,102 @@
 ---
 title: Report a problem
-description: What to collect when reporting install, playback, or performance issues.
+description: Share the steps, versions, and evidence needed to investigate a Silo problem.
 ---
 
-Good issue reports start with the user workflow and exact reproduction steps.
-
-First check [Find help](/docs/help) for the relevant connection or setup
-guide. If you do not administer the server, ask its operator to collect the
-server-side logs rather than sharing your sign-in credentials.
+Check [Find help](/docs/help) first. If someone else runs your server, ask
+them to check access, scans, and server logs. Never send them your password.
 
 ## Report template
 
+Copy this into a report and fill in the parts you know:
+
 ```text
-Goal:
-Steps:
-Expected:
-Actual:
-What is slow/broken:
-Scope:
-Version/branch:
-Deployment:
-Technical notes:
+What I was trying to do:
+Steps to reproduce:
+Expected result:
+Actual result:
+App, device, and server versions:
+Does it affect one title/profile/device or several?:
+Time of failure and timezone:
+Relevant error or diagnostic report ID:
 ```
 
 ## What to include
 
-- What you were trying to do
-- Exact steps you took
-- What you expected to happen
-- What actually happened
-- The exact action that is slow or broken, such as `save`, `scan`, `browse`, `import`, or `playback`
-- Whether it happens every time or only sometimes
-- The library, media type, filter, setting, or value involved
-- Version, branch, commit, and deployment details if known
-- Screenshots, recordings, or log snippets if relevant
+Use a short sequence someone else can repeat. Name the screen and control
+you used. If only one file fails, include its media type and relevant format
+details without sharing the file or private library information.
 
-If you used Claude, Codex, or another tool for debugging, put that under `Technical notes` after the workflow and reproduction steps.
+File server, web, and library problems in
+[the server repository](https://github.com/Silo-Server/silo-server/issues).
+Use [Apple issues](https://github.com/Silo-Server/silo-apple/issues) or
+[Android issues](https://github.com/Silo-Server/silo-android/issues) for an
+app-specific problem. Search for an existing report before opening another.
+
+Separate what you observed from any theory about the cause. If an AI tool
+helped investigate, disclose that assistance and keep its interpretation
+separate from the original error and logs.
+
+For a suspected security problem, do not post exploit details, credentials,
+or private data in a public issue. Ask the maintainers for a private reporting
+channel first.
+
+## Native app diagnostics
+
+1. Open **Settings > Diagnostics** in the app.
+2. Check who will receive the report: **Silo Diagnostics** or your own Silo server.
+
+On Apple, read the destination's disclosure before choosing **Send Diagnostics
+Now**. That button prepares and uploads the report immediately, without a
+separate review step. The **Ask** setting does not add a confirmation to this
+manual send action.
+
+On Android, choose **Send diagnostics now** to prepare the report and open
+its review screen. Review the information, then send only if you are
+comfortable sharing it.
+
+After sending, include the report ID in your support conversation. Sending
+diagnostics does not create a GitHub issue.
+
+If the destination is unavailable, keep the app version, error, and steps
+instead of repeatedly sending. See [where information goes](/docs/help/privacy)
+for destination and consent choices.
 
 ## Logs
 
-For the default Docker Compose deployment, capture service status and the relevant Silo, PostgreSQL, and Redis logs around the failure:
+Administrators using the default Compose deployment can run these commands
+from the directory containing their Compose file:
 
 ```sh
 docker compose ps
 docker compose logs --since=30m --timestamps silo postgres redis
 ```
 
-For startup failures, always collect Docker stderr. Database connection, migration, startup-tuning, and telemetry-setup errors can occur before the Admin Logs and OTLP handlers are installed. Include the exact failure time and timezone, deployed image tag or commit, and any container health or restart state.
+Capture the time around the failure. Startup errors can occur before Silo's
+admin log screen is available, so container output matters even when that
+screen is empty. Include the image version and any restart or health errors.
 
-For runtime failures, also check Admin > Logs and include any relevant request ID, playback-session ID, component, or node identity. If OpenTelemetry is enabled, collect the same time window from the collector or backend, filtered to `service.name=silo-server` and the affected `service.instance.id`. Include Collector service logs when export itself is failing.
+For a failure after startup, check **Admin > Logs**. A request ID, playback
+session ID, or node name can help the administrator find the matching event.
+See [server logs](/docs/running-a-server/logging) for filtering and retention.
 
-Silo redacts common secret-keyed structured attributes, but redaction is key-based rather than value-based. Review snippets before sharing and remove free-text secrets, tokens, cookies, credentials, and URL query strings. Preserve a sanitized hostname, port, and path shape when they are relevant to reproduction.
-
-See [Logging and telemetry](/docs/running-a-server/logging) for sink behavior, OTLP setup, redaction boundaries, and retention.
+Review every excerpt before posting. Remove tokens, cookies, passwords,
+connection strings, private addresses, and personal media details. Mark
+redactions and leave the surrounding error text intact. Silo's automatic
+redaction does not catch every secret embedded in free text.
 
 ## Autoscan
 
-For preferred Silo Autoscan issues, include the source type, source connection, poll event status, raw source path, path after Silo source rewrites, Silo library root, and any Activity tab error. Most Autoscan failures are path-shape mismatches: the final path must land under one Silo library root.
+Include the source type, the reported file path, its path after rewrites,
+the Silo library root, and the Activity error. Replace private path segments
+consistently so the relationship between those paths is still visible.
 
-For the legacy Jellyfin target, also include the external Autoscan config and the Jellyfin-compatible target URL.
+For the legacy external Autoscan target, include the target protocol and
+a sanitized configuration. Follow [Autoscan checks](/docs/running-a-server/autoscan)
+before reporting a path-mapping problem.
 
 ## Libraries
 
-For library scan issues, include whether the configured root is reachable from inside the Silo container. With default Docker Compose, host paths under `MEDIA_ROOT` are visible to Silo under `MEDIA_CONTAINER_ROOT`, which defaults to `/mnt/media`.
+Say whether the server can read the affected file, not just whether it is
+visible on your computer. For Docker, include the host-to-container path
+mapping with private segments redacted. See [media paths](/docs/running-a-server/media-folders).

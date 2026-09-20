@@ -1,63 +1,43 @@
 ---
-title: Apple TV playback reference
-description: Playback capabilities of the Silo tvOS client — Dolby Vision, HDR, Dolby Atmos, lossless audio, and where the Apple TV platform sets the ceiling.
+title: Check playback on Apple TV
+description: Narrow down picture, audio, or subtitle problems on a TV and receiver setup.
 ---
 
-:::note[Playback reference, not sign-in instructions]
-This existing format reference is being carried forward separately from TV
-setup guidance. It has not been revalidated against named app, tvOS, and
-receiver versions in this documentation pass. Treat the format claims below
-as requiring verification for your setup, not as 1.0 certification.
-:::
-
-Silo for tvOS is a first-party client for Apple TV 4K, built for direct play: video and audio are served to the system player in their original form whenever the platform can handle them, with no server-side transcoding required.
-
-This page describes what the client plays back and — just as important — where the limits are the Apple TV platform itself, not Silo.
+Start with [TV sign-in](/docs/get-started/tv-sign-in) if you have not connected
+Silo yet. For playback trouble, test one known title before changing several
+TV or receiver settings at once.
 
 ## Video
 
-| Format | Support |
-| --- | --- |
-| HEVC / H.264 | Direct play |
-| Dolby Vision Profile 5 | Direct play |
-| Dolby Vision Profile 8 (HDR10 / HLG base) | Direct play |
-| Dolby Vision Profile 7 (Blu-ray remux) | Played as Profile 8.1 (base layer + dynamic metadata; the enhancement layer is not used) |
-| HDR10, HDR10+, HLG | Direct play (HDR10+ dynamic metadata is passed through) |
-| VP9, AV1, legacy codecs | Played through a software decode path |
+Open a movie or episode and check the selected version before playing.
+If one version fails, try another available version and note the difference.
+Record the Apple TV model, Silo version, source format, and whether the
+picture is absent, incorrectly colored, or stuttering.
 
-Dolby Vision output can be toggled in playback settings (on by default); with it off, DV content falls back to HDR10.
+HDR and Dolby Vision depend on the complete playback path. A label on the
+file alone cannot prove what reaches the television. Avoid using a broad
+codec checklist as a guarantee for a particular file or HDMI setup.
 
 ## Audio and Dolby Atmos
 
-The most common question: **does Silo do Atmos passthrough like a Shield?** The honest answer is that *no* Apple TV app does bitstream passthrough — the platform doesn't allow it. The Apple TV always decodes audio and re-emits it over HDMI, either as LPCM or, for Atmos, as **Dolby MAT 2.0** (a carrier that preserves the spatial object metadata). Your receiver will show "Dolby Atmos", never "Dolby TrueHD".
-
-Within that platform ceiling, Silo delivers everything that is technically possible:
-
-| Source audio | What you get with Silo | Anything lost? Whose limit? |
-| --- | --- | --- |
-| Dolby Digital Plus Atmos (E-AC-3 JOC) | **Full Dolby Atmos.** The stream is passed to the system untouched with correct Atmos signalling; tvOS outputs it as Dolby MAT | **Nothing lost.** This *is* the maximum any tvOS app can deliver |
-| TrueHD Atmos (lossless, Blu-ray remux) | 7.1 lossless bed as PCM; the Atmos object metadata is dropped | **Atmos objects lost — platform ceiling.** tvOS has no TrueHD decoder, no bitstream path, and no way to author MAT. Lossless Atmos is impossible for every Apple TV app |
-| DD+ Atmos companion track (present in most remuxes alongside TrueHD) | Select it to get real (lossy) Atmos — usually the better spatial experience | **Nothing lost vs. any other tvOS app** — this is the standard tvOS workaround, fully supported |
-| DTS-HD MA / DTS:X | Decoded multichannel bed as PCM; no DTS:X objects | **DTS:X objects lost — platform ceiling.** tvOS has no DTS output path at all; no app can do better |
-| AC-3 / plain DD+ 5.1 (no Atmos) | Direct play — decoded on-device and output as 5.1 LPCM (see note below) | **Nothing lost.** Full source quality |
-| Atmos on AirPods / spatial audio | Works via the system spatializer | **Nothing lost.** Full platform support |
-
-Read the last column top to bottom and the pattern is the point: **Silo delivers 100% of what the Apple TV hardware allows.** Where something is missing (lossless Atmos, DTS:X objects), it's a tvOS platform ceiling that applies equally to every app on the box — Infuse, Plex, and everything else included.
-
-**Why does my receiver show "PCM 5.1" instead of "Dolby Digital"?** Because the Apple TV decodes Dolby audio on-device and sends uncompressed multichannel LPCM over HDMI. This is a lossless decode of the lossy source — the receiver gets exactly the same 5.1 audio it would have produced by decoding the bitstream itself, so no quality is lost; only the badge changes. Every Apple TV app outputs non-Atmos surround this way. If you'd rather see "Dolby Digital" on the receiver, set **Settings → Video and Audio → Audio Format → Change Format** to **Dolby Digital 5.1** — but note that forcing that format disables Atmos output, so leave it off if you play Atmos content.
-
-If lossless Atmos or DTS:X bitstreaming matters to you, that requires different hardware (an Nvidia Shield, HTPC, or Blu-ray player) — no client-side work can change it on Apple TV.
-
-**Tip:** for Blu-ray remuxes that carry both TrueHD Atmos and a DD+ Atmos track, pick the DD+ track on Apple TV. You trade the lossless bed for actual Atmos object rendering, which most setups will prefer.
+Open the audio selector and try another track if sound is missing. Confirm
+that the TV or receiver is using the intended output. Record the track's
+codec and what the receiver actually reports, rather than assuming an Atmos
+label in metadata means Atmos output is active.
 
 ## Subtitles
 
-Text subtitles (SRT/ASS with full styling via libass) and image-based subtitles (PGS, DVD) render on-device, including inside Dolby Vision playback. Subtitle appearance is configurable and follows the system accessibility settings by default.
+Choose an existing subtitle track in Silo's subtitle selector. Try another
+track if the first is missing or unreadable. Report its format and language
+with the file version; text and image subtitles can behave differently.
 
 ## Receiver checklist
 
-If Atmos content plays but your receiver doesn't show "Dolby Atmos":
+1. Confirm the same title plays in another Silo client.
+2. Check the selected version and audio track on Apple TV.
+3. Note the TV and receiver models and how they are connected.
+4. Report the observed picture/audio result and any player error.
 
-1. On the Apple TV, check **Settings → Video and Audio → Audio Format** — "Change Format" should be **off** (or explicitly set to Atmos).
-2. Confirm the Apple TV is connected to an eARC/HDMI input that supports Atmos, and the receiver's HDMI mode is set to "Enhanced" where applicable.
-3. Verify the title's selected audio track is actually the Atmos one (look for "Atmos" or "JOC" in the track name in the player's audio menu).
+Your administrator can check whether the server converted the stream.
+[Report the problem](/docs/help/report-a-problem) with those details instead
+of posting a private media file.

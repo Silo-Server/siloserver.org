@@ -1,97 +1,64 @@
 ---
-title: Configuration reference
-description: The initial configuration values Silo operators should know.
+title: Server configuration and dependencies
+description: Know which settings belong in Docker and which belong in the admin app.
 ---
 
-The default Docker path keeps environment configuration small. Set the media path, start the stack, and finish most setup in the admin UI.
+The default installation needs only a few environment values. Libraries, providers, accounts, and most day-to-day settings live in the admin web app.
 
-## Environment values
+## Environment configuration
 
-`MEDIA_ROOT`
-: Host path mounted into the Silo container as `/mnt/media`.
+| Value | What it controls |
+| --- | --- |
+| `MEDIA_ROOT` | Media directory on the Docker host |
+| `MEDIA_CONTAINER_ROOT` | Where that directory appears inside Silo |
+| `SILO_DATA_ROOT` | Host directory for the default service data mounts |
+| `SILO_IMAGE` | Server image tag or digest |
+| `POSTGRES_PASSWORD` | Initial bundled database password |
+| `SECRET_KEY` | Key used to protect stored credentials |
 
-`MEDIA_CONTAINER_ROOT`
-: Container path where Silo sees `MEDIA_ROOT`. New installs can keep `/mnt/media`.
-
-`SILO_DATA_ROOT`
-: Host path for PostgreSQL, Redis, plugin cache, transcode output, and catalog seed bind mounts. The default is `/opt/silo`.
-
-`SECRET_KEY`
-: Required master key for credentials encrypted by Silo. Generate it with `openssl rand -base64 48` and back it up separately from PostgreSQL.
-
-`DATABASE_URL`
-: PostgreSQL connection string. Required when running from source or against external PostgreSQL. The default Compose stack wires this automatically.
-
-`REDIS_URL`
-: Redis connection string. The default Compose stack wires this automatically.
-
-`PORT`, `JF_PORT`, and `ABS_PORT`
-: Optional host port overrides for the web app, Jellyfin-compatible endpoint, and Audiobookshelf-compatible endpoint. The container listeners stay fixed at `8080`, `8096`, and `13378`.
-
-`MEILI_MASTER_KEY`
-: Required only when starting the optional Compose `search` profile. Generate it with `openssl rand -hex 32`, then configure the same key under Admin > Settings > Search.
-
-`MODE`
-: Optional server mode. The default Compose service runs `integrated`.
-
-```dotenv
-MEDIA_ROOT=/srv/media
-MEDIA_CONTAINER_ROOT=/mnt/media
-SILO_DATA_ROOT=/opt/silo
-SILO_IMAGE=ghcr.io/silo-server/silo-server:latest
-POSTGRES_USER=silo
-POSTGRES_PASSWORD=replace-with-output-of-openssl-rand-hex-24
-POSTGRES_DB=silo
-SECRET_KEY=replace-with-output-of-openssl-rand-base64-48
-```
-
-## Data layout
-
-The deploy-oriented Compose files use bind mounts instead of Docker-managed volumes. By default, Silo stores service data under `/opt/silo`:
-
-- `/opt/silo/postgres`
-- `/opt/silo/redis`
-- `/opt/silo/plugins`
-- `/opt/silo/compat`
-- `/opt/silo/transcode`
-- `/opt/silo/catalog-seeds`
-
-The optional Meilisearch profile adds `/opt/silo/meilisearch`.
-
-Movies, series, music, audiobooks, and ebooks all use the single `MEDIA_ROOT` mount. There is no
-separate books mount.
+Changing `POSTGRES_PASSWORD` in an existing `.env` does not rotate the password already stored by PostgreSQL. Changing `SECRET_KEY` can make existing encrypted credentials unreadable. Treat both as maintenance operations, not troubleshooting toggles.
 
 ## Admin-managed settings
 
-After bootstrap, most settings live in the admin UI and server settings database, not in `.env`.
+Sign in as an admin and open **Admin > Settings**. Change one relevant group, save, and follow any restart notice. Some values apply live; others require a restart.
 
-Use the setup wizard for the first pass through account, profile, server, integrations, downloads, recommendations, library, and optional nodes. Afterward, use Admin Settings for the broader settings surface, including Search when you run optional Meilisearch.
+Environment-managed values may appear locked in the UI. For example, `SILO_TRUSTED_PROXIES` overrides the stored trusted-proxy setting on startup. Pick one owner for the value rather than editing it in both places.
+
+## External PostgreSQL and Redis
+
+The beginner stack runs both services locally. For an external deployment:
+
+1. Prepare PostgreSQL with pgvector and a dedicated Silo database and user. Use the versions supported by your chosen server build.
+2. Configure network access and TLS for the database connection.
+3. Set the Silo service's `DATABASE_URL` to that database. Set `REDIS_URL` to the chosen Redis service.
+4. Remove the bundled database/Redis services and their `depends_on` requirements from the deployment if they are no longer used.
+5. Validate the effective Compose file, start the server, and check readiness and logs.
+
+Use `docker compose config --quiet` for a check that does not print secrets. The full `docker compose config` output expands passwords and keys; never paste it into a public report.
+
+The default Compose file explicitly sets `DATABASE_URL` and `REDIS_URL` in the service's `environment`. Adding different values only to `.env` does not replace those entries.
+
+PostgreSQL is required. Source configuration permits integrated/API mode without Redis, while separate proxy and transcode modes require it. The standard walkthrough always includes Redis; do not remove it from a working deployment as a space-saving step.
+
+## Data layout
+
+Review [Storage and capacity](/docs/running-a-server/s3-storage) before changing paths. A path in the container needs a corresponding persistent mount on the host.
 
 ## PostgreSQL tuning
 
-The default stack does not use a checked-in `postgresql.conf`. Silo applies automatic PostgreSQL
-recommendations through `ALTER SYSTEM`. Set `POSTGRES_TUNE=off` if you manage database tuning
-yourself.
-
-## Logging
-
-Silo writes runtime logs to stderr and to the database-backed Admin > Logs view. Optional OpenTelemetry export can send the runtime stream to an OTLP collector or vendor backend without replacing either built-in destination.
-
-See [Logging and telemetry](/docs/running-a-server/logging) for log controls, redaction limits, retention, a working local Collector example, and the current tracing limitations.
+Set `POSTGRES_TUNE=off` if the database is managed externally or you own its tuning. Keep schema upgrades and PostgreSQL major-version upgrades as separate, planned changes.
 
 ## Server modes
 
-| Mode | Description |
+| Mode | Purpose |
 | --- | --- |
-| `integrated` | Full server: API, frontend, scanner, and transcode. This is the default. |
-| `api` | API server only, with no local transcoding. |
-| `proxy` | Stream proxy node connected to shared PostgreSQL and Redis. |
-| `transcode` | HLS transcode worker connected to shared PostgreSQL and Redis. |
+| `integrated` | Default single-host server |
+| `api` | API host without local transcoding |
+| `proxy` | Remote streaming proxy |
+| `transcode` | Remote conversion worker |
 
-## Source notes
+Separate workers need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/running-a-server/transcode-nodes).
 
-- `.env` defaults and environment variables: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example).
-- Compose bind mounts and default service environment: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
-- Source-run configuration and server modes: [`README.md`](https://github.com/Silo-Server/silo-server/blob/main/README.md).
-- Wizard step order: [`useWizardSteps.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/useWizardSteps.ts#L28-L78).
-- Admin settings tabs: [`adminSettingsSearch.ts`](https://github.com/Silo-Server/silo-server/blob/main/web/src/lib/adminSettingsSearch.ts#L42-L503).
+## Logging
+
+Start with [Admin logs and container logs](/docs/running-a-server/logging). Add metrics or external telemetry only when you have a monitoring destination to receive them.

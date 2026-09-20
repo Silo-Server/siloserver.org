@@ -1,70 +1,38 @@
 ---
 title: Requirements and installation options
-description: Supported ways to install and run Silo.
+description: Choose a server, storage, and deployment before installing Silo.
 ---
 
-Docker Compose is the recommended installation path. It gives Silo a consistent environment and
-starts the required PostgreSQL and Redis services from one checked-in Compose file.
+If someone has already invited you to their Silo server, you only need to [connect an app](/docs/get-started/choose-an-app). Install a server when you want to manage your own media and accounts.
 
-## Requirements
+## Choose a starting point
 
-- [Docker Engine](https://docs.docker.com/engine/install/) on Linux, or [Docker Desktop](https://docs.docker.com/desktop/) on macOS or Windows
-- Docker Compose 2.24 or newer, included with current Docker Desktop releases or available as the [Compose plugin](https://docs.docker.com/compose/install/linux/) on Linux
-- A host directory containing your media
-- OpenSSL to generate Silo's credential-encryption key
+Use the [Docker Compose walkthrough](/docs/get-started/install-silo) for a new single-host installation. It runs the web app, API, scanner, and transcoder together, with PostgreSQL and Redis beside them.
 
-Confirm Docker and Compose are ready:
+The published Linux container targets x86-64 and arm64. A Linux host is the path covered by the walkthrough. Docker on macOS or Windows adds file-sharing and networking differences; Linux GPU instructions do not apply unchanged. Native host builds and multi-host deployments belong to the [server repository](https://github.com/Silo-Server/silo-server), not the beginner install path.
 
-```sh
-docker --version
-docker compose version
-```
+## What the host needs
 
-## Recommended: Docker Compose
+- Docker with Compose 2.24 or newer and permission to run containers.
+- A mounted directory of media files that the container can read.
+- Persistent storage for PostgreSQL, artwork, and other server state.
+- Free temporary space for transcodes and prepared downloads.
+- Network access to your clients and to any metadata or other providers you choose.
 
-The default stack includes:
+There is no measured minimum RAM, CPU, or stream-count promise in this guide. Direct playback uses much less processing than converting video. Test your actual files and expected simultaneous viewers before choosing a small host for everyone.
 
-- Silo and FFmpeg
-- PostgreSQL 18 with pgvector
-- Redis
-- Optional Meilisearch through the `search` profile
+## Do I need a GPU?
 
-Follow the [Quickstart](/docs/get-started/install-silo) to download `docker-compose.yml`, create `.env`, set the
-media path and encryption key, and run `docker compose up -d`. No `postgresql.conf` or separate
-database setup is required.
+Start without one if your clients can play your files directly. A GPU can reduce the CPU load when Silo must convert video for a client or a lower quality setting. Hardware support depends on the host, driver, container access, and file format. See [Set up transcoding](/docs/running-a-server/playback) before buying hardware for that purpose.
 
-The Silo image is published for x86-64 (`linux/amd64`) and arm64 (`linux/arm64`) Linux. Docker
-selects the correct image automatically. The default Compose stack is CPU-safe; hardware
-transcoding is enabled with a Linux-only overlay described in [Docker deployment](/docs/running-a-server/docker).
+## Decide where artwork will live
 
-## Existing infrastructure
+Local disk is the simplest choice for one server and needs no cloud account. S3-compatible storage is useful when hosts need to share artwork. Chapter thumbnail generation still requires public asset S3 storage in the current implementation.
 
-If you already operate PostgreSQL and Redis, run only the Silo service and point it at your
-existing `DATABASE_URL` and `REDIS_URL`. External PostgreSQL must include pgvector. If its database
-user cannot run `ALTER SYSTEM`, set `POSTGRES_TUNE=off` and manage PostgreSQL tuning yourself.
+Choose before the first library scan. Once Silo writes artwork, its storage location locks; changing a setting does not migrate the files. See [Storage and capacity](/docs/running-a-server/s3-storage).
 
-## Build from source
+## Existing or advanced installations
 
-Source builds are intended for contributors and custom deployments. They require:
+Keep a working server on its existing data paths until you have a tested [backup and recovery plan](/docs/running-a-server/backup-restore). Read [Updates](/docs/running-a-server/updates) before changing versions.
 
-- Go 1.26.4+
-- Node.js 22+ with pnpm 10.32.1
-- PostgreSQL 18+ with pgvector
-- Redis
-- FFmpeg
-
-```sh
-make build
-./silo
-```
-
-Source runs require `DATABASE_URL` and `SECRET_KEY`. See the server repository's
-[`README.md`](https://github.com/Silo-Server/silo-server#build-from-source) for the current build
-workflow.
-
-## Source notes
-
-- Compose services and image: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
-- Environment defaults: [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example).
-- Image platform matrix: [`docker.yml`](https://github.com/Silo-Server/silo-server/blob/main/.github/workflows/docker.yml).
-- Go toolchain: [`go.mod`](https://github.com/Silo-Server/silo-server/blob/main/go.mod).
+External PostgreSQL or Redis, separate [transcode nodes](/docs/running-a-server/transcode-nodes), and optional search are later choices. None is a required detour before your first playback test.

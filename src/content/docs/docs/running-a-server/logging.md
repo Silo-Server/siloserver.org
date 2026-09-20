@@ -1,146 +1,48 @@
 ---
-title: View and manage logs
-description: View, export, redact, and retain Silo logs.
+title: Logs and monitoring
+description: Find errors, limit retained logs, and add private monitoring when needed.
 ---
 
-Silo provides two built-in log destinations and an optional OpenTelemetry export path:
-
-- **stderr** for `docker compose logs`, journald, or another process supervisor
-- **Admin > Logs** through Silo's operational-log (`opslog`) database pipeline
-- **OTLP** for an external collector or observability backend when explicitly enabled
-
-OpenTelemetry export is default-off. Without OpenTelemetry configuration, Silo continues to use stderr and `opslog` only.
-
-Some database connection, migration, and startup-tuning messages are emitted before the runtime handlers are installed. These early-boot records go to stderr only, even when OTLP export is enabled, and do not appear under Admin > Logs.
+Use **Admin > Logs** for searchable runtime records. Use container logs when Silo fails before the web app becomes available.
 
 ## Viewing logs
 
-For the default Docker Compose deployment, follow the live stderr stream with:
+From the default Compose directory:
 
 ```sh
-docker compose logs --follow --timestamps silo
+docker compose logs --tail 100 --timestamps silo
 ```
 
-Use Admin > Logs to search retained runtime records by message text, request ID, component, or playback-session ID. Admin Settings > Log Retention controls how long this database-backed history is kept.
+Add `--follow` to watch new records as you reproduce a problem; press Ctrl+C to stop watching. This does not stop Silo.
+
+In **Admin > Logs**, search around the failure time by message, component, request ID, or playback-session ID. Early database and migration messages can appear only in container output, before the admin log pipeline starts.
 
 ## Log controls
 
-| Setting | Effect | Default | Applying changes |
-| --- | --- | --- | --- |
-| `server.log_level` | Minimum level for stderr and OTLP export. Accepts `debug`, `info`, `warn`, or `error`. | `info` | live reload |
-| `server.log_format` | stderr format. Use `text` or `json`; this does not change OTLP encoding. | `text` | restart required |
-| `server.log_quiet` | Comma-separated message prefixes to suppress from stderr and OTLP, such as `metadata,scanner`. | empty | live reload |
-| `opslog.capture_level` | Minimum level stored by `opslog` and shown under Admin > Logs. | `info` | restart required |
+Under **Admin > Settings > General**, adjust the log level only as needed. Return to the normal level after collecting a short diagnostic sample.
 
-`server.log_level` and `opslog.capture_level` are separate thresholds. This lets an operator keep a different amount of local searchable history than is sent to the console and collector. Quiet-prefix filtering applies to stderr and OTLP; `opslog` uses its own capture threshold.
-
-## OpenTelemetry export
-
-Telemetry turns on when either `SILO_OTEL_ENABLED` is truthy or `OTEL_EXPORTER_OTLP_ENDPOINT` is set.
-
-Signal-specific endpoint variables such as `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` do not enable telemetry by themselves. Setting `SILO_OTEL_ENABLED` to a false value also does not override a configured generic endpoint; leave both enablement inputs unset to keep telemetry off.
-
-| Variable | Purpose | Default |
+| Setting | Effect | Change takes effect |
 | --- | --- | --- |
-| `SILO_OTEL_ENABLED` | Explicit enable flag. Truthy values are `1`, `true`, `yes`, and `on`. | off |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | OTLP collector or vendor endpoint. Setting it also enables telemetry. | unset |
-| `OTEL_EXPORTER_OTLP_PROTOCOL` | Exporter protocol: `grpc` or `http/protobuf`. | `grpc` |
-| `OTEL_EXPORTER_OTLP_TRACES_PROTOCOL` | Optional trace-specific protocol override. | generic protocol |
-| `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL` | Optional log-specific protocol override. | generic protocol |
-| `OTEL_SERVICE_NAME` | OpenTelemetry `service.name` resource attribute. | `silo-server` |
-| `OTEL_SERVICE_VERSION` | OpenTelemetry `service.version` resource attribute. | unset |
-| `OTEL_TRACES_SAMPLER` | `always_on`, `always_off`, `traceidratio`, `parentbased_always_on`, `parentbased_always_off`, or `parentbased_traceidratio`. Unsupported values fall back to the default. | `parentbased_traceidratio` |
-| `OTEL_TRACES_SAMPLER_ARG` | Sampling ratio for ratio-based samplers. Invalid values use the default; values above `1` are clamped to `1`. | `1.0` |
+| `server.log_level` | stderr and OTLP minimum level | Live |
+| `server.log_format` | Text or JSON on stderr | After restart |
+| `server.log_quiet` | Suppressed message prefixes on stderr and OTLP | Live |
+| `opslog.capture_level` | Minimum level retained in Admin Logs | After restart |
 
-Silo also honors the standard resource and exporter environment variables read by the OpenTelemetry SDK, including `OTEL_RESOURCE_ATTRIBUTES`, headers, TLS options, and per-signal endpoints. The Silo node identity is exported as `service.instance.id`, allowing multiple nodes to share one `service.name` while remaining distinguishable in the backend. Silo resolves that identity from `SILO_NODE_NAME`, then `NODE_NAME`, then the hostname.
-
-Setting only `SILO_OTEL_ENABLED` uses the SDK's default local endpoint, which is usually not useful inside Docker. Configure `OTEL_EXPORTER_OTLP_ENDPOINT` for normal deployments; the generic endpoint enables telemetry without also setting the Silo flag.
-
-### Local Collector example
-
-Add this Compose override beside the existing deployment:
-
-```yaml title="docker-compose.override.yml"
-services:
-  otel-collector:
-    image: otel/opentelemetry-collector:latest
-    command: ["--config=/etc/otelcol/config.yaml"]
-    volumes:
-      - ./otelcol.yaml:/etc/otelcol/config.yaml:ro
-
-  silo:
-    environment:
-      SILO_OTEL_ENABLED: "1"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
-```
-
-Use this minimal Collector configuration:
-
-```yaml title="otelcol.yaml"
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
-
-exporters:
-  debug:
-    verbosity: detailed
-
-service:
-  pipelines:
-    logs:
-      receivers: [otlp]
-      exporters: [debug]
-    traces:
-      receivers: [otlp]
-      exporters: [debug]
-```
-
-Recreate the services after changing the environment, then watch the Collector output:
-
-```sh
-docker compose up -d --force-recreate silo otel-collector
-docker compose logs --follow --timestamps otel-collector
-```
-
-The `http://` scheme is required for the plaintext Collector in this example. The debug exporter only prints received data and does not retain it. Pin the Collector image to a release tag and replace the debug exporter with a durable backend before using this setup in production.
-
-For a secured collector or vendor endpoint, use its HTTPS endpoint and configure the standard OTLP certificate, client-certificate, header, or authentication environment variables it requires.
-
-### Failure behavior
-
-OpenTelemetry setup and export are best-effort. An unreachable collector does not delay or crash startup. Unsupported sampler and protocol values fall back to documented defaults. Exporter setup errors are reported to stderr; when telemetry setup returns an error, Silo disables both OTLP signals and continues running. Runtime export failures do not interrupt the stderr or `opslog` paths, but buffered telemetry is held only in process memory and can be lost.
-
-### Tracing and metrics
-
-The current implementation installs an OTLP trace provider and W3C trace-context propagation, but it does not yet create detailed spans for HTTP requests, PostgreSQL, Redis, plugins, scanning, or playback. A working collector may therefore receive logs without a useful request trace tree.
-
-Metrics remain on the Prometheus `/metrics` endpoint. Silo does not install an OpenTelemetry meter provider.
+The admin log threshold is separate from the console threshold. Raising one does not necessarily increase the other.
 
 ## Redaction
 
-Silo masks secret-keyed structured attributes before they reach stderr, OTLP, or `opslog`. Key matching is case-insensitive and substring-based. Keys containing `password`, `secret`, `token`, `api_key`, `apikey`, `authorization`, or `cookie` are emitted as `[REDACTED]`. This also covers attributes attached to a logger, nested groups, and secret-named group trees.
+Silo masks secret-named structured fields, including password, token, authorization, and cookie attributes. It does not recognize every secret inside arbitrary message text.
 
-:::caution
-Redaction is key-based, not value-based. Silo does not scan free-text messages or values stored under unrelated keys, so avoid logging secrets in message text or under generic names such as `value` or `message`. Review log excerpts before sharing them publicly.
-
-Redaction applies only to records that pass through Silo's structured logger. Early-boot output, plugin process output, and third-party output that bypasses that handler chain must be reviewed separately.
-:::
+Read an excerpt before sharing it. Remove account details, private paths or titles, and any credentials. Early-boot output and third-party/plugin output need the same review. Follow [Report a problem](/docs/help/report-a-problem) for a useful, safe report.
 
 ## Retention and rotation
 
-Silo does not write or rotate its own log files. Retention belongs to the system that owns each destination:
+Configure database-backed log retention in **Admin > Settings > Storage & Database**, under **Logs**. Container-log retention belongs to Docker, not to that setting.
 
-- **Docker stderr:** configure the container runtime's log driver to limit local disk use. These logs are tied to the container and are not the durable history to rely on across container replacement.
-- **OTLP:** configure retention in the collector or backend. This is the durable, searchable path for history outside Silo, for example Loki for logs and Tempo for traces.
-- **Admin > Logs:** Silo stores operational logs in PostgreSQL and prunes them according to Admin Settings > Log Retention, including global and per-component limits.
+For Docker's `json-file` driver, a Compose override can cap local logs:
 
-To rotate Docker's default `json-file` logs, add this to the `silo` service:
-
-```yaml title="docker-compose.override.yml"
+```yaml
 services:
   silo:
     logging:
@@ -150,10 +52,37 @@ services:
         max-file: "5"
 ```
 
-## Source notes
+Merge this into an existing override rather than replacing it. Validate the configuration and apply it during a quiet period; replacing the container interrupts playback.
 
-- OpenTelemetry operator behavior and limitations: [`observability.md`](https://github.com/Silo-Server/silo-server/blob/main/docs/architecture/observability.md#L12-L205).
-- Telemetry environment parsing: [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/telemetry/config.go#L91-L168).
-- Telemetry bootstrap and failure behavior: [`telemetry.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/telemetry/telemetry.go#L43-L118) and [`main.go`](https://github.com/Silo-Server/silo-server/blob/main/cmd/silo/main.go#L555-L593).
-- Runtime log settings and reload behavior: [`db_loader.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/db_loader.go#L153-L158), [`restart_keys.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/restart_keys.go#L15-L21), and [`main.go`](https://github.com/Silo-Server/silo-server/blob/main/cmd/silo/main.go#L693-L698).
-- Secret redaction across log sinks: [`redact.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/logredact/redact.go#L18-L160) and [`handler.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/opslog/handler.go#L178-L193).
+## Health and metrics
+
+The application exposes `/api/v1/health` and `/api/v1/ready`. [Readiness can be degraded](/docs/running-a-server/server-health#check-startup) even with HTTP 200.
+
+Prometheus metrics use a separate, opt-in listener. Set `SILO_METRICS_LISTEN` only when you have a private collector. Its `/metrics` route has no application authentication; do not publish or reverse-proxy it to the internet. The normal application listener does not serve metrics.
+
+For a local process, `SILO_METRICS_LISTEN=127.0.0.1:9091` restricts the listener to that machine. Inside Docker, loopback belongs to the container; your collector must have an intentional private route to it.
+
+## OpenTelemetry export
+
+External export is optional. Leave `SILO_OTEL_ENABLED` and `OTEL_EXPORTER_OTLP_ENDPOINT` unset to keep it off.
+
+To send logs to an existing collector, set its endpoint and transport in the Silo environment, then recreate the container:
+
+```dotenv
+OTEL_EXPORTER_OTLP_ENDPOINT=https://collector.example.com
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Replace the example with your collector's address and configure its required authentication and certificates. Setting the generic endpoint turns export on even if `SILO_OTEL_ENABLED` is false. Per-signal endpoint variables alone do not turn it on.
+
+### Local Collector example
+
+Use your collector's own deployment guide for a local receiver. Give the Silo container a reachable private hostname; `localhost` inside Silo does not refer to a collector in another container. Keep authentication material out of shared Compose snippets.
+
+### Failure behavior
+
+Export is best-effort. Collector failure does not replace or disable the built-in stderr and admin log destinations. Buffered export data can be lost, so use collector-side retention for history you need to keep.
+
+### Tracing and metrics
+
+The current telemetry setup does not provide a complete request trace through the database, providers, scanning, and playback. Receiving logs at the collector does not prove those detailed spans exist. Prometheus metrics remain on their separate listener.

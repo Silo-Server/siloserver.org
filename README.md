@@ -74,9 +74,10 @@ guide instead of repeating its setup steps. Old published paths are retained
 in `src/data/docs-redirects.mjs`; update internal links to canonical paths.
 Run `bun run test:docs` and `bun run build` when changing this structure.
 
-See [the organization notes](docs/documentation-organization.md) for this
-first pass's page moves, intentionally retained prerelease content, and
-remaining writing/verification gaps.
+See [the manual review](docs/review-manual-integration.md) for source revisions,
+executed checks, and procedures still awaiting hands-on validation. The
+[feature map](docs/manual-feature-coverage.md) links the 35 milestone features
+to their guide sources. A mapped page is not a completed acceptance check.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site

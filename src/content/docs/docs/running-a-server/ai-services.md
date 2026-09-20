@@ -1,89 +1,39 @@
 ---
 title: Configure AI services
-description: Configure server endpoints for subtitle translation, audio transcription, and description translation.
+description: Connect text and speech models, set limits, and test one subtitle or description job.
 ---
 
-This guide is for administrators configuring AI services, not viewers
-choosing a subtitle track. Provider/model recommendations, prices, and
-performance estimates below are carried forward from the earlier guide and
-need checking against current provider documentation before use.
+Silo uses a text model to translate subtitles and descriptions. Creating subtitles from audio needs a speech-to-text model. You can configure either one without configuring the other.
 
-Silo's AI features are configured under Admin > Settings > AI Services:
+Before using a hosted model, check its charges and data policy. Translation sends text to the configured endpoint; transcription sends audio. Use media you have permission to process.
 
-- Subtitle translation: translate any text subtitle track from the player ("Translate with AI"). The finished track is stored server-side and served to every client.
-- Subtitle generation from audio: Whisper transcription for media with no usable text subtitles, including bitmap-only releases. `transcribe_translate` chains transcription into translation for any target language.
-- Description translation: overviews and taglines translated into the localization tables — from the metadata editor, automatically per library after metadata refreshes, or on demand when a viewer's profile language differs from the catalog ("on-view translation").
+## Connect a text model
 
-All jobs run once on the server. Generated subtitles are ordinary downloaded tracks and translated descriptions are ordinary localizations, so every client (web, Android, Apple, Jellyfin-compat) receives them with no client configuration.
+1. Open **Admin > Settings > AI Services**.
+2. In the text model card, choose a preset or enter **Base URL**, **Model**, and **API key** for a compatible service.
+3. Choose **Test text model** and read the result. This test uses the values currently entered, including unsaved changes.
+4. Turn on **Translate subtitles**, **Translate descriptions**, or both.
+5. Save and follow any restart notice. Test one short translation before using it across a library.
 
-## Endpoint configuration
+For descriptions, **Description translation for viewers** controls whether viewers get a translate button or automatic translation. Keep it off if only administrators should request this work.
 
-Two endpoints, configured independently:
+## Connect speech-to-text
 
-Chat endpoint (Base URL, Chat model, API Key)
-: Used for all translation (subtitles and descriptions). Any OpenAI-compatible chat completions API works: OpenRouter, OpenAI, Groq, a local Ollama/llama.cpp server.
+1. In the speech-to-text card, choose a preset or enter its **Base URL**, **Model**, and **API key**.
+2. Choose **Test speech-to-text**. The endpoint must return the timed segments Silo needs to make subtitles.
+3. Turn on **Create subtitles from audio**, save, and follow any restart notice.
+4. Try one short item in the web player. Wait for the job to finish, select the new subtitle track, and check the language and timing.
 
-Transcription endpoint (Transcription base URL, model, API key)
-: Used for subtitle generation from audio. Must implement `/v1/audio/transcriptions` with `response_format=verbose_json` segment timestamps — subtitles are built from those timestamps. Chat-only gateways (OpenRouter included) cannot transcribe; Silo rejects them in settings and disables transcription if the fallback would land on one. When blank, the chat Base URL is used.
+A chat connection test does not test transcription. If the speech URL is blank, Silo can fall back to the text endpoint; use the speech test to check whether that endpoint actually accepts audio.
 
-Max concurrent jobs is one shared cap across all AI features, so the endpoint never sees more parallel work than you allow.
+## Limit cost and server load
 
-## Recommended providers
+Under **Server-wide tuning**, set **Jobs running at once** before inviting more people to use AI features. Under **Per-account limits**, choose a transcription allowance and reset interval.
 
-### Translation (chat)
+Start with the default batch and audio-request sizes. Change them only when the provider reports a request-size or rate-limit problem. A failed job is not a reason to remove every limit.
 
-Recommended: `google/gemini-3.1-flash-lite` via OpenRouter.
+Generated subtitle tracks are saved on the server and can be used by other viewers who have access to that item. Selecting a track remains a personal choice. Manage saved files under [Subtitle Files](/docs/running-a-server/subtitle-providers#inspect-saved-tracks).
 
-- Base URL: `https://openrouter.ai/api`
-- Chat model: `google/gemini-3.1-flash-lite`
+## A test or job fails
 
-Fast, inexpensive, and strong across language pairs including non-Latin scripts. Any mid-tier or better model works; very small local models (7–8B) produce stilted output in languages like Arabic and break the batch format more often. Descriptions and subtitles are translated in batches with retries, so occasional malformed responses are tolerated.
-
-### Transcription (Whisper)
-
-Recommended: self-hosted [speaches](https://github.com/speaches-ai/speaches) running `deepdml/faster-whisper-large-v3-turbo-ct2` — private, free, no rate limits. The "Self-hosted" preset in AI Services fills the model; point the URL at your server. Any modern GPU transcribes a feature film in minutes; CPU-only runs at roughly realtime and suits background jobs.
-
-```yaml
-services:
-  speaches:
-    image: ghcr.io/speaches-ai/speaches:latest-cuda # or latest-cpu
-    restart: unless-stopped
-    gpus: all # omit on CPU
-    ports:
-      - "8000:8000"
-    volumes:
-      - speaches-models:/home/ubuntu/.cache/huggingface
-
-volumes:
-  speaches-models:
-```
-
-Download the model once and verify the endpoint returns timed segments:
-
-```bash
-curl -X POST "http://<host>:8000/v1/models/deepdml%2Ffaster-whisper-large-v3-turbo-ct2"
-curl -s http://<host>:8000/v1/audio/transcriptions \
-  -F file=@sample.wav \
-  -F model=deepdml/faster-whisper-large-v3-turbo-ct2 \
-  -F response_format=verbose_json
-```
-
-The response must contain a `segments` array. Then set the Transcription base URL to `http://<host>:8000` and the model to `deepdml/faster-whisper-large-v3-turbo-ct2`.
-
-Hosted fallbacks, in order:
-
-| Provider | Model | Notes |
-| --- | --- | --- |
-| Groq | `whisper-large-v3-turbo` | Base URL `https://api.groq.com/openai`. Free tier covers about two audio-hours per clock hour (roughly one film per hour); paid is $0.04 per audio-hour. |
-| OpenAI | `whisper-1` | Base URL `https://api.openai.com`. Use `whisper-1` specifically — newer OpenAI transcription models do not return the segment timestamps Silo requires. |
-
-## Feature toggles
-
-Subtitle translation, transcription, and description translation are enabled independently in AI Services. Two further controls for descriptions:
-
-- Per-library auto-translate (library settings): when metadata providers have no localization for the library's language, translate descriptions after each refresh.
-- On-view translation (`off`, `button`, `auto`): lets viewers request descriptions in their profile's metadata language from detail pages — a Translate button, or automatic with a brief loading animation. Duplicate requests collapse into one job and failed targets cool down for 15 minutes.
-
-Profiles choose a preferred metadata language under Settings > Playback. Provider metadata always outranks AI translations: a later provider refresh replaces AI text, never the reverse, and manual edits are never overwritten.
-
-Settings changes take effect after a server restart.
+Check the named model, base URL, credential, and provider response. A successful connection test does not check a full film, every language, or provider quota. Keep the original track available and inspect the result before relying on generated text.

@@ -1,28 +1,70 @@
 ---
 title: Find help
-description: Find the relevant connection, library, playback, and diagnostic guidance.
+description: Check common connection, sign-in, library, and playback problems.
 ---
 
-Start with the action that is failing. If someone else runs your server, ask
-them to help with server settings and logs rather than changing your device
-settings at random.
+Start with the problem you can see. If someone else runs your server, ask
+them before changing server settings or removing a saved connection.
 
-| Problem | Where to start |
+## Cannot connect or sign in
+
+1. Open the server address in a browser on the same device, where possible.
+   If it does not load, check the address with the administrator. A working
+   internet connection does not mean the server is reachable.
+2. Confirm you are using the Silo address for a Silo app. Jellyfin and
+   Audiobookshelf apps need [their own connection addresses](/docs/running-a-server/third-party-access).
+3. If the server opens but sign-in fails, check the account name and password.
+   An account password and a profile PIN are different. Ask the administrator
+   for help with a forgotten password; do not share it in a bug report.
+
+Follow [Join a server](/docs/get-started/join-a-server) for the full sign-in
+steps. If access works at home but fails elsewhere, the administrator needs
+to check [remote access](/docs/running-a-server/reverse-proxy).
+
+## A TV does not appear on your phone
+
+Keep both apps open on the same local network. Check local-network permission
+on the phone or tablet. Guest Wi-Fi can keep devices apart even when the
+network names look similar.
+
+For a TV awaiting its first sign-in, use [TV setup](/docs/get-started/tv-sign-in).
+For a TV already signed in, use [the TV remote guide](/docs/using-silo/tv-remote).
+The two tasks use different screens.
+
+## A title or library is missing
+
+Check that you selected the right server and profile. Search for the title
+without filters. If someone else can see it, ask the administrator to check
+[your access](/docs/running-a-server/access).
+
+Administrators should check [library scans and paths](/docs/running-a-server/libraries)
+before changing metadata. A scan that cannot read a file cannot add it.
+
+## Playback will not start or keeps stopping
+
+Try one other title and note whether the problem affects every title or just
+one file. Check whether the same title plays in another Silo app. Keep the
+time of the failure and the chosen audio, subtitle, and quality settings.
+
+Use the [playback guide](/docs/using-silo/watch-movies-and-series) to check
+those choices. The administrator can inspect
+[active playback](/docs/running-a-server/active-playback) and
+[server health](/docs/running-a-server/server-health). Avoid repeatedly
+changing several settings at once; it makes the failing condition harder to find.
+
+## Other problems
+
+| Problem | Guide |
 | --- | --- |
-| A Jellyfin-compatible app rejects your sign-in | [Profile and PIN checks](/docs/using-silo/jellyfin-apps#if-it-says-your-username-or-password-is-wrong) |
-| An Audiobookshelf-compatible app cannot connect | [Connection address and sign-in](/docs/using-silo/audiobookshelf-apps#endpoint) |
-| Notifications do not arrive | [Notification checks](/docs/using-silo/notifications#if-notifications-do-not-arrive) |
-| A library does not find your files | [Server-visible paths](/docs/running-a-server/media-folders#library-paths) |
-| Autoscan does not pick up a change | [Autoscan troubleshooting](/docs/running-a-server/autoscan#troubleshooting) |
-| Silo fails during startup | [Collect startup logs](/docs/help/report-a-problem#logs) |
-| You need retained server logs | [View and manage logs](/docs/running-a-server/logging) |
-| An app works locally but not from outside your network | Ask the administrator to review [endpoint and proxy configuration](/docs/running-a-server/third-party-access#external-access) |
+| Wrong or missing subtitles | [Choose subtitles](/docs/using-silo/subtitles) or [find a missing track](/docs/using-silo/missing-subtitles) |
+| An offline item will not play | [Downloads](/docs/using-silo/downloads) |
+| Progress or watched status looks wrong | [Watch history and resume](/docs/using-silo/watch-history) |
+| A setting changes on another device | [Profile preferences and device overrides](/docs/using-silo/preferences) |
+| Notifications do not arrive | [Notifications](/docs/using-silo/notifications) |
+| A library does not notice new files | [Autoscan](/docs/running-a-server/autoscan) |
+| The server fails to start | [Server health](/docs/running-a-server/server-health) and [startup logs](/docs/help/report-a-problem#logs) |
 
 ## If the guide does not solve it
 
-[Report a problem](/docs/help/report-a-problem) with the steps you took, the
-result, and the affected app/server versions. Remove secrets and personal
-information from screenshots and logs before sharing them.
-
-If the problem is with the instructions themselves, you can
-[suggest a documentation correction](/docs/help/improve-the-docs).
+[Report the problem](/docs/help/report-a-problem) with the steps you took and
+the result. If a step in the guide is wrong, [suggest a correction](/docs/help/improve-the-docs).

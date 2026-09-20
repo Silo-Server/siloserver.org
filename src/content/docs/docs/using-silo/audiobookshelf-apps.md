@@ -1,62 +1,54 @@
 ---
 title: Connect an Audiobookshelf-compatible app
-description: Connect an Audiobookshelf-compatible listening app to your Silo server.
+description: Connect a dedicated listening app to Silo's audiobook endpoint.
 ---
 
-Use this guide to connect a listening app that expects an Audiobookshelf
-server. Ask your administrator for the Audiobookshelf-compatible address and
-your Silo sign-in details. Server operators should start with
-[Enable third-party client access](/docs/running-a-server/third-party-access).
+Ask the administrator for the Audiobookshelf-compatible address and your
+Silo credentials. This address may differ from both the Silo web address
+and its Jellyfin-compatible address.
 
 ## Endpoint
 
-The default Docker stack exposes the Audiobookshelf-compatible endpoint at:
+1. In your listening app, add an Audiobookshelf server using the supplied address.
+2. Enter your Silo username and account password.
+3. Sign in, open an audiobook library, and play a familiar book.
+4. Pause and reopen it to check that progress belongs to the intended profile.
 
-```text
-http://localhost:13378
-```
+A plain username selects the account's primary profile. To choose another
+profile, enter `username#profile`, for example `sam#Alex`, with the ordinary
+account password. Unlike Jellyfin compatibility, do not append `#PIN` to
+the password here.
 
-On another device, replace this local example with the address your
-administrator provides. `localhost` means the device you are using, not a
-different machine running Silo. Do not assume the Silo web address is also
-the correct compatibility address.
-
-Sign in with your Silo username and password. Tokens are issued by Silo for this endpoint specifically: access tokens last 24 hours and clients refresh them automatically.
+The current Audiobookshelf sign-in path does not enforce a separate profile
+PIN. Ask the administrator whether this connection is appropriate for an
+account with protected household profiles.
 
 ## Clients
 
-See the [app directory](/docs/get-started/choose-an-app#audiobookshelf-compatible-clients)
-for client links. Check the exact app and server versions when testing;
-protocol compatibility is not a guarantee that every app feature works.
+Use an app that offers an Audiobookshelf server connection. App features,
+token refresh, and offline playback can differ between releases; this guide
+does not certify a particular third-party app build.
 
 ## What works
 
-- Browsing libraries, authors, series, and search
-- Streaming and downloading for offline listening
-- Listening progress sync, Continue Listening, and listening stats
-- Chapters, bookmarks, collections, playlists, and smart collections
-- Personalized library shelves
-- RSS feeds for individual books
+Start by checking library browsing, book playback, chapters, and resumed
+progress. Test an offline download before depending on it away from home.
+The third-party app controls its own download storage and playback interface.
 
 ## Scope
 
-The compatibility layer covers the audiobook surface of the Audiobookshelf API. Some areas are intentionally stubbed for now:
-
-- Podcast endpoints return empty results; podcast libraries are not served here yet.
-- Ebook reading endpoints are stubs; ebook support is outside the 1.0 release scope.
-- Send-to-ereader delivery is unavailable.
-
-When reporting compatibility issues, include the client name and version, the endpoint URL shape you used, the screen or action that failed, and whether the same flow works in the Silo web app.
+This connection serves audiobooks. Podcast and ebook workflows are outside
+the 1.0 manual. For playback without a third-party app, use
+[Silo's audiobook player](/docs/using-silo/listen-to-audiobooks).
 
 ## Reverse Proxy
 
-Use the Audiobookshelf-compatible HTTPS address your administrator provides.
-Hostname and port setup belongs in the administrator's
-[external-access instructions](/docs/running-a-server/third-party-access#external-access).
+Use the reachable HTTPS address your administrator supplies, not a local
+port copied from a server tutorial. Operators can configure
+[third-party access](/docs/running-a-server/third-party-access).
 
 ## Source notes
 
-- Default port in Compose: [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml).
-- Listener default and enable flag: [`db_loader.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/db_loader.go#L361-L369).
-- Route surface and client notes: [`handler.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/audiobooks/abs/handler.go).
-- Token lifetimes and login settings: [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/audiobooks/config.go).
+If sign-in fails, check the account in Silo's web app, then confirm the
+compatibility address and profile name. Report the client and server versions
+without sharing passwords or tokens.

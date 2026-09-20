@@ -1,125 +1,66 @@
 ---
-title: S3 storage reference
-description: Public asset and private internal S3-compatible storage.
+title: Storage, artwork, and capacity
+description: Choose local or S3 artwork storage and know which data must persist.
 ---
 
-Silo supports S3-compatible object storage for generated and operational assets. It is not a media library path backend.
+Your media files remain on mounted filesystems. Artwork and generated assets have their own storage settings. An S3 bucket cannot be entered as a library folder.
 
-:::caution[Storage setup needs a version check]
-This existing S3 reference does not cover all current local-artwork storage
-behavior or migration restrictions. Check the server's
-[artwork-storage guide](https://github.com/Silo-Server/silo-server/blob/main/docs/wiki/admin/artwork-storage.md)
-for the version you run before changing backends or paths. The provider
-recommendations and pricing below were last checked in June 2026.
+## Choose artwork storage
+
+Before the first library scan, open **Admin > Settings > Storage & Database** and review **Artwork storage**:
+
+- **Local disk** stores artwork on the server. Persist the displayed path; the default Compose stack mounts `/var/lib/silo/artwork`.
+- **S3** uses the public storage bucket. This is useful when multiple hosts need the same artwork.
+- **Automatic** uses public S3 when configured, otherwise local disk.
+
+Save and follow the restart notice. For a single host, local disk is enough to get started.
+
+:::caution[The location locks after the first write]
+After Silo stores artwork, it locks the backend and storage identity. That includes the local path or the S3 endpoint, bucket, and key prefix. Silo does not move existing files when you change storage. Do not clear the identity record in the database as a shortcut.
 :::
 
 ## Buckets
 
-Public Assets
-: Client-facing assets such as artwork, chapter thumbnails, and subtitle files. The bucket does not need to be public. Most installs should keep it private and use S3 presigned URLs.
+**Public storage** holds client-facing assets. The word “public” describes their use, not a requirement to make the bucket readable by everyone.
 
-Private Internal
-: Non-public Silo objects such as imports, exports, and internal artifacts.
+**Private storage** holds server-side objects including profile avatars, diagnostics bundles, and catalog seed artifacts. Keep it separate from public assets.
+
+If you choose S3 artwork and want custom profile-avatar uploads, configure
+private S3 too. Public S3 alone does not provide storage for those uploads.
+
+## Set up S3
+
+You need a bucket and credentials from your S3 provider before completing these steps.
+
+1. Open **Admin > Settings > Storage & Database**.
+2. In the relevant storage group, enter the endpoint, region, bucket, access key, and secret key. Set path-style addressing as required by your provider.
+3. For public storage, keep **Signed links (recommended)** unless you have deliberately configured another access method.
+4. Run the connection check, save, and follow any restart notice.
+5. Check an actual uploaded image or generated asset from a client on the network that will use it.
+
+A successful server-side bucket check does not prove a remote client can reach the generated URL.
 
 ## Public vs private
 
-Recommended default: private bucket plus `S3 Presigned URLs`.
+Signed links let clients fetch an asset without making the entire bucket public. **Anyone with the link** requires an intentionally public read endpoint. **Cloudflare signed token** requires separate edge-side token validation; selecting it in Silo does not configure Cloudflare for you.
 
-Use `Public (no auth)` only when the bucket or custom read endpoint is intentionally public. Use `Cloudflare Token Auth` when you want direct CDN/object access through Cloudflare with URL-level token validation.
+Keep keys out of screenshots and support reports.
 
 ## Core settings
 
-Both public asset and private internal buckets use the same core S3 fields:
-
-| Field | Notes |
-| --- | --- |
-| Endpoint | S3 API endpoint, such as `https://s3.amazonaws.com` or a provider endpoint |
-| Region | Defaults to `us-east-1` if blank in the S3 client |
-| Path Style | Defaults to enabled in Silo settings; commonly needed for non-AWS providers |
-| Bucket | Bucket name |
-| Key Prefix | Optional prefix for Silo objects |
-| Access Key | S3 access key |
-| Secret Key | S3 secret key |
-
-Public asset storage also supports:
-
-| Field | Notes |
-| --- | --- |
-| URL Auth Method | `presigned`, `public`, or `cloudflare_token` |
-| Read Endpoint | Custom public/CDN endpoint for public or token-auth reads |
-| Token Secret | HMAC secret for Cloudflare token auth |
-| Token Param | Query parameter name, defaulting to `verify` |
-| Token TTL | Token lifetime in seconds, defaulting to `10800` |
+The endpoint, region, bucket, key prefix, and path-style setting identify where objects are stored. A read endpoint can point clients at a separate public/CDN hostname. Use your provider's exact values; a browser's bucket-management URL is not its S3 API endpoint.
 
 ## When to configure it
 
-For a basic first install, you can leave S3 blank.
+Local artwork works without S3. Chapter thumbnail generation currently requires public asset S3 storage. Check that requirement before enabling thumbnails for a library.
 
-Configure public asset S3 before enabling image caching or chapter thumbnails. Library creation rejects chapter thumbnails when public asset S3 is not configured.
+Custom profile avatars use private S3 when configured. Without private S3,
+they use the local artwork store only when artwork is stored locally; the
+default Compose artwork mount also preserves these uploads. With S3 artwork
+and no private S3, custom avatar uploads are unavailable.
 
-Configure private internal S3 when you want Silo imports, exports, and internal artifacts stored in object storage instead of only local/server-managed storage.
+## Space and persistence
 
-## Recommended providers
+Keep database, artwork, and plugin data on persistent storage. Leave room for transcode scratch and prepared downloads; their disk use can grow while people watch or download media.
 
-Public asset storage is a hot, read-heavy workload: posters, artwork, thumbnails, and subtitles are served directly to clients. Prioritize low-latency reads, predictable egress cost, and an easy CDN path before optimizing for the lowest storage-only price.
-
-| Provider | Best fit | Why it is a good Silo fit | Watch for |
-| --- | --- | --- | --- |
-| [Garage](https://github.com/deuxfleurs-org/garage) | Preferred self-hosted option | Open-source S3-compatible object storage designed for small-to-medium self-hosted clusters, including multi-node and multi-site setups | You own uptime, backups, TLS, monitoring, network bandwidth, and external client latency |
-| [Cloudflare R2](https://developers.cloudflare.com/r2/pricing/) | Default public asset choice for many internet-facing installs | No internet egress fees, low storage cost, Cloudflare custom-domain/CDN path, and common S3-compatible tooling | Very high poster traffic can still create Class B request costs, so estimate GET volume |
-| [Backblaze B2](https://www.backblaze.com/cloud-storage/pricing) | Low-cost storage with a CDN in front | Cheap hot storage, 3x monthly egress included, and unlimited free egress through CDN/compute partners such as Cloudflare, Fastly, bunny.net, and Vultr | Put a CDN in front for heavy poster traffic; direct egress beyond the included allowance is billed |
-| [Hetzner Object Storage](https://docs.hetzner.com/storage/object-storage/overview/) | Low-cost EU-hosted public or private buckets | S3-compatible storage with a base quota that includes storage and egress, plus no charge for S3 operations such as `PUT`, `GET`, or `DELETE` | Available regions are currently EU-only; test performance before relying on it for remote public poster traffic |
-
-Because Silo is primarily self-hosted software, `Garage` is the preferred provider when you want to keep public assets on infrastructure you operate. For hosted object storage, start with `Cloudflare R2`, `Backblaze B2` behind a CDN, or `Hetzner Object Storage`, then test real poster and thumbnail load times from the networks your users actually use.
-
-Other S3-compatible providers can still work for some deployments, but they are not the strongest default recommendations here. The usual reasons are higher public traffic cost, minimum retention or minimum spend rules, newer/less-proven S3 behavior, or mixed community reports.
-
-## Example: private public-assets bucket
-
-```text
-Public Assets
-Endpoint: https://s3.amazonaws.com
-Region: us-east-1
-Path Style: match your provider
-Bucket: silo-assets
-Key Prefix: production
-URL Auth Method: S3 Presigned URLs (Recommended)
-```
-
-## Example: Cloudflare R2 public assets
-
-```text
-Public Assets
-Endpoint: https://<account_id>.r2.cloudflarestorage.com
-Path Style: enabled
-Bucket: silo-assets
-URL Auth Method: S3 Presigned URLs (Recommended)
-```
-
-Use `Public (no auth)` or `Cloudflare Token Auth` only when you have configured a custom read endpoint and want clients to read through that endpoint directly.
-
-## Example: Garage public assets
-
-```text
-Public Assets
-Endpoint: https://s3.example.net
-Region: garage
-Path Style: enabled
-Bucket: silo-assets
-Key Prefix: production
-URL Auth Method: S3 Presigned URLs (Recommended)
-```
-
-Use a reverse proxy or CDN in front of Garage if clients will reach it over the public internet. Keep latency and available upstream bandwidth in mind: a local object store can be very fast for LAN clients, but remote users will feel your home or datacenter uplink.
-
-## Source notes
-
-- Public/private storage tabs and recommendation text: [`StorageSettings.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/admin-settings/StorageSettings.tsx#L140-L165) and [`StorageSettings.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/admin-settings/StorageSettings.tsx#L215-L323).
-- Setup wizard S3 descriptions: [`ServerStorageStep.tsx`](https://github.com/Silo-Server/silo-server/blob/main/web/src/pages/setup-wizard/steps/ServerStorageStep.tsx#L355-L481).
-- S3 config fields: [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/config.go#L30-L58) and [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/config.go#L60-L108).
-- Default path-style and metadata presign expiry: [`config.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/config.go#L334-L352).
-- DB-backed S3 settings loader: [`db_loader.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/config/db_loader.go#L154-L205).
-- S3 client region, endpoint, path-style, and URL auth behavior: [`client.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/s3client/client.go#L31-L53), [`client.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/s3client/client.go#L78-L95), and [`client.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/s3client/client.go#L220-L315).
-- Existing server S3 setup notes: [`docs/s3-storage-setup.md`](https://github.com/Silo-Server/silo-server/blob/main/docs/s3-storage-setup.md#L1-L43).
-- Chapter thumbnails require public asset S3 when enabled: [`libraries.go`](https://github.com/Silo-Server/silo-server/blob/main/internal/api/handlers/libraries.go#L524-L526).
-- Provider pricing and behavior references, checked June 6, 2026: [Garage](https://github.com/deuxfleurs-org/garage), [Cloudflare R2 pricing](https://developers.cloudflare.com/r2/pricing/), [Backblaze B2 pricing](https://www.backblaze.com/cloud-storage/pricing), [Hetzner Object Storage overview](https://docs.hetzner.com/storage/object-storage/overview/), and [Hetzner Object Storage pricing](https://www.hetzner.com/storage/object-storage/).
+Monitor the actual host and mounted volumes. A container restart is not a backup, and a mounted directory is not safe if the underlying disk is failing. Use the [backup inventory](/docs/running-a-server/backup-restore) before adding users.

@@ -1,5 +1,9 @@
 # Public documentation organization
 
+This records the earlier page-move pass. The later task-guide rewrite and
+its current verification gaps are described in
+[the manual review](review-manual-integration.md).
+
 This first organization pass starts from website `main` at `d48e19e` and the
 September 19 content plan, including its later authoring-platform additions.
 It reorganizes existing material; it does not certify product behavior.

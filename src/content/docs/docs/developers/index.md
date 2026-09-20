@@ -1,43 +1,43 @@
 ---
-title: Developer and integration resources
-description: Find the repositories and technical documentation for Silo integrations, plugins, and code contributions.
+title: Build with Silo
+description: Start an API integration, build a plugin, or find the code repository for your change.
 ---
 
-Use these resources when building something that works with Silo. To connect
-an existing app instead, follow the
+Choose the task you want to work on:
+
+- [Make your first API request](/docs/developers/use-the-api) to read data from a server.
+- [Open the API reference](/docs/developers/api-reference) for operation schemas and requirements.
+- [Build a plugin](/docs/developers/build-a-plugin) to add a server capability.
+
+To connect an existing player, use the
 [Jellyfin](/docs/using-silo/jellyfin-apps) or
-[Audiobookshelf](/docs/using-silo/audiobookshelf-apps) connection guide.
+[Audiobookshelf](/docs/using-silo/audiobookshelf-apps) guide instead.
 
 ## Server and API
 
 The [server repository](https://github.com/Silo-Server/silo-server) owns the
-server, web app, and API implementation. Start with its README and technical
-documentation for build requirements and API work. The
-[1.0 milestone](https://siloserver.org/milestone/1.0/) describes the planned public API contract;
-check the contract for the server version you are targeting rather than
-assuming a route on the development branch is a release guarantee.
+backend, web app, native API, and compatibility endpoints. Read its README
+and contribution guide before changing code. Build and test instructions
+stay there so they can change with the implementation.
 
 ## Plugins
 
-- [Plugin SDK](https://github.com/Silo-Server/silo-plugin-sdk): authoring tools
-  and the plugin contract.
-- [Plugin catalog](https://github.com/Silo-Server/silo-plugins): distribution
-  metadata for available plugins.
-
-Follow the SDK's current documentation when implementing a capability. Use
-the owning plugin repository for its setup and implementation details.
+The [SDK](https://github.com/Silo-Server/silo-plugin-sdk) owns the plugin
+contract. Individual plugins own their provider behavior.
+The [catalog](https://github.com/Silo-Server/silo-plugins) lists distributed
+plugins; a catalog entry and a plugin binary are separate contributions.
 
 ## Native apps
 
-- [Silo Apple](https://github.com/Silo-Server/silo-apple).
-- [Silo Android](https://github.com/Silo-Server/silo-android).
+Use [Silo Apple](https://github.com/Silo-Server/silo-apple) for iPhone, iPad,
+and Apple TV changes, or [Silo Android](https://github.com/Silo-Server/silo-android)
+for Android phone, tablet, and TV changes.
 
-Each repository maintains its own build and contribution instructions. An
-API change can affect several clients; review the corresponding client use
-before treating a server-only change as complete.
+Reproduce an app problem on the affected form factor before changing shared
+code. A phone build does not test TV focus or remote input.
 
 ## Website and documentation
 
-The [website repository](https://github.com/Silo-Server/siloserver.org) owns
-this public manual. See [Improve these docs](/docs/help/improve-the-docs) for
-small corrections, writing guidance, and the preview workflow.
+This manual lives in the [website repository](https://github.com/Silo-Server/siloserver.org).
+Follow [Improve these docs](/docs/help/improve-the-docs) to correct a guide
+without building an app or learning the website framework.

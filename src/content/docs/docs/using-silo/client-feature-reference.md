@@ -1,119 +1,63 @@
 ---
-title: Client feature reference
-description: Feature-by-feature comparison of the Silo web app, Apple and Android clients, and the Jellyfin compatibility layer.
+title: Apps and playback limits
+description: Choose the right interface and understand why a title can behave differently between devices.
 ---
 
-:::caution[Earlier development snapshot]
-This table predates the current documentation reorganization and has not
-been revalidated against named server and app builds. Its broad Apple and
-Android columns do not distinguish phones, tablets, and TVs. Do not use it
-as the 1.0 acceptance record or assume every entry describes your version.
-The [milestone](https://siloserver.org/milestone/1.0/) records planned scope, not test results.
-:::
-
-The earlier comparison uses the following status values:
-
-Status values:
-
-- **Yes** — implemented and working
-- **Partial** — implemented with limitations (noted inline)
-- **No** — not yet available on that client
-- **—** — not applicable, or intentionally out of scope
-
-The **Jellyfin compat** column describes what the [compatibility API](/docs/using-silo/jellyfin-apps) supports. Actual behavior also depends on the third-party client you use — see [clients](/docs/get-started/choose-an-app) for verified apps.
+The [app directory](/docs/get-started/choose-an-app) links to installation
+instructions. The [1.0 milestone](https://siloserver.org/milestone/1.0/)
+defines the release target. Use each task guide for the interface it covers;
+a phone, tablet, TV, and browser do not have identical controls.
 
 ## Media types
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Movies | Yes | Yes | Yes | Yes |
-| TV series, seasons, episodes | Yes | Yes | Yes | Yes |
-| Audiobooks | Yes | Yes | No | — served via the [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps) |
-| eBooks (EPUB, PDF, comics) | Yes | No | No | — |
-| Podcasts | No | No | No | — Audiobookshelf-compatible endpoint |
+The 1.0 manual covers movies, series, and audiobooks. Start with
+[video playback](/docs/using-silo/watch-movies-and-series) or
+[audiobook listening](/docs/using-silo/listen-to-audiobooks).
+Ebooks and podcasts are outside this manual's 1.0 scope.
 
 ## Playback
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Direct play | Yes | Yes | Yes | Yes |
-| Remux and HLS transcode | Yes | Yes | Yes | Yes (HLS only) |
-| Quality selection | Yes | Yes | Yes | Yes |
-| Audio track selection | Yes | Yes | Yes | Yes |
-| Subtitle track selection | Yes | Yes | Yes | Yes |
-| Subtitle appearance settings | Yes | Yes | Yes | — client-side |
-| Subtitle search and download | Yes | No | No | Partial — serves already-downloaded subtitles |
-| AI subtitle translation and transcription | Yes | No | No | No |
-| Chapters | Yes | Yes | Partial | Yes |
-| Intro and credits skip | Yes | Yes | Yes | Yes (media segments) |
-| Trickplay seek previews | Partial — chapter thumbnails on the seek bar | No | No | No |
-| Next-episode autoplay | Yes | Yes | Yes | Yes (client-dependent) |
-| Playback speed control | Partial — audiobook player only | Yes | Yes | — client-side |
-| Sleep timer | Yes | Partial — audiobooks only | Yes | — client-side |
-| Picture-in-picture | Yes | No | No | — client-side |
-| Watch Together | Yes | No | No | No |
-| HDR playback | Yes | Yes, incl. Dolby Vision profile 7 fallback | Yes, incl. refresh-rate matching | Yes |
-| File version and edition selection | Yes | Yes | Yes | Yes |
+A title's usable video, audio, and subtitle formats depend on the device,
+app version, selected file, and server. Silo may send the file directly,
+change its container, or convert a track. Higher source quality does not
+guarantee that every device can play it unchanged.
+
+For a reproducible playback report, record the file version, app and server
+versions, device model, chosen tracks, and what failed. HDR and surround
+audio reports also need the TV, receiver, and connection arrangement.
 
 ## Browse and discovery
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Server-driven home sections | Yes | Yes | Yes | Partial — latest and resume rows only |
-| Continue watching | Yes | Yes | Yes | Yes |
-| Next up | Yes | Yes | Partial | Yes |
-| Search | Yes | Yes | Yes | Yes |
-| Filters and sorting | Yes | Partial — genre and sort | Yes — full filters on mobile, genre and sort on TV | Partial |
-| Collections | Yes | Yes | Yes | Yes (as box sets) |
-| Creating and editing collections | Yes | No | No | No |
-| Cast and person pages | Yes | Yes | Yes | Yes |
-| Recommendations | Yes | Yes | Yes | Partial |
-| Calendar and upcoming | Yes | Yes | No | Partial — per-series upcoming only |
+[Find a title](/docs/using-silo/find-something),
+[explore Home](/docs/using-silo/home-and-calendar), or
+[open collections](/docs/using-silo/collections). The procedures name their
+interface instead of claiming a full-feature match across clients.
 
 ## User features
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Watchlist | Yes | Yes | Yes | No |
-| Favorites | Yes | Yes | Yes | Yes |
-| Mark watched / unwatched | Yes | Yes | Yes | Yes |
-| Watch history view | Yes | Yes | Yes | No |
-| Personal ratings | Yes | No | No | No |
-| Cross-device resume | Yes | Yes | Yes | Yes |
-| Profiles | Yes | Partial — editing not yet available | Yes | Partial — sign in as `username#profile` |
-| Profile PIN protection | Yes | Yes | Yes | Yes — append the PIN as `password#pin` |
-| Media requests | Yes | No | No | No |
-| [Notifications](/docs/running-a-server/notifications) inbox | Yes | No | No | No |
-| Notification settings (web push, email, Discord, webhooks) | Yes | No | No | No |
+Use the web app for the documented [history import](/docs/using-silo/import-watch-history),
+[request](/docs/using-silo/requests), and account-management procedures.
+Your active profile controls personal progress and preferences.
 
 ## Sign-in
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Username and password | Yes | Yes | Yes | Yes |
-| Device link (QR code) | Yes | Yes | No | No |
-| OAuth providers | Yes | No | No | No |
-| Multiple servers | — | Yes | Yes | — client-side |
+[Join a server](/docs/get-started/join-a-server) or
+[set up a TV](/docs/get-started/tv-sign-in). Third-party apps use their
+[Jellyfin](/docs/using-silo/jellyfin-apps) or
+[Audiobookshelf](/docs/using-silo/audiobookshelf-apps) connection instructions.
 
 ## Downloads and offline
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Direct file download | Yes | No | No | Yes |
-| Offline downloads and playback | — | No (planned) | No (planned) | No |
+Follow [phone and tablet downloads](/docs/using-silo/downloads). A file
+download in a browser is not the same as an app-managed offline library.
 
 ## Administration
 
-| Feature | Web | Apple | Android | Jellyfin compat |
-| --- | --- | --- | --- | --- |
-| Stats dashboard | Yes | Yes | Yes | No |
-| User management | Yes | No | No | No |
-| Library management and scans | Yes | No | No | Partial — autoscan webhook |
-| Metadata editing and identification | Yes | No | No | No |
-| Sessions, activity, and logs | Yes | Partial | No | No |
-| Tasks, plugins, nodes, and settings | Yes | No | No | No |
+The administration instructions use the server's web interface. Having a
+native app does not mean every server setting is available there.
 
 ## Notes
 
-- The Jellyfin compatibility layer is intentionally scoped to movies and TV. Audiobooks and podcasts are served through the [Audiobookshelf-compatible endpoint](/docs/using-silo/audiobookshelf-apps) instead.
-- If your client behaves differently, include the app and server versions when [reporting a problem](/docs/help/report-a-problem).
+There is no release-certified third-party app matrix in this manual yet.
+Keep app/build-specific test results with a [problem report](/docs/help/report-a-problem)
+instead of treating protocol support as proof of full compatibility.
