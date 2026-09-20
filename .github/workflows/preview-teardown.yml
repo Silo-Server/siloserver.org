@@ -42,7 +42,7 @@ jobs:
           if [ -n "$PR_BRANCH" ]; then
             filter='.result[] | select((.deployment_trigger.metadata.branch // "") == $b) | .id'
           else
-            filter='.result[] | select(((.deployment_trigger.metadata.branch // "") | startswith("pr-")) and ((.created_on | fromdateiso8601) < (now - ($days | tonumber) * 86400))) | .id'
+            filter='.result[] | select(((.deployment_trigger.metadata.branch // "") | startswith("pr-")) and ((.created_on | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601) < (now - ($days | tonumber) * 86400))) | .id'
           fi
 
           : > ids.txt
@@ -58,7 +58,6 @@ jobs:
             [ "$count" -eq 0 ] && break
             jq -r --arg b "$PR_BRANCH" --arg days "$MAX_AGE_DAYS" "$filter" <<<"$resp" >> ids.txt
             page=$((page + 1))
-            [ "$page" -gt 100 ] && break
           done
 
           total="$(wc -l < ids.txt | tr -d ' ')"
@@ -67,6 +66,7 @@ jobs:
             exit 0
           fi
           echo "Deleting ${total} preview deployment(s)."
+          failed=0
           while read -r id; do
             [ -n "$id" ] || continue
             out="$(curl -sS -X DELETE -H "Authorization: Bearer ${CF_API_TOKEN}" \
@@ -75,8 +75,10 @@ jobs:
               echo "  deleted ${id}"
             else
               echo "  FAILED ${id}: $(jq -c '.errors' <<<"$out")" >&2
+              failed=1
             fi
           done < ids.txt
+          exit "$failed"
 
       - name: Update the pull request comment
         if: github.event_name == 'pull_request_target'

@@ -130,7 +130,7 @@ comment on the pull request with the URL:
 https://pr-<number>.temp-siloserver-org.pages.dev
 ```
 
-The alias always points at the latest push. Previews show an orange banner
+The alias is updated after a successful build and deployment. Previews show an orange banner
 linking back to the pull request, carry `noindex`, and are deleted by
 `preview-teardown.yml` when the pull request is merged or closed (plus a weekly
 sweep of anything older than 30 days).
@@ -138,7 +138,9 @@ sweep of anything older than 30 days).
 The split into two workflows is deliberate: `pr-build.yml` runs contributor
 code, including from forks, with no secrets and no write permissions.
 `preview-deploy.yml` holds the Cloudflare token but never checks out or
-executes pull request code; it only uploads the built artifact. Keep it that
+executes pull request code. It checks out deployment tooling from the trusted
+workflow commit and installs Wrangler with its committed npm lockfile before
+uploading the built artifact. Keep it that
 way, and do not add a token to the build job.
 
 For the same reason, the deploy workflow derives the pull request number and
@@ -159,12 +161,20 @@ of showing a version. That is expected in a preview and never fails the build.
    as `PREVIEW_PROJECT`, currently `temp-siloserver-org`. When the project moves
    to an organization-owned Cloudflare account, create it there under the final
    name and update that value in the three preview workflows.
-2. Create a GitHub environment named `Preview` with no protection rules, and
+2. Create a GitHub environment named `Preview`, restrict its deployment branches
+   to **Selected branches and tags → branch `main`**, and
    add `CLOUDFLARE_API_TOKEN` (Account · Cloudflare Pages · Edit, scoped to that
    one account) and `CLOUDFLARE_ACCOUNT_ID` as **environment** secrets. Keeping
-   them out of repository secrets is what stops `pr-build.yml`, which runs
-   contributor code, from being able to read them.
-3. Mark the `build` job of "PR build" as a required status check on `main`.
+   them out of repository secrets and restricting the environment to `main`
+   prevents PR workflows from reading them, including workflows edited on
+   same-repository branches. Do not allow `refs/pull/*/merge` or arbitrary tags.
+3. Require the GitHub Actions `build` check on `main` using a branch ruleset
+   or branch protection.
+
+When editing preview workflows, run `python3 scripts/test-preview-workflows.py`
+(requires Python 3, Node.js, and jq). These checks mock the provider APIs to cover
+cleanup failures, pagination, timestamp formats, and PR closure during an upload.
+The PR build runs them before building the site.
 
 ## Deployment
 

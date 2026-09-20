@@ -1,0 +1,7 @@
+{
+  "name": "silo-preview-tools",
+  "private": true,
+  "dependencies": {
+    "wrangler": "3.114.0"
+  }
+}
