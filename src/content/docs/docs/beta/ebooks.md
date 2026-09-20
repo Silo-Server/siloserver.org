@@ -37,6 +37,8 @@ folder layout.
 Save, scan, and check a book's title and cover. The library's metadata provider
 can fill gaps where configured; a provider match does not repair a damaged file.
 
+<span id="supported-formats"></span>
+
 ## Files and reader limits
 
 | Format | Web reader | Android phone/tablet |
@@ -54,6 +56,8 @@ files; keep the original and check the error rather than expecting a readable co
 
 These are separate checks: the scanner can find a file, a reader can open it,
 and a download can preserve it offline. Passing one does not establish the others.
+
+<span id="reading"></span>
 
 ## Read in the web app
 
