@@ -20,6 +20,12 @@ permissions:
   contents: read
   pull-requests: write
 
+# Same lock as deploy: cleanup and its comment must follow publication.
+concurrency:
+  group: preview-lifecycle
+  cancel-in-progress: false
+  queue: max
+
 env:
   PREVIEW_PROJECT: temp-siloserver-org
 
@@ -28,7 +34,19 @@ jobs:
     runs-on: ubuntu-latest
     environment: Preview
     steps:
+      - name: Check that the pull request is still closed
+        if: github.event_name == 'pull_request_target'
+        id: state
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              ...context.repo, pull_number: context.payload.pull_request.number,
+            });
+            core.setOutput('closed', String(pr.state === 'closed'));
+
       - name: Delete previews
+        if: github.event_name != 'pull_request_target' || steps.state.outputs.closed == 'true'
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -73,6 +91,8 @@ jobs:
               "${api}/${id}?force=true")"
             if [ "$(jq -r '.success' <<<"$out")" = "true" ]; then
               echo "  deleted ${id}"
+            elif jq -e '(.errors | type == "array") and (.errors | length > 0) and all(.errors[]; .code == 8000009)' <<<"$out" >/dev/null; then
+              echo "  already removed ${id}"
             else
               echo "  FAILED ${id}: $(jq -c '.errors' <<<"$out")" >&2
               failed=1
@@ -81,7 +101,7 @@ jobs:
           exit "$failed"
 
       - name: Update the pull request comment
-        if: github.event_name == 'pull_request_target'
+        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true'
         uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           number: ${{ github.event.pull_request.number }}

@@ -140,7 +140,10 @@ code, including from forks, with no secrets and no write permissions.
 `preview-deploy.yml` holds the Cloudflare token but never checks out or
 executes pull request code. It checks out deployment tooling from the trusted
 workflow commit and installs Wrangler with its committed npm lockfile before
-uploading the built artifact. Keep it that
+uploading the built artifact. It verifies that Cloudflare reports terminal
+deployment success before publishing the preview link. Deploy and teardown
+share a concurrency queue, so cleanup cannot be overtaken by publication.
+This serializes preview operations across the project, including weekly sweeps. Keep it that
 way, and do not add a token to the build job.
 
 For the same reason, the deploy workflow derives the pull request number and
@@ -172,8 +175,9 @@ of showing a version. That is expected in a preview and never fails the build.
    or branch protection.
 
 When editing preview workflows, run `python3 scripts/test-preview-workflows.py`
-(requires Python 3, Node.js, and jq). These checks mock the provider APIs to cover
-cleanup failures, pagination, timestamp formats, and PR closure during an upload.
+(requires Python 3, Node.js, Bun, and jq). These checks mock the provider APIs to cover
+cleanup failures, pagination, timestamp formats, deployment status, and PR
+closure or reopening during queued operations.
 The PR build runs them before building the site.
 
 ## Deployment

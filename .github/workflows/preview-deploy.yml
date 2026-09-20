@@ -24,12 +24,12 @@ permissions:
   statuses: write
   actions: read
 
-# One deploy at a time per source branch, so a slower older upload cannot land
-# after a newer one and leave the stable alias on stale content. Do not cancel
-# an upload: its post-upload cleanup must run if the PR closes meanwhile.
+# Share this lock with teardown, including publication and the weekly sweep.
+# Queue pending runs instead of replacing a close event with a later deploy.
 concurrency:
-  group: preview-deploy-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  group: preview-lifecycle
   cancel-in-progress: false
+  queue: max
 
 env:
   PREVIEW_PROJECT: temp-siloserver-org
@@ -96,7 +96,54 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PR_NUMBER: ${{ steps.ctx.outputs.pr }}
           PR_SHA: ${{ steps.ctx.outputs.sha }}
-        run: trusted-preview/.github/preview-tools/node_modules/.bin/wrangler pages deploy dist --project-name="$PREVIEW_PROJECT" --branch="pr-$PR_NUMBER" --commit-hash="$PR_SHA" --commit-dirty=true
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/preview-deployment.ndjson
+        run: |
+          rm -f "$WRANGLER_OUTPUT_FILE_PATH"
+          trusted-preview/.github/preview-tools/node_modules/.bin/wrangler pages deploy dist --project-name="$PREVIEW_PROJECT" --branch="pr-$PR_NUMBER" --commit-hash="$PR_SHA" --commit-dirty=true
+
+      - name: Verify terminal deployment success
+        if: steps.ctx.outputs.skip == 'false'
+        timeout-minutes: 8
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PR_NUMBER: ${{ steps.ctx.outputs.pr }}
+          PR_SHA: ${{ steps.ctx.outputs.sha }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/preview-deployment.ndjson
+        with:
+          script: |
+            const fs = require('node:fs');
+            const records = fs.readFileSync(process.env.WRANGLER_OUTPUT_FILE_PATH, 'utf8')
+              .trim().split('\n').filter(Boolean).map((line) => JSON.parse(line));
+            const uploads = records.filter((record) => record.type === 'pages-deploy' &&
+              record.pages_project === process.env.PREVIEW_PROJECT);
+            if (uploads.length !== 1 || !uploads[0].deployment_id) {
+              throw new Error('Wrangler did not return exactly one deployment ID for this project.');
+            }
+            const id = uploads[0].deployment_id;
+            const api = `https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/pages/projects/${process.env.PREVIEW_PROJECT}/deployments/${encodeURIComponent(id)}`;
+            for (let attempt = 0; attempt < 30; attempt++) {
+              const response = await fetch(api, {
+                headers: { Authorization: `Bearer ${process.env.CF_API_TOKEN}` },
+                signal: AbortSignal.timeout(10000),
+              });
+              const data = await response.json();
+              if (!response.ok || !data.success) throw new Error(`Reading deployment failed: ${JSON.stringify(data.errors)}`);
+              const deployment = data.result;
+              const metadata = deployment.deployment_trigger?.metadata;
+              if (deployment.id !== id || metadata?.branch !== `pr-${process.env.PR_NUMBER}` ||
+                  metadata?.commit_hash !== process.env.PR_SHA) {
+                throw new Error('Deployment identity does not match this pull request build.');
+              }
+              const stage = deployment.latest_stage;
+              if (stage?.name === 'deploy' && stage.status === 'success') return;
+              if (['failure', 'canceled'].includes(stage?.status)) {
+                throw new Error(`Deployment ${id} ended with ${stage.status}.`);
+              }
+              if (attempt < 29) await new Promise((resolve) => setTimeout(resolve, 5000));
+            }
+            throw new Error(`Timed out waiting for deployment ${id} to succeed.`);
 
       - name: Recheck PR and remove uploads made after closure
         if: steps.ctx.outputs.skip == 'false'
@@ -133,9 +180,9 @@ jobs:
             }
             for (const id of ids) {
               const response = await fetch(`${api}/${id}?force=true`, { method: 'DELETE', headers });
-              // A concurrent teardown can already have removed this deployment.
-              if (response.status === 404) continue;
               const data = await response.json();
+              // Cloudflare reports repeated deletion with provider code 8000009.
+              if (data.errors?.length && data.errors.every((error) => error.code === 8000009)) continue;
               if (!response.ok || !data.success) throw new Error(`Deleting preview ${id} failed: ${JSON.stringify(data.errors)}`);
             }
             core.info(`Removed ${ids.length} deployment(s) for closed PR #${pr.number}.`);
