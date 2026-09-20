@@ -127,7 +127,7 @@ The same workflow builds the site as a **preview** and hands the output to
 comment on the pull request with the URL:
 
 ```
-https://pr-<number>.temp-siloserver-org.pages.dev
+https://pr-<number>.siloserver-org.pages.dev
 ```
 
 The alias is updated after a successful build and deployment. Previews show an orange banner
@@ -161,9 +161,8 @@ of showing a version. That is expected in a preview and never fails the build.
 
 1. Create a Cloudflare Pages project (direct upload, no Git integration);
    production stays on GitHub Pages. The project name is set once per workflow
-   as `PREVIEW_PROJECT`, currently `temp-siloserver-org`. When the project moves
-   to an organization-owned Cloudflare account, create it there under the final
-   name and update that value in the three preview workflows.
+   as `PREVIEW_PROJECT`, currently `siloserver-org`. Keep this value consistent
+   across the three preview workflows.
 2. Create a GitHub environment named `Preview`, restrict its deployment branches
    to **Selected branches and tags → branch `main`**, and
    add `CLOUDFLARE_API_TOKEN` (Account · Cloudflare Pages · Edit, scoped to that

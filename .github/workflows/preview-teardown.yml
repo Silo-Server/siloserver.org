@@ -27,7 +27,7 @@ concurrency:
   queue: max
 
 env:
-  PREVIEW_PROJECT: temp-siloserver-org
+  PREVIEW_PROJECT: siloserver-org
 
 jobs:
   teardown:
