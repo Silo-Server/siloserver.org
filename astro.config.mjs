@@ -44,6 +44,7 @@ export default defineConfig({
         Head: "./src/components/starlight/Head.astro",
         MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
         Sidebar: "./src/components/starlight/Sidebar.astro",
+        SiteTitle: "./src/components/starlight/SiteTitle.astro",
       },
       social: [
         {
