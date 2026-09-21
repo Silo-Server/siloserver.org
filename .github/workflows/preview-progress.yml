@@ -1,0 +1,24 @@
+name: Preview progress
+
+# Receives fork build events with a trusted token, without running fork code.
+# in_progress also covers reruns, which do not emit requested events.
+on:
+  workflow_run:
+    workflows: ["PR build"]
+    types: [requested, in_progress, completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+  statuses: write
+
+jobs:
+  report:
+    if: github.event.workflow_run.event == 'pull_request'
+    uses: ./.github/workflows/preview-report.yml
+    with:
+      run-id: ${{ github.event.workflow_run.id }}
+      attempt: ${{ github.event.workflow_run.run_attempt }}
+      sha: ${{ github.event.workflow_run.head_sha }}
+      phase: build

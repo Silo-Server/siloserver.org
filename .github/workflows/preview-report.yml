@@ -1,0 +1,64 @@
+name: Report preview status
+
+# Called only by trusted workflow_run workflows. Never check out PR code.
+on:
+  workflow_call:
+    inputs:
+      run-id:
+        required: true
+        type: number
+      attempt:
+        required: true
+        type: number
+      sha:
+        required: true
+        type: string
+      phase:
+        required: true
+        type: string
+      deploy-url:
+        required: false
+        type: string
+      deploy-id:
+        type: number
+        default: 0
+      deploy-attempt:
+        type: number
+        default: 0
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+  statuses: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: preview-status-${{ inputs.sha }}
+      cancel-in-progress: false
+      queue: max
+    steps:
+      - name: Checkout trusted status tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          sparse-checkout: .github/preview-tools
+          persist-credentials: false
+      - name: Update optional preview status
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          BUILD_RUN_ID: ${{ inputs.run-id }}
+          BUILD_ATTEMPT: ${{ inputs.attempt }}
+          PR_SHA: ${{ inputs.sha }}
+          PHASE: ${{ inputs.phase }}
+          DEPLOY_RUN_URL: ${{ inputs.deploy-url }}
+          DEPLOY_RUN_ID: ${{ inputs.deploy-id }}
+          DEPLOY_ATTEMPT: ${{ inputs.deploy-attempt }}
+          PREVIEW_PROJECT: siloserver-org
+        with:
+          script: |
+            const report = require(`${process.env.GITHUB_WORKSPACE}/.github/preview-tools/report-status.cjs`);
+            await report({ github, context, core, runId: Number(process.env.BUILD_RUN_ID),
+              sha: process.env.PR_SHA, phase: process.env.PHASE });

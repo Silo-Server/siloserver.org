@@ -135,6 +135,20 @@ linking back to the pull request, carry `noindex`, and are deleted by
 `preview-teardown.yml` when the pull request is merged or closed (plus a weekly
 sweep of anything older than 30 days).
 
+The optional `preview` commit status appears while the build is queued, then
+reports building, waiting for deployment, deploying, and the final result.
+Pending or failed statuses link to the workflow; successful ones link to the
+preview. Build or deployment failures and cancellations report an unavailable
+preview instead of leaving the status pending. This does not make preview a
+required merge check; keep only the intended build checks required in rulesets.
+
+`preview-progress.yml` receives trusted build lifecycle events, including reruns.
+It and the deployment workflow call `preview-report.yml`, which serializes status
+writes per commit using trusted tooling. The reporter checks the current PR head,
+build run, and attempt, and rejects stale or regressive updates. It requires no
+Cloudflare credentials and never checks out PR code. These `workflow_run` changes
+take effect after they reach the default branch; a PR preview cannot test them live.
+
 `scripts/preview-banner.mjs` adds the banner to every built HTML file, including
 standalone pages copied from `public/`, documentation, and redirects. It runs
 only when valid preview metadata is supplied. The banner reserves space above

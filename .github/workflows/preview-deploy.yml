@@ -35,9 +35,24 @@ env:
   PREVIEW_PROJECT: siloserver-org
 
 jobs:
-  deploy:
+  report-start:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
+    uses: ./.github/workflows/preview-report.yml
+    with:
+      run-id: ${{ github.event.workflow_run.id }}
+      attempt: ${{ github.event.workflow_run.run_attempt }}
+      sha: ${{ github.event.workflow_run.head_sha }}
+      phase: deploying
+      deploy-id: ${{ fromJSON(github.run_id) }}
+      deploy-attempt: ${{ fromJSON(github.run_attempt) }}
+      deploy-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  deploy:
+    needs: report-start
+    if: ${{ !cancelled() && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
     runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.reconcile.outputs.publish }}
     # Cloudflare credentials live in this environment, not at repository level,
     # so the unprivileged PR build cannot read them.
     environment: Preview
@@ -202,17 +217,15 @@ jobs:
 
             The alias updates after a successful build and deployment. The preview is removed when this pull request closes.
 
-      - name: Report status on the commit
-        if: steps.reconcile.outputs.publish == 'true'
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
-        with:
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: '${{ steps.ctx.outputs.sha }}',
-              state: 'success',
-              context: 'preview',
-              description: 'Preview deployed',
-              target_url: 'https://pr-${{ steps.ctx.outputs.pr }}.${{ env.PREVIEW_PROJECT }}.pages.dev',
-            });
+  report-result:
+    needs: deploy
+    if: ${{ always() && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && (needs.deploy.result != 'success' || needs.deploy.outputs.published == 'true') }}
+    uses: ./.github/workflows/preview-report.yml
+    with:
+      run-id: ${{ github.event.workflow_run.id }}
+      attempt: ${{ github.event.workflow_run.run_attempt }}
+      sha: ${{ github.event.workflow_run.head_sha }}
+      phase: ${{ needs.deploy.result }}
+      deploy-id: ${{ fromJSON(github.run_id) }}
+      deploy-attempt: ${{ fromJSON(github.run_attempt) }}
+      deploy-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
