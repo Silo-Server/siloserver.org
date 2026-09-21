@@ -205,6 +205,31 @@ try {
 
 
 class LifecycleOrderingTests(unittest.TestCase):
+    def test_status_transitions(self):
+        result = subprocess.run(['node', '--test', 'scripts/test-preview-status.mjs'],
+                                cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_status_writes_are_serialized_and_do_not_run_pr_code(self):
+        result = subprocess.run(['bun', '-e', '''
+const files = ['preview-progress', 'preview-report', 'preview-deploy', 'pr-build'];
+console.log(JSON.stringify(await Promise.all(files.map(async name =>
+  Bun.YAML.parse(await Bun.file(`.github/workflows/${name}.yml`).text())))));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        progress, reporter, deploy, build = json.loads(result.stdout)
+        self.assertEqual(progress['on']['workflow_run']['types'], ['requested', 'in_progress', 'completed'])
+        job = reporter['jobs']['report']
+        self.assertEqual(job['concurrency']['group'], 'preview-status-${{ inputs.sha }}')
+        self.assertEqual(job['concurrency']['queue'], 'max')
+        self.assertFalse(job['concurrency']['cancel-in-progress'])
+        self.assertEqual(job['steps'][0]['with']['ref'], '${{ github.workflow_sha }}')
+        self.assertFalse(job['steps'][0]['with']['persist-credentials'])
+        self.assertEqual(build['permissions'], {'contents': 'read'})
+        self.assertNotIn('environment', job)
+        self.assertEqual(deploy['jobs']['deploy']['needs'], 'report-start')
+        self.assertIn('always()', deploy['jobs']['report-result']['if'])
+        self.assertIn("needs.deploy.outputs.published == 'true'", deploy['jobs']['report-result']['if'])
+
     def test_queue_covers_publication_and_teardown_without_replacing_close(self):
         # Check actual workflow configuration, not a mocked scheduler. GitHub's
         # workflow-level lock must enclose every step in both workflows.
