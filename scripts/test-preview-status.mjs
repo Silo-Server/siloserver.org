@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { getOctokit } from '@actions/github';
 import report from '../.github/preview-tools/report-status.cjs';
 
 const marker = (rank, {run = 10, attempt = 1, deploy = 0, deployAttempt = 0} = {}) => ({
@@ -15,18 +16,32 @@ async function invoke(options = {}) {
   const pr = { number: 22, state: 'open', head: { sha: 'abc', ref: 'feature',
     repo: {full_name: 'contributor/fork'} }, ...options.pr };
   const written = [];
-  const github = {
-    paginate: async (fn) => fn === github.rest.actions.listWorkflowRuns ? (options.runs ?? [run]) : [pr],
-    rest: {
-      actions: {getWorkflowRun: async () => ({data: run}), listWorkflowRuns: () => {}},
-      pulls: {get: async () => ({data: options.freshPr ?? pr})},
-      repos: {
-        listPullRequestsAssociatedWithCommit: () => {},
-        listCommitStatuses: async () => ({data: options.previous ? [options.previous] : []}),
-        createCommitStatus: async status => written.push(status),
-      },
-    },
-  };
+  // Use the real client used by github-script v7. Stub transport, not method
+  // names: nonexistent Octokit methods must fail here just as they do in CI.
+  const github = getOctokit('test-token');
+  github.hook.wrap('request', async (_request, requestOptions) => {
+    const request = github.request.endpoint(requestOptions);
+    const url = new URL(request.url);
+    const route = `${request.method} ${url.pathname}`;
+    let data;
+    switch (route) {
+      case 'GET /repos/test/site/actions/runs/10': data = run; break;
+      case 'GET /repos/test/site/commits/abc/pulls': data = [pr]; break;
+      case 'GET /repos/test/site/pulls/22': data = options.freshPr ?? pr; break;
+      case 'GET /repos/test/site/actions/workflows/1/runs':
+        data = {total_count: (options.runs ?? [run]).length, workflow_runs: options.runs ?? [run]};
+        break;
+      case 'GET /repos/test/site/commits/abc/statuses':
+        data = options.previous ? [options.previous] : [];
+        break;
+      case 'POST /repos/test/site/statuses/abc':
+        data = {...request.body};
+        written.push(data);
+        break;
+      default: throw new Error(`Unexpected GitHub request: ${route}`);
+    }
+    return {status: 200, headers: {}, url: request.url, data};
+  });
   process.env.BUILD_ATTEMPT = String(options.attempt ?? 1);
   process.env.PREVIEW_PROJECT = 'siloserver-org';
   process.env.DEPLOY_RUN_URL = 'https://github.com/test/site/actions/runs/20';
