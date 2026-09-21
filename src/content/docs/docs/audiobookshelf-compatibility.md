@@ -3,6 +3,8 @@ title: Audiobookshelf compatibility
 description: How Silo approaches Audiobookshelf-compatible client support for audiobooks.
 ---
 
+> **Beta.** Audiobookshelf compatibility works as described here but is outside the 1.0 support promise and certification. It will be revisited with the consolidated Books effort.
+
 Silo includes a compatibility API for clients that expect an Audiobookshelf server. It serves [audiobook libraries](/docs/audiobooks) to the official Audiobookshelf mobile apps and to third-party Audiobookshelf clients.
 
 ## Endpoint

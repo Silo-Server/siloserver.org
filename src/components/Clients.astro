@@ -95,16 +95,17 @@ const absDocsHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/docs/audiobo
 
     <h3 class="cluster__title">
       <span class="cluster__line"></span>
-      <span>audiobookshelf-compatible clients (beta, post-1.0)</span>
+      <span>audiobookshelf-compatible clients (beta)</span>
       <span class="cluster__line"></span>
     </h3>
 
     <p class="cluster__caption">
-      Audiobookshelf compatibility is beta and outside the 1.0 release promise.
-      It is deferred alongside the consolidated Books effort. Existing builds
-      may expose port <code>:13378</code>; see the
-      <a href={absDocsHref}>setup guide and limitations</a>
-      before connecting a listening app.
+      Audiobook libraries are also served over the Audiobookshelf protocol on
+      port <code>:13378</code>. Point any of these at
+      <code>http://silo:13378</code>, sign in with your Silo credentials, and
+      listen. This is a <strong>beta</strong> feature outside the 1.0 support
+      promise; the consolidated Books effort will replace it later. See the
+      <a href={absDocsHref}>setup guide and limitations</a>.
     </p>
 
     <div class="compat-grid" data-reveal-stagger>

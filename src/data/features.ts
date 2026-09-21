@@ -106,13 +106,13 @@ export const features: Feature[] = [
   },
   {
     id: "FEAT_09",
-    title: "Books, a later effort",
+    title: "Audiobooks and ebooks, in beta",
     body:
-      "Audiobooks and ebooks are outside 1.0 and will be developed together as Books. Existing listening, reading, and Audiobookshelf compatibility remain beta or prerelease functionality, not part of the supported 1.0 release. No release date is assigned.",
+      "Audiobook libraries with chapters, series, and resume, plus an Audiobookshelf-compatible endpoint so apps like Plappa and the official app connect as-is. Ebooks get a built-in reader for EPUB, PDF, and comics with synced progress. Both are beta and outside the 1.0 support promise; a unified Books library that treats an audiobook and an ebook as editions of one title comes later.",
     chips: [
-      { label: "Post-1.0" },
-      { label: "Audiobooks + ebooks" },
-      { label: "ABS compatibility: beta" },
+      { label: "Beta" },
+      { label: "ABS protocol" },
+      { label: "EPUB · PDF · CBZ" },
     ],
   },
   {
