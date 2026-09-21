@@ -6,8 +6,9 @@ description: Connect a dedicated listening app to Silo's audiobook endpoint.
 ---
 
 :::caution[Beta]
-Audiobooks and their compatibility endpoint are outside the supported 1.0
-release scope. This guide does not certify any third-party client. The
+Audiobookshelf compatibility remains available as beta in 1.0, outside its
+support promise and certification. It will be revisited with the planned
+consolidated Books effort. This guide does not certify any third-party client. The
 endpoint does not enforce a separate profile PIN; review household access
 before allowing it.
 :::

@@ -6,7 +6,9 @@ description: Try reading in the web or Android app and check format and client l
 ---
 
 :::caution[Beta]
-Ebooks, comics, and manga are outside the supported 1.0 release scope.
+Ebooks, comics, and manga remain available as beta in 1.0, outside its support
+promise. The planned consolidated Books effort will replace the current
+libraries and reader while preserving existing libraries and progress.
 Readers exist in the web and Android phone/tablet apps. Apple and Android TV
 do not provide a book reader. Keep your original files and test a few books
 before relying on reading progress or downloads.

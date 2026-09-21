@@ -6,7 +6,9 @@ description: Arrange audiobook files, check their tags, and add them to Silo.
 ---
 
 :::caution[Beta]
-Audiobooks are outside the supported 1.0 release scope. Start with a small
+Audiobooks remain available as beta in 1.0, outside its support promise.
+The planned consolidated Books effort will replace the current libraries
+while preserving existing libraries and progress. Start with a small
 test library and check [your listeners' clients](/docs/listen-to-audiobooks)
 before importing a large collection.
 :::
