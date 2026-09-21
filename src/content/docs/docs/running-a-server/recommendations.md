@@ -8,6 +8,8 @@ Recommendations use catalog information and profile activity to build suggestion
 
 This is an optional advanced setup. It needs PostgreSQL with pgvector and an OpenAI-compatible embedding endpoint. Choose the model before generating data: Silo locks the embedding configuration after its first successful embedding.
 
+Recommendations need their own server configuration. Connecting a text or speech model in [AI Services](/docs/ai-services) does not configure embeddings. The steps below require an administrator account.
+
 ## Configure the model
 
 1. Open **Admin > Recommendations**.

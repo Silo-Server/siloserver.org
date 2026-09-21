@@ -4,7 +4,7 @@ title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
 
-In the web app, **Home** brings together rows from your server and profile.
+On Apple, Android, and the web, **Home** brings together rows from your server and profile.
 **For You** offers recommendations. **Calendar** shows upcoming releases;
 it is not a download schedule.
 
@@ -17,14 +17,14 @@ it is not a download schedule.
    to give recommendations information about your tastes.
 
 A new profile has less viewing information. Empty recommendations can also
-mean the administrator has not configured the required services. You can
+mean the required services need [configuration](/docs/recommendations). You can
 still browse libraries and search.
 
 ## Check upcoming releases
 
-1. Open **Calendar** from the main menu.
+1. Open **Calendar** from the app's navigation.
 2. Choose a week and a filter, including **Following**, **Trending**, or
-   **All**. Narrow by library when useful.
+   **All**. In the web app, you can also narrow by library.
 3. Select an entry to see its details and available actions.
 
 If **Following** is empty, try **Trending** or **All**. A scheduled

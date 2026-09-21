@@ -114,6 +114,10 @@ executed checks, and procedures still awaiting hands-on validation. The
 [feature map](docs/manual-feature-coverage.md) links the 35 milestone features
 to their guide sources. A mapped page is not a completed acceptance check.
 
+The [shared client instructions review](docs/review-shared-client-instructions.md)
+records the follow-up source check, combined Apple/Android steps, and server
+prerequisites for AI features.
+
 The [beta audit](docs/review-beta-integration.md) records the server, Apple,
 and Android source revisions, coverage limits, and checks for the Beta section.
 Keep an ordinary guide's reference to a beta feature short and link to that

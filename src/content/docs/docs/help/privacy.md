@@ -5,8 +5,9 @@ description: Check the services used for metadata, subtitles, notifications, and
 ---
 
 Your server stores your library and account data. Optional features can send
-information to other services. Ask the server administrator which providers
-they use before connecting an external account or requesting AI processing.
+information to other services. Check which providers the server uses before
+connecting an external account or requesting AI processing. If you do not
+have access to those settings, check with the person who runs the server.
 
 ## Metadata, subtitles, and AI
 
@@ -16,10 +17,10 @@ provider proxy when configured.
 
 AI text translation sends text to the configured model. Speech-to-text sends
 audio for transcription. A model running on the server operator's own
-equipment has a different destination from a hosted AI service. Check with
-the administrator before processing material you do not want sent externally.
+equipment has a different destination from a hosted AI service. Confirm the
+destination before processing material you do not want sent externally.
 
-Administrators can review [plugins](/docs/plugins),
+Server setup is covered in [plugins](/docs/plugins),
 [subtitle providers](/docs/subtitle-providers), and
 [AI settings](/docs/ai-services).
 

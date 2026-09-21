@@ -16,27 +16,29 @@ identity. Forgetting a device in web preferences only removes its settings.
    **Change password**.
 
 Follow the password requirements shown by your server. If **Local password
-changes are unavailable** appears, use the account's sign-in provider or
-ask the administrator. A forgotten current password also needs their help.
+changes are unavailable** appears, use the account's sign-in provider.
+For a forgotten local password, see [account recovery](/docs/manage-accounts).
 
 ## Switch servers or sign out
 
-On Apple, open **Settings** and choose **Sign Out**, then confirm. On Android,
-use the sign-out action in **Settings**. In the browser, use **Logout** in
+On Apple and Android, open **Settings**, choose **Sign Out** (**Sign out** on Android), and confirm.
+In the browser, use **Logout** in
 the profile menu.
 
 At native sign-in, **Use a different server**, **Change server**, or **Use
 another server** returns to server selection. Enter the address and account
 for the server you actually want; each server has separate accounts and profiles.
 
-If an administrator changes the address, get the replacement address from
-them before removing a working saved connection. Keep downloaded media in
+Confirm a replacement server address before removing a working saved
+connection. Keep downloaded media in
 mind before clearing application data or uninstalling an app.
 
 ## Lost or shared device
 
-Ask the server administrator to secure the account and invalidate the lost device's access.
-Give them the account, device name, and approximate last use. Do not use
+Securing the account and invalidating the lost device's access requires
+server administration. See [Manage accounts and profiles](/docs/manage-accounts),
+or contact someone with that access and provide the account, device name,
+and approximate last use. Do not use
 **Settings > Your Devices > Forget** as a security action: that does not
 revoke its login.
 

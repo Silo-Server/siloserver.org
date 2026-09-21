@@ -8,6 +8,10 @@ Start with your profile's preferences for choices you want to reuse. Use a
 device override when one screen or sound system needs something different.
 For example, a bedroom TV may need an audio delay that your phone does not.
 
+On Apple and Android phones or tablets, **Settings** includes **Playback**
+and **Subtitles** controls. Use the web app for the pages described below;
+device-specific controls and their placement differ between apps.
+
 ## Change a profile preference in the web app
 
 Open **Settings** from your profile menu, then choose the relevant page:

@@ -14,7 +14,7 @@ Open **Settings > History Import** and choose the service.
 
 - **Plex:** select **Plex Account**, then **Sign in with Plex**. Complete
   Plex sign-in and choose a server. A direct-server option is available
-  when your administrator has configured a source.
+  when a source has been configured on the server.
 - **Jellyfin:** enter the old server's base URL, your username, and password.
 - **Emby:** use **Emby Connect** and **Find Servers**, or choose an
   administrator-defined server and enter your Emby credentials.
@@ -32,11 +32,13 @@ Only enter them on your trusted Silo server.
 4. Open a familiar title in Silo and check its watched state and resume point.
 
 An unmatched item may be missing from Silo or identified differently.
-Give the administrator a few examples to check. If status cannot refresh,
+Check a few examples against [metadata matching](/docs/metadata). If status cannot refresh,
 use the refresh control and inspect **Import history** before starting
 another run. Do not assume an interrupted browser request means the server
 cancelled the import.
 
-Ask the administrator for help with other household members' imports.
+For other household members' imports, see
+[household history import](/docs/import-household-watch-history), which requires
+administrative access.
 Keep [progress and watched status](/docs/watch-history) separate
 from ongoing external watch-state synchronization.

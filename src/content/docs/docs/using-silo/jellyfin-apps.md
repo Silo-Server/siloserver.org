@@ -4,8 +4,10 @@ title: Connect a Jellyfin-compatible app
 description: Enter your Silo account and profile in a Jellyfin-compatible app.
 ---
 
-Ask your administrator for the Jellyfin-compatible server address, your
-Silo account credentials, and the profile name and PIN you should use.
+You need the Jellyfin-compatible server address, your Silo account
+credentials, and the profile name and PIN you use. If you run the server,
+configure [third-party access](/docs/third-party-access); otherwise, get
+the compatibility address from the person who does.
 The app must support manual username and password entry.
 
 ## Endpoint
@@ -42,7 +44,8 @@ Using the explicit `username#profile` form avoids that ambiguity.
 
 Check the compatibility address, account credentials, exact profile name,
 and PIN. Try the account in Silo's web app to separate an account problem
-from a compatibility problem. Ask the administrator for help if it still fails.
+from a compatibility problem. If it still fails, check the server logs or
+share the error with the person running the server.
 
 ### Two smaller details
 
@@ -57,7 +60,7 @@ name and PIN. The selected profile owns the resulting progress and favorites.
 
 ## Reverse Proxy
 
-Use the HTTPS address supplied by your administrator. Server setup belongs
+Use your server's HTTPS compatibility address. Server setup belongs
 in [third-party access](/docs/third-party-access).
 
 ## Scope

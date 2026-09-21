@@ -4,14 +4,16 @@ title: Browse and organize collections
 description: Open shared collections or make a personal collection of titles.
 ---
 
-A collection groups titles together. Open **Collections** in the web app
-to see your collections and the **Server collections** supplied by the
-administrator. Select a collection, then a title to open its details.
+A collection groups titles together. On Apple, Android, or the web, open
+**Collections**, select a collection, then select a title to open its details.
+The web app also lists shared **Server collections**.
 
 You can only see members your profile may access. Sharing a collection
 does not grant access to a restricted library.
 
 ## Make a personal collection in the web app
+
+Use the web editor for the full set of item, sharing, and smart-filter controls.
 
 1. Open **Collections > New Collection**.
 2. Choose **Manual** to select titles yourself. Enter a name. Leave

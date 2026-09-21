@@ -5,7 +5,8 @@ description: Choose which events reach you and check browser, phone, email, or D
 ---
 
 Use **Settings > Notifications** in the web app to choose events and delivery
-options. The administrator must configure a delivery channel before you can use it.
+options. Delivery channels need [server configuration](/docs/notification-delivery)
+before you can use them.
 
 ## Choose what notifies you
 
@@ -25,8 +26,9 @@ first when an email or phone alert appears to be missing.
 ### Browser notifications
 
 Open Silo using an HTTPS address trusted by your browser. If you used an
-address such as `http://192.168.1.10:8090` for setup, ask your administrator
-for the HTTPS address before subscribing. HTTP on `localhost` is an exception
+address such as `http://192.168.1.10:8090` for setup, switch to the server's
+HTTPS address before subscribing. See [HTTPS setup](/docs/reverse-proxy).
+HTTP on `localhost` is an exception
 for use on the server itself, not another device on the LAN.
 
 In **Browser Notifications**, subscribe the browser and accept its permission
@@ -69,7 +71,9 @@ narrow your event choices but cannot override a disabled reason.
 2. Check the web inbox. An inbox entry with no external alert points toward
    delivery or device permission rather than a missing event.
 3. Confirm the email address is verified or the browser/phone permission is allowed.
-4. Ask the administrator to check the channel and failed delivery.
+4. Check the channel and failed deliveries in
+   [notification delivery settings](/docs/notification-delivery), which require
+   administrative access.
 
 If browser notifications are reported as unsupported, check that you are
 using the HTTPS address before trying another browser.

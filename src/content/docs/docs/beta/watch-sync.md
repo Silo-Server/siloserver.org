@@ -18,7 +18,7 @@ Watch-provider sync connects a Silo profile to an external tracking account. The
 
 ## Prepare the server
 
-An administrator opens **Admin → Settings → Watch Providers** and supplies the application credentials required by Trakt or Simkl. MDBList connects with your own API key in personal settings. Additional providers can come from installed watch-provider plugins and may need their own configuration.
+Trakt and Simkl need application credentials in **Admin → Settings → Watch Providers** before you connect a profile. This setup requires an administrator account. MDBList connects with your own API key in personal settings. Additional providers can come from installed watch-provider plugins and may need their own configuration.
 
 Provider availability is server-specific. The personal settings page shows an empty state when no providers are registered. A named provider in these instructions does not mean its account connection has been tested against the external service.
 

@@ -11,8 +11,9 @@ An administrator's library permissions still apply after you enter a PIN.
 ## Choose or change a profile
 
 At sign-in, choose your name on **Who's watching?** and enter its PIN if asked.
-In the web app, open the profile menu and select **Switch Profile** to return
-to the picker. Check the displayed profile before changing preferences or
+On Apple and Android phones or tablets, open **Settings** and select the
+profile card to return to the picker. In the web app, open the profile menu
+and select **Switch Profile**. Check the displayed profile before changing preferences or
 starting playback on a shared device.
 
 To manage household profiles in the browser, open **Settings > Profiles**

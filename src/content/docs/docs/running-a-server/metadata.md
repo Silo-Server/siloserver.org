@@ -26,6 +26,18 @@ Editing a lockable field locks it automatically. Providers leave locked fields a
 
 **Reset & Refresh** clears field locks and allows provider data to overwrite manual edits. Use it only when that is your intended result.
 
+## Translate a description
+
+This needs a text model and **Translate descriptions** turned on in [AI Services](/docs/ai-services).
+
+1. In **Edit Metadata**, find **Translate with AI**.
+2. Choose the target **Language** and select **Translate**.
+3. Wait for the result and check the translated description. For a series, the job includes season and episode overviews.
+
+Leave **Re-translate existing** off unless you intend to replace an existing translation. Provider translations can replace AI-generated text when they become available.
+
+Translation while browsing is a separate server setting, **Description translation for viewers**. It can offer a button, run automatically when a description is missing in the requested language, or stay off. These controls do not translate the app's interface.
+
 ## Choose artwork
 
 In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select a provider image, and use its **Apply** button. Image changes apply immediately; **Cancel** does not undo them. Then check the item in both its details page and the library grid. These controls require an admin account.

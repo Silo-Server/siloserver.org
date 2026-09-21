@@ -4,8 +4,12 @@ title: Choose and adjust subtitles
 description: Select a subtitle track, change its appearance, or correct a small timing offset.
 ---
 
-In the web player, open the captions control and choose a track. Choose
-**Off** to hide subtitles. A language can appear more than once when the
+Open the player's subtitle list and choose a track. In a browser, use the
+captions control. On a phone or tablet, open **Audio & Subtitles** on Apple
+or **Audio and subtitles** on Android. On Apple TV and Android TV, open
+the playback options panel and choose **Subtitles**.
+
+Choose **Off** to hide subtitles. A language can appear more than once when the
 file contains several tracks or Silo has saved additional subtitles.
 
 ## Set your usual language and appearance
@@ -22,7 +26,7 @@ a track that the title does not have.
 
 ## Correct a timing mismatch
 
-Open the subtitle menu during playback and adjust **Subtitle delay** earlier
+In the web player, open the subtitle menu and adjust **Subtitle delay** earlier
 or later. Use a small change, replay a line, and check the result. Reset the
 delay to zero when it is no longer needed. A delay that grows throughout the
 movie usually needs a subtitle file matched to that version, not a larger offset.

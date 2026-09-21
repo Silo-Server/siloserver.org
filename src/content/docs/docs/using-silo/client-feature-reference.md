@@ -4,10 +4,11 @@ title: Apps and playback limits
 description: Choose the right interface and understand why a title can behave differently between devices.
 ---
 
-The [app directory](/docs/choose-an-app) links to installation
-instructions. The [1.0 milestone](https://siloserver.org/milestone/1.0/)
-defines the release target. Use each task guide for the interface it covers;
-a phone, tablet, TV, and browser do not have identical controls.
+The [app directory](/docs/choose-an-app) links to installation instructions.
+The Apple and Android apps share the main viewing tasks: browse, play,
+choose tracks, and resume with your profile's saved progress. Task guides
+call out differences in controls and availability. The
+[1.0 milestone](https://siloserver.org/milestone/1.0/) defines the release target.
 
 ## Media types
 
@@ -31,13 +32,13 @@ audio reports also need the TV, receiver, and connection arrangement.
 
 [Find a title](/docs/find-something),
 [explore Home](/docs/home-and-calendar), or
-[open collections](/docs/collections). The procedures name their
-interface instead of claiming a full-feature match across clients.
+[open collections](/docs/collections).
 
 ## User features
 
-Use the web app for the documented [history import](/docs/import-watch-history),
-[request](/docs/requests), and account-management procedures.
+Use the web app for the documented [history import](/docs/import-watch-history)
+and account-management procedures. You can [request a title](/docs/requests)
+on a phone, tablet, or in the web app.
 Your active profile controls personal progress and preferences.
 
 ## Sign-in
@@ -55,7 +56,7 @@ download in a browser is not the same as an app-managed offline library.
 ## Administration
 
 The administration instructions use the server's web interface. Having a
-native app does not mean every server setting is available there.
+native app does not give you every server setting there.
 
 ## Notes
 

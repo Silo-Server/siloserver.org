@@ -13,9 +13,10 @@ endpoint does not enforce a separate profile PIN; review household access
 before allowing it.
 :::
 
-Ask the administrator for the Audiobookshelf-compatible address and your
-Silo credentials. This address may differ from both the Silo web address
-and its Jellyfin-compatible address.
+Use the server's Audiobookshelf-compatible address and your Silo credentials.
+This address may differ from both the Silo web address and its
+Jellyfin-compatible address. If you run the server, see [Server setup](#server-setup);
+otherwise, get the address from the person who runs it.
 
 ## Endpoint
 
@@ -30,8 +31,8 @@ account password. Unlike Jellyfin compatibility, do not append `#PIN` to
 the password here.
 
 The current Audiobookshelf sign-in path does not enforce a separate profile
-PIN. Ask the administrator whether this connection is appropriate for an
-account with protected household profiles.
+PIN. Check whether account-password access alone is appropriate for your
+household before connecting an account with protected profiles.
 
 ## Clients
 
@@ -54,7 +55,7 @@ playback without a third-party app, use
 
 ## Server setup
 
-An administrator opens **Admin > Settings > Compatibility** and turns on
+With an administrator account, open **Admin > Settings > Compatibility** and turn on
 **Allow Audiobookshelf apps to connect**. Save and follow any restart notice.
 The default Compose endpoint is port `13378`, separate from Silo's web app.
 Give listeners a reachable address for this endpoint. Keep it on your trusted
@@ -62,9 +63,9 @@ network or place it behind HTTPS before allowing remote access.
 
 ## Reverse Proxy
 
-Use the reachable HTTPS address your administrator supplies, not a local
-port copied from a server tutorial. Operators can configure
-[third-party access](/docs/third-party-access).
+Use the reachable HTTPS address configured for the Audiobookshelf endpoint,
+not a local port copied from a server tutorial. See
+[third-party access](/docs/third-party-access) for server setup.
 
 ## Source notes
 

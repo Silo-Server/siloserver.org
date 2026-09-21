@@ -27,7 +27,7 @@ If the offer does not appear, use the browser method below.
 ## Scan the TV's code
 
 First connect the TV to your server. On the setup screen, enter the full
-address your administrator gave you under **Server address**, including
+server address under **Server address**, including
 `http://` or `https://` and any port number. Select **Connect to server**.
 On Apple TV, **Protocol and port** also lets you set those parts separately.
 If Android TV asks to use unencrypted HTTP, continue only for an address

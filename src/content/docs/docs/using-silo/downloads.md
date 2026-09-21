@@ -4,8 +4,8 @@ title: Download for offline use
 description: Save media on a phone or tablet and check it before leaving your connection.
 ---
 
-Prepare downloads while connected to your server. Your administrator must
-allow downloads, and the device needs enough free storage. This guide covers
+Prepare downloads while connected to your server. Your account must have
+download permission, and the device needs enough free storage. This guide covers
 phone and tablet apps, not a browser or TV offline library.
 
 ## Save a movie or episode

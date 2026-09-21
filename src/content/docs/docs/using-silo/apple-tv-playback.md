@@ -39,6 +39,8 @@ with the file version; text and image subtitles can behave differently.
 3. Note the TV and receiver models and how they are connected.
 4. Report the observed picture/audio result and any player error.
 
-Your administrator can check whether the server converted the stream.
+Check [active playback](/docs/active-playback) in the server's web interface
+to see whether the server converted the stream, or have the person running
+the server check it.
 [Report the problem](/docs/report-a-problem) with those details instead
 of posting a private media file.

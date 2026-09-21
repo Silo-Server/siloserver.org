@@ -4,28 +4,20 @@ title: Connect and start watching
 description: Accept an invitation, sign in, choose a profile, and play your first title.
 ---
 
-You need the server address and an account from the person who runs your
-server. Silo accounts belong to that server; an account on one server does
-not sign you in to another.
+You need the server address and an account on that server. Use the account
+you created during setup, or the invitation or credentials supplied by the
+person running it. Silo accounts belong to that server; an account on one
+server does not sign you in to another.
 
 ## Get an app or open your browser
 
 The quickest way to try Silo is to open the server address in a browser.
 You do not need to install anything to watch there.
 
-For a phone or tablet:
-
-- **iPhone or iPad:** install Apple's TestFlight app, open the
-  [Silo invitation](https://testflight.apple.com/join/XZy8cu5q), accept it,
-  and select **Install** in TestFlight.
-- **Android:** open [Silo Android releases](https://github.com/Silo-Server/silo-android/releases/latest),
-  expand **Assets**, and download `silo-android-latest-universal-release.apk`.
-  Open the file and approve installation from that source if Android asks.
-
-These are prerelease distribution channels. Use the project links above.
-For a television, follow [Sign in on your TV](/docs/tv-sign-in).
-The [app directory](/docs/choose-an-app) covers TV installation
-and other compatible apps.
+For a phone or tablet, follow the Apple or Android installation steps in
+[Choose an app](/docs/choose-an-app), then return here to sign in.
+For a television, install the TV app and follow
+[Sign in on your TV](/docs/tv-sign-in).
 
 ## Accept your invitation
 
@@ -67,7 +59,9 @@ with sound. [Playback controls](/docs/watch-movies-and-series)
 cover audio, subtitles, and quality.
 
 An empty library is not a reason to reinstall the app. Check your selected
-server and profile, then ask the administrator to check your library access.
+server and profile, then check your account's
+[library access](/docs/manage-accounts) in the server settings if you
+manage the server, or contact the person who does.
 If the server address will not open in a browser on the same device, check
 the address and network before retrying your password.
 

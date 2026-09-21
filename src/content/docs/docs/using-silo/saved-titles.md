@@ -8,7 +8,15 @@ Use **Watchlist** for something you want to watch, **Favorites** for something
 you want to keep close, and a rating for your opinion. These belong to your
 active profile.
 
-## Save a title in the web app
+## Save a title
+
+On Apple and Android phones or tablets:
+
+1. Open the movie or series detail page.
+2. Select **Favorite** (the heart) or **Watchlist** (the bookmark).
+3. Select the same control again to remove the title.
+
+In the web app:
 
 1. Open the movie or series detail page.
 2. Select the heart to add it to **Favorites**. Select it again to remove it.

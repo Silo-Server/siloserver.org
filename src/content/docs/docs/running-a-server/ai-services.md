@@ -6,6 +6,8 @@ description: Connect text and speech models, set limits, and test one subtitle o
 
 Silo uses a text model to translate subtitles and descriptions. Creating subtitles from audio needs a speech-to-text model. You can configure either one without configuring the other.
 
+These features need a configured model and the matching feature switch turned on at the server. Installing a Silo app does not set them up. Use an administrator account for the settings below; once configured, available actions appear in the supported clients.
+
 Before using a hosted model, check its charges and data policy. Translation sends text to the configured endpoint; transcription sends audio. Use media you have permission to process.
 
 ## Connect a text model
@@ -16,7 +18,7 @@ Before using a hosted model, check its charges and data policy. Translation send
 4. Turn on **Translate subtitles**, **Translate descriptions**, or both.
 5. Save and follow any restart notice. Test one short translation before using it across a library.
 
-For descriptions, **Description translation for viewers** controls whether viewers get a translate button or automatic translation. Keep it off if only administrators should request this work.
+**Description translation for viewers** controls translation on detail pages: **Off**, **Translate button on detail pages**, or **Automatic on view**. This setting applies when browsing, including when you run the server yourself. Leave it off to prevent browsing from starting description jobs; translation from the metadata editor remains available.
 
 ## Connect speech-to-text
 
@@ -30,6 +32,8 @@ A chat connection test does not test transcription. If the speech URL is blank, 
 ## Limit cost and server load
 
 Under **Server-wide tuning**, set **Jobs running at once** before inviting more people to use AI features. Under **Per-account limits**, choose a transcription allowance and reset interval.
+
+The transcription allowance is shared across an account. An administrator using the account's primary profile is exempt; its other profiles still use the allowance.
 
 Start with the default batch and audio-request sizes. Change them only when the provider reports a request-size or rate-limit problem. A failed job is not a reason to remove every limit.
 

@@ -9,7 +9,7 @@ server; the phone or tablet sends commands. Keep both devices on the same
 home network and leave Silo open on the TV.
 
 If the TV has not signed in yet, use [TV setup](/docs/tv-sign-in)
-first. Setup approval and an ordinary remote-control connection are different tasks.
+first. A TV needs to finish setup before you can control playback.
 
 ## Choose the TV
 

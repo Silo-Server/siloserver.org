@@ -11,7 +11,7 @@ address. You do not need to install a server yourself.
 
 | Your device | Where to start |
 | --- | --- |
-| Browser | Open the server address your administrator gave you. |
+| Browser | Open your Silo server address. |
 | iPhone or iPad | [Join the Silo Media Player TestFlight](https://testflight.apple.com/join/XZy8cu5q). |
 | Apple TV | Join the same TestFlight, then follow the Apple TV steps below. |
 | Android phone or tablet | [Download the phone/tablet APK from Silo Android releases](https://github.com/Silo-Server/silo-android/releases/latest). |
@@ -46,8 +46,8 @@ you from an invitation or account to your first playable title.
 
 ## Jellyfin-compatible clients
 
-If you already use an app that connects to Jellyfin, ask your administrator
-whether they provide Silo's Jellyfin-compatible endpoint. Follow
+If you already use an app that connects to Jellyfin, check whether your
+server provides Silo's Jellyfin-compatible endpoint. Follow
 [Connect a Jellyfin-compatible app](/docs/jellyfin-apps).
 Its address and profile sign-in syntax differ from the native Silo app.
 

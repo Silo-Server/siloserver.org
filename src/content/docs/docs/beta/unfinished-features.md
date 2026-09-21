@@ -20,6 +20,7 @@ source does not mean it is available in your installed app.
 | Native chapter-preview images | Server generation and web display belong to the main feature set. Apple/Android chapter menus do not render those images. [Apple scrub frames](/docs/versions-and-previews) are separate. |
 | Full timeline trickplay | No complete BIF-style image timeline was established across clients. A live frame preview does not provide an image at every timestamp. |
 | Podcasts and music | Server or client pieces do not form a complete listening workflow. See [library types](/docs/library-types). |
+| Network-access provider plugins | The server includes plugin support and **Admin > Settings > Network Access** controls. A working connection still requires an installed, running provider plugin and any authorization it requests. The framework alone does not supply a network connection. |
 
 ## No usable workflow established
 
@@ -31,7 +32,6 @@ source does not mean it is available in your installed app.
 | AI audio dubbing | Normal audio-track selection and AI subtitles exist; no audio-dubbing workflow was established. |
 | Automatic account/profile creation during history import | Create accounts/profiles first, then use the existing history-import mapping. |
 | Full interface localization | Locale-aware dates and translated media metadata do not establish a fully translated app interface. |
-| Network-access provider plugins | Work exists on a separate server branch, not the audited main revision. Normal HTTPS/reverse-proxy setup remains in the main guide. |
 
 These are limitations, not activation instructions or release-date promises.
 The beta documentation does not turn hidden features on. Do not edit server
