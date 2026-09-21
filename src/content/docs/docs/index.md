@@ -1,4 +1,5 @@
 ---
+slug: docs
 title: Start using Silo
 description: Join a server, watch your first title, or set up a server of your own.
 ---
@@ -10,36 +11,33 @@ address. They take care of storing and sharing the media.
 
 ### Join an existing server
 
-1. [Choose an app](/docs/get-started/choose-an-app) for your phone, tablet, TV, or browser.
-2. [Sign in to the server](/docs/get-started/join-a-server), or follow the [TV setup guide](/docs/get-started/tv-sign-in).
-3. [Watch a movie or episode](/docs/using-silo/watch-movies-and-series).
+Follow [Connect and start watching](/docs/connect-and-watch).
+One guide takes you from getting an app or opening your browser through
+sign-in, choosing a profile, and playing your first title.
 
-Your **account** is your sign-in for that server. A **profile** keeps one
-household member's progress and preferences separate from the others. Choose
-your own profile before playing anything.
+Setting up a television? Use [Sign in on your TV](/docs/tv-sign-in).
 
 ### Run your own server
 
-Check the [requirements](/docs/get-started/installation-options), then follow
-[Install Silo and play your first item](/docs/get-started/install-silo).
-The first setup uses one server and a local media folder. You can add remote
-access, extra playback hardware, and integrations later.
+Follow [Install Silo Server](/docs/install-silo-server). It includes
+the requirements, installation, account creation, a first library, and a
+playback check. You do not need to read the other server guides first.
 
-Once playback works, [invite someone](/docs/running-a-server/accounts) and
-[prepare a backup](/docs/running-a-server/backup-restore). The
-[after-installation checklist](/docs/running-a-server/after-installation)
-helps you choose what to do next.
+The walkthrough uses one Linux host and a local media folder. If you are
+still choosing hardware or a deployment method, consult
+[Requirements and installation options](/docs/requirements).
+Remote access, extra playback hardware, and integrations can come later.
 
 ### Go further
 
-- Find something new with [Home and Calendar](/docs/using-silo/home-and-calendar), [collections](/docs/using-silo/collections), and [saved titles](/docs/using-silo/saved-titles).
-- Adjust [subtitles](/docs/using-silo/subtitles), [download for offline use](/docs/using-silo/downloads), or [control a TV from your phone](/docs/using-silo/tv-remote).
-- As an administrator, [manage library access](/docs/running-a-server/access), [fix metadata](/docs/running-a-server/metadata), or [set up plugins](/docs/running-a-server/plugins).
+- Find something new with [Home and Calendar](/docs/home-and-calendar), [collections](/docs/collections), and [saved titles](/docs/saved-titles).
+- Adjust [subtitles](/docs/subtitles), [download for offline use](/docs/downloads), or [control a TV from your phone](/docs/tv-remote).
+- As an administrator, [manage library access](/docs/manage-access), [fix metadata](/docs/metadata), or [set up plugins](/docs/plugins).
 
 ## Get help or contribute
 
 [Find help](/docs/help) for connection and playback problems. You can also
-[correct these instructions](/docs/help/improve-the-docs) or
+[correct these instructions](/docs/improve-the-docs) or
 [build an integration](/docs/developers).
 
 ## Project status

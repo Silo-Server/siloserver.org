@@ -1,11 +1,12 @@
 ---
+slug: docs/third-party-access
 title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.
 ---
 
 Silo has a separate endpoint for apps that expect Jellyfin. The Silo web address
 is not always the address to enter in those apps. Audiobookshelf setup is in
-the [Beta section](/docs/beta/audiobookshelf), including its profile-PIN warning.
+the [Beta section](/docs/audiobookshelf), including its profile-PIN warning.
 
 ## Turn on compatibility
 
@@ -30,13 +31,13 @@ Replace the example IP with your server's address. Check your actual port mappin
 
 ## External access
 
-Use a reachable HTTPS address for each endpoint you expose, for example separate Silo and Jellyfin hostnames. Point each one to the correct service port and follow the [reverse proxy guide](/docs/running-a-server/reverse-proxy).
+Use a reachable HTTPS address for each endpoint you expose, for example separate Silo and Jellyfin hostnames. Point each one to the correct service port and follow the [reverse proxy guide](/docs/reverse-proxy).
 
 Test from outside your home network with the same address you give users. A working Silo homepage does not test the other protocol ports or their streaming behavior.
 
 ## Accounts and profiles
 
-Give users their Silo credentials and the [Jellyfin sign-in instructions](/docs/using-silo/jellyfin-apps).
+Give users their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps).
 Jellyfin compatibility can use a combined username/profile. Its protected-profile
 flow also uses a password/PIN combination.
 
@@ -44,4 +45,4 @@ Record the app and server versions when investigating a failure. Supporting a pr
 
 ## Scan integrations are separate
 
-Legacy external Autoscan also uses the Jellyfin endpoint. New built-in scan sources are configured under [Libraries > Autoscan](/docs/running-a-server/autoscan).
+Legacy external Autoscan also uses the Jellyfin endpoint. New built-in scan sources are configured under [Libraries > Autoscan](/docs/autoscan).

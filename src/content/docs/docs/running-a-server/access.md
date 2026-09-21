@@ -1,4 +1,5 @@
 ---
+slug: docs/manage-access
 title: Set access and limits
 description: Give people the right libraries and permissions without editing every account separately.
 ---
@@ -28,7 +29,7 @@ An account override can differ from its group. If a group change seems to have n
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. Turning off video transcoding can stop playback on a device that cannot play the original file; it does not make that file compatible.
 
-Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/running-a-server/requests).
+Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
 **Marker Editing** and **Metadata Curation** let a trusted user correct media within their assigned libraries. Neither requires making that person a server administrator.
 

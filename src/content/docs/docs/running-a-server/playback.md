@@ -1,4 +1,5 @@
 ---
+slug: docs/playback
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -58,7 +59,7 @@ Use the node's **Re-probe** action after work has drained. Re-probing checks har
 
 ## Generate chapter thumbnails
 
-Chapter menus and chapter preview images are separate. Thumbnails need [public asset S3 storage](/docs/running-a-server/s3-storage) in the current implementation, even when artwork uses local disk.
+Chapter menus and chapter preview images are separate. Thumbnails need [public asset S3 storage](/docs/s3-storage) in the current implementation, even when artwork uses local disk.
 
 1. Configure and test public storage.
 2. Edit the library under **Admin > Libraries**.
@@ -68,4 +69,4 @@ Chapter menus and chapter preview images are separate. Thumbnails need [public a
 
 Native chapter navigation does not imply the same thumbnail UI. Keep ordinary playback working before adding thumbnail generation.
 
-For work on another machine, continue with [Transcode nodes](/docs/running-a-server/transcode-nodes).
+For work on another machine, continue with [Transcode nodes](/docs/transcode-nodes).

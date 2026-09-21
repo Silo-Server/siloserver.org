@@ -1,4 +1,5 @@
 ---
+slug: docs/import-watch-history
 title: Import your watch history
 description: Bring your own Plex, Jellyfin, or Emby viewing history into a Silo profile.
 ---
@@ -37,5 +38,5 @@ another run. Do not assume an interrupted browser request means the server
 cancelled the import.
 
 Ask the administrator for help with other household members' imports.
-Keep [progress and watched status](/docs/using-silo/watch-history) separate
+Keep [progress and watched status](/docs/watch-history) separate
 from ongoing external watch-state synchronization.

@@ -1,4 +1,5 @@
 ---
+slug: docs/privacy
 title: Understand where information goes
 description: Check the services used for metadata, subtitles, notifications, and diagnostic reports.
 ---
@@ -18,18 +19,18 @@ audio for transcription. A model running on the server operator's own
 equipment has a different destination from a hosted AI service. Check with
 the administrator before processing material you do not want sent externally.
 
-Administrators can review [plugins](/docs/running-a-server/plugins),
-[subtitle providers](/docs/running-a-server/subtitle-providers), and
-[AI settings](/docs/running-a-server/ai-services).
+Administrators can review [plugins](/docs/plugins),
+[subtitle providers](/docs/subtitle-providers), and
+[AI settings](/docs/ai-services).
 
 ## Notifications and connected services
 
 Email, Discord, webhooks, and push delivery use their configured delivery
 services. The channel and event determine what is sent. Review your
-[notification choices](/docs/using-silo/notifications) and avoid publishing
+[notification choices](/docs/notification-inbox) and avoid publishing
 webhook URLs or connection credentials.
 
-[History imports](/docs/using-silo/import-watch-history) connect Silo to
+[History imports](/docs/import-watch-history) connect Silo to
 another media server. Use only an account you are allowed to connect.
 
 ## Choose where diagnostics are sent
@@ -53,7 +54,7 @@ The available options depend on the app and destination.
 Diagnostic reports can contain device details and logs. A report sent to a
 self-hosted server can include playback-session identifiers. Review the
 information shown in the app rather than assuming every destination receives
-the same bundle. See [Report a problem](/docs/help/report-a-problem#native-app-diagnostics).
+the same bundle. See [Report a problem](/docs/report-a-problem#native-app-diagnostics).
 
 ## Sharing evidence publicly
 

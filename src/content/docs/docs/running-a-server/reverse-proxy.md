@@ -1,4 +1,5 @@
 ---
+slug: docs/reverse-proxy
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
 ---
@@ -41,7 +42,7 @@ If remote nodes or object storage send clients to other addresses, those address
 | Jellyfin-compatible clients | 8096 |
 | Audiobookshelf-compatible clients (Beta) | 13378 |
 
-Only publish the protocols your users need. A separate hostname for each compatibility endpoint avoids mixing protocol routes. Follow [third-party access](/docs/running-a-server/third-party-access) for those settings.
+Only publish the protocols your users need. A separate hostname for each compatibility endpoint avoids mixing protocol routes. Follow [third-party access](/docs/third-party-access) for those settings.
 
 ## Operator notes
 

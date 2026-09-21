@@ -1,4 +1,5 @@
 ---
+slug: docs/branding
 title: Customize the web appearance
 description: Set your server's web logos, colors, theme, and login background.
 ---

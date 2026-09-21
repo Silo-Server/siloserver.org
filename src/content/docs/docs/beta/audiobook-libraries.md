@@ -1,11 +1,13 @@
 ---
+slug: docs/audiobook-libraries
+beta: true
 title: Set up an audiobook library (Beta)
 description: Arrange audiobook files, check their tags, and add them to Silo.
 ---
 
 :::caution[Beta]
 Audiobooks are outside the supported 1.0 release scope. Start with a small
-test library and check [your listeners' clients](/docs/beta/audiobooks)
+test library and check [your listeners' clients](/docs/listen-to-audiobooks)
 before importing a large collection.
 :::
 
@@ -68,4 +70,4 @@ A provider match does not repair audio files with the wrong chapter order. Corre
 
 ## Playback
 
-Give listeners their usual Silo server address. For an Audiobookshelf-compatible app, give them the separate [beta compatibility address](/docs/beta/audiobookshelf), not the web app's port.
+Give listeners their usual Silo server address. For an Audiobookshelf-compatible app, give them the separate [beta compatibility address](/docs/audiobookshelf), not the web app's port.

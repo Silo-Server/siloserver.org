@@ -1,28 +1,20 @@
-// Preserve published documentation URLs after moving pages by audience.
-// src/pages/docs/[...legacy].astro emits static redirects for GitHub Pages
-// and preserves query strings and section anchors in JavaScript-enabled browsers.
+// Retain aliases for older published documentation. Do not record unpublished
+// pre-1.0 reorganizations. Destinations must be canonical, without chains.
 export const docsRedirects = {
-  "/docs/clients": "/docs/get-started/choose-an-app",
-  "/docs/installation": "/docs/get-started/installation-options",
-  "/docs/quickstart": "/docs/get-started/install-silo",
-  "/docs/first-configuration": "/docs/running-a-server/after-installation",
-  "/docs/deployment/docker": "/docs/running-a-server/docker",
-  "/docs/deployment/reverse-proxy": "/docs/running-a-server/reverse-proxy",
-  "/docs/libraries": "/docs/running-a-server/media-folders",
-  "/docs/audiobooks": "/docs/beta/audiobook-libraries",
-  "/docs/running-a-server/audiobook-libraries": "/docs/beta/audiobook-libraries",
-  "/docs/using-silo/listen-to-audiobooks": "/docs/beta/audiobooks",
-  "/docs/using-silo/audiobookshelf-apps": "/docs/beta/audiobookshelf",
-  "/docs/ebooks": "/docs/beta/ebooks",
-  "/docs/configuration": "/docs/running-a-server/configuration",
-  "/docs/logging": "/docs/running-a-server/logging",
-  "/docs/storage/s3": "/docs/running-a-server/s3-storage",
-  "/docs/ai-services": "/docs/running-a-server/ai-services",
-  "/docs/notifications": "/docs/running-a-server/notifications",
-  "/docs/integrations/autoscan": "/docs/running-a-server/autoscan",
-  "/docs/jellyfin-compatibility": "/docs/using-silo/jellyfin-apps",
-  "/docs/audiobookshelf-compatibility": "/docs/beta/audiobookshelf",
-  "/docs/apple-tv": "/docs/using-silo/apple-tv-playback",
-  "/docs/feature-parity": "/docs/using-silo/client-feature-reference",
-  "/docs/troubleshooting": "/docs/help/report-a-problem",
+  "/docs/clients": "/docs/choose-an-app",
+  "/docs/installation": "/docs/requirements",
+  "/docs/quickstart": "/docs/install-silo-server",
+  "/docs/first-configuration": "/docs/install-silo-server",
+  "/docs/deployment/docker": "/docs/docker",
+  "/docs/deployment/reverse-proxy": "/docs/reverse-proxy",
+  "/docs/libraries": "/docs/media-folders",
+  "/docs/audiobooks": "/docs/audiobook-libraries",
+  "/docs/storage/s3": "/docs/s3-storage",
+  "/docs/notifications": "/docs/notification-delivery",
+  "/docs/integrations/autoscan": "/docs/autoscan",
+  "/docs/jellyfin-compatibility": "/docs/jellyfin-apps",
+  "/docs/audiobookshelf-compatibility": "/docs/audiobookshelf",
+  "/docs/apple-tv": "/docs/apple-tv-playback",
+  "/docs/feature-parity": "/docs/client-feature-reference",
+  "/docs/troubleshooting": "/docs/report-a-problem"
 };

@@ -1,4 +1,5 @@
 ---
+slug: docs/plugins
 title: Install and maintain plugins
 description: Find a provider, configure it, and check that it works before relying on it.
 ---

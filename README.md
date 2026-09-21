@@ -71,11 +71,43 @@ Organize pages by the reader's task and audience:
 - `developers/`: API, plugin, and code-contribution entry points.
 - `help/`: troubleshooting entry points, reports, and documentation contributions.
 
+Each article declares an explicit `slug: docs/article-name` in its frontmatter.
+The homepage uses `slug: docs`. Public URLs are flat and do not include audience,
+Beta, or release-version directories. Source folders organize contributions;
+`src/data/sidebar.mjs` independently organizes navigation by those stable slugs.
+Changing a title or moving a source file must not silently change its slug.
+
 Use the existing sidebar data file to curate the reading order. Do not add
 empty pages for planned features. A guide can link to another audience's
 guide instead of repeating its setup steps. Old published paths are retained
 in `src/data/docs-redirects.mjs`; update internal links to canonical paths.
+Do not add redirects for unpublished pre-1.0 reorganizations. Once 1.0 is
+published, record URL changes there and preserve useful section anchors.
 Run `bun run test:docs` and `bun run build` when changing this structure.
+
+### Documentation release baseline
+
+`src/data/docs-release.mjs` declares the shared baseline shown on every guide.
+It currently records a prerelease target and source-review revisions, not a
+claim that 1.0 has shipped or that real-device acceptance passed.
+
+At 1.0, set the channel to `stable`, set `release` to the actual server release,
+and update the source revisions and review date after reviewing the docs against
+the release. Record the website commit alongside the server and client versions
+in the release record. Keep unreleased behavior in PR previews until it ships.
+There is no `/docs/1.0/` namespace or automatic release-publishing workflow.
+
+An article can declare optional `requires` fields for `server`, `apple`, and
+`android`. Each value is a quoted release version such as `"1.2.0"`, meaning
+that version or later. Use these only when a minimum version is established;
+do not fill them with the milestone target or infer them from an audit date.
+The site renders the requirements above the guide. These are minimum versions,
+not introduced-in or last-tested claims. Record platform exceptions in prose.
+
+Beta articles declare `beta: true`, retain their visible Beta notice, and appear
+only in the Beta sidebar group. Their flat URLs do not change when they graduate.
+The build validates slugs, navigation coverage, Beta placement, version fields,
+the shared baseline, links, and the retained published redirects.
 
 See [the manual review](docs/review-manual-integration.md) for source revisions,
 executed checks, and procedures still awaiting hands-on validation. The
@@ -85,8 +117,8 @@ to their guide sources. A mapped page is not a completed acceptance check.
 The [beta audit](docs/review-beta-integration.md) records the server, Apple,
 and Android source revisions, coverage limits, and checks for the Beta section.
 Keep an ordinary guide's reference to a beta feature short and link to that
-section instead of duplicating instructions. Preserve old URLs with direct
-redirects when moving pages.
+section instead of duplicating instructions. After the 1.0 publication, preserve
+published URLs with direct redirects when changing slugs.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site

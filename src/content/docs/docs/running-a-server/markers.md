@@ -1,4 +1,5 @@
 ---
+slug: docs/markers
 title: Find and correct intro markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---
@@ -30,4 +31,4 @@ Use the clear action for a segment that should not have a marker. Review the edi
 
 A saved manual marker takes priority over online and locally detected markers. Another manual edit can replace it, so check the history before overwriting someone else's correction.
 
-Chapter images are configured separately in [playback settings](/docs/running-a-server/playback).
+Chapter images are configured separately in [playback settings](/docs/playback).

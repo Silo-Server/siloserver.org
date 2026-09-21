@@ -1,4 +1,5 @@
 ---
+slug: docs/configuration
 title: Server configuration and dependencies
 description: Know which settings belong in Docker and which belong in the admin app.
 ---
@@ -42,7 +43,7 @@ PostgreSQL is required. Source configuration permits integrated/API mode without
 
 ## Data layout
 
-Review [Storage and capacity](/docs/running-a-server/s3-storage) before changing paths. A path in the container needs a corresponding persistent mount on the host.
+Review [Storage and capacity](/docs/s3-storage) before changing paths. A path in the container needs a corresponding persistent mount on the host.
 
 ## PostgreSQL tuning
 
@@ -57,8 +58,8 @@ Set `POSTGRES_TUNE=off` if the database is managed externally or you own its tun
 | `proxy` | Remote streaming proxy |
 | `transcode` | Remote conversion worker |
 
-Separate workers need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/running-a-server/transcode-nodes).
+Separate workers need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/transcode-nodes).
 
 ## Logging
 
-Start with [Admin logs and container logs](/docs/running-a-server/logging). Add metrics or external telemetry only when you have a monitoring destination to receive them.
+Start with [Admin logs and container logs](/docs/logging). Add metrics or external telemetry only when you have a monitoring destination to receive them.

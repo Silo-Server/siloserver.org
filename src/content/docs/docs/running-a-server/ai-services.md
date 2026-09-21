@@ -1,4 +1,5 @@
 ---
+slug: docs/ai-services
 title: Configure AI services
 description: Connect text and speech models, set limits, and test one subtitle or description job.
 ---
@@ -32,7 +33,7 @@ Under **Server-wide tuning**, set **Jobs running at once** before inviting more 
 
 Start with the default batch and audio-request sizes. Change them only when the provider reports a request-size or rate-limit problem. A failed job is not a reason to remove every limit.
 
-Generated subtitle tracks are saved on the server and can be used by other viewers who have access to that item. Selecting a track remains a personal choice. Manage saved files under [Subtitle Files](/docs/running-a-server/subtitle-providers#inspect-saved-tracks).
+Generated subtitle tracks are saved on the server and can be used by other viewers who have access to that item. Selecting a track remains a personal choice. Manage saved files under [Subtitle Files](/docs/subtitle-providers#inspect-saved-tracks).
 
 ## A test or job fails
 

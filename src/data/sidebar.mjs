@@ -1,5 +1,5 @@
 // Curated task order for the public manual. Articles stay in plain Markdown.
-// Keep advanced groups collapsed so first-time readers can start with setup.
+// Top-level categories are static headings; only subgroups can collapse.
 export const sidebar = [
   {
     "label": "Get started",
@@ -8,19 +8,10 @@ export const sidebar = [
         "slug": "docs"
       },
       {
-        "slug": "docs/get-started/choose-an-app"
+        "slug": "docs/connect-and-watch"
       },
       {
-        "slug": "docs/get-started/join-a-server"
-      },
-      {
-        "slug": "docs/get-started/tv-sign-in"
-      },
-      {
-        "slug": "docs/get-started/installation-options"
-      },
-      {
-        "slug": "docs/get-started/install-silo"
+        "slug": "docs/tv-sign-in"
       }
     ]
   },
@@ -32,19 +23,19 @@ export const sidebar = [
         "collapsed": true,
         "items": [
           {
-            "slug": "docs/using-silo/find-something"
+            "slug": "docs/home-and-calendar"
           },
           {
-            "slug": "docs/using-silo/home-and-calendar"
+            "slug": "docs/find-something"
           },
           {
-            "slug": "docs/using-silo/collections"
+            "slug": "docs/saved-titles"
           },
           {
-            "slug": "docs/using-silo/saved-titles"
+            "slug": "docs/collections"
           },
           {
-            "slug": "docs/using-silo/requests"
+            "slug": "docs/requests"
           }
         ]
       },
@@ -53,58 +44,61 @@ export const sidebar = [
         "collapsed": true,
         "items": [
           {
-            "slug": "docs/using-silo/watch-movies-and-series"
+            "slug": "docs/watch-movies-and-series"
           },
           {
-            "slug": "docs/using-silo/subtitles"
+            "slug": "docs/subtitles"
           },
           {
-            "slug": "docs/using-silo/missing-subtitles"
+            "slug": "docs/missing-subtitles"
           },
           {
-            "slug": "docs/using-silo/downloads"
+            "slug": "docs/tv-remote"
           },
           {
-            "slug": "docs/using-silo/tv-remote"
+            "slug": "docs/downloads"
           }
         ]
       },
       {
-        "label": "Your household and preferences",
+        "label": "Your account and preferences",
         "collapsed": true,
         "items": [
           {
-            "slug": "docs/using-silo/profiles"
+            "slug": "docs/accounts"
           },
           {
-            "slug": "docs/using-silo/preferences"
+            "slug": "docs/profiles"
           },
           {
-            "slug": "docs/using-silo/watch-history"
+            "slug": "docs/preferences"
           },
           {
-            "slug": "docs/using-silo/import-watch-history"
+            "slug": "docs/watch-history"
           },
           {
-            "slug": "docs/using-silo/notifications"
+            "slug": "docs/import-watch-history"
           },
           {
-            "slug": "docs/using-silo/accounts"
+            "slug": "docs/notification-inbox"
           }
         ]
       },
       {
-        "label": "Other apps and playback limits",
+        "label": "App support and compatibility",
         "collapsed": true,
         "items": [
           {
-            "slug": "docs/using-silo/jellyfin-apps"
+            "slug": "docs/choose-an-app"
           },
           {
-            "slug": "docs/using-silo/apple-tv-playback"
+            "slug": "docs/client-feature-reference"
           },
           {
-            "slug": "docs/using-silo/client-feature-reference"
+            "slug": "docs/apple-tv-playback"
+          },
+          {
+            "slug": "docs/jellyfin-apps"
           }
         ]
       }
@@ -114,31 +108,40 @@ export const sidebar = [
     "label": "Running a server",
     "items": [
       {
-        "slug": "docs/running-a-server/after-installation"
+        "slug": "docs/install-silo-server"
+      },
+      {
+        "slug": "docs/requirements"
       },
       {
         "label": "Build your library",
         "items": [
           {
-            "slug": "docs/running-a-server/libraries"
+            "slug": "docs/media-folders"
           },
           {
-            "slug": "docs/running-a-server/media-folders"
+            "slug": "docs/manage-libraries"
           },
           {
-            "slug": "docs/running-a-server/metadata"
+            "slug": "docs/metadata"
           },
           {
-            "slug": "docs/running-a-server/local-metadata"
+            "slug": "docs/local-metadata"
           },
           {
-            "slug": "docs/running-a-server/collections"
+            "slug": "docs/autoscan"
           },
           {
-            "slug": "docs/running-a-server/home-sections"
+            "slug": "docs/manage-collections"
           },
           {
-            "slug": "docs/running-a-server/recommendations"
+            "slug": "docs/home-sections"
+          },
+          {
+            "slug": "docs/recommendations"
+          },
+          {
+            "slug": "docs/branding"
           }
         ],
         "collapsed": true
@@ -147,16 +150,22 @@ export const sidebar = [
         "label": "Give people access",
         "items": [
           {
-            "slug": "docs/running-a-server/accounts"
+            "slug": "docs/manage-accounts"
           },
           {
-            "slug": "docs/running-a-server/access"
+            "slug": "docs/manage-access"
           },
           {
-            "slug": "docs/running-a-server/help-a-user"
+            "slug": "docs/reverse-proxy"
           },
           {
-            "slug": "docs/running-a-server/active-playback"
+            "slug": "docs/third-party-access"
+          },
+          {
+            "slug": "docs/help-a-user"
+          },
+          {
+            "slug": "docs/active-playback"
           }
         ],
         "collapsed": true
@@ -165,22 +174,22 @@ export const sidebar = [
         "label": "Playback and providers",
         "items": [
           {
-            "slug": "docs/running-a-server/plugins"
+            "slug": "docs/plugins"
           },
           {
-            "slug": "docs/running-a-server/playback"
+            "slug": "docs/playback"
           },
           {
-            "slug": "docs/running-a-server/subtitle-providers"
+            "slug": "docs/transcode-nodes"
           },
           {
-            "slug": "docs/running-a-server/markers"
+            "slug": "docs/subtitle-providers"
           },
           {
-            "slug": "docs/running-a-server/ai-services"
+            "slug": "docs/markers"
           },
           {
-            "slug": "docs/running-a-server/transcode-nodes"
+            "slug": "docs/ai-services"
           }
         ],
         "collapsed": true
@@ -189,28 +198,19 @@ export const sidebar = [
         "label": "Automations and integrations",
         "items": [
           {
-            "slug": "docs/running-a-server/autoscan"
+            "slug": "docs/integration-credentials"
           },
           {
-            "slug": "docs/running-a-server/requests"
+            "slug": "docs/manage-requests"
           },
           {
-            "slug": "docs/running-a-server/notifications"
+            "slug": "docs/notification-delivery"
           },
           {
-            "slug": "docs/running-a-server/watch-history-import"
+            "slug": "docs/import-household-watch-history"
           },
           {
-            "slug": "docs/running-a-server/watch-state-webhooks"
-          },
-          {
-            "slug": "docs/running-a-server/integration-credentials"
-          },
-          {
-            "slug": "docs/running-a-server/third-party-access"
-          },
-          {
-            "slug": "docs/running-a-server/branding"
+            "slug": "docs/watch-state-webhooks"
           }
         ],
         "collapsed": true
@@ -219,16 +219,16 @@ export const sidebar = [
         "label": "Maintain and recover",
         "items": [
           {
-            "slug": "docs/running-a-server/backup-restore"
+            "slug": "docs/backup-restore"
           },
           {
-            "slug": "docs/running-a-server/updates"
+            "slug": "docs/updates"
           },
           {
-            "slug": "docs/running-a-server/server-health"
+            "slug": "docs/server-health"
           },
           {
-            "slug": "docs/running-a-server/reverse-proxy"
+            "slug": "docs/logging"
           }
         ],
         "collapsed": true
@@ -237,16 +237,13 @@ export const sidebar = [
         "label": "Deployment reference",
         "items": [
           {
-            "slug": "docs/running-a-server/docker"
+            "slug": "docs/docker"
           },
           {
-            "slug": "docs/running-a-server/configuration"
+            "slug": "docs/configuration"
           },
           {
-            "slug": "docs/running-a-server/s3-storage"
-          },
-          {
-            "slug": "docs/running-a-server/logging"
+            "slug": "docs/s3-storage"
           }
         ],
         "collapsed": true
@@ -255,23 +252,40 @@ export const sidebar = [
   },
   {
     "label": "Beta",
-    "collapsed": true,
     "items": [
       { "slug": "docs/beta" },
-      { "slug": "docs/beta/audiobooks" },
-      { "slug": "docs/beta/audiobook-libraries" },
-      { "slug": "docs/beta/audiobookshelf" },
-      { "slug": "docs/beta/ebooks" },
-      { "slug": "docs/beta/library-types" },
-      { "slug": "docs/beta/watch-together" },
-      { "slug": "docs/beta/watch-sync" },
-      { "slug": "docs/beta/versions-and-previews" },
-      { "slug": "docs/beta/browser-downloads" },
-      { "slug": "docs/beta/native-inboxes" },
-      { "slug": "docs/beta/custom-themes" },
-      { "slug": "docs/beta/catalog-seeds" },
-      { "slug": "docs/beta/native-macos" },
-      { "slug": "docs/beta/unfinished-features" }
+      {
+        "label": "Listening and reading",
+        "collapsed": true,
+        "items": [
+          { "slug": "docs/listen-to-audiobooks" },
+          { "slug": "docs/audiobook-libraries" },
+          { "slug": "docs/audiobookshelf" },
+          { "slug": "docs/ebooks" }
+        ]
+      },
+      {
+        "label": "Watching and personal settings",
+        "collapsed": true,
+        "items": [
+          { "slug": "docs/versions-and-previews" },
+          { "slug": "docs/watch-together" },
+          { "slug": "docs/browser-downloads" },
+          { "slug": "docs/watch-sync" },
+          { "slug": "docs/native-inboxes" },
+          { "slug": "docs/custom-themes" }
+        ]
+      },
+      {
+        "label": "Administration and additional clients",
+        "collapsed": true,
+        "items": [
+          { "slug": "docs/library-types" },
+          { "slug": "docs/catalog-seeds" },
+          { "slug": "docs/native-macos" }
+        ]
+      },
+      { "slug": "docs/unfinished-features" }
     ]
   },
   {
@@ -281,13 +295,13 @@ export const sidebar = [
         "slug": "docs/developers"
       },
       {
-        "slug": "docs/developers/use-the-api"
+        "slug": "docs/use-the-api"
       },
       {
-        "slug": "docs/developers/api-reference"
+        "slug": "docs/api-reference"
       },
       {
-        "slug": "docs/developers/build-a-plugin"
+        "slug": "docs/build-a-plugin"
       }
     ]
   },
@@ -298,13 +312,13 @@ export const sidebar = [
         "slug": "docs/help"
       },
       {
-        "slug": "docs/help/privacy"
+        "slug": "docs/report-a-problem"
       },
       {
-        "slug": "docs/help/report-a-problem"
+        "slug": "docs/privacy"
       },
       {
-        "slug": "docs/help/improve-the-docs"
+        "slug": "docs/improve-the-docs"
       }
     ]
   }

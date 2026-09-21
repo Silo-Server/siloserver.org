@@ -1,4 +1,5 @@
 ---
+slug: docs/watch-history
 title: Watched status and resume progress
 description: Resume a title, correct watched status, or continue on another device.
 ---
@@ -36,4 +37,4 @@ both can send updates. If the wrong position keeps returning, report the
 devices, title, profile, and approximate time to the administrator.
 
 For an existing Plex, Jellyfin, or Emby history, use
-[Import your watch history](/docs/using-silo/import-watch-history).
+[Import your watch history](/docs/import-watch-history).

@@ -1,4 +1,5 @@
 ---
+slug: docs/report-a-problem
 title: Report a problem
 description: Share the steps, versions, and evidence needed to investigate a Silo problem.
 ---
@@ -59,7 +60,7 @@ After sending, include the report ID in your support conversation. Sending
 diagnostics does not create a GitHub issue.
 
 If the destination is unavailable, keep the app version, error, and steps
-instead of repeatedly sending. See [where information goes](/docs/help/privacy)
+instead of repeatedly sending. See [where information goes](/docs/privacy)
 for destination and consent choices.
 
 ## Logs
@@ -78,7 +79,7 @@ screen is empty. Include the image version and any restart or health errors.
 
 For a failure after startup, check **Admin > Logs**. A request ID, playback
 session ID, or node name can help the administrator find the matching event.
-See [server logs](/docs/running-a-server/logging) for filtering and retention.
+See [server logs](/docs/logging) for filtering and retention.
 
 Review every excerpt before posting. Remove tokens, cookies, passwords,
 connection strings, private addresses, and personal media details. Mark
@@ -92,11 +93,11 @@ the Silo library root, and the Activity error. Replace private path segments
 consistently so the relationship between those paths is still visible.
 
 For the legacy external Autoscan target, include the target protocol and
-a sanitized configuration. Follow [Autoscan checks](/docs/running-a-server/autoscan)
+a sanitized configuration. Follow [Autoscan checks](/docs/autoscan)
 before reporting a path-mapping problem.
 
 ## Libraries
 
 Say whether the server can read the affected file, not just whether it is
 visible on your computer. For Docker, include the host-to-container path
-mapping with private segments redacted. See [media paths](/docs/running-a-server/media-folders).
+mapping with private segments redacted. See [media paths](/docs/media-folders).

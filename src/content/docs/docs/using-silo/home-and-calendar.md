@@ -1,4 +1,5 @@
 ---
+slug: docs/home-and-calendar
 title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
@@ -12,7 +13,7 @@ it is not a download schedule.
 1. Open **Home** to resume an unfinished item or browse a row.
 2. Open **For You** when you want suggestions. Select a title to read its
    details before playing or requesting it.
-3. Keep using your own profile and [rate titles](/docs/using-silo/saved-titles)
+3. Keep using your own profile and [rate titles](/docs/saved-titles)
    to give recommendations information about your tastes.
 
 A new profile has less viewing information. Empty recommendations can also

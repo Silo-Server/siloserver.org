@@ -1,4 +1,5 @@
 ---
+slug: docs/s3-storage
 title: Storage, artwork, and capacity
 description: Choose local or S3 artwork storage and know which data must persist.
 ---
@@ -63,4 +64,4 @@ and no private S3, custom avatar uploads are unavailable.
 
 Keep database, artwork, and plugin data on persistent storage. Leave room for transcode scratch and prepared downloads; their disk use can grow while people watch or download media.
 
-Monitor the actual host and mounted volumes. A container restart is not a backup, and a mounted directory is not safe if the underlying disk is failing. Use the [backup inventory](/docs/running-a-server/backup-restore) before adding users.
+Monitor the actual host and mounted volumes. A container restart is not a backup, and a mounted directory is not safe if the underlying disk is failing. Use the [backup inventory](/docs/backup-restore) before adding users.

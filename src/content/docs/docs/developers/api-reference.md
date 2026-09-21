@@ -1,4 +1,5 @@
 ---
+slug: docs/api-reference
 title: API reference
 description: Open the interactive API reference and OpenAPI document bundled with your server.
 ---
@@ -26,7 +27,7 @@ require signing in. Protected requests still need authorization.
 
 ## Try an operation
 
-Follow [Make your first API request](/docs/developers/use-the-api) for a
+Follow [Make your first API request](/docs/use-the-api) for a
 read-only example. **Try it out** executes against your actual server, so
 use a test installation before experimenting with operations that write data.
 

@@ -1,4 +1,6 @@
 ---
+slug: docs/browser-downloads
+beta: true
 title: Save files from the browser (Beta)
 description: Download an original media file from a Silo item page.
 ---
@@ -12,7 +14,7 @@ The web app can save an original media file through your browser. You choose the
 | Client | Available actions |
 | --- | --- |
 | Web | Save an original file from an item's Download action. |
-| iPhone, iPad, Android phone and tablet | Use the separate [managed downloads](/docs/using-silo/downloads) workflow for supported offline video. |
+| iPhone, iPad, Android phone and tablet | Use the separate [managed downloads](/docs/downloads) workflow for supported offline video. |
 
 ## Save a file
 

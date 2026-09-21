@@ -1,4 +1,5 @@
 ---
+slug: docs/profiles
 title: Profiles, PINs, and shared devices
 description: Choose the right household profile and control how a shared device opens Silo.
 ---
@@ -37,4 +38,4 @@ These choices apply to that Apple device. They do not remove the profile's
 PIN or grant extra access. Android and web launch behavior differ; do not
 rely on an Apple launch setting to protect another device.
 
-For a lost device, see [Accounts and signed-in devices](/docs/using-silo/accounts).
+For a lost device, see [Accounts and signed-in devices](/docs/accounts).

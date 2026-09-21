@@ -1,4 +1,5 @@
 ---
+slug: docs/backup-restore
 title: Plan and test your backups
 description: Identify Silo's durable state and verify recovery before relying on a backup.
 ---
@@ -46,4 +47,4 @@ Do not point the restored copy at writable production storage during this test. 
 
 ## Before an update
 
-Record the backup time, restore-test result, image identity, and required storage. If the new version migrates the database, changing the image tag back may not recover the old installation. Follow the [update guide](/docs/running-a-server/updates).
+Record the backup time, restore-test result, image identity, and required storage. If the new version migrates the database, changing the image tag back may not recover the old installation. Follow the [update guide](/docs/updates).

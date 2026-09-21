@@ -1,4 +1,6 @@
 ---
+slug: docs/ebooks
+beta: true
 title: Ebooks and comics (Beta)
 description: Try reading in the web or Android app and check format and client limits.
 ---

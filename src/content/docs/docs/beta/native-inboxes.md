@@ -1,4 +1,6 @@
 ---
+slug: docs/native-inboxes
+beta: true
 title: Native notification inboxes (Beta)
 description: Understand when an Android notification can open the in-app inbox.
 ---
@@ -23,4 +25,4 @@ may wait until you switch back. This is not a way to open another person's inbox
 
 If you need to find an older alert, use **Notifications** in the web app.
 Do not depend on a new phone alert as the only route to notification history.
-See [notification settings](/docs/using-silo/notifications) for delivery setup.
+See [notification settings](/docs/notification-inbox) for delivery setup.

@@ -1,4 +1,5 @@
 ---
+slug: docs/accounts
 title: Accounts and signed-in devices
 description: Change your password, sign out, and get help with a lost device.
 ---
@@ -40,4 +41,4 @@ Give them the account, device name, and approximate last use. Do not use
 revoke its login.
 
 Use a profile picker on shared devices and sign out before giving a device
-to someone outside the household. See [Profiles and PINs](/docs/using-silo/profiles).
+to someone outside the household. See [Profiles and PINs](/docs/profiles).

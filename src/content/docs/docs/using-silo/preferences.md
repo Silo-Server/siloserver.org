@@ -1,4 +1,5 @@
 ---
+slug: docs/preferences
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---
@@ -37,4 +38,4 @@ before changing the whole profile.
 
 **Forget** removes the device's saved settings and hides it until it is used
 again. It does not sign that device out. For a lost device, follow
-[Accounts and signed-in devices](/docs/using-silo/accounts).
+[Accounts and signed-in devices](/docs/accounts).

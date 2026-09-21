@@ -1,4 +1,5 @@
 ---
+slug: docs/transcode-nodes
 title: Add and check transcode nodes
 description: Prepare a remote worker and verify its media access, hardware, and playback.
 ---
@@ -35,10 +36,10 @@ Do not assume an HTTP health response proves clients can receive media from the 
 
 Check whether the node is enabled, healthy, at its concurrency limit, or missing the source file. Review the routing choices under **Admin > Settings > Playback** before forcing all work to a single worker.
 
-A full scratch disk can make a stream fail after it starts. Check free space on the worker itself. Monitor node load and capacity using [Server health](/docs/running-a-server/server-health).
+A full scratch disk can make a stream fail after it starts. Check free space on the worker itself. Monitor node load and capacity using [Server health](/docs/server-health).
 
 ## Maintain a worker
 
 Disable new work and let active sessions drain before changing its driver or deployment. Use **Re-probe** after a hardware change. Re-probing is refused while the node is encoding.
 
-Upgrade the fleet together when release notes require it. Do not mix alpha and 1.0 nodes during the [1.0 cutover](/docs/running-a-server/updates#moving-from-alpha-to-10).
+Upgrade the fleet together when release notes require it. Do not mix alpha and 1.0 nodes during the [1.0 cutover](/docs/updates#moving-from-alpha-to-10).

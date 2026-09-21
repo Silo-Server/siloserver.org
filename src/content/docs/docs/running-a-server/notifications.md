@@ -1,9 +1,10 @@
 ---
+slug: docs/notification-delivery
 title: Configure notification delivery
 description: Set up email, browser or mobile push, and server-owned announcement channels.
 ---
 
-Open **Admin > Settings > Notifications** to choose how your server sends notifications. Users choose their interests and personal channels in [their notification settings](/docs/using-silo/notifications).
+Open **Admin > Settings > Notifications** to choose how your server sends notifications. Users choose their interests and personal channels in [their notification settings](/docs/notification-inbox).
 
 Keep **Release events** and **Fanout** on when you want library changes to reach subscribers. These controls collect new-content events and distribute them to interested profiles. Setting up delivery does not subscribe a browser, verify a user's email address, or link their Discord account.
 
@@ -21,7 +22,7 @@ Set the server's external URL in General settings if emails should link back to 
 Users need an HTTPS address with a certificate their browser trusts. The
 beginner setup's `http://SERVER-IP:8090` address cannot support browser push;
 HTTP on `localhost` is only a local-testing exception. See the
-[HTTPS setup guide](/docs/running-a-server/reverse-proxy). Browser push requires
+[HTTPS setup guide](/docs/reverse-proxy). Browser push requires
 a secure origin, not public access to your server; a trusted HTTPS address
 on your private network can also work.
 

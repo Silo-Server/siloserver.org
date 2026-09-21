@@ -1,4 +1,5 @@
 ---
+slug: docs/help-a-user
 title: Help a user with settings
 description: Find a profile or device override and inspect a user's view when necessary.
 ---
@@ -29,4 +30,4 @@ Use impersonation only when inspecting settings is not enough, and agree on the 
 3. Check the reported screen. Actions you take can change that user's state, so avoid playing, rating, or editing unrelated content.
 4. Use the impersonation banner's **End impersonation session** control to return to your admin session.
 
-Impersonation is unavailable for administrator accounts. If the problem is missing content, also check [access and limits](/docs/running-a-server/access).
+Impersonation is unavailable for administrator accounts. If the problem is missing content, also check [access and limits](/docs/manage-access).

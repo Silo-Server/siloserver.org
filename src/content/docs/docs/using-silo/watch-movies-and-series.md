@@ -1,4 +1,5 @@
 ---
+slug: docs/watch-movies-and-series
 title: Watch movies and series
 description: Start or resume playback, choose tracks, and move through an episode.
 ---
@@ -10,14 +11,14 @@ correct profile is active before watching on a shared device.
 ## Before you play
 
 Check the audio and subtitle choices before playback. Manual selection among
-multiple files is covered in [Versions and previews (Beta)](/docs/beta/versions-and-previews).
+multiple files is covered in [Versions and previews (Beta)](/docs/versions-and-previews).
 Extras and
 trailers are separate items; selecting one does not resume the main movie.
 
 ## In the web player
 
 Move the pointer or tap the picture to show controls. You can pause, seek,
-change audio, or open [subtitles](/docs/using-silo/subtitles). On a narrow
+change audio, or open [subtitles](/docs/subtitles). On a narrow
 screen, open **More player options** for controls including **Audio tracks**
 and **Chapters**.
 

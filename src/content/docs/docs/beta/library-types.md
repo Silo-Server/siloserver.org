@@ -1,4 +1,6 @@
 ---
+slug: docs/library-types
+beta: true
 title: Additional library types (Beta)
 description: Understand Mixed and Podcast libraries before creating them.
 ---
@@ -9,8 +11,8 @@ can appear in the admin form without providing a complete experience on
 every client. Start with a small folder rather than your whole collection.
 :::
 
-For listening and reading, use the separate [audiobook setup](/docs/beta/audiobook-libraries)
-and [ebook/comic guide](/docs/beta/ebooks).
+For listening and reading, use the separate [audiobook setup](/docs/audiobook-libraries)
+and [ebook/comic guide](/docs/ebooks).
 
 ## Mixed video libraries
 
@@ -54,5 +56,5 @@ pipeline was established in this audit. Do not create a custom library type
 through the API just to reveal a tab. Album, artist, and playlist support
 should not be inferred from those labels.
 
-See [unfinished features](/docs/beta/unfinished-features) for the other
+See [unfinished features](/docs/unfinished-features) for the other
 capabilities that do not yet have a usable setup path.

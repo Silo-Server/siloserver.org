@@ -1,4 +1,6 @@
 ---
+slug: docs/watch-sync
+beta: true
 title: Watch-provider sync (Beta)
 description: Connect a profile to Trakt, Simkl, MDBList, or an installed watch-provider plugin.
 ---
@@ -46,4 +48,4 @@ Use **Sync now** to request a sync, then inspect the last import/export time, re
 
 Select **Disconnect** to remove the connection. Review imported state separately; disconnecting is not an undo operation for changes already synced.
 
-For a migration from Plex, Jellyfin, or Emby, use [watch-history import](/docs/using-silo/import-watch-history). Administrators configuring incoming Plex or Jellyfin events should use [watch-state webhooks](/docs/running-a-server/watch-state-webhooks).
+For a migration from Plex, Jellyfin, or Emby, use [watch-history import](/docs/import-watch-history). Administrators configuring incoming Plex or Jellyfin events should use [watch-state webhooks](/docs/watch-state-webhooks).

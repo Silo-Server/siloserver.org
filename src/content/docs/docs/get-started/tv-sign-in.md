@@ -1,4 +1,5 @@
 ---
+slug: docs/tv-sign-in
 title: Sign in on your TV
 description: Use a nearby signed-in phone, a browser code, or your password to set up Silo on a TV.
 ---
@@ -56,4 +57,4 @@ Guest Wi-Fi and network isolation can prevent nearby discovery even when
 both devices have internet access. Keep Silo in the foreground on the TV;
 use the QR or password route if discovery still fails.
 
-Once setup is complete, [use your phone as a TV remote](/docs/using-silo/tv-remote).
+Once setup is complete, [use your phone as a TV remote](/docs/tv-remote).

@@ -1,4 +1,5 @@
 ---
+slug: docs/updates
 title: Update Silo safely
 description: Prepare a backup, read version requirements, and check the server after an update.
 ---
@@ -8,7 +9,7 @@ Update during a quiet period. Tell users when playback may stop and keep the pre
 ## Before changing versions
 
 1. Read the target release notes. Check server, client, plugin, and remote-node compatibility.
-2. Make and verify a [backup](/docs/running-a-server/backup-restore). Keep the encryption key and exact old image identity.
+2. Make and verify a [backup](/docs/backup-restore). Keep the encryption key and exact old image identity.
 3. Record current versions and any external callback URLs.
 4. Finish active playback and downloads, then follow the release's shutdown and migration instructions.
 
@@ -36,7 +37,7 @@ Check more than the container status:
 - Open a library, load artwork, start playback, seek, stop, and resume.
 - Test the integrations and remote nodes you actually use.
 
-Keep the backup until these checks pass. Note the new version when [reporting a problem](/docs/help/report-a-problem).
+Keep the backup until these checks pass. Note the new version when [reporting a problem](/docs/report-a-problem).
 
 ## If the update fails
 

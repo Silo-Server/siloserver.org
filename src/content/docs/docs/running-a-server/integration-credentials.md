@@ -1,4 +1,5 @@
 ---
+slug: docs/integration-credentials
 title: Manage integration credentials
 description: Create an account-owned API key in the admin interface and replace or revoke it safely.
 ---

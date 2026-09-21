@@ -1,4 +1,5 @@
 ---
+slug: docs/requests
 title: Request a movie or series
 description: Ask for a missing title and follow its progress in the web app.
 ---
@@ -29,4 +30,4 @@ cancelled, or failed outcomes need a different response from waiting for a scan.
 
 Open the request for its details before asking for an update. Once it is
 available, check that you can open the title from your profile. You can also
-receive an arrival alert through your [notification preferences](/docs/using-silo/notifications).
+receive an arrival alert through your [notification preferences](/docs/notification-inbox).

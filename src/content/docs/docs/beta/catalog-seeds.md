@@ -1,4 +1,6 @@
 ---
+slug: docs/catalog-seeds
+beta: true
 title: Catalog import and export (Beta)
 description: Transfer catalog records between Silo installations with catalog seeds.
 ---
@@ -14,7 +16,7 @@ Catalog seeds transfer library and media records between installations. Open web
 | Web admin | Export, import, inspect transfer jobs, and download or publish completed exports. |
 | Apple and Android apps | No catalog transfer controls. |
 
-A seed contains catalog records, file paths, and references to stored artwork and metadata. It does not copy the media files or replace a server backup. Use the [backup inventory and recovery checklist](/docs/running-a-server/backup-restore) to plan protection for accounts, watch history, configuration, secrets, and recovery. A tested full restore procedure is still needed.
+A seed contains catalog records, file paths, and references to stored artwork and metadata. It does not copy the media files or replace a server backup. Use the [backup inventory and recovery checklist](/docs/backup-restore) to plan protection for accounts, watch history, configuration, secrets, and recovery. A tested full restore procedure is still needed.
 
 ## Export a catalog
 

@@ -1,4 +1,5 @@
 ---
+slug: docs/home-sections
 title: Curate the home screen
 description: Add and arrange shared rows on Home or a library page.
 ---
@@ -27,4 +28,4 @@ Viewers can have their own saved order. If your order change appears for a new p
 
 Check the selected Home or Library scope, the row's **Enabled** setting, and any collection or filter it uses. Then check the viewer's library access and profile restrictions.
 
-Recommendation rows depend on [recommendation data](/docs/running-a-server/recommendations). Renaming or moving a row does not rebuild those results.
+Recommendation rows depend on [recommendation data](/docs/recommendations). Renaming or moving a row does not rebuild those results.

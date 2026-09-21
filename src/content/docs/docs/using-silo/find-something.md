@@ -1,4 +1,5 @@
 ---
+slug: docs/find-something
 title: Find a movie or series
 description: Browse libraries, narrow results, and explore cast and crew.
 ---
@@ -27,7 +28,7 @@ movie/series filter to narrow the list.
 
 Discovery results can describe titles that are not playable on your server.
 A release date, poster, or cast credit does not mean the media file is present.
-Use [Requests](/docs/using-silo/requests) if your server allows them.
+Use [Requests](/docs/requests) if your server allows them.
 
 ## When something is missing
 
@@ -36,4 +37,4 @@ still absent or has the wrong details, send the administrator its name,
 year, and library. They can check file scanning, identification, and access.
 Changing your profile's language does not correct a wrongly matched title.
 
-For less specific browsing, try [Home, For You, and Calendar](/docs/using-silo/home-and-calendar).
+For less specific browsing, try [Home, For You, and Calendar](/docs/home-and-calendar).

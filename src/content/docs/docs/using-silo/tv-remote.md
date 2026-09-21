@@ -1,4 +1,5 @@
 ---
+slug: docs/tv-remote
 title: Play on your TV using your phone
 description: Send a title to a nearby Silo TV and control playback with SiloRemote.
 ---
@@ -7,7 +8,7 @@ SiloRemote controls the Silo app on a nearby TV. The TV streams from the
 server; the phone or tablet sends commands. Keep both devices on the same
 home network and leave Silo open on the TV.
 
-If the TV has not signed in yet, use [TV setup](/docs/get-started/tv-sign-in)
+If the TV has not signed in yet, use [TV setup](/docs/tv-sign-in)
 first. Setup approval and an ordinary remote-control connection are different tasks.
 
 ## Choose the TV

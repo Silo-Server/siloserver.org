@@ -1,4 +1,5 @@
 ---
+slug: docs/missing-subtitles
 title: Find or add missing subtitles
 description: Search a provider, upload a subtitle file, or use a configured AI service from the web player.
 ---

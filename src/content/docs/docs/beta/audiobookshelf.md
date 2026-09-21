@@ -1,4 +1,6 @@
 ---
+slug: docs/audiobookshelf
+beta: true
 title: Audiobookshelf-compatible apps (Beta)
 description: Connect a dedicated listening app to Silo's audiobook endpoint.
 ---
@@ -47,7 +49,7 @@ The third-party app controls its own download storage and playback interface.
 This guide covers audiobook connections. It does not promise podcast,
 ebook, or send-to-ereader support through an Audiobookshelf client. For
 playback without a third-party app, use
-[Silo's audiobook player](/docs/beta/audiobooks).
+[Silo's audiobook player](/docs/listen-to-audiobooks).
 
 ## Server setup
 
@@ -61,7 +63,7 @@ network or place it behind HTTPS before allowing remote access.
 
 Use the reachable HTTPS address your administrator supplies, not a local
 port copied from a server tutorial. Operators can configure
-[third-party access](/docs/running-a-server/third-party-access).
+[third-party access](/docs/third-party-access).
 
 ## Source notes
 

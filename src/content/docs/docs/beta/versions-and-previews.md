@@ -1,4 +1,6 @@
 ---
+slug: docs/versions-and-previews
+beta: true
 title: Versions and playback previews (Beta)
 description: Choose another source file or edition, and understand which players show preview images.
 ---
@@ -41,7 +43,7 @@ the same cut can still belong to one edition.
 Changing the source file can change available audio tracks, subtitles,
 duration, and the meaning of a saved position. Check where playback resumes
 after switching cuts. Ordinary audio-language and streaming-quality choices
-are covered by [watching movies and series](/docs/using-silo/watch-movies-and-series).
+are covered by [watching movies and series](/docs/watch-movies-and-series).
 
 ## Preview a position on Apple devices
 
@@ -53,7 +55,7 @@ On Apple TV, show the controls and focus the timeline. Press Select to enter
 timeline selection, move left or right, then press Select to confirm the
 position. A preview frame can appear above the timeline while you choose.
 
-In the [native Mac app](/docs/beta/native-macos), drag the playback timeline.
+In the [native Mac app](/docs/native-macos), drag the playback timeline.
 A preview card appears while dragging if the player has a frame for that
 position.
 

@@ -1,4 +1,5 @@
 ---
+slug: docs/collections
 title: Browse and organize collections
 description: Open shared collections or make a personal collection of titles.
 ---
@@ -34,5 +35,5 @@ Choose **Smart** when creating a collection to build it from filters rather
 than add titles one by one. Review the matching items before saving. A rule
 that matches nothing can produce an empty collection.
 
-For a simple personal reminder, [Watchlist or Favorites](/docs/using-silo/saved-titles)
+For a simple personal reminder, [Watchlist or Favorites](/docs/saved-titles)
 is usually quicker than creating a collection.

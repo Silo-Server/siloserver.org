@@ -1,9 +1,10 @@
 ---
+slug: docs/apple-tv-playback
 title: Check playback on Apple TV
 description: Narrow down picture, audio, or subtitle problems on a TV and receiver setup.
 ---
 
-Start with [TV sign-in](/docs/get-started/tv-sign-in) if you have not connected
+Start with [TV sign-in](/docs/tv-sign-in) if you have not connected
 Silo yet. For playback trouble, test one known title before changing several
 TV or receiver settings at once.
 
@@ -39,5 +40,5 @@ with the file version; text and image subtitles can behave differently.
 4. Report the observed picture/audio result and any player error.
 
 Your administrator can check whether the server converted the stream.
-[Report the problem](/docs/help/report-a-problem) with those details instead
+[Report the problem](/docs/report-a-problem) with those details instead
 of posting a private media file.

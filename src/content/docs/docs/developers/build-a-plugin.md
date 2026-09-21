@@ -1,4 +1,5 @@
 ---
+slug: docs/build-a-plugin
 title: Build your first plugin
 description: Start from a small SDK example, inspect its manifest, and test it on a disposable server.
 ---
@@ -6,7 +7,7 @@ description: Start from a small SDK example, inspect its manifest, and test it o
 A plugin adds a capability to Silo, such as metadata lookup or a scheduled
 task. The [Go plugin SDK](https://github.com/Silo-Server/silo-plugin-sdk)
 owns the authoring contract. Installing an existing plugin only requires the
-[admin guide](/docs/running-a-server/plugins).
+[admin guide](/docs/plugins).
 
 ## Start with the scheduled-task example
 
@@ -31,7 +32,7 @@ itself; it does not test its execution inside Silo.
 2. Review the source and manifest before uploading. Inspecting a plugin during
    upload can execute its binary, so the upload itself requires trust.
 3. On a disposable server, follow **Manual Install** in
-   [Install plugins](/docs/running-a-server/plugins) and upload the binary.
+   [Install plugins](/docs/plugins) and upload the binary.
    Use test data only.
 4. Open **Admin > Scheduled Tasks**, find **Hello Task**, and select **Run Now**.
    Check the execution result. This example returns without changing media;

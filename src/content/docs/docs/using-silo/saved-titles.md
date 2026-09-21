@@ -1,4 +1,5 @@
 ---
+slug: docs/saved-titles
 title: Watchlist, favorites, and ratings
 description: Save titles for later and record what you think of them.
 ---
@@ -20,7 +21,7 @@ Wait for a change to finish before leaving the page. If it fails, check the
 connection and retry; a failed save will not reliably appear on another device.
 
 Adding a series to one of these lists can also make it eligible for new-episode
-[notifications](/docs/using-silo/notifications), depending on your preferences.
+[notifications](/docs/notification-inbox), depending on your preferences.
 Saving a title does not request it, download it, or mark it watched.
 
-For your own named groups of titles, use [Collections](/docs/using-silo/collections).
+For your own named groups of titles, use [Collections](/docs/collections).

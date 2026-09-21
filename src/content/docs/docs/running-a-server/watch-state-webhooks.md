@@ -1,9 +1,10 @@
 ---
+slug: docs/watch-state-webhooks
 title: Receive watch-state updates
 description: Connect another media server to a Silo account and map incoming events to profiles.
 ---
 
-Webhook Sync receives events from Plex, Jellyfin, or Emby and applies supported watch-state changes to Silo. It is separate from a [history import](/docs/running-a-server/watch-history-import), outgoing notifications, and Autoscan file-change events.
+Webhook Sync receives events from Plex, Jellyfin, or Emby and applies supported watch-state changes to Silo. It is separate from a [history import](/docs/import-household-watch-history), outgoing notifications, and Autoscan file-change events.
 
 You need access to the sending server's webhook settings. In Silo, the connection belongs to the signed-in account and maps to that account's profiles. This is not a server-wide mapping editor for every Silo account.
 

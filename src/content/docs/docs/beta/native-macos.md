@@ -1,4 +1,6 @@
 ---
+slug: docs/native-macos
+beta: true
 title: Native macOS app (Beta)
 description: Use the early native Mac target and understand its current limits.
 ---
@@ -28,12 +30,12 @@ current signing and build guidance if you are testing from source.
 
 A ready-to-install native Mac release was not verified for this guide.
 For access without a source build, use your server's web app. The
-[app selection guide](/docs/get-started/choose-an-app) lists the other
+[app selection guide](/docs/choose-an-app) lists the other
 published app channels.
 
 ## Watch a movie or episode
 
-1. Launch the native app and [connect to your server](/docs/get-started/join-a-server).
+1. Launch the native app and [connect to your server](/docs/connect-and-watch).
 2. Select your profile, then use the sidebar to open Home or a library.
    Use the magnifying-glass button at the top of the page to search.
 3. Open a movie or episode and choose **Play** or **Resume**.
@@ -55,7 +57,7 @@ These shortcuts apply while the native video player receives keyboard input.
 | Escape | Close the options panel, or leave the player if no panel is open |
 
 You can also drag the timeline. See
-[versions and playback previews](/docs/beta/versions-and-previews) for
+[versions and playback previews](/docs/versions-and-previews) for
 source-file choices and preview-frame limits.
 
 ## Current gaps
@@ -65,7 +67,7 @@ audiobook player is not presented in the native Mac target. Library
 navigation is hidden by default, and no Mac **Show Audiobooks** toggle was
 found. The mini-player's pause/resume control does not provide the full
 listening workflow. Use the clients listed in
-[Audiobooks](/docs/beta/audiobooks) for that workflow.
+[Audiobooks](/docs/listen-to-audiobooks) for that workflow.
 
 There is no native ebook/comic reader, Watch Party entry, watch-provider
 account setup, server-administration console, or notification inbox in the

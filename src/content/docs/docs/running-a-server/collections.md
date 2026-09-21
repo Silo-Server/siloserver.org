@@ -1,4 +1,5 @@
 ---
+slug: docs/manage-collections
 title: Create shared and smart collections
 description: Build a library collection from filters or an imported list and check what viewers can see.
 ---
@@ -19,12 +20,12 @@ Smart collections use rules to find matching items. Imported collections use a n
 
 Choose **Browse Templates** from **Admin > Collections**. Select a template, review its libraries and source requirements, then apply it. Wait for the apply job to finish before checking the new collection.
 
-Some sources require credentials or a provider. Follow the template's setup controls and [plugin instructions](/docs/running-a-server/plugins) when prompted. An imported list does not download missing media.
+Some sources require credentials or a provider. Follow the template's setup controls and [plugin instructions](/docs/plugins) when prompted. An imported list does not download missing media.
 
 ## Change a collection
 
 Use its edit action to change filters, title, visibility, or artwork, then choose **Save Collection**. Imported collections retain their source-specific settings. Use their sync action when you need to refresh source membership.
 
-**Hidden** removes a collection from normal browsing. **Featured** surfaces it near the top of the library. To put a collection in a particular home row, [add a section](/docs/running-a-server/home-sections).
+**Hidden** removes a collection from normal browsing. **Featured** surfaces it near the top of the library. To put a collection in a particular home row, [add a section](/docs/home-sections).
 
 If the collection looks empty, check its filters and source results, then test with the affected profile. A collection does not grant access to media outside that profile's libraries or restrictions.

@@ -1,4 +1,5 @@
 ---
+slug: docs/local-metadata
 title: Use local NFO metadata
 description: Supply titles, descriptions, and artwork beside your media files.
 ---
@@ -51,4 +52,4 @@ Scheduled metadata work fills gaps; it does not continually overwrite existing v
 
 The NFO root must match the media type: `<movie>`, `<tvshow>`, `<season>`, or `<episodedetails>`. A broken or wrong-type file may be skipped. Use one episode block per episode sidecar.
 
-Folder names and `S01E01`-style filenames decide the series structure. NFO episode numbers do not move a video to another season. Fix the [naming](/docs/running-a-server/media-folders#series) when the structure is wrong.
+Folder names and `S01E01`-style filenames decide the series structure. NFO episode numbers do not move a video to another season. Fix the [naming](/docs/media-folders#series) when the structure is wrong.

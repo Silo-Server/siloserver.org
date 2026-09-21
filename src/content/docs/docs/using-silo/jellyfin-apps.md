@@ -1,4 +1,5 @@
 ---
+slug: docs/jellyfin-apps
 title: Connect a Jellyfin-compatible app
 description: Enter your Silo account and profile in a Jellyfin-compatible app.
 ---
@@ -57,7 +58,7 @@ name and PIN. The selected profile owns the resulting progress and favorites.
 ## Reverse Proxy
 
 Use the HTTPS address supplied by your administrator. Server setup belongs
-in [third-party access](/docs/running-a-server/third-party-access).
+in [third-party access](/docs/third-party-access).
 
 ## Scope
 

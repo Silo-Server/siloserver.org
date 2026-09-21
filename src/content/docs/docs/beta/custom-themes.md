@@ -1,4 +1,6 @@
 ---
+slug: docs/custom-themes
+beta: true
 title: Custom web themes (Beta)
 description: Edit web colors, fonts, CSS, and community theme files.
 ---
@@ -32,4 +34,4 @@ An administrator can open **Admin → Settings → Appearance**, then expand the
 
 Profile customizations layer over the server's styles. Inspect text contrast and control visibility after editing; custom CSS can make parts of the interface difficult to use.
 
-For the server name, logo, login background, favicon, and accent color, see [server branding](/docs/running-a-server/branding). Those standard branding controls remain part of the supported administration scope.
+For the server name, logo, login background, favicon, and accent color, see [server branding](/docs/branding). Those standard branding controls remain part of the supported administration scope.

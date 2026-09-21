@@ -1,4 +1,5 @@
 ---
+slug: docs/downloads
 title: Download for offline use
 description: Save media on a phone or tablet and check it before leaving your connection.
 ---
@@ -36,5 +37,5 @@ Select a downloaded item and use **Delete Download** to free device storage.
 This removes the local copy, not the media in the server library. Reconnect
 after offline viewing before expecting progress on another device.
 
-Audiobook and ebook downloads are beta. See the [audiobook](/docs/beta/audiobooks#downloads)
-and [ebook](/docs/beta/ebooks) guides for client and file-format limits.
+Audiobook and ebook downloads are beta. See the [audiobook](/docs/listen-to-audiobooks#downloads)
+and [ebook](/docs/ebooks) guides for client and file-format limits.

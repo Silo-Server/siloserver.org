@@ -1,4 +1,5 @@
 ---
+slug: docs/improve-the-docs
 title: Improve these docs
 description: Correct instructions, contribute examples, or report a gap in the Silo manual.
 ---
@@ -54,6 +55,18 @@ bun run dev
 bun run build
 ```
 
-The build checks internal documentation links and anchors. Keep existing
-URLs and headings working when moving a page; URL mappings live in
-`src/data/docs-redirects.mjs`.
+Each page declares its public URL with `slug: docs/article-name`. Keep that
+slug when changing the title, source folder, or sidebar group. The sidebar
+can nest a page without adding directories to its URL.
+
+The build checks slugs, navigation, internal links, and anchors. During this
+unpublished pre-1.0 reorganization, new redirects are not required. Existing
+published aliases remain in `src/data/docs-redirects.mjs`. After 1.0, preserve
+published URLs and useful section anchors when moving or merging pages.
+
+The manual's shared release baseline lives in `src/data/docs-release.mjs`.
+Do not describe unreleased behavior as available in the current stable release.
+If a task requires a particular server or app version, provide evidence in
+the pull request and add the applicable `requires` field. Leave it out when
+the minimum version is unknown. Source review and real-device testing are
+different kinds of evidence; say which you performed.

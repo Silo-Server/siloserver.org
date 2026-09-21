@@ -1,4 +1,5 @@
 ---
+slug: docs/manage-accounts
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---
@@ -15,7 +16,7 @@ An account is a sign-in for your server. Its profiles keep household members' hi
 4. Keep **Create their first profile** on if they need a ready-to-use profile.
 5. Choose **Send invite**. If email delivery is unavailable, copy the invitation link and send it privately.
 
-The link is single-use and expires after seven days. The recipient chooses a password, then signs in to your server. Send them [Join a server](/docs/get-started/join-a-server) with the invitation.
+The link is single-use and expires after seven days. The recipient chooses a password, then signs in to your server. Send them [Join a server](/docs/connect-and-watch) with the invitation.
 
 If the link expires, use the invitation's resend action. **Revoke** stops a pending link from working; it does not remove an account that has already accepted an invitation.
 
@@ -26,7 +27,7 @@ If the link expires, use the invitation's resend action. **Revoke** stops a pend
 3. Review **Access** and **Limits**, then create the user.
 4. Share the server address and credentials privately. Ask the person to change the password after signing in.
 
-For a group of people with the same access, [configure an access group](/docs/running-a-server/access) first.
+For a group of people with the same access, [configure an access group](/docs/manage-access) first.
 
 ## Change access or reset a password
 
@@ -38,6 +39,6 @@ The **Profiles** tab shows the household profiles attached to the account. Check
 
 ## A lost device or unwanted playback
 
-Use [active playback controls](/docs/running-a-server/active-playback) to stop a stream. Stopping playback does not sign the account out. If an account is compromised, disable it while you arrange recovery with its owner.
+Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback does not sign the account out. If an account is compromised, disable it while you arrange recovery with its owner.
 
 The admin **Devices** view describes saved preferences and device overrides. Removing an override is not a way to revoke a login.

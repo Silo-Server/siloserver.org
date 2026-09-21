@@ -1,4 +1,5 @@
 ---
+slug: docs/server-health
 title: Check server health
 description: Find whether a problem comes from startup, storage, scanning, or playback.
 ---
@@ -26,13 +27,13 @@ Readiness does not check every feature or Redis operation and does not prove pla
 
 Open **Admin > Libraries** and check the active scan and reported errors. Confirm the media disk is mounted and that the container can read the configured folder.
 
-If a scan finds no files, investigate the path before confirming cleanup or deleting anything. Use [library troubleshooting](/docs/running-a-server/libraries#files-are-missing).
+If a scan finds no files, investigate the path before confirming cleanup or deleting anything. Use [library troubleshooting](/docs/manage-libraries#files-are-missing).
 
 ## Playback fails
 
 Try one known file and record the client, time, and chosen audio/subtitle tracks. Check active sessions, then **Admin > Nodes** for the selected node's health, load, capacity, and acceleration.
 
-Confirm that the node can read the file and has scratch space. If only remote clients fail, check [external addresses and proxying](/docs/running-a-server/reverse-proxy). If only converted streams fail, check [transcoding](/docs/running-a-server/playback).
+Confirm that the node can read the file and has scratch space. If only remote clients fail, check [external addresses and proxying](/docs/reverse-proxy). If only converted streams fail, check [transcoding](/docs/playback).
 
 ## Background work fails
 
@@ -44,4 +45,4 @@ Operational logs explain work the server attempted. Audit records explain record
 
 Watch database and artwork storage as well as transcode scratch. A full disk can affect one task before the whole server stops responding.
 
-For metrics and retention controls, see [Logs and monitoring](/docs/running-a-server/logging). Share only a short, reviewed excerpt when [reporting a problem](/docs/help/report-a-problem).
+For metrics and retention controls, see [Logs and monitoring](/docs/logging). Share only a short, reviewed excerpt when [reporting a problem](/docs/report-a-problem).

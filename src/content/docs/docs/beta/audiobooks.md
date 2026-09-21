@@ -1,4 +1,6 @@
 ---
+slug: docs/listen-to-audiobooks
+beta: true
 title: Audiobooks (Beta)
 description: Start a book, choose chapters, and adjust speed or a sleep timer.
 ---
@@ -77,8 +79,8 @@ Pause, let the first device reconnect to the server if needed, then open the
 same book with the same profile on the other device. Check the shown position
 before continuing. Simultaneous playback can produce competing progress updates.
 
-For a dedicated listening app, see [Audiobookshelf-compatible apps](/docs/beta/audiobookshelf).
-Administrators can [set up an audiobook library](/docs/beta/audiobook-libraries).
+For a dedicated listening app, see [Audiobookshelf-compatible apps](/docs/audiobookshelf).
+Administrators can [set up an audiobook library](/docs/audiobook-libraries).
 
 ## Downloads
 

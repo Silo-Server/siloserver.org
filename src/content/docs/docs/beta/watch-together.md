@@ -1,4 +1,6 @@
 ---
+slug: docs/watch-together
+beta: true
 title: Watch Party (Beta)
 description: Create or join a shared viewing room in the Silo web app.
 ---

@@ -1,4 +1,5 @@
 ---
+slug: docs/import-household-watch-history
 title: Import a household's watch history
 description: Map people from Plex, Jellyfin, or Emby to existing Silo profiles and review an import.
 ---
@@ -29,4 +30,4 @@ An import can finish with some items unmatched. Check that the media exists in S
 
 Removing a mapping does not erase history already imported. Review existing history before trying to repair a mistaken import; do not assume deleting and recreating the mapping undoes it.
 
-For continuing incoming updates, see [watch-state webhooks](/docs/running-a-server/watch-state-webhooks). They are a separate connection from a one-time import.
+For continuing incoming updates, see [watch-state webhooks](/docs/watch-state-webhooks). They are a separate connection from a one-time import.

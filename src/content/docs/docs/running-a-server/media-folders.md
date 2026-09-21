@@ -1,4 +1,5 @@
 ---
+slug: docs/media-folders
 title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---
@@ -16,7 +17,7 @@ With the default Docker setup, `MEDIA_ROOT=/srv/media` maps the host's media to 
 | `/srv/media/movies` | `/mnt/media/movies` |
 | `/srv/media/tv` | `/mnt/media/tv` |
 
-Mount network shares on the host first. Check that the files are visible and readable before you [add the library](/docs/running-a-server/libraries).
+Mount network shares on the host first. Check that the files are visible and readable before you [add the library](/docs/manage-libraries).
 
 ## Movies
 
@@ -53,7 +54,7 @@ Do not put unrelated shows into one flat episode folder. Bare `E01`, `1x02`, and
 ## Audiobooks
 
 Audiobooks are beta. Their folder and chapter instructions live in the
-[Beta audiobook guide](/docs/beta/audiobook-libraries).
+[Beta audiobook guide](/docs/audiobook-libraries).
 
 ## Provider IDs
 
@@ -73,7 +74,7 @@ Silo reads edition tags like `{edition-Director's Cut}` in a folder or filename.
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle sidecars with the item they describe. See [Local metadata](/docs/running-a-server/local-metadata) for what Silo reads.
+Keep NFO files, posters, and subtitle sidecars with the item they describe. See [Local metadata](/docs/local-metadata) for what Silo reads.
 
 For movie extras, use an item-level folder such as `Trailers`, `Featurettes`, or `Behind the Scenes`. An extras folder at the library root has no owning title. For series, files in `Extras` with a valid `S00E01`-style name retain the special-episode behavior.
 
@@ -83,4 +84,4 @@ Do not fix a missing network mount by deleting the library or moving all its fil
 
 ## Autoscan
 
-Paths sent by another service must map to Silo's container-visible library root. For example, an import reported as `/tv/Show Name` may need a rewrite to `/mnt/media/tv/Show Name`. Configure the rewrite with the relevant [Autoscan source](/docs/running-a-server/autoscan).
+Paths sent by another service must map to Silo's container-visible library root. For example, an import reported as `/tv/Show Name` may need a rewrite to `/mnt/media/tv/Show Name`. Configure the rewrite with the relevant [Autoscan source](/docs/autoscan).

@@ -1,9 +1,10 @@
 ---
+slug: docs/subtitle-providers
 title: Set up subtitle providers
 description: Connect subtitle search providers and manage tracks stored on your server.
 ---
 
-Configure a subtitle provider when viewers need to search for tracks that are missing from a media file. AI translation and transcription have [separate settings](/docs/running-a-server/ai-services).
+Configure a subtitle provider when viewers need to search for tracks that are missing from a media file. AI translation and transcription have [separate settings](/docs/ai-services).
 
 ## Connect a provider
 

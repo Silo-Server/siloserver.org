@@ -1,4 +1,5 @@
 ---
+slug: docs/notification-inbox
 title: Manage your notifications
 description: Choose which events reach you and check browser, phone, email, or Discord delivery.
 ---
@@ -78,7 +79,7 @@ limits stale events and large batches.
 
 ## For server administrators
 
-See [Configure notification delivery](/docs/running-a-server/notifications)
+See [Configure notification delivery](/docs/notification-delivery)
 for channel setup and delivery failures.
 
 ## Source notes

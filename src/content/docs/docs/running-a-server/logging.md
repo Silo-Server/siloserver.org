@@ -1,4 +1,5 @@
 ---
+slug: docs/logging
 title: Logs and monitoring
 description: Find errors, limit retained logs, and add private monitoring when needed.
 ---
@@ -34,7 +35,7 @@ The admin log threshold is separate from the console threshold. Raising one does
 
 Silo masks secret-named structured fields, including password, token, authorization, and cookie attributes. It does not recognize every secret inside arbitrary message text.
 
-Read an excerpt before sharing it. Remove account details, private paths or titles, and any credentials. Early-boot output and third-party/plugin output need the same review. Follow [Report a problem](/docs/help/report-a-problem) for a useful, safe report.
+Read an excerpt before sharing it. Remove account details, private paths or titles, and any credentials. Early-boot output and third-party/plugin output need the same review. Follow [Report a problem](/docs/report-a-problem) for a useful, safe report.
 
 ## Retention and rotation
 
@@ -56,7 +57,7 @@ Merge this into an existing override rather than replacing it. Validate the conf
 
 ## Health and metrics
 
-The application exposes `/api/v1/health` and `/api/v1/ready`. [Readiness can be degraded](/docs/running-a-server/server-health#check-startup) even with HTTP 200.
+The application exposes `/api/v1/health` and `/api/v1/ready`. [Readiness can be degraded](/docs/server-health#check-startup) even with HTTP 200.
 
 Prometheus metrics use a separate, opt-in listener. Set `SILO_METRICS_LISTEN` only when you have a private collector. Its `/metrics` route has no application authentication; do not publish or reverse-proxy it to the internet. The normal application listener does not serve metrics.
 

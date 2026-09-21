@@ -1,4 +1,5 @@
 ---
+slug: docs/subtitles
 title: Choose and adjust subtitles
 description: Select a subtitle track, change its appearance, or correct a small timing offset.
 ---
@@ -28,6 +29,6 @@ movie usually needs a subtitle file matched to that version, not a larger offset
 
 The web subtitle menu also offers appearance controls during playback.
 Device-specific timing settings live in **Settings > Your Devices**; see
-[Preferences and device overrides](/docs/using-silo/preferences).
+[Preferences and device overrides](/docs/preferences).
 
-If the language or track is missing, [find, upload, or generate subtitles](/docs/using-silo/missing-subtitles).
+If the language or track is missing, [find, upload, or generate subtitles](/docs/missing-subtitles).

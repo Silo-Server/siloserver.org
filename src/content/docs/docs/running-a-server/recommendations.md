@@ -1,9 +1,10 @@
 ---
+slug: docs/recommendations
 title: Set up recommendations
 description: Configure the recommendation model and inspect the jobs that produce results.
 ---
 
-Recommendations use catalog information and profile activity to build suggestions. They are separate from the rows you choose in [Sections](/docs/running-a-server/home-sections).
+Recommendations use catalog information and profile activity to build suggestions. They are separate from the rows you choose in [Sections](/docs/home-sections).
 
 This is an optional advanced setup. It needs PostgreSQL with pgvector and an OpenAI-compatible embedding endpoint. Choose the model before generating data: Silo locks the embedding configuration after its first successful embedding.
 

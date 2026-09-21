@@ -1,4 +1,5 @@
 ---
+slug: docs/active-playback
 title: Monitor and control active playback
 description: Inspect a stream, send a supported playback command, or end a session.
 ---
@@ -9,7 +10,7 @@ Open **Admin > Activity** in the web app to see current playback. The list ident
 
 1. Find the session and expand its details.
 2. Compare the source and delivered video, audio, and container information.
-3. Check whether playback is direct or being transcoded. For buffering during conversion, continue with [playback configuration](/docs/running-a-server/playback).
+3. Check whether playback is direct or being transcoded. For buffering during conversion, continue with [playback configuration](/docs/playback).
 
 Record the app and device as well as the media title when reporting a problem. Two devices can take different playback paths for the same file.
 
@@ -21,4 +22,4 @@ Open the session's action menu. **Pause**, **Resume**, and **Message…** are av
 
 If a command cannot reach the client, Silo may end the session instead. Do not repeatedly send pause or resume as a connection test.
 
-These actions affect playback, not the account's saved login. See [account management](/docs/running-a-server/accounts) for access changes.
+These actions affect playback, not the account's saved login. See [account management](/docs/manage-accounts) for access changes.

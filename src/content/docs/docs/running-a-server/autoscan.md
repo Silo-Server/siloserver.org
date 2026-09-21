@@ -1,4 +1,5 @@
 ---
+slug: docs/autoscan
 title: Keep libraries up to date
 description: Connect scan sources, match their paths to Silo, and check that changed files reach the library.
 ---
@@ -19,7 +20,7 @@ Treat the webhook URL as a secret. Replacing it means updating the sending servi
 
 ## Add a polling source
 
-1. Install the required [scan-source plugin](/docs/running-a-server/plugins).
+1. Install the required [scan-source plugin](/docs/plugins).
 2. Under **Sources > Advanced**, add a saved connection if the source needs one. Enter the service URL and credential, or reuse a Requests integration.
 3. Choose **Test connection** and save.
 4. Choose **Add source**, select the plugin, and bind the connection. Review its settings and path rewrites.
@@ -43,4 +44,4 @@ Repeated changes can be combined by the debounce setting. A received event does 
 
 An existing external Autoscan service can use Silo's Jellyfin-compatible endpoint. It needs an admin API key and paths that match Silo's libraries after its own rewrites. Keep that setup separate from Silo's built-in sources: external Autoscan uses its own configuration and regular-expression rewrite syntax.
 
-For a new setup, use the source controls above. For an existing deployment, confirm [Jellyfin compatibility](/docs/running-a-server/third-party-access) is on before investigating its scan connection.
+For a new setup, use the source controls above. For an existing deployment, confirm [Jellyfin compatibility](/docs/third-party-access) is on before investigating its scan connection.

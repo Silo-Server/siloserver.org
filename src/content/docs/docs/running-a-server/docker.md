@@ -1,9 +1,10 @@
 ---
+slug: docs/docker
 title: Docker deployment reference
 description: Understand the default services, mounts, and optional search service.
 ---
 
-For a new server, follow [Install Silo](/docs/get-started/install-silo). This reference explains the default stack and where to make later changes.
+For a new server, follow [Install Silo Server](/docs/install-silo-server). This reference explains the default stack and where to make later changes.
 
 ## Image and platform support
 
@@ -19,7 +20,7 @@ Use an explicit published tag or digest when you need a repeatable deployment. R
 | `postgres` | Database with pgvector | 5432, host loopback only |
 | `redis` | Shared coordination and cache state | 6379, host loopback only |
 
-Ports 8096 and 13378 serve compatibility clients. Exposing a port and allowing a protocol in Silo settings are separate decisions. See [third-party access](/docs/running-a-server/third-party-access).
+Ports 8096 and 13378 serve compatibility clients. Exposing a port and allowing a protocol in Silo settings are separate decisions. See [third-party access](/docs/third-party-access).
 
 The media mount is read-only. Silo's writable directories live below `SILO_DATA_ROOT`, which defaults to `/opt/silo`:
 
@@ -34,7 +35,7 @@ The media mount is read-only. Silo's writable directories live below `SILO_DATA_
 | `catalog-seeds` | Catalog seed inputs, mounted read-only |
 | `meilisearch` | Optional search index |
 
-These mounts are not a complete backup procedure. See [Backups](/docs/running-a-server/backup-restore), particularly if an older install uses SQLite profile storage or other local paths.
+These mounts are not a complete backup procedure. See [Backups](/docs/backup-restore), particularly if an older install uses SQLite profile storage or other local paths.
 
 ## Optional Meilisearch
 
@@ -50,7 +51,7 @@ Do not expose port 7700 publicly. Starting the container alone does not switch S
 
 ## Hardware transcoding on Linux
 
-Use the matching GPU overlay and then test a real transcode. The complete procedure is in [Set up transcoding](/docs/running-a-server/playback).
+Use the matching GPU overlay and then test a real transcode. The complete procedure is in [Set up transcoding](/docs/playback).
 
 ### Intel Quick Sync or VA-API
 
@@ -68,6 +69,6 @@ Set `POSTGRES_TUNE=off` when a database administrator manages tuning. An externa
 
 ## Distributed examples
 
-The Compose file's worker examples are commented out. They require shared services, matching media paths, and addresses reachable from the API and clients. See [Transcode nodes](/docs/running-a-server/transcode-nodes).
+The Compose file's worker examples are commented out. They require shared services, matching media paths, and addresses reachable from the API and clients. See [Transcode nodes](/docs/transcode-nodes).
 
-For external PostgreSQL or Redis, use a reviewed deployment file. The default service's explicit connection settings override values merely added to `.env`; see [configuration](/docs/running-a-server/configuration).
+For external PostgreSQL or Redis, use a reviewed deployment file. The default service's explicit connection settings override values merely added to `.env`; see [configuration](/docs/configuration).

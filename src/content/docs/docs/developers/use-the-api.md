@@ -1,18 +1,19 @@
 ---
+slug: docs/use-the-api
 title: Make your first API request
 description: Explore the installed server's API and make a read-only request with a test account's key.
 ---
 
 Build new integrations against **/api/v2**. Use the reference served by the
 server you are connecting to, so the documented operations match that build.
-Jellyfin and [Audiobookshelf (Beta)](/docs/beta/audiobookshelf) compatibility
+Jellyfin and [Audiobookshelf (Beta)](/docs/audiobookshelf) compatibility
 endpoints have separate contracts.
 
 ## Before you start
 
 Use a non-admin test account with access to a test library. Ask an
 administrator to create a key owned by that account. Follow
-[integration credentials](/docs/running-a-server/integration-credentials)
+[integration credentials](/docs/integration-credentials)
 for the web key-management steps, then revoke the test key when finished.
 
 The current web creation form does not offer a scope chooser. Its key has
@@ -68,6 +69,6 @@ already have succeeded.
 
 ## API reference
 
-[Open the API reference for your server](/docs/developers/api-reference).
+[Open the API reference for your server](/docs/api-reference).
 The [native contract](https://github.com/Silo-Server/silo-server/blob/main/docs/architecture/api-contract.md)
 covers compatibility and API conventions in more detail.
