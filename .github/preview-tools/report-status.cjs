@@ -47,7 +47,7 @@ module.exports = async ({ github, context, core, runId, sha, phase }) => {
 
   // The reusable reporter serializes writes per SHA. This marker prevents late
   // build events and old attempts from overwriting newer deployment results.
-  const { data: statuses } = await github.rest.repos.listCommitStatuses({ ...repo, ref: sha, per_page: 100 });
+  const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({ ...repo, ref: sha, per_page: 100 });
   const previous = statuses.find(status => status.context === 'preview');
   const marker = previous?.target_url?.match(/#preview-run=(\d+)&attempt=(\d+)&deploy=(\d+)&deploy-attempt=(\d+)&stage=(\d+)$/);
   if (marker) {
