@@ -3,6 +3,8 @@ title: Ebooks
 description: Ebook libraries, supported formats, the built-in reader, and reading progress.
 ---
 
+> **Beta.** Ebook libraries and the reader work as described here but are outside the 1.0 support promise. A consolidated Books effort will replace them later; existing libraries and progress carry over.
+
 Silo supports first-class ebook libraries with a built-in web reader, per-profile reading progress, and metadata enrichment.
 
 ## Create an ebook library

@@ -3,6 +3,8 @@ title: Audiobooks
 description: Audiobook libraries, supported formats, folder layout, and metadata.
 ---
 
+> **Beta.** Audiobook libraries work as described here but are outside the 1.0 support promise. A consolidated Books effort will replace them later; existing libraries and progress carry over.
+
 Silo supports first-class audiobook libraries. Audiobooks play in the Silo web app and in Audiobookshelf-compatible clients through a dedicated [Audiobookshelf-compatible endpoint](/docs/audiobookshelf-compatibility).
 
 ## Create an audiobook library

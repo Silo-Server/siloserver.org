@@ -34,6 +34,6 @@ export const faq: FaqItem[] = [
   {
     question: "What's broken right now?",
     answer:
-      "Audiobooks, ebooks, and podcasts are newer than movies and TV, so expect rough edges there. The native apps are in beta and close to feature parity with the web app; Watch Together, subtitle search, and the admin tools are still web-only. Anything not in the feature list above is probably not yet a thing.",
+      "The 1.0 milestone covers movies and series. Audiobooks, ebooks, podcasts, and Audiobookshelf compatibility keep working as they do today but are labeled beta and outside the 1.0 support promise; a consolidated Books effort will replace audiobooks and ebooks later, with no release date assigned. The native apps are in beta and close to feature parity with the web app; Watch Together, subtitle search, and the admin tools are still web-only. Anything not in the feature list above is probably not yet a thing.",
   },
 ];

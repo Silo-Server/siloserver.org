@@ -2,6 +2,7 @@
 import { nativeClients, compatClients, absClients } from "../data/clients";
 import { REPOS, repoUrl } from "../data/siteConfig";
 import { downloadLinkFor } from "../data/releases";
+const absDocsHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/docs/audiobookshelf-compatibility`;
 ---
 
 <section class="section section--clients" id="clients">
@@ -94,15 +95,17 @@ import { downloadLinkFor } from "../data/releases";
 
     <h3 class="cluster__title">
       <span class="cluster__line"></span>
-      <span>audiobookshelf-compatible clients</span>
+      <span>audiobookshelf-compatible clients (beta)</span>
       <span class="cluster__line"></span>
     </h3>
 
     <p class="cluster__caption">
-      Audiobook and podcast libraries are also served over the
-      Audiobookshelf protocol on port <code>:13378</code>. Point any of
-      these at <code>http://silo:13378</code>, sign in with your Silo
-      credentials, and listen. Progress and chapters sync.
+      Audiobook libraries are also served over the Audiobookshelf protocol on
+      port <code>:13378</code>. Point any of these at
+      <code>http://silo:13378</code>, sign in with your Silo credentials, and
+      listen. This is a <strong>beta</strong> feature outside the 1.0 support
+      promise; the consolidated Books effort will replace it later. See the
+      <a href={absDocsHref}>setup guide and limitations</a>.
     </p>
 
     <div class="compat-grid" data-reveal-stagger>

@@ -106,13 +106,13 @@ export const features: Feature[] = [
   },
   {
     id: "FEAT_09",
-    title: "Audiobooks and ebooks, same shelf",
+    title: "Audiobooks and ebooks, in beta",
     body:
-      "Audiobook libraries with chapters, series, and resume, plus an Audiobookshelf-compatible endpoint so apps like Plappa and the official app connect as-is. Podcast feeds sync on a schedule. Ebooks get a built-in reader for EPUB, PDF, and comics with synced progress.",
+      "Audiobook libraries with chapters, series, and resume, plus an Audiobookshelf-compatible endpoint so apps like Plappa and the official app connect as-is. Ebooks get a built-in reader for EPUB, PDF, and comics with synced progress. Both are beta and outside the 1.0 support promise; a unified Books library that treats an audiobook and an ebook as editions of one title comes later.",
     chips: [
+      { label: "Beta" },
       { label: "ABS protocol" },
       { label: "EPUB · PDF · CBZ" },
-      { label: "Podcast feeds" },
     ],
   },
   {
