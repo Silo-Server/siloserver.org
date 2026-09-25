@@ -37,6 +37,8 @@ To suspend access while retaining the account, turn off **Enabled** under **Acco
 
 The **Profiles** tab shows the household profiles attached to the account. Check the profile as well as the account when investigating missing media or unexpected restrictions.
 
+To check the web app as an enabled, non-admin account, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect the user's account.
+
 ## A lost device or unwanted playback
 
 Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback does not sign the account out. If an account is compromised, disable it while you arrange recovery with its owner.

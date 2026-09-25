@@ -6,15 +6,19 @@ description: Give people the right libraries and permissions without editing eve
 
 Start with an access group for people who should have the same libraries and limits. Change one account only when it needs an exception.
 
+Administrator accounts cannot belong to access groups. Group policies apply only to regular user accounts.
+
 ## Create an access group
 
 1. Open **Admin > Access Groups** and choose **New group**.
 2. Name the group, for example `Guests`, and create it.
 3. Open the group. Under **Libraries & playback**, choose the libraries and playback quality it can use.
-4. Review **Downloads & requests**, **Concurrent streams**, and **Permissions**. Grant only the actions these users need.
+4. Review **Downloads & requests** and **Concurrent streams**. Under **Permissions**, choose which permissions member accounts may receive.
 5. Choose **Save changes**.
 
 Use **Default for new users** only if this should become the starting group for future accounts. Check its library access before making it the default.
+
+Allowing a permission in the group does not grant it. Turn on **Marker Editing** or **Metadata Curation** for each account that needs it. Both the group and the account must allow the action.
 
 ## Assign a person to the group
 
