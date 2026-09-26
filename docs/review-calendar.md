@@ -25,7 +25,7 @@ The existing guide needed a fuller procedure and clarifications, not a new
 article. It now explains where to open Calendar on each client, week/day
 controls, Following membership, the current TMDB weekly Trending feed, catalog
 and access limits, premiere badges, date-only versus timestamped releases,
-missing source timezones, and recovery from an empty week. The existing
+and recovery from an empty week. The existing
 `/docs/home-and-calendar#check-upcoming-releases` link remains valid.
 
 The linked prerequisites, `profiles.md`, `saved-titles.md`, and `metadata.md`,
@@ -39,6 +39,10 @@ workarounds are kept out of the public guide. The iPad navigation, Apple TV
 focus, and Android badge findings remain in issue tracking and these internal
 review notes. The Trending fix is present in the reviewed server baseline;
 the guide does not require a Trending home row as a workaround.
+
+The maintainer identified the missing-source-timezone behavior as a bug with
+a planned fix. Its caveat is omitted from the public guide; this does not
+claim that the fix is present in the reviewed baseline.
 
 ## Validation boundaries
 

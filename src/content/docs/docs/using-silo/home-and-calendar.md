@@ -65,9 +65,7 @@ title's details to check whether it is available to watch.
 When the metadata includes an air time and its timezone, Calendar converts it
 to your device or browser's timezone. A release can therefore appear on a
 different day, or in a different week, on devices in different timezones.
-Date-only releases keep their listed date everywhere. If an air time has no
-source timezone, Silo keeps the listed date and displays that time without a
-timezone conversion.
+Date-only releases keep their listed date everywhere.
 
 An empty week means there are no matching releases for that week and view.
 Use the view selector to try **Trending** or **All**, change the week, or
