@@ -28,7 +28,7 @@ Start without one if your clients can play your files directly. A GPU can reduce
 
 ## Decide where artwork will live
 
-Local disk is the simplest choice for one server and needs no cloud account. S3-compatible storage is useful when hosts need to share artwork. Chapter thumbnail generation still requires public asset S3 storage in the current implementation.
+Local disk is the simplest choice for one server and needs no cloud account. S3-compatible storage is useful when hosts need to share artwork. Chapter thumbnail generation requires public asset S3 storage.
 
 Choose before the first library scan. Once Silo writes artwork, its storage location locks; changing a setting does not migrate the files. See [Storage and capacity](/docs/s3-storage).
 

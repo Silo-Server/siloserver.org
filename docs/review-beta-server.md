@@ -1,5 +1,7 @@
 # Server and web beta audit
 
+> Classification correction (2026-09-26): the maintainer confirmed browser original-file downloads are not Beta. The guide now lives under Using Silo → Watch at the same `/docs/browser-downloads` URL. The original classification below is historical and superseded.
+
 ## Baseline and scope
 
 Reviewed `silo-server` at `d2596927e822c04f0e0e7017654e1369c4c3aa3f` on 2026-09-20. All source paths and line numbers in this report refer to that revision. The website baseline was `2a024be`, branch `docs/organize-public-documentation`.

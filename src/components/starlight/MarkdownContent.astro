@@ -7,20 +7,9 @@ const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android ap
 ---
 
 <Default>
-  <details class="docs-baseline">
-    <summary>{docsRelease.channel === 'prerelease'
-      ? `Prerelease documentation · Working toward ${docsRelease.targetRelease}`
-      : `Documentation for Silo Server ${docsRelease.release}`}</summary>
-    <p>Source baseline reviewed {docsRelease.sourceReviewedAt}. Your installed apps
-      may differ. Source review does not certify playback or setup on your device.</p>
-    <ul>
-      {docsRelease.sources.map(source => <li>
-        {source.label}: <a href={`https://github.com/Silo-Server/${source.repo}/tree/${source.revision}`}>
-          {source.revision.slice(0, 8)}
-        </a>
-      </li>)}
-    </ul>
-  </details>
+  <p class="docs-baseline">{docsRelease.channel === 'prerelease'
+    ? 'Silo is in active development before 1.0. These guides are updated frequently.'
+    : `Documentation for Silo Server ${docsRelease.release}.`}</p>
   {requires && <p class="docs-requirements">
     <strong>Requires: </strong>
     {Object.entries(requires).map(([component, version]) => `${labels[component as keyof typeof labels]} ${version} or later`).join('; ')}.
@@ -30,5 +19,4 @@ const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android ap
 
 <style>
   .docs-baseline { font-size: 0.875rem; margin-bottom: 1.5rem; }
-  .docs-baseline summary { cursor: pointer; }
 </style>

@@ -6,17 +6,12 @@ description: Transfer catalog records between Silo installations with catalog se
 ---
 
 :::caution[Beta]
-Catalog import and export is outside the supported 1.0 scope. Availability can change between builds.
+Catalog import and export is outside the supported 1.0 scope.
 :::
 
-Catalog seeds transfer library and media records between installations. Open web administration to use this feature.
+Catalog seeds transfer library and media records between installations. Use the web admin to export, import, inspect transfer jobs, and download or share completed exports.
 
-| Client | Available actions |
-| --- | --- |
-| Web admin | Export, import, inspect transfer jobs, and download or publish completed exports. |
-| Apple and Android apps | No catalog transfer controls. |
-
-A seed contains catalog records, file paths, and references to stored artwork and metadata. It does not copy the media files or replace a server backup. Use the [backup inventory and recovery checklist](/docs/backup-restore) to plan protection for accounts, watch history, configuration, secrets, and recovery. A tested full restore procedure is still needed.
+A seed contains catalog records, file paths, and references to stored artwork and metadata. It does not copy the media files or replace a server backup. Use the [backup inventory and recovery checklist](/docs/backup-restore) to plan protection for accounts, watch history, configuration, secrets, and recovery.
 
 ## Export a catalog
 
@@ -24,7 +19,10 @@ A seed contains catalog records, file paths, and references to stored artwork an
 2. Under **Catalog Import & Export**, select **Start Export**.
 3. Wait for the export job to complete and inspect its result.
 
-Queueing a job does not mean the export is finished. If the interface offers publication, publishing creates a signed download link. Treat the link as access to the exported catalog, which can include titles and file paths. Its validity is seven days; reusing an existing published link does not renew its expiry.
+After the export completes, select **Download** to save it. If export storage supports signed URLs, you can also select **Create seven-day link**, then **Copy URL** to share it.
+
+Treat the shared URL as access to the exported catalog, including titles and
+file paths. Reusing an existing link does not renew its seven-day expiry.
 
 ## Import a seed
 

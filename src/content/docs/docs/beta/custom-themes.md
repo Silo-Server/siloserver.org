@@ -6,7 +6,7 @@ description: Edit web colors, fonts, CSS, and community theme files.
 ---
 
 :::caution[Beta]
-Advanced web themes are outside the supported 1.0 scope. Availability can change between builds.
+Advanced web themes are outside the supported 1.0 scope.
 :::
 
 The web app includes a Theme Editor for custom colors, fonts, and CSS. These tools apply to the web interface; native Apple and Android apps do not render web CSS.

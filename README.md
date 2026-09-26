@@ -94,9 +94,10 @@ previous commit's date; new uncommitted pages have no date. This is an edit date
 not a source-review or feature-acceptance date. Leave `lastUpdated` out of page
 frontmatter so Starlight uses Git history.
 
-`src/data/docs-release.mjs` declares the shared baseline shown on every guide.
-It currently records a prerelease target and source-review revisions, not a
-claim that 1.0 has shipped or that real-device acceptance passed.
+`src/data/docs-release.mjs` records the shared release channel and internal
+source-review baseline. Guides show a short prerelease notice without revision
+lists or review-method disclaimers. Source revisions and the review date remain
+in the data file and internal review notes; they do not certify device acceptance.
 
 At 1.0, set the channel to `stable`, set `release` to the actual server release,
 and update the source revisions and review date after reviewing the docs against

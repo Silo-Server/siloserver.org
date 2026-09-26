@@ -59,7 +59,7 @@ Use the node's **Re-probe** action after work has drained. Re-probing checks har
 
 ## Generate chapter thumbnails
 
-Chapter menus and chapter preview images are separate. Thumbnails need [public asset S3 storage](/docs/s3-storage) in the current implementation, even when artwork uses local disk.
+Chapter menus and chapter preview images are separate. Thumbnails need [public asset S3 storage](/docs/s3-storage), even when artwork uses local disk.
 
 1. Configure and test public storage.
 2. Edit the library under **Admin > Libraries**.

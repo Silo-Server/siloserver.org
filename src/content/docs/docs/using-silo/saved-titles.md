@@ -22,7 +22,8 @@ In the web app:
 2. Select the heart to add it to **Favorites**. Select it again to remove it.
 3. For a watchlist entry, open the detail page's more-options menu and choose
    **Add to Watchlist**. The same menu offers **Remove from Watchlist** later.
-4. Select a star rating where the detail page offers one.
+4. On a movie or series detail page, select a star rating. On a narrow
+   screen, open the more-options menu and use the stars under **Your rating**.
 
 Open **Favorites** or **Watchlist** from the main menu to find saved titles.
 Wait for a change to finish before leaving the page. If it fails, check the

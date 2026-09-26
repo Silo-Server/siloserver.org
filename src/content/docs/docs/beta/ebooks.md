@@ -54,8 +54,7 @@ can fill gaps where configured; a provider match does not repair a damaged file.
 | MOBI, AZW, AZW3 | Reader includes native parsing; server conversion may also be used | In-app reading requires server-advertised EPUB conversion; otherwise use an external reader |
 | CBR | Reader includes RAR comic parsing | Download the original for an external reader |
 
-These format paths exist in source but have not been tested against every
-variant. Silo does not remove DRM. Conversion can fail on protected or damaged
+Silo does not remove DRM. Conversion can fail on protected or damaged
 files; keep the original and check the error rather than expecting a readable copy.
 
 These are separate checks: the scanner can find a file, a reader can open it,
@@ -91,9 +90,8 @@ Original CBR and Kindle downloads may need another app even when the server
 can convert a streamed copy. External readers keep their own reading state;
 do not expect them to update Silo's progress or bookmarks.
 
-Use the same Silo profile when switching between web and Android. Test that
-the same file reopens near your saved location. Cross-client bookmark,
-annotation, and progress parity has not been certified.
+Use the same Silo profile when switching between web and Android. Open the
+same file and check the saved position before continuing.
 
 ## Manga and comics
 

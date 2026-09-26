@@ -26,8 +26,10 @@ be discussed before implementation; a small correction can go straight to a PR.
 - Use the labels shown in the app. Explain phone, tablet, TV, and browser
   differences only where they change the instructions.
 - Link to an existing guide instead of copying its setup procedure.
-- State limitations and failure checks. Do not turn a milestone target into
-  a claim that a feature is available in every current build.
+- Document prerequisites, supported platform differences, and lasting feature
+  constraints. Keep temporary bugs, workarounds, and validation findings in
+  issue tracking or internal review notes. Verify availability before turning
+  a milestone target into a how-to procedure.
 
 For a behavior change, include the app/server versions you used and explain
 which steps you followed. A successful website build checks the document,

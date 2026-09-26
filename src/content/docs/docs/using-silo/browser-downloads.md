@@ -1,13 +1,8 @@
 ---
 slug: docs/browser-downloads
-beta: true
-title: Save files from the browser (Beta)
+title: Save files from the browser
 description: Download an original media file from a Silo item page.
 ---
-
-:::caution[Beta]
-Browser file downloads are outside the supported 1.0 scope. The control depends on your account's download permission and may vary between builds.
-:::
 
 The web app can save an original media file through your browser. You choose the file version and the browser handles the transfer.
 

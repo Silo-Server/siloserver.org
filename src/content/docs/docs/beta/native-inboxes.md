@@ -11,17 +11,16 @@ web inbox remain separate 1.0 features. Receiving a push does not mean your
 native app has a browsable notification menu.
 :::
 
-| Client | Current access |
+| Client | Where to read notifications |
 | --- | --- |
-| Android phone and tablet | A notification tap can open an inbox when it has no item destination; no normal inbox menu was found |
-| Android TV | An inbox screen exists in source, but no current navigation route was found |
-| iPhone, iPad, Apple TV, native macOS | No native inbox entry was found in the inspected source |
-| Web | The normal notification inbox is covered by the main guide, not this beta |
+| Android phone and tablet | Tap a notification without a title destination to open the inbox. Use the web inbox to browse history at any time. |
+| Android TV | Use **Notifications** in the web app. |
+| iPhone, iPad, Apple TV, native macOS | Use **Notifications** in the web app. |
+| Web | Open **Notifications** from the main menu. |
 
 On Android, tap a Silo notification. Alerts linked to a title open that
-title; a fallback alert may open the inbox instead. The app checks the
-notification's server and profile, so a notification for another identity
-may wait until you switch back. This is not a way to open another person's inbox.
+title; alerts without a title destination open the inbox. Use the server and
+profile that received the notification to open its content.
 
 If you need to find an older alert, use **Notifications** in the web app.
 Do not depend on a new phone alert as the only route to notification history.

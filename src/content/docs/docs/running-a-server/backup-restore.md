@@ -6,9 +6,9 @@ description: Identify Silo's durable state and verify recovery before relying on
 
 A Silo backup needs more than a catalog export. Keep the database, encryption key, and file-backed state needed to reconstruct your installation.
 
-:::caution[Recovery procedure still needs validation]
-This page is a backup inventory and recovery-test checklist. Silo does not yet provide a release-tested, complete clean-host restore walkthrough here. Do not treat these checks as a proven recovery procedure or update your only copy of a server without a tested restore.
-:::
+This guide covers backup planning and recovery checks. Use a restore procedure
+for your deployment, and test it on an isolated host before updating your
+only copy of the server.
 
 ## What to preserve
 

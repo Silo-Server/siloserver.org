@@ -6,7 +6,8 @@ description: Save media on a phone or tablet and check it before leaving your co
 
 Prepare downloads while connected to your server. Your account must have
 download permission, and the device needs enough free storage. This guide covers
-phone and tablet apps, not a browser or TV offline library.
+phone and tablet apps. To save an original file on your computer, see
+[Save files from the browser](/docs/browser-downloads).
 
 ## Save a movie or episode
 

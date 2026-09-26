@@ -6,7 +6,7 @@ description: Create or join a shared viewing room in the Silo web app.
 ---
 
 :::caution[Beta]
-Watch Party is outside the supported 1.0 scope. Availability can change between builds.
+Watch Party is outside the supported 1.0 scope.
 :::
 
 Watch Party lets people on the same Silo server choose a movie or episode and watch it together.
@@ -14,8 +14,8 @@ Watch Party lets people on the same Silo server choose a movie or episode and wa
 | Client | Available actions |
 | --- | --- |
 | Web | Create and join rooms, choose or suggest a title, vote, and control shared playback. |
-| Apple apps | No Watch Party entry point in the reviewed apps. |
-| Android apps | Watch Party is disabled in the reviewed standard app configuration. |
+| Apple apps | Use Watch Party in the web app. |
+| Android apps | Use Watch Party in the web app. |
 
 ## Create a room
 
@@ -38,5 +38,3 @@ Each participant plays through their own server connection. Profile access restr
 ## If a room does not open
 
 Check that you are signed in to the correct server and profile. A closed room or expired invitation may require a new room or invite. If the room shows a connection error, check access to the server before trying again.
-
-These steps follow the current web implementation. Synchronized playback and recovery across real devices still need hands-on validation; a visible room is not a guarantee that every participant can play the selected file.

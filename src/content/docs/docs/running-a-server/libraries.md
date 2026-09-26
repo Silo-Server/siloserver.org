@@ -1,24 +1,36 @@
 ---
 slug: docs/manage-libraries
 title: Add and manage libraries
-description: Add movie or series folders and check their scans.
+description: Choose a library type, add media folders, and check their scans.
 ---
 
-Use the web app as a server administrator. A library groups one kind of media and gives it its own folders and metadata settings.
+Use the web app as a server administrator. A library groups media and gives it its own folders and metadata settings.
 
 ## Add a library
 
 1. [Prepare your folders](/docs/media-folders). In Docker, find the path inside the container, for example `/mnt/media/movies`.
 2. Open **Admin > Libraries** and select **Add Library**.
-3. Enter a name and choose **Movies** or **Series**. Add the folder under **Folders**. You can add more than one folder for the same type.
+3. Enter a name and choose **Movies**, **Series**, or **Mixed**. Add the folder under **Folders**. You can add more than one folder for the same type.
 4. Review **Metadata Language** and **Provider Priority**. Keep the providers you want checked and order them from most preferred to least preferred. If an online provider is missing, install and configure its plugin under **Admin > Plugins**.
 5. Save the library. Use its **Scan** action, then watch its scan status.
 
 Open the library in the normal browsing view. Check one title, its poster, and a playable file.
 
-Other types shown by your server are outside the supported 1.0 scope. See
-[Beta libraries](/docs/library-types) or the
-[audiobook setup guide](/docs/audiobook-libraries) before using them.
+## Choose a library type
+
+Use **Movies** for films, **Series** for episodic video, or **Mixed** to scan
+both in one library. For a Mixed library, check a movie and an episode after
+scanning to confirm that both were identified correctly.
+
+| Client | Mixed video libraries |
+| --- | --- |
+| Web | Creates and browses Mixed libraries |
+| Android phone and tablet | Classifies Mixed as a Video library |
+| iPhone, iPad, Apple TV, native macOS | Mixed libraries are included under Movies and Series |
+
+For listening and reading, follow the [audiobook library setup](/docs/audiobook-libraries)
+or [ebook and comic setup](/docs/ebooks) guide. These media types are Beta.
+For **Podcasts** and **Music**, see [feature availability](/docs/unfinished-features#podcasts-and-music).
 
 ## Files are missing
 

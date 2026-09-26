@@ -24,9 +24,15 @@ Use the web editor for the full set of item, sharing, and smart-filter controls.
 5. Open the collection to check its contents.
 
 Use the item's remove control to take it out of the collection. This changes
-membership, not the media file. Where a drag handle is shown, use it to
-change the saved order. If another edit has made your page stale, reload
-before trying again.
+membership, not the media file.
+
+| Collection type | How to control item order |
+| --- | --- |
+| Manual | In the web editor's **Items** section, drag a title's handle. You need edit access, server support for reordering, and the complete item list on one page. |
+| Smart | Use the smart collection's sort controls; membership comes from its rules. |
+| Imported | Ordering comes from the source and is locked in the local editor. |
+
+If another edit has made your page stale, reload before trying again.
 
 ## Shared and smart collections
 

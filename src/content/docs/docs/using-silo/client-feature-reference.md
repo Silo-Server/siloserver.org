@@ -58,8 +58,8 @@ download in a browser is not the same as an app-managed offline library.
 The administration instructions use the server's web interface. Having a
 native app does not give you every server setting there.
 
-## Notes
+## Third-party apps
 
-There is no release-certified third-party app matrix in this manual yet.
-Keep app/build-specific test results with a [problem report](/docs/report-a-problem)
-instead of treating protocol support as proof of full compatibility.
+Follow the connection guide for the app's protocol. When reporting a
+compatibility problem, include the app and server versions and the action
+that failed in your [problem report](/docs/report-a-problem).

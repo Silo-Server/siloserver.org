@@ -57,6 +57,9 @@ export const sidebar = [
           },
           {
             "slug": "docs/downloads"
+          },
+          {
+            "slug": "docs/browser-downloads"
           }
         ]
       },
@@ -270,7 +273,6 @@ export const sidebar = [
         "items": [
           { "slug": "docs/versions-and-previews" },
           { "slug": "docs/watch-together" },
-          { "slug": "docs/browser-downloads" },
           { "slug": "docs/watch-sync" },
           { "slug": "docs/native-inboxes" },
           { "slug": "docs/custom-themes" }
@@ -280,7 +282,6 @@ export const sidebar = [
         "label": "Administration and additional clients",
         "collapsed": true,
         "items": [
-          { "slug": "docs/library-types" },
           { "slug": "docs/catalog-seeds" },
           { "slug": "docs/native-macos" }
         ]

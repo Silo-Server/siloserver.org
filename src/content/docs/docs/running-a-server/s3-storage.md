@@ -53,7 +53,7 @@ The endpoint, region, bucket, key prefix, and path-style setting identify where 
 
 ## When to configure it
 
-Local artwork works without S3. Chapter thumbnail generation currently requires public asset S3 storage. Check that requirement before enabling thumbnails for a library.
+Local artwork works without S3. Chapter thumbnail generation requires public asset S3 storage. Check that requirement before enabling thumbnails for a library.
 
 Custom profile avatars use private S3 when configured. Without private S3,
 they use the local artwork store only when artwork is stored locally; the

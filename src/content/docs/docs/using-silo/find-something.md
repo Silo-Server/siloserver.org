@@ -6,7 +6,7 @@ description: Browse libraries, narrow results, and explore cast and crew.
 
 Start in a library when you know what kind of media you want. Use search
 when you know a title. Apple and Android phones and tablets share the basic
-steps below with the web app; the controls may sit in different menus.
+steps below with the web app.
 
 ## Browse a library
 
