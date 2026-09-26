@@ -56,7 +56,7 @@ Every view respects library access and profile rating restrictions. **All**
 does not include every release worldwide, and **Trending** can be empty if
 the server has no trending data or no matching releases for that week.
 
-Premiere badges distinguish **SERIES PREMIERE** and **NEW SEASON**. A scheduled
+Badges mark **SERIES PREMIERE**, **NEW SEASON**, and **FINALE**. A scheduled
 release is not a promise that your server will acquire it that day. Open the
 title's details to check whether it is available to watch.
 
