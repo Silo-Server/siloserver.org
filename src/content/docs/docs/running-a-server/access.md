@@ -29,7 +29,11 @@ Allowing a permission in the group does not grant it. Turn on **Marker Editing**
 
 An account override can differ from its group. If a group change seems to have no effect, inspect the account's override before changing the group again.
 
+**Inherited** means the value comes from the access group. An account without a group shows **Server default** instead; an administrator account shows **Admin default**.
+
 ## Choose limits that fit the task
+
+Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. Turning off video transcoding can stop playback on a device that cannot play the original file; it does not make that file compatible.
 

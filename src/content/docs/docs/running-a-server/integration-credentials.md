@@ -16,7 +16,7 @@ Use a separate key for each integration so you can remove one connection without
 
 The web form creates an unscoped key, which carries the owning account's API permissions. Use a non-admin account with only the access the integration needs. The API supports narrower scoped keys, but this form has no scope selector.
 
-This procedure describes the admin web interface. The API also supports account-owned personal keys; the absence of a user-facing creation screen is not an admin-only API policy.
+Creating keys through the admin interface or `/api/v2` requires an administrator. A key can still belong to a regular account, and accounts can list and revoke their own keys through the API. Servers that still expose `/api/v1` retain its legacy creation behavior, which allows regular accounts to create keys.
 
 ## Replace a key
 

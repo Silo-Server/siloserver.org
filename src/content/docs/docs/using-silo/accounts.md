@@ -17,7 +17,18 @@ identity. Forgetting a device in web preferences only removes its settings.
 
 Follow the password requirements shown by your server. If **Local password
 changes are unavailable** appears, use the account's sign-in provider.
-For a forgotten local password, see [account recovery](/docs/manage-accounts).
+
+## Forgot your password?
+
+1. Open your server's sign-in page in a browser and choose **Forgot password?**, if shown.
+2. Enter your username or email address and request a reset link.
+3. Check your email, open the link, and choose a new password. The link works once and expires after one hour.
+
+The confirmation message does not tell you whether an account was found. If no email arrives, check spam and confirm you used the right server and account details.
+
+If the option is missing or you still cannot recover the account, use the [account recovery options](/docs/manage-accounts#help-someone-reset-their-password) if you manage the server, or contact someone who does. For an account managed by another sign-in provider, use that provider's recovery process.
+
+If you were given a temporary password, sign in through the web app first. Choose a new password when prompted, then use it in your other apps.
 
 ## Switch servers or sign out
 
