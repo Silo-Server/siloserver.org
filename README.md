@@ -87,6 +87,13 @@ Run `bun run test:docs` and `bun run build` when changing this structure.
 
 ### Documentation release baseline
 
+Each guide's footer shows **Last updated** from the latest Git commit that
+changed its source file. Production and preview builds fetch full history so
+unrelated commits do not change that date. Local uncommitted edits retain the
+previous commit's date; new uncommitted pages have no date. This is an edit date,
+not a source-review or feature-acceptance date. Leave `lastUpdated` out of page
+frontmatter so Starlight uses Git history.
+
 `src/data/docs-release.mjs` declares the shared baseline shown on every guide.
 It currently records a prerelease target and source-review revisions, not a
 claim that 1.0 has shipped or that real-device acceptance passed.

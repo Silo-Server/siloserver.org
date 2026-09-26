@@ -32,6 +32,7 @@ export default defineConfig({
       description:
         "Documentation for installing, configuring, and operating Silo.",
       favicon: "/favicon.ico",
+      lastUpdated: true,
       customCss: ["./src/styles/docs.css"],
       editLink: {
         baseUrl: "https://github.com/Silo-Server/siloserver.org/edit/main/",
