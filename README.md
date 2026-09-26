@@ -44,8 +44,9 @@ src/
 | FAQ items                       | `src/data/faq.ts`                         |
 | Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
 | Architecture diagrams           | `src/components/Deployment.astro`         |
-| Documentation pages             | `src/content/docs/docs/*.md`              |
+| Documentation pages             | `src/content/docs/docs/**/*.md`           |
 | Documentation sidebar           | `src/data/sidebar.mjs`                    |
+| Old documentation URLs          | `src/data/docs-redirects.mjs`              |
 | Colors, spacing, typography     | `src/styles/global.css`                   |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
@@ -58,6 +59,78 @@ Docs are built with [Astro Starlight](https://starlight.astro.build/) and
 served under `/docs`. Add or edit Markdown files in `src/content/docs/docs/`.
 New pages are listed in `src/data/sidebar.mjs`; `astro.config.mjs` does not
 need to change.
+
+Organize pages by the reader's task and audience:
+
+- `get-started/`: app choice, prerequisites, and the default installation walkthrough.
+- `using-silo/`: personal settings, client use, and connecting other apps.
+- `running-a-server/`: administration, integrations, deployment, and operator reference.
+- `beta/`: features outside the supported 1.0 scope, including audiobooks,
+  ebooks, and Audiobookshelf compatibility. Keep availability tables and
+  feature instructions here, with explicit Beta titles and notices.
+- `developers/`: API, plugin, and code-contribution entry points.
+- `help/`: troubleshooting entry points, reports, and documentation contributions.
+
+Each article declares an explicit `slug: docs/article-name` in its frontmatter.
+The homepage uses `slug: docs`. Public URLs are flat and do not include audience,
+Beta, or release-version directories. Source folders organize contributions;
+`src/data/sidebar.mjs` independently organizes navigation by those stable slugs.
+Changing a title or moving a source file must not silently change its slug.
+
+Use the existing sidebar data file to curate the reading order. Do not add
+empty pages for planned features. A guide can link to another audience's
+guide instead of repeating its setup steps. Old published paths are retained
+in `src/data/docs-redirects.mjs`; update internal links to canonical paths.
+Do not add redirects for unpublished pre-1.0 reorganizations. Once 1.0 is
+published, record URL changes there and preserve useful section anchors.
+Run `bun run test:docs` and `bun run build` when changing this structure.
+
+### Documentation release baseline
+
+Each guide's footer shows **Last updated** from the latest Git commit that
+changed its source file. Production and preview builds fetch full history so
+unrelated commits do not change that date. Local uncommitted edits retain the
+previous commit's date; new uncommitted pages have no date. This is an edit date,
+not a source-review or feature-acceptance date. Leave `lastUpdated` out of page
+frontmatter so Starlight uses Git history.
+
+`src/data/docs-release.mjs` records the shared release channel and internal
+source-review baseline. Guides show a short prerelease notice without revision
+lists or review-method disclaimers. Source revisions and the review date remain
+in the data file and internal review notes; they do not certify device acceptance.
+
+At 1.0, set the channel to `stable`, set `release` to the actual server release,
+and update the source revisions and review date after reviewing the docs against
+the release. Record the website commit alongside the server and client versions
+in the release record. Keep unreleased behavior in PR previews until it ships.
+There is no `/docs/1.0/` namespace or automatic release-publishing workflow.
+
+An article can declare optional `requires` fields for `server`, `apple`, and
+`android`. Each value is a quoted release version such as `"1.2.0"`, meaning
+that version or later. Use these only when a minimum version is established;
+do not fill them with the milestone target or infer them from an audit date.
+The site renders the requirements above the guide. These are minimum versions,
+not introduced-in or last-tested claims. Record platform exceptions in prose.
+
+Beta articles declare `beta: true`, retain their visible Beta notice, and appear
+only in the Beta sidebar group. Their flat URLs do not change when they graduate.
+The build validates slugs, navigation coverage, Beta placement, version fields,
+the shared baseline, links, and the retained published redirects.
+
+See [the manual review](docs/review-manual-integration.md) for source revisions,
+executed checks, and procedures still awaiting hands-on validation. The
+[feature map](docs/manual-feature-coverage.md) links the 35 milestone features
+to their guide sources. A mapped page is not a completed acceptance check.
+
+The [shared client instructions review](docs/review-shared-client-instructions.md)
+records the follow-up source check, combined Apple/Android steps, and server
+prerequisites for AI features.
+
+The [beta audit](docs/review-beta-integration.md) records the server, Apple,
+and Android source revisions, coverage limits, and checks for the Beta section.
+Keep an ordinary guide's reference to a beta feature short and link to that
+section instead of duplicating instructions. After the 1.0 publication, preserve
+published URLs with direct redirects when changing slugs.
 
 The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site

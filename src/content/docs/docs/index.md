@@ -1,26 +1,51 @@
 ---
-title: Silo documentation
-description: Start here for installing, configuring, and operating Silo.
+slug: docs
+title: Start using Silo
+description: Join a server, watch your first title, or set up a server of your own.
 ---
 
-Silo is a self-hosted media server with a Go backend, React frontend, PostgreSQL storage, and native clients.
-
-These docs are intentionally source-controlled Markdown. Every page lives in this repository under `src/content/docs/docs/`, so changes can be reviewed in pull requests and deployed with the website.
+If someone has invited you to Silo, you only need an app and their server
+address. They take care of storing and sharing the media.
 
 ## What to read first
 
-- [Quickstart](/docs/quickstart) gets a fresh Docker Compose install running.
-- [Installation](/docs/installation) explains the supported install paths.
-- [First configuration](/docs/first-configuration) follows the setup wizard and the admin pages to review afterward.
-- [Configuration](/docs/configuration) separates environment variables from admin-managed settings.
-- [Logging and Telemetry](/docs/logging) covers built-in logs, OTLP export, redaction, and retention.
-- [Libraries](/docs/libraries) documents the supported media path contract.
-- [Audiobooks](/docs/audiobooks) and [Ebooks](/docs/ebooks) cover the book library types, formats, and metadata.
-- [Notifications](/docs/notifications) covers new-episode and request notifications across the inbox, web push, email, Discord, and webhooks.
-- [S3 storage](/docs/storage/s3) explains public asset and private internal buckets.
-- [Autoscan](/docs/integrations/autoscan) shows the preferred Silo-native Sonarr/Radarr setup and the legacy Jellyfin target path.
-- [Clients](/docs/clients) describes the native, Jellyfin-compatible, and Audiobookshelf-compatible client options.
+### Join an existing server
+
+Follow [Connect and start watching](/docs/connect-and-watch).
+One guide takes you from getting an app or opening your browser through
+sign-in, choosing a profile, and playing your first title.
+
+Setting up a television? Use [Sign in on your TV](/docs/tv-sign-in).
+
+### Run your own server
+
+Follow [Install Silo Server](/docs/install-silo-server). It includes
+the requirements, installation, account creation, a first library, and a
+playback check. You do not need to read the other server guides first.
+
+The walkthrough uses one Linux host and a local media folder. If you are
+still choosing hardware or a deployment method, consult
+[Requirements and installation options](/docs/requirements).
+Remote access, extra playback hardware, and integrations can come later.
+
+### Go further
+
+- Find something new with [Home and Calendar](/docs/home-and-calendar), [collections](/docs/collections), and [saved titles](/docs/saved-titles).
+- Adjust [subtitles](/docs/subtitles), [download for offline use](/docs/downloads), or [control a TV from your phone](/docs/tv-remote).
+- As an administrator, [manage library access](/docs/manage-access), [fix metadata](/docs/metadata), or [set up plugins](/docs/plugins).
+
+## Get help or contribute
+
+[Find help](/docs/help) for connection and playback problems. You can also
+[correct these instructions](/docs/improve-the-docs) or
+[build an integration](/docs/developers).
 
 ## Project status
 
-Silo is pre-1.0. Expect the docs to evolve with the server and clients, and prefer linking to a focused page from pull requests when behavior changes.
+These guides cover the [1.0 milestone](https://siloserver.org/milestone/1.0/)
+using current prerelease software. Your installed app may have different
+controls. Keep the app and server versions handy when asking for help.
+
+Movies and series are the 1.0 library types. Audiobooks, ebooks, and other
+features outside the release scope have their own [Beta section](/docs/beta).
+It explains what you can try and which clients have access.

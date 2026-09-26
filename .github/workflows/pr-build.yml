@@ -28,6 +28,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          # Match production's per-page documentation dates.
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
