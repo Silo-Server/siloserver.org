@@ -9,14 +9,14 @@ them before changing server settings or removing a saved connection.
 
 ## Cannot connect or sign in
 
-1. Open the server address in a browser on the same device, where possible.
-   If it does not load, check the address with the administrator. A working
-   internet connection does not mean the server is reachable.
-2. Confirm you are using the Silo address for a Silo app. Jellyfin and
-   Audiobookshelf apps need their own connection addresses: [Jellyfin](/docs/third-party-access) or [Audiobookshelf (Beta)](/docs/audiobookshelf).
-3. If the server opens but sign-in fails, check the account name and password.
-   An account password and a profile PIN are different. Ask the administrator
-   for help with a forgotten password; do not share it in a bug report.
+1. Open the server address in a browser on the same device. If it doesn't
+   load, ask the administrator for the correct address.
+2. Use the Silo address in a Silo app. [Jellyfin apps](/docs/jellyfin-apps)
+   and [Audiobookshelf apps (Beta)](/docs/audiobookshelf) connect to their
+   own addresses.
+3. If the server opens but sign-in fails, check the account name and
+   password. The account password is different from a profile PIN. For a
+   forgotten password, ask the administrator.
 
 Follow [Join a server](/docs/connect-and-watch) for the full sign-in
 steps. If access works at home but fails elsewhere, the administrator needs
@@ -24,34 +24,28 @@ to check [remote access](/docs/reverse-proxy).
 
 ## A TV does not appear on your phone
 
-Keep both apps open on the same local network. Check local-network permission
-on the phone or tablet. Guest Wi-Fi can keep devices apart even when the
-network names look similar.
+Keep both apps open on the same local network, and allow local-network
+access for Silo on the phone or tablet. A guest Wi-Fi network can keep
+devices apart even when its name looks like your main network.
 
-For a TV awaiting its first sign-in, use [TV setup](/docs/tv-sign-in).
-For a TV already signed in, use [the TV remote guide](/docs/tv-remote).
-The two tasks use different screens.
+To sign in a new TV, see [TV setup](/docs/tv-sign-in). To control a TV
+that's already signed in, see [the TV remote guide](/docs/tv-remote).
 
 ## A title or library is missing
 
-Check that you selected the right server and profile. Search for the title
-without filters. If someone else can see it, ask the administrator to check
-[your access](/docs/manage-access).
+Make sure you're on the right server and profile, then search for the title
+with no filters. If someone else can see it, ask the administrator to look
+at [your access](/docs/manage-access).
 
-Administrators should check [library scans and paths](/docs/manage-libraries)
-before changing metadata. A scan that cannot read a file cannot add it.
+Administrators can start with [library scans and paths](/docs/manage-libraries).
+A scan can't add a file the server can't read.
 
 ## Playback will not start or keeps stopping
 
-Try one other title and note whether the problem affects every title or just
-one file. Check whether the same title plays in another Silo app. Keep the
-time of the failure and the chosen audio, subtitle, and quality settings.
-
-Use the [playback guide](/docs/watch-movies-and-series) to check
-those choices. The administrator can inspect
-[active playback](/docs/active-playback) and
-[server health](/docs/server-health). Avoid repeatedly
-changing several settings at once; it makes the failing condition harder to find.
+Try another title, and try the same title in another Silo app. That tells
+you whether one file, one app, or the connection is the problem.
+[Fix playback problems](/docs/playback-problems) covers the next steps,
+including picture, sound, and subtitle problems on a TV.
 
 ## Other problems
 
@@ -68,4 +62,4 @@ changing several settings at once; it makes the failing condition harder to find
 ## If the guide does not solve it
 
 [Report the problem](/docs/report-a-problem) with the steps you took and
-the result. If a step in the guide is wrong, [suggest a correction](/docs/improve-the-docs).
+the result. If a step in a guide is wrong, [suggest a correction](/docs/improve-the-docs).

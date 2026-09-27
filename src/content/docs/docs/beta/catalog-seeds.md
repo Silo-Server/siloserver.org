@@ -6,30 +6,27 @@ description: Transfer catalog records between Silo installations with catalog se
 ---
 
 :::caution[Beta]
-Catalog import and export is outside the supported 1.0 scope.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-Catalog seeds transfer library and media records between installations. Use the web admin to export, import, inspect transfer jobs, and download or share completed exports.
+A catalog seed copies library and media records from one Silo server to another. You export, import, and download seeds in the web admin.
 
-A seed contains catalog records, file paths, and references to stored artwork and metadata. It does not copy the media files or replace a server backup. Use the [backup inventory and recovery checklist](/docs/backup-restore) to plan protection for accounts, watch history, configuration, secrets, and recovery.
+A seed holds catalog records, file paths, and references to stored artwork and metadata. It doesn't include media files, accounts, or watch history, so it can't stand in for a server backup. See [back up and restore](/docs/backup-restore) for that.
 
 ## Export a catalog
 
-1. Open **Admin → Maintenance**.
+1. Open **Admin > Maintenance**.
 2. Under **Catalog Import & Export**, select **Start Export**.
-3. Wait for the export job to complete and inspect its result.
+3. When the export job finishes, select **Download** to save the seed.
 
-After the export completes, select **Download** to save it. If export storage supports signed URLs, you can also select **Create seven-day link**, then **Copy URL** to share it.
-
-Treat the shared URL as access to the exported catalog, including titles and
-file paths. Reusing an existing link does not renew its seven-day expiry.
+If export storage supports signed URLs, you can instead select **Create seven-day link**, then **Copy URL** to share it. Anyone with the link can download the catalog, including titles and file paths. Copying an existing link again doesn't extend its seven days.
 
 ## Import a seed
 
-1. On the destination server, open **Admin → Maintenance → Import Catalog**.
-2. Select **Local File**, **Local Export Job**, **Bucket Artifact**, or **Remote URL**, then choose the source. A local file must be accessible to the server, not just your browser.
-3. Choose the conflict behavior. **Skip Existing** keeps existing matching records; **Overwrite Existing** can replace them.
-4. Add **Path Rewrites** if the destination uses different media mount paths. Rewrites match path prefixes and apply beneath those roots.
-5. Submit the import and inspect the job's completion status, counts, and errors.
+1. On the destination server, open **Admin > Maintenance > Import Catalog**.
+2. Select **Local File**, **Local Export Job**, **Bucket Artifact**, or **Remote URL**, then choose the source. A local file must be a path on the server, not on your computer.
+3. Choose what happens to matching records: **Skip Existing** keeps them, and **Overwrite Existing** replaces them.
+4. If the destination mounts media at different paths, add **Path Rewrites**. Each rewrite replaces a path prefix.
+5. Start the import. The job shows its status, counts, and any errors when it finishes.
 
-The destination still needs access to the referenced media and stored assets. A completed catalog import does not prove that those files can play. Check a title's metadata, artwork, and playback after importing, before relying on the transferred catalog.
+The destination server also needs access to the media files and stored artwork the seed refers to. After importing, play a few titles and look at their artwork to make sure the paths line up.

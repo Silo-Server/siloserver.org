@@ -6,11 +6,7 @@ description: Arrange audiobook files, check their tags, and add them to Silo.
 ---
 
 :::caution[Beta]
-Audiobooks remain available as beta in 1.0, outside its support promise.
-The planned consolidated Books effort will replace the current libraries
-while preserving existing libraries and progress. Start with a small
-test library and check [your listeners' clients](/docs/listen-to-audiobooks)
-before importing a large collection.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
 Use one folder per book. Silo groups the audio files directly inside that folder into a book and reads its title, author, and other details from embedded tags.
@@ -37,15 +33,15 @@ audiobooks/
       03 - Second chapter.mp3
 ```
 
-Each file becomes a chapter. Silo sorts filenames in natural order, so `part2` comes before `part10`. Numbered names still make the intended order easier to check.
+Each file becomes a chapter. Silo sorts filenames in natural order, so `part2` comes before `part10`.
 
-The scanner recognizes `.m4b`, `.m4a`, `.mp3`, `.flac`, `.opus`, `.ogg`, `.wav`, and `.aac`. Recognition does not guarantee that every client can directly play the format. DRM-protected Audible files are not an import path.
+The scanner recognizes `.m4b`, `.m4a`, `.mp3`, `.flac`, `.opus`, `.ogg`, `.wav`, and `.aac`, although not every client can play every format directly. Silo can't import DRM-protected Audible files.
 
 ## Metadata
 
-Before scanning, check the audio tags with your preferred tag editor:
+Silo reads these tags. Fix them in a tag editor before scanning:
 
-| Information | Tags Silo reads |
+| Information | Tags |
 | --- | --- |
 | Book title | `title` or `album` |
 | Author | `album_artist`, `artist`, or `composer` |
@@ -60,16 +56,16 @@ For a multi-file book, Silo reads book metadata from the first file in sort orde
 1. Open **Admin > Libraries** and select **Add Library**.
 2. Choose **Audiobooks**, enter a name, and add the container-visible folder, for example `/mnt/media/audiobooks`.
 3. Review the library's metadata provider settings, then save and scan.
-4. Open a book in the normal library view. Check the title, author, cover, duration, and chapter order, then play and seek within it.
+4. Open a book from the library and look at its title, author, cover, duration, and chapter order. Play it and seek to a later chapter.
 
-Audiobooks use the same `MEDIA_ROOT` mount as movies and series. They do not require another Docker volume.
+Audiobooks use the same `MEDIA_ROOT` mount as movies and series, so you don't need another Docker volume.
 
 ## Metadata enrichment
 
-The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Plugins**, then check that it is selected in the library's provider list. An accurate ASIN tag helps when supported by the provider.
+The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Plugins**, then select it in the library's provider list. An accurate ASIN tag improves matching with providers that use it.
 
-A provider match does not repair audio files with the wrong chapter order. Correct filenames or embedded chapters separately.
+A provider match doesn't change chapter order. Fix that in the filenames or embedded chapters.
 
 ## Playback
 
-Give listeners their usual Silo server address. For an Audiobookshelf-compatible app, give them the separate [beta compatibility address](/docs/audiobookshelf), not the web app's port.
+Listeners use their usual Silo server address in the Silo apps. Audiobookshelf-compatible apps use a [separate address](/docs/audiobookshelf#turn-on-the-endpoint).

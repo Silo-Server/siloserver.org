@@ -2,74 +2,68 @@
 slug: docs/native-macos
 beta: true
 title: Native macOS app (Beta)
-description: Build the native Mac app and use its desktop video player.
+description: Build the native Mac app from source and use its video player.
 ---
 
 :::caution[Beta]
-The native SiloMac app is outside the supported 1.0 scope. This guide covers
-building it from source and using its desktop video player.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-SiloMac is a separate native target from the iPhone/iPad app running on an
-Apple Silicon Mac. It uses a desktop sidebar and its own video-player controls.
+SiloMac is a native Mac app with a desktop sidebar and its own video player.
+It isn't published: there's no download, and you build it yourself from the
+source code.
 
-| Client | Available actions |
-| --- | --- |
-| Native SiloMac | Browse movies and series, open details, play video, choose tracks, use chapters, and seek with the keyboard or timeline |
-| iPhone/iPad app on a Mac | Uses the iOS app's interface and feature set; SiloMac keyboard instructions do not establish behavior in that app |
-| Web on a Mac | Open your server in a browser for viewing and administration |
+For a ready-made option on a Mac, use the iPhone/iPad app on a Mac with
+Apple silicon, or open your server in a browser.
 
-## Get access
+## Build the app
 
-The native target requires macOS 26 or later. The repository
-provides a **SiloMac** Xcode scheme and
-[source-build instructions](https://github.com/Silo-Server/silo-apple#build).
-Building it requires Xcode 26 or later and XcodeGen. Follow the repository's
-current signing and build guidance if you are testing from source.
-
-For access without a source build, use your server's web app. The
-[app selection guide](/docs/choose-an-app) lists the other
-published app channels.
+SiloMac needs macOS 26 or later. To build it you need Xcode 26 or later and
+XcodeGen. The [Silo Apple repository](https://github.com/Silo-Server/silo-apple#build)
+has the build steps and a **SiloMac** Xcode scheme.
 
 ## Watch a movie or episode
 
-1. Launch the native app and [connect to your server](/docs/connect-and-watch).
+1. Launch the app and [connect to your server](/docs/connect-and-watch).
 2. Select your profile, then use the sidebar to open Home or a library.
    Use the magnifying-glass button at the top of the page to search.
 3. Open a movie or episode and choose **Play** or **Resume**.
-4. Move the pointer over the player to reveal its controls. Use the audio,
-   subtitle, chapter, or playback-speed buttons to open the matching options.
+4. Move the pointer over the player to show its controls. The audio,
+   subtitle, chapter, and playback-speed buttons open their options.
 
 Chapter controls are inactive when the file has no chapters. The fullscreen
-button toggles the Mac window's fullscreen mode.
+button switches the window to fullscreen. You can also drag the timeline to
+seek; see [timeline previews](/docs/timeline-previews).
 
-## Keyboard controls
+## Keyboard shortcuts
 
-These shortcuts apply while the native video player receives keyboard input.
+These work while the video player is in front.
 
 | Key | Action |
 | --- | --- |
 | Space | Pause or resume |
-| Left / Right arrow | Seek backward or forward 15 seconds |
+| Left / Right arrow | Skip back or forward |
 | Command + Left / Right arrow | Previous or next chapter |
-| Escape | Close the options panel, or leave the player if no panel is open |
+| Command + S | Show or hide the options panel, opened on audio |
+| Control + Command + A | Switch to the next audio track |
+| Control + Command + S | Switch to the next subtitle track |
+| Control + Command + G | Turn subtitles on or off |
+| Shift + [ / Shift + ] | Slow down or speed up playback (0.5× to 2×) |
+| Shift + Command + [ | Return to normal speed |
+| Return | Skip the intro when the skip prompt is showing |
+| Escape | Close the options panel, dismiss the skip prompt, or leave the player |
 
-You can also drag the timeline. See
-[version selection](/docs/watch-movies-and-series#choose-a-version-before-playback) and
-[playback previews](/docs/versions-and-previews) for
-source-file choices and preview-frame limits.
-
-<span id="current-gaps"></span>
+The arrow keys skip by your profile's skip intervals, 10 seconds back and 30
+seconds forward unless you change them. Set them with **Skip Back** and
+**Skip Forward** under **Settings > Playback** in the iPhone or iPad app; the
+values apply to every device signed in to that profile.
 
 ## Other tasks on a Mac
 
 Use the web app for [audiobooks](/docs/listen-to-audiobooks),
 [ebooks and comics](/docs/ebooks), [Watch Party](/docs/watch-together),
-[watch-provider connections](/docs/watch-sync), and
-[notifications](/docs/notification-inbox). Server administration also uses
-web admin. These guides give the steps for each task.
+[watch-provider sync](/docs/watch-sync),
+[notifications](/docs/notification-inbox), and server administration.
 
-When reporting a problem, say that you used **native SiloMac**, include the
-app build or source revision and macOS version, and describe the screen and
-action that failed. This distinguishes a native-app report from a browser
-or iPhone/iPad-app report.
+When you report a problem, say that you used the native Mac app, and include
+the source revision you built and your macOS version.

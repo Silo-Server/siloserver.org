@@ -4,29 +4,26 @@ title: Start using Silo
 description: Join a server, watch your first title, or set up a server of your own.
 ---
 
-If someone has invited you to Silo, you only need an app and their server
-address. They take care of storing and sharing the media.
+If someone has invited you to Silo, you need an app and their server address.
+They look after storing and sharing the media.
 
 ## What to read first
 
 ### Join an existing server
 
-Follow [Connect and start watching](/docs/connect-and-watch).
-One guide takes you from getting an app or opening your browser through
-sign-in, choosing a profile, and playing your first title.
-
-Setting up a television? Use [Sign in on your TV](/docs/tv-sign-in).
+Start with [Choose an app](/docs/choose-an-app). It takes you on to signing
+in, choosing a profile, and playing your first title.
 
 ### Run your own server
 
-Follow [Install Silo Server](/docs/install-silo-server). It includes
-the requirements, installation, account creation, a first library, and a
-playback check. You do not need to read the other server guides first.
+Follow [Install Silo Server](/docs/install). It covers the
+requirements, installation, your first account and library, and a playback
+test, so you can start there without reading the other server guides.
 
-The walkthrough uses one Linux host and a local media folder. If you are
-still choosing hardware or a deployment method, consult
-[Requirements and installation options](/docs/requirements).
-Remote access, extra playback hardware, and integrations can come later.
+The walkthrough uses one Linux computer and a local media folder. If you're
+still choosing hardware or how to deploy, see
+[Requirements and installation options](/docs/requirements). Remote access,
+extra playback hardware, and integrations can come later.
 
 ### Go further
 
@@ -42,10 +39,6 @@ Remote access, extra playback hardware, and integrations can come later.
 
 ## Project status
 
-These guides cover the [1.0 milestone](https://siloserver.org/milestone/1.0/)
-using current prerelease software. Your installed app may have different
-controls. Keep the app and server versions handy when asking for help.
-
-Movies and series are the 1.0 library types. Audiobooks, ebooks, and other
-features outside the release scope have their own [Beta section](/docs/beta).
-It explains what you can try and which clients have access.
+These guides describe Silo [1.0](https://siloserver.org/milestone/1.0/), which
+covers movies and series. Audiobooks, ebooks, music, and other newer features
+are in the [Beta section](/docs/beta).

@@ -6,69 +6,60 @@ description: Connect a dedicated listening app to Silo's audiobook endpoint.
 ---
 
 :::caution[Beta]
-Audiobookshelf compatibility remains available as beta in 1.0, outside its
-support promise and certification. It will be revisited with the planned
-consolidated Books effort. This guide does not certify any third-party client. The
-endpoint does not enforce a separate profile PIN; review household access
-before allowing it.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-Use the server's Audiobookshelf-compatible address and your Silo credentials.
-This address may differ from both the Silo web address and its
-Jellyfin-compatible address. If you run the server, see [Server setup](#server-setup);
-otherwise, get the address from the person who runs it.
+Apps that can connect to an Audiobookshelf server can also connect to Silo
+and play its audiobooks. They use a separate address from the Silo web app
+and from Jellyfin-compatible apps. If you run the server, start with
+[Turn on the endpoint](#turn-on-the-endpoint); otherwise, ask the person who
+runs it for the address.
 
-## Endpoint
+:::danger[Profile PINs]
+Audiobookshelf sign-in does not ask for a profile PIN. Anyone with the
+account password can open any profile on that account, including a
+PIN-protected one.
+:::
 
-1. In your listening app, add an Audiobookshelf server using the supplied address.
+## Sign in from a listening app
+
+1. In your listening app, add an Audiobookshelf server using the address you
+   were given.
 2. Enter your Silo username and account password.
-3. Sign in, open an audiobook library, and play a familiar book.
-4. Pause and reopen it to check that progress belongs to the intended profile.
+3. Open an audiobook library and play a book you know.
+4. Pause, then reopen the book to see that progress was saved to the right
+   profile.
 
-A plain username selects the account's primary profile. To choose another
-profile, enter `username#profile`, for example `sam#Alex`, with the ordinary
-account password. Unlike Jellyfin compatibility, do not append `#PIN` to
-the password here.
+A plain username signs in to the account's primary profile. To use another
+profile, enter `username#profile`, for example `sam#Alex`, with the usual
+account password. Do not add `#PIN` to the password as you would for a
+Jellyfin app.
 
-The current Audiobookshelf sign-in path does not enforce a separate profile
-PIN. Check whether account-password access alone is appropriate for your
-household before connecting an account with protected profiles.
+The listening app handles its own downloads, offline playback, and player
+controls. Test a download before you rely on it away from home. Silo's
+Audiobookshelf endpoint covers audiobooks only. To listen without a
+third-party app, use [Silo's audiobook player](/docs/listen-to-audiobooks).
 
-## Clients
+## Turn on the endpoint
 
-Use an app that offers an Audiobookshelf server connection. App features,
-token refresh, and offline playback can differ between releases; this guide
-does not certify a particular third-party app build.
+With an administrator account, open **Admin > Settings > Compatibility** and
+turn on **Allow Audiobookshelf apps to connect**. Save, then restart the
+server if the page asks you to.
 
-## What works
+The default Compose file publishes the endpoint on port `13378`, separate
+from Silo's web port. Give listeners an address for that port that they can
+reach. Keep it on your home network, or put it behind HTTPS before you allow
+access from outside.
 
-Start by checking library browsing, book playback, chapters, and resumed
-progress. Test an offline download before depending on it away from home.
-The third-party app controls its own download storage and playback interface.
+## Reverse proxy
 
-## Scope
+Behind a reverse proxy, listeners use the HTTPS address you set up for the
+Audiobookshelf endpoint rather than the local port. See
+[third-party access](/docs/third-party-access) for the proxy setup.
 
-This guide covers audiobook connections. It does not promise podcast,
-ebook, or send-to-ereader support through an Audiobookshelf client. For
-playback without a third-party app, use
-[Silo's audiobook player](/docs/listen-to-audiobooks).
+## Troubleshooting
 
-## Server setup
-
-With an administrator account, open **Admin > Settings > Compatibility** and turn on
-**Allow Audiobookshelf apps to connect**. Save and follow any restart notice.
-The default Compose endpoint is port `13378`, separate from Silo's web app.
-Give listeners a reachable address for this endpoint. Keep it on your trusted
-network or place it behind HTTPS before allowing remote access.
-
-## Reverse Proxy
-
-Use the reachable HTTPS address configured for the Audiobookshelf endpoint,
-not a local port copied from a server tutorial. See
-[third-party access](/docs/third-party-access) for server setup.
-
-## Source notes
-
-If sign-in fails, check the account in Silo's web app, then confirm the
-compatibility address and profile name. Report the client and server versions
-without sharing passwords or tokens.
+If sign-in fails, sign in to Silo's web app with the same account first. An
+account with a temporary password must change it there, because
+Audiobookshelf apps cannot. Then check the endpoint address and the profile
+name after `#`.

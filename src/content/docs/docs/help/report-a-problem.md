@@ -5,99 +5,85 @@ description: Share the steps, versions, and evidence needed to investigate a Sil
 ---
 
 Check [Find help](/docs/help) first. If someone else runs your server, ask
-them to check access, scans, and server logs. Never send them your password.
+them to look at access, scans, and server logs. Never send them your
+password.
 
-## Report template
+## Where to report
 
-Copy this into a report and fill in the parts you know:
+| Problem | Where |
+| --- | --- |
+| Server, web app, or libraries | [Server issues](https://github.com/Silo-Server/silo-server/issues) |
+| iPhone, iPad, Apple TV, or Mac app | [Apple issues](https://github.com/Silo-Server/silo-apple/issues) |
+| Android phone, tablet, or TV app | [Android issues](https://github.com/Silo-Server/silo-android/issues) |
 
-```text
-What I was trying to do:
-Steps to reproduce:
-Expected result:
-Actual result:
-App, device, and server versions:
-Does it affect one title/profile/device or several?:
-Time of failure and timezone:
-Relevant error or diagnostic report ID:
-```
+Search open and closed issues first, and add to an existing report when it
+matches yours.
 
-## What to include
+The server's bug form asks what happened, the steps to reproduce it, what
+you expected, the Silo version, how you deployed it, which apps are
+affected, and raw logs. It also asks whether you used AI tools. Give the
+same details in an Apple or Android issue, plus the app version and device
+model. Name the screen and control you used, and keep what you saw separate
+from any theory about the cause.
 
-Use a short sequence someone else can repeat. Name the screen and control
-you used. If only one file fails, include its media type and relevant format
-details without sharing the file or private library information.
+If only one file fails, describe its format without sharing the file or
+private library details.
 
-File server, web, and library problems in
-[the server repository](https://github.com/Silo-Server/silo-server/issues).
-Use [Apple issues](https://github.com/Silo-Server/silo-apple/issues) or
-[Android issues](https://github.com/Silo-Server/silo-android/issues) for an
-app-specific problem. Search for an existing report before opening another.
+### Security problems
 
-Separate what you observed from any theory about the cause. If an AI tool
-helped investigate, disclose that assistance and keep its interpretation
-separate from the original error and logs.
-
-For a suspected security problem, do not post exploit details, credentials,
-or private data in a public issue. Ask the maintainers for a private reporting
-channel first.
+Don't post security problems in a public issue. Report them privately
+through GitHub's vulnerability reporting for the
+[server](https://github.com/Silo-Server/silo-server/security/advisories/new),
+[Apple apps](https://github.com/Silo-Server/silo-apple/security/advisories/new),
+or [Android apps](https://github.com/Silo-Server/silo-android/security/advisories/new).
 
 ## Native app diagnostics
 
-1. Open **Settings > Diagnostics** in the app.
-2. Check who will receive the report: **Silo Diagnostics** or your own Silo server.
+A native app can send a diagnostic report with device details and recent
+logs. Open **Diagnostics** in the app's settings (under **Support** on
+iPhone and iPad), and choose where reports go under **Send Reports To**.
+[Where information goes](/docs/privacy#where-diagnostic-reports-go)
+explains the two destinations.
 
-On Apple, read the destination's disclosure before choosing **Send Diagnostics
-Now**. That button prepares and uploads the report immediately, without a
-separate review step. The **Ask** setting does not add a confirmation to this
-manual send action.
+- On Apple devices, **Send Diagnostics Now** creates and uploads the report
+  straight away, with no review step.
+- On an Android phone or tablet, **Send diagnostics now** opens **Report
+  details** so you can review the report. Select **Send** to upload it.
+- On Android TV, **Send Diagnostics Now** opens the same review screen.
 
-On Android, choose **Send diagnostics now** to prepare the report and open
-its review screen. Review the information, then send only if you are
-comfortable sharing it.
-
-After sending, include the report ID in your support conversation. Sending
-diagnostics does not create a GitHub issue.
-
-If the destination is unavailable, keep the app version, error, and steps
-instead of repeatedly sending. See [where information goes](/docs/privacy)
-for destination and consent choices.
+Include the report ID in your issue or message. Sending diagnostics doesn't
+open a GitHub issue.
 
 ## Logs
 
-Administrators using the default Compose deployment can run these commands
-from the directory containing their Compose file:
+With the default Compose deployment, run these from the folder that holds
+your Compose file:
 
 ```sh
 docker compose ps
 docker compose logs --since=30m --timestamps silo postgres redis
 ```
 
-Capture the time around the failure. Startup errors can occur before Silo's
-admin log screen is available, so container output matters even when that
-screen is empty. Include the image version and any restart or health errors.
+If you turned on the `search` profile, add `meilisearch` to the second
+command. Startup errors show up here even when Silo's admin log screen is
+empty. Include the image version and any restart or health errors.
 
-For a failure after startup, check **Admin > Logs**. A request ID, playback
-session ID, or node name can help the administrator find the matching event.
+For a problem after startup, open **Admin > Logs**. A request ID, playback
+session ID, or node name helps the administrator find the matching event.
 See [server logs](/docs/logging) for filtering and retention.
 
-Review every excerpt before posting. Remove tokens, cookies, passwords,
-connection strings, private addresses, and personal media details. Mark
-redactions and leave the surrounding error text intact. Silo's automatic
-redaction does not catch every secret embedded in free text.
+Before posting a log, replace tokens, cookies, passwords, connection
+strings, private addresses, and personal media details with a marker such as
+`[redacted]`, and leave the rest of the error text as it is. Silo's
+automatic redaction can miss secrets inside free text.
 
-## Autoscan
+## Scan and path problems
 
-Include the source type, the reported file path, its path after rewrites,
-the Silo library root, and the Activity error. Replace private path segments
-consistently so the relationship between those paths is still visible.
+Say whether the server can read the file, not just whether you can see it on
+your computer. For Docker, include the host-to-container path mapping.
 
-For the legacy external Autoscan target, include the target protocol and
-a sanitized configuration. Follow [Autoscan checks](/docs/autoscan)
-before reporting a path-mapping problem.
-
-## Libraries
-
-Say whether the server can read the affected file, not just whether it is
-visible on your computer. For Docker, include the host-to-container path
-mapping with private segments redacted. See [media paths](/docs/media-folders).
+For [Autoscan](/docs/autoscan), include the source type, the reported file
+path, the path after rewrites, the Silo library root, and the error from
+**Activity**. For the legacy external Autoscan target, add its protocol and
+configuration. Replace private folder names the same way everywhere, so the
+paths still line up.

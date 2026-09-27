@@ -1,0 +1,40 @@
+---
+// App-support table built from the 1.0 milestone's feature cards at build time.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { featureGuides } from '../../data/feature-guides.mjs';
+import { clientColumns, milestonePath, parseMilestoneFeatures } from '../../data/milestone-features.mjs';
+
+const features = parseMilestoneFeatures(readFileSync(join(process.cwd(), milestonePath), 'utf8'))
+  .map(feature => ({ ...feature, ...featureGuides[feature.id] }));
+const inApps = features.filter(f => clientColumns.some(c => f.scope.includes(c.key)));
+const serverOnly = features.filter(f => !inApps.includes(f));
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Feature</th>
+      {clientColumns.map(column => <th scope="col">{column.label}</th>)}
+    </tr>
+  </thead>
+  <tbody>
+    {inApps.map(feature => (
+      <tr>
+        <th scope="row"><a href={`/${feature.guide}`}>{feature.label}</a></th>
+        {clientColumns.map(column => (
+          <td>
+            {feature.scope.includes(column.key)
+              ? <>✓<span class="sr-only"> Yes</span></>
+              : <span class="sr-only">No</span>}
+          </td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<p>These are set up on the server in the web app, and apply to every app:</p>
+<ul>
+  {serverOnly.map(feature => <li><a href={`/${feature.guide}`}>{feature.label}</a></li>)}
+</ul>

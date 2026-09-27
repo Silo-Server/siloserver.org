@@ -2,28 +2,21 @@
 slug: docs/ebooks
 beta: true
 title: Ebooks and comics (Beta)
-description: Try reading in the web or Android app and check format and client limits.
+description: Read ebooks, comics, and manga in the web or Android app, and see which formats each reader opens.
 ---
 
 :::caution[Beta]
-Ebooks, comics, and manga remain available as beta in 1.0, outside its support
-promise. The planned consolidated Books effort will replace the current
-libraries and reader while preserving existing libraries and progress.
-Readers exist in the web and Android phone/tablet apps. Apple and Android TV
-do not provide a book reader. Keep your original files and test a few books
-before relying on reading progress or downloads.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
 | Client | Current access |
 | --- | --- |
-| Web | Book details, Read/Continue, reader preferences, bookmarks, and progress |
-| Android phone and tablet | Reading libraries, reader, bookmarks, format-dependent settings, and downloads |
-| iPhone and iPad | No dedicated reader |
-| Apple TV | No dedicated reader |
-| Android TV | Reading libraries and reader excluded |
-| Native macOS | No dedicated reader |
+| Web | Book details, reader, reader settings, bookmarks, and progress |
+| Android phone and tablet | Reading libraries, reader, bookmarks, reader settings, and downloads |
+| iPhone, iPad, and Apple TV | No reader |
+| Android TV | No reading libraries or reader |
 
-Finding a book in a generic search result does not mean that client can read it.
+A book can show up in search on a device that has no reader for it.
 
 ## Create an ebook library
 
@@ -34,14 +27,12 @@ select **Ebooks**. Give it a name and a container-visible folder, for example:
 /mnt/media/books/ebooks
 ```
 
-Ebooks use the same `MEDIA_ROOT` mount as every other library type. The example path assumes your
-host media root contains `books/ebooks`; use the matching container-visible path for your own
-folder layout.
+Ebooks use the same `MEDIA_ROOT` mount as every other library type. The
+example assumes your host media folder contains `books/ebooks`; use the
+matching path inside the container for your own layout.
 
-Save, scan, and check a book's title and cover. The library's metadata provider
-can fill gaps where configured; a provider match does not repair a damaged file.
-
-<span id="supported-formats"></span>
+Save and scan, then open a book to see its title and cover. A configured
+metadata provider can fill in missing details.
 
 ## Files and reader limits
 
@@ -54,23 +45,18 @@ can fill gaps where configured; a provider match does not repair a damaged file.
 | MOBI, AZW, AZW3 | Reader includes native parsing; server conversion may also be used | In-app reading requires server-advertised EPUB conversion; otherwise use an external reader |
 | CBR | Reader includes RAR comic parsing | Download the original for an external reader |
 
-Silo does not remove DRM. Conversion can fail on protected or damaged
-files; keep the original and check the error rather than expecting a readable copy.
-
-These are separate checks: the scanner can find a file, a reader can open it,
-and a download can preserve it offline. Passing one does not establish the others.
-
-<span id="reading"></span>
+Silo does not remove DRM, and conversion fails on protected or damaged
+files. Keep the original files.
 
 ## Read in the web app
 
 1. Open the library and select a book.
-2. Choose **Read** or **Continue**. If the book has several files, check which
-   format you are opening.
+2. Choose **Read** or **Continue**. If the book has several files, pick the
+   format you want to open.
 3. Open **Contents**, **Search**, **Notes**, or **Settings** from the reader
    controls. Settings include theme and text options; fixed pages do not use
    every text setting. Use **Add bookmark** to save a location.
-4. Close and reopen the book with the same profile to check saved progress.
+4. Reading progress is saved to the active profile.
 
 ## Read on Android
 
@@ -84,19 +70,17 @@ and a download can preserve it offline. Passing one does not establish the other
 
 ## Downloads and progress
 
-Download permission is controlled by the server. On Android, open completed
-books from **Downloads** and test them without a connection before traveling.
-Original CBR and Kindle downloads may need another app even when the server
-can convert a streamed copy. External readers keep their own reading state;
-do not expect them to update Silo's progress or bookmarks.
+The server decides who can download. On Android, open finished downloads
+from **Downloads**. Original CBR and Kindle downloads may need another app,
+even when the server can convert a streamed copy. External readers keep
+their own reading position and don't update Silo's progress or bookmarks.
 
-Use the same Silo profile when switching between web and Android. Open the
-same file and check the saved position before continuing.
+To continue on another device, use the same Silo profile and open the same
+file.
 
 ## Manga and comics
 
-Comic files use the image-page reader. The server also has a Manga library
-type and manga-specific details, but discovery and metadata differ between
-clients. Start with a few CBZ files and check volume ordering, pages, and
-right-to-left reading before importing a collection. A separate, fully
-supported manga experience is not part of 1.0.
+Comic files use the image-page reader. The server also has a **Manga**
+library type with manga-specific details, but browsing and metadata differ
+between apps. Try a few CBZ files first to see how volumes are ordered and
+whether right-to-left reading works for you.

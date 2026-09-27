@@ -4,73 +4,64 @@ title: Connect a Jellyfin-compatible app
 description: Enter your Silo account and profile in a Jellyfin-compatible app.
 ---
 
-You need the Jellyfin-compatible server address, your Silo account
-credentials, and the profile name and PIN you use. If you run the server,
-configure [third-party access](/docs/third-party-access); otherwise, get
-the compatibility address from the person who does.
-The app must support manual username and password entry.
+Some apps made for Jellyfin can connect to Silo. You need:
 
-## Endpoint
+- The server's Jellyfin-compatible address. Ask the person who runs your
+  server; it's often different from Silo's web address. If you run the
+  server, see [third-party access](/docs/third-party-access).
+- Your Silo username and password.
+- The name of the profile you want to use, and its PIN if it has one.
 
-Enter the compatibility address in the app's server field. It may differ
-from Silo's web address. Do not enter `localhost` on a phone or TV unless
-the server really runs on that device.
+The app must let you type a username and password.
 
-## Signing in
+## Add the server
 
-### The two boxes
+Enter the Jellyfin-compatible address in the app's server field. On a phone
+or TV, `localhost` only works if the server runs on that same device.
 
-1. In **Username**, enter your account username followed by `#` and the
-   profile name, for example `sam#Alex`.
-2. In **Password**, enter the account password followed by `#` and the
-   profile's four-digit PIN when it has one.
-3. Sign in and open a known title to check that you see the right library
-   access and progress.
+## Sign in with your profile
 
-Do not add spaces around `#`. Profile-name matching is case-insensitive.
-These combined values are for the compatibility app, not native Silo sign-in.
+1. In **Username**, enter your Silo username, then `#`, then the profile
+   name. For example, `sam#Alex`.
+2. In **Password**, enter your Silo password. If the profile has a PIN, add
+   `#` and the PIN after it.
+3. Sign in and open a title you know to make sure you're seeing your
+   profile's libraries and progress.
 
-### If your profile has no PIN
+The profile name isn't case-sensitive. These combined values only work in
+Jellyfin-compatible apps; sign in to Silo's own apps as usual.
 
-Enter only the account password in the password field. Keep the
-`username#profile` format in the username field.
+If your password contains `#`, type it in full as usual. A profile name that
+contains `#` won't work in this format, so ask the account holder to rename
+the profile.
 
-### If you would rather not type the profile name
+### Sign in without a profile name
 
-An omitted profile name works only when Silo can resolve a default profile.
-Using the explicit `username#profile` form avoids that ambiguity.
+If you enter only your username, Silo picks a profile this way:
 
-### If it says your username or password is wrong
+1. A profile with the same name as your username. If it has a PIN, add `#`
+   and the PIN to your password.
+2. Otherwise, the profile without a PIN, when exactly one profile has none.
 
-Check the compatibility address, account credentials, exact profile name,
-and PIN. Try the account in Silo's web app to separate an account problem
-from a compatibility problem. If it still fails, check the server logs or
-share the error with the person running the server.
+If neither applies, sign-in fails. Add `#` and the profile name to your
+username.
 
-### Two smaller details
+### Switch profiles
 
-A password containing `#` is still entered in full before appending the PIN.
-A profile name containing `#` cannot be expressed unambiguously in this format;
-ask the account holder to change that name.
+Sign out of the app, then sign in with the other profile's name and PIN.
+Progress and favorites belong to the profile you signed in with.
 
-### Switching to another profile
+## If sign-in fails
 
-Sign out of the compatibility app, then sign in using the other profile's
-name and PIN. The selected profile owns the resulting progress and favorites.
+If the app says your username or password is wrong, check the server
+address, your Silo username and password, the profile name, and the PIN.
+Try signing in to Silo's web app with the same username and password. If
+that works, the problem is in the Jellyfin-compatible sign-in; share the
+error with the person who runs your server.
 
-## Reverse Proxy
+## What works
 
-Use your server's HTTPS compatibility address. Server setup belongs
-in [third-party access](/docs/third-party-access).
-
-## Scope
-
-Silo's Jellyfin-compatible endpoint serves the movie and series workflow.
-An app may use unsupported Jellyfin behavior. Report its name and version,
-the failing action, and whether that action works in Silo's web app. Keep
-passwords, PINs, and tokens out of the report.
-
-## Source notes
-
-This syntax follows Silo's compatibility login resolver. It does not imply
-that every Jellyfin app or all of its features have passed release testing.
+Jellyfin-compatible apps are for movies and series. An app may use features
+Silo doesn't provide. When reporting a problem, include the app's name and
+version, what you were doing, and whether it works in Silo's web app. Leave
+out passwords and PINs.

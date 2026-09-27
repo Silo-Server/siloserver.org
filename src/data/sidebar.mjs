@@ -1,326 +1,134 @@
 // Curated task order for the public manual. Articles stay in plain Markdown.
 // Top-level categories are static headings; only subgroups can collapse.
+const page = slug => ({ slug });
+const group = (label, slugs) => ({ label, collapsed: true, items: slugs.map(page) });
+
 export const sidebar = [
   {
-    "label": "Get started",
-    "items": [
-      {
-        "slug": "docs"
-      },
-      {
-        "slug": "docs/connect-and-watch"
-      },
-      {
-        "slug": "docs/tv-sign-in"
-      }
-    ]
+    label: "Get started",
+    items: [
+      page("docs"),
+      page("docs/choose-an-app"),
+      page("docs/apps-and-features"),
+      page("docs/connect-and-watch"),
+      page("docs/tv-sign-in"),
+    ],
   },
   {
-    "label": "Using Silo",
-    "items": [
-      {
-        "label": "Find and organize",
-        "collapsed": true,
-        "items": [
-          {
-            "slug": "docs/home-and-calendar"
-          },
-          {
-            "slug": "docs/find-something"
-          },
-          {
-            "slug": "docs/saved-titles"
-          },
-          {
-            "slug": "docs/collections"
-          },
-          {
-            "slug": "docs/requests"
-          }
-        ]
-      },
-      {
-        "label": "Watch",
-        "collapsed": true,
-        "items": [
-          {
-            "slug": "docs/watch-movies-and-series"
-          },
-          {
-            "slug": "docs/subtitles"
-          },
-          {
-            "slug": "docs/missing-subtitles"
-          },
-          {
-            "slug": "docs/tv-remote"
-          },
-          {
-            "slug": "docs/downloads"
-          },
-          {
-            "slug": "docs/browser-downloads"
-          }
-        ]
-      },
-      {
-        "label": "Your account and preferences",
-        "collapsed": true,
-        "items": [
-          {
-            "slug": "docs/accounts"
-          },
-          {
-            "slug": "docs/profiles"
-          },
-          {
-            "slug": "docs/preferences"
-          },
-          {
-            "slug": "docs/watch-history"
-          },
-          {
-            "slug": "docs/import-watch-history"
-          },
-          {
-            "slug": "docs/notification-inbox"
-          }
-        ]
-      },
-      {
-        "label": "App support and compatibility",
-        "collapsed": true,
-        "items": [
-          {
-            "slug": "docs/choose-an-app"
-          },
-          {
-            "slug": "docs/client-feature-reference"
-          },
-          {
-            "slug": "docs/apple-tv-playback"
-          },
-          {
-            "slug": "docs/jellyfin-apps"
-          }
-        ]
-      }
-    ]
+    label: "Using Silo",
+    items: [
+      group("Find and organize", [
+        "docs/home-and-calendar",
+        "docs/find-something",
+        "docs/saved-titles",
+        "docs/collections",
+        "docs/requests",
+      ]),
+      group("Watch", [
+        "docs/watch-movies-and-series",
+        "docs/subtitles",
+        "docs/missing-subtitles",
+        "docs/tv-remote",
+        "docs/downloads",
+      ]),
+      group("Your account and preferences", [
+        "docs/accounts",
+        "docs/profiles",
+        "docs/preferences",
+        "docs/notification-inbox",
+      ]),
+      group("Watch history", [
+        "docs/watch-history",
+        "docs/import-watch-history",
+        "docs/watch-state-webhooks",
+      ]),
+      page("docs/jellyfin-apps"),
+    ],
   },
   {
-    "label": "Running a server",
-    "items": [
-      {
-        "slug": "docs/install-silo-server"
-      },
-      {
-        "slug": "docs/requirements"
-      },
-      {
-        "label": "Build your library",
-        "items": [
-          {
-            "slug": "docs/media-folders"
-          },
-          {
-            "slug": "docs/manage-libraries"
-          },
-          {
-            "slug": "docs/metadata"
-          },
-          {
-            "slug": "docs/local-metadata"
-          },
-          {
-            "slug": "docs/autoscan"
-          },
-          {
-            "slug": "docs/manage-collections"
-          },
-          {
-            "slug": "docs/home-sections"
-          },
-          {
-            "slug": "docs/recommendations"
-          },
-          {
-            "slug": "docs/branding"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "label": "Give people access",
-        "items": [
-          {
-            "slug": "docs/manage-accounts"
-          },
-          {
-            "slug": "docs/manage-access"
-          },
-          {
-            "slug": "docs/reverse-proxy"
-          },
-          {
-            "slug": "docs/third-party-access"
-          },
-          {
-            "slug": "docs/help-a-user"
-          },
-          {
-            "slug": "docs/active-playback"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "label": "Playback and providers",
-        "items": [
-          {
-            "slug": "docs/plugins"
-          },
-          {
-            "slug": "docs/playback"
-          },
-          {
-            "slug": "docs/transcode-nodes"
-          },
-          {
-            "slug": "docs/subtitle-providers"
-          },
-          {
-            "slug": "docs/markers"
-          },
-          {
-            "slug": "docs/ai-services"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "label": "Automations and integrations",
-        "items": [
-          {
-            "slug": "docs/integration-credentials"
-          },
-          {
-            "slug": "docs/manage-requests"
-          },
-          {
-            "slug": "docs/notification-delivery"
-          },
-          {
-            "slug": "docs/import-household-watch-history"
-          },
-          {
-            "slug": "docs/watch-state-webhooks"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "label": "Maintain and recover",
-        "items": [
-          {
-            "slug": "docs/backup-restore"
-          },
-          {
-            "slug": "docs/updates"
-          },
-          {
-            "slug": "docs/server-health"
-          },
-          {
-            "slug": "docs/logging"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "label": "Deployment reference",
-        "items": [
-          {
-            "slug": "docs/docker"
-          },
-          {
-            "slug": "docs/configuration"
-          },
-          {
-            "slug": "docs/s3-storage"
-          }
-        ],
-        "collapsed": true
-      }
-    ]
+    label: "Running a server",
+    items: [
+      page("docs/install"),
+      page("docs/requirements"),
+      group("Build your library", [
+        "docs/media-folders",
+        "docs/manage-libraries",
+        "docs/metadata",
+        "docs/local-metadata",
+        "docs/autoscan",
+        "docs/manage-collections",
+        "docs/home-sections",
+        "docs/recommendations",
+        "docs/branding",
+      ]),
+      group("Give people access", [
+        "docs/manage-accounts",
+        "docs/manage-access",
+        "docs/reverse-proxy",
+        "docs/third-party-access",
+        "docs/help-a-user",
+        "docs/active-playback",
+      ]),
+      group("Playback and providers", [
+        "docs/plugins",
+        "docs/playback",
+        "docs/transcode-nodes",
+        "docs/subtitle-providers",
+        "docs/markers",
+        "docs/ai-services",
+      ]),
+      group("Automations and integrations", [
+        "docs/api-keys",
+        "docs/manage-requests",
+        "docs/notification-delivery",
+        "docs/import-household-watch-history",
+      ]),
+      group("Maintain and recover", [
+        "docs/backup-restore",
+        "docs/updates",
+        "docs/server-health",
+        "docs/logging",
+      ]),
+      group("Deployment reference", [
+        "docs/docker",
+        "docs/configuration",
+        "docs/s3-storage",
+      ]),
+    ],
   },
   {
-    "label": "Beta",
-    "items": [
-      { "slug": "docs/beta" },
-      {
-        "label": "Listening and reading",
-        "collapsed": true,
-        "items": [
-          { "slug": "docs/listen-to-audiobooks" },
-          { "slug": "docs/audiobook-libraries" },
-          { "slug": "docs/audiobookshelf" },
-          { "slug": "docs/ebooks" }
-        ]
-      },
-      {
-        "label": "Watching and personal settings",
-        "collapsed": true,
-        "items": [
-          { "slug": "docs/versions-and-previews" },
-          { "slug": "docs/watch-together" },
-          { "slug": "docs/watch-sync" },
-          { "slug": "docs/native-inboxes" },
-          { "slug": "docs/custom-themes" }
-        ]
-      },
-      {
-        "label": "Administration and additional clients",
-        "collapsed": true,
-        "items": [
-          { "slug": "docs/catalog-seeds" },
-          { "slug": "docs/native-macos" }
-        ]
-      },
-      { "slug": "docs/unfinished-features" }
-    ]
+    label: "Beta",
+    items: [
+      "docs/beta",
+      "docs/listen-to-audiobooks",
+      "docs/audiobook-libraries",
+      "docs/audiobookshelf",
+      "docs/ebooks",
+      "docs/watch-together",
+      "docs/watch-sync",
+      "docs/timeline-previews",
+      "docs/catalog-seeds",
+      "docs/native-macos",
+      "docs/network-access",
+      "docs/podcasts-and-music",
+    ].map(page),
   },
   {
-    "label": "Developers & integrations",
-    "items": [
-      {
-        "slug": "docs/developers"
-      },
-      {
-        "slug": "docs/use-the-api"
-      },
-      {
-        "slug": "docs/api-reference"
-      },
-      {
-        "slug": "docs/build-a-plugin"
-      }
-    ]
+    label: "Developers & integrations",
+    items: [
+      page("docs/developers"),
+      page("docs/api"),
+      page("docs/build-a-plugin"),
+    ],
   },
   {
-    "label": "Help & contribute",
-    "items": [
-      {
-        "slug": "docs/help"
-      },
-      {
-        "slug": "docs/report-a-problem"
-      },
-      {
-        "slug": "docs/privacy"
-      },
-      {
-        "slug": "docs/improve-the-docs"
-      }
-    ]
-  }
+    label: "Help & contribute",
+    items: [
+      page("docs/help"),
+      page("docs/playback-problems"),
+      page("docs/report-a-problem"),
+      page("docs/privacy"),
+      page("docs/improve-the-docs"),
+    ],
+  },
 ];

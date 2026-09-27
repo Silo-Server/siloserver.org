@@ -4,58 +4,50 @@ title: Configure notification delivery
 description: Set up email, browser or mobile push, and server-owned announcement channels.
 ---
 
-Open **Admin > Settings > Notifications** to choose how your server sends notifications. Users choose their interests and personal channels in [their notification settings](/docs/notification-inbox).
+Open **Admin > Settings > Notifications** to choose how your server sends notifications. People choose what they hear about and their personal channels in [their notification settings](/docs/notification-inbox).
 
-Keep **Release events** and **Fanout** on when you want library changes to reach subscribers. These controls collect new-content events and distribute them to interested profiles. Setting up delivery does not subscribe a browser, verify a user's email address, or link their Discord account.
+The three switches at the top run the pipeline: **Notice new content** records new items during scans, **Work out who wants it** matches them against everyone's preferences, and **Send it** hands messages to the delivery channels. Keep all three on for new-content notifications.
 
 ## Set up email
 
-1. Turn on the **Email** card, then open it and turn on **Send email from this server**. These are separate switches.
-2. Enter the sender address, mail server, port, encryption choice, and credentials supplied by your mail service.
-3. Save and follow any restart notice, then send a test email using the test control. Check the recipient's inbox and spam folder.
-4. Choose whether people may receive an email per episode and set the **Daily summary hour**.
+1. Turn on the **Email** card, then turn on **Send email from this server** inside it. This second switch covers every email Silo sends, including invitations and password resets.
+2. Enter the **From address**, **Mail server address**, **Port**, **Encryption**, and the sign-in details from your mail provider.
+3. Save. Enter a recipient next to **Send test**, send a test email, and look for it in the inbox and spam folder.
+4. Choose whether people can pick an email per episode, and set the **Daily summary hour**.
 
-Set the server's external URL in General settings if emails should link back to Silo. Use the address recipients can reach, not a Docker-only hostname.
+Emails link back to Silo through the **Silo public URL** in **Admin > Settings > General**. Use an address recipients can open, not a Docker-only hostname.
 
 ## Browser push
 
-Users need an HTTPS address with a certificate their browser trusts. The
-beginner setup's `http://SERVER-IP:8090` address cannot support browser push;
-HTTP on `localhost` is only a local-testing exception. See the
-[HTTPS setup guide](/docs/reverse-proxy). Browser push requires
-a secure origin, not public access to your server; a trusted HTTPS address
-on your private network can also work.
+Browser push needs an HTTPS address with a certificate the browser trusts. The beginner setup's `http://SERVER-IP:8090` address can't use it; plain HTTP works only on `localhost` for testing. The address doesn't have to be public: a trusted HTTPS address on your home network works. See the [HTTPS setup guide](/docs/reverse-proxy).
 
-Turn on **Web Push** and save. Each user must subscribe from their browser and grant its notification permission. Test from that browser before treating delivery as ready.
-
-If the browser reports push as unsupported, check its address and certificate
-before changing delivery settings.
+Turn on **Web Push** and save. Each person then subscribes from their browser and allows its notifications. If the browser reports push as unsupported, check the address and certificate first.
 
 ## Mobile push
 
-1. Open **Silo Push Relay** and read its privacy disclosure.
-2. Turn on **Apple Push (APNs)**, **Android Push (FCM)**, or both.
-3. Use the relay registration control. Wait for **Relay configured**, then save other settings and follow any restart notice.
-4. Ask a user to allow notifications in the mobile app and device settings. Check delivery on that device.
+1. Turn on the **Silo Push Relay** card and read its privacy disclosure.
+2. Leave **Apple Push (APNs)**, **Android Push (FCM)**, or both on.
+3. Choose **Register relay** and wait for **Relay configured**, then save.
+4. Each person allows notifications in the mobile app and in their device settings.
 
-The relay carries a content-free push request through Apple or Google; the app fetches private notification content from your server. The relay still processes delivery metadata, including the server's connecting IP address. A registered relay is not proof that a device has opted in or received a notification.
+Your server sends the relay a push request with no content, and the relay delivers it through Apple or Google. The app then fetches the notification from your server. The relay never receives titles, message text, names, or your server URL, but it does see your server's IP address and delivery metadata.
 
-If the page says **Re-registration required**, register again. Clearing the relay credential interrupts mobile delivery until registration is restored.
+If the card shows **Re-registration required**, choose **Re-register relay**. Clearing the relay credential stops mobile push until you register again.
 
 ## Discord and personal webhooks
 
-For Discord, configure the application credentials in its card, save, then choose **Test bot token**. That test uses saved credentials. Users still need to link their own Discord accounts for personal delivery.
+For Discord, open **Show setup guide** in the **Discord** card and follow it to create a Discord application. Enter the **Client ID**, **Client secret**, and **Bot token**, save, then choose **Test bot token**. Each person then links their own Discord account to get direct messages.
 
-Turn on outgoing webhooks only if you want users to add destinations. Keep private-address delivery blocked unless you have reviewed the consequences for your network. A destination can receive information about a user's notification events.
+Turn on **Personal Webhooks** only if you want people to add their own Discord or generic webhook destinations. A destination receives details of that person's notifications. **Allow webhooks to private addresses** lets webhooks reach LAN and localhost addresses; it is meant for development, so leave it off.
 
 ## Server channels
 
-Use **Add server channel** to announce new media or request activity to a shared Discord channel or webhook. Enter the destination, choose its events, and create it. Use **Test** and inspect the delivery result.
+Use **Add server channel** to post new media or request activity to a shared Discord channel or webhook. Enter a name and URL, choose its events, and choose **Create**. Use **Test** to send a sample post.
 
-Server channels are not filtered by one viewer's interests. Send them only to destinations whose audience should see those announcements.
+Server channels post every selected event, whatever each viewer's own preferences, so use them only where the whole audience should see the announcements.
 
 ## Missing or delayed notifications
 
-The first library scan seeds the catalog without sending a notification for every old item. Later events are grouped, and stale events can be suppressed. Check **Grouping and flood control** before interpreting every delay as a failure.
+The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together, caps messages per show, and drops items older than **Max content age**. Check these settings before treating a delay as a failure.
 
-For a single affected person, check their profile preferences, channel subscription, and device permissions before changing server-wide settings. **Retention** controls how long inbox and sent-history records remain; it does not repair a failed delivery.
+When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. **Retention** only controls how long inbox and sent-history records are kept.

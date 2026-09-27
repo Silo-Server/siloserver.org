@@ -6,7 +6,7 @@ description: Start a book, choose chapters, and adjust speed or a sleep timer.
 ---
 
 :::caution[Beta]
-Audiobooks are outside the supported 1.0 release scope. Use the client instructions below for listening and offline access.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
 | Client | Listening |
@@ -16,10 +16,10 @@ Audiobooks are outside the supported 1.0 release scope. Use the client instructi
 | Apple TV | Book details, playback, and chapters |
 | Android phone and tablet | Audio libraries, dedicated player, and download controls |
 | Android TV | Audiobook library tab and dedicated player; no offline library |
-| Mac | Use the web player for audiobook listening |
+| Mac | Web player |
 
-Open an audiobook library and select a book. Check its author and narrator
-to make sure you have the recording you want.
+Open an audiobook library and select a book. The detail page shows the
+author and narrator, which helps when a library has more than one recording.
 
 ## In the web app
 
@@ -31,8 +31,9 @@ to make sure you have the recording you want.
    listening pace or stop after a chosen interval.
 
 The resume point belongs to the active profile. Switching profiles stops
-the web audiobook player. Keep the browser page open while listening;
-background playback also depends on the browser and device.
+the web audiobook player. Keep the browser page open while listening.
+Whether audio keeps playing in the background depends on the browser and
+device.
 
 ## On iPhone and iPad
 
@@ -58,14 +59,14 @@ play/resume control.
 **Chapters** opens a chapter picker; **Start Over** restarts the book.
 
 On Android TV, start the book, then use the player's speed, **Sleep**, or
-**Chapters** control with the remote. Choose an option in the panel that
-opens. A TV's playback controls do not provide a phone-style offline library.
+**Chapters** control with the remote and choose an option in the panel that
+opens.
 
 ## Resume on another device
 
-Pause, let the first device reconnect to the server if needed, then open the
-same book with the same profile on the other device. Check the shown position
-before continuing. Simultaneous playback can produce competing progress updates.
+Pause on the first device and let it reach the server, then open the same
+book with the same profile on the other device. If both devices play at
+once, each can overwrite the other's progress.
 
 For a dedicated listening app, see [Audiobookshelf-compatible apps](/docs/audiobookshelf).
 Administrators can [set up an audiobook library](/docs/audiobook-libraries).
@@ -77,8 +78,8 @@ Administrators can [set up an audiobook library](/docs/audiobook-libraries).
 | Android phone and tablet | Open the book's detail page and select **Download**. A downloadable audio file and download permission are required. |
 | iPhone and iPad | Use an [Audiobookshelf-compatible app](/docs/audiobookshelf) that supports offline listening. Silo's audiobook detail page has no download action. |
 | Apple TV and Android TV | Stream from the server; there is no offline audiobook library. |
-| Web and native macOS | Use a listening app with offline support for travel. |
+| Web | No offline audiobook library. |
 
 On Android, wait for **Downloaded**, then open the book from **Downloads**.
-Before traveling, disconnect from the network and test the beginning, a
-later chapter, and reopening the book. Keep the original files on the server.
+To test it before you travel, turn off Wi-Fi and mobile data and play a later
+chapter.

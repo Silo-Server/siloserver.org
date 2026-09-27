@@ -1,42 +1,56 @@
 ---
 slug: docs/downloads
 title: Download for offline use
-description: Save media on a phone or tablet and check it before leaving your connection.
+description: Save movies and episodes on a phone or tablet to watch without a connection.
 ---
 
-Prepare downloads while connected to your server. Your account must have
-download permission, and the device needs enough free storage. This guide covers
-phone and tablet apps. To save an original file on your computer, see
-[Save files from the browser](/docs/browser-downloads).
+The iPhone, iPad, and Android apps can save movies and episodes to watch
+offline. Your account needs download permission, and the device needs enough
+free space. Start downloads while you can still reach your server. On a
+computer, you can [save the original file from the web app](#save-a-file-on-a-computer).
 
 ## Save a movie or episode
 
-1. Open the title in Silo on the device you will take with you.
-2. Select **Download**. On Apple, a normal tap starts with your current
-   defaults; the detail page's more-options menu opens download options.
-   On Android, choose a quality when the picker appears.
-3. Open **Downloads** and wait for preparation and transfer to finish.
-4. Open the completed title from **Downloads** and play it briefly before
-   you leave the network.
+1. Open the title on the device you'll take with you.
+2. Tap **Download**.
+   - On iPhone and iPad, this uses your default download settings. To pick
+     options first, open **More** and choose **Download Options…**.
+   - On Android, choose a quality under **Download Quality** if the app asks.
+3. Open **Downloads** and wait until the title is ready. If you picked a
+   smaller quality, the server prepares a copy before the transfer starts.
+4. Play the title from **Downloads** for a moment before you leave home.
 
-A queued or preparing item is not ready offline. The server may need to
-create a smaller copy before the transfer starts. Keep the app and server
-reachable until the item is complete.
+## Watch and manage downloads
 
-## Use and manage your downloads
+When you're offline, open **Downloads** and play from there. On iPhone and
+iPad, if you open a downloaded title while online, you can choose
+**Play Downloaded** to use the copy on your device.
 
-When offline, open **Downloads** rather than trying to stream from the
-library. On Apple, if both a local copy and a stream are available, choose
-**Play Downloaded** when prompted.
+On iPhone and iPad, tap the progress ring of a download in progress to pause
+or resume it, or touch and hold it for **Cancel Download**. A failed download
+appears under **Needs Attention** with buttons to retry or remove it. Android
+has no pause or retry: remove the download and start it again.
 
-Pause or retry a transfer from its Downloads entry. If it repeatedly fails,
-check free space, the server connection, and your download permission.
-Keep completed downloads until you have checked playback; deleting a failed
-queue entry may mean starting the transfer again.
+To delete one download, touch and hold it and choose **Delete Download** on
+iPhone and iPad, or tap its trash icon (**Remove download**) on Android. To
+delete several, tap **Select**, pick them, tap **Delete** at the bottom, and
+confirm with **Delete Download**.
 
-Select a downloaded item and use **Delete Download** to free device storage.
-This removes the local copy, not the media in the server library. Reconnect
-after offline viewing before expecting progress on another device.
+Deleting a download removes it from your device only. The title stays on the
+server. Where you stopped in a downloaded title syncs to your other devices
+after you reconnect.
 
-Audiobook and ebook downloads are beta. See the [audiobook](/docs/listen-to-audiobooks#downloads)
-and [ebook](/docs/ebooks) guides for client and file-format limits.
+Audiobook and ebook downloads are beta. See the
+[audiobook](/docs/listen-to-audiobooks#downloads) and [ebook](/docs/ebooks)
+guides.
+
+## Save a file on a computer
+
+The web app can save a title's original file through your browser.
+
+1. Open a movie or episode in the web app.
+2. Open the **More** menu and select **Download**.
+3. Choose a version, then let the browser finish the transfer.
+
+**Download** appears when your account is allowed to download. You get the
+original file, so you need a video player that can open its format.

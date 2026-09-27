@@ -4,7 +4,7 @@ title: Fix metadata and choose artwork
 description: Correct a match, edit a description, and keep intentional changes.
 ---
 
-Use the web app as a server administrator. If a title is missing entirely, check its [library scan and paths](/docs/manage-libraries#files-are-missing) first. Metadata editing changes the catalog, not the file on disk.
+Fix titles, descriptions, and artwork in the web app as a server administrator. These edits change Silo's catalog, not your files. If a title is missing entirely, check the [library scan and paths](/docs/manage-libraries#files-are-missing) instead.
 
 ## Correct a wrong match
 
@@ -12,19 +12,19 @@ Use the web app as a server administrator. If a title is missing entirely, check
 2. Select **Match Item**.
 3. Search with the correct title and year. Use the provider filters or identifiers when you know the exact match.
 4. Select the right result and choose **Apply Match**.
-5. Reopen the item and check the title, year, artwork, and attached files. For a series, also check seasons and episodes.
+5. Reopen the item and check the title, year, artwork, and files. For a series, also check seasons and episodes.
 
-If the folder combines unrelated titles, fix the [folder layout](/docs/media-folders) before matching again.
+If one folder holds unrelated titles, fix the [folder layout](/docs/media-folders) first.
 
 ## Change a description or title
 
 1. Choose **Edit Metadata** from the item's actions menu.
 2. Change the fields you need.
-3. Check the lock beside each edited field, then select **Save Changes**.
+3. Select **Save Changes**.
 
-Editing a lockable field locks it automatically. Providers leave locked fields alone during refresh. Unlock a field when you want providers to replace it again.
+Editing a lockable field locks it, so providers leave it alone during a refresh. Unlock the field when you want providers to update it again.
 
-**Reset & Refresh** clears field locks and allows provider data to overwrite manual edits. Use it only when that is your intended result.
+**Reset & Refresh** clears every lock and replaces your manual edits with provider data.
 
 ## Translate a description
 
@@ -32,25 +32,23 @@ This needs a text model and **Translate descriptions** turned on in [AI Services
 
 1. In **Edit Metadata**, find **Translate with AI**.
 2. Choose the target **Language** and select **Translate**.
-3. Wait for the result and check the translated description. For a series, the job includes season and episode overviews.
+3. Wait for the result and read the translation. For a series, the job also translates season and episode overviews.
 
-Leave **Re-translate existing** off unless you intend to replace an existing translation. Provider translations can replace AI-generated text when they become available.
+Turn on **Re-translate existing** only to replace an earlier translation. A provider's own translation can later replace the AI text.
 
-Translation while browsing is a separate server setting, **Description translation for viewers**. It can offer a button, run automatically when a description is missing in the requested language, or stay off. These controls do not translate the app's interface.
+To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
 
 ## Choose artwork
 
-In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select a provider image, and use its **Apply** button. Image changes apply immediately; **Cancel** does not undo them. Then check the item in both its details page and the library grid. These controls require an admin account.
+In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select a provider image, and choose **Apply**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
 
-If images fail to appear, check [artwork storage](/docs/s3-storage). Reapplying an image will not fix a failed storage connection.
+If images don't appear, check [artwork storage](/docs/s3-storage).
 
 ## Refresh metadata
 
 Choose **Refresh Metadata** from the item's actions menu:
 
-- **Quick Refresh** keeps the item and refreshes its existing scan scope.
-- **Complete Refresh** clears the match and rebuilds from disk. It can create a new item ID or type.
-
-Use Quick Refresh for ordinary provider updates. A Complete Refresh is a repair operation, not a harmless way to reload a poster.
+- **Quick Refresh** keeps the item and updates it from providers. Use it for ordinary updates.
+- **Complete Refresh** clears the match and rebuilds the item from disk, which can give it a new ID or type. Use it only to repair an item.
 
 Provider order and language belong to **Admin > Libraries**. For metadata stored beside your own files, use [NFO sidecars](/docs/local-metadata).

@@ -4,41 +4,27 @@ title: Build with Silo
 description: Start an API integration, build a plugin, or find the code repository for your change.
 ---
 
-Choose the task you want to work on:
+- [Use the API](/docs/api) to open your server's API reference and
+  make a first request.
+- [Build a plugin](/docs/build-a-plugin) to add a capability to the server.
 
-- [Make your first API request](/docs/use-the-api) to read data from a server.
-- [Open the API reference](/docs/api-reference) for operation schemas and requirements.
-- [Build a plugin](/docs/build-a-plugin) to add a server capability.
+To connect an existing player instead, see
+[Jellyfin apps](/docs/jellyfin-apps) or
+[Audiobookshelf-compatible apps (Beta)](/docs/audiobookshelf).
 
-To connect an existing player, use the
-[Jellyfin](/docs/jellyfin-apps) or
-[Audiobookshelf (Beta)](/docs/audiobookshelf) guide instead.
+## Repositories
 
-## Server and API
+| Change | Repository |
+| --- | --- |
+| Backend, web app, native API, and compatibility endpoints | [silo-server](https://github.com/Silo-Server/silo-server) |
+| Plugin contract and examples | [silo-plugin-sdk](https://github.com/Silo-Server/silo-plugin-sdk) |
+| First-party plugin catalog | [silo-plugins](https://github.com/Silo-Server/silo-plugins) |
+| Approved community plugin catalog | [Silo-Community/silo-plugins](https://github.com/Silo-Community/silo-plugins) |
+| iPhone, iPad, and Apple TV apps | [silo-apple](https://github.com/Silo-Server/silo-apple) |
+| Android phone, tablet, and TV apps | [silo-android](https://github.com/Silo-Server/silo-android) |
+| This website and manual | [siloserver.org](https://github.com/Silo-Server/siloserver.org) |
 
-The [server repository](https://github.com/Silo-Server/silo-server) owns the
-backend, web app, native API, and compatibility endpoints. Read its README
-and contribution guide before changing code. Build and test instructions
-stay there so they can change with the implementation.
-
-## Plugins
-
-The [SDK](https://github.com/Silo-Server/silo-plugin-sdk) owns the plugin
-contract. Individual plugins own their provider behavior.
-The [catalog](https://github.com/Silo-Server/silo-plugins) lists distributed
-plugins; a catalog entry and a plugin binary are separate contributions.
-
-## Native apps
-
-Use [Silo Apple](https://github.com/Silo-Server/silo-apple) for iPhone, iPad,
-and Apple TV changes, or [Silo Android](https://github.com/Silo-Server/silo-android)
-for Android phone, tablet, and TV changes.
-
-Reproduce an app problem on the affected form factor before changing shared
-code. A phone build does not test TV focus or remote input.
-
-## Website and documentation
-
-This manual lives in the [website repository](https://github.com/Silo-Server/siloserver.org).
-Follow [Improve these docs](/docs/improve-the-docs) to correct a guide
-without building an app or learning the website framework.
+Each repository's README and contribution guide has its build and test
+steps. A plugin's code lives in its own repository, separate from the
+catalogs. To correct a guide without building anything, see
+[Improve these docs](/docs/improve-the-docs).

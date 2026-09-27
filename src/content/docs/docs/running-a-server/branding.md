@@ -1,26 +1,23 @@
 ---
 slug: docs/branding
 title: Customize the web appearance
-description: Set your server's web logos, colors, theme, and login background.
+description: Set your server's web logos, accent color, poster badges, and login background.
 ---
 
-Use **Admin > Settings > Appearance** to change how your server looks in a browser. These controls do not replace the native Apple or Android app icons.
+Use **Admin > Settings > Appearance** to change how your server looks in a browser. These settings don't change the Apple or Android app icons.
 
-## Change the branding
+## Change the logos and colors
 
-1. Open **Logos and icons**.
-2. Add the wordmark, icon, favicon, or login background you want to use. Supply light-theme variants when the dark artwork would be hard to see.
-3. Under **Colors and theme**, choose an **Accent color** and **Default theme**.
-4. Save, then check a normal app page and the signed-out login page. Test both light and dark themes if your users use them.
+1. Under **Logos and icons**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Uploads need a public S3 bucket, set in **Storage & Database**; see [artwork storage](/docs/s3-storage).
+2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar.
+3. Save, then look at a normal page and the signed-out sign-in page.
 
-Use artwork you have permission to publish. Check that labels and controls remain readable against the chosen colors and background.
+Use artwork you have permission to publish, and make sure text and controls stay readable against your colors and background.
 
 ## Adjust poster badges
 
-Under **Card overlays**, use **Show badges on poster art** and choose the badge style and placement. Save and check a library with the kinds of items your users browse.
+Under **Card overlays**, use **Show badges on poster art** and choose the **Badge style** and where each badge appears. These are defaults; people who have chosen their own badge style keep it. Save and look at a library.
 
 ## Advanced changes
 
-**Individual colors and fonts** and **Custom CSS** offer finer control. Change one small area at a time and keep a copy of your previous values. Custom CSS can hide controls or break after an interface update.
-
-The default theme is a starting choice. A viewer's saved appearance preference can take precedence, so test with a fresh browser session before concluding that the server setting did not save.
+**Individual colors and fonts** and **Custom CSS** give finer control over the Cinema Dark theme for everyone. Change one small area at a time and keep a copy of your previous values: custom CSS can hide controls or break after an interface update. **Reset to Cinema Dark** removes the accent color, color and font overrides, and custom CSS.

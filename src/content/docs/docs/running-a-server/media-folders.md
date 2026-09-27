@@ -4,11 +4,11 @@ title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---
 
-Start with separate folders for movies and series. A clear title and year help Silo identify files; a provider ID helps when several titles share a name.
+Keep movies and series in separate folders, give each title its own folder named `Title (Year)`, and number episodes `S01E01`. Silo also reads most names produced by Sonarr, Radarr, FileBot, Plex, and Jellyfin, so you rarely need to rename an existing collection.
 
-## Library Paths
+## Library folders
 
-Silo needs a filesystem directory it can read. It cannot use an `s3://`, `https://`, or `file://` URL as a library root.
+Silo reads media from a folder on its filesystem. It cannot use an `s3://`, `https://`, or `file://` URL as a library folder.
 
 With the default Docker setup, `MEDIA_ROOT=/srv/media` maps the host's media to `/mnt/media` in the container:
 
@@ -17,11 +17,11 @@ With the default Docker setup, `MEDIA_ROOT=/srv/media` maps the host's media to 
 | `/srv/media/movies` | `/mnt/media/movies` |
 | `/srv/media/tv` | `/mnt/media/tv` |
 
-Mount network shares on the host first. Check that the files are visible and readable before you [add the library](/docs/manage-libraries).
+Mount network shares on the host first, and make sure Silo can read the files, before you [add the library](/docs/manage-libraries).
 
 ## Movies
 
-Use one folder per movie when you have posters, subtitles, extras, or several versions:
+Use one folder per movie, especially when you have posters, subtitles, extras, or several versions:
 
 ```text
 movies/
@@ -31,11 +31,11 @@ movies/
     poster.jpg
 ```
 
-Loose files like `movies/Movie Name (2024).mkv` also work. Replace the example names with the real title and year.
+Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-style names like `Movie.Name.2024.1080p.BluRay.mkv`. Silo removes resolution, source, and codec details from the search title.
 
 ## Series
 
-Keep every show inside its own parent folder. Include a season and episode number in each filename:
+Give every show its own folder, with a folder per season:
 
 ```text
 tv/
@@ -47,18 +47,13 @@ tv/
       Show Name - S00E01.mkv
 ```
 
-Use `S01E01` for ordinary episodes and `S00E01` for specials. Extra release information after the episode number is accepted. Daily shows can use an air date like `Show Name 2024-02-15.mkv`; dots, underscores, and spaces also work as date separators.
+Use `S01E01` for ordinary episodes and `S00E01` for specials. Text after the episode number, such as an episode title or release details, is fine.
 
-Do not put unrelated shows into one flat episode folder. Bare `E01`, `1x02`, and absolute numbers without season context are poor choices for reliable identification.
-
-## Audiobooks
-
-Audiobooks are beta. Their folder and chapter instructions live in the
-[Beta audiobook guide](/docs/audiobook-libraries).
+Audiobook folders are covered in the [Beta audiobook guide](/docs/audiobook-libraries).
 
 ## Provider IDs
 
-If a title matches incorrectly, an ID in its folder name can remove ambiguity:
+If a title matches the wrong entry, add its provider ID to the folder name:
 
 ```text
 Movie Name (2024) {tmdb-12345}
@@ -66,22 +61,36 @@ Show Name (2024) {tvdb-12345}
 Movie Name (2024) {imdb-tt1234567}
 ```
 
-These IDs are placeholders. Use the ID for your actual title from the selected provider. Do not paste the sample numbers into your library.
+Replace the sample numbers with the real ID for your title.
 
-## Editions and Parts
+## Also supported
 
-Silo reads edition tags like `{edition-Director's Cut}` in a folder or filename. Multipart names can use `cd`, `disc`, `part`, or `pt` followed by a number. Check the resulting versions and playback order on one item before renaming a whole collection.
+Silo reads these forms as well.
+
+| Kind | Examples |
+| --- | --- |
+| Other episode numbering | `1x03`, `S01xE03`, `s01.e03`, `Season 1 Episode 3`, `2009x03` |
+| Episode-only names inside a season folder | `Season 02/E03.mkv`, `Season 02/03 - Episode Title.mkv`, `S02/Episode 03.mkv` |
+| Compact codes | `Show.Name.103.mkv` (season 1, episode 3) |
+| Several episodes in one file | `S01E01-E03`, `S01E01E02`, `1x01x02` |
+| Air dates | `Show Name - 2024-02-15.mkv`; dots, underscores, and spaces also work as separators |
+| Season folder names | `Season 01`, `Season_01`, `S01`, `01`, and localized names such as `Staffel 1` or `Temporada 1` |
+| Provider IDs in other styles | `[tmdbid=12345]`, `[tmdbid-12345]`, `[imdbid-tt1234567]`, `[tvdbid=12345]` |
+| Editions | `{edition-Director's Cut}`, or words such as `Extended`, `Theatrical`, or `Director's Cut` in the name |
+| Multipart movies | `Movie Name (2024) cd1.mkv`, `disc2`, `part1`, `pt2` |
+
+A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
+
+Numbers without season context can be ambiguous. A bare `03.mkv` or an absolute number such as `136` links only when it identifies one episode, so put these files in a season folder or add the season to the name. Episode files that don't name their show also need a show folder; otherwise you have to match them by hand.
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle sidecars with the item they describe. See [Local metadata](/docs/local-metadata) for what Silo reads.
+Keep NFO files, posters, and subtitle files beside the item they describe. See [Local metadata](/docs/local-metadata) for what Silo reads.
 
-For movie extras, use an item-level folder such as `Trailers`, `Featurettes`, or `Behind the Scenes`. An extras folder at the library root has no owning title. For series, files in `Extras` with a valid `S00E01`-style name retain the special-episode behavior.
+Put movie extras in a folder inside the movie's folder, such as `Trailers`, `Featurettes`, or `Behind the Scenes`. Silo ignores an extras folder at the top of the library because it doesn't belong to a title. In a series, files in `Extras` with a name like `S00E01` stay episodes.
 
-## Avoid
+## Renaming and moving files
 
-Do not fix a missing network mount by deleting the library or moving all its files. Restore the mount and check the path first. Test naming changes on one representative title before applying them in bulk.
+Test a naming change on one title before renaming a whole collection. If files disappear after a network mount drops, restore the mount and check the path; don't delete the library or move the files.
 
-## Autoscan
-
-Paths sent by another service must map to Silo's container-visible library root. For example, an import reported as `/tv/Show Name` may need a rewrite to `/mnt/media/tv/Show Name`. Configure the rewrite with the relevant [Autoscan source](/docs/autoscan).
+Paths sent by another service must map to the folder Silo sees. For example, an import reported as `/tv/Show Name` may need a rewrite to `/mnt/media/tv/Show Name`. Set the rewrite on the [Autoscan source](/docs/autoscan).

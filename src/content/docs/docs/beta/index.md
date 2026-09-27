@@ -2,55 +2,31 @@
 slug: docs/beta
 beta: true
 title: Beta features
-description: Find features outside the supported 1.0 scope and check which clients can use them.
+description: Look up a feature you saw in Silo that isn't part of the 1.0 release, and see which apps have it.
 ---
 
 :::caution[Beta]
-Beta features are experimental. They may become supported features or be removed
-from future releases. Audiobooks, ebooks, and Audiobookshelf compatibility are
-beta too. Use each guide to check available clients and setup requirements.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-Start with the feature you want to try. Each guide names the available
-clients, setup steps, and limits. Use the instructions for your client.
+Silo 1.0 covers movies and series. If you saw one of the features below in
+an app, it's in Beta. The table shows which apps have it and where to read
+more.
 
-## Listening and reading
+| Feature | Where it appears | Guide |
+| --- | --- | --- |
+| Audiobooks | Web, iPhone, iPad, Apple TV, Android phone, tablet, and TV | [Audiobooks](/docs/listen-to-audiobooks) |
+| Audiobook libraries | Web admin | [Set up an audiobook library](/docs/audiobook-libraries) |
+| Audiobookshelf-compatible apps | Web admin setting, then third-party listening apps | [Audiobookshelf-compatible apps](/docs/audiobookshelf) |
+| Ebooks, comics, and manga | Web, Android phone and tablet | [Ebooks and comics](/docs/ebooks) |
+| Podcasts and music | Web admin library form | [Podcasts and music](/docs/podcasts-and-music) |
+| Watch Party | Web; iPhone, iPad, and Apple TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
+| Trakt, Simkl, and MDBList sync | Web | [Sync with Trakt, Simkl, or MDBList](/docs/watch-sync) |
+| Timeline previews | iPhone, iPad, Apple TV, native Mac app | [Timeline previews on Apple devices](/docs/timeline-previews) |
+| Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
+| Network Access (Tailscale) | Web admin | [Reach your server with Tailscale](/docs/network-access) |
+| Native macOS app | Built from source | [Native macOS app](/docs/native-macos) |
 
-| Feature | Where to start |
-| --- | --- |
-| [Audiobooks](/docs/listen-to-audiobooks) | Web and phone/tablet players; client-specific listening and download instructions |
-| [Audiobook library setup](/docs/audiobook-libraries) | Web admin: files, tags, chapters, and a small test scan |
-| [Audiobookshelf compatibility](/docs/audiobookshelf) | Separate server endpoint and third-party listening apps; read the PIN warning |
-| [Ebooks, comics, and manga](/docs/ebooks) | Web and Android phone/tablet readers; no Apple or Android TV reader |
-
-## Watching and personal settings
-
-| Feature | Where to start |
-| --- | --- |
-| [Watch Together](/docs/watch-together) | Create and join rooms in the web app |
-| [Watch-provider sync](/docs/watch-sync) | Web setup for Trakt, Simkl, MDBList, and provider plugins |
-| [Apple playback previews](/docs/versions-and-previews) | Preview frames while seeking on Apple devices |
-| [Custom web themes](/docs/custom-themes) | Web profile and admin theme tools beyond standard server branding |
-| [Native notification inboxes](/docs/native-inboxes) | Android phone/tablet notification-entry path; use web for regular inbox access |
-
-## Administration and additional clients
-
-| Feature | Where to start |
-| --- | --- |
-| [Catalog import and export](/docs/catalog-seeds) | Web admin catalog transfer, not a complete backup or restore |
-| [Native macOS app](/docs/native-macos) | Source-build instructions and desktop video controls |
-| [Unfinished features](/docs/unfinished-features) | Look up feature availability and supported alternatives |
-
-## Before relying on a beta feature
-
-Use a small test set and keep a backup before importing or syncing state.
-Check the feature on the device you intend to use, including reopening the
-app and reconnecting to the server. For an external service, review which
-data leaves the server before connecting it.
-
-Report the app and server versions, the action you tried, and the result.
-[Report a problem](/docs/report-a-problem) explains how to share useful
-evidence without posting credentials or private media details.
-
-The main guide covers movies, series, and the 1.0 feature set. A beta label
-does not relax access controls, secret handling, or data-safety requirements.
+Try a Beta feature on a few titles first, and back up before you import or
+sync data. If something goes wrong, [report it](/docs/report-a-problem)
+with the app and server versions.

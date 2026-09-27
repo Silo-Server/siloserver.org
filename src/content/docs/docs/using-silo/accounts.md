@@ -4,54 +4,70 @@ title: Accounts and signed-in devices
 description: Change your password, sign out, and get help with a lost device.
 ---
 
-Signing out, switching profiles, and forgetting a device do different things.
-Sign out to end the local login. Switch profiles to use another household
-identity. Forgetting a device in web preferences only removes its settings.
+Everyone in a household shares one account and password. Profiles separate
+each person's watching; see [Profiles, PINs, and shared devices](/docs/profiles).
+
+## Sign out
+
+Open the profile menu (your profile picture) and choose **Sign Out**. In the
+web app it's **Logout**.
+
+## Switch to another server
+
+In the Apple and Android apps, choose **Switch Server** from the profile menu.
+On a sign-in screen, **Use a different server**, **Change server**, or **Use
+another server** does the same. Each server has its own accounts and profiles,
+so sign in with the details for that server.
 
 ## Change your password
 
-1. In the web app, switch to your account's primary profile.
+Only the [primary profile](/docs/profiles) can change the account password.
+
+1. In the web app, switch to the primary profile.
 2. Open **Settings > Account**.
-3. Enter your current password, new password, and confirmation, then select
+3. Enter your current password and the new one twice, then select
    **Change password**.
 
-Follow the password requirements shown by your server. If **Local password
-changes are unavailable** appears, use the account's sign-in provider.
+If **Local password changes are unavailable** appears, your account signs in
+through another provider; change the password there.
+
+Changing the password here keeps your other devices signed in. To sign every
+device out, use a reset link instead (below).
+
+If you were given a temporary password, sign in through the web app first and
+choose a new password when asked. Then use it in your other apps.
 
 ## Forgot your password?
 
-1. Open your server's sign-in page in a browser and choose **Forgot password?**, if shown.
+1. Open your server's sign-in page in a browser and choose
+   **Forgot password?**. If you don't see it, your server doesn't offer email
+   resets; ask the person who runs it.
 2. Enter your username or email address and request a reset link.
-3. Check your email, open the link, and choose a new password. The link works once and expires after one hour.
+3. Open the link in the email and choose a new password. The link works once
+   and expires after one hour.
 
-The confirmation message does not tell you whether an account was found. If no email arrives, check spam and confirm you used the right server and account details.
+The confirmation message looks the same whether or not an account was found.
+If no email arrives, look in your spam folder and make sure you used the right
+server and username.
 
-If the option is missing or you still cannot recover the account, use the [account recovery options](/docs/manage-accounts#help-someone-reset-their-password) if you manage the server, or contact someone who does. For an account managed by another sign-in provider, use that provider's recovery process.
+Using the link signs your account out on every device. Sign in again with the
+new password.
 
-If you were given a temporary password, sign in through the web app first. Choose a new password when prompted, then use it in your other apps.
+If your account signs in through another provider, use that provider's
+recovery process.
 
-## Switch servers or sign out
+## Lost or stolen device
 
-On Apple and Android, open **Settings**, choose **Sign Out** (**Sign out** on Android), and confirm.
-In the browser, use **Logout** in
-the profile menu.
+Silo can't sign out a single device, but you can sign out all of them. The
+quickest way is to request a reset link with **Forgot password?** (see above)
+and choose a new password; a private browser window works if you're signed in
+on that computer. Every device, including the lost one, is signed out.
 
-At native sign-in, **Use a different server**, **Change server**, or **Use
-another server** returns to server selection. Enter the address and account
-for the server you actually want; each server has separate accounts and profiles.
+Your server administrator can do the same by setting a new password for your
+account or disabling it for a while. Then sign back in on the devices you
+still have.
 
-Confirm a replacement server address before removing a working saved
-connection. Keep downloaded media in
-mind before clearing application data or uninstalling an app.
+**Forget** in **Settings > Your Devices** only removes that device's saved
+settings; it doesn't sign the device out.
 
-## Lost or shared device
-
-Securing the account and invalidating the lost device's access requires
-server administration. See [Manage accounts and profiles](/docs/manage-accounts),
-or contact someone with that access and provide the account, device name,
-and approximate last use. Do not use
-**Settings > Your Devices > Forget** as a security action: that does not
-revoke its login.
-
-Use a profile picker on shared devices and sign out before giving a device
-to someone outside the household. See [Profiles and PINs](/docs/profiles).
+Before you give a device to someone outside the household, sign out.

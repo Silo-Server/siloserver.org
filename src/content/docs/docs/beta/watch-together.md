@@ -2,39 +2,65 @@
 slug: docs/watch-together
 beta: true
 title: Watch Party (Beta)
-description: Create or join a shared viewing room in the Silo web app.
+description: Watch a movie or episode together with other people on your Silo server.
 ---
 
 :::caution[Beta]
-Watch Party is outside the supported 1.0 scope.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-Watch Party lets people on the same Silo server choose a movie or episode and watch it together.
+Watch Party lets people on the same Silo server pick a movie or episode and
+watch it together, with shared play and pause.
 
-| Client | Available actions |
+| App | Watch Party |
 | --- | --- |
-| Web | Create and join rooms, choose or suggest a title, vote, and control shared playback. |
-| Apple apps | Use Watch Party in the web app. |
-| Android apps | Use Watch Party in the web app. |
+| Web | Available from the sidebar |
+| iPhone, iPad, and Apple TV | Turn it on in Settings first |
+| Android | Not available |
 
-## Create a room
+## Turn it on in the Apple apps
 
-1. Sign in to the web app and select your profile.
+- On iPhone or iPad, open **Settings**, find **Experimental**, and turn on
+  **Watch Party**. It then appears in your profile menu.
+- On Apple TV, open **Settings > Server** and turn on **Watch Party** under
+  **Experimental**. It then appears in the top menu.
+
+A title's menu also gets a **Watch Party** option.
+
+## Start a party in the web app
+
+1. Sign in and select your profile.
 2. Open **Watch Party** in the sidebar.
-3. Choose **Host Picks** to select the title yourself, or **Vote Together** to let members suggest titles and vote.
+3. Choose **Host picks** to choose the title yourself, or **Everyone votes**
+   to let everyone suggest titles and vote.
 4. Select **Create Watch Party**.
-5. Share the room code or use **Invite** to copy its invite link. Participants need to sign in to the same server.
+5. Share the room code, or copy the **Invite link**. People you invite need
+   an account on the same server.
 
-Search for a movie or series inside the room. For a series, choose a season and episode. Confirm the title to start it for the room. In voting mode, members can add suggestions and vote; the host chooses the suggestion to play.
+You can also start a party from a title's menu with **Start a party with
+this**.
 
-## Join and control playback
+In the room, search for a movie or series and choose what to play. For a
+series, pick the season and episode. With **Everyone votes**, people add
+suggestions and vote, and the host starts the one to play.
 
-Open **Watch Party**, enter the room code, and select **Join Watch Party**. An invite link opens the joining flow directly after sign-in.
+## Join a party
 
-The host can use **Allow Pause** to let guests play or pause, and **Host Only** to take that permission back. Guests can leave the room. The host can select **End** to close it.
+Open **Watch Party**, enter the room code, and select **Join Watch Party**.
+An invite link opens the party after you sign in.
 
-Each participant plays through their own server connection. Profile access restrictions still apply, so a room invitation does not grant access to a restricted title. Watch Party accepts movies and episodes; audiobook and ebook sessions are separate.
+In the Apple apps, open **Watch Party**, paste the code or invite link, and
+select **Join party**.
 
-## If a room does not open
+## During the party
 
-Check that you are signed in to the correct server and profile. A closed room or expired invitation may require a new room or invite. If the room shows a connection error, check access to the server before trying again.
+The host can turn on **Guests can pause** to let everyone play and pause.
+Guests can select **Leave**. The host can select **End** to close the room
+for everyone.
+
+Everyone streams from the server with their own account, so profile
+restrictions still apply: an invitation doesn't let someone watch a title
+their profile can't open. Watch Party plays movies and episodes only.
+
+If a room won't open, make sure you're signed in to the right server and
+profile. An ended room needs a new party and invite.

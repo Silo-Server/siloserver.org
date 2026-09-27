@@ -12,14 +12,14 @@ Open **Admin > Activity** in the web app to see current playback. The list ident
 2. Compare the source and delivered video, audio, and container information.
 3. Check whether playback is direct or being transcoded. For buffering during conversion, continue with [playback configuration](/docs/playback).
 
-Record the app and device as well as the media title when reporting a problem. Two devices can take different playback paths for the same file.
+When reporting a problem, note the app and device as well as the title: two devices can play the same file in different ways.
 
 ## Send a command
 
-Open the session's action menu. **Pause**, **Resume**, and **Message…** are available when the client supports live control. A successful command response is not proof that the person saw it; check the displayed state or ask them.
+Open the session's action menu. **Pause**, **Resume**, and **Message…** appear when the app supports live control. To find out whether a command worked, watch the session's state or ask the viewer.
 
-**Stop** ends the current playback. **Terminate** revokes that playback session's authority and attempts to stop the player. Read the result: a disconnected player may stop only when it next contacts the server.
+**Stop** ends the current playback. **Terminate** also revokes that playback session and tries to stop the player. A disconnected player may stop only when it next contacts the server.
 
-If a command cannot reach the client, Silo may end the session instead. Do not repeatedly send pause or resume as a connection test.
+If a command can't reach the player, Silo ends the session shortly afterward, so don't send pause or resume to test the connection.
 
-These actions affect playback, not the account's saved login. See [account management](/docs/manage-accounts) for access changes.
+These actions don't sign the account out. See [account management](/docs/manage-accounts) to change access.

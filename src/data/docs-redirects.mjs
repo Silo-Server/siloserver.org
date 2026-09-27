@@ -3,8 +3,8 @@
 export const docsRedirects = {
   "/docs/clients": "/docs/choose-an-app",
   "/docs/installation": "/docs/requirements",
-  "/docs/quickstart": "/docs/install-silo-server",
-  "/docs/first-configuration": "/docs/install-silo-server",
+  "/docs/quickstart": "/docs/install",
+  "/docs/first-configuration": "/docs/install",
   "/docs/deployment/docker": "/docs/docker",
   "/docs/deployment/reverse-proxy": "/docs/reverse-proxy",
   "/docs/libraries": "/docs/media-folders",
@@ -14,7 +14,7 @@ export const docsRedirects = {
   "/docs/integrations/autoscan": "/docs/autoscan",
   "/docs/jellyfin-compatibility": "/docs/jellyfin-apps",
   "/docs/audiobookshelf-compatibility": "/docs/audiobookshelf",
-  "/docs/apple-tv": "/docs/apple-tv-playback",
-  "/docs/feature-parity": "/docs/client-feature-reference",
+  "/docs/apple-tv": "/docs/playback-problems",
+  "/docs/feature-parity": "/docs/apps-and-features",
   "/docs/troubleshooting": "/docs/report-a-problem"
 };

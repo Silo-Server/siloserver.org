@@ -4,31 +4,42 @@ title: Request a movie or series
 description: Request a missing title and follow its progress.
 ---
 
-Your server must allow media requests, and your account must have permission.
-Requests need [server setup](/docs/manage-requests). Approval means the request
-was accepted; the title may still need to download or import.
+If a movie or series isn't on the server, you can ask for it with a request.
+**Requests** appears only when the server has requests turned on and your
+account is allowed to use them. The person who runs the server sets this up in
+[Manage requests](/docs/manage-requests).
 
 ## Make a request
 
-1. Open **Requests** on your phone, tablet, or in the web app.
-2. Search for the movie or series. In the web app, use **Discover**. Check its title, year,
-   and media type.
-3. Open the result and select its request action when
-   offered. If the page already shows a request status, check that status
-   before trying to submit it again.
-4. Check its status under **Your requests** on iPhone or iPad, **My Requests** on
-   Android, or **Yours** in the web app.
+1. Open **Requests**. In the web app it's in the sidebar. In the phone,
+   tablet, and TV apps, open your profile menu and choose **Requests**.
+2. Search for the title. Open the result with the right year and type.
+3. Select **Request movie** or **Request series** (**Request Movie** or
+   **Request Series** on Apple devices, **Request** on Android).
+4. Follow its progress under **Yours** in the web app or **My Requests** in
+   the apps.
 
-If the server refuses the request, read the permission or limit message.
-Request permissions and limits are controlled in [server settings](/docs/manage-requests).
+If a title is already requested or in the library, its page shows that
+instead of the request button. If you can't request it, the page says why,
+for example **Request limit reached**.
 
-## Read the status
+## Request statuses
 
-**Pending** waits for review. **Approved** has been accepted. **Queued**
-has been sent to request automation, and **Downloading** is being acquired
-or imported. A completed request is ready in the Silo library. Declined,
-cancelled, or failed outcomes need a different response from waiting for a scan.
+In the web app and on Android, a request moves through **Pending** (waiting
+for approval), **Approved**, **Queued**, **Downloading**, and **Completed**
+(in the library and ready to watch). A request that ends early shows
+**Declined**, **Cancelled**, or **Failed**.
 
-Open the request for its details before asking for an update. Once it is
-available, check that you can open the title from your profile. You can also
-receive an arrival alert through your [notification preferences](/docs/notification-inbox).
+The Apple apps group these into five labels:
+
+| Apple label | Meaning |
+| --- | --- |
+| **Pending** | Waiting for approval. You can cancel it from **My Requests** with **Cancel Request**. |
+| **On the way** | Approved, queued, or downloading. |
+| **In library** | Ready to watch. |
+| **Needs attention** | Declined or failed, with the reason when there is one. |
+| **Unavailable** | Can't be requested right now, or the request was cancelled. |
+
+When a request is complete, the title shows up in the library. You can also
+get an alert when it arrives through your
+[notification preferences](/docs/notification-inbox).

@@ -1,68 +1,66 @@
 ---
 slug: docs/privacy
 title: Understand where information goes
-description: Check the services used for metadata, subtitles, notifications, and diagnostic reports.
+description: See which outside services a Silo server contacts, what it sends, and where diagnostic reports go.
 ---
 
-Your server stores your library and account data. Optional features can send
-information to other services. Check which providers the server uses before
-connecting an external account or requesting AI processing. If you do not
-have access to those settings, check with the person who runs the server.
+Your Silo server keeps your libraries, accounts, and watch history. It
+contacts outside services for metadata, plugins, and the features an
+administrator turns on. This page lists those services. If someone else runs
+your server, they control these settings.
 
-## Metadata, subtitles, and AI
+The Silo apps, the diagnostics service, and the push relay are covered by
+the [privacy policy](https://siloserver.org/privacy). That policy doesn't apply to a self-hosted
+server; your server's administrator and each outside provider have their own
+policies.
 
-Metadata providers look up titles and artwork. Subtitle providers search for
-tracks. Those lookups can reach services outside your home, including a
-provider proxy when configured.
+## Services the server contacts
 
-AI text translation sends text to the configured model. Speech-to-text sends
-audio for transcription. A model running on the server operator's own
-equipment has a different destination from a hosted AI service. Confirm the
-destination before processing material you do not want sent externally.
+| Service | When it's contacted | What's sent | On by default? |
+| --- | --- | --- | --- |
+| Silo plugin catalog on GitHub | At startup, once a day, and when an administrator opens the plugin catalog | A request for the catalog and any plugin being installed or updated | Yes |
+| Approved community plugin catalog on GitHub | Same as the Silo catalog | Same as the Silo catalog | No. Turn on **Include approved community plugins** under **Admin > Plugins** |
+| TMDB and TVDB, through their metadata [plugins](/docs/plugins) | When Silo matches or refreshes metadata | Titles, years, language, and IDs to look up, with the plugin's API key | Yes. Both plugins are installed on first start |
+| TMDB, for [requests](/docs/manage-requests) and TMDB-based collections | When someone searches or browses requests, or such a collection syncs | Search text and TMDB IDs | No. Requests stay off until an administrator turns them on |
+| TheIntroDB, through its [markers](/docs/markers) plugin | When an episode starts playing, and during a daily marker sync | The title's TMDB, TVDB, or IMDb ID, season and episode numbers, and the file's duration | Yes. The plugin is installed on first start |
+| TheIntroDB contributions | When an administrator submits markers, or daily if automatic contribution is on | Marker type and times, file duration, and the title's IDs, with the administrator's TheIntroDB API key | No |
+| [Subtitle providers](/docs/subtitle-providers): OpenSubtitles, SubDL, SubSource | When someone searches for or downloads a subtitle | Title, IMDb ID, languages, and season and episode. OpenSubtitles also gets a hash of the video file, and SubDL gets its file name | No. Each provider needs to be turned on and given credentials |
+| [AI text model](/docs/ai-services) | When subtitle or description translation runs | Subtitle text, or descriptions and taglines | No |
+| AI speech-to-text model | When Silo creates subtitles from audio | The audio track, in chunks | No |
+| Embedding model for recommendations | During scheduled recommendation jobs | Catalog text | No |
+| Silo Push Relay (`push.siloserver.org`) | When a notification needs to reach a phone or tablet that allowed notifications | A content-free wake-up: the device's push token and delivery IDs, with no titles, message text, or server address | Yes on new servers. See [mobile push](/docs/notification-delivery#mobile-push) |
+| The browser's push service | When a browser that allowed notifications needs one | The encrypted notification, including its title and text | Yes |
+| Email (SMTP), Discord, and webhooks | When a [notification](/docs/notification-delivery) or email is sent through that channel | The notification or email content | No. Each needs setup |
+| Trakt, Simkl, MDBList ([Beta sync](/docs/watch-sync)) | Only for a profile that connected an account | Watch history, progress, watchlist, ratings, and playback activity, depending on the options chosen | No |
+| Trakt and MDBList lists | When an administrator creates or syncs a list-based collection | Requests for the list | No |
+| plex.tv or Emby Connect | During a [watch-history import](/docs/import-watch-history) that signs in there | Your Plex or Emby Connect sign-in, then requests for your servers and watch history | No |
+| GitHub and npm, for Jellyfin's web player | When an administrator installs or updates the Jellyfin web player | Download requests | No |
 
-Server setup is covered in [plugins](/docs/plugins),
-[subtitle providers](/docs/subtitle-providers), and
-[AI settings](/docs/ai-services).
+Silo has no built-in analytics or usage telemetry. It exports traces and
+logs over OpenTelemetry only when the operator sets
+`OTEL_EXPORTER_OTLP_ENDPOINT` or `SILO_OTEL_ENABLED`.
 
-## Notifications and connected services
+## What apps and browsers load directly
 
-Email, Discord, webhooks, and push delivery use their configured delivery
-services. The channel and event determine what is sent. Review your
-[notification choices](/docs/notification-inbox) and avoid publishing
-webhook URLs or connection credentials.
+The web app and native apps load some artwork, profile avatars (DiceBear),
+and trailers straight from those services rather than through your server.
+The [privacy policy](https://siloserver.org/privacy) lists them under third-party artwork, avatars,
+and trailers.
 
-[History imports](/docs/import-watch-history) connect Silo to
-another media server. Use only an account you are allowed to connect.
+## Where diagnostic reports go
 
-## Choose where diagnostics are sent
+In a native app, **Settings > Diagnostics** chooses where reports go:
 
-In a native app, open **Settings > Diagnostics** and check the destination
-before sending a report:
+- **Silo Diagnostics** sends them to the project's diagnostics service. The
+  [privacy policy](https://siloserver.org/privacy) describes what it keeps and for how long.
+- **My Silo Server** on Apple, or **This Silo server** on Android, sends
+  them to the server you use, where its administrator can read them.
 
-- **Silo Diagnostics** sends a report to the project's diagnostic service.
-- **My Silo Server** on Apple, or **This Silo server** on Android, sends it to
-  the server you use, where its administrator can investigate it.
+**Crash Reports** controls automatic reports: **Ask**, **Always**, or
+**Never** (**Ask before sending**, **Always send**, or **Never send** on an
+Android phone). **Always** isn't offered for Silo Diagnostics. Reports can
+include device details and logs. A report sent to your own server can also
+include playback-session IDs.
 
-Read the destination's disclosure before sending. On Apple, **Send Diagnostics
-Now** uploads immediately without a separate report preview or confirmation,
-even when reporting is set to **Ask**. On Android, the manual action opens a
-report review screen before you send.
-
-Automatic reporting, where offered, affects future reports too. Choose **Ask**
-or **Ask before sending** if you want to approve those reports individually.
-The available options depend on the app and destination.
-
-Diagnostic reports can contain device details and logs. A report sent to a
-self-hosted server can include playback-session identifiers. Review the
-information shown in the app rather than assuming every destination receives
-the same bundle. See [Report a problem](/docs/report-a-problem#native-app-diagnostics).
-
-## Sharing evidence publicly
-
-A diagnostic upload and a public GitHub issue are different actions. Before
-posting logs, remove passwords, tokens, cookies, private addresses, and personal
-media details. Automatic redaction is not a reason to skip that check.
-
-This page explains product behavior. The website's [privacy policy](https://siloserver.org/privacy)
-describes the project's published policy; your server operator and external
-providers may have separate policies.
+To send a report and share its ID, see
+[Report a problem](/docs/report-a-problem#native-app-diagnostics).

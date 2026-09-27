@@ -4,89 +4,90 @@ title: Manage your notifications
 description: Choose which events reach you and check browser, phone, email, or Discord delivery.
 ---
 
-Use **Settings > Notifications** in the web app to choose events and delivery
-options. Delivery channels need [server configuration](/docs/notification-delivery)
-before you can use them.
+Choose your events and delivery options in the web app under
+**Settings > Notifications**. Browser, phone, email, and Discord delivery
+work once the person who runs your server has
+[set them up](/docs/notification-delivery).
 
 ## Choose what notifies you
 
-Under **New Episode Notifications**, turn notifications on and choose whether
-to follow series in your **Favorites**, **Watchlist**, **Continue Watching**,
-or **Next Up**. A delivery channel cannot turn a disabled reason back on.
-Requested-title availability can also produce a notification.
+Under **New Episode Notifications**, turn on **Enable notifications** and
+choose which series to follow: those in your **Favorites**, **Watchlist**,
+**Continue Watching**, or **Next Up**. These choices apply to every delivery
+channel. You can also get a notification when a title you requested becomes
+available.
 
 ## Read the web inbox
 
-Open **Notifications** from the main menu. Open or mark a notification read,
-or use the mark-all-read action to clear the unread count. Check this inbox
-first when an email or phone alert appears to be missing.
+Open **Notifications** from the main menu. Open a notification or mark it
+read, or mark them all read to clear the unread count. If an email or phone
+alert seems to be missing, look here first.
+
+The Silo apps don't have a notification list, with one exception: on an
+Android phone or tablet, tapping an alert that isn't about a specific title
+opens an in-app inbox. That inbox is a [Beta feature](/docs/beta). On other
+devices, use the web inbox to find older alerts.
 
 ## Set up delivery
 
 ### Browser notifications
 
-Open Silo using an HTTPS address trusted by your browser. If you used an
-address such as `http://192.168.1.10:8090` for setup, switch to the server's
-HTTPS address before subscribing. See [HTTPS setup](/docs/reverse-proxy).
-HTTP on `localhost` is an exception
-for use on the server itself, not another device on the LAN.
+Open Silo at its HTTPS address. Browsers only allow notifications from secure
+addresses, so an address like `http://192.168.1.10:8090` won't work. Ask the
+person who runs your server for the HTTPS address if you don't have it.
 
-In **Browser Notifications**, subscribe the browser and accept its permission
-prompt. Review or remove the subscription in the same section. This is
-separate from an installed phone app's notifications.
+In **Browser Notifications**, select **Enable** and accept the browser's
+permission prompt. Other browsers and devices you've subscribed are listed in
+the same section, where you can remove them. Browser notifications are
+separate from the phone app's notifications.
 
 ### Phone and tablet notifications
 
-After signing in and choosing a profile, allow notifications when the Silo
-app or operating system asks. If you denied permission earlier, change it
-in the device's notification settings for Silo. Keep the server reachable
-when opening an alert so the app can fetch its related content.
+After you sign in and choose a profile, allow notifications when the Silo app
+or your device asks. If you declined earlier, turn them on in your device's
+notification settings for Silo. When you tap an alert, the app needs to reach
+the server to open it.
 
-Use the web settings above for your event choices. A phone push alert does
-not imply that a TV app or every native app has an inbox. Delivery also
-depends on the installed app build and the server's push configuration.
+Your event choices still come from the web settings above.
 
 ### Email
 
-In **Email Notifications**, enter an address for this profile and follow the
-verification link. Turn delivery on and choose the available per-episode
-or digest options. Silo does not fall back to the account's login email.
-Child profiles cannot configure their own email destination.
+Email is set per profile, and each profile uses its own verified address, not
+the account's sign-in email.
+
+1. In **Email Notifications**, select **Add address**, enter the address, and
+   select **Request verification**.
+2. Open the link in the verification email.
+3. Turn on **Email this profile's notifications** and choose **Daily digest**,
+   **Every episode**, or **Every episode + daily digest**.
+
+Your server may only offer the daily digest. Child profiles can't receive
+email notifications.
 
 ### Discord direct messages
 
 Select **Link Discord** and authorize the connection. Your Discord account
-must share a Discord server with the Silo bot. This link applies to the
-Silo account and can deliver events for its household profiles.
+must share a Discord server with the Silo bot. The link covers every profile
+on your Silo account.
 
 ### Webhooks
 
-If **Webhooks** is available, add a name and HTTPS destination, choose events,
-then use **Test**. Keep the URL and signing secret private. A webhook may
-narrow your event choices but cannot override a disabled reason.
+If **Webhooks** appears, select **Add webhook**, enter a name and HTTPS URL,
+choose events, then use **Test**. Keep the URL and signing secret private.
+A webhook can send fewer events than your profile's choices, but not more.
 
-## If notifications do not arrive
+## If notifications don't arrive
 
-1. Check the selected profile and event switches.
-2. Check the web inbox. An inbox entry with no external alert points toward
-   delivery or device permission rather than a missing event.
-3. Confirm the email address is verified or the browser/phone permission is allowed.
-4. Check the channel and failed deliveries in
-   [notification delivery settings](/docs/notification-delivery), which require
-   administrative access.
+1. Make sure you're on the right profile and its event switches are on.
+2. Look in the web inbox. If the notification is there but no alert reached
+   you, the problem is delivery or device permission.
+3. Make sure your email address is verified, or that the browser or phone
+   allows notifications from Silo.
+4. If it still fails, tell the person who runs your server so they can check
+   for failed deliveries.
 
-If browser notifications are reported as unsupported, check that you are
-using the HTTPS address before trying another browser.
+If your browser says notifications aren't supported, make sure you're using
+the HTTPS address before trying another browser.
 
-Do not expect a first scan to alert you about every old episode. The server
-limits stale events and large batches.
-
-## For server administrators
-
-See [Configure notification delivery](/docs/notification-delivery)
-for channel setup and delivery failures.
-
-## Source notes
-
-Device notification permission and server event preferences are separate
-checks. Changing one does not fix a failure in the other.
+A first library scan won't alert you about every old episode. The server
+limits alerts for stale events and large batches.

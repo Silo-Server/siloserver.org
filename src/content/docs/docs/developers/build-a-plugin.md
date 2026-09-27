@@ -5,14 +5,13 @@ description: Start from a small SDK example, inspect its manifest, and test it o
 ---
 
 A plugin adds a capability to Silo, such as metadata lookup or a scheduled
-task. The [Go plugin SDK](https://github.com/Silo-Server/silo-plugin-sdk)
-owns the authoring contract. Installing an existing plugin only requires the
-[admin guide](/docs/plugins).
+task. You write it with the [Go plugin SDK](https://github.com/Silo-Server/silo-plugin-sdk).
+To install an existing plugin, see [Install plugins](/docs/plugins) instead.
 
 ## Start with the scheduled-task example
 
-Use a development machine with Git and the Go version required by the SDK's
-`go.mod`. Work in a new directory:
+You need Git and the Go version named in the SDK's `go.mod`. In a new
+directory, run:
 
 ```sh
 git clone https://github.com/Silo-Server/silo-plugin-sdk.git
@@ -21,38 +20,38 @@ go build -o hello-scheduled-task ./examples/hello-scheduled-task
 ./hello-scheduled-task manifest
 ```
 
-The last command prints the plugin's manifest. Check its ID, version, and
-`scheduled_task.v1` capability. This checks that the binary can describe
-itself; it does not test its execution inside Silo.
+The last command prints the plugin's manifest, including its ID, version,
+and `scheduled_task.v1` capability.
 
 ## Test it with Silo
 
-1. Build for the operating system and processor used by the Silo server.
-   A binary built for your Mac will not run in a Linux container.
-2. Review the source and manifest before uploading. Inspecting a plugin during
-   upload can execute its binary, so the upload itself requires trust.
-3. On a disposable server, follow **Manual Install** in
-   [Install plugins](/docs/plugins) and upload the binary.
-   Use test data only.
-4. Open **Admin > Scheduled Tasks**, find **Hello Task**, and select **Run Now**.
-   Check the execution result. This example returns without changing media;
-   a completed run confirms the host can call the plugin.
+Plugins run code on the server, and Silo runs the binary while inspecting
+an upload. Test on a disposable server with test data, and read the source
+of any plugin you didn't write before uploading it.
 
-Do not test unfamiliar plugin binaries on a server holding your only copy of
-important data. Plugins run code on the server.
+1. Build for the operating system and processor of the Silo server. A
+   binary built for your Mac won't run in a Linux container.
+2. Follow **Manual Install** in [Install plugins](/docs/plugins) and upload
+   the binary.
+3. Open **Admin > Scheduled Tasks**, find **Hello Task**, and select
+   **Run Now**. The example doesn't change any media; a completed run shows
+   that Silo can call the plugin.
 
 ## Make it your own
 
-Use the example's source and manifest as a starting point. Give your plugin
-its own identity and implement only the capabilities it needs. Add short
-setup instructions, support and source links, and required configuration to
-the manifest's presentation block.
+Start from the example's source and manifest. Give your plugin its own ID
+and implement only the capabilities it needs. Put short setup instructions,
+support and source links, and required configuration in the manifest's
+presentation block.
 
 Before publishing, pin a tagged SDK version in your plugin's `go.mod`, build
 the target binaries, and follow the SDK's
 [compatibility guidance](https://github.com/Silo-Server/silo-plugin-sdk/blob/main/docs/compatibility.md).
-The [catalog repository](https://github.com/Silo-Server/silo-plugins) maintains
-the distribution entries; publishing a binary does not add it to the catalog.
+Publishing a release doesn't add a plugin to a catalog. The
+[Silo catalog](https://github.com/Silo-Server/silo-plugins) lists
+first-party plugins. Community plugins reach the
+[approved community catalog](https://github.com/Silo-Community/silo-plugins)
+after a maintainer review; its approval policy lists the requirements.
 
 See the [scheduled-task example](https://github.com/Silo-Server/silo-plugin-sdk/tree/main/examples/hello-scheduled-task)
 for its current source and the SDK README for other capability examples.

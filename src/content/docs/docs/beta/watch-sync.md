@@ -1,51 +1,67 @@
 ---
 slug: docs/watch-sync
 beta: true
-title: Watch-provider sync (Beta)
+title: Sync with Trakt, Simkl, or MDBList (Beta)
 description: Connect a profile to Trakt, Simkl, MDBList, or an installed watch-provider plugin.
 ---
 
 :::caution[Beta]
-Watch-provider sync is outside the supported 1.0 scope. Available actions depend on the provider, build, and server configuration.
+This feature is in Beta and may change or be removed in a future release.
 :::
 
-Watch-provider sync connects a Silo profile to an external tracking account. The server can import watched history and resume points, send watched changes, and report playback activity.
+Connect a Silo profile to a Trakt, Simkl, or MDBList account. Silo can then
+import watched history and resume points, send your watched changes, and
+report what you're playing. Watch-provider plugins can add other services.
 
-| Client | Available actions |
-| --- | --- |
-| Web | Connect a provider account, choose sync settings, run a sync, inspect its result, and disconnect. |
-| Apple and Android apps | Connect providers in the web app. Imported history and progress are available to the same profile in the apps. |
+You set this up in the web app. History and progress it imports appear in
+every Silo app signed in to the same profile.
 
 ## Prepare the server
 
-Trakt and Simkl need application credentials in **Admin → Settings → Watch Providers** before you connect a profile. This setup requires an administrator account. MDBList connects with your own API key in personal settings. Additional providers can come from installed watch-provider plugins and may need their own configuration.
+An administrator enters Trakt and Simkl application credentials in
+**Admin > Settings > Watch Providers** before anyone can connect those
+services. MDBList needs no server setup: each person enters their own API key.
+Providers added by a plugin may need their own configuration.
 
-Provider availability is server-specific. The personal settings page shows an empty state when no providers are registered.
+If no provider is set up, the personal **Watch Providers** page says so.
 
 ## Connect your profile
 
-1. Select the Silo profile whose history you want to sync.
-2. Open **Settings → Watch Providers** in the web app.
+1. In the web app, switch to the profile whose history you want to sync.
+2. Open **Settings > Watch Providers**.
 3. Select **Connect** for the provider.
-4. Follow the offered sign-in method. For a device-code flow, copy the code, open the provider's activation page, and complete authorization. An API-key provider instead asks for its key and any required connection fields.
-5. Review the connected account and choose the actions you want.
+4. Sign in the way the provider asks. For a device code, select **Copy code**,
+   open the provider's activation page, and paste it there. For MDBList,
+   enter your API key.
+5. Choose which of the options below to turn on.
 
-Connections and imported history belong to the active profile. Repeat setup separately for another household member.
+Each connection belongs to one profile. Other household members connect
+their own profiles.
 
-## Choose what changes
+## Choose what syncs
 
-| Setting | Effect |
+The options shown depend on what the provider supports.
+
+| Option | Effect |
 | --- | --- |
-| Import watched history | Bring completed provider plays into this profile. |
-| Import paused progress | Use newer provider resume points when local progress is older. |
-| Send watched changes | Send local watched marks and completed plays to the provider. |
-| Scrobble playback | Report playback starts, pauses, resumes, and stops. |
-| Favorites and watchlist sync | Import provider lists and send local additions, when the provider supports them. |
-| Removal settings | Send explicit unwatched or list-removal changes, where offered. These can remove entries on the other side. |
-| Mirror watchlist order | Order matching Silo watchlist items like the provider's list; other items stay at the bottom. |
+| **Import watched history** | Brings completed plays from the provider into this profile. |
+| **Import paused progress** | Uses the provider's resume point when it is newer than Silo's. |
+| **Send watched changes** | Sends watched marks and completed plays to the provider. |
+| **Send unwatched changes** | Removes matching history on the provider when you mark something unwatched. |
+| **Sync favorites** / **Sync watchlist** | Imports the provider's list and sends items you add in Silo. |
+| **Sync favorite removals** / **Sync watchlist removals** | Removes items on the provider when you remove them in Silo. |
+| **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
+| **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
+| **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
 
-Use **Sync now** to request a sync, then inspect the last import/export time, result counts, and any error. A connected account only confirms authorization; it does not prove that all history matched or transferred. Provider capabilities, rate limits, item identifiers, and missing library content affect the result.
+Select **Sync now** to sync straight away. The connection card shows when
+it last imported and exported, how many items transferred, and any error.
+Titles that aren't in your Silo libraries, or that the provider can't match,
+don't transfer.
 
-Select **Disconnect** to remove the connection. Review imported state separately; disconnecting is not an undo operation for changes already synced.
+**Disconnect** removes the connection but doesn't undo changes that were
+already synced in either direction.
 
-For a migration from Plex, Jellyfin, or Emby, use [watch-history import](/docs/import-watch-history). Administrators configuring incoming Plex or Jellyfin events should use [watch-state webhooks](/docs/watch-state-webhooks).
+To move history from Plex, Jellyfin, or Emby, use
+[watch-history import](/docs/import-watch-history). For incoming Plex or
+Jellyfin events, see [watch-state webhooks](/docs/watch-state-webhooks).

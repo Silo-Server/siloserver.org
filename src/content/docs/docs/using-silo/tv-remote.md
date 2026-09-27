@@ -1,43 +1,42 @@
 ---
 slug: docs/tv-remote
 title: Play on your TV using your phone
-description: Send a title to a nearby Silo TV and control playback with SiloRemote.
+description: Use your phone or tablet as a remote for Silo on a nearby TV.
 ---
 
-SiloRemote controls the Silo app on a nearby TV. The TV streams from the
-server; the phone or tablet sends commands. Keep both devices on the same
-home network and leave Silo open on the TV.
+With **Remote Control**, your iPhone, iPad, or Android phone or tablet picks
+what plays in the Silo app on a nearby Apple TV or Android TV. The TV streams
+from the server, and your phone sends the commands. Both devices need to be on
+the same home network, with Silo open on the TV. If the TV isn't signed in yet,
+[set it up](/docs/tv-sign-in) first.
 
-If the TV has not signed in yet, use [TV setup](/docs/tv-sign-in)
-first. A TV needs to finish setup before you can control playback.
+## Connect and play
 
-## Choose the TV
+1. Tap **Remote Control** (the remote icon) at the top of the Home screen or a
+   title's page.
+2. Choose the TV from the list.
+3. Open a movie or episode and tap **Play**. It plays on the TV instead of
+   your phone.
 
-On an iPhone or iPad, tap **Remote Control** at the top right of a title's
-detail page, choose the TV, then pick a title from your library to play there.
-Use the remote's more-options menu
-and **Choose a Different TV** to change targets.
+On iPhone and iPad, tapping **Remote Control** on a movie or episode page
+starts that title on the TV you choose.
 
-On Android, open the title's play-on-device action and choose a target in
-**Play on Silo TV**. For a remote without starting a new title, open
-**Remote Control**. That list is limited to TVs on your active server.
+While you're connected, tapping the remote icon opens a menu:
+**Remote Control** shows the remote, **Choose TV** switches to another TV,
+and **Turn Off Control Mode** goes back to playing on your phone.
 
-Apple and Android phones and tablets use the same Silo TV-control protocol.
-The receiving app can be on Apple TV or Android TV. Check the target's name
-before starting a title on a shared network.
+## Use the remote
 
-## Control playback
+The remote has play and pause, skip back and forward, and volume, plus
+**Audio**, **Subtitles**, **Quality**, and **Speed** when the TV's player
+offers them.
 
-The remote offers play/pause and seeking. Audio, subtitles, quality, and
-other controls appear when the receiving player supports them. Watch the
-TV to confirm that a command took effect.
+Tap **More options** (**...**) on the remote to **Choose a Different TV**.
+**Stop Playback** stops the title on the TV, and **Disconnect** ends the
+connection.
 
-On Apple, **Disconnect** leaves the remote connection; **Stop Playback**
-stops the title. They are separate actions.
+## If your TV isn't in the list
 
-## If no TV appears
-
-Bring Silo to the foreground on the TV and check that the devices are on
-the same network. Guest Wi-Fi or blocked local-network access can prevent
-discovery. If a connection drops, reopen the target picker after restoring
-the network; changing the server password will not fix discovery.
+Open Silo on the TV so it's on screen, and make sure the phone and TV are on
+the same Wi-Fi network. A guest network can keep them from finding each other.
+If the connection drops, tap **Remote Control** again once the network is back.

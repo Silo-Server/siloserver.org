@@ -1,74 +1,40 @@
 ---
 slug: docs/improve-the-docs
 title: Improve these docs
-description: Correct instructions, contribute examples, or report a gap in the Silo manual.
+description: Fix a wrong step, fill a gap, or clarify a guide in the Silo manual.
 ---
 
-You can help without building the website or knowing its framework. Fixing a
-wrong label, adding a missing prerequisite, or clarifying one step is useful.
+If a guide has a wrong label, a missing step, or an instruction that
+confused you, you can fix it from your browser. You don't need to build the
+website.
 
 ## Edit a page
 
-1. Use **Edit page** at the bottom of the guide to open its Markdown source on GitHub.
-2. Make a focused change. GitHub may ask you to create a fork if you do not have
-   write access to the repository.
-3. Open a pull request explaining what was confusing or incorrect and what you changed.
-4. Review the hosted preview linked by the pull request bot once its build succeeds.
+1. Select **Edit page** at the bottom of the guide. GitHub opens the page's
+   Markdown source.
+2. Make your change. If you don't have write access, GitHub offers to create
+   a fork for you.
+3. Open a pull request that says what was wrong or confusing and what you
+   changed.
+4. A bot comments on the pull request with a link to a preview of the site.
+   Open it to see your change in place.
 
-See the [website contribution guide](https://github.com/Silo-Server/siloserver.org/blob/main/CONTRIBUTING.md)
-for review requirements. Larger changes to navigation or site design should
-be discussed before implementation; a small correction can go straight to a PR.
+Small corrections can go straight to a pull request. For larger changes,
+such as new pages or navigation, open an issue first. The
+[website contribution guide](https://github.com/Silo-Server/siloserver.org/blob/main/CONTRIBUTING.md)
+covers building the site locally and what reviewers look for.
 
-## Write for the person doing the task
+## Writing tips
 
-- Say whether the reader needs server-admin access.
-- Start with the result, then prerequisites and the steps needed to reach it.
-- Use the labels shown in the app. Explain phone, tablet, TV, and browser
-  differences only where they change the instructions.
-- Link to an existing guide instead of copying its setup procedure.
-- Document prerequisites, supported platform differences, and lasting feature
-  constraints. Keep temporary bugs, workarounds, and validation findings in
-  issue tracking or internal review notes. Verify availability before turning
-  a milestone target into a how-to procedure.
+- Say at the start if the reader needs to be a server administrator.
+- Lead with what the reader wants to do, then the steps.
+- Use the exact labels shown in the app, in bold.
+- Mention differences between phones, TVs, and the web app only where the
+  steps change.
+- Link to an existing guide instead of repeating its steps.
+- Keep screenshots to the controls the reader needs, and keep every step in
+  the text as well. Remove account names, server addresses, tokens, and
+  private library details from them.
 
-For a behavior change, include the app/server versions you used and explain
-which steps you followed. A successful website build checks the document,
-not whether the product behaves as described.
-
-## Screenshots and examples
-
-Show the controls needed for the task. Use approved demo content and remove
-private libraries, account details, server addresses, tokens, and other
-personal information. Keep essential instructions in text so the guide still
-works without the image.
-
-## Work locally if you prefer
-
-The documentation lives in `src/content/docs/docs/` in the
-[website repository](https://github.com/Silo-Server/siloserver.org).
-Pages are grouped by audience. The sidebar is maintained in
-`src/data/sidebar.mjs`.
-
-From the website checkout:
-
-```sh
-bun install --frozen-lockfile
-bun run dev
-bun run build
-```
-
-Each page declares its public URL with `slug: docs/article-name`. Keep that
-slug when changing the title, source folder, or sidebar group. The sidebar
-can nest a page without adding directories to its URL.
-
-The build checks slugs, navigation, internal links, and anchors. During this
-unpublished pre-1.0 reorganization, new redirects are not required. Existing
-published aliases remain in `src/data/docs-redirects.mjs`. After 1.0, preserve
-published URLs and useful section anchors when moving or merging pages.
-
-The manual's shared release baseline lives in `src/data/docs-release.mjs`.
-Do not describe unreleased behavior as available in the current stable release.
-If a task requires a particular server or app version, provide evidence in
-the pull request and add the applicable `requires` field. Leave it out when
-the minimum version is unknown. Source review and real-device testing are
-different kinds of evidence; say which you performed.
+If you changed a step because the app behaves differently, say in the pull
+request which app and server versions you used.

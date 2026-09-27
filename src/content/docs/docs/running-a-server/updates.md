@@ -1,46 +1,69 @@
 ---
 slug: docs/updates
 title: Update Silo safely
-description: Prepare a backup, read version requirements, and check the server after an update.
+description: Back up, pull the new image, and check the server after an update.
 ---
 
-Update during a quiet period. Tell users when playback may stop and keep the previous version's image and configuration until the new version has passed your checks.
+Update during a quiet period and tell users that playback will stop briefly.
 
-## Before changing versions
+## Before you update
 
-1. Read the target release notes. Check server, client, plugin, and remote-node compatibility.
-2. Make and verify a [backup](/docs/backup-restore). Keep the encryption key and exact old image identity.
-3. Record current versions and any external callback URLs.
-4. Finish active playback and downloads, then follow the release's shutdown and migration instructions.
+1. Read the release notes for the version you are moving to, including anything about remote nodes and plugins.
+2. [Back up](/docs/backup-restore#back-up-the-default-compose-stack) the database, `.env`, and data directories, and record the image you are running:
 
-For a pinned Docker installation, change `SILO_IMAGE` only to the tag or digest specified by the target release, then use its documented deployment commands. Do not replace an existing `.env` with the latest example.
+   ```sh
+   docker compose images silo
+   ```
 
-## Moving from alpha to 1.0
+   Keep that output. `latest` won't identify the old image once you've pulled a new one.
+3. Let active playback and downloads finish.
 
-The documented path is **0.x to the final bridge release, then 1.0**. The bridge completes historical migrations and any supported legacy profile-store import. A direct jump from an arbitrary alpha build is not the planned upgrade route.
+## Update the default Compose stack
 
-The server's [1.0 update checklist](https://github.com/Silo-Server/silo-server/blob/d2596927/docs/update-to-1.0.md) still marks exact release tags and commands as unfinished. Wait for those named release instructions before attempting the cutover.
+Published images are tagged `latest`, `build-N`, and a short commit SHA (see [image tags](/docs/docker#image-and-tags)). If you pinned `SILO_IMAGE` in `.env`, change it to the new tag first. Keep your existing `.env`; don't replace it with the latest example.
 
-Plan a maintenance window for the whole fleet. Alpha and 1.0 API, proxy, and transcode components must not remain active together. Have matching native client builds ready.
+From the directory that holds your Compose file:
 
-The API cutover changes alpha-generated playback, download, callback, and integration URLs. Generate fresh URLs through the new server, update external integrations, and resend outstanding action links where required. Do not repair token-bearing URLs by replacing `v1` with `v2` in a text editor.
+```sh
+docker compose pull silo
+docker compose up -d --no-deps silo
+docker compose logs -f silo
+```
 
-Operational checks remain at `/api/v1/health` and `/api/v1/ready`. Their names do not mean the native API is still v1.
+`--no-deps` replaces only the Silo container and leaves PostgreSQL and Redis running.
 
-## After startup
+Silo applies database migrations as it starts, before it answers requests. A large migration can take a while, and `docker compose ps` can show Silo as `unhealthy` until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run.
 
-Check more than the container status:
+Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit.
 
-- Read startup logs for migration or configuration errors.
-- Check readiness, including any degraded storage status.
-- Sign in as an admin and a normal account.
+## After the update
+
+- Check [health and readiness](/docs/server-health#check-startup).
+- Sign in as an admin and as a normal account.
 - Open a library, load artwork, start playback, seek, stop, and resume.
-- Test the integrations and remote nodes you actually use.
+- Test the integrations and remote nodes you use.
 
-Keep the backup until these checks pass. Note the new version when [reporting a problem](/docs/report-a-problem).
+Keep the backup until these checks pass.
 
 ## If the update fails
 
-Stop further rollout and preserve the error logs. Do not repeatedly alternate old and new image tags against the same database.
+Stop and keep the logs. Switching back to the old image doesn't undo migrations, so don't alternate old and new images against the same database.
 
-Silo does not promise in-place rollback after migrations. Recovery may require restoring the pre-update database and associated file/object state with the old software. Use the tested procedure for that backup; ask for help before changing schema or deleting state.
+To see which migrations ran:
+
+```sh
+docker compose run --rm silo --migrate-status
+```
+
+The reliable way back is to restore the pre-update backup with the old image, as in [Test a restore](/docs/backup-restore#test-a-restore). That loses every change made after the backup. [Ask for help](/docs/report-a-problem) before changing the database by hand.
+
+## Moving from alpha to 1.0
+
+Existing alpha servers will update in two steps: first to a final bridge release, then to 1.0. The bridge finishes the older database migrations, and 1.0 refuses to start on a database that hasn't reached it. When 1.0 ships, follow its published update instructions. The plan is in the server's [1.0 update notes](https://github.com/Silo-Server/silo-server/blob/main/docs/update-to-1.0.md).
+
+What to expect:
+
+- Plan one maintenance window for the whole setup. Don't run alpha and 1.0 servers or nodes at the same time.
+- Have the matching 1.0 app builds ready for your devices.
+- Playback, download, callback, and integration URLs created by the alpha server stop working. Create new ones from the 1.0 server and update external services such as autoscan and webhook senders. Don't edit old URLs by hand.
+- Health checks keep their addresses, `/api/v1/health` and `/api/v1/ready`.

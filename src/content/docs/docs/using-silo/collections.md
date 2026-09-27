@@ -5,43 +5,53 @@ description: Open shared collections or make a personal collection of titles.
 ---
 
 A collection groups titles together. On Apple, Android, or the web, open
-**Collections**, select a collection, then select a title to open its details.
-The web app also lists shared **Server collections**.
+**Collections**, select a collection, then select a title to open it. The web
+app also lists shared **Server collections**.
 
-You can only see members your profile may access. Sharing a collection
-does not grant access to a restricted library.
+A collection only shows the titles your profile can access. Sharing a
+collection with you doesn't give you access to a restricted library.
 
 ## Make a personal collection in the web app
 
-Use the web editor for the full set of item, sharing, and smart-filter controls.
+The web app has the full editor for titles, sharing, and smart filters.
 
 1. Open **Collections > New Collection**.
-2. Choose **Manual** to select titles yourself. Enter a name. Leave
+2. Choose **Manual** to pick titles yourself, and enter a name. Leave
    **Share with this account** off if the collection is just for you.
 3. Select **Save Collection**.
 4. Reopen the collection's editor. Under **Items**, search for titles and
    add the ones you want.
-5. Open the collection to check its contents.
 
-Use the item's remove control to take it out of the collection. This changes
-membership, not the media file.
+To take a title out, use its remove control in **Items**. The title stays in
+your library.
 
 | Collection type | How to control item order |
 | --- | --- |
-| Manual | In the web editor's **Items** section, drag a title's handle. You need edit access, server support for reordering, and the complete item list on one page. |
-| Smart | Use the smart collection's sort controls; membership comes from its rules. |
-| Imported | Ordering comes from the source and is locked in the local editor. |
+| Manual | In the editor's **Items** section, drag a title's handle. You need edit access, server support for reordering, and the complete item list on one page. |
+| Smart | Use the smart collection's sort controls; its rules decide what's in it. |
+| Imported | The order comes from the source and can't be changed in the editor. |
 
-If another edit has made your page stale, reload before trying again.
+If someone else edited the collection while you had it open, reload the page
+before trying again.
+
+## Make a collection on iPhone or iPad
+
+1. Open **Collections** and select **+**.
+2. Enter a **Collection name** and select **Create Collection**.
+
+This makes an empty manual collection. Add titles to it in the web app's
+editor. To delete a collection, swipe left on it and select **Delete**.
+
+The Android apps can open collections but can't create them.
 
 ## Shared and smart collections
 
-A shared collection may be readable without being editable. Use your own
-collection when you want different members or ordering.
+You may be able to view a shared collection without being able to edit it.
+Make your own collection when you want different titles or a different order.
 
-Choose **Smart** when creating a collection to build it from filters rather
-than add titles one by one. Review the matching items before saving. A rule
-that matches nothing can produce an empty collection.
+Choose **Smart** when creating a collection in the web app to fill it from
+filters instead of adding titles one by one. Review the matching titles
+before saving; a rule that matches nothing makes an empty collection.
 
-For a simple personal reminder, [Watchlist or Favorites](/docs/saved-titles)
-is usually quicker than creating a collection.
+For a simple reminder, [Watchlist or Favorites](/docs/saved-titles) is
+quicker than a collection.

@@ -1,44 +1,52 @@
 ---
 slug: docs/import-watch-history
-title: Import your watch history
+title: Import your history from Plex, Jellyfin, or Emby
 description: Bring your own Plex, Jellyfin, or Emby viewing history into a Silo profile.
 ---
 
-Use the web app for a one-time import. This copies supported viewing and
-saved-list data that Silo can match; it does not copy media files or create
-accounts for your household.
+Use the web app to copy your viewing history, resume points, watchlist, and
+favorites from Plex, Jellyfin, or Emby into a Silo profile. Silo imports the
+titles it can match to its own libraries. Each import is a one-time copy.
 
 ## Connect the source
 
 Open **Settings > History Import** and choose the service.
 
-- **Plex:** select **Plex Account**, then **Sign in with Plex**. Complete
-  Plex sign-in and choose a server. A direct-server option is available
-  when a source has been configured on the server.
-- **Jellyfin:** enter the old server's base URL, your username, and password.
-- **Emby:** use **Emby Connect** and **Find Servers**, or choose an
-  administrator-defined server and enter your Emby credentials.
+- **Plex:** under **Plex Account**, select **Sign in with Plex**, finish
+  signing in, and choose a server. Or, under **Saved Server**, choose a
+  server added by the person who runs Silo and enter your **Plex Auth Token**.
+- **Jellyfin:** enter the **Jellyfin Server URL**, your
+  **Jellyfin Username**, and your **Jellyfin Password**.
+- **Emby:** under **Emby Connect**, enter your Emby Connect email or username
+  and password, select **Find Servers**, and choose a server. Or, under
+  **Saved Server**, choose a server added by the person who runs Silo and
+  enter your **Emby Username** and **Emby Password**.
 
-These are credentials for the source service, not your Silo password.
-Only enter them on your trusted Silo server.
+The **Saved Server** tab shows a notice when no servers have been added.
 
-## Run and check the import
+These are your sign-in details for the other service, not your Silo password.
+Only enter them on a Silo server you trust.
 
-1. Choose your destination under **Import into profile**. Check it carefully
-   before continuing.
-2. Select **Start Import** and wait for its status to finish.
-3. Review **Matched**, **Unmatched**, **Progress**, and **History**. Saved-list
-   counts appear when the source supplies those records.
-4. Open a familiar title in Silo and check its watched state and resume point.
+## Run the import
 
-An unmatched item may be missing from Silo or identified differently.
-Check a few examples against [metadata matching](/docs/metadata). If status cannot refresh,
-use the refresh control and inspect **Import history** before starting
-another run. Do not assume an interrupted browser request means the server
-cancelled the import.
+1. Under **Import into profile**, choose the profile that should receive the
+   history.
+2. Select **Start Import** and wait for it to finish.
+3. Review the counts: **Matched**, **Unmatched**, **Progress**, **History**,
+   **Watchlist**, and **Favorites**. A count of zero means nothing of that
+   kind was imported.
+4. Open a familiar title in Silo and look at its watched state and resume
+   point.
 
-For other household members' imports, see
-[household history import](/docs/import-household-watch-history), which requires
-administrative access.
-Keep [progress and watched status](/docs/watch-history) separate
-from ongoing external watch-state synchronization.
+An unmatched item may be missing from Silo or identified differently; the
+import lists **Unmatched examples**. If the page says the import status
+couldn't be refreshed, select **Refresh status** and look under
+**Import history** before starting another run. Closing or reloading the page
+doesn't cancel an import that's already running.
+
+To import for other people in your household, the server administrator can
+use [household history import](/docs/import-household-watch-history).
+For your progress and watched status in Silo, see
+[Watched status and resume progress](/docs/watch-history). To keep receiving
+watched changes from another server, see
+[Sync watched status from another server](/docs/watch-state-webhooks).

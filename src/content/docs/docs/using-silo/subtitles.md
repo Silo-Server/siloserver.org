@@ -1,38 +1,58 @@
 ---
 slug: docs/subtitles
 title: Choose and adjust subtitles
-description: Select a subtitle track, change its appearance, or correct a small timing offset.
+description: Pick a subtitle track, change how subtitles look, or fix subtitles that are out of sync.
 ---
 
-Open the player's subtitle list and choose a track. In a browser, use the
-captions control. On a phone or tablet, open **Audio & Subtitles** on Apple
-or **Audio and subtitles** on Android. On Apple TV and Android TV, open
-the playback options panel and choose **Subtitles**.
+## Choose a subtitle track
 
-Choose **Off** to hide subtitles. A language can appear more than once when the
-file contains several tracks or Silo has saved additional subtitles.
+While a title is playing, open the subtitle list and choose a track:
 
-## Set your usual language and appearance
+- **Web:** select the captions button in the player controls.
+- **iPhone and iPad:** open **Audio & Subtitles**.
+- **Android phone or tablet:** open **Audio and subtitles**.
+- **Apple TV and Android TV:** open the playback options and choose the
+  **Subtitles** tab.
 
-1. Open **Settings > Subtitles** in the web app.
-2. Choose **Subtitle language** and **Subtitle behavior**. Decide whether
-   to show forced subtitles, which cover selected dialogue or on-screen text.
-3. Adjust font size, color, background, or position using the preview.
-4. Play a title with that language available and check the result.
+Choose **Off** to hide subtitles. The same language can appear more than
+once when the title has several subtitle tracks in that language.
 
-Some subtitles are images, or have their own styling. Not every appearance
-control can change every format. A preferred language also cannot create
-a track that the title does not have.
+If the language you want isn't there,
+[find, upload, or generate subtitles](/docs/missing-subtitles).
 
-## Correct a timing mismatch
+## Set your usual language and look
 
-In the web player, open the subtitle menu and adjust **Subtitle delay** earlier
-or later. Use a small change, replay a line, and check the result. Reset the
-delay to zero when it is no longer needed. A delay that grows throughout the
-movie usually needs a subtitle file matched to that version, not a larger offset.
+Open **Settings** and go to **Subtitles**. Every Silo app has this section.
+There you can choose:
 
-The web subtitle menu also offers appearance controls during playback.
-Device-specific timing settings live in **Settings > Your Devices**; see
-[Preferences and device overrides](/docs/preferences).
+- your subtitle language
+- when subtitles appear (the behavior setting)
+- whether to show forced subtitles, which cover only selected dialogue or
+  on-screen text
+- the size, font, color, background, and position of the text
 
-If the language or track is missing, [find, upload, or generate subtitles](/docs/missing-subtitles).
+You can also change the look while you watch: choose **Appearance…** in the
+web subtitle menu, **Appearance** in **Playback Settings** on iPhone and
+iPad, or **Subtitle style** under **Playback settings** >
+**Playback Options** on Android.
+
+Some subtitles are pictures or carry their own styling, so not every setting
+changes them. To use a different look on one device, see
+[Preferences](/docs/preferences).
+
+## Fix subtitles that are out of sync
+
+If subtitles show up too early or too late, change the subtitle delay:
+
+- **Web:** in the subtitle menu, use **-** and **+** next to **Delay**.
+  **Reset** sets it back to zero.
+- **iPhone and iPad:** open **Playback Settings** and choose
+  **Subtitle Delay**.
+- **Android phone or tablet:** open **Playback settings** >
+  **Playback Options** > **Audio & subtitle sync** > **Subtitle delay**.
+- **Apple TV and Android TV:** open the **Subtitles** tab and choose
+  **Delay**.
+
+Change it a little at a time and replay a line to check. If the subtitles
+drift further out of sync as the movie goes on, a different subtitle file
+that matches your version of the title will work better than a bigger delay.

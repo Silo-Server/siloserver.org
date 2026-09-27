@@ -6,6 +6,8 @@ import test from 'node:test';
 import { sidebar } from '../src/data/sidebar.mjs';
 import { docsRedirects } from '../src/data/docs-redirects.mjs';
 import { docsRelease } from '../src/data/docs-release.mjs';
+import { featureGuides } from '../src/data/feature-guides.mjs';
+import { milestonePath, parseMilestoneFeatures } from '../src/data/milestone-features.mjs';
 
 const content = fileURLToPath(new URL('../src/content/docs/', import.meta.url));
 function source(slug) {
@@ -17,7 +19,7 @@ function entries(items) {
 function markdown(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const path = join(dir, entry.name);
-    return entry.isDirectory() ? markdown(path) : entry.name.endsWith('.md') ? [path] : [];
+    return entry.isDirectory() ? markdown(path) : /\.mdx?$/.test(entry.name) ? [path] : [];
   });
 }
 
@@ -57,16 +59,12 @@ test('audience groups and Beta contain real articles without duplicates', () => 
 test('first-run paths separate joining a server from installing one', () => {
   const start = sidebar.find(group => group.label === 'Get started');
   assert.deepEqual(entries(start.items), [
-    'docs', 'docs/connect-and-watch', 'docs/tv-sign-in',
+    'docs', 'docs/choose-an-app', 'docs/apps-and-features', 'docs/connect-and-watch', 'docs/tv-sign-in',
   ]);
   const server = sidebar.find(group => group.label === 'Running a server');
   assert.deepEqual(server.items.slice(0, 2).map(item => item.slug), [
-    'docs/install-silo-server', 'docs/requirements',
+    'docs/install', 'docs/requirements',
   ]);
-  const install = readFileSync(source('docs/install-silo-server'), 'utf8');
-  for (const anchor of ['step-by-step', 'what-to-decide-first', 'after-the-wizard']) {
-    assert.ok(install.includes(`id="${anchor}"`), `Lost after-installation anchor: ${anchor}`);
-  }
 });
 
 test('all previous public article URLs retain a page or a direct redirect', () => {
@@ -118,5 +116,17 @@ test('beta guides are labeled and confined to the Beta group', () => {
   for (const { path, slug } of articles.filter(article => article.beta)) {
     assert.ok(betaSlugs.includes(slug), `Unlisted beta guide: ${slug}`);
     assert.match(readFileSync(path, 'utf8'), /:::caution\[Beta\]/);
+  }
+});
+
+test('every 1.0 milestone feature has a label and an existing guide', () => {
+  const milestone = readFileSync(new URL(`../${milestonePath}`, import.meta.url), 'utf8');
+  const ids = parseMilestoneFeatures(milestone).map(feature => feature.id);
+  assert.ok(ids.length > 0, 'No feature cards found on the milestone page');
+  assert.deepEqual(Object.keys(featureGuides).sort(), [...ids].sort(),
+    'src/data/feature-guides.mjs must list exactly the milestone feature cards');
+  for (const [id, { label, guide }] of Object.entries(featureGuides)) {
+    assert.ok(label, `Missing label: ${id}`);
+    assert.ok(source(guide), `Missing guide for ${id}: ${guide}`);
   }
 });

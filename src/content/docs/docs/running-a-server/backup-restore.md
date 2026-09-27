@@ -1,50 +1,79 @@
 ---
 slug: docs/backup-restore
 title: Plan and test your backups
-description: Identify Silo's durable state and verify recovery before relying on a backup.
+description: Back up the database, encryption key, and files a Silo server needs, and test a restore.
 ---
 
-A Silo backup needs more than a catalog export. Keep the database, encryption key, and file-backed state needed to reconstruct your installation.
-
-This guide covers backup planning and recovery checks. Use a restore procedure
-for your deployment, and test it on an isolated host before updating your
-only copy of the server.
+A Silo backup is the database, the encryption key, and the files the database points to. Test a restore on another host before you rely on it.
 
 ## What to preserve
 
 | Data | Why it matters |
 | --- | --- |
-| PostgreSQL | Catalog, accounts, settings, and current database-backed profile state |
+| PostgreSQL | Catalog, accounts, profiles, settings, and watch state |
 | `SECRET_KEY` | Reads the encrypted credentials stored in the database |
-| Compose files, overrides, and configuration | Recreates the same paths, ports, and services |
-| Exact image or binary version | Restores with the software that matches the backup |
-| Local artwork and configured object storage | Preserves uploaded and generated assets |
-| Plugin files and plugin-managed state | Restores the installed capabilities and their data |
-| Other local state used by your deployment | May include avatars, compatibility assets, or older per-user stores |
-| Original media | Silo's database does not contain your movie or audiobook files |
+| `.env`, Compose files, and overrides | Recreates the same paths, ports, and services |
+| Exact image version | Restores with the software that matches the backup |
+| Local artwork and S3 buckets | Uploaded images, downloaded subtitles, avatars, and cached artwork |
+| Plugin files | Installed plugins |
+| Original media | Silo's database does not contain your media files |
 
-Keep the encryption key in a secure location separate from database backups. Losing it can leave otherwise-restored integrations unusable.
+Keep `SECRET_KEY` in a secure place, separate from the database backups. Without it, a restored server cannot use the stored integration and storage credentials.
 
-If an older installation uses `userdb.backend=sqlite`, preserve `/var/lib/silo/userdb`. The default Compose file does not mount that directory. Confirm every required local path has persistence before replacing its container.
+## Back up the default Compose stack
 
-## Take a consistent backup
+Run these from the directory that holds your Compose file.
 
-Use a PostgreSQL-aware backup method or a properly coordinated offline backup. Copying an active PostgreSQL data directory by itself is not a complete database backup procedure.
+1. Record the image you are running:
 
-Coordinate database and object/file snapshots so restored records point to the assets you retained. Include external buckets in the plan rather than assuming the Docker data root contains them.
+   ```sh
+   docker compose images silo
+   ```
 
-Redis holds runtime coordination state. Its recovery treatment depends on your topology and active jobs; do not clear it while a fleet is still running. Transcode scratch and search indexes serve different purposes from durable account or media data.
+2. Dump the database, then check that the dump can be read:
 
-## Test recovery away from the live server
+   ```sh
+   BACKUP="silo-$(date +%F).dump"
+   docker compose exec -T postgres pg_dump -U silo -Fc silo > "$BACKUP"
+   docker compose exec -T postgres pg_restore --list < "$BACKUP" > /dev/null && echo "dump OK"
+   ```
 
-1. Choose an isolated destination with new database and storage paths.
-2. Block outbound notifications, webhooks, and other integrations before starting the restored copy.
-3. Restore using your deployment's tested procedure and the matching server version and key.
-4. Check admin sign-in, a normal account's profiles, library access, artwork, progress, and one playback.
-5. Confirm that the restored server survives a restart with that state intact.
+   Replace `silo` with your `POSTGRES_USER` and `POSTGRES_DB` values if you changed them. Silo can keep running during the dump.
 
-Do not point the restored copy at writable production storage during this test. Keep the original installation untouched until you can explain how to recover it without using its remaining live files.
+3. Copy `.env` and your Compose files, including any overrides, to a restricted location. `.env` contains `SECRET_KEY`.
+
+4. Copy these directories from `SILO_DATA_ROOT` (default `/opt/silo`):
+
+   | Directory | Back up? |
+   | --- | --- |
+   | `artwork` | Yes. Uploaded posters and branding cannot be downloaded again. |
+   | `plugins` | Yes |
+   | `compat` | Yes |
+   | `catalog-seeds` | Yes, if you put files there |
+   | `postgres` | No, use the dump instead |
+   | `redis`, `transcode`, `meilisearch` | No. These hold temporary, cache, or rebuildable data. |
+
+5. If you use S3 storage, back up the public and private buckets with your provider's tools, at about the same time as the dump.
+
+Do not copy the `postgres` directory while the database is running: the copy may not start. If you need a file-level copy, run `docker compose stop postgres` first.
+
+### Per-user data on SQLite
+
+Open **Admin > Settings > Storage & Database** and check **Where per-user data is stored** under **Database** (in **Advanced**). If it shows SQLite, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. The default Compose file does not keep that directory. Mount it from the host and back it up with the dump.
+
+## Test a restore
+
+Restore to a separate host or data directory, never over the live server.
+
+1. Copy back `.env` with the original `SECRET_KEY`, your Compose files, and the data directories.
+2. Set `SILO_IMAGE` to the image you recorded with the backup.
+3. Start only the database with `docker compose up -d postgres`, then load the dump into the empty database with `pg_restore`.
+4. Start Silo with `docker compose up -d`. It applies any pending database migrations as it starts.
+
+Before starting Silo, block outgoing notifications and webhooks on the test copy, and make sure it cannot write to your production S3 buckets.
+
+Then sign in as an admin and as a normal account. Check profiles, libraries, artwork, watch progress, and one playback, and restart the copy once to make sure the state survives.
 
 ## Before an update
 
-Record the backup time, restore-test result, image identity, and required storage. If the new version migrates the database, changing the image tag back may not recover the old installation. Follow the [update guide](/docs/updates).
+A database migration can't be undone by switching back to the old image. Take a fresh backup before every update and follow the [update guide](/docs/updates).

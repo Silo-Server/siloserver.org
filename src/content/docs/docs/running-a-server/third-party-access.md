@@ -4,45 +4,32 @@ title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.
 ---
 
-Silo has a separate endpoint for apps that expect Jellyfin. The Silo web address
-is not always the address to enter in those apps. Audiobookshelf setup is in
-the [Beta section](/docs/audiobookshelf), including its profile-PIN warning.
+Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the default Docker setup. Jellyfin compatibility is on by default, but until you set an address people can reach, Silo's connection instructions show them `http://127.0.0.1:8096`. Audiobookshelf setup is in the [Beta section](/docs/audiobookshelf), including its profile-PIN warning.
 
-## Turn on compatibility
+## Set the address for Jellyfin apps
 
 1. Open **Admin > Settings > Compatibility**.
-2. Turn on **Allow Jellyfin apps to connect**.
-3. For Jellyfin, fill in **Address Jellyfin apps should use** with the reachable compatibility URL.
-4. Save and follow any restart notice.
-5. Connect one app with an ordinary account and test browsing and playback before sharing the address more widely.
+2. Check that **Allow Jellyfin apps to connect** is on. Changing this switch needs a server restart.
+3. In **Address Jellyfin apps should use**, enter the address people should type into their Jellyfin app, for example `http://192.168.1.20:8096` on your home network or `https://jellyfin.example.com` from outside it.
+4. Save.
+5. Connect one app with a regular account and try browsing and playback before sharing the address.
 
-The **Jellyfin web player** controls manage downloaded web-player files separately. Save compatibility settings before installing those files, and wait for the install job to finish.
+`localhost` or `127.0.0.1` on a phone or TV refers to that device, not your server. If you changed the Docker port mappings, use your own port. The [Docker guide](/docs/docker) lists the default ports.
 
-## Choose the endpoint
+The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish.
 
-With the default Docker port mappings:
+## Access from outside your network
 
-| App | Example address |
-| --- | --- |
-| Silo web or native app | `http://192.168.1.20:8090` |
-| Jellyfin-compatible app | `http://192.168.1.20:8096` |
+Give each service its own HTTPS address, for example separate hostnames for Silo and for Jellyfin apps, and point each one at the right port. See the [reverse proxy guide](/docs/reverse-proxy).
 
-Replace the example IP with your server's address. Check your actual port mappings if you changed them. `localhost` on a phone refers to that phone, not your server.
-
-## External access
-
-Use a reachable HTTPS address for each endpoint you expose, for example separate Silo and Jellyfin hostnames. Point each one to the correct service port and follow the [reverse proxy guide](/docs/reverse-proxy).
-
-Test from outside your home network with the same address you give users. A working Silo homepage does not test the other protocol ports or their streaming behavior.
+Test from outside your home network with the same address you give people. A working Silo web page doesn't mean the Jellyfin port is reachable.
 
 ## Accounts and profiles
 
-Give users their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps).
-Jellyfin compatibility can use a combined username/profile. Its protected-profile
-flow also uses a password/PIN combination.
+Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Jellyfin apps can sign in with a combined username and profile, and protected profiles use a combined password and PIN.
 
-Record the app and server versions when investigating a failure. Supporting a protocol does not guarantee that every app implements every feature the same way.
+Apps differ in which Jellyfin features they use, so note the app and server versions when you report a problem.
 
-## Scan integrations are separate
+## Legacy Autoscan
 
-Legacy external Autoscan also uses the Jellyfin endpoint. New built-in scan sources are configured under [Libraries > Autoscan](/docs/autoscan).
+An external Autoscan service connects through the Jellyfin port. New setups should use Silo's built-in [Autoscan sources](/docs/autoscan) instead.
