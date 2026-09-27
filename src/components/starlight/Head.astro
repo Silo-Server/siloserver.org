@@ -2,8 +2,20 @@
 // Starlight Head override: keep preview deployments out of search indexes.
 import Default from "@astrojs/starlight/components/Head.astro";
 import { PREVIEW } from "../../data/preview";
+
+const is404 = Astro.locals.starlightRoute.id === "404";
 ---
 
+{is404 && (
+  <script is:inline>
+    // Pages are built as `page.html` and served at `/page`. Links published
+    // before that, including shipped app builds, end in `/`, which GitHub
+    // Pages can't resolve. Retry without the slash, keeping any anchor.
+    if (/.\/+$/.test(location.pathname)) {
+      location.replace(location.pathname.replace(/\/+$/, "") + location.search + location.hash);
+    }
+  </script>
+)}
 <Default><slot /></Default>
 {PREVIEW && <meta name="robots" content="noindex, nofollow" />}
 
@@ -13,8 +25,12 @@ import { PREVIEW } from "../../data/preview";
   // keep it out of the address bar and out of shared links.
   const TOP = "_top";
   const cleanURL = () => location.pathname + location.search;
+  const dropTopHash = () => {
+    if (location.hash === `#${TOP}`) history.replaceState(history.state, "", cleanURL());
+  };
 
-  if (location.hash === `#${TOP}`) history.replaceState(history.state, "", cleanURL());
+  dropTopHash();
+  window.addEventListener("hashchange", dropTopHash);
 
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button !== 0) return;

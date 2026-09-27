@@ -6,13 +6,13 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "astro dev",
-    "build": "node --test scripts/test-docs-structure.mjs scripts/test-preview-banner.mjs && astro build",
+    "build": "node --test scripts/test-docs-structure.mjs scripts/test-preview-banner.mjs scripts/test-starlight-patch.mjs && astro build",
     "test:docs": "node --test scripts/test-docs-structure.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.39.2",
+    "@astrojs/starlight": "0.39.2",
     "astro": "^6.0.0"
   },
   "devDependencies": {

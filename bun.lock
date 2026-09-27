@@ -5,7 +5,7 @@
     "": {
       "name": "silo-website",
       "dependencies": {
-        "@astrojs/starlight": "^0.39.2",
+        "@astrojs/starlight": "0.39.2",
         "astro": "^6.0.0",
       },
       "devDependencies": {
