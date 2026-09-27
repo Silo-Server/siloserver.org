@@ -28,7 +28,7 @@ test('banner is first in body, unique, escaped by metadata validation, and noind
 test('all built HTML is covered, including public files, docs, redirects and 404', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'silo-preview-test-'));
   try {
-    const paths = ['index.html', 'brand/index.html', 'milestone/1.0/index.html', 'contributing/index.html', 'docs/index.html', 'docs/legacy/index.html', '404.html'];
+    const paths = ['index.html', 'brand.html', 'milestone/1.0/index.html', 'contributing/index.html', 'docs.html', 'docs/legacy.html', '404.html'];
     for (const path of paths) {
       await mkdir(join(directory, path, '..'), { recursive: true });
       await writeFile(join(directory, path), html);

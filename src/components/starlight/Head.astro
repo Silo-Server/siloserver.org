@@ -2,7 +2,89 @@
 // Starlight Head override: keep preview deployments out of search indexes.
 import Default from "@astrojs/starlight/components/Head.astro";
 import { PREVIEW } from "../../data/preview";
+
+const is404 = Astro.locals.starlightRoute.id === "404";
 ---
 
+{is404 && (
+  <script is:inline>
+    // Pages are built as `page.html` and served at `/page`. Links published
+    // before that, including shipped app builds, end in `/`, which GitHub
+    // Pages can't resolve. Retry without the slash, keeping any anchor.
+    if (/.\/+$/.test(location.pathname)) {
+      location.replace(location.pathname.replace(/\/+$/, "") + location.search + location.hash);
+    }
+  </script>
+)}
 <Default><slot /></Default>
 {PREVIEW && <meta name="robots" content="noindex, nofollow" />}
+
+<script>
+  // Starlight's page title is `<h1 id="_top">`, and the "On this page"
+  // Overview and skip links point at it. `#_top` is the page itself, so
+  // keep it out of the address bar and out of shared links.
+  const TOP = "_top";
+  const cleanURL = () => location.pathname + location.search;
+  const dropTopHash = () => {
+    if (location.hash === `#${TOP}`) history.replaceState(history.state, "", cleanURL());
+  };
+
+  dropTopHash();
+  window.addEventListener("hashchange", dropTopHash);
+
+  // Pages are built as `page.html` and served at `/page`. GitHub Pages also
+  // serves `/page.html`, so show the address people should share.
+  if (location.pathname.endsWith(".html")) {
+    const path = location.pathname.replace(/\.html$/, "");
+    history.replaceState(history.state, "", path + location.search + location.hash);
+  }
+
+  // Pagefind links search results to the built file (`/page.html`) and lists
+  // the page title as a `#_top` section. Starlight doesn't expose a hook for
+  // this, so tidy the rendered results: drop `.html` and `#_top` from links
+  // and hide the section entry that only repeats the page. If Pagefind's
+  // markup changes, results keep working with the untidy links.
+  const tidyHref = (href: string) =>
+    href.replace(new RegExp(`#${TOP}$`), "").replace(/\.html(?=[?#]|$)/, "");
+
+  const tidyResults = (root: Element) => {
+    for (const link of root.querySelectorAll<HTMLAnchorElement>("a.pagefind-ui__result-link")) {
+      const href = link.getAttribute("href");
+      if (href && tidyHref(href) !== href) link.setAttribute("href", tidyHref(href));
+    }
+    for (const result of root.querySelectorAll(".pagefind-ui__result")) {
+      const page = result.querySelector("a.pagefind-ui__result-link")?.getAttribute("href");
+      for (const nested of result.querySelectorAll<HTMLElement>(".pagefind-ui__result-nested")) {
+        const href = nested.querySelector("a.pagefind-ui__result-link")?.getAttribute("href");
+        // Hide rather than remove: Pagefind's UI still owns these nodes, and
+        // its CSS sets `display`, which overrides `hidden`.
+        nested.style.display = href === page ? "none" : "";
+      }
+    }
+  };
+
+  const search = document.getElementById("starlight__search");
+  if (search) {
+    new MutationObserver(() => tidyResults(search)).observe(search, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["href"],
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element).closest?.(`a[href="#${TOP}"]`);
+    const title = document.getElementById(TOP);
+    if (!link || !title) return;
+
+    event.preventDefault();
+    title.scrollIntoView();
+    // Match native anchor behavior for keyboard and screen reader users.
+    if (!title.hasAttribute("tabindex")) title.setAttribute("tabindex", "-1");
+    title.focus({ preventScroll: true });
+    if (location.hash) history.pushState(null, "", cleanURL());
+  });
+</script>

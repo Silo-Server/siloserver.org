@@ -65,5 +65,8 @@ export default defineConfig({
   ],
   build: {
     assets: "_astro",
+    // Write pages as docs/page.html rather than docs/page/index.html, so
+    // static hosts serve /docs/page without redirecting to /docs/page/.
+    format: "preserve",
   },
 });
