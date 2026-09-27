@@ -27,10 +27,49 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
+## Documentation
+
+The manual lives in `src/content/docs/docs/`, grouped into folders by
+audience. The sidebar is defined in `src/data/sidebar.mjs`. The public
+[Improve these docs](https://siloserver.org/docs/improve-the-docs) page
+covers browser edits and writing tips for readers.
+
+### URLs and redirects
+
+Each page declares its URL with `slug: docs/article-name`. Keep the slug when
+you change a page's title, folder, or sidebar group; the sidebar can nest a
+page without adding directories to its URL.
+
+The build checks slugs, navigation, internal links, and anchors. Until 1.0
+ships, the manual is unpublished and moved pages don't need new redirects.
+Existing published aliases stay in `src/data/docs-redirects.mjs`. After 1.0,
+keep published URLs and useful section anchors working when you move or
+merge pages.
+
+### Release baseline and version requirements
+
+`src/data/docs-release.mjs` records the release and source revisions the
+manual describes. Don't describe unreleased behavior as available in the
+current stable release, and check that a feature is actually available
+before turning a milestone target into a how-to.
+
+If a task needs a particular server or app version, add the page's
+`requires` field and give the evidence in the pull request. Leave the field
+out when the minimum version is unknown.
+
+### Evidence
+
+Say in the pull request whether you reviewed the source or tested on a real
+device; they are different kinds of evidence. Document prerequisites,
+platform differences, and lasting constraints. Keep temporary bugs,
+workarounds, and validation findings in issues or internal review notes, not
+in the manual.
+
 ## Validate your change
 
 ```sh
 bun install --frozen-lockfile
+bun run test:docs
 bun run build
 ```
 

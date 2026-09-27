@@ -1,0 +1,38 @@
+---
+import { docsRedirects } from "../../data/docs-redirects.mjs";
+
+export function getStaticPaths() {
+  return Object.entries(docsRedirects).map(([from, destination]) => ({
+    params: { legacy: from.slice("/docs/".length) },
+    props: { destination },
+  }));
+}
+
+const { destination } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const target = `${base}${destination}`;
+const canonical = new URL(target, Astro.site ?? Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
+    <title>This guide has moved | Silo docs</title>
+    <!-- Astro's default meta-refresh redirect drops section fragments. Keep
+         bookmarked headings and query strings when redirecting old docs. -->
+    <script is:inline define:vars={{ target }}>
+      const destination = new URL(target, window.location.origin);
+      destination.search = window.location.search;
+      destination.hash = window.location.hash;
+      window.location.replace(destination.href);
+    </script>
+    <noscript><meta http-equiv="refresh" content={`0;url=${target}`} /></noscript>
+  </head>
+  <body>
+    <p>This guide has moved. <a href={target}>Continue to the guide</a>.</p>
+  </body>
+</html>

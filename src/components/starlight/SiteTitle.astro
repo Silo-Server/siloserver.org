@@ -1,0 +1,9 @@
+---
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+
+// The documentation lives below /docs, not at the marketing site's root.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+Astro.locals.starlightRoute.siteTitleHref = `${base}/docs`;
+---
+
+<Default />

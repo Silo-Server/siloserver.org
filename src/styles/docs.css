@@ -65,11 +65,36 @@ h1[data-page-title] {
   font-weight: 800;
 }
 
-/* Sidebar + UI labels lean mono, like spec sheets */
+/* Keep navigation in readable sentence case, with a clear heading hierarchy. */
+.sidebar-content {
+  font-family: var(--sl-font);
+}
+
 .sidebar-content .large,
 .sidebar-content summary .group-label span {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: var(--sl-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.sidebar-content .sidebar-category > h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 0.5rem 0.65rem;
+  margin-bottom: 0.55rem;
+  border-inline-start: 3px solid var(--sl-color-accent);
+  border-radius: 0 0.3rem 0.3rem 0;
+  background: color-mix(in srgb, var(--sl-color-accent) 8%, transparent);
+}
+
+.sidebar-content .sidebar-category + .sidebar-category {
+  margin-top: 1.6rem;
+}
+
+.sidebar-content .sidebar-category a {
+  font-size: 0.95rem;
+  line-height: 1.5;
 }

@@ -1,0 +1,48 @@
+---
+// App-support table built from the 1.0 milestone's feature cards at build time.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { featureGuides } from '../../data/feature-guides.mjs';
+import { clientColumns, milestonePath, parseMilestoneFeatures } from '../../data/milestone-features.mjs';
+
+const features = parseMilestoneFeatures(readFileSync(join(process.cwd(), milestonePath), 'utf8'))
+  .map(feature => ({ ...feature, ...featureGuides[feature.id] }));
+const inApps = features.filter(f => clientColumns.some(c => f.scope.includes(c.key)));
+const notInApps = features.filter(f => !inApps.includes(f));
+const adminTools = notInApps.filter(f => f.scope.includes('admin'));
+const serverFeatures = notInApps.filter(f => !adminTools.includes(f));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Feature</th>
+      {clientColumns.map(column => <th scope="col">{column.label}</th>)}
+    </tr>
+  </thead>
+  <tbody>
+    {inApps.map(feature => (
+      <tr>
+        <th scope="row"><a href={`${base}/${feature.guide}`}>{feature.label}</a></th>
+        {clientColumns.map(column => (
+          <td>
+            {feature.scope.includes(column.key)
+              ? <>✓<span class="sr-only"> Yes</span></>
+              : <span class="sr-only">No</span>}
+          </td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<p>These run on the server:</p>
+<ul>
+  {serverFeatures.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
+</ul>
+
+<p>These are admin tools in the web app:</p>
+<ul>
+  {adminTools.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
+</ul>

@@ -1,0 +1,22 @@
+---
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+import { docsRelease } from '../../data/docs-release.mjs';
+
+const { requires } = Astro.locals.starlightRoute.entry.data;
+const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android app' };
+---
+
+<Default>
+  <p class="docs-baseline">{docsRelease.channel === 'prerelease'
+    ? 'Silo is in active development before 1.0. These guides are updated frequently.'
+    : `Documentation for Silo Server ${docsRelease.release}.`}</p>
+  {requires && <p class="docs-requirements">
+    <strong>Requires: </strong>
+    {Object.entries(requires).map(([component, version]) => `${labels[component as keyof typeof labels]} ${version} or later`).join('; ')}.
+  </p>}
+  <slot />
+</Default>
+
+<style>
+  .docs-baseline { font-size: 0.875rem; margin-bottom: 1.5rem; }
+</style>

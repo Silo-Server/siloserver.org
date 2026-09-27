@@ -1,0 +1,60 @@
+---
+slug: docs/transcode-nodes
+title: Add and check transcode nodes
+description: Add proxy and transcode nodes on other machines and check that playback uses them.
+---
+
+A single Silo server already streams and converts video itself. Add nodes when you want part of that work on other machines. Every node runs the same Silo image in a different mode and shares the main server's PostgreSQL, Redis, and encryption key.
+
+## Choose a node type
+
+| Type | Does | Use it when |
+| --- | --- | --- |
+| Transcode | Converts video for playback and prepared downloads | The main server's CPU or GPU can't keep up, or another machine has a better GPU |
+| Proxy | Delivers streams and downloads to clients | You want streams to leave from somewhere other than the main server, such as a host with more bandwidth |
+
+Transcode nodes only talk to the main server and proxy nodes, so they need no public address. Clients connect to proxy nodes directly.
+
+## Prepare the node
+
+The server repository's [Compose file](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) includes commented `silo-proxy` and `silo-transcode` examples. Use them as a starting point on the node's host. A node needs:
+
+- `MODE=transcode` or `MODE=proxy`.
+- `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address. Silo matches the running node to its entry by these values.
+- The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis.
+- The media mounted at the same container path the main server uses, such as `/mnt/media`.
+- A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space.
+- For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
+
+The examples publish the node on port 8082 (transcode) or 8083 (proxy). The default Compose file publishes PostgreSQL and Redis only on the main host's loopback address, so a node on another machine can't reach them until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network.
+
+Local artwork on the main server isn't shared with other hosts automatically. For several hosts, consider [S3 artwork storage](/docs/s3-storage).
+
+## Add the node
+
+Add the node in Silo, then start it.
+
+1. Open **Admin > Nodes** and select **Add Transcode** or **Add Proxy**.
+2. Enter a **Name** that matches the node's `NODE_NAME`.
+3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine.
+4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
+5. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
+6. Start the node with its Compose file.
+
+Silo checks every node every 30 seconds. The node's state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away.
+
+Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
+
+## Route playback to nodes
+
+**Node routing** in **Admin > Settings > Playback** decides where remuxing and transcoding run and which machine sends each stream to the client. **Silo Defaults** prefers transcode nodes for conversion and proxy nodes for delivery, and falls back to the main server. **GPU offload** keeps direct play and remuxing on the main server and sends video transcodes to nodes. **Central egress** runs conversion on nodes but sends every stream from the main server. A setting ending in "only" never falls back, so that kind of playback fails while no healthy node of the needed type is available.
+
+## If work does not reach the node
+
+Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A transcode node whose transcode disk is 95% full is skipped while another node has room; free up space on the node itself.
+
+## Maintain a node
+
+Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use **Re-probe**; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
+
+Update all nodes together with the main server when the release notes say so. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.

@@ -1,0 +1,67 @@
+---
+slug: docs/watch-sync
+beta: true
+title: Sync with Trakt, Simkl, or MDBList (Beta)
+description: Connect a profile to Trakt, Simkl, MDBList, or an installed watch-provider plugin.
+---
+
+:::caution[Beta]
+This feature is in Beta and may change or be removed in a future release.
+:::
+
+Connect a Silo profile to a Trakt, Simkl, or MDBList account. Silo can then
+import watched history and resume points, send your watched changes, and
+report what you're playing. Watch-provider plugins can add other services.
+
+You set this up in the web app. History and progress it imports appear in
+every Silo app signed in to the same profile.
+
+## Prepare the server
+
+An administrator enters Trakt and Simkl application credentials in
+**Admin > Settings > Watch Providers** before anyone can connect those
+services. MDBList needs no server setup: each person enters their own API key.
+Providers added by a plugin may need their own configuration.
+
+If no provider is set up, the personal **Watch Providers** page says so.
+
+## Connect your profile
+
+1. In the web app, switch to the profile whose history you want to sync.
+2. Open **Settings > Watch Providers**.
+3. Select **Connect** for the provider.
+4. Sign in the way the provider asks. For a device code, select **Copy code**,
+   open the provider's activation page, and paste it there. For MDBList,
+   enter your API key.
+5. Choose which of the options below to turn on.
+
+Each connection belongs to one profile. Other household members connect
+their own profiles.
+
+## Choose what syncs
+
+The options shown depend on what the provider supports.
+
+| Option | Effect |
+| --- | --- |
+| **Import watched history** | Brings completed plays from the provider into this profile. |
+| **Import paused progress** | Uses the provider's resume point when it is newer than Silo's. |
+| **Send watched changes** | Sends watched marks and completed plays to the provider. |
+| **Send unwatched changes** | Removes matching history on the provider when you mark something unwatched. |
+| **Sync favorites** / **Sync watchlist** | Imports the provider's list and sends items you add in Silo. |
+| **Sync favorite removals** / **Sync watchlist removals** | Removes items on the provider when you remove them in Silo. |
+| **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
+| **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
+| **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
+
+Select **Sync now** to sync straight away. The connection card shows when
+it last imported and exported, how many items transferred, and any error.
+Titles that aren't in your Silo libraries, or that the provider can't match,
+don't transfer.
+
+**Disconnect** removes the connection but doesn't undo changes that were
+already synced in either direction.
+
+To move history from Plex, Jellyfin, or Emby, use
+[watch-history import](/docs/import-watch-history). For incoming Plex or
+Jellyfin events, see [watch-state webhooks](/docs/watch-state-webhooks).

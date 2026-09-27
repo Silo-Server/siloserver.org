@@ -32,6 +32,7 @@ export default defineConfig({
       description:
         "Documentation for installing, configuring, and operating Silo.",
       favicon: "/favicon.ico",
+      lastUpdated: true,
       customCss: ["./src/styles/docs.css"],
       editLink: {
         baseUrl: "https://github.com/Silo-Server/siloserver.org/edit/main/",
@@ -42,6 +43,9 @@ export default defineConfig({
       ],
       components: {
         Head: "./src/components/starlight/Head.astro",
+        MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
+        Sidebar: "./src/components/starlight/Sidebar.astro",
+        SiteTitle: "./src/components/starlight/SiteTitle.astro",
       },
       social: [
         {
