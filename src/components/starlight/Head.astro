@@ -6,3 +6,28 @@ import { PREVIEW } from "../../data/preview";
 
 <Default><slot /></Default>
 {PREVIEW && <meta name="robots" content="noindex, nofollow" />}
+
+<script>
+  // Starlight's page title is `<h1 id="_top">`, and the "On this page"
+  // Overview and skip links point at it. `#_top` is the page itself, so
+  // keep it out of the address bar and out of shared links.
+  const TOP = "_top";
+  const cleanURL = () => location.pathname + location.search;
+
+  if (location.hash === `#${TOP}`) history.replaceState(history.state, "", cleanURL());
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element).closest?.(`a[href="#${TOP}"]`);
+    const title = document.getElementById(TOP);
+    if (!link || !title) return;
+
+    event.preventDefault();
+    title.scrollIntoView();
+    // Match native anchor behavior for keyboard and screen reader users.
+    if (!title.hasAttribute("tabindex")) title.setAttribute("tabindex", "-1");
+    title.focus({ preventScroll: true });
+    if (location.hash) history.pushState(null, "", cleanURL());
+  });
+</script>
