@@ -8,7 +8,9 @@ import { clientColumns, milestonePath, parseMilestoneFeatures } from '../../data
 const features = parseMilestoneFeatures(readFileSync(join(process.cwd(), milestonePath), 'utf8'))
   .map(feature => ({ ...feature, ...featureGuides[feature.id] }));
 const inApps = features.filter(f => clientColumns.some(c => f.scope.includes(c.key)));
-const serverOnly = features.filter(f => !inApps.includes(f));
+const notInApps = features.filter(f => !inApps.includes(f));
+const adminTools = notInApps.filter(f => f.scope.includes('admin'));
+const serverFeatures = notInApps.filter(f => !adminTools.includes(f));
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -35,7 +37,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </tbody>
 </table>
 
-<p>These are set up on the server in the web app, and apply to every app:</p>
+<p>These run on the server and work with every app:</p>
 <ul>
-  {serverOnly.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
+  {serverFeatures.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
+</ul>
+
+<p>These are admin tools in the web app:</p>
+<ul>
+  {adminTools.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
 </ul>
