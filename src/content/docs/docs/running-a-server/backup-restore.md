@@ -63,14 +63,14 @@ Open **Admin > Settings > Storage & Database** and check **Where per-user data i
 
 ## Test a restore
 
-Restore to a separate host or data directory, never over the live server.
+Restore to a separate host when you can, never over the live server.
 
-1. Copy back `.env` with the original `SECRET_KEY`, your Compose files, and the data directories.
-2. Set `SILO_IMAGE` to the image you recorded with the backup.
-3. Start only the database with `docker compose up -d postgres`, then load the dump into the empty database with `pg_restore`.
-4. Start Silo with `docker compose up -d`. It applies any pending database migrations as it starts.
-
-Before starting Silo, block outgoing notifications and webhooks on the test copy, and make sure it cannot write to your production S3 buckets.
+1. Copy `.env` with the original `SECRET_KEY` and your Compose files into a new directory, and copy the data directories.
+2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new, empty data directory, and set `PORT`, `JF_PORT`, `ABS_PORT`, `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` to ports the live server doesn't use. Run every command from the new directory so Compose treats it as a separate project.
+3. Set `SILO_IMAGE` to the image you recorded with the backup.
+4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these.
+5. Start only the database with `docker compose up -d postgres`, then load the dump into the empty database with `pg_restore`.
+6. Start Silo with `docker compose up -d`. It applies any pending database migrations as it starts.
 
 Then sign in as an admin and as a normal account. Check profiles, libraries, artwork, watch progress, and one playback, and restart the copy once to make sure the state survives.
 

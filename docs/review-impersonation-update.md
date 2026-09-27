@@ -2,7 +2,7 @@
 
 Reviewed server main `d4e35ba9df416e747822c6c9f2193b89c6b7e9fb` on 2026-09-23.
 The original server checkout had unrelated release-workflow edits, so main was
-fast-forwarded in `/Volumes/dev/Silo/silo-server-docs-impersonation` instead.
+fast-forwarded in a separate local checkout instead.
 
 ## Source evidence
 

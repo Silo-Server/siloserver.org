@@ -9,6 +9,7 @@ const features = parseMilestoneFeatures(readFileSync(join(process.cwd(), milesto
   .map(feature => ({ ...feature, ...featureGuides[feature.id] }));
 const inApps = features.filter(f => clientColumns.some(c => f.scope.includes(c.key)));
 const serverOnly = features.filter(f => !inApps.includes(f));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <table>
@@ -21,7 +22,7 @@ const serverOnly = features.filter(f => !inApps.includes(f));
   <tbody>
     {inApps.map(feature => (
       <tr>
-        <th scope="row"><a href={`/${feature.guide}`}>{feature.label}</a></th>
+        <th scope="row"><a href={`${base}/${feature.guide}`}>{feature.label}</a></th>
         {clientColumns.map(column => (
           <td>
             {feature.scope.includes(column.key)
@@ -36,5 +37,5 @@ const serverOnly = features.filter(f => !inApps.includes(f));
 
 <p>These are set up on the server in the web app, and apply to every app:</p>
 <ul>
-  {serverOnly.map(feature => <li><a href={`/${feature.guide}`}>{feature.label}</a></li>)}
+  {serverOnly.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
 </ul>
