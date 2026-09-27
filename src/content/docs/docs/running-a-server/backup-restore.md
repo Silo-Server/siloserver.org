@@ -66,7 +66,7 @@ Open **Admin > Settings > Storage & Database** and check **Where per-user data i
 Restore to a separate host when you can, never over the live server.
 
 1. Copy `.env` with the original `SECRET_KEY` and your Compose files into a new directory, and copy the data directories.
-2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new, empty data directory, and set `PORT`, `JF_PORT`, `ABS_PORT`, `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` to ports the live server doesn't use. Run every command from the new directory so Compose treats it as a separate project.
+2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new, empty data directory, and set `PORT`, `JF_PORT`, `ABS_PORT`, `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` to ports the live server doesn't use. Also set `COMPOSE_PROJECT_NAME` to a new name, such as `silo-restore-test`, so Compose can't mistake the copy for the live server. Run every command from the new directory.
 3. Set `SILO_IMAGE` to the image you recorded with the backup.
 4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these.
 5. Start only the database with `docker compose up -d postgres`, then load the dump into the empty database with `pg_restore`.

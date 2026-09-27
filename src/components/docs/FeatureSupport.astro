@@ -37,7 +37,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </tbody>
 </table>
 
-<p>These run on the server and work with every app:</p>
+<p>These run on the server:</p>
 <ul>
   {serverFeatures.map(feature => <li><a href={`${base}/${feature.guide}`}>{feature.label}</a></li>)}
 </ul>
