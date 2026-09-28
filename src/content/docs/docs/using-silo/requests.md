@@ -11,11 +11,11 @@ account is allowed to use them. The person who runs the server sets this up in
 
 ## Make a request
 
-1. Open **Requests**. In the web app it's in the sidebar. In the phone,
-   tablet, and TV apps, open your profile menu and choose **Requests**.
+1. Open **Requests**. In the web app it's in the sidebar. In the mobile and
+   TV apps, open your profile menu and choose **Requests**.
 2. Search for the title. Open the result with the right year and type.
 3. Select **Request movie** or **Request series** (**Request Movie** or
-   **Request Series** on Apple devices, **Request** on Android).
+   **Request Series** in the Apple apps, **Request** in the Android apps).
 4. Follow its progress under **Yours** in the web app or **My Requests** in
    the apps.
 
@@ -25,10 +25,10 @@ for example **Request limit reached**.
 
 ## Request statuses
 
-In the web app and on Android, a request moves through **Pending** (waiting
-for approval), **Approved**, **Queued**, **Downloading**, and **Completed**
-(in the library and ready to watch). A request that ends early shows
-**Declined**, **Cancelled**, or **Failed**.
+In the web app and the Android apps, a request moves through **Pending**
+(waiting for approval), **Approved**, **Queued**, **Downloading**, and
+**Completed** (in the library and ready to watch). A request that ends early
+shows **Declined**, **Cancelled**, or **Failed**.
 
 The Apple apps group these into five labels:
 

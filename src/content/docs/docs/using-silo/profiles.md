@@ -51,7 +51,7 @@ delete the primary profile or the profile you're using.
 The Apple apps can't edit or delete a profile or change its PIN afterwards.
 Use the web app for that.
 
-### On Android phones and Android TV
+### On Android phones, tablets, and TVs
 
 Only server administrators see profile management in the Android apps. Other
 household managers use the web app.
@@ -60,9 +60,9 @@ household managers use the web app.
    TV).
 2. Select **Add Profile**, or the edit button on a profile to open
    **Edit Profile**.
-3. On a phone, turn on **Require PIN** and enter a 4-digit PIN; turn it off to
-   remove the PIN. On Android TV, fill in **PIN (optional)** or select
-   **Remove**.
+3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
+   it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
+   select **Remove**.
 4. For a child, turn on **Child Profile** and choose a **Max Content Rating**.
 5. Select **Create Profile** or **Save Changes**.
 
@@ -80,7 +80,7 @@ only **Max Content Rating**.
 
 In the web app, from the primary profile, open **Settings > Profiles** and
 select **Edit** on the profile you want to restrict. The web app calls it a
-**Kids profile**; the Apple and Android apps call it a **Child Profile**.
+**Kids profile**; the mobile and TV apps call it a **Child Profile**.
 
 1. Under **Access**, turn on **Kids profile**. This fills in safer starting
    settings; look over the rating and library choices before saving.
@@ -126,7 +126,7 @@ reopens the last profile used on a device without asking for its PIN again.
 
 - On iPhone, iPad, and Apple TV, set **Profile Selection** to **Every Time**
   (see below) so the device shows **Who's watching?** each time.
-- Android phones, Android TV, and web browsers have no such setting. Before
+- The Android apps and the web app have no such setting. Before
   you hand the device to a child, switch to the child's profile or sign out.
 
 ## Choose what happens when Silo opens on Apple devices

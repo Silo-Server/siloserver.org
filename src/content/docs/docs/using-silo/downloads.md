@@ -4,10 +4,10 @@ title: Download for offline use
 description: Save movies and episodes on a phone or tablet to watch without a connection.
 ---
 
-The iPhone, iPad, and Android apps can save movies and episodes to watch
-offline. Your account needs download permission, and the device needs enough
-free space. Start downloads while you can still reach your server. On a
-computer, you can [save the original file from the web app](#save-a-file-on-a-computer).
+The mobile app can save movies and episodes to watch offline. Your account
+needs download permission, and the device needs enough free space. Start
+downloads while you can still reach your server. On a computer, you can [save
+the original file from the web app](#save-a-file-on-a-computer).
 
 ## Save a movie or episode
 
@@ -15,7 +15,8 @@ computer, you can [save the original file from the web app](#save-a-file-on-a-co
 2. Tap **Download**.
    - On iPhone and iPad, this uses your default download settings. To pick
      options first, open **More** and choose **Download Options…**.
-   - On Android, choose a quality under **Download Quality** if the app asks.
+   - On Android phones and tablets, choose a quality under **Download
+     Quality** if the app asks.
 3. Open **Downloads** and wait until the title is ready. If you picked a
    smaller quality, the server prepares a copy before the transfer starts.
 4. Play the title from **Downloads** for a moment before you leave home.
@@ -29,12 +30,13 @@ iPad, if you open a downloaded title while online, you can choose
 On iPhone and iPad, tap the progress ring of a download in progress to pause
 or resume it, or touch and hold it for **Cancel Download**. A failed download
 appears under **Needs Attention** with buttons to retry or remove it. Android
-has no pause or retry: remove the download and start it again.
+phones and tablets have no pause or retry: remove the download and start it
+again.
 
 To delete one download, touch and hold it and choose **Delete Download** on
-iPhone and iPad, or tap its trash icon (**Remove download**) on Android. To
-delete several, tap **Select**, pick them, tap **Delete** at the bottom, and
-confirm with **Delete Download**.
+iPhone and iPad, or tap its trash icon (**Remove download**) on Android phones
+and tablets. To delete several, tap **Select**, pick them, tap **Delete** at
+the bottom, and confirm with **Delete Download**.
 
 Deleting a download removes it from your device only. The title stays on the
 server. Where you stopped in a downloaded title syncs to your other devices

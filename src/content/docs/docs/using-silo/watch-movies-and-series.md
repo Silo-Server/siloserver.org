@@ -12,7 +12,7 @@ your own profile before you watch on a shared device.
 Open a movie or episode. On a series page, the play button starts the next
 episode for you.
 
-- **iPhone, iPad, and Android phones and tablets:** tap **Play**. If you've
+- **Phone or tablet:** tap **Play**. If you've
   watched part of it, **Continue Watching?** asks whether to **Resume** or
   **Play from Beginning**.
 - **Web:** select **Play**. If you've watched part of it,

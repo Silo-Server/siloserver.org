@@ -16,8 +16,8 @@ The app must let you type a username and password.
 
 ## Add the server
 
-Enter the Jellyfin-compatible address in the app's server field. On a phone
-or TV, `localhost` only works if the server runs on that same device.
+Enter the Jellyfin-compatible address in the app's server field. On a phone,
+tablet, or TV, `localhost` only works if the server runs on that same device.
 
 ## Sign in with your profile
 

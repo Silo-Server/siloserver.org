@@ -53,14 +53,15 @@ In a native app, **Settings > Diagnostics** chooses where reports go:
 
 - **Silo Diagnostics** sends them to the project's diagnostics service. The
   [privacy policy](https://siloserver.org/privacy) describes what it keeps and for how long.
-- **My Silo Server** on Apple, or **This Silo server** on Android, sends
-  them to the server you use, where its administrator can read them.
+- **My Silo Server** in the Apple apps, or **This Silo server** in the Android
+  apps, sends them to the server you use, where its administrator can read
+  them.
 
 **Crash Reports** controls automatic reports: **Ask**, **Always**, or
 **Never** (**Ask before sending**, **Always send**, or **Never send** on an
-Android phone). **Always** isn't offered for Silo Diagnostics. Reports can
-include device details and logs. A report sent to your own server can also
-include playback-session IDs.
+Android phone or tablet). **Always** isn't offered for Silo Diagnostics.
+Reports can include device details and logs. A report sent to your own server
+can also include playback-session IDs.
 
 To send a report and share its ID, see
 [Report a problem](/docs/report-a-problem#native-app-diagnostics).

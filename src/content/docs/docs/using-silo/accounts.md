@@ -14,7 +14,7 @@ web app it's **Logout**.
 
 ## Switch to another server
 
-In the Apple and Android apps, choose **Switch Server** from the profile menu.
+In the mobile and TV apps, choose **Switch Server** from the profile menu.
 On a sign-in screen, **Use a different server**, **Change server**, or **Use
 another server** does the same. Each server has its own accounts and profiles,
 so sign in with the details for that server.

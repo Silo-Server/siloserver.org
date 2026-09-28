@@ -4,7 +4,7 @@ title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
 
-On Apple, Android, and the web, **Home** shows rows from your server and
+In the web, mobile, and TV apps, **Home** shows rows from your server and
 profile, **For You** suggests titles, and **Calendar** lists upcoming releases.
 
 ## Find your next title
@@ -37,9 +37,8 @@ watch it.
 | Client | Where to find it |
 | --- | --- |
 | Web | Choose **Calendar** in the sidebar. On a small screen, open the navigation menu first. |
-| iPhone, Android phone, and Android tablet | Select **Calendar** in the bottom navigation. |
-| iPad | Choose **Calendar** in the sidebar when using the wide layout, or the bottom navigation in a compact layout. |
-| Apple TV and Android TV | Choose **Calendar** in the top navigation with your remote. |
+| Mobile | Select **Calendar** in the bottom navigation. On an iPad in the wide layout, choose it in the sidebar instead. |
+| TV | Choose **Calendar** in the top navigation with your remote. |
 
 1. Use the arrows beside the week to move to the previous or next week.
    Select **Today** to return to the current week.

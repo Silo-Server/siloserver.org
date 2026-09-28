@@ -17,6 +17,10 @@ media; you don't install anything server-side.
 | Android phone or tablet | [Silo on Google Play](https://play.google.com/store/apps/details?id=org.siloserver.silo) (beta). |
 | Android TV | The same Google Play listing, installed from the TV's Play Store. |
 
+The guides call the app on iPhone, iPad, and Android phones and tablets the
+mobile app, and the app on Apple TV and Android TV the TV app. Where the steps
+differ between Apple and Android, they say so.
+
 ## Install on Apple devices
 
 Install Apple's TestFlight app, open the Silo invitation link above, and

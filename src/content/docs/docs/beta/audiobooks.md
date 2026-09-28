@@ -80,6 +80,6 @@ Administrators can [set up an audiobook library](/docs/audiobook-libraries).
 | Apple TV and Android TV | Stream from the server; there is no offline audiobook library. |
 | Web | No offline audiobook library. |
 
-On Android, wait for **Downloaded**, then open the book from **Downloads**.
-To test it before you travel, turn off Wi-Fi and mobile data and play a later
-chapter.
+On an Android phone or tablet, wait for **Downloaded**, then open the book
+from **Downloads**. To test it before you travel, turn off Wi-Fi and mobile
+data and play a later chapter.

@@ -34,7 +34,7 @@ generated on the server don't appear here.
 
 The web player's **Chapters** menu and timeline show images generated for
 each chapter. If they're missing, ask the administrator; chapter navigation
-works without them. The Apple and Android chapter menus don't show these
+works without them. The chapter menus in the mobile and TV apps don't show these
 images.
 
 To pick a file version or edition before playback, see

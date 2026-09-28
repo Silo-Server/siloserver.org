@@ -28,7 +28,7 @@ extra playback hardware, and integrations can come later.
 ### Go further
 
 - Find something new with [Home and Calendar](/docs/home-and-calendar), [collections](/docs/collections), and [saved titles](/docs/saved-titles).
-- Adjust [subtitles](/docs/subtitles), [download for offline use](/docs/downloads), or [control a TV from your phone](/docs/tv-remote).
+- Adjust [subtitles](/docs/subtitles), [download for offline use](/docs/downloads), or [control a TV from your phone or tablet](/docs/tv-remote).
 - As an administrator, [manage library access](/docs/manage-access), [fix metadata](/docs/metadata), or [set up plugins](/docs/plugins).
 
 ## Get help or contribute

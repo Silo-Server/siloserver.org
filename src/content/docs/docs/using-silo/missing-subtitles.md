@@ -23,8 +23,9 @@ Start playing the movie or episode, then open its
   the **More** menu and choose **Add Subtitles**.
 - **iPhone, iPad, and Apple TV:** choose **Search Subtitles…** and pick a
   language.
-- **Android:** choose **Find subtitles** on a phone or tablet, or
-  **Search subtitles** on Android TV. Pick a language and select **Search**.
+- **Android phones and tablets:** choose **Find subtitles**.
+- **Android TV:** choose **Search subtitles**. Pick a language and select
+  **Search**.
 
 Choose the result that best matches your copy of the title. Silo saves it and
 adds it to the subtitle list. Select it if it isn't already on, and watch a
@@ -42,7 +43,7 @@ Only upload a file you're happy for everyone on the server to use.
 
 ## Translate or transcribe with AI
 
-**Web and Android:**
+**Web and the Android apps:**
 
 1. Open **Translate with AI…** in the web subtitle menu, or
    **Translate with AI** in the Android subtitle list.

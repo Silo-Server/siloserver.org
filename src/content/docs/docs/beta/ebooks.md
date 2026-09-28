@@ -2,7 +2,7 @@
 slug: docs/ebooks
 beta: true
 title: Ebooks and comics (Beta)
-description: Read ebooks, comics, and manga in the web or Android app, and see which formats each reader opens.
+description: Read ebooks, comics, and manga in the web app or on Android phones and tablets, and see which formats each reader opens.
 ---
 
 :::caution[Beta]
@@ -36,7 +36,7 @@ metadata provider can fill in missing details.
 
 ## Files and reader limits
 
-| Format | Web reader | Android phone/tablet |
+| Format | Web reader | Android phone and tablet |
 | --- | --- | --- |
 | EPUB | In-app text reader | In-app text reader |
 | PDF | In-app fixed pages | In-app fixed pages |
@@ -58,7 +58,7 @@ files. Keep the original files.
    every text setting. Use **Add bookmark** to save a location.
 4. Reading progress is saved to the active profile.
 
-## Read on Android
+## Read on an Android phone or tablet
 
 1. Open **Libraries** and choose a reading library, then a book.
 2. Select its reading action. When only an original-file download is offered,
@@ -70,10 +70,11 @@ files. Keep the original files.
 
 ## Downloads and progress
 
-The server decides who can download. On Android, open finished downloads
-from **Downloads**. Original CBR and Kindle downloads may need another app,
-even when the server can convert a streamed copy. External readers keep
-their own reading position and don't update Silo's progress or bookmarks.
+The server decides who can download. On an Android phone or tablet, open
+finished downloads from **Downloads**. Original CBR and Kindle downloads may
+need another app, even when the server can convert a streamed copy. External
+readers keep their own reading position and don't update Silo's progress or
+bookmarks.
 
 To continue on another device, use the same Silo profile and open the same
 file.

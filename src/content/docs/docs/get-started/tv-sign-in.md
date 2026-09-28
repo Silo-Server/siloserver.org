@@ -11,18 +11,18 @@ or type your password with the remote.
 ## Use a nearby phone or tablet
 
 Put both devices on the same home network and leave Silo open on the TV's
-setup screen. Allow local-network access on the phone if it asks.
+setup screen. Allow local-network access on the phone or tablet if it asks.
 
 1. Open Silo on your phone or tablet. Select **Set Up** on the card offering
    to set up the TV.
 2. Choose the server or servers to add, then select **Continue**.
 3. If the TV asks **Allow this setup?**, select **Allow** on the TV.
 4. Compare the code on both screens. Select **Yes, this matches** on the
-   phone only if they're the same.
+   phone or tablet only if they're the same.
 5. When sign-in finishes, choose a profile on the TV.
 
-Apple and Android work together here: an iPhone or iPad can set up either TV
-app, and so can an Android phone or tablet.
+Any phone or tablet can set up either TV: an iPhone can set up an Android TV,
+and an Android phone can set up an Apple TV.
 
 If the card doesn't appear, guest Wi-Fi or network isolation may be keeping
 the devices apart. Use one of the methods below instead.
@@ -54,4 +54,5 @@ and enter your Silo username and password. If the server address is wrong,
 **Use another server** takes you back. If your profile has a PIN, you enter it
 after signing in.
 
-Once the TV is set up, you can [control it from your phone](/docs/tv-remote).
+Once the TV is set up, you can [control it from your phone or
+tablet](/docs/tv-remote).

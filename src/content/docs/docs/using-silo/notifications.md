@@ -1,11 +1,11 @@
 ---
 slug: docs/notification-inbox
 title: Manage your notifications
-description: Choose which events reach you and check browser, phone, email, or Discord delivery.
+description: Choose which events reach you and check browser, mobile, email, or Discord delivery.
 ---
 
 Choose your events and delivery options in the web app under
-**Settings > Notifications**. Browser, phone, email, and Discord delivery
+**Settings > Notifications**. Browser, mobile, email, and Discord delivery
 work once the person who runs your server has
 [set them up](/docs/notification-delivery).
 
@@ -20,7 +20,7 @@ available.
 ## Read the web inbox
 
 Open **Notifications** from the main menu. Open a notification or mark it
-read, or mark them all read to clear the unread count. If an email or phone
+read, or mark them all read to clear the unread count. If an email or mobile
 alert seems to be missing, look here first.
 
 The Silo apps don't have a notification list, with one exception: on an
@@ -39,7 +39,7 @@ person who runs your server for the HTTPS address if you don't have it.
 In **Browser Notifications**, select **Enable** and accept the browser's
 permission prompt. Other browsers and devices you've subscribed are listed in
 the same section, where you can remove them. Browser notifications are
-separate from the phone app's notifications.
+separate from the mobile app's notifications.
 
 ### Phone and tablet notifications
 
@@ -81,8 +81,8 @@ A webhook can send fewer events than your profile's choices, but not more.
 1. Make sure you're on the right profile and its event switches are on.
 2. Look in the web inbox. If the notification is there but no alert reached
    you, the problem is delivery or device permission.
-3. Make sure your email address is verified, or that the browser or phone
-   allows notifications from Silo.
+3. Make sure your email address is verified, or that the browser or your phone
+   or tablet allows notifications from Silo.
 4. If it still fails, tell the person who runs your server so they can check
    for failed deliveries.
 

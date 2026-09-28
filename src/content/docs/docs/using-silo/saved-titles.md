@@ -10,7 +10,7 @@ your active profile.
 
 ## Save a title
 
-On Apple and Android phones or tablets:
+On a phone or tablet:
 
 1. Open the movie or series.
 2. Select **Favorite** (the heart) or **Watchlist** (the bookmark).

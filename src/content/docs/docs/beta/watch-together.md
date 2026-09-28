@@ -16,7 +16,7 @@ watch it together, with shared play and pause.
 | --- | --- |
 | Web | Available from the sidebar |
 | iPhone, iPad, and Apple TV | Turn it on in Settings first |
-| Android | Not available |
+| Android phone, tablet, and TV | Not available |
 
 ## Turn it on in the Apple apps
 

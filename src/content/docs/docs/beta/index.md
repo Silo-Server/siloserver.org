@@ -15,7 +15,7 @@ more.
 
 | Feature | Where it appears | Guide |
 | --- | --- | --- |
-| Audiobooks | Web, iPhone, iPad, Apple TV, Android phone, tablet, and TV | [Audiobooks](/docs/listen-to-audiobooks) |
+| Audiobooks | Web, mobile, and TV | [Audiobooks](/docs/listen-to-audiobooks) |
 | Audiobook libraries | Web admin | [Set up an audiobook library](/docs/audiobook-libraries) |
 | Audiobookshelf-compatible apps | Web admin setting, then third-party listening apps | [Audiobookshelf-compatible apps](/docs/audiobookshelf) |
 | Ebooks, comics, and manga | Web, Android phone and tablet | [Ebooks and comics](/docs/ebooks) |

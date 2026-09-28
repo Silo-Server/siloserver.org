@@ -8,7 +8,7 @@ Most preferences belong to your profile and follow you to every device. When
 one screen or sound system needs something different, such as an audio delay
 for the bedroom TV, change that device only.
 
-The Apple and Android apps have their own **Playback** and **Subtitles**
+The mobile and TV apps have their own **Playback** and **Subtitles**
 pages under **Settings**. The pages below are in the web app.
 
 ## Change a profile preference in the web app

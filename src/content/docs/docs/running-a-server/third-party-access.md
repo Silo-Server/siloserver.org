@@ -14,7 +14,7 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 4. Save.
 5. Connect one app with a regular account and try browsing and playback before sharing the address.
 
-`localhost` or `127.0.0.1` on a phone or TV refers to that device, not your server. If you changed the Docker port mappings, use your own port. The [Docker guide](/docs/docker) lists the default ports.
+`localhost` or `127.0.0.1` on a phone, tablet, or TV refers to that device, not your server. If you changed the Docker port mappings, use your own port. The [Docker guide](/docs/docker) lists the default ports.
 
 The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish.
 

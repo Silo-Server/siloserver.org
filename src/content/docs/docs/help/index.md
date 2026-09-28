@@ -22,7 +22,7 @@ Follow [Join a server](/docs/connect-and-watch) for the full sign-in
 steps. If access works at home but fails elsewhere, the administrator needs
 to check [remote access](/docs/reverse-proxy).
 
-## A TV does not appear on your phone
+## A TV does not appear on your phone or tablet
 
 Keep both apps open on the same local network, and allow local-network
 access for Silo on the phone or tablet. A guest Wi-Fi network can keep

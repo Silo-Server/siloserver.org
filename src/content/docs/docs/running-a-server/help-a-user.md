@@ -32,7 +32,7 @@ These views also show raw values. Reset a wrong value rather than typing in a re
 5. Look at the screen they reported. Avoid other playback or edits.
 6. Choose **End session** in the banner to return to your administrator session.
 
-This shows the web app only. For a problem on one phone or TV, also look at that device's saved overrides.
+This shows the web app only. For a problem on one phone, tablet, or TV, also look at that device's saved overrides.
 
 ### When View as user is unavailable
 

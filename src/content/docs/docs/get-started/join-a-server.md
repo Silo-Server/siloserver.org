@@ -10,7 +10,7 @@ on the server that created it.
 
 ## Accept your invitation
 
-The invitation link opens in your web browser, even on a phone.
+The invitation link opens in your web browser, even on a phone or tablet.
 
 1. Open the link. The page says **Welcome to** and the server's name.
 2. Choose a password, enter it again under **Confirm password**, and select
@@ -21,10 +21,10 @@ The invitation link opens in your web browser, even on a phone.
 4. Select **Continue**. If you added profiles, choose yours. The web app opens
    on Home, and you can start watching in the browser straight away.
 
-On an Android phone, the page also offers **Open in the Silo app** if you've
-installed it. If the page says **Invitation unavailable**, the link was
-already used or has expired. Sign in if you already created your account, or
-ask for a new invitation.
+On an Android phone or tablet, the page also offers **Open in the Silo app**
+if you've installed it. If the page says **Invitation unavailable**, the link
+was already used or has expired. Sign in if you already created your account,
+or ask for a new invitation.
 
 If you were given a username and password instead, skip to signing in.
 
@@ -39,7 +39,7 @@ If you were given a username and password instead, skip to signing in.
    told to use.
 3. On **Who's watching?**, choose your profile and enter its PIN if asked.
 
-### On an iPhone, iPad, or Android phone or tablet
+### On a phone or tablet
 
 1. Open Silo, enter the full server address, including `https://` and any
    port number you were given, and select **Connect**.
