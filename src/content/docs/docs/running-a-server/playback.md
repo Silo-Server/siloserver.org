@@ -55,12 +55,33 @@ For a node in **Admin > Nodes**, use its **Re-probe** button instead. Re-probing
 
 ## Generate chapter thumbnails
 
-Chapter menus work without thumbnails. Preview images for chapters need [public S3 storage](/docs/s3-storage#set-up-s3), even when artwork uses local disk.
+Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
-1. Set up and test public storage.
-2. Edit the library under **Admin > Libraries**.
-3. In its advanced settings, turn on **Generate chapter thumbnails** and save.
-4. Let background generation run. If previews don't appear, check **Admin > Scheduled Tasks** for failures.
-5. Open a title with chapters in the web player and check its chapter previews.
+1. Edit the library under **Admin > Libraries**.
+2. In its advanced settings, turn on **Generate chapter thumbnails** and save.
+3. Let background generation run. Silo also queues a title's previews when someone opens its page or starts playing it, and checks for missing previews every six hours.
+4. Open a title with chapters in the web player and check its chapter previews.
 
 For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
+
+### If previews don't appear
+
+Silo logs why it skipped or failed each file. Open **Admin > Logs**, enter `chapterthumbs` in the **Component** filter, and select a line to see its **Attributes**. The `reason` attribute tells you which case you are in:
+
+| Reason | What it means |
+| --- | --- |
+| `folder_disabled` | **Generate chapter thumbnails** is off for the library, or the folder is disabled. |
+| `no_chapters` | The file has no chapter markers. |
+| `no_eligible_chapters` | Every chapter already has an image or is waiting to be retried. |
+| `hdr_policy_disabled` | **HDR handling** is set to **Skip HDR and Dolby Vision**, and the file needs tone mapping. |
+| `tonemap_unsupported` | The file is HDR and could not be tone mapped with the current settings. |
+| `probe_failed` | Silo could not read the file's chapter metadata. |
+| `ffmpeg_probe_failed` | FFmpeg could not set up frame extraction for the file. |
+| `decode_invalid_data` | FFmpeg found invalid data in the file. |
+| `file_cooldown` | The file is waiting after an earlier failure. `retry_after` shows when it can be tried again. |
+
+A line reading `chapter thumbnail upload failed` means extraction worked but the image could not be saved. Check the free space and permissions of local artwork storage, or the bucket credentials and endpoint if artwork is in S3.
+
+A chapter that fails is tried again 15 minutes after its first failure, 1 hour after its second, 6 hours after its third, and 24 hours after each failure from then on. Opening the title's page, starting playback, or the six-hour check picks up a chapter that is due.
+
+`decode_invalid_data`, `ffmpeg_probe_failed`, and `tonemap_unsupported` pause the whole file instead. Silo logs `chapter thumbnail file marked failed` with a `retry_after` time, and requests for the file log `file_cooldown` until then. After `decode_invalid_data`, the file waits 24 hours even on its first failure.

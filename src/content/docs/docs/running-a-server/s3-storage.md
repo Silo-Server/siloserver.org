@@ -37,8 +37,6 @@ You need a bucket and credentials from your S3 provider.
 
 Signed links let clients fetch a file without making the bucket public. **Anyone with the link** needs a publicly readable address, entered in **Address clients download from**. **Cloudflare signed token** needs token validation configured in Cloudflare; Silo only signs the links.
 
-Chapter thumbnails need public S3 storage, even when artwork uses local disk. See [Set up transcoding and chapter previews](/docs/playback#generate-chapter-thumbnails).
-
 ## Change storage later
 
 Use a storage transition to move from local disk to S3 (for example, before adding a second host), switch buckets or providers, move to a new local path, go back from S3 to local disk, or add or remove a private bucket. Silo checks the new location, copies what you choose, switches the settings, and restarts.
