@@ -176,12 +176,12 @@ header.header::after {
 h1[data-page-title],
 #_top {
   font-family: var(--sl-font);
-  font-weight: 700;
+  font-weight: 650;
   letter-spacing: -0.02em;
   color: var(--sl-color-white);
 }
 #_top {
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.02em;
   word-spacing: 0.04em;
   line-height: 1.05;
