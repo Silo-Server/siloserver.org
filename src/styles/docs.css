@@ -27,7 +27,7 @@
   --docs-brand-orange: #fa7604;
 }
 
-/* Dark mode: deep navy with a blue glow behind the title. */
+/* Dark mode: deep navy. */
 :root[data-theme="dark"] {
   --sl-color-accent-low: #172a4a;
   --sl-color-accent: #2f6bff;
@@ -57,8 +57,6 @@
   --docs-note-bg: #15202b;
   --docs-note-border: #2a3f57;
   --docs-step-bg: #2a3848;
-  --docs-glow: rgb(24 92 255 / 0.15);
-  --docs-glow-warm: rgb(245 11 79 / 0.05);
 }
 
 /* Light mode: cool off-white page, white header, grey sidebar. */
@@ -92,8 +90,6 @@
   --docs-note-bg: #e9f0fd;
   --docs-note-border: #327efc;
   --docs-step-bg: #e3e7ed;
-  --docs-glow: rgb(1 66 251 / 0.05);
-  --docs-glow-warm: rgb(245 11 79 / 0.025);
 }
 
 ::selection {
@@ -101,14 +97,6 @@
 }
 
 /* ---- Page frame ---- */
-
-/* The title glow is mostly blue, warming toward the mark's red at one side. */
-.main-frame {
-  background:
-    radial-gradient(28rem 18rem at 78% 2rem, var(--docs-glow-warm), transparent 70%),
-    radial-gradient(60rem 26rem at 40% 4rem, var(--docs-glow), transparent 70%);
-  background-repeat: no-repeat;
-}
 
 /* A thin stripe in the mark's colors along the bottom of the header. */
 header.header::after {
