@@ -1,0 +1,299 @@
+---
+// Replaces Starlight's theme <select> with a menu button, so the open list
+// matches the docs theme in every browser. It keeps Starlight's behavior: the
+// choice is stored under the same `starlight-theme` key, Auto follows the
+// system setting, and the page theme is still set by Starlight's ThemeProvider.
+import { Icon } from '@astrojs/starlight/components';
+
+const t = Astro.locals.t;
+const options = [
+  { value: 'dark', label: t('themeSelect.dark'), icon: 'moon' },
+  { value: 'light', label: t('themeSelect.light'), icon: 'sun' },
+  { value: 'auto', label: t('themeSelect.auto'), icon: 'laptop' },
+] as const;
+---
+
+<silo-theme-select data-choice="auto">
+  <button type="button" class="trigger" aria-haspopup="menu" aria-expanded="false">
+    <span class="sr-only">{t('themeSelect.accessibleLabel')}:</span>
+    {
+      options.map(({ value, label, icon }) => (
+        <span class="current" data-value={value}>
+          <Icon name={icon} class="choice-icon" />
+          {label}
+        </span>
+      ))
+    }
+    <Icon name="down-caret" class="caret" />
+  </button>
+  <div class="menu" role="menu" aria-label={t('themeSelect.accessibleLabel')} hidden>
+    {
+      options.map(({ value, label, icon }) => (
+        <button type="button" class="item" role="menuitemradio" aria-checked="false" tabindex="-1" data-value={value}>
+          <Icon name={icon} class="choice-icon" />
+          <span class="item-label">{label}</span>
+          <Icon name="approve-check" class="check" />
+        </button>
+      ))
+    }
+  </div>
+</silo-theme-select>
+
+{/* Inlined so the stored choice shows before first paint. */}
+<script is:inline>
+  (() => {
+    const stored = typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+    const choice = stored === 'light' || stored === 'dark' ? stored : 'auto';
+    document.querySelectorAll('silo-theme-select').forEach((picker) => {
+      picker.dataset.choice = choice;
+    });
+  })();
+</script>
+
+<script>
+  type Theme = 'auto' | 'dark' | 'light';
+
+  const storageKey = 'starlight-theme';
+
+  const parseTheme = (theme: unknown): Theme =>
+    theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : 'auto';
+
+  const loadTheme = (): Theme =>
+    parseTheme(typeof localStorage !== 'undefined' && localStorage.getItem(storageKey));
+
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '');
+    }
+  }
+
+  const getPreferredColorScheme = (): Theme =>
+    matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+  /** Update every picker, the document theme, and the stored preference. */
+  function onThemeChange(theme: Theme): void {
+    document.querySelectorAll<SiloThemeSelect>('silo-theme-select').forEach((picker) => {
+      picker.show(theme);
+    });
+    document.documentElement.dataset.theme = theme === 'auto' ? getPreferredColorScheme() : theme;
+    storeTheme(theme);
+  }
+
+  matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if (loadTheme() === 'auto') onThemeChange('auto');
+  });
+
+  class SiloThemeSelect extends HTMLElement {
+    #trigger = this.querySelector<HTMLButtonElement>('.trigger')!;
+    #menu = this.querySelector<HTMLElement>('.menu')!;
+    #items = [...this.querySelectorAll<HTMLButtonElement>('.item')];
+
+    constructor() {
+      super();
+      this.show(loadTheme());
+
+      this.#trigger.addEventListener('click', () => {
+        if (this.#menu.hidden) this.#open();
+        else this.#close();
+      });
+      this.#trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          this.#open(e.key === 'ArrowUp' ? this.#items.length - 1 : undefined);
+        }
+      });
+
+      for (const item of this.#items) {
+        item.addEventListener('click', () => {
+          onThemeChange(parseTheme(item.dataset.value));
+          this.#close(true);
+        });
+      }
+
+      this.#menu.addEventListener('keydown', (e) => {
+        const index = this.#items.indexOf(document.activeElement as HTMLButtonElement);
+        const last = this.#items.length - 1;
+        const moves: Record<string, number> = {
+          ArrowDown: index === last ? 0 : index + 1,
+          ArrowUp: index <= 0 ? last : index - 1,
+          Home: 0,
+          End: last,
+        };
+        if (e.key in moves) {
+          e.preventDefault();
+          this.#items[moves[e.key]!]!.focus();
+        } else if (e.key === 'Escape') {
+          // Keep Escape from also closing the mobile menu around the picker.
+          e.preventDefault();
+          e.stopPropagation();
+          this.#close(true);
+        } else if (e.key === 'Tab') {
+          this.#close();
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!this.#menu.hidden && !this.contains(e.target as Node)) this.#close();
+      });
+    }
+
+    /** Show a choice in the trigger and mark it checked in the menu. */
+    show(theme: Theme): void {
+      this.dataset.choice = theme;
+      for (const item of this.#items) {
+        item.setAttribute('aria-checked', String(item.dataset.value === theme));
+      }
+    }
+
+    #open(focusIndex?: number): void {
+      // Open upward when there is not enough room below, as at the bottom of
+      // the mobile menu.
+      this.#menu.hidden = false;
+      const below = window.innerHeight - this.#trigger.getBoundingClientRect().bottom;
+      this.dataset.placement = below < this.#menu.offsetHeight + 16 ? 'top' : 'bottom';
+      this.#trigger.setAttribute('aria-expanded', 'true');
+      const checked = this.#items.findIndex((item) => item.getAttribute('aria-checked') === 'true');
+      this.#items[focusIndex ?? Math.max(checked, 0)]!.focus();
+    }
+
+    #close(returnFocus = false): void {
+      if (this.#menu.hidden) return;
+      this.#menu.hidden = true;
+      this.#trigger.setAttribute('aria-expanded', 'false');
+      if (returnFocus) this.#trigger.focus();
+    }
+  }
+
+  customElements.define('silo-theme-select', SiloThemeSelect);
+</script>
+
+<style>
+  silo-theme-select {
+    position: relative;
+    display: flex;
+  }
+
+  .trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.625rem;
+    background-color: var(--docs-panel);
+    color: var(--sl-color-gray-2);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    cursor: pointer;
+  }
+  .trigger:hover,
+  .trigger[aria-expanded='true'] {
+    border-color: var(--sl-color-gray-4);
+    color: var(--sl-color-white);
+  }
+
+  .current {
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 3.5rem;
+  }
+  silo-theme-select[data-choice='dark'] .current[data-value='dark'],
+  silo-theme-select[data-choice='light'] .current[data-value='light'],
+  silo-theme-select[data-choice='auto'] .current[data-value='auto'] {
+    display: flex;
+  }
+
+  .choice-icon {
+    font-size: 0.875rem;
+  }
+  .caret {
+    font-size: 1.125rem;
+    color: var(--sl-color-gray-3);
+    transition: rotate 0.15s ease-out;
+  }
+  .trigger[aria-expanded='true'] .caret {
+    rotate: 180deg;
+  }
+
+  .menu {
+    position: absolute;
+    z-index: 1;
+    inset-inline-end: 0;
+    top: calc(100% + 0.375rem);
+    min-width: max(100%, 9rem);
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.625rem;
+    padding: 0.25rem;
+    background-color: var(--docs-panel);
+    box-shadow: 0 0.75rem 1.5rem rgb(0 0 0 / 0.35);
+  }
+  :global(:root[data-theme='light']) .menu {
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0.75rem 1.5rem rgb(11 14 20 / 0.12);
+  }
+  silo-theme-select[data-placement='top'] .menu {
+    top: auto;
+    bottom: calc(100% + 0.375rem);
+  }
+  .menu[hidden] {
+    display: none;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    border: 0;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.625rem;
+    background: none;
+    color: var(--sl-color-gray-2);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    text-align: start;
+    cursor: pointer;
+  }
+  .item:hover,
+  .item:focus-visible {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+  .item:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: -2px;
+  }
+  .item[aria-checked='true'] {
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+  }
+  .item-label {
+    flex: 1;
+  }
+  .check {
+    visibility: hidden;
+    font-size: 1rem;
+  }
+  .item[aria-checked='true'] .check {
+    visibility: visible;
+  }
+
+  /* Touch-sized controls in the mobile menu. */
+  @media (width < 50rem) {
+    .trigger {
+      min-height: 2.75rem;
+      font-size: var(--sl-text-base);
+    }
+    .item {
+      min-height: 2.75rem;
+      font-size: var(--sl-text-base);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret {
+      transition: none;
+    }
+  }
+</style>
