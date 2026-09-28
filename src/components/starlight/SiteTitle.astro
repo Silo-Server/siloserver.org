@@ -1,9 +1,66 @@
 ---
-import Default from '@astrojs/starlight/components/SiteTitle.astro';
+// Replaces Starlight's site title with the Silo wordmark plus "Docs".
+// The configured title still names the site in page <title> tags.
 
 // The documentation lives below /docs, not at the marketing site's root.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-Astro.locals.starlightRoute.siteTitleHref = `${base}/docs`;
+const href = `${base}/docs`;
 ---
 
-<Default />
+<a href={href} class="site-title sl-flex">
+  <img
+    class="dark:sl-hidden print:block"
+    src={`${base}/brand/silo-wordmark-dark.svg`}
+    alt="Silo"
+    width="1389"
+    height="720"
+  />
+  <img
+    class="light:sl-hidden print:hidden"
+    src={`${base}/brand/silo-wordmark-white.svg`}
+    alt="Silo"
+    width="1389"
+    height="720"
+  />
+  <span translate="no">Docs</span>
+</a>
+
+<style>
+  .site-title {
+    --logo-height: 1.75rem;
+    --docs-size: calc(var(--logo-height) * 0.56);
+    align-items: baseline;
+    gap: 0.325rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  /* Match the white wordmark's letters on screen; print uses the dark one. */
+  @media screen {
+    :global([data-theme='dark']) .site-title {
+      color: #fff;
+    }
+  }
+  img {
+    height: var(--logo-height);
+    width: auto;
+  }
+  /* The wordmark's typeface, Plus Jakarta Sans ExtraBold. Baseline alignment
+     puts the text on the image's bottom edge; raise the middle of the caps'
+     ink (0.3725 em) to the middle of the o (284 of the artwork's 720 units).
+     An outline, with matching letter-spacing to keep the gaps open, brings
+     the strokes close to the wordmark's weight. */
+  span {
+    --stroke: calc(0.11 * (var(--logo-height) * 0.88 - var(--docs-size)));
+    position: relative;
+    bottom: calc(var(--logo-height) * 284 / 720 - var(--docs-size) * 0.3725);
+    font-family: "Plus Jakarta Sans", var(--sl-font);
+    font-size: var(--docs-size);
+    font-weight: 800;
+    letter-spacing: var(--stroke);
+    line-height: 1;
+    text-transform: uppercase;
+    -webkit-text-stroke: var(--stroke) currentColor;
+  }
+</style>
