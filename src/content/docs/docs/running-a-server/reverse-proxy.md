@@ -30,7 +30,7 @@ Use a dedicated hostname at its root. A subpath such as `example.com/silo` needs
 
 ## Test away from home
 
-Turn Wi-Fi off on a phone, then open the HTTPS address. Check sign-in, artwork, playback, seeking, and subtitles.
+Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in, artwork, playback, seeking, and subtitles.
 
 If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
 
@@ -40,4 +40,4 @@ Remote proxy nodes and S3 storage can hand clients their own addresses. Those mu
 
 Jellyfin-compatible and Audiobookshelf-compatible apps use their own ports (see [Docker ports](/docs/docker#ports)). Publish only the ones your users need, each on its own hostname, and follow [third-party access](/docs/third-party-access).
 
-Remote access doesn't make TV discovery work across networks: a phone finds a TV only on the same LAN.
+Remote access doesn't make TV discovery work across networks: a phone or tablet finds a TV only on the same LAN.

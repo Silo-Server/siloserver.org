@@ -4,7 +4,7 @@ title: Browse and organize collections
 description: Open shared collections or make a personal collection of titles.
 ---
 
-A collection groups titles together. On Apple, Android, or the web, open
+A collection groups titles together. In the web, mobile, or TV app, open
 **Collections**, select a collection, then select a title to open it. The web
 app also lists shared **Server collections**.
 

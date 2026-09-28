@@ -21,7 +21,7 @@ from the start moves your resume point back.
 
 ## Change watched status
 
-On Apple and Android phones or tablets, open the title and select
+On a phone or tablet, open the title and select
 **Watched**.
 
 In the web app, the button's label shows what it will change, for example

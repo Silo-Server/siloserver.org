@@ -27,7 +27,7 @@ more predictable results.
 | --- | --- |
 | Web | Creates and browses Mixed libraries |
 | Android phone and tablet | Classifies Mixed as a Video library |
-| iPhone, iPad, Apple TV | Mixed libraries are included under Movies and Series |
+| iPhone, iPad, and Apple TV | Mixed libraries are included under Movies and Series |
 
 Audiobook, ebook, and comic libraries are Beta. See the
 [audiobook library setup](/docs/audiobook-libraries) and

@@ -45,7 +45,7 @@ iPhone and iPad), and choose where reports go under **Send Reports To**.
 [Where information goes](/docs/privacy#where-diagnostic-reports-go)
 explains the two destinations.
 
-- On Apple devices, **Send Diagnostics Now** creates and uploads the report
+- In the Apple apps, **Send Diagnostics Now** creates and uploads the report
   straight away, with no review step.
 - On an Android phone or tablet, **Send diagnostics now** opens **Report
   details** so you can review the report. Select **Send** to upload it.

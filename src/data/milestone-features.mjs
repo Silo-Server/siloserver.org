@@ -2,9 +2,9 @@
 // app-support table and the milestone cannot drift apart.
 export const clientColumns = [
   { key: 'web', label: 'Web' },
-  { key: 'ios', label: 'iPhone & iPad' },
+  { key: 'ios', label: 'iPhone and iPad' },
   { key: 'tvos', label: 'Apple TV' },
-  { key: 'android', label: 'Android' },
+  { key: 'android', label: 'Android phones and tablets' },
   { key: 'androidtv', label: 'Android TV' },
 ];
 

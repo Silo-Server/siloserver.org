@@ -31,6 +31,16 @@ covers building the site locally and what reviewers look for.
 - Use the exact labels shown in the app, in bold.
 - Mention differences between phones, TVs, and the web app only where the
   steps change.
+- Name devices by type:
+  - **Mobile** means the Silo app on iPhone, iPad, and Android phones and
+    tablets. Use it in headings and tables, and "the mobile app" in prose.
+    In steps, say "on your phone or tablet".
+  - **TV** means the Silo app on Apple TV and Android TV. Use "the mobile and
+    TV apps" when every app works the same way.
+  - **Web app** is Silo in a browser, including a phone's browser.
+  - When the Apple and Android apps really differ, write "iPhone and iPad" or
+    "Android phones and tablets", and "Apple TV" or "Android TV". Don't write
+    "Android" alone, or "phone" when you mean phone or tablet.
 - Link to an existing guide instead of repeating its steps.
 - Keep screenshots to the controls the reader needs, and keep every step in
   the text as well. Remove account names, server addresses, tokens, and

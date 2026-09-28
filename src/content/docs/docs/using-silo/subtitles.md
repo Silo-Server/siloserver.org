@@ -10,7 +10,7 @@ While a title is playing, open the subtitle list and choose a track:
 
 - **Web:** select the captions button in the player controls.
 - **iPhone and iPad:** open **Audio & Subtitles**.
-- **Android phone or tablet:** open **Audio and subtitles**.
+- **Android phones and tablets:** open **Audio and subtitles**.
 - **Apple TV and Android TV:** open the playback options and choose the
   **Subtitles** tab.
 
@@ -34,7 +34,7 @@ There you can choose:
 You can also change the look while you watch: choose **Appearance…** in the
 web subtitle menu, **Appearance** in **Playback Settings** on iPhone and
 iPad, or **Subtitle style** under **Playback settings** >
-**Playback Options** on Android.
+**Playback Options** on Android phones and tablets.
 
 Some subtitles are pictures or carry their own styling, so not every setting
 changes them. To use a different look on one device, see
@@ -48,7 +48,7 @@ If subtitles show up too early or too late, change the subtitle delay:
   **Reset** sets it back to zero.
 - **iPhone and iPad:** open **Playback Settings** and choose
   **Subtitle Delay**.
-- **Android phone or tablet:** open **Playback settings** >
+- **Android phones and tablets:** open **Playback settings** >
   **Playback Options** > **Audio & subtitle sync** > **Subtitle delay**.
 - **Apple TV and Android TV:** open the **Subtitles** tab and choose
   **Delay**.

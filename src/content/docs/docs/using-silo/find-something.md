@@ -5,8 +5,8 @@ description: Browse libraries, narrow results, and explore cast and crew.
 ---
 
 Browse a library when you know what kind of media you want, or search when
-you know a title. These steps work the same on the web and on Apple and
-Android phones and tablets.
+you know a title. These steps work the same in the web app and on a phone or
+tablet.
 
 ## Browse a library
 
