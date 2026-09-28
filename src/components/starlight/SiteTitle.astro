@@ -28,6 +28,7 @@ const href = `${base}/docs`;
 <style>
   .site-title {
     --logo-height: 1.75rem;
+    --docs-size: 1.2rem;
     align-items: baseline;
     gap: 0.4rem;
     color: var(--sl-color-white);
@@ -42,15 +43,23 @@ const href = `${base}/docs`;
   /* Set in the wordmark's typeface (Plus Jakarta Sans ExtraBold), with caps
      slightly shorter than the wordmark's. Baseline alignment puts the text on
      the image's bottom edge; the wordmark's letters sit 110 of 720 units above
-     that, so raise the text by the same amount to share their baseline. */
+     that, so raise the text by the same amount to share their baseline.
+
+     ExtraBold is the heaviest weight, and at a smaller size its strokes are
+     thinner than the wordmark's. The wordmark's letters are set at 0.88 of the
+     artwork height and its strokes are 0.15 em, so outline the text by the
+     difference to match stroke thickness, and space the letters by the same
+     amount so the outline doesn't close the gaps. */
   span {
+    --stroke: calc(0.15 * (var(--logo-height) * 0.88 - var(--docs-size)));
     position: relative;
     bottom: calc(var(--logo-height) * 110 / 720);
     font-family: "Plus Jakarta Sans", var(--sl-font);
-    font-size: 1.2rem;
+    font-size: var(--docs-size);
     font-weight: 800;
-    letter-spacing: 0;
+    letter-spacing: var(--stroke);
     line-height: 1;
     text-transform: uppercase;
+    -webkit-text-stroke: var(--stroke) currentColor;
   }
 </style>
