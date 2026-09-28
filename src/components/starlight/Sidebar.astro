@@ -29,6 +29,16 @@ const { sidebar } = Astro.locals.starlightRoute;
 <div class="md:sl-hidden"><MobileMenuFooter /></div>
 
 <style>
-  .sidebar-category + .sidebar-category { margin-top: 1.25rem; }
-  h2 { margin: 0 0 0.4rem; padding: 0.2em 0.5rem; color: var(--sl-color-white); }
+  .sidebar-category + .sidebar-category {
+    margin-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline-light);
+    padding-top: 1rem;
+  }
+  h2 {
+    margin: 0 0 0.4rem;
+    padding: 0.2em 0.5rem;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-base);
+    font-weight: 700;
+  }
 </style>

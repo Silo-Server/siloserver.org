@@ -1,94 +1,480 @@
-/* Starlight theme alignment with the project site's
-   industrial-datasheet design system. */
+/* Starlight theme for the docs, following the marketing site refresh:
+   deep navy or off-white surfaces, a single blue accent, and Plus Jakarta
+   Sans (the wordmark's typeface) throughout. */
 
-@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,300..900&family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Plus+Jakarta+Sans:wght@800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap");
 
 :root {
-  --sl-font: "Archivo", system-ui, sans-serif;
+  --sl-font: "Plus Jakarta Sans", system-ui, sans-serif;
   --sl-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.1;
 }
 
-/* Light mode — paper + ink, blueprint-blue accent */
-:root[data-theme="light"] {
-  --sl-color-accent-low: #dde4fa;
-  --sl-color-accent: #2447c9;
-  --sl-color-accent-high: #18308f;
-  --sl-color-white: #181511;
-  --sl-color-gray-1: #3f3a31;
-  --sl-color-gray-2: #4d4639;
-  --sl-color-gray-3: #6f6757;
-  --sl-color-gray-4: #9a917e;
-  --sl-color-gray-5: #ded6c1;
-  --sl-color-gray-6: #ece6d6;
-  --sl-color-gray-7: #f4f0e4;
-  --sl-color-black: #faf7ef;
-  --sl-color-bg-nav: #f4f0e4;
-  --sl-color-bg-sidebar: #f4f0e4;
-  --sl-color-hairline: #c9c0a9;
-  --sl-color-hairline-light: #ded6c1;
+@media (min-width: 50em) {
+  :root {
+    --sl-text-h1: 3.25rem;
+    --sl-text-h2: 2rem;
+    --sl-text-h3: 1.5rem;
+    --sl-text-h4: 1.25rem;
+  }
 }
 
-/* Dark mode — the operator console */
+/* Silo mark colors: the play triangle's blue and the bars' red and orange. */
+:root {
+  --docs-brand-blue: #0142fb;
+  --docs-brand-red: #f50b4f;
+  --docs-brand-orange: #fa7604;
+}
+
+/* Dark mode: deep navy with a blue glow behind the title. */
 :root[data-theme="dark"] {
-  --sl-color-accent-low: #1c2a5e;
-  --sl-color-accent: #92aaff;
-  --sl-color-accent-high: #c4d1ff;
-  --sl-color-white: #e8e0d0;
-  --sl-color-gray-1: #d0c8b5;
-  --sl-color-gray-2: #b3ac98;
-  --sl-color-gray-3: #8d8674;
-  --sl-color-gray-4: #5c5747;
-  --sl-color-gray-5: #423a2d;
-  --sl-color-gray-6: #2e2619;
-  --sl-color-gray-7: #2a2318;
-  --sl-color-black: #221c14;
+  --sl-color-accent-low: #172a4a;
+  --sl-color-accent: #2f6bff;
+  --sl-color-accent-high: #7ba4ff;
+  --sl-color-white: #f1f4f8;
+  --sl-color-gray-1: #dae0e8;
+  --sl-color-gray-2: #bfc8d3;
+  --sl-color-gray-3: #8b96a5;
+  --sl-color-gray-4: #5d6979;
+  --sl-color-gray-5: #2a3745;
+  --sl-color-gray-6: #1c2632;
+  --sl-color-gray-7: #151e28;
+  --sl-color-black: #101820;
+  --sl-color-orange-low: #2a1c10;
+  --sl-color-orange: var(--docs-brand-orange);
+  --sl-color-orange-high: #ffc28a;
+  --sl-color-red-low: #2e141b;
+  --sl-color-red: #ff3d6e;
+  --sl-color-red-high: #ffb3c4;
+  --sl-color-bg-nav: var(--sl-color-black);
+  --sl-color-bg-sidebar: var(--sl-color-black);
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+  --sl-color-hairline: #1e2a35;
+  --sl-color-hairline-light: #263341;
+  --sl-color-hairline-shade: #1e2a35;
+  --docs-panel: #141d27;
+  --docs-note-bg: #15202b;
+  --docs-note-border: #2a3f57;
+  --docs-step-bg: #2a3848;
+  --docs-glow: rgb(24 92 255 / 0.15);
+  --docs-glow-warm: rgb(245 11 79 / 0.05);
 }
 
-/* Headings in the display face */
-.sl-markdown-content h1,
-.sl-markdown-content h2,
-.sl-markdown-content h3,
-h1[data-page-title] {
-  font-family: "Big Shoulders", "Archivo", sans-serif;
-  font-weight: 750;
-  letter-spacing: 0.01em;
-}
-h1[data-page-title] {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  line-height: 0.95;
-  text-transform: uppercase;
+/* Light mode: cool off-white page, white header, grey sidebar. */
+:root[data-theme="light"] {
+  --sl-color-accent-low: #dde7fd;
+  --sl-color-accent: var(--docs-brand-blue);
+  --sl-color-accent-high: #0033c4;
+  --sl-color-white: #0b0e14;
+  --sl-color-gray-1: #1d232b;
+  --sl-color-gray-2: #39414b;
+  --sl-color-gray-3: #5a6370;
+  --sl-color-gray-4: #88909b;
+  --sl-color-gray-5: #d3d8de;
+  --sl-color-gray-6: #e5e8ec;
+  --sl-color-gray-7: #eff1f4;
+  --sl-color-black: #f7f8fa;
+  --sl-color-orange-low: #fef4ea;
+  --sl-color-orange: var(--docs-brand-orange);
+  --sl-color-orange-high: #8a4200;
+  --sl-color-red-low: #fdecf0;
+  --sl-color-red: var(--docs-brand-red);
+  --sl-color-red-high: #8f0a30;
+  --sl-color-text-accent: var(--sl-color-accent);
+  --sl-color-bg-nav: #fff;
+  --sl-color-bg-sidebar: var(--sl-color-gray-7);
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+  --sl-color-hairline: #e3e7eb;
+  --sl-color-hairline-light: #dde1e6;
+  --sl-color-hairline-shade: #e3e7eb;
+  --docs-panel: var(--sl-color-gray-7);
+  --docs-note-bg: #e9f0fd;
+  --docs-note-border: #327efc;
+  --docs-step-bg: #e3e7ed;
+  --docs-glow: rgb(1 66 251 / 0.05);
+  --docs-glow-warm: rgb(245 11 79 / 0.025);
 }
 
-/* Keep navigation in readable sentence case, with a clear heading hierarchy. */
+::selection {
+  background-color: color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
+}
+
+/* ---- Page frame ---- */
+
+/* The title glow is mostly blue, warming toward the mark's red at one side. */
+.main-frame {
+  background:
+    radial-gradient(28rem 18rem at 78% 2rem, var(--docs-glow-warm), transparent 70%),
+    radial-gradient(60rem 26rem at 40% 4rem, var(--docs-glow), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+/* A thin stripe in the mark's colors along the bottom of the header. */
+header.header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--docs-brand-blue) 25%,
+    var(--docs-brand-red) 55%,
+    var(--docs-brand-orange) 80%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
+/* The title flows straight into the article, without a rule between them. */
+.main-pane .content-panel + .content-panel {
+  border-top: 0;
+  padding-top: 0.5rem;
+}
+
+/* ---- Header ---- */
+
+.header button[data-open-modal] {
+  border-color: var(--sl-color-hairline-light);
+  border-radius: 0.5rem;
+  background-color: var(--docs-panel);
+  color: var(--sl-color-gray-3);
+}
+.header button[data-open-modal]:hover {
+  border-color: var(--sl-color-gray-4);
+  color: var(--sl-color-gray-1);
+}
+.header button[data-open-modal] > kbd {
+  background: none;
+  padding: 0;
+}
+.header button[data-open-modal] > kbd > kbd {
+  min-width: 1.35rem;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.25rem;
+  padding: 0.05rem 0.3rem;
+  background-color: var(--sl-color-gray-6);
+  text-align: center;
+}
+
+.header .social-icons a {
+  color: var(--sl-color-gray-2);
+}
+.header .social-icons a:hover {
+  color: var(--sl-color-white);
+}
+
+/* ---- Headings and body text ---- */
+
+.sl-markdown-content {
+  letter-spacing: 0.005em;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
+h1[data-page-title],
+#_top {
+  font-family: var(--sl-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--sl-color-white);
+}
+#_top {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  word-spacing: 0.04em;
+  line-height: 1.05;
+}
+.sl-markdown-content h2 {
+  letter-spacing: -0.025em;
+}
+
+.sl-markdown-content strong {
+  font-weight: 700;
+  color: var(--sl-color-white);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.25em;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: currentColor;
+}
+
+.sl-markdown-content ul > li::marker {
+  color: var(--sl-color-gray-4);
+}
+
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.35em;
+}
+.sl-markdown-content pre code:not(:where(.not-content *)) {
+  border: 0;
+  padding: 0;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+  color: var(--sl-color-white);
+  font-weight: 700;
+}
+
+/* Numbered steps: top-level ordered lists get round counters. Lists that
+   continue from an earlier number keep native numbering. */
+.sl-markdown-content ol:not(li ol, [start], :where(.not-content *)) {
+  counter-reset: docs-step;
+  list-style: none;
+  padding-inline-start: 0;
+}
+.sl-markdown-content ol:not(li ol, [start], :where(.not-content *)) > li {
+  position: relative;
+  counter-increment: docs-step;
+  padding-inline-start: 2.75rem;
+}
+.sl-markdown-content ol:not(li ol, [start], :where(.not-content *)) > li + li {
+  margin-top: 0.6rem;
+}
+.sl-markdown-content ol:not(li ol, [start], :where(.not-content *)) > li::before {
+  content: counter(docs-step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.1rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background-color: var(--docs-step-bg);
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-xs);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ---- Asides ---- */
+
+.starlight-aside {
+  border: 1px solid var(--docs-aside-border, var(--sl-color-asides-border));
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  color: var(--sl-color-gray-2);
+  font-size: var(--sl-text-sm);
+}
+.starlight-aside--note,
+.starlight-aside--tip {
+  --sl-color-asides-border: var(--sl-color-accent);
+  --docs-aside-border: var(--docs-note-border);
+  background-color: var(--docs-note-bg);
+}
+.starlight-aside--caution {
+  background-color: color-mix(in srgb, var(--sl-color-orange) 7%, var(--sl-color-black));
+}
+.starlight-aside--danger {
+  background-color: color-mix(in srgb, var(--sl-color-red) 7%, var(--sl-color-black));
+}
+.starlight-aside__title {
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-base);
+  font-weight: 700;
+}
+.starlight-aside__icon {
+  color: var(--sl-color-asides-border);
+}
+.starlight-aside__content a {
+  color: var(--sl-color-text-accent);
+}
+
+/* Light-mode asides use a coloured left edge on a tinted fill. */
+:root[data-theme="light"] .starlight-aside {
+  border-color: color-mix(in srgb, var(--sl-color-asides-border) 25%, transparent);
+  border-inline-start: 4px solid var(--sl-color-asides-border);
+  border-radius: 0.25rem;
+}
+:root[data-theme="light"] .starlight-aside--note,
+:root[data-theme="light"] .starlight-aside--tip {
+  border-color: transparent;
+  border-inline-start-color: var(--docs-note-border);
+}
+:root[data-theme="light"] .starlight-aside--caution {
+  background-color: var(--sl-color-orange-low);
+}
+:root[data-theme="light"] .starlight-aside--danger {
+  background-color: var(--sl-color-red-low);
+}
+
+/* ---- Left sidebar ---- */
+
 .sidebar-content {
   font-family: var(--sl-font);
 }
 
-.sidebar-content .large,
-.sidebar-content summary .group-label span {
-  font-family: var(--sl-font);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
+/* Dark mode sets the navigation in a bordered panel. */
+@media (min-width: 50rem) {
+  :root[data-theme="dark"] .sidebar-content {
+    height: auto;
+    margin: 1.5rem 1rem;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    background-color: var(--docs-panel);
+  }
 }
 
-.sidebar-content .sidebar-category > h2 {
-  font-size: 1.1rem;
+.sidebar-content a {
+  color: var(--sl-color-gray-2);
+  font-size: var(--sl-text-sm);
+}
+.sidebar-content a:hover,
+.sidebar-content a:focus {
+  color: var(--sl-color-white);
+}
+
+.sidebar-content summary .group-label .large {
+  font-size: var(--sl-text-sm);
+  font-weight: 500;
+  color: var(--sl-color-gray-2);
+}
+.sidebar-content details[open] > summary .group-label .large {
   font-weight: 700;
-  line-height: 1.4;
-  padding: 0.5rem 0.65rem;
-  margin-bottom: 0.55rem;
-  border-inline-start: 3px solid var(--sl-color-accent);
-  border-radius: 0 0.3rem 0.3rem 0;
-  background: color-mix(in srgb, var(--sl-color-accent) 8%, transparent);
+  color: var(--sl-color-white);
+}
+.sidebar-content summary .caret {
+  color: var(--sl-color-gray-3);
+}
+.sidebar-content details[open] > summary .caret {
+  color: var(--sl-color-text-accent);
 }
 
-.sidebar-content .sidebar-category + .sidebar-category {
-  margin-top: 1.6rem;
+/* The current page is bold on a tint, with an accent bar on its left edge
+   like the table of contents. */
+.sidebar-content a[aria-current="page"],
+.sidebar-content a[aria-current="page"]:hover,
+.sidebar-content a[aria-current="page"]:focus {
+  border-radius: 0 0.375rem 0.375rem 0;
+  background-color: var(--sl-color-accent-low);
+  box-shadow: inset 2px 0 0 var(--sl-color-accent);
+  color: var(--sl-color-text-accent);
+  font-weight: 700;
 }
 
-.sidebar-content .sidebar-category a {
-  font-size: 0.95rem;
-  line-height: 1.5;
+/* ---- Table of contents ---- */
+
+.right-sidebar-panel h2 {
+  font-size: var(--sl-text-base);
+  font-weight: 700;
+}
+starlight-toc nav > ul {
+  border-inline-start: 1px solid var(--sl-color-hairline-light);
+}
+starlight-toc a {
+  margin-inline-start: -1px;
+  border-inline-start: 2px solid transparent;
+  border-radius: 0;
+  padding-block: 0.35rem;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+}
+starlight-toc a[aria-current="true"] {
+  border-inline-start-color: var(--sl-color-accent);
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+
+/* ---- Footer ---- */
+
+footer > .meta {
+  border-top: 1px solid var(--sl-color-hairline-light);
+  padding-top: 1rem;
+  font-size: var(--sl-text-xs);
+}
+footer > .meta a:hover {
+  color: var(--sl-color-text-accent);
+}
+
+/* Previous and next are outlined cards. */
+.pagination-links {
+  gap: 1rem;
+}
+/* The neutral edge sits over a gradient in the mark's colors. On hover it
+   fades out, so the border lights up blue to red to orange toward the arrow,
+   and the card lifts on a glow in the same colors. */
+@property --docs-edge {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+.pagination-links a {
+  --docs-edge: color-mix(in srgb, var(--sl-color-gray-4) 55%, var(--sl-color-black));
+  --docs-edge-direction: 90deg;
+  --docs-glow-start: var(--docs-brand-blue);
+  --docs-glow-end: var(--docs-brand-orange);
+  align-items: flex-start;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  background:
+    linear-gradient(var(--docs-panel), var(--docs-panel)) padding-box,
+    linear-gradient(var(--docs-edge), var(--docs-edge)) border-box,
+    linear-gradient(
+        var(--docs-edge-direction),
+        var(--docs-brand-blue),
+        var(--docs-brand-red) 60%,
+        var(--docs-brand-orange)
+      )
+      border-box;
+  box-shadow: none;
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-xs);
+  transition:
+    --docs-edge 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    translate 0.25s ease-out;
+}
+.pagination-links a[rel="prev"] {
+  --docs-edge-direction: 270deg;
+  --docs-glow-start: var(--docs-brand-orange);
+  --docs-glow-end: var(--docs-brand-blue);
+}
+.pagination-links a:hover,
+.pagination-links a:focus-visible {
+  --docs-edge: transparent;
+  translate: 0 -2px;
+  box-shadow:
+    -0.5rem 0 1.5rem -0.5rem color-mix(in srgb, var(--docs-glow-start) 50%, transparent),
+    0 0 1.5rem -0.5rem color-mix(in srgb, var(--docs-brand-red) 40%, transparent),
+    0.5rem 0 1.5rem -0.5rem color-mix(in srgb, var(--docs-glow-end) 50%, transparent);
+}
+.pagination-links svg {
+  transition: translate 0.2s ease-out;
+}
+.pagination-links a[rel="next"]:hover svg {
+  translate: 0.2rem 0;
+}
+.pagination-links a[rel="prev"]:hover svg {
+  translate: -0.2rem 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pagination-links a,
+  .pagination-links svg {
+    transition: none;
+  }
+}
+.pagination-links svg {
+  margin-top: 0.1rem;
+  font-size: 1rem;
+}
+.pagination-links .link-title {
+  color: var(--sl-color-text-accent);
+  font-size: var(--sl-text-base);
+  font-weight: 600;
+}
+/* Bright brand blue buzzes at this size on the light grey card, so the
+   light theme uses the deeper accent. */
+:root[data-theme="light"] .pagination-links .link-title {
+  color: var(--sl-color-accent-high);
 }
