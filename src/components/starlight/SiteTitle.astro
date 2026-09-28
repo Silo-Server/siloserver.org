@@ -1,9 +1,44 @@
 ---
-import Default from '@astrojs/starlight/components/SiteTitle.astro';
+// Replaces Starlight's site title with the Silo wordmark plus "Docs".
+// The configured title still names the site in page <title> tags.
 
 // The documentation lives below /docs, not at the marketing site's root.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-Astro.locals.starlightRoute.siteTitleHref = `${base}/docs`;
+const href = `${base}/docs`;
 ---
 
-<Default />
+<a href={href} class="site-title sl-flex">
+  <img
+    class="dark:sl-hidden"
+    src={`${base}/brand/silo-wordmark-dark.svg`}
+    alt="Silo"
+    width="1389"
+    height="720"
+  />
+  <img
+    class="light:sl-hidden"
+    src={`${base}/brand/silo-wordmark-white.svg`}
+    alt="Silo"
+    width="1389"
+    height="720"
+  />
+  <span translate="no">Docs</span>
+</a>
+
+<style>
+  .site-title {
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  img {
+    height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+    width: auto;
+  }
+  span {
+    line-height: 1;
+  }
+</style>
