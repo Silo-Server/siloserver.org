@@ -28,8 +28,8 @@ const href = `${base}/docs`;
 <style>
   .site-title {
     --logo-height: 1.75rem;
-    /* Sized so the caps, outline included, span the height of the o. */
-    --docs-size: calc(var(--logo-height) * 0.5945);
+    /* A touch shorter than the o, which the caps span at 0.5945. */
+    --docs-size: calc(var(--logo-height) * 0.56);
     align-items: baseline;
     gap: 0.325rem;
     color: var(--sl-color-white);
@@ -42,19 +42,19 @@ const href = `${base}/docs`;
     width: auto;
   }
   /* Set in the wordmark's typeface (Plus Jakarta Sans ExtraBold), with the
-     caps' top and bottom lined up with the wordmark's o, which spans 256 to
-     616 of the artwork's 720 units. Baseline alignment puts the text on the
-     image's bottom edge, so raise it until the bottom of its ink (0.012 em
-     below the baseline, plus half the outline) meets the bottom of the o. The
-     caps are 0.757 em tall, which sets the size that fills the o's height.
+     caps' bottom lined up with the wordmark's o, which spans 256 to 616 of
+     the artwork's 720 units. Baseline alignment puts the text on the image's
+     bottom edge, so raise it until the bottom of its ink (0.012 em below the
+     baseline, plus half the outline) meets the bottom of the o.
 
      ExtraBold is the heaviest weight, and at a smaller size its strokes are
      thinner than the wordmark's. The wordmark's letters are set at 0.88 of the
-     artwork height and its strokes are 0.15 em, so outline the text by the
-     difference to match stroke thickness, and space the letters by the same
-     amount so the outline doesn't close the gaps. */
+     artwork height, so outline the text in proportion to the size difference
+     to thicken its strokes (a little lighter than the wordmark's 0.15 em), and
+     space the letters by the same amount so the outline doesn't close the
+     gaps. */
   span {
-    --stroke: calc(0.15 * (var(--logo-height) * 0.88 - var(--docs-size)));
+    --stroke: calc(0.11 * (var(--logo-height) * 0.88 - var(--docs-size)));
     position: relative;
     bottom: calc(
       var(--logo-height) * 104 / 720 + var(--docs-size) * 0.012 + var(--stroke) / 2
