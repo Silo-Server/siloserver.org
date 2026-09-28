@@ -301,6 +301,8 @@ h1[data-page-title],
   border-inline-start-color: var(--docs-note-border);
 }
 :root[data-theme="light"] .starlight-aside--caution {
+  /* Brand orange is too light for the icon on the tint; this keeps 4.5:1. */
+  --sl-color-asides-border: #b85400;
   background-color: var(--sl-color-orange-low);
 }
 :root[data-theme="light"] .starlight-aside--danger {
@@ -327,7 +329,6 @@ h1[data-page-title],
 
 .sidebar-content a {
   color: var(--sl-color-gray-2);
-  font-size: var(--sl-text-sm);
 }
 .sidebar-content a:hover,
 .sidebar-content a:focus {
@@ -335,7 +336,6 @@ h1[data-page-title],
 }
 
 .sidebar-content summary .group-label .large {
-  font-size: var(--sl-text-sm);
   font-weight: 500;
   color: var(--sl-color-gray-2);
 }
@@ -343,6 +343,73 @@ h1[data-page-title],
   font-weight: 700;
   color: var(--sl-color-white);
 }
+/* Desktop uses compact rows. On phones the menu keeps Starlight's larger
+   text, and every menu row, icon, and header control is at least 44px, so
+   each is an easy touch target. */
+@media (min-width: 50rem) {
+  .sidebar-content a,
+  .sidebar-content summary .group-label .large {
+    font-size: var(--sl-text-sm);
+  }
+}
+@media (width < 50rem) {
+  :root {
+    --sl-menu-button-size: 2.75rem;
+  }
+  starlight-menu-button button {
+    display: grid;
+    place-items: center;
+  }
+  starlight-menu-button svg {
+    font-size: 1.25rem;
+  }
+  .header button[data-open-modal] {
+    justify-content: center;
+    min-width: 2.75rem;
+    height: 2.75rem;
+  }
+  mobile-starlight-toc .dropdown a {
+    padding-block: 0.85rem;
+  }
+  /* Group labels stay below the category headings in size. */
+  .sidebar-content summary .group-label .large {
+    font-size: var(--sl-text-base);
+  }
+  .sidebar-content a {
+    padding-block: 0.7em;
+  }
+  .sidebar-content summary {
+    padding-block: 0.7em;
+  }
+  .sidebar-content .social-icons a {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+  }
+
+  /* The menu button keeps one color whether it opens or closes the menu. */
+  starlight-menu-button[aria-expanded="true"] button {
+    background-color: var(--sl-color-white);
+    box-shadow: var(--sl-shadow-md);
+  }
+  :root[data-theme="light"] starlight-menu-button[aria-expanded="true"] button {
+    background-color: var(--sl-color-black);
+  }
+
+  /* Center the social icons and theme picker on one line. */
+  .mobile-preferences {
+    align-items: center;
+  }
+  .mobile-preferences .social-icons {
+    gap: 0.5rem;
+    padding-block: 0.5rem;
+  }
+}
+
 .sidebar-content summary .caret {
   color: var(--sl-color-gray-3);
 }
@@ -481,20 +548,17 @@ footer > .meta a:hover {
 
 /* ---- Scrollbars ---- */
 
-/* Themed thumbs on a transparent track. Inner panes use thin bars, and the
-   thumb strengthens while the pointer is over its pane. The page keeps the
-   full-width bar so it stays easy to grab. At rest the thumb keeps at least
-   3:1 contrast against the page, sidebar, and code block backgrounds. */
+/* Themed thumbs on a transparent track, at the standard width so they stay
+   easy to grab. The thumb strengthens while the pointer is over its pane. At
+   rest it keeps at least 3:1 contrast against the page, sidebar, and code
+   block backgrounds. */
+/* Opening the mobile menu locks page scrolling, which hides the page
+   scrollbar. Reserving its space keeps the header from shifting. */
 :root {
+  scrollbar-gutter: stable;
   --docs-scrollbar-thumb: color-mix(in srgb, var(--sl-color-gray-4) 55%, var(--sl-color-gray-3));
   --docs-scrollbar-thumb-hover: var(--sl-color-gray-3);
   scrollbar-color: var(--docs-scrollbar-thumb) transparent;
-}
-.sidebar-pane,
-.sl-markdown-content table,
-.expressive-code pre,
-mobile-starlight-toc .dropdown {
-  scrollbar-width: thin;
 }
 :is(.sidebar-pane, .sl-markdown-content table, .expressive-code pre, mobile-starlight-toc .dropdown):hover {
   scrollbar-color: var(--docs-scrollbar-thumb-hover) transparent;
