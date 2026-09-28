@@ -478,3 +478,24 @@ footer > .meta a:hover {
 :root[data-theme="light"] .pagination-links .link-title {
   color: var(--sl-color-accent-high);
 }
+
+/* ---- Scrollbars ---- */
+
+/* Themed thumbs on a transparent track. Inner panes use thin bars, and the
+   thumb strengthens while the pointer is over its pane. The page keeps the
+   full-width bar so it stays easy to grab. At rest the thumb keeps at least
+   3:1 contrast against the page, sidebar, and code block backgrounds. */
+:root {
+  --docs-scrollbar-thumb: color-mix(in srgb, var(--sl-color-gray-4) 55%, var(--sl-color-gray-3));
+  --docs-scrollbar-thumb-hover: var(--sl-color-gray-3);
+  scrollbar-color: var(--docs-scrollbar-thumb) transparent;
+}
+.sidebar-pane,
+.sl-markdown-content table,
+.expressive-code pre,
+mobile-starlight-toc .dropdown {
+  scrollbar-width: thin;
+}
+:is(.sidebar-pane, .sl-markdown-content table, .expressive-code pre, mobile-starlight-toc .dropdown):hover {
+  scrollbar-color: var(--docs-scrollbar-thumb-hover) transparent;
+}
