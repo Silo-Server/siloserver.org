@@ -452,6 +452,25 @@ starlight-toc a[aria-current="true"] {
   font-weight: 600;
 }
 
+/* The open mobile dropdown ends in a firm edge and shadow, and the article
+   behind it dims. The dimming is a shadow pushed below the list, so it never
+   covers the bar above. */
+mobile-starlight-toc .dropdown {
+  --docs-toc-scrim: rgb(5 9 14 / 0.72);
+  border-inline: 0;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+  box-shadow:
+    0 0.75rem 1.5rem rgb(0 0 0 / 0.3),
+    0 100vmax 0 100vmax var(--docs-toc-scrim);
+}
+:root[data-theme="light"] mobile-starlight-toc .dropdown {
+  --docs-toc-scrim: rgb(11 14 20 / 0.42);
+  border-bottom-color: var(--sl-color-gray-5);
+  box-shadow:
+    0 0.75rem 1.5rem rgb(11 14 20 / 0.12),
+    0 100vmax 0 100vmax var(--docs-toc-scrim);
+}
+
 /* ---- Footer ---- */
 
 footer > .meta {
