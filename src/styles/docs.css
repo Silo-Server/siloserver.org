@@ -356,6 +356,16 @@ h1[data-page-title],
   :root {
     --sl-menu-button-size: 2.75rem;
   }
+  /* The menu and search buttons are matching outlined squares, like the
+     theme picker, rather than Starlight's bright floating circle. */
+  starlight-menu-button button,
+  .header button[data-open-modal] {
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    background-color: var(--docs-panel);
+    box-shadow: none;
+    color: var(--sl-color-gray-2);
+  }
   starlight-menu-button button {
     display: grid;
     place-items: center;
@@ -367,6 +377,11 @@ h1[data-page-title],
     justify-content: center;
     min-width: 2.75rem;
     height: 2.75rem;
+  }
+  starlight-menu-button button:hover,
+  starlight-menu-button[aria-expanded="true"] button {
+    border-color: var(--sl-color-gray-4);
+    color: var(--sl-color-white);
   }
   mobile-starlight-toc .dropdown a {
     padding-block: 0.85rem;
@@ -389,15 +404,6 @@ h1[data-page-title],
     margin: 0;
     padding: 0;
     font-size: 1.5rem;
-  }
-
-  /* The menu button keeps one color whether it opens or closes the menu. */
-  starlight-menu-button[aria-expanded="true"] button {
-    background-color: var(--sl-color-white);
-    box-shadow: var(--sl-shadow-md);
-  }
-  :root[data-theme="light"] starlight-menu-button[aria-expanded="true"] button {
-    background-color: var(--sl-color-black);
   }
 
   /* Center the social icons and theme picker on one line. */
