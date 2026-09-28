@@ -28,7 +28,6 @@ const href = `${base}/docs`;
 <style>
   .site-title {
     --logo-height: 1.75rem;
-    /* A touch shorter than the o, which the caps span at 0.5945. */
     --docs-size: calc(var(--logo-height) * 0.56);
     align-items: baseline;
     gap: 0.325rem;
@@ -37,9 +36,7 @@ const href = `${base}/docs`;
     white-space: nowrap;
     min-width: 0;
   }
-  /* The white wordmark's letters are pure white, brighter than the dark
-     theme's text colour. The light theme's text colour already matches the
-     dark wordmark, which is also the one printed. */
+  /* Match the white wordmark's letters on screen; print uses the dark one. */
   @media screen {
     :global([data-theme='dark']) .site-title {
       color: #fff;
@@ -49,26 +46,15 @@ const href = `${base}/docs`;
     height: var(--logo-height);
     width: auto;
   }
-  /* Set in the wordmark's typeface (Plus Jakarta Sans ExtraBold) and centred
-     on the wordmark's o, which spans 256 to 616 of the artwork's 720 units.
-     Baseline alignment puts the text on the image's bottom edge, so raise it
-     until the bottom of its ink (0.012 em below the baseline, plus half the
-     outline) meets the bottom of the o, then by half the difference between
-     the o's height and the caps' (0.769 em of ink, plus the outline).
-
-     ExtraBold is the heaviest weight, and at a smaller size its strokes are
-     thinner than the wordmark's. The wordmark's letters are set at 0.88 of the
-     artwork height, so outline the text in proportion to the size difference
-     to thicken its strokes (a little lighter than the wordmark's 0.15 em), and
-     space the letters by the same amount so the outline doesn't close the
-     gaps. */
+  /* The wordmark's typeface, Plus Jakarta Sans ExtraBold. Baseline alignment
+     puts the text on the image's bottom edge; raise the middle of the caps'
+     ink (0.3725 em) to the middle of the o (284 of the artwork's 720 units).
+     An outline, with matching letter-spacing to keep the gaps open, brings
+     the strokes close to the wordmark's weight. */
   span {
     --stroke: calc(0.11 * (var(--logo-height) * 0.88 - var(--docs-size)));
     position: relative;
-    bottom: calc(
-      var(--logo-height) * 104 / 720 + var(--docs-size) * 0.012 + var(--stroke) / 2 +
-        (var(--logo-height) * 360 / 720 - var(--docs-size) * 0.769 - var(--stroke)) / 2
-    );
+    bottom: calc(var(--logo-height) * 284 / 720 - var(--docs-size) * 0.3725);
     font-family: "Plus Jakarta Sans", var(--sl-font);
     font-size: var(--docs-size);
     font-weight: 800;
