@@ -9,14 +9,14 @@ const href = `${base}/docs`;
 
 <a href={href} class="site-title sl-flex">
   <img
-    class="dark:sl-hidden"
+    class="dark:sl-hidden print:block"
     src={`${base}/brand/silo-wordmark-dark.svg`}
     alt="Silo"
     width="1389"
     height="720"
   />
   <img
-    class="light:sl-hidden"
+    class="light:sl-hidden print:hidden"
     src={`${base}/brand/silo-wordmark-white.svg`}
     alt="Silo"
     width="1389"
@@ -39,9 +39,11 @@ const href = `${base}/docs`;
   }
   /* The white wordmark's letters are pure white, brighter than the dark
      theme's text colour. The light theme's text colour already matches the
-     dark wordmark. */
-  :global([data-theme='dark']) .site-title {
-    color: #fff;
+     dark wordmark, which is also the one printed. */
+  @media screen {
+    :global([data-theme='dark']) .site-title {
+      color: #fff;
+    }
   }
   img {
     height: var(--logo-height);

@@ -48,7 +48,6 @@
 .sl-markdown-content h1,
 .sl-markdown-content h2,
 .sl-markdown-content h3,
-.site-title,
 h1[data-page-title] {
   font-family: "Big Shoulders", "Archivo", sans-serif;
   font-weight: 750;
@@ -58,11 +57,6 @@ h1[data-page-title] {
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   line-height: 0.95;
   text-transform: uppercase;
-}
-.site-title {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  font-weight: 800;
 }
 
 /* Keep navigation in readable sentence case, with a clear heading hierarchy. */
