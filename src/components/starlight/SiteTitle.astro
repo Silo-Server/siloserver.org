@@ -27,7 +27,8 @@ const href = `${base}/docs`;
 
 <style>
   .site-title {
-    align-items: center;
+    --logo-height: 1.75rem;
+    align-items: baseline;
     gap: 0.4rem;
     color: var(--sl-color-white);
     text-decoration: none;
@@ -35,17 +36,21 @@ const href = `${base}/docs`;
     min-width: 0;
   }
   img {
-    height: 1.75rem;
+    height: var(--logo-height);
     width: auto;
   }
-  /* Set in the wordmark's typeface (Plus Jakarta Sans ExtraBold, -0.04em)
-     so "Docs" reads as part of the lockup. */
+  /* Set in the wordmark's typeface (Plus Jakarta Sans ExtraBold), with caps
+     slightly shorter than the wordmark's. Baseline alignment puts the text on
+     the image's bottom edge; the wordmark's letters sit 110 of 720 units above
+     that, so raise the text by the same amount to share their baseline. */
   span {
+    position: relative;
+    bottom: calc(var(--logo-height) * 110 / 720);
     font-family: "Plus Jakarta Sans", var(--sl-font);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
     line-height: 1;
-    text-transform: none;
+    text-transform: uppercase;
   }
 </style>
