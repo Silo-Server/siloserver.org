@@ -37,6 +37,12 @@ const href = `${base}/docs`;
     white-space: nowrap;
     min-width: 0;
   }
+  /* The white wordmark's letters are pure white, brighter than the dark
+     theme's text colour. The light theme's text colour already matches the
+     dark wordmark. */
+  :global([data-theme='dark']) .site-title {
+    color: #fff;
+  }
   img {
     height: var(--logo-height);
     width: auto;
