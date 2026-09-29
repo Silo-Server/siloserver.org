@@ -81,9 +81,9 @@ Silo is currently tested only against Redis. Valkey support is provided as-is, w
 
 [Valkey](https://valkey.io/) speaks the Redis protocol, and Silo connects to it with a `redis://` URL. There is no Valkey-specific setting.
 
-To use an existing Valkey server, follow [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis) and set the `silo` service's `REDIS_URL` to that server.
+To use an existing Valkey server, apply the steps in [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis) to Redis only: set the `silo` service's `REDIS_URL` to that server, remove its `depends_on` entry for `redis`, and leave out the bundled `redis` service. Keep `DATABASE_URL` and the bundled `postgres` service as they are.
 
-For a new installation, save this override as `valkey-override.yml`:
+To run Valkey as the bundled service on a new installation, save this override as `valkey-override.yml` in the Compose directory:
 
 ```yaml
 services:
@@ -91,11 +91,19 @@ services:
     image: valkey/valkey:alpine
 ```
 
-The base Compose file's `redis-cli ping` health check works with the official Valkey image. Check the merged files, then start the stack:
+Then add it in `.env`, so every later `docker compose` command, including updates, uses it:
+
+```dotenv
+COMPOSE_FILE=docker-compose.yml:valkey-override.yml
+```
+
+If you already set `COMPOSE_FILE`, add `valkey-override.yml` to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
+
+The base Compose file's `redis-cli ping` health check works with the official Valkey image. Check the merged configuration, then start the stack:
 
 ```sh
-docker compose -f docker-compose.yml -f valkey-override.yml config --quiet
-docker compose -f docker-compose.yml -f valkey-override.yml up -d
+docker compose config --quiet
+docker compose up -d
 ```
 
 For an existing installation, check your Redis version and follow [Valkey's migration guide](https://valkey.io/topics/migration/) before switching images. The bundled Compose file reuses the same `/data` mount, and Valkey can't read data files written by Redis 7.4 or later.
