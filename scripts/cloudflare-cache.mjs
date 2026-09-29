@@ -97,8 +97,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     } else {
       throw new Error('Expected manifest or purge.');
     }
-  } catch (error) {
-    console.error(error.message);
+  } catch {
+    // Runtime exceptions can include header values or response excerpts.
+    console.error('Deployment cache operation failed.');
     process.exitCode = 1;
   }
 }
