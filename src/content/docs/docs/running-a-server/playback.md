@@ -59,7 +59,7 @@ Chapter menus work without thumbnails. Silo stores chapter preview images in [ar
 
 1. Edit the library under **Admin > Libraries**.
 2. In its advanced settings, turn on **Generate chapter thumbnails** and save.
-3. Let background generation run. Silo also starts a title's previews when someone opens or plays it, and checks for missing previews every six hours.
+3. Let background generation run. Silo also queues a title's previews when someone opens or plays it, and checks for missing previews every six hours.
 4. Open a title with chapters in the web player and check its chapter previews.
 
 For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
