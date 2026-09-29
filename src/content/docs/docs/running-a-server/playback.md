@@ -66,20 +66,6 @@ For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
 
 ### If previews don't appear
 
-Open **Admin > Logs**, enter `chapterthumbs` in the **Component** filter, and select a line. The `reason` in its **Attributes** shows why Silo skipped the file:
+Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
-| Reason | What it means |
-| --- | --- |
-| `folder_disabled` | **Generate chapter thumbnails** is off for the library, or the folder is disabled. |
-| `no_chapters` | The file has no chapter markers. |
-| `no_eligible_chapters` | Every chapter already has an image or is waiting to be retried. |
-| `hdr_policy_disabled` | **HDR handling** is set to **Skip HDR and Dolby Vision**, and the file needs tone mapping. |
-| `tonemap_unsupported` | The file is HDR and could not be tone mapped with the current settings. |
-| `probe_failed` | Silo could not read the file's chapter metadata. |
-| `ffmpeg_probe_failed` | FFmpeg could not set up frame extraction for the file. |
-| `decode_invalid_data` | FFmpeg found invalid data in the file. |
-| `file_cooldown` | The file is waiting after an earlier failure. `retry_after` shows when it can be tried again. |
-
-`chapter thumbnail upload failed` means Silo extracted the image but couldn't save it. Check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
-
-Silo retries failed chapters automatically, first after 15 minutes and then less often, up to once a day. If FFmpeg can't read or tone map a file (`decode_invalid_data`, `ffmpeg_probe_failed`, `tonemap_unsupported`), Silo skips the whole file until the `retry_after` time and logs `file_cooldown` for it until then.
+Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs** by the `chapterthumbs` component.
