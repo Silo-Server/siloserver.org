@@ -81,9 +81,23 @@ Silo is currently tested only against Redis. Valkey support is provided as-is, w
 
 [Valkey](https://valkey.io/) speaks the Redis protocol, and Silo connects to it with a `redis://` URL. There is no Valkey-specific setting.
 
-To use an existing Valkey server, apply the steps in [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis) to Redis only: set the `silo` service's `REDIS_URL` to that server, remove its `depends_on` entry for `redis`, and leave out the bundled `redis` service. Keep `DATABASE_URL` and the bundled `postgres` service as they are.
+To use an existing Valkey server and keep the bundled PostgreSQL, save this override as `valkey-external.yml` in the Compose directory, with your server's address:
 
-To run Valkey as the bundled service on a new installation, save this override as `valkey-override.yml` in the Compose directory:
+```yaml
+services:
+  silo:
+    environment:
+      REDIS_URL: redis://your-valkey-host:6379
+    depends_on: !override
+      postgres:
+        condition: service_healthy
+  redis:
+    profiles: [external]
+```
+
+It points Silo at your server, stops Silo waiting for the bundled `redis` service, and moves that service into a profile so it no longer starts. `!override` needs Compose 2.24 or newer. To replace PostgreSQL as well, see [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis).
+
+To run Valkey as the bundled service on a new installation, save this override as `valkey-override.yml` instead:
 
 ```yaml
 services:
@@ -91,22 +105,24 @@ services:
     image: valkey/valkey:alpine
 ```
 
-Then add it in `.env`, so every later `docker compose` command, including updates, uses it:
+The base Compose file's `redis-cli ping` health check works with the official Valkey image.
+
+Then add the override in `.env`, so every later `docker compose` command, including updates, uses it. For the bundled service:
 
 ```dotenv
 COMPOSE_FILE=docker-compose.yml:valkey-override.yml
 ```
 
-If you already set `COMPOSE_FILE`, add `valkey-override.yml` to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
+For an existing server, list `valkey-external.yml` instead. If you already set `COMPOSE_FILE`, add the override to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
 
-The base Compose file's `redis-cli ping` health check works with the official Valkey image. Check the merged configuration, then start the stack:
+Check the merged configuration, then start the stack:
 
 ```sh
 docker compose config --quiet
 docker compose up -d
 ```
 
-For an existing installation, check your Redis version and follow [Valkey's migration guide](https://valkey.io/topics/migration/) before switching images. The bundled Compose file reuses the same `/data` mount, and Valkey can't read data files written by Redis 7.4 or later.
+Before switching an existing installation's bundled service to Valkey, check your Redis version and follow [Valkey's migration guide](https://valkey.io/topics/migration/). The bundled Compose file reuses the same `/data` mount, and Valkey can't read data files written by Redis 7.4 or later.
 
 ## Hardware transcoding on Linux
 
