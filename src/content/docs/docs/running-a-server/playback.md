@@ -55,12 +55,17 @@ For a node in **Admin > Nodes**, use its **Re-probe** button instead. Re-probing
 
 ## Generate chapter thumbnails
 
-Chapter menus work without thumbnails. Preview images for chapters need [public S3 storage](/docs/s3-storage#set-up-s3), even when artwork uses local disk.
+Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
-1. Set up and test public storage.
-2. Edit the library under **Admin > Libraries**.
-3. In its advanced settings, turn on **Generate chapter thumbnails** and save.
-4. Let background generation run. If previews don't appear, check **Admin > Scheduled Tasks** for failures.
-5. Open a title with chapters in the web player and check its chapter previews.
+1. Edit the library under **Admin > Libraries**.
+2. In its advanced settings, turn on **Generate chapter thumbnails** and save.
+3. Let background generation run. Silo also queues a title's previews when someone opens or plays it, and checks for missing previews every six hours.
+4. Open a title with chapters in the web player and check its chapter previews.
 
 For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
+
+### If previews don't appear
+
+Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
+
+Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs** by the `chapterthumbs` component.
