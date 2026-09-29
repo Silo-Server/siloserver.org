@@ -73,6 +73,33 @@ Starting the container alone does not switch Silo's search engine. Port 7700 is 
 
 The Compose file pins the Meilisearch version, because Meilisearch cannot open data written by a different version. To upgrade, change `MEILISEARCH_IMAGE` and set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. You can also empty the `meilisearch` directory and let Silo rebuild the index.
 
+## Valkey in place of Redis
+
+:::caution[Tested with Redis only]
+Silo is currently tested only against Redis. Valkey support is provided as-is, with no support offered for Valkey-specific problems.
+:::
+
+[Valkey](https://valkey.io/) speaks the Redis protocol, and Silo connects to it with a `redis://` URL. There is no Valkey-specific setting.
+
+To use an existing Valkey server, follow [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis) and set the `silo` service's `REDIS_URL` to that server.
+
+For a new installation, save this override as `valkey-override.yml`:
+
+```yaml
+services:
+  redis:
+    image: valkey/valkey:alpine
+```
+
+The base Compose file's `redis-cli ping` health check works with the official Valkey image. Check the merged files, then start the stack:
+
+```sh
+docker compose -f docker-compose.yml -f valkey-override.yml config --quiet
+docker compose -f docker-compose.yml -f valkey-override.yml up -d
+```
+
+For an existing installation, check your Redis version and follow [Valkey's migration guide](https://valkey.io/topics/migration/) before switching images. The bundled Compose file reuses the same `/data` mount, and Valkey can't read data files written by Redis 7.4 or later.
+
 ## Hardware transcoding on Linux
 
 The default stack uses the CPU only. For a GPU, add the matching overlay:
