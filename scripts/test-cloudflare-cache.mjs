@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { deploymentMarker, purgeDeployment } from './cloudflare-cache.mjs';
 
 const env = {
@@ -102,4 +104,28 @@ test('preserves deployments under a base path and reports homepage failures', as
   })), /homepage returned HTTP 503/);
   assert.match(urls[0], /\/site\/_build.json/);
   assert.equal(urls.at(-1), 'https://siloserver.org/site/');
+});
+
+
+test('CLI errors never print credentials from a failed Authorization header', () => {
+  const bootstrap = `
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (url, init) => String(url).includes('_build.json')
+      ? Promise.resolve(new Response(JSON.stringify({
+        commit: process.env.GITHUB_SHA,
+        run_id: process.env.GITHUB_RUN_ID,
+        run_attempt: process.env.GITHUB_RUN_ATTEMPT,
+      })))
+      : originalFetch(url, init);
+  `;
+  const result = spawnSync(process.execPath, [
+    '--import', `data:text/javascript,${encodeURIComponent(bootstrap)}`,
+    fileURLToPath(new URL('./cloudflare-cache.mjs', import.meta.url)), 'purge',
+  ], {
+    env: { ...process.env, ...env, CLOUDFLARE_CACHE_PURGE_TOKEN: 'test-sensitive\n-credential' },
+    encoding: 'utf8',
+  });
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /Deployment cache operation failed/);
+  assert.doesNotMatch(result.stdout + result.stderr, /test-sensitive|credential|Bearer/);
 });
