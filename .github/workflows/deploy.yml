@@ -54,6 +54,9 @@ jobs:
           BASE_PATH: ${{ vars.BASE_PATH || '/' }}
         run: bun run build
 
+      - name: Record deployment metadata
+        run: node scripts/cloudflare-cache.mjs manifest
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -69,3 +72,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Checkout deployment scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Purge and verify the website cache
+        timeout-minutes: 10
+        env:
+          CLOUDFLARE_CACHE_PURGE_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_PURGE_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          SITE: ${{ vars.SITE || 'https://siloserver.org' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
+        run: node scripts/cloudflare-cache.mjs purge
