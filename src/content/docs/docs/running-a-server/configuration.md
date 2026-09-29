@@ -50,6 +50,26 @@ docker compose -f docker-compose.yml -f your-override.yml config --quiet
 
 PostgreSQL is required. Redis is optional for a single `integrated` or `api` server and required once you add proxy or transcode nodes.
 
+### Shared memory for your own PostgreSQL container
+
+Size `/dev/shm` when you create your own PostgreSQL container. The bundled `postgres` service sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
+
+```yaml
+services:
+  postgres:
+    shm_size: 2gb
+```
+
+With `docker run`, or in a container manager's extra-arguments field, pass `--shm-size=2g`. The value sets a tmpfs limit; it does not allocate that memory at startup. The bundled service uses 8gb if you want a starting point.
+
+If the limit is too small, some catalog queries fail even though Silo keeps running and the disk has free space:
+
+```text
+ERROR: could not resize shared memory segment "/PostgreSQL.1938557030" to 8388608 bytes: No space left on device (SQLSTATE 53100)
+```
+
+PostgreSQL installed directly on a host or VM does not use Docker's `shm_size` setting. If shared-memory allocation fails there, check the free space in the host's `/dev/shm` and increase its tmpfs size or free capacity.
+
 ## PostgreSQL tuning
 
 With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Settings that need a database restart are logged by name on every start until PostgreSQL restarts. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections:
