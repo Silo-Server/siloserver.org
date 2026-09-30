@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-collections
 title: Create shared and smart collections
-description: Build a library collection from filters or an imported list and check what viewers can see.
+description: Build a library collection from filters, an imported list, or a template, and check what viewers can see.
 ---
 
 Shared collections belong to a library and appear for everyone who can use it, for example a set of short films or a seasonal selection.
@@ -18,9 +18,64 @@ Smart collections find items with rules. Imported collections take their list fr
 
 ## Start with a template
 
-Choose **Browse Templates** from **Admin > Collections**. Select a template, review its libraries and source requirements, then apply it. The new collection appears when the job finishes.
+Use a template for a collection that follows a published list and syncs again on a schedule, such as TMDB's trending movies or an MDBList list of Oscar winners. For a smart, manual, or one-off imported collection, use **Add Collection** instead.
 
-Some sources need credentials or a [plugin](/docs/plugins); the template's setup controls ask for them. An imported list only shows media that is already in your library.
+1. Open **Admin > Collections** and choose **Browse Templates**. You can also choose **Add Collection**, then the **Browse Templates** tile.
+2. Search or pick a category, then select a template.
+3. Check the form. The template fills in every field, and you can change any of them.
+4. Choose **Create Collection**. Silo creates the collection and runs its first sync.
+
+An imported list only shows media that is already in your library.
+
+Templates use these sources:
+
+- TMDB lists such as trending, popular, top rated, now playing, upcoming, airing today, and on the air. These work without setup, because Silo includes a TMDB key.
+- A public TMDB list. Choose **Custom TMDB List** and paste the list's page, such as `https://www.themoviedb.org/list/310-my-movie-list`, or just its number. TMDB has no list search, so find the list on themoviedb.org first.
+- A public MDBList list. Following a list needs no key. Choose **Custom MDBList** to paste any public list. With an MDBList API key under **Admin > Settings > Subtitles & Metadata**, the form can also search MDBList for lists.
+- TMDB genre shelves and TMDB franchise collections. These can only be added with a [template bundle](#apply-a-template-bundle). Selecting one in the gallery shows what it fetches but has no create form.
+
+The form has these fields:
+
+- **Libraries**: one or more. A movie template cannot go in a **Series** library, and a TV template cannot go in a **Movies** library. **Mixed** libraries take both.
+- **Collection Title** and **Description**.
+- **MDBList URL** or **TMDB list URL**, when the template follows a list you choose.
+- **Poster**: **Server default** keeps the template's poster, and **Custom URL** uses an image link instead.
+- **Max Items**: how many titles the collection keeps. Most templates keep 100. The IMDb Top 250 templates keep 250, and Criterion Collection and A24 have no limit.
+- **Featured**: surfaces the collection near the top of the library.
+- **Default Sort**: the order viewers see when they open the collection.
+- **Sync Schedule**: how often Silo reads the source again. Trending Today (All) and Airing Today start at every 6 hours. Top rated, IMDb, and editorial templates such as awards, seasonal, studio, and franchise lists start at weekly. The rest start at daily. Choose **No automatic sync** to sync only when you ask.
+
+## Apply a template bundle
+
+A bundle creates a whole set of template collections at once. Bundles appear at the top of **Browse Templates**, above the search.
+
+| Bundle | Creates |
+| --- | --- |
+| Core Defaults | Trending, popular, and top-rated movies and TV, now playing, upcoming, airing today, on the air, IMDb Top 250 movies and shows, and a few MDBList picks |
+| Streaming Originals | Apple TV+, Disney+, HBO Max, Hulu, Netflix, Peacock, and Prime Video originals, plus Shudder |
+| Awards & Yearly Picks | Oscar and Golden Globes winners, Best of 2023, 2024, and 2025, and IMDb MovieMeter Top 100 |
+| Seasonal Collections | Halloween, Christmas, Valentine's Day, Easter, Thanksgiving, New Year, AAPI Heritage Month, Latinx Heritage Month, and Pride Month |
+| Studios & Labels | Criterion Collection, A24, IFC Films, and Studio Ghibli |
+| Popular Genres | 18 genre shelves sorted by current popularity, plus Kids Movies |
+| Top Rated Genres | The same 18 genres sorted by rating |
+| Franchise Collections | Star Wars, James Bond, Wizarding World, Fast & Furious, The Lord of the Rings, The Hobbit, Jurassic Park, Pirates of the Caribbean, Mission: Impossible, MonsterVerse, and a TMDB Franchise placeholder |
+| All Defaults | Every template in the bundles above |
+
+A few templates are in no bundle and are added one at a time: Trending Today (All), the single-service lists such as Netflix Movies and HBO Shows, Custom MDBList, and Custom TMDB List.
+
+1. Choose **Browse Templates**, then a bundle.
+2. Under **Libraries**, choose the libraries to fill. Every library starts selected, or only the one you had open. Each library gets only the templates that fit its type.
+3. Under **Featured Sections**, check the **Home Hero** and the hero chosen for each library. Silo creates these hero sections unless you choose **No home hero** or **No library hero**.
+4. Choose **Preview** to see what would be created, skipped, and deleted. Nothing changes yet.
+5. Choose **Apply Defaults**. Silo applies the bundle in the background. The collections appear first, and their titles fill in as each first sync finishes.
+
+Applying a bundle again is safe. Silo skips a template it already applied to a library, and a template whose title matches a collection already in that library.
+
+## Replace existing collections with a bundle
+
+Turn on **Delete Existing Server Collections** only when you want to start over. It removes every shared collection in the chosen libraries before the bundle is applied, including hidden ones and ones you made by hand. Hero sections the same bundle created before are removed too.
+
+Silo keeps a collection that also belongs to a library you did not choose, and a collection that a home section uses. Choose **Preview** first and read the list of collections it would delete.
 
 ## Change a collection
 
@@ -29,3 +84,9 @@ Use its edit action to change filters, title, visibility, or artwork, then choos
 **Hidden** removes a collection from normal browsing. **Featured** surfaces it near the top of the library. To put a collection in a particular home row, [add a section](/docs/home-sections).
 
 If a collection looks empty, check its filters and source results. Each viewer sees only the items their libraries and profile restrictions allow.
+
+## If a template collection does not sync
+
+The **TMDB Franchise** template, in Franchise Collections and All Defaults, is a placeholder that does not point at a TMDB franchise. Its collection stays empty, and syncing it fails with `TMDB franchise template requires a collection_id — edit the collection's source config and supply a real TMDB collection ID`. The collection editor cannot set that ID, so delete the collection.
+
+MDBList lists are kept by MDBList users, and a list can be removed there. The collection's sync then fails. Delete the collection, or create a replacement from another list.
