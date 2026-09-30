@@ -282,6 +282,22 @@ If you ever change hosting or domain, override the build with repo
 variables (`vars.SITE`, `vars.BASE_PATH`) — the workflow honors both,
 so the same code deploys to a different URL shape without code changes.
 
+## Cloudflare caching
+
+GitHub Pages remains the origin. Cloudflare caches the public website at the
+edge, while browsers revalidate pages and files whose URLs can change contents.
+Files with hashes in their names under `/_astro/` can be cached for a year.
+
+Every successful production deployment writes `/_build.json` with the commit,
+workflow run, and attempt. The deploy job waits until that marker matches the
+new artifact, purges the `siloserver.org` hostname, and checks the homepage. This
+covers pushes, scheduled builds, release dispatches, and manual deployments.
+The marker bypasses Cloudflare caching; a failed purge fails the deployment job.
+
+The repository needs `CLOUDFLARE_ZONE_ID` as an Actions variable and
+`CLOUDFLARE_CACHE_PURGE_TOKEN` as an Actions secret. The token needs only Cache
+Purge permission for this zone. It is sent only to Cloudflare's API.
+
 ## Design system
 
 The site uses an industrial-datasheet aesthetic: warm paper surfaces,
