@@ -73,57 +73,6 @@ Starting the container alone does not switch Silo's search engine. Port 7700 is 
 
 The Compose file pins the Meilisearch version, because Meilisearch cannot open data written by a different version. To upgrade, change `MEILISEARCH_IMAGE` and set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. You can also empty the `meilisearch` directory and let Silo rebuild the index.
 
-## Valkey in place of Redis
-
-:::caution[Tested with Redis only]
-Silo is currently tested only against Redis. Valkey support is provided as-is, with no support offered for Valkey-specific problems.
-:::
-
-[Valkey](https://valkey.io/) speaks the Redis protocol, and Silo connects to it with a `redis://` URL. There is no Valkey-specific setting.
-
-To use an existing Valkey server and keep the bundled PostgreSQL, save this override as `valkey-external.yml` in the Compose directory, with your server's address:
-
-```yaml
-services:
-  silo:
-    environment:
-      REDIS_URL: redis://your-valkey-host:6379
-    depends_on: !override
-      postgres:
-        condition: service_healthy
-  redis:
-    profiles: [external]
-```
-
-It points Silo at your server, stops Silo waiting for the bundled `redis` service, and moves that service into a profile so it no longer starts. `!override` needs Compose 2.24 or newer. To replace PostgreSQL as well, see [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis).
-
-To run Valkey as the bundled service on a new installation, save this override as `valkey-override.yml` instead:
-
-```yaml
-services:
-  redis:
-    image: valkey/valkey:alpine
-```
-
-The base Compose file's `redis-cli ping` health check works with the official Valkey image.
-
-Then add the override in `.env`, so every later `docker compose` command, including updates, uses it. For the bundled service:
-
-```dotenv
-COMPOSE_FILE=docker-compose.yml:valkey-override.yml
-```
-
-For an existing server, list `valkey-external.yml` instead. If you already set `COMPOSE_FILE`, add the override to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
-
-Check the merged configuration, then start the stack:
-
-```sh
-docker compose config --quiet
-docker compose up -d
-```
-
-Before switching an existing installation's bundled service to Valkey, check your Redis version and follow [Valkey's migration guide](https://valkey.io/topics/migration/). The bundled Compose file reuses the same `/data` mount, and Valkey can't read data files written by Redis 7.4 or later.
-
 ## Hardware transcoding on Linux
 
 The default stack uses the CPU only. For a GPU, add the matching overlay:
