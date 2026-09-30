@@ -23,7 +23,7 @@ env:
 jobs:
   pr-build:
     if: inputs.task == 'pr-build'
-    runs-on: ${{ inputs.self_hosted && (github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main'))) && fromJSON(format('["self-hosted","linux","x64","silo-linux","silo-run-{0}-{1}","silo-job-build"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.self_hosted && (github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON(vars.SILO_CI_MEMBERS || '[]'), github.event.pull_request.user.login)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main'))) && fromJSON(format('["self-hosted","linux","x64","silo-linux","silo-run-{0}-{1}","silo-job-build"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
 
   site-build:
     if: inputs.task == 'site-build' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: ${{ inputs.self_hosted && (github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main'))) && fromJSON(format('["self-hosted","linux","x64","silo-linux","silo-run-{0}-{1}","silo-job-site-build"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.self_hosted && (github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON(vars.SILO_CI_MEMBERS || '[]'), github.event.pull_request.user.login)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main'))) && fromJSON(format('["self-hosted","linux","x64","silo-linux","silo-run-{0}-{1}","silo-job-site-build"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
