@@ -38,7 +38,7 @@ Silo uses these images only when **NFO Files** is checked for the library, but a
 
 Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when the folder holds a single title. A `folder.jpg` shared by a folder of several movies applies to none of them. `<media basename>-poster.jpg` always applies to its own movie.
 
-After you replace an image, refresh the item. The **Images** list in **Edit Metadata** shows provider images only, not your local files.
+After you replace an image, refresh the item. Local images don't appear in the **Images** list in **Edit Metadata**.
 
 ## A small movie example
 
@@ -100,7 +100,7 @@ The folders and file names build the show, its seasons, and its episodes. The NF
 
 ## Use NFOs in a Mixed library
 
-Give each movie or event its own `Title (Year)` folder, and put each show's episodes in `Season NN` folders. In a [Mixed library](/docs/manage-libraries#choose-a-library-type), this sports library holds both:
+Give each movie or event its own `Title (Year)` folder, and put each show's episodes in `Season NN` folders. This sports layout keeps events and weekly shows in one [Mixed library](/docs/manage-libraries#choose-a-library-type):
 
 ```text
 WWE/
@@ -124,9 +124,10 @@ An event with a `<uniqueid type="tmdb">` still gets online details. An event wit
 
 If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
-1. In **Admin > Libraries**, look for the folder under **Ambiguous Roots**.
-2. If it's listed, select **Override**, set **Type** to **Movie** or **Series**, and select **Save Override**. Then scan the library.
-3. If it isn't listed, fix the folder layout and scan again.
+1. In **Admin > Libraries**, look for the folder under **Ambiguous Roots**. If it isn't listed, fix the folder layout and scan the library again instead.
+2. Select **Override** beside the folder.
+3. Set **Type** to **Movie** or **Series**, then select **Save Override**.
+4. Scan the library.
 
 ## When changes don't appear
 
