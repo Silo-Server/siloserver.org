@@ -40,7 +40,24 @@ Your own recordings need no provider ID. For a published title, add its real ID 
 
 ## What gets used
 
-Movie and series NFOs can supply title, original title, tagline, plot, year, runtime, release or air date, content rating, genres, studios, countries, tags, ratings, cast, crew, and TMDB/TVDB/IMDb IDs. Season and episode NFOs support a smaller set.
+| Element | Applies to | Becomes |
+| --- | --- | --- |
+| `<title>`, `<originaltitle>`, `<tagline>`, `<plot>` | movie, series | title, original title, tagline, description |
+| `<year>` | movie, series | year; taken from the release or air date when missing |
+| `<runtime>` | movie, series | runtime in minutes; a value that isn't a number is ignored |
+| `<premiered>` or `<releasedate>` | movie | release date, as `YYYY-MM-DD` |
+| `<premiered>` or `<aired>` | series | first air date, as `YYYY-MM-DD` |
+| `<mpaa>` | movie, series | content rating |
+| `<genre>`, `<studio>`, `<country>`, `<tag>`, each repeated | movie, series | genres, studios, countries, keywords |
+| `<ratings>` with `<rating name="...">` | movie, series, episode | ratings named `imdb`, `tmdb` or `themoviedb`, `tomatometerallcritics` or `rottentomatoes`, and `tomatometerallaudience` |
+| `<rating>` on its own | movie, series, episode | IMDb rating, when `<ratings>` has none |
+| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; actor photos in `<thumb>` are ignored |
+| `<director>`, `<credits>` | movie, series | directors, writers |
+| `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title |
+| `<title>`, `<plot>` in `<season>` | season | season name and description |
+| `<title>`, `<plot>`, `<aired>`, `<runtime>` in `<episodedetails>` | episode | episode title, description, air date, runtime |
+
+Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
 
 With NFO Files first, its filled-in fields win and later providers fill the gaps. Genres come as a whole list from the first provider that has any.
 
