@@ -27,37 +27,12 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          # Per-page documentation dates need each file's Git history.
-          fetch-depth: 0
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Build site
-        env:
-          # Used by src/data/releases.ts to raise the GitHub API rate limit.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Override these in the workflow (or set repo secrets/vars) when
-          # the site moves to a custom domain. SITE is the canonical origin
-          # used for OpenGraph/sitemap; BASE_PATH is the URL prefix.
-          SITE: ${{ vars.SITE || 'https://siloserver.org' }}
-          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
-        run: bun run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+    permissions:
+      contents: read
+    uses: Silo-Server/siloserver.org/.github/workflows/trusted-linux-ci.yml@main
+    with:
+      self_hosted: true
+      task: site-build
 
   deploy:
     needs: build
@@ -69,3 +44,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Checkout deployment scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Purge and verify the website cache
+        timeout-minutes: 10
+        env:
+          CLOUDFLARE_CACHE_PURGE_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_PURGE_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          SITE: ${{ vars.SITE || 'https://siloserver.org' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
+        run: node scripts/cloudflare-cache.mjs purge

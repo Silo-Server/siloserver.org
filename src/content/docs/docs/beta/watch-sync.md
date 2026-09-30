@@ -23,6 +23,12 @@ An administrator enters Trakt and Simkl application credentials in
 services. MDBList needs no server setup: each person enters their own API key.
 Providers added by a plugin may need their own configuration.
 
+To get Trakt credentials, create an API app on the
+[Trakt developer portal](https://developer.trakt.tv/). Trakt requires a
+verified GitHub account to create one. Silo signs in with a device code, so
+enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Copy the app's
+client ID and client secret into Silo.
+
 If no provider is set up, the personal **Watch Providers** page says so.
 
 ## Connect your profile
@@ -37,6 +43,10 @@ If no provider is set up, the personal **Watch Providers** page says so.
 
 Each connection belongs to one profile. Other household members connect
 their own profiles.
+
+Free Trakt accounts can connect only a limited number of apps. If Trakt won't
+authorize Silo, remove an app you no longer use from your Trakt account's
+connected apps, then try again.
 
 ## Choose what syncs
 
@@ -58,6 +68,10 @@ Select **Sync now** to sync straight away. The connection card shows when
 it last imported and exported, how many items transferred, and any error.
 Titles that aren't in your Silo libraries, or that the provider can't match,
 don't transfer.
+
+If the provider stops accepting your sign-in, for example after you revoke
+Silo's access in your provider account, the card shows the error on every
+sync. Select **Disconnect**, then **Connect** again.
 
 **Disconnect** removes the connection but doesn't undo changes that were
 already synced in either direction.
