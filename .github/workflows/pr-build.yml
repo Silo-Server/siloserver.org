@@ -22,49 +22,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-          # Match production's per-page documentation dates.
-          fetch-depth: 0
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Check preview lifecycle
-        run: python3 scripts/test-preview-workflows.py
-
-      - name: Build preview
-        env:
-          # No GITHUB_TOKEN here on purpose. src/data/releases.ts falls back to
-          # plain repository links when the release lookup is rate-limited,
-          # which is an acceptable difference in a preview and keeps this job
-          # free of credentials that contributor code could read.
-          #
-          # Preview alias: pr-<number>.<project>.pages.dev. Cloudflare repoints
-          # it to the newest upload for the branch, so the URL stays stable.
-          SITE: https://pr-${{ github.event.pull_request.number }}.${{ env.PREVIEW_PROJECT }}.pages.dev
-          BASE_PATH: /
-          PUBLIC_PREVIEW_PR_NUMBER: ${{ github.event.pull_request.number }}
-          PUBLIC_PREVIEW_PR_URL: ${{ github.event.pull_request.html_url }}
-          PUBLIC_PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
-        run: bun run build
-
-      - name: Keep previews out of search indexes
-        run: |
-          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > dist/_headers
-
-      - name: Upload site
-        uses: actions/upload-artifact@v4
-        with:
-          name: preview-site
-          path: dist
-          retention-days: 3
+    uses: Silo-Server/siloserver.org/.github/workflows/trusted-linux-ci.yml@main
+    with:
+      self_hosted: ${{ github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')) }}
+      task: pr-build
