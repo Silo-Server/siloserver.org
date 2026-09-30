@@ -26,3 +26,15 @@ jobs:
     with:
       self_hosted: ${{ github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')) }}
       task: pr-build
+
+  routing-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect routing metadata
+        env:
+          REPOSITORY: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          MEMBER_HINT: ${{ contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association) }}
+          ROUTE: ${{ github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON('["MEMBER","OWNER"]'), github.event.pull_request.author_association)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')) }}
+        run: printf '%s\n' "$REPOSITORY" "$EVENT" "$ASSOCIATION" "$MEMBER_HINT" "$ROUTE"
