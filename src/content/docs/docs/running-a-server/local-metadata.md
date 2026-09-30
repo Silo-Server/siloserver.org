@@ -78,6 +78,56 @@ With NFO Files first, its filled-in fields win and later providers fill the gaps
 
 NFOs don't set watched status, personal ratings, or collections.
 
+## Set up a series with no online match
+
+For a series no online provider knows, such as a workout course, name the folders and files like any other series and add NFOs for the names and descriptions:
+
+```text
+Fitness/
+  Workout Series/
+    tvshow.nfo            # show title and plot, no <uniqueid> needed
+    poster.jpg
+    fanart.jpg
+    Season 01/
+      season.nfo          # season name, such as "Course A"
+      poster.jpg          # season poster
+      Workout Series S01E01 - Chest and Back.mkv
+      Workout Series S01E01 - Chest and Back.nfo        # episode title and plot
+      Workout Series S01E01 - Chest and Back-thumb.jpg  # episode image
+```
+
+The folders and file names build the show, its seasons, and its episodes. The NFOs and images supply names, descriptions, and artwork. An episode without an `.nfo` is titled `Episode 1`, `Episode 2`, and so on, so you can fill in a show a few episodes at a time.
+
+## Use NFOs in a Mixed library
+
+Give each movie or event its own `Title (Year)` folder, and put each show's episodes in `Season NN` folders. In a [Mixed library](/docs/manage-libraries#choose-a-library-type), this sports library holds both:
+
+```text
+WWE/
+  WrestleMania 41 (2025)/
+    WrestleMania 41 (2025).mkv
+    movie.nfo             # event title and plot; <uniqueid> optional
+    poster.jpg
+  WWE SmackDown/
+    tvshow.nfo
+    Season 27/
+      season.nfo
+      poster.jpg
+      WWE SmackDown S27E15.mkv
+      WWE SmackDown S27E15.nfo
+      WWE SmackDown S27E15-thumb.jpg
+```
+
+Silo decides whether a file is a movie or an episode from its folders and file name, before it reads any NFO. A file inside a season folder is an episode. A file in a folder named like a movie is a movie, even if its name has an `S01E01` code. An NFO can't change this, and Silo ignores a `tvshow.nfo` beside a file it treats as a movie.
+
+An event with a `<uniqueid type="tmdb">` still gets online details. An event without one uses its NFO and local images.
+
+If a folder is sorted as the wrong type, fixing the NFO won't move it:
+
+1. In **Admin > Libraries**, look for the folder under **Ambiguous Roots**.
+2. If it's listed, select **Override**, set **Type** to **Movie** or **Series**, and select **Save Override**. Then scan the library.
+3. If it isn't listed, fix the folder layout and scan again.
+
 ## When changes don't appear
 
 Scheduled metadata work only fills gaps, so after editing an NFO, refresh the item yourself.
