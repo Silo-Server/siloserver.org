@@ -77,6 +77,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          persist-credentials: false
           # Per-page documentation dates need each file's Git history.
           fetch-depth: 0
 
@@ -106,4 +107,3 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-
