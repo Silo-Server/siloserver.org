@@ -8,7 +8,7 @@ Use **Admin > Settings > Appearance** to change how your server looks in a brows
 
 ## Change the logos and colors
 
-1. Under **Logos and icons**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Uploads need a public S3 bucket, set in **Storage & Database**; see [artwork storage](/docs/s3-storage).
+1. Under **Logos and icons**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Silo saves uploads in [artwork storage](/docs/s3-storage), on local disk or in S3.
 2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar.
 3. Save, then look at a normal page and the signed-out sign-in page.
 
