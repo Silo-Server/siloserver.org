@@ -122,7 +122,7 @@ To show it on poster cards as well, open **Settings > Card Overlays** and, under
 **Ratings & Certifications**, turn on **Advisory Age**. Cards then show the age,
 such as `13+`, in the bottom-right corner. Titles without an advisory age show
 no badge. The badge doesn't depend on **Show advisory age**; you can turn on
-either one alone. The Apple and Android apps don't show the badge.
+either one alone.
 
 Both settings only change what's displayed; the profile's age limit applies
 either way.
