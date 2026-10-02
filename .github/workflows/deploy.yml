@@ -31,7 +31,7 @@ jobs:
       contents: read
     uses: Silo-Server/siloserver.org/.github/workflows/trusted-linux-ci.yml@main
     with:
-      self_hosted: true
+      self_hosted: false
       task: site-build
 
   deploy:
