@@ -24,5 +24,5 @@ jobs:
   build:
     uses: Silo-Server/siloserver.org/.github/workflows/trusted-linux-ci.yml@main
     with:
-      self_hosted: ${{ github.repository == 'Silo-Server/siloserver.org' && ((github.event_name == 'pull_request' && contains(fromJSON(vars.SILO_CI_MEMBERS || '[]'), github.event.pull_request.user.login)) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')) }}
+      self_hosted: false
       task: pr-build
