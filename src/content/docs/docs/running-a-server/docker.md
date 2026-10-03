@@ -82,6 +82,23 @@ The default stack uses the CPU only. For a GPU, add the matching overlay:
 
 The full procedure is in [Set up transcoding](/docs/playback).
 
+## Docker inside an LXC container
+
+If the Docker host is itself an LXC container, such as on Proxmox, bind-mount the LXC's view of `/proc` into each Silo container:
+
+```yaml
+volumes:
+  - /proc/meminfo:/host/proc/meminfo:ro
+  - /proc/stat:/host/proc/stat:ro
+  - /proc/loadavg:/host/proc/loadavg:ro
+```
+
+Without these, Silo reads the physical machine's CPU, memory, and load instead of the LXC's limits, so the dashboard and [node status](/docs/node-status#load-inside-a-container) show the wrong figures. The default Compose file already has these mounts on the `silo` service. In the `silo-proxy` and `silo-transcode` examples they're commented out.
+
+Silo uses each file under `/host/proc` when it's there and its own `/proc` otherwise, with no setting to change. On a bare-metal or VM Docker host the mounts change nothing.
+
+The LXC's load average is correct only when lxcfs runs with load average support (`lxcfs -l`), which is off by default on Proxmox. Without it, the load average stays the physical machine's while CPU and memory are correct.
+
 ## Distributed and external services
 
 The Compose file includes commented examples for separate proxy and transcode workers. Leave them off on a single host; see [Transcode nodes](/docs/transcode-nodes).
