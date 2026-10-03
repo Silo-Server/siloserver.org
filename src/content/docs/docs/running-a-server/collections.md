@@ -38,33 +38,21 @@ The form has these fields:
 - **Collection Title** and **Description**.
 - **MDBList URL** or **TMDB list URL**, when the template follows a list you choose.
 - **Poster**: **Server default** keeps the template's poster, and **Custom URL** uses an image link instead.
-- **Max Items**: how many titles the collection keeps. Most templates keep 100. The IMDb Top 250 templates keep 250, and Criterion Collection and A24 have no limit.
+- **Max Items**: how many titles the collection keeps. Most templates keep 100, and a few keep more or have no limit.
 - **Featured**: surfaces the collection near the top of the library.
 - **Default Sort**: the order viewers see when they open the collection.
-- **Sync Schedule**: how often Silo reads the source again. Trending Today (All) and Airing Today start at every 6 hours. Top rated, IMDb, and editorial templates such as awards, seasonal, studio, and franchise lists start at weekly. The rest start at daily. Choose **No automatic sync** to sync only when you ask.
+- **Sync Schedule**: how often Silo reads the source again. Lists that change often, such as trending, start at daily or more often. Lists that change slowly, such as top rated or award winners, start at weekly. Choose **No automatic sync** to sync only when you ask.
 
 ## Apply a template bundle
 
-A bundle creates a whole set of template collections at once. Bundles appear at the top of **Browse Templates**, above the search.
+A bundle creates a whole set of template collections at once, such as a starter set of trending and top-rated lists or a shelf for each genre. Bundles appear at the top of **Browse Templates**, above the search, each with a short description and the number of templates it holds. **All Defaults** applies every bundle together.
 
-| Bundle | Creates |
-| --- | --- |
-| Core Defaults | Trending, popular, and top-rated movies and TV, now playing, upcoming, airing today, on the air, IMDb Top 250 movies and shows, and a few MDBList picks |
-| Streaming Originals | Apple TV+, Disney+, HBO Max, Hulu, Netflix, Peacock, and Prime Video originals, plus Shudder |
-| Awards & Yearly Picks | Oscar and Golden Globes winners, Best of 2023, 2024, and 2025, and IMDb MovieMeter Top 100 |
-| Seasonal Collections | Halloween, Christmas, Valentine's Day, Easter, Thanksgiving, New Year, AAPI Heritage Month, Latinx Heritage Month, and Pride Month |
-| Studios & Labels | Criterion Collection, A24, IFC Films, and Studio Ghibli |
-| Popular Genres | 18 genre shelves sorted by current popularity, plus Kids Movies |
-| Top Rated Genres | The same 18 genres sorted by rating |
-| Franchise Collections | Star Wars, James Bond, Wizarding World, Fast & Furious, The Lord of the Rings, The Hobbit, Jurassic Park, Pirates of the Caribbean, Mission: Impossible, MonsterVerse, and a TMDB Franchise placeholder |
-| All Defaults | Every template in the bundles above |
-
-A few templates are in no bundle and are added one at a time: Trending Today (All), the single-service lists such as Netflix Movies and HBO Shows, Custom MDBList, and Custom TMDB List.
+Some templates are in no bundle, including **Custom MDBList** and **Custom TMDB List**. Add those one at a time.
 
 1. Choose **Browse Templates**, then a bundle.
 2. Under **Libraries**, choose the libraries to fill. Every library starts selected, or only the one you had open. Each library gets only the templates that fit its type.
 3. Under **Featured Sections**, check the **Home Hero** and the hero chosen for each library. Silo creates these hero sections unless you choose **No home hero** or **No library hero**.
-4. Choose **Preview** to see what would be created, skipped, and deleted. Nothing changes yet.
+4. Choose **Preview** to see the exact collections it would create, skip, and delete. Nothing changes yet.
 5. Choose **Apply Defaults**. Silo applies the bundle in the background. The collections appear first, and their titles fill in as each first sync finishes, showing only titles already in your library.
 
 Applying a bundle again is safe. Silo skips a template it already applied to a library, and a template whose title matches a collection already in that library.
@@ -85,6 +73,6 @@ If a collection looks empty, check its filters and source results. Each viewer s
 
 ## If a template collection does not sync
 
-The **TMDB Franchise** template, in Franchise Collections and All Defaults, is a placeholder that does not point at a TMDB franchise. Its collection stays empty, and syncing it fails with `TMDB franchise template requires a collection_id — edit the collection's source config and supply a real TMDB collection ID`. The collection editor cannot set that ID, so delete the collection.
+The **TMDB Franchise** template, which some bundles add, is a placeholder that does not point at a TMDB franchise. Its collection stays empty, and syncing it fails with `TMDB franchise template requires a collection_id — edit the collection's source config and supply a real TMDB collection ID`. The collection editor cannot set that ID, so delete the collection.
 
 MDBList lists are kept by MDBList users, and a list can be removed there. The collection's sync then fails. Delete the collection, or create a replacement from another list.
