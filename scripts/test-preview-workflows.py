@@ -26,7 +26,7 @@ def deployment(id='old', branch='pr-21', created='2021-03-09T00:55:03.923456Z'):
 
 
 class TeardownTests(unittest.TestCase):
-    def run_cleanup(self, pages, branch='pr-21', failed=False, missing=False):
+    def run_cleanup(self, pages, branch='pr-21', failed=False, missing=False, keep=''):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             (folder / 'pages.json').write_text(json.dumps(pages))
@@ -46,7 +46,7 @@ else:
             fake.chmod(0o755)
             env = dict(os.environ, PATH=f'{folder}:{os.environ["PATH"]}', CF_ACCOUNT_ID='test',
                        CF_API_TOKEN='test', PREVIEW_PROJECT='test', PR_BRANCH=branch,
-                       MAX_AGE_DAYS='30', FAIL_DELETE='1' if failed else '0', MISSING='1' if missing else '0')
+                       MAX_AGE_DAYS='30', KEEP_ID=keep, FAIL_DELETE='1' if failed else '0', MISSING='1' if missing else '0')
             result = subprocess.run(['bash', '-c', TEARDOWN], cwd=folder, env=env,
                                     capture_output=True, text=True)
             deleted = (folder / 'deleted.txt').read_text().splitlines() if (folder / 'deleted.txt').exists() else []
@@ -62,6 +62,11 @@ else:
 
     def test_close_filters_branch_across_pages(self):
         result, deleted = self.run_cleanup([[deployment('other', 'pr-22')], [deployment()]])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(deleted, ['old'])
+
+    def test_close_keeps_the_redirect_deployment(self):
+        result, deleted = self.run_cleanup([[deployment('redirect'), deployment()]], keep='redirect')
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(deleted, ['old'])
 
@@ -202,6 +207,60 @@ try {
 
     def test_api_failure_fails(self):
         self.assertNotEqual(self.run_status([{'name': 'deploy', 'status': 'success'}], api_success=False).returncode, 0)
+
+
+class RedirectTests(unittest.TestCase):
+    def publish(self, records=None):
+        script = block('preview-teardown.yml', 'Publish a redirect on the preview address', 'run')
+        if records is None:
+            records = [{'type': 'version'}, {'type': 'pages-deploy', 'pages_project': 'test', 'deployment_id': 'redirect-id'}]
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            fakes = folder / 'bin'
+            tools = folder / 'trusted-preview/.github/preview-tools/node_modules/.bin'
+            fakes.mkdir()
+            tools.mkdir(parents=True)
+            (fakes / 'npm').write_text('#!/bin/sh\nexit 0\n')
+            (tools / 'wrangler').write_text('#!/bin/sh\necho "$@" > "$RUNNER_TEMP/args"\nprintf "%s" "$RECORDS" > "$WRANGLER_OUTPUT_FILE_PATH"\n')
+            for tool in (fakes / 'npm', tools / 'wrangler'):
+                tool.chmod(0o755)
+            env = dict(os.environ, PATH=f'{fakes}:{os.environ["PATH"]}', RUNNER_TEMP=str(folder),
+                       GITHUB_OUTPUT=str(folder / 'output'), PREVIEW_PROJECT='test', PR_NUMBER='21',
+                       WRANGLER_OUTPUT_FILE_PATH=str(folder / 'out.ndjson'),
+                       RECORDS='\n'.join(json.dumps(record) for record in records))
+            result = subprocess.run(['bash', '-c', script], cwd=folder, env=env, capture_output=True, text=True)
+            read = lambda name: (folder / name).read_text() if (folder / name).exists() else ''
+            return result, read('redirect-site/_redirects'), read('args'), read('output')
+
+    def test_every_page_keeps_its_path(self):
+        result, redirects, args, output = self.publish()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(redirects, '/*  https://siloserver.org/:splat  302\n')
+        self.assertIn('--branch=pr-21', args)
+        self.assertEqual(output, 'id=redirect-id\n')
+
+    def test_missing_deployment_id_fails(self):
+        result, _, _, output = self.publish(records=[{'type': 'version'}])
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(output, '')
+
+    def test_redirect_is_optional_and_precedes_deletion(self):
+        result = subprocess.run(['bun', '-e', '''
+console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/preview-teardown.yml').text())));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        steps = json.loads(result.stdout)['jobs']['teardown']['steps']
+        names = [step['name'] for step in steps]
+        delete = names.index('Delete previews')
+        for name in ('Checkout trusted deployment tooling', 'Publish a redirect on the preview address',
+                     'Wait for the preview address to redirect'):
+            self.assertLess(names.index(name), delete)
+            # A failed redirect must never stop the old preview from being deleted.
+            self.assertTrue(steps[names.index(name)]['continue-on-error'])
+        checkout = steps[names.index('Checkout trusted deployment tooling')]['with']
+        self.assertEqual(checkout['ref'], '${{ github.workflow_sha }}')
+        self.assertEqual(checkout['sparse-checkout'], '.github/preview-tools')
+        self.assertFalse(checkout['persist-credentials'])
+        self.assertEqual(steps[delete]['env']['KEEP_ID'], '${{ steps.redirect.outputs.id }}')
 
 
 class LifecycleOrderingTests(unittest.TestCase):

@@ -208,6 +208,14 @@ linking back to the pull request, carry `noindex`, and are deleted by
 `preview-teardown.yml` when the pull request is merged or closed (plus a weekly
 sweep of anything older than 30 days).
 
+Cloudflare can keep serving a deleted deployment on its alias for a while, so
+teardown first publishes a one-rule redirect to the alias and keeps it. Each page
+redirects to the same path on siloserver.org, so a page that never shipped gets
+the site's 404 page. Teardown waits until the alias returns the
+redirect, then deletes every other deployment for that pull request. If the
+redirect fails, teardown still deletes the preview. The weekly sweep removes the
+redirect once it is 30 days old.
+
 The optional `preview` commit status appears while the build is queued, then
 reports building, waiting for deployment, deploying, and the final result.
 Pending or failed statuses link to the workflow; successful ones link to the
