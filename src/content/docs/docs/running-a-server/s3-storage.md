@@ -16,6 +16,8 @@ Before the first library scan, open **Admin > Settings > Storage & Database** an
 
 Save and follow the restart notice. For a single host, local disk is enough.
 
+**Keep provider artwork**, under **Artwork** in **Admin > Settings > Library & Metadata**, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
+
 Silo records the location the first time it stores a file. From then on, a change goes through a [storage transition](#change-storage-later).
 
 ## Public and private storage
@@ -23,6 +25,8 @@ Silo records the location the first time it stores a file. From then on, a chang
 **Public storage** holds files clients download directly: cached artwork, uploaded posters, and branding images. "Public" describes how the files are used; the bucket does not need to be readable by everyone.
 
 **Private storage** holds files only the server reads: profile avatars, diagnostic bundles, and catalog seed artifacts. Without a private bucket, a local-disk install keeps these on local disk. An install that stores artwork in S3 needs a private bucket for profile avatar uploads.
+
+Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside the bucket** when it starts, even if nothing is stored there yet. Changing them afterwards takes a [storage transition](#change-storage-later).
 
 ## Set up S3
 
