@@ -31,6 +31,8 @@ movies/
     poster.jpg
 ```
 
+Silo uses `poster.jpg` only when **NFO Files** is checked for the library. See [artwork names](/docs/local-metadata#add-artwork).
+
 Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-style names like `Movie.Name.2024.1080p.BluRay.mkv`. Silo removes resolution, source, and codec details from the search title.
 
 ## Series
