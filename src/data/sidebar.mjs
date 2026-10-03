@@ -110,6 +110,7 @@ export const sidebar = [
       "docs/catalog-seeds",
       "docs/native-macos",
       "docs/network-access",
+      "docs/tailscale-sign-in",
       "docs/podcasts-and-music",
     ].map(page),
   },

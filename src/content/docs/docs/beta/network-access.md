@@ -11,17 +11,33 @@ This feature is in Beta and may change or be removed in a future release.
 
 The Tailscale plugin adds your Silo server to your Tailscale network
 (tailnet). Devices signed in to the same tailnet reach the server at an
-HTTPS address, with no port forwarding or public reverse proxy. The plugin is
-an approved community plugin, maintained by community contributors rather
-than the Silo project.
+HTTPS address, with no port forwarding or public reverse proxy. The plugin
+runs its own Tailscale node inside Silo, so the server doesn't need the
+Tailscale app. The plugin is an approved community plugin, maintained by
+community contributors rather than the Silo project.
 
 ## Before you start
 
-In the Tailscale admin console, turn on **MagicDNS** and **HTTPS
-certificates**. The server can't get an HTTPS address without both.
+In the Tailscale admin console, open **DNS**. Check that **MagicDNS** is on,
+as it is for new tailnets. Under **HTTPS Certificates**, select **Enable
+HTTPS...** and confirm. The server can't get an HTTPS address without both.
+
+![The DNS page of the Tailscale admin console, showing the MagicDNS section and the Enable HTTPS button under HTTPS Certificates.](../../../../assets/docs/tailscale/dns-https-certificates.png)
 
 Tailscale records the certificate's name in public Certificate Transparency
 logs, so choose a hostname you don't mind being public.
+
+To tag the server, which the [Tailscale sign-in](/docs/tailscale-sign-in)
+examples assume, create the tag before you connect it:
+
+1. Open **Access controls > Definitions** and select the **Tags** tab.
+2. Select **Create tag**. Enter `silo` as the **Tag name**, choose a **Tag
+   owner** such as `autogroup:admin`, and select **Save tag**.
+
+![The Create tag form in the Tailscale admin console, with the tag name silo and the owner autogroup:admin.](../../../../assets/docs/tailscale/create-tag.png)
+
+Tailscale turns off key expiry for tagged devices, so a tagged server
+doesn't need to be approved again later.
 
 ## Install the plugin
 
@@ -38,19 +54,28 @@ logs, so choose a hostname you don't mind being public.
    - **Tags** is optional, for example `tag:silo`. Your tailnet policy or
      auth key must allow the tags.
 
-Leave **Funnel — public internet access** off. It opens Silo to the whole
-internet, needs Funnel permission in your tailnet policy, and isn't well
-suited to streaming video.
+The plugin serves Silo only on your tailnet. To reach Silo from the public
+internet, use a [reverse proxy](/docs/reverse-proxy). Plugin version 0.2.0
+removed the earlier Funnel option, so a server that used Funnel stops
+answering publicly after the update.
 
 ## Connect the server
 
 1. Open **Admin > Settings > Network Access**.
 2. Under **Tailscale**, select **Connect** on the row for your server.
 3. If the row shows **Waiting for authorization**, select **Open the
-   authorization page**, sign in to Tailscale, and approve the server. With a
+   authorization page**, sign in to Tailscale, and select **Connect**. With a
    saved auth key, this step is skipped.
+
+   ![Tailscale's Connect device page, asking to connect the device silo to the tailnet.](../../../../assets/docs/tailscale/connect-device.png)
+
 4. Wait for **Connected**. The row then shows the address clients use, after
    **Clients reach this host at**.
+
+The server also appears on the **Machines** page of the Tailscale admin
+console, with its tag if you set one.
+
+![The Machines page of the Tailscale admin console, listing the silo machine with the tag:silo tag and Expiry disabled.](../../../../assets/docs/tailscale/machines-silo-tagged.png)
 
 Proxy nodes appear as their own rows, named `<hostname>-proxy-<node id>`.
 
@@ -65,6 +90,9 @@ Jellyfin-compatible apps use the same name on port `8096`, and
 Audiobookshelf apps use port `13378`, when those endpoints are turned on.
 Your tailnet access policy must allow ports `443`, `8096`, and `13378` for
 the devices that connect.
+
+To share the server with people outside your tailnet and let them sign in
+without a password, see [Sign in with Tailscale](/docs/tailscale-sign-in).
 
 ## If it doesn't connect
 
