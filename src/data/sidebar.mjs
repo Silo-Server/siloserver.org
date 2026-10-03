@@ -88,6 +88,8 @@ export const sidebar = [
         "docs/updates",
         "docs/server-health",
         "docs/logging",
+        "docs/monitoring",
+        "docs/profiling",
       ]),
       group("Deployment reference", [
         "docs/docker",
