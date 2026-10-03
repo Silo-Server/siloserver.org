@@ -30,16 +30,29 @@ Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside 
 
 ## Set up S3
 
-You need a bucket and credentials from your S3 provider.
+Silo works with any S3-compatible service, including AWS S3, Ceph RGW, MinIO, Garage, and Cloudflare R2. Create a bucket, then an access key with these permissions on it:
+
+- `s3:PutObject`, `s3:GetObject`, and `s3:DeleteObject` to store, read, and remove files.
+- `s3:ListBucket` to check the bucket and list its files. **Check Connection**, the [readiness check](/docs/server-health), storage transitions, and diagnostics cleanup all need it.
+- `s3:PutBucketCORS` for a bucket that uses **Signed links (recommended)**. Silo sets the bucket's CORS rules when it starts so the web app can load files from it. If the key can't have this permission, add a CORS rule yourself that allows `GET` from any origin.
+
+Then connect the bucket:
 
 1. Open **Admin > Settings > Storage & Database**.
 2. Under **Public storage** or **Private storage**, enter the **Endpoint**, **Bucket**, **Access Key**, and **Secret Key**. Use your provider's S3 API endpoint, not the address of its web console.
-3. Under **Advanced**, set **Region** only if your provider requires one. Turn on **Put the bucket name in the URL path** for MinIO and other providers that need it. **Folder inside the bucket** is optional.
-4. For public storage, keep **How asset links are authorized** at **Signed links (recommended)** unless you have set up another method.
-5. Select **Check Connection**, save, and follow the restart notice.
-6. Open an image from a client on the network that will use it. The connection check runs from the server, so it can pass while clients still cannot reach the bucket.
+3. Under **Advanced**, set **Region** if your provider checks it, as Garage does. When it's blank, Silo signs requests for `us-east-1`. Turn on **Put the bucket name in the URL path** for MinIO and other providers that need it. **Folder inside the bucket** is optional.
+4. For public storage, keep **How asset links are authorized** at **Signed links (recommended)** unless you have set up [another option](#choose-how-clients-download-files).
+5. Select **Check Connection**. It writes, reads, and deletes a test file, so a missing permission shows up here.
+6. Save and follow the restart notice.
+7. Open an image from a client on the network that will use it. The connection check runs from the server, so it can pass while clients still cannot reach the bucket.
 
-Signed links let clients fetch a file without making the bucket public. **Anyone with the link** needs a publicly readable address, entered in **Address clients download from**. **Cloudflare signed token** needs token validation configured in Cloudflare; Silo only signs the links.
+### Choose how clients download files
+
+**How asset links are authorized**, under **Advanced** in **Public storage**, decides how clients get files from the public bucket:
+
+- **Signed links (recommended)** lets clients fetch a file without making the bucket public. It needs no other setup.
+- **Anyone with the link** needs the bucket, or a domain in front of it, to serve files without a signature. Enter that domain in **Address clients download from**, for example `https://cdn.example.com`. Anyone who has a file's address can download it.
+- **Cloudflare signed token** is for an R2 bucket behind a custom domain, with a Cloudflare rule that checks each link. Silo signs the links and Cloudflare checks them. See [Cloudflare R2](#cloudflare-r2).
 
 ## Change storage later
 
