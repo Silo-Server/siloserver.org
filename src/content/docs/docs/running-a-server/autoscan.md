@@ -6,8 +6,8 @@ description: Let Silo watch library folders on local disks, connect autoscan sou
 
 Silo notices new, changed, and removed files in three ways:
 
-- Real-time monitoring watches library folders on local disks and scans a changed file or folder within seconds. It's on by default and needs no setup.
-- Autoscan sources cover storage Silo can't watch, such as network shares. Another service, such as Sonarr or Radarr, tells Silo what changed, or a plugin checks a service for changes.
+- [Real-time monitoring](#real-time-monitoring) watches library folders on local disks and scans a changed file or folder within seconds. It's on by default and needs no setup.
+- [Autoscan sources](#autoscan-sources) cover storage Silo can't watch, such as network shares. Another service, such as Sonarr or Radarr, tells Silo what changed, or a plugin checks a service for changes.
 - The daily library scan catches anything the other two missed, including changes made while Silo was stopped. It's the **Queue Media Library Scans** task in **Admin > Scheduled Tasks** and runs at 02:00 by default.
 
 ## Real-time monitoring
