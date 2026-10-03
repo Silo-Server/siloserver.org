@@ -58,7 +58,11 @@ For a node in **Admin > Nodes**, use its **Re-probe** button instead. Re-probing
 Turn these on in **Admin > Settings > Playback** once your hardware handles ordinary conversions well. Both are off on a new server. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
 
 - **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
-- **Allow HEVC encoding** converts video to HEVC for devices that can play it. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264.
+- **Allow HEVC encoding** converts video to HEVC for devices that can play HEVC streams. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264. The setting only covers converted video: a device that plays an HEVC file as it is, or after Silo repackages it, plays it the same way with the setting off.
+
+After turning on **Allow HEVC encoding**, play something that needs conversion on a device that plays HEVC, and check the session in **Admin > Activity**. **SW** means the CPU is encoding: a GPU that converts to H.264 can't always encode HEVC, and Silo then encodes HEVC on the CPU. A GPU that tone-maps HDR video keeps doing that part. If the CPU load is too much, turn the setting off. The change applies to playback that starts after you save; streams already playing keep their codec.
+
+With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo checks each node's HEVC support separately.
 
 ## Generate chapter thumbnails
 
