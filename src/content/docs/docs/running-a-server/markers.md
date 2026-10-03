@@ -26,7 +26,7 @@ Silo first looks for a chapter in the file named for the intro or credits, such 
 - An episode's credits come from the ending audio its season shares and from credit text on a black or plain background, so an episode with no others in its season can still get credits.
 - A movie gets credits only, from the picture near the end. This is best effort: some movies get no credits marker, or one that starts late.
 
-Finding credits means reading the picture near the end of each video, which is a heavy task for the CPU. With [**Hardware acceleration**](/docs/playback#choose-and-test-acceleration) set up, Silo can do that work on the GPU instead.
+Finding credits involves scanning each video near the end, which is a heavy task for the CPU. With [**Hardware acceleration**](/docs/playback#choose-and-test-acceleration) set up, Silo can do that work on the GPU instead.
 
 **Detection workers** sets how many seasons or movies are analyzed at once. It defaults to 1; raise it to finish a large library sooner if your storage and CPU have room.
 
