@@ -131,7 +131,7 @@ Your first setup is complete when playback works. Choose only what you need next
 | Invite someone | [Accounts and invitations](/docs/manage-accounts) |
 | Add another library | [Libraries](/docs/manage-libraries) |
 | Correct a title or poster | [Metadata and artwork](/docs/metadata) |
-| Pick up new files automatically | [Autoscan](/docs/autoscan) |
+| Pick up new files on a network share | [Autoscan](/docs/autoscan#autoscan-sources) |
 | Reduce CPU load during playback | [Transcoding](/docs/playback) |
 | Use Silo away from home | [Secure external access](/docs/reverse-proxy) |
 | Investigate a failure | [Server health](/docs/server-health) |
