@@ -67,18 +67,19 @@ jobs:
             core.setOutput('closed', String(pr.state === 'closed'));
             if (pr.state !== 'closed') return;
             // Only pull requests that were ever published have an address to
-            // redirect. Publication always leaves this sticky comment.
+            // redirect. Publication always leaves this sticky comment, and the
+            // closing comment below only replaces it, never creates it.
             const comments = await github.paginate(github.rest.issues.listComments, {
               ...context.repo, issue_number: number, per_page: 100,
             });
             const published = comments.some((comment) => comment.user?.login === 'github-actions[bot]' &&
               comment.body?.includes('<!-- Sticky Pull Request Commentpreview -->'));
-            core.setOutput('redirect', String(published));
+            core.setOutput('published', String(published));
 
       - name: Checkout trusted deployment tooling
         # The redirect steps may fail without blocking deletion: removing the old
         # preview matters more than where its address points afterwards.
-        if: steps.state.outputs.redirect == 'true'
+        if: steps.state.outputs.published == 'true'
         continue-on-error: true
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -88,13 +89,13 @@ jobs:
           persist-credentials: false
 
       - name: Install locked deployment tooling
-        if: steps.state.outputs.redirect == 'true'
+        if: steps.state.outputs.published == 'true'
         continue-on-error: true
         timeout-minutes: 5
         run: npm ci --prefix trusted-preview/.github/preview-tools --no-audit --no-fund
 
       - name: Publish a redirect on the preview address
-        if: steps.state.outputs.redirect == 'true'
+        if: steps.state.outputs.published == 'true'
         id: redirect
         continue-on-error: true
         timeout-minutes: 5
@@ -206,7 +207,7 @@ jobs:
           exit "$failed"
 
       - name: Update the pull request comment
-        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true'
+        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true' && steps.state.outputs.published == 'true'
         uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           number: ${{ github.event.pull_request.number }}

@@ -309,7 +309,9 @@ console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/prev
         self.assertIn("steps.wait.outputs.ok == 'true'", steps[-1]['with']['message'])
         for name in ('Checkout trusted deployment tooling', 'Install locked deployment tooling',
                      'Publish a redirect on the preview address'):
-            self.assertEqual(steps[names.index(name)]['if'], "steps.state.outputs.redirect == 'true'")
+            self.assertEqual(steps[names.index(name)]['if'], "steps.state.outputs.published == 'true'")
+        # Teardown never creates the sticky comment, so it stays proof of publication.
+        self.assertIn("steps.state.outputs.published == 'true'", steps[-1]['if'])
 
 
 class LifecycleOrderingTests(unittest.TestCase):
@@ -394,7 +396,7 @@ try {
         cases = [([sticky], 'true'), ([], 'false'), ([forged], 'false')]
         for comments, expected in cases:
             result = self.check_state('closed', comments)
-            self.assertEqual(json.loads(result.stdout), {'closed': 'true', 'redirect': expected})
+            self.assertEqual(json.loads(result.stdout), {'closed': 'true', 'published': expected})
 
     def test_manual_run_rejects_a_bad_number(self):
         for number in ('0', '21; rm -rf /', 'abc'):
