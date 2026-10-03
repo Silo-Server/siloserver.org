@@ -216,33 +216,70 @@ class RedirectTests(unittest.TestCase):
             records = [{'type': 'version'}, {'type': 'pages-deploy', 'pages_project': 'test', 'deployment_id': 'redirect-id'}]
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
-            fakes = folder / 'bin'
             tools = folder / 'trusted-preview/.github/preview-tools/node_modules/.bin'
-            fakes.mkdir()
             tools.mkdir(parents=True)
-            (fakes / 'npm').write_text('#!/bin/sh\nexit 0\n')
-            (tools / 'wrangler').write_text('#!/bin/sh\necho "$@" > "$RUNNER_TEMP/args"\nprintf "%s" "$RECORDS" > "$WRANGLER_OUTPUT_FILE_PATH"\n')
-            for tool in (fakes / 'npm', tools / 'wrangler'):
-                tool.chmod(0o755)
-            env = dict(os.environ, PATH=f'{fakes}:{os.environ["PATH"]}', RUNNER_TEMP=str(folder),
+            (tools / 'wrangler').write_text('#!/bin/sh\necho "$@" > "$RUNNER_TEMP/args"\nls "$3" > "$RUNNER_TEMP/files"\nprintf "%s" "$RECORDS" > "$WRANGLER_OUTPUT_FILE_PATH"\n')
+            (tools / 'wrangler').chmod(0o755)
+            env = dict(os.environ, RUNNER_TEMP=str(folder),
                        GITHUB_OUTPUT=str(folder / 'output'), PREVIEW_PROJECT='test', PR_NUMBER='21',
                        WRANGLER_OUTPUT_FILE_PATH=str(folder / 'out.ndjson'),
                        RECORDS='\n'.join(json.dumps(record) for record in records))
             result = subprocess.run(['bash', '-c', script], cwd=folder, env=env, capture_output=True, text=True)
             read = lambda name: (folder / name).read_text() if (folder / name).exists() else ''
-            return result, read('redirect-site/_redirects'), read('args'), read('output')
+            return result, read('redirect-site/_redirects'), read('args') + read('files'), read('output')
 
     def test_every_page_keeps_its_path(self):
         result, redirects, args, output = self.publish()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(redirects, '/*  https://siloserver.org/:splat  302\n')
         self.assertIn('--branch=pr-21', args)
+        for name in ('_headers', '_redirects', '404.html'):
+            self.assertIn(name, args)
         self.assertEqual(output, 'id=redirect-id\n')
 
     def test_missing_deployment_id_fails(self):
         result, _, _, output = self.publish(records=[{'type': 'version'}])
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(output, '')
+
+    def test_more_than_one_deployment_id_fails(self):
+        record = {'type': 'pages-deploy', 'pages_project': 'test', 'deployment_id': 'a'}
+        result, _, _, output = self.publish(records=[record, dict(record, deployment_id='b')])
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(output, '')
+
+    def wait(self, answer):
+        script = block('preview-teardown.yml', 'Wait for the preview address to redirect', 'run')
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            # answer: 'exact' echoes the probed path, anything else is printed as is.
+            (folder / 'curl').write_text("""#!/usr/bin/env python3
+import os, sys
+from urllib.parse import urlparse
+answer = os.environ['ANSWER']
+print('302 https://siloserver.org' + urlparse(sys.argv[-1]).path if answer == 'exact' else answer, end='')
+""")
+            (folder / 'sleep').write_text('#!/bin/sh\nexit 0\n')
+            for tool in ('curl', 'sleep'):
+                (folder / tool).chmod(0o755)
+            env = dict(os.environ, PATH=f'{folder}:{os.environ["PATH"]}', GITHUB_OUTPUT=str(folder / 'output'),
+                       PREVIEW_PROJECT='test', PR_NUMBER='21', ANSWER=answer)
+            result = subprocess.run(['bash', '-e', '-c', script], cwd=folder, env=env, capture_output=True, text=True)
+            output = (folder / 'output').read_text() if (folder / 'output').exists() else ''
+            return result, output
+
+    def test_wait_accepts_only_the_exact_redirect(self):
+        result, output = self.wait('exact')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(output, 'ok=true\n')
+
+    def test_wait_ignores_other_redirects_and_old_pages(self):
+        # A pull request's own _redirects could send / to production; that must not count.
+        for answer in ('302 https://siloserver.org/', '200 ', '000 '):
+            result, output = self.wait(answer)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(output, '')
+            self.assertIn('::warning::', result.stdout)
 
     def test_redirect_is_optional_and_precedes_deletion(self):
         result = subprocess.run(['bun', '-e', '''
@@ -251,8 +288,8 @@ console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/prev
         steps = json.loads(result.stdout)['jobs']['teardown']['steps']
         names = [step['name'] for step in steps]
         delete = names.index('Delete previews')
-        for name in ('Checkout trusted deployment tooling', 'Publish a redirect on the preview address',
-                     'Wait for the preview address to redirect'):
+        for name in ('Checkout trusted deployment tooling', 'Install locked deployment tooling',
+                     'Publish a redirect on the preview address', 'Wait for the preview address to redirect'):
             self.assertLess(names.index(name), delete)
             # A failed redirect must never stop the old preview from being deleted.
             self.assertTrue(steps[names.index(name)]['continue-on-error'])
@@ -261,6 +298,13 @@ console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/prev
         self.assertEqual(checkout['sparse-checkout'], '.github/preview-tools')
         self.assertFalse(checkout['persist-credentials'])
         self.assertEqual(steps[delete]['env']['KEEP_ID'], '${{ steps.redirect.outputs.id }}')
+        # Secrets stay out of the step that runs npm install scripts.
+        install = steps[names.index('Install locked deployment tooling')]
+        self.assertNotIn('env', install)
+        self.assertNotIn('secrets', install['run'])
+        self.assertEqual(steps[names.index('Wait for the preview address to redirect')]['if'],
+                         "steps.redirect.outputs.id != ''")
+        self.assertIn("steps.wait.outputs.ok == 'true'", steps[-1]['with']['message'])
 
 
 class LifecycleOrderingTests(unittest.TestCase):
