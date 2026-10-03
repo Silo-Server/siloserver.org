@@ -113,11 +113,19 @@ Titles with no content rating are a separate case: the server's settings
 decide whether they appear under a content-rating limit. See
 [account access and profile restrictions](/docs/manage-access#check-household-restrictions).
 
-### Show advisory ages on title pages
+### Show advisory ages
 
 In the web app, open **Settings > Playback** and turn on **Show advisory age**
-to show the recommendation on title pages. This only changes what's displayed;
-the profile's age limit applies either way.
+to show the recommendation on title pages.
+
+To show it on poster cards as well, open **Settings > Card Overlays** and, under
+**Ratings & Certifications**, turn on **Advisory Age**. Cards then show the age,
+such as `13+`, in the bottom-right corner. Titles without an advisory age show
+no badge. The badge doesn't depend on **Show advisory age**; you can turn on
+either one alone.
+
+Both settings only change what's displayed; the profile's age limit applies
+either way.
 
 ### Keep a child in their profile on a shared device
 
