@@ -139,6 +139,8 @@ Use a storage transition to move from local disk to S3 (for example, before addi
 8. Silo restarts itself to use the new storage. If the page shows **Manual restart required**, restart it yourself, for example with `docker compose restart silo`. After the restart, **Storage recovery** may appear while Silo updates artwork references in the background.
 9. Check posters, an uploaded image, and a profile avatar in a client.
 
+Going back from S3 to **Local disk** clears every S3 setting, for private storage too. Profile avatars, diagnostic bundles, and catalog files then live on local disk as well, and the policy decides which existing files are copied there.
+
 Silo never deletes the old storage. Remove it yourself once you are happy with the new location.
 
 ### What each policy copies
