@@ -77,6 +77,14 @@ strings, private addresses, and personal media details with a marker such as
 `[redacted]`, and leave the rest of the error text as it is. Silo's
 automatic redaction can miss secrets inside free text.
 
+## Metrics and profiles
+
+Never attach raw `/metrics` output, profiles, private URLs, account IDs, or
+media details to a public issue. Metric names and what they showed, such as
+`SiloQueueAgeHigh` firing for an hour, are enough to start. If a maintainer
+asks for a profile, [collect a performance profile](/docs/profiling) and
+send it the private way they ask for.
+
 ## Scan and path problems
 
 Say whether the server can read the file, not just whether you can see it on
