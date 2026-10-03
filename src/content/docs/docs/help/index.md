@@ -56,7 +56,7 @@ including picture, sound, and subtitle problems on a TV.
 | Progress or watched status looks wrong | [Watch history and resume](/docs/watch-history) |
 | A setting changes on another device | [Profile preferences and device overrides](/docs/preferences) |
 | Notifications do not arrive | [Notifications](/docs/notification-inbox) |
-| A library does not notice new files | [Autoscan](/docs/autoscan) |
+| A library does not notice new files | [Keep libraries up to date](/docs/autoscan) |
 | The server fails to start | [Server health](/docs/server-health) and [startup logs](/docs/report-a-problem#logs) |
 
 ## If the guide does not solve it
