@@ -26,7 +26,7 @@ def deployment(id='old', branch='pr-21', created='2021-03-09T00:55:03.923456Z'):
 
 
 class TeardownTests(unittest.TestCase):
-    def run_cleanup(self, pages, branch='pr-21', failed=False, missing=False):
+    def run_cleanup(self, pages, branch='pr-21', failed=False, missing=False, keep=''):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             (folder / 'pages.json').write_text(json.dumps(pages))
@@ -46,7 +46,7 @@ else:
             fake.chmod(0o755)
             env = dict(os.environ, PATH=f'{folder}:{os.environ["PATH"]}', CF_ACCOUNT_ID='test',
                        CF_API_TOKEN='test', PREVIEW_PROJECT='test', PR_BRANCH=branch,
-                       MAX_AGE_DAYS='30', FAIL_DELETE='1' if failed else '0', MISSING='1' if missing else '0')
+                       MAX_AGE_DAYS='30', KEEP_ID=keep, FAIL_DELETE='1' if failed else '0', MISSING='1' if missing else '0')
             result = subprocess.run(['bash', '-c', TEARDOWN], cwd=folder, env=env,
                                     capture_output=True, text=True)
             deleted = (folder / 'deleted.txt').read_text().splitlines() if (folder / 'deleted.txt').exists() else []
@@ -62,6 +62,11 @@ else:
 
     def test_close_filters_branch_across_pages(self):
         result, deleted = self.run_cleanup([[deployment('other', 'pr-22')], [deployment()]])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(deleted, ['old'])
+
+    def test_close_keeps_the_redirect_deployment(self):
+        result, deleted = self.run_cleanup([[deployment('redirect'), deployment()]], keep='redirect')
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(deleted, ['old'])
 
@@ -99,6 +104,7 @@ const fetch = async (url, options) => {
   const page = new URL(url).searchParams.get('page');
   const result = page === '1' ? [
     {id: 'new-upload', deployment_trigger: {metadata: {branch: 'pr-21'}}},
+    {id: 'redirect', deployment_trigger: {metadata: {branch: 'pr-21', commit_message: 'Preview removed'}}},
     {id: 'other', deployment_trigger: {metadata: {branch: 'pr-22'}}}
   ] : [];
   return {ok: true, json: async () => ({success: true, result})};
@@ -119,6 +125,7 @@ try {
         self.assertEqual(result.returncode, 0, result.stderr)
         data = json.loads(result.stdout)
         self.assertEqual(data['outputs']['publish'], 'false')
+        # Only the new upload goes; the redirect from an earlier close stays.
         self.assertEqual(len(data['deleted']), 1)
         self.assertIn('/new-upload?', data['deleted'][0])
 
@@ -204,6 +211,109 @@ try {
         self.assertNotEqual(self.run_status([{'name': 'deploy', 'status': 'success'}], api_success=False).returncode, 0)
 
 
+class RedirectTests(unittest.TestCase):
+    def publish(self, records=None):
+        script = block('preview-teardown.yml', 'Publish a redirect on the preview address', 'run')
+        if records is None:
+            records = [{'type': 'version'}, {'type': 'pages-deploy', 'pages_project': 'test', 'deployment_id': 'redirect-id'}]
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            tools = folder / 'trusted-preview/.github/preview-tools/node_modules/.bin'
+            tools.mkdir(parents=True)
+            (tools / 'wrangler').write_text('#!/bin/sh\necho "$@" > "$RUNNER_TEMP/args"\nls "$3" > "$RUNNER_TEMP/files"\nprintf "%s" "$RECORDS" > "$WRANGLER_OUTPUT_FILE_PATH"\n')
+            (tools / 'wrangler').chmod(0o755)
+            env = dict(os.environ, RUNNER_TEMP=str(folder),
+                       GITHUB_OUTPUT=str(folder / 'output'), PREVIEW_PROJECT='test', PR_NUMBER='21',
+                       WRANGLER_OUTPUT_FILE_PATH=str(folder / 'out.ndjson'),
+                       RECORDS='\n'.join(json.dumps(record) for record in records))
+            result = subprocess.run(['bash', '-c', script], cwd=folder, env=env, capture_output=True, text=True)
+            read = lambda name: (folder / name).read_text() if (folder / name).exists() else ''
+            return result, read('redirect-site/_redirects'), read('args') + read('files'), read('output')
+
+    def test_every_page_keeps_its_path(self):
+        result, redirects, args, output = self.publish()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(redirects, '/*  https://siloserver.org/:splat  302\n')
+        self.assertIn('--branch=pr-21', args)
+        for name in ('_headers', '_redirects', '404.html'):
+            self.assertIn(name, args)
+        self.assertEqual(output, 'id=redirect-id\n')
+
+    def test_missing_deployment_id_fails(self):
+        result, _, _, output = self.publish(records=[{'type': 'version'}])
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(output, '')
+
+    def test_more_than_one_deployment_id_fails(self):
+        record = {'type': 'pages-deploy', 'pages_project': 'test', 'deployment_id': 'a'}
+        result, _, _, output = self.publish(records=[record, dict(record, deployment_id='b')])
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(output, '')
+
+    def wait(self, answer):
+        script = block('preview-teardown.yml', 'Wait for the preview address to redirect', 'run')
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            # answer: 'exact' echoes the probed path, anything else is printed as is.
+            (folder / 'curl').write_text("""#!/usr/bin/env python3
+import os, sys
+from urllib.parse import urlparse
+answer = os.environ['ANSWER']
+print('302 https://siloserver.org' + urlparse(sys.argv[-1]).path if answer == 'exact' else answer, end='')
+""")
+            (folder / 'sleep').write_text('#!/bin/sh\nexit 0\n')
+            for tool in ('curl', 'sleep'):
+                (folder / tool).chmod(0o755)
+            env = dict(os.environ, PATH=f'{folder}:{os.environ["PATH"]}', GITHUB_OUTPUT=str(folder / 'output'),
+                       PREVIEW_PROJECT='test', PR_NUMBER='21', ANSWER=answer)
+            result = subprocess.run(['bash', '-e', '-c', script], cwd=folder, env=env, capture_output=True, text=True)
+            output = (folder / 'output').read_text() if (folder / 'output').exists() else ''
+            return result, output
+
+    def test_wait_accepts_only_the_exact_redirect(self):
+        result, output = self.wait('exact')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(output, 'ok=true\n')
+
+    def test_wait_ignores_other_redirects_and_old_pages(self):
+        # A pull request's own _redirects could send / to production; that must not count.
+        for answer in ('302 https://siloserver.org/', '200 ', '000 '):
+            result, output = self.wait(answer)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(output, '')
+            self.assertIn('::warning::', result.stdout)
+
+    def test_redirect_is_optional_and_precedes_deletion(self):
+        result = subprocess.run(['bun', '-e', '''
+console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/preview-teardown.yml').text())));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        steps = json.loads(result.stdout)['jobs']['teardown']['steps']
+        names = [step['name'] for step in steps]
+        delete = names.index('Delete previews')
+        for name in ('Checkout trusted deployment tooling', 'Install locked deployment tooling',
+                     'Publish a redirect on the preview address', 'Wait for the preview address to redirect'):
+            self.assertLess(names.index(name), delete)
+            # A failed redirect must never stop the old preview from being deleted.
+            self.assertTrue(steps[names.index(name)]['continue-on-error'])
+        checkout = steps[names.index('Checkout trusted deployment tooling')]['with']
+        self.assertEqual(checkout['ref'], '${{ github.workflow_sha }}')
+        self.assertEqual(checkout['sparse-checkout'], '.github/preview-tools')
+        self.assertFalse(checkout['persist-credentials'])
+        self.assertEqual(steps[delete]['env']['KEEP_ID'], '${{ steps.redirect.outputs.id }}')
+        # Secrets stay out of the step that runs npm install scripts.
+        install = steps[names.index('Install locked deployment tooling')]
+        self.assertNotIn('env', install)
+        self.assertNotIn('secrets', install['run'])
+        self.assertEqual(steps[names.index('Wait for the preview address to redirect')]['if'],
+                         "steps.redirect.outputs.id != ''")
+        self.assertIn("steps.wait.outputs.ok == 'true'", steps[-1]['with']['message'])
+        for name in ('Checkout trusted deployment tooling', 'Install locked deployment tooling',
+                     'Publish a redirect on the preview address'):
+            self.assertEqual(steps[names.index(name)]['if'], "steps.state.outputs.published == 'true'")
+        # Teardown never creates the sticky comment, so it stays proof of publication.
+        self.assertIn("steps.state.outputs.published == 'true'", steps[-1]['if'])
+
+
 class LifecycleOrderingTests(unittest.TestCase):
     def test_status_transitions(self):
         result = subprocess.run(['node', '--test', 'scripts/test-preview-status.mjs'],
@@ -255,20 +365,42 @@ console.log(JSON.stringify(await Promise.all(files.map(async name =>
             if step['name'] in ('Delete previews', 'Update the pull request comment'):
                 self.assertIn("steps.state.outputs.closed == 'true'", step['if'])
 
-    def test_delayed_close_event_skips_reopened_pr(self):
+    def check_state(self, state, comments=(), number='21'):
         script = block('preview-teardown.yml', 'Check that the pull request is still closed', 'script')
         harness = r'''
 const outputs = {};
-const github = {rest:{pulls:{get: async () => ({data:{state: 'open'}})}}};
-const context = {repo:{owner:'test',repo:'test'},payload:{pull_request:{number:21}}};
+const github = {
+  rest: {pulls: {get: async () => ({data: {state: process.env.PR_STATE}})}, issues: {listComments: 'list'}},
+  paginate: async () => JSON.parse(process.env.COMMENTS),
+};
+const context = {repo:{owner:'test',repo:'test'}};
 const core = {setOutput:(key,value) => outputs[key] = value};
 const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-await new AsyncFunction('github','context','core',process.env.SCRIPT)(github,context,core);
-console.log(JSON.stringify(outputs));
+try {
+  await new AsyncFunction('github','context','core',process.env.SCRIPT)(github,context,core);
+  console.log(JSON.stringify(outputs));
+} catch (error) { console.error(error.message); process.exitCode = 1; }
 '''
-        result = subprocess.run(['node', '--input-type=module', '-e', harness],
-                                env=dict(os.environ, SCRIPT=script), capture_output=True, text=True, check=True)
+        return subprocess.run(['node', '--input-type=module', '-e', harness],
+                              env=dict(os.environ, SCRIPT=script, PR_STATE=state, PR_NUMBER=number,
+                                       COMMENTS=json.dumps(list(comments))),
+                              capture_output=True, text=True)
+
+    def test_delayed_close_event_skips_reopened_pr(self):
+        result = self.check_state('open')
         self.assertEqual(json.loads(result.stdout), {'closed': 'false'})
+
+    def test_redirect_only_for_published_previews(self):
+        sticky = {'user': {'login': 'github-actions[bot]'}, 'body': 'Preview\n<!-- Sticky Pull Request Commentpreview -->'}
+        forged = dict(sticky, user={'login': 'someone'})
+        cases = [([sticky], 'true'), ([], 'false'), ([forged], 'false')]
+        for comments, expected in cases:
+            result = self.check_state('closed', comments)
+            self.assertEqual(json.loads(result.stdout), {'closed': 'true', 'published': expected})
+
+    def test_manual_run_rejects_a_bad_number(self):
+        for number in ('0', '21; rm -rf /', 'abc'):
+            self.assertNotEqual(self.check_state('closed', number=number).returncode, 0)
 
 
 if __name__ == '__main__':
