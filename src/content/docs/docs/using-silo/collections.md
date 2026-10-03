@@ -34,6 +34,23 @@ your library.
 If someone else edited the collection while you had it open, reload the page
 before trying again.
 
+## Start from a template in the web app
+
+A template makes a collection that follows a published list and refreshes
+itself, such as TMDB's trending movies, a public TMDB list, or a public
+MDBList list.
+
+1. Open **Collections** and select **Browse Templates**.
+2. Select a template and check the form. To follow a list of your own
+   choice, pick **Custom TMDB List** or **Custom MDBList** and paste the
+   list's link.
+3. Select **Create Collection**.
+
+Leave **Libraries** empty to include every library you can see. **Watch
+state** and **Content** filter which titles the collection shows,
+**Auto Refresh** sets how often it updates, and **Share with other
+profiles** lets profiles you choose browse it too.
+
 ## Make a collection on iPhone or iPad
 
 1. Open **Collections** and select **+**.
