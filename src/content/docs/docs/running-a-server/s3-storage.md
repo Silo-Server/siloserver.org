@@ -103,7 +103,7 @@ Garage serves plain HTTP on both its S3 and website ports. For an `https://` add
 3. Give the key access: `garage bucket allow --read --write --key <key-name> <bucket-name>`
 4. In Silo, enter Garage's S3 API address as the **Endpoint**, the bucket name, and the key ID and secret key as **Access Key** and **Secret Key**.
 5. Under **Advanced**, turn on **Put the bucket name in the URL path**.
-6. Set **Region** to the `s3_region` value under `[s3_api]` in `garage.toml`. Garage's example configuration uses `garage`. If the two don't match, Garage rejects Silo's requests and signed links.
+6. Set **Region** to the `s3_region` value under `[s3_api]` in `garage.toml`. Garage's example configuration uses `garage`. If they don't match, Garage rejects Silo's requests and clients can't open signed links.
 7. Keep **How asset links are authorized** at **Signed links (recommended)**.
 
 Set up a private bucket the same way.
