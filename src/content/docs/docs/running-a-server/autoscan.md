@@ -12,7 +12,7 @@ Silo notices new, changed, and removed files in three ways:
 
 ## Real-time monitoring
 
-Silo watches every folder in a library, including season and other subfolders, and scans only what changed. A file that's still being copied is scanned once the copy finishes. While a scan from monitoring runs, **Admin > Libraries** shows it as **File change**.
+Silo watches every folder in a library, including season and other subfolders, and scans only what changed. A file that's still being copied is scanned once the copy finishes. While a scan is running, a button such as **2 scans** appears at the top of **Admin > Libraries**. Click it to open the scan queue, where scans that monitoring started are tagged **File change**.
 
 Two switches control it, and both are on by default:
 
