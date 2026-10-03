@@ -38,10 +38,11 @@ Add the node in Silo, then start it.
 2. Enter a **Name** that matches the node's `NODE_NAME`.
 3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine.
 4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
-5. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
-6. Start the node with its Compose file.
+5. If the node shares a host or local network with other nodes, give them all the same **Group**, such as `rack-1`. Silo then keeps their streams inside the group; see [Groups](/docs/node-status#groups).
+6. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
+7. Start the node with its Compose file.
 
-Silo checks every node every 30 seconds. The node's state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away.
+Silo checks every node every 30 seconds. The node's state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
 
 Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
 
@@ -57,10 +58,18 @@ A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acce
 
 ## If work does not reach the node
 
-Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A transcode node whose transcode disk is 95% full is skipped while another node has room; free up space on the node itself.
+Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
+
+A transcode node whose transcode directory is 95% full is skipped while another node has room. If every transcode node is that full, Silo uses one anyway, and streams on it can fail once the disk fills. Silo never skips a node whose disk use it can't read.
+
+To see which case you're in, filter **Admin > Logs** by the `nodepool` component. `transcode scratch guard ignored: every eligible node is over the scratch threshold` means new sessions are going to a nearly full disk. To fix it, enlarge the node's transcode volume or clear old files from its transcode directory.
 
 ## Maintain a node
 
-Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use **Re-probe**; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
+Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use its re-probe button; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
+
+To change a transcode node's encoder, select the pencil in the node's header, set **Hardware Acceleration** or **GPU Devices**, and select **Save**. New transcodes on the node use the change within a minute, and running sessions keep their old settings.
+
+To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
 Update all nodes together with the main server when the release notes say so. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.

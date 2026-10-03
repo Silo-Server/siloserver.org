@@ -51,7 +51,18 @@ With separate [transcode nodes](/docs/transcode-nodes), the detected hardware co
 
 A single server checks its hardware again when it restarts: run `docker compose restart silo`.
 
-For a node in **Admin > Nodes**, use its **Re-probe** button instead. Re-probing runs real test encodes, so Silo refuses it while that node is transcoding; disable the node or wait for its sessions to end first. Then play something that needs conversion to test the whole path.
+For a node in **Admin > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
+
+- upgrade, downgrade, or reinstall its GPU driver
+- change [which GPU devices its container can open](#give-the-container-access-to-your-gpu)
+- replace FFmpeg at the same path
+- see a [**Drift**](/docs/node-status#hardware-markers) marker and want to check whether it still applies
+
+Re-probing tests the node's hardware again with real test encodes and updates its **Acceleration** block when it finishes. It doesn't restart the node or reload its configuration. On an idle node it can take a couple of minutes.
+
+Silo refuses a re-probe while the node is using its encoder: for playback, a prepared download, or thumbnail extraction. The message reads "Node reprobe was refused or could not be confirmed". Disable the node or wait for its work to end, then try again. If the test can't finish, the node keeps its previous report, and running it again is safe.
+
+After you fix a GPU, you don't need to re-probe: the node notices on its own within about 15 minutes. Re-probe to check it straight away. Then play something that needs conversion to test the whole path.
 
 ## Allow 4K and HEVC output
 
