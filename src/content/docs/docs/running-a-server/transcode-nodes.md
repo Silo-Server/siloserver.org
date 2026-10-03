@@ -49,6 +49,12 @@ Then play something that needs conversion, or from a client that uses the proxy.
 
 **Node routing** in **Admin > Settings > Playback** decides where remuxing and transcoding run and which machine sends each stream to the client. **Silo Defaults** prefers transcode nodes for conversion and proxy nodes for delivery, and falls back to the main server. **GPU offload** keeps direct play and remuxing on the main server and sends video transcodes to nodes. **Central egress** runs conversion on nodes but sends every stream from the main server. A setting ending in "only" never falls back, so that kind of playback fails while no healthy node of the needed type is available.
 
+## Convert to HEVC on nodes
+
+With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#allow-4k-and-hevc-output)), Silo checks each machine's encoders separately, so HEVC support on the main server doesn't mean a node has it. HEVC is used only when a machine that may convert video under **Node routing** can encode it, and HEVC jobs go only to nodes that can. When none can, devices get H.264.
+
+A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
+
 ## If work does not reach the node
 
 Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A transcode node whose transcode disk is 95% full is skipped while another node has room; free up space on the node itself.
