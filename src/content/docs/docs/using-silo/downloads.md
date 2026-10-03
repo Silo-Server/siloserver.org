@@ -17,9 +17,28 @@ the original file from the web app](#save-a-file-on-a-computer).
      options first, open **More** and choose **Download Options…**.
    - On Android phones and tablets, choose a quality under **Download
      Quality** if the app asks.
-3. Open **Downloads** and wait until the title is ready. If you picked a
-   smaller quality, the server prepares a copy before the transfer starts.
+3. Open **Downloads** and wait until the title is ready. With a
+   [smaller quality](#choose-a-quality), the server may convert the title
+   first, so the transfer can take longer to start.
 4. Play the title from **Downloads** for a moment before you leave home.
+
+## Choose a quality
+
+**Original** saves the file as it is on the server. If your device can't play
+that file, the server prepares a copy it can play.
+
+The other qualities save a smaller copy. Each shows a bitrate and the largest
+picture size it can give, such as **10 Mbps · up to 1080p**. Your copy is never
+larger than the original, and it can be smaller than the size shown when the
+original is smaller, the video has a high frame rate, or your device can't play
+that size. If the title already fits the quality you picked, you may get the
+original file instead of a converted copy.
+
+If the list shows only **Original**, your account can't create converted
+downloads or the server doesn't convert video. A 4K title can be saved at a
+smaller quality only when the server [allows 4K
+transcoding](/docs/playback#allow-4k-and-hevc-output); otherwise, choose
+**Original**. Series and season downloads always use **Original**.
 
 ## Watch and manage downloads
 

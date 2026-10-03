@@ -53,6 +53,13 @@ A single server checks its hardware again when it restarts: run `docker compose 
 
 For a node in **Admin > Nodes**, use its **Re-probe** button instead. Re-probing runs real test encodes, so Silo refuses it while that node is transcoding; disable the node or wait for its sessions to end first. Then play something that needs conversion to test the whole path.
 
+## Allow 4K and HEVC output
+
+Turn these on in **Admin > Settings > Playback** once your hardware handles ordinary conversions well. Both are off on a new server. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
+
+- **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
+- **Allow HEVC encoding** converts video to HEVC for devices that can play it. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264.
+
 ## Generate chapter thumbnails
 
 Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
