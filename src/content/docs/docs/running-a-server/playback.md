@@ -37,7 +37,7 @@ docker compose up -d
 ## Choose and test acceleration
 
 1. Open **Admin > Settings > Playback**.
-2. Leave **Transcoding** on and set **Hardware acceleration** to **Auto**. Save and follow any restart notice.
+2. Leave **Video transcoding** on and set **Hardware acceleration** to **Auto**. Save and follow any restart notice. With **Video transcoding** off, Silo never re-encodes video, but it still repackages files and converts audio for devices that need it.
 3. Check the line under **Hardware acceleration**. It names the detected hardware, such as **Detected VA-API on /dev/dri/renderD128**, or shows **No supported graphics hardware found**.
 4. Start a video on a client, then choose a lower quality that makes Silo convert the video.
 5. Open **Admin > Activity**. The session shows the encoder in use, such as **HW VAAPI**, **HW QSV**, or **SW** for software.
