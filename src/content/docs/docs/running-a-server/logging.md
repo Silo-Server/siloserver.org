@@ -18,7 +18,7 @@ Add `--follow` to watch new lines while you reproduce a problem. Press Ctrl+C to
 
 In **Admin > Logs**, search around the time of the failure by message, component, request ID, or playback session ID. On the **Application** tab, narrow the list with **Level** and **Component**.
 
-- **Level** shows only entries at the level you pick: `debug`, `info`, `warn`, or `error`. Picking `warn` doesn't include errors. **All levels** removes the filter. `debug` entries appear only if you've set **Admin > Logs** to keep them; see [Log settings](#log-settings).
+- **Level** shows only entries at the level you pick: `debug`, `info`, `warn`, or `error`. Picking `warn` doesn't include errors. **All levels** removes the filter. `debug` entries appear only if they're enabled with `opslog.capture_level`, which is off by default; see [Log settings](#log-settings).
 - **Component** suggests known components as you type, and accepts any other name, such as `apiv2` or `notifications.fanout`. The name has to match exactly, so `notifications` doesn't show `notifications.fanout` entries. Clear the field to show every component.
 
 Both filters apply to the live list and to **Browse log history**. They're kept in the page address, so a reload or a shared link opens with the same filters.
