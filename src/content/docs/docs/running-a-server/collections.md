@@ -59,7 +59,9 @@ Applying a bundle again is safe. Silo skips a template it already applied to a l
 
 ## Replace existing collections with a bundle
 
-Turn on **Delete Existing Server Collections** only when you want to start over. It removes every shared collection in the chosen libraries before the bundle is applied, including hidden ones and ones you made by hand. Hero sections the same bundle created before are removed too.
+:::caution[Deletes collections you made]
+**Delete Existing Server Collections** removes every shared collection in the chosen libraries before the bundle is applied, including hidden ones and ones you made by hand. Hero sections the same bundle created before are removed too. Turn it on only when you want to start over.
+:::
 
 Silo keeps a collection that also belongs to a library you did not choose, and a collection that a home section uses. Choose **Preview** first and read the list of collections it would delete.
 
