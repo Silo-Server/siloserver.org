@@ -23,9 +23,7 @@ Use a template for a collection that follows a published list and syncs again on
 1. Open **Admin > Collections** and choose **Browse Templates**. You can also choose **Add Collection**, then the **Browse Templates** tile.
 2. Search or pick a category, then select a template.
 3. Check the form. The template fills in every field, and you can change any of them.
-4. Choose **Create Collection**. Silo creates the collection and runs its first sync.
-
-An imported list only shows media that is already in your library.
+4. Choose **Create Collection**. Silo creates the collection and runs its first sync. The collection shows only titles that are already in your library, so a list of 100 trending movies may show far fewer.
 
 Templates use these sources:
 
@@ -67,7 +65,7 @@ A few templates are in no bundle and are added one at a time: Trending Today (Al
 2. Under **Libraries**, choose the libraries to fill. Every library starts selected, or only the one you had open. Each library gets only the templates that fit its type.
 3. Under **Featured Sections**, check the **Home Hero** and the hero chosen for each library. Silo creates these hero sections unless you choose **No home hero** or **No library hero**.
 4. Choose **Preview** to see what would be created, skipped, and deleted. Nothing changes yet.
-5. Choose **Apply Defaults**. Silo applies the bundle in the background. The collections appear first, and their titles fill in as each first sync finishes.
+5. Choose **Apply Defaults**. Silo applies the bundle in the background. The collections appear first, and their titles fill in as each first sync finishes, showing only titles already in your library.
 
 Applying a bundle again is safe. Silo skips a template it already applied to a library, and a template whose title matches a collection already in that library.
 
