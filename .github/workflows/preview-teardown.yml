@@ -11,6 +11,9 @@ name: Preview teardown
 # then deletes everything else. If the alias lags after deletion, it lags on the
 # redirect, not on the old preview. The weekly sweep removes the redirect later.
 #
+# A manual run with a pull request number repeats the close teardown for that
+# closed pull request, including the redirect. Without a number it runs the sweep.
+#
 # This talks to the Cloudflare REST API rather than `wrangler pages deployment
 # list`, because wrangler renames the fields for display (Branch, Deployment)
 # and does not expose creation time or paginate. The API returns the raw
@@ -22,6 +25,11 @@ on:
   schedule:
     - cron: "17 4 * * 1"
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Closed pull request to tear down again, with a redirect. Leave empty to run the stale-preview sweep.
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -40,22 +48,37 @@ jobs:
   teardown:
     runs-on: ubuntu-latest
     environment: Preview
+    env:
+      # Set for pull request closes and manual runs for one pull request; empty
+      # for the scheduled sweep.
+      PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
     steps:
       - name: Check that the pull request is still closed
-        if: github.event_name == 'pull_request_target'
+        if: env.PR_NUMBER != ''
         id: state
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
-            const { data: pr } = await github.rest.pulls.get({
-              ...context.repo, pull_number: context.payload.pull_request.number,
-            });
+            if (!/^[1-9][0-9]*$/.test(process.env.PR_NUMBER)) {
+              throw new Error(`Not a pull request number: ${process.env.PR_NUMBER}`);
+            }
+            const number = Number(process.env.PR_NUMBER);
+            const { data: pr } = await github.rest.pulls.get({ ...context.repo, pull_number: number });
             core.setOutput('closed', String(pr.state === 'closed'));
+            if (pr.state !== 'closed') return;
+            // Only pull requests that were ever published have an address to
+            // redirect. Publication always leaves this sticky comment.
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo, issue_number: number, per_page: 100,
+            });
+            const published = comments.some((comment) => comment.user?.login === 'github-actions[bot]' &&
+              comment.body?.includes('<!-- Sticky Pull Request Commentpreview -->'));
+            core.setOutput('redirect', String(published));
 
       - name: Checkout trusted deployment tooling
         # The redirect steps may fail without blocking deletion: removing the old
         # preview matters more than where its address points afterwards.
-        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true'
+        if: steps.state.outputs.redirect == 'true'
         continue-on-error: true
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -65,20 +88,19 @@ jobs:
           persist-credentials: false
 
       - name: Install locked deployment tooling
-        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true'
+        if: steps.state.outputs.redirect == 'true'
         continue-on-error: true
         timeout-minutes: 5
         run: npm ci --prefix trusted-preview/.github/preview-tools --no-audit --no-fund
 
       - name: Publish a redirect on the preview address
-        if: github.event_name == 'pull_request_target' && steps.state.outputs.closed == 'true'
+        if: steps.state.outputs.redirect == 'true'
         id: redirect
         continue-on-error: true
         timeout-minutes: 5
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
           WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/redirect-deployment.ndjson
         run: |
           set -euo pipefail
@@ -109,8 +131,6 @@ jobs:
         id: wait
         continue-on-error: true
         timeout-minutes: 5
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # A random path that no preview build serves, so only the redirect
           # deployment can answer it with this exact location.
@@ -130,12 +150,11 @@ jobs:
           echo "::warning::${url} did not redirect within 3 minutes (last response: ${got}). Deleting the old preview anyway."
 
       - name: Delete previews
-        if: github.event_name != 'pull_request_target' || steps.state.outputs.closed == 'true'
+        if: env.PR_NUMBER == '' || steps.state.outputs.closed == 'true'
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # Set for pull request closes; empty for the scheduled sweep.
-          PR_BRANCH: ${{ github.event.pull_request && format('pr-{0}', github.event.pull_request.number) || '' }}
+          PR_BRANCH: ${{ env.PR_NUMBER && format('pr-{0}', env.PR_NUMBER) || '' }}
           MAX_AGE_DAYS: "30"
           # The redirect published above. Empty if that step failed or skipped.
           KEEP_ID: ${{ steps.redirect.outputs.id }}
@@ -193,4 +212,4 @@ jobs:
           number: ${{ github.event.pull_request.number }}
           header: preview
           message: |
-            Preview removed after this pull request was closed.${{ steps.wait.outputs.ok == 'true' && ' Its address now redirects to siloserver.org.' || '' }}
+            Preview removed after this pull request was closed.${{ steps.wait.outputs.ok == 'true' && ' Its address now redirects to siloserver.org, though some visitors may still see the old preview for a while.' || '' }}

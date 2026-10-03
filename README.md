@@ -213,7 +213,10 @@ teardown first publishes a one-rule redirect to the alias and keeps it. Each pag
 redirects to the same path on siloserver.org, so a page that never shipped gets
 the site's 404 page. Teardown waits until the alias returns the
 redirect, then deletes every other deployment for that pull request. If the
-redirect fails, teardown still deletes the preview. The weekly sweep removes the
+redirect fails, teardown still deletes the preview. Pull requests that never
+published a preview get no redirect. To repeat this for an already closed pull
+request, run **Preview teardown** manually with its number; without a number
+the manual run does the weekly sweep. The weekly sweep removes the
 redirect once it is 30 days old.
 
 The optional `preview` commit status appears while the build is queued, then

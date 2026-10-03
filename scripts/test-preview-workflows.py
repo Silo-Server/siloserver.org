@@ -104,6 +104,7 @@ const fetch = async (url, options) => {
   const page = new URL(url).searchParams.get('page');
   const result = page === '1' ? [
     {id: 'new-upload', deployment_trigger: {metadata: {branch: 'pr-21'}}},
+    {id: 'redirect', deployment_trigger: {metadata: {branch: 'pr-21', commit_message: 'Preview removed'}}},
     {id: 'other', deployment_trigger: {metadata: {branch: 'pr-22'}}}
   ] : [];
   return {ok: true, json: async () => ({success: true, result})};
@@ -124,6 +125,7 @@ try {
         self.assertEqual(result.returncode, 0, result.stderr)
         data = json.loads(result.stdout)
         self.assertEqual(data['outputs']['publish'], 'false')
+        # Only the new upload goes; the redirect from an earlier close stays.
         self.assertEqual(len(data['deleted']), 1)
         self.assertIn('/new-upload?', data['deleted'][0])
 
@@ -305,6 +307,9 @@ console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/prev
         self.assertEqual(steps[names.index('Wait for the preview address to redirect')]['if'],
                          "steps.redirect.outputs.id != ''")
         self.assertIn("steps.wait.outputs.ok == 'true'", steps[-1]['with']['message'])
+        for name in ('Checkout trusted deployment tooling', 'Install locked deployment tooling',
+                     'Publish a redirect on the preview address'):
+            self.assertEqual(steps[names.index(name)]['if'], "steps.state.outputs.redirect == 'true'")
 
 
 class LifecycleOrderingTests(unittest.TestCase):
@@ -358,20 +363,42 @@ console.log(JSON.stringify(await Promise.all(files.map(async name =>
             if step['name'] in ('Delete previews', 'Update the pull request comment'):
                 self.assertIn("steps.state.outputs.closed == 'true'", step['if'])
 
-    def test_delayed_close_event_skips_reopened_pr(self):
+    def check_state(self, state, comments=(), number='21'):
         script = block('preview-teardown.yml', 'Check that the pull request is still closed', 'script')
         harness = r'''
 const outputs = {};
-const github = {rest:{pulls:{get: async () => ({data:{state: 'open'}})}}};
-const context = {repo:{owner:'test',repo:'test'},payload:{pull_request:{number:21}}};
+const github = {
+  rest: {pulls: {get: async () => ({data: {state: process.env.PR_STATE}})}, issues: {listComments: 'list'}},
+  paginate: async () => JSON.parse(process.env.COMMENTS),
+};
+const context = {repo:{owner:'test',repo:'test'}};
 const core = {setOutput:(key,value) => outputs[key] = value};
 const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-await new AsyncFunction('github','context','core',process.env.SCRIPT)(github,context,core);
-console.log(JSON.stringify(outputs));
+try {
+  await new AsyncFunction('github','context','core',process.env.SCRIPT)(github,context,core);
+  console.log(JSON.stringify(outputs));
+} catch (error) { console.error(error.message); process.exitCode = 1; }
 '''
-        result = subprocess.run(['node', '--input-type=module', '-e', harness],
-                                env=dict(os.environ, SCRIPT=script), capture_output=True, text=True, check=True)
+        return subprocess.run(['node', '--input-type=module', '-e', harness],
+                              env=dict(os.environ, SCRIPT=script, PR_STATE=state, PR_NUMBER=number,
+                                       COMMENTS=json.dumps(list(comments))),
+                              capture_output=True, text=True)
+
+    def test_delayed_close_event_skips_reopened_pr(self):
+        result = self.check_state('open')
         self.assertEqual(json.loads(result.stdout), {'closed': 'false'})
+
+    def test_redirect_only_for_published_previews(self):
+        sticky = {'user': {'login': 'github-actions[bot]'}, 'body': 'Preview\n<!-- Sticky Pull Request Commentpreview -->'}
+        forged = dict(sticky, user={'login': 'someone'})
+        cases = [([sticky], 'true'), ([], 'false'), ([forged], 'false')]
+        for comments, expected in cases:
+            result = self.check_state('closed', comments)
+            self.assertEqual(json.loads(result.stdout), {'closed': 'true', 'redirect': expected})
+
+    def test_manual_run_rejects_a_bad_number(self):
+        for number in ('0', '21; rm -rf /', 'abc'):
+            self.assertNotEqual(self.check_state('closed', number=number).returncode, 0)
 
 
 if __name__ == '__main__':

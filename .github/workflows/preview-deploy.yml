@@ -190,7 +190,9 @@ jobs:
               if (!response.ok || !data.success) throw new Error(`Listing previews failed: ${JSON.stringify(data.errors)}`);
               if (!data.result.length) break;
               for (const deployment of data.result) {
-                if (deployment.deployment_trigger?.metadata?.branch === `pr-${pr.number}`) ids.push(deployment.id);
+                const metadata = deployment.deployment_trigger?.metadata;
+                // Keep teardown's redirect from an earlier close of this PR.
+                if (metadata?.branch === `pr-${pr.number}` && metadata?.commit_message !== 'Preview removed') ids.push(deployment.id);
               }
             }
             for (const id of ids) {
