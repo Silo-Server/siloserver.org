@@ -36,3 +36,36 @@ settings. Ratings also shape your [For You](/docs/home-and-calendar)
 suggestions.
 
 For your own named groups of titles, use [Collections](/docs/collections).
+
+## Save a title the library doesn't have
+
+In the web app, you can add a movie or series to your watchlist before the
+server has it. This works only while the server has
+[requests](/docs/requests) turned on.
+
+1. Open **Requests** and find the title.
+2. Select **Add to Watchlist** on its page, or the bookmark on its poster. The
+   button changes to **On Watchlist**.
+3. Open **Watchlist** and select the **Not in your library yet** tab to see
+   the title.
+
+Titles on this tab can't be played yet. When one arrives in the library, it
+moves to the **In your library** tab and keeps the date you added it. Adding a
+title also requests it for you, unless you've turned that off; see
+[Request from your watchlist](/docs/requests#request-from-your-watchlist).
+To remove a title, select the bookmark on its poster again.
+
+Each poster says where the title stands, such as **Downloading 43%**,
+**Out Dec 18**, **Awaiting approval**, or **Not requested**. The status
+appears under the poster and as a **Request Status** badge in the poster's
+top-left corner. While the title downloads, the poster also shows a progress
+bar. To hide the badge, open **Settings > Card Overlays** and, under
+**Status & Awards**, turn off **Request Status**.
+
+If TMDB later lists the title twice or stops listing it, the status under the
+poster says **TMDB lists it twice** or **No longer listed on TMDB**. Select **Find it** to
+search for the title again, add the right one, and remove the old entry.
+
+While requests are turned off, the **Not in your library yet** tab doesn't
+appear and you can't add or remove these titles. Silo keeps the ones you've
+already saved.
