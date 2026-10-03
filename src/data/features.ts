@@ -97,7 +97,7 @@ export const features: Feature[] = [
     id: "FEAT_08",
     title: "Skip the intro for real",
     body:
-      "Intro, recap, credits, and preview markers come from TheIntroDB by default. When it has no match, Silo finds intros and credits itself by audio fingerprinting across a season's episodes instead of trusting whatever chapter tags happen to be in the file. Custom marker providers are optional. Chapter thumbnails are generated as the player needs them.",
+      "Intro, recap, credits, and preview markers come from TheIntroDB by default. When it has no match, Silo uses the file's intro and credits chapters, finds other intros from the opening audio a season's episodes share, and finds end credits from the closing audio and the credit text on screen. Movies get credits too, on a best-effort basis. Custom marker providers are optional. Chapter thumbnails are generated as the player needs them.",
     chips: [
       { label: "TheIntroDB" },
       { label: "Chromaprint" },
