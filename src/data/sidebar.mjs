@@ -73,6 +73,7 @@ export const sidebar = [
         "docs/plugins",
         "docs/playback",
         "docs/transcode-nodes",
+        "docs/node-status",
         "docs/subtitle-providers",
         "docs/markers",
         "docs/ai-services",

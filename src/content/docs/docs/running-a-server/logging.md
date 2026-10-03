@@ -62,7 +62,7 @@ Add this to your existing override if you have one. Applying it recreates the co
 
 Prometheus metrics are off on the main server until you set `SILO_METRICS_LISTEN` to a listen address, for example `SILO_METRICS_LISTEN=127.0.0.1:9091`. The `/metrics` route has no authentication, so keep it on a private network and don't publish or proxy it. Inside Docker, `127.0.0.1` is the container itself, so your collector needs a private route to that address.
 
-Proxy and transcode nodes serve `/metrics` on their own port without authentication. Keep those ports private too.
+Proxy and transcode nodes serve `/metrics` on their own port without authentication. Keep those ports private too. [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the node series and example alerts.
 
 For health and readiness checks, see [Check server health](/docs/server-health).
 
