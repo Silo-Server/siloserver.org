@@ -60,9 +60,9 @@ To see which case you're in, filter **Admin > Logs** by the `nodepool` component
 
 ## Maintain a node
 
-Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use **Re-probe**; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
+Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use its re-probe button; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
 
-To change a transcode node's encoder, edit the node and set **Hardware Acceleration** or **GPU Devices**. New transcodes on the node use the change within a minute, and running sessions keep their old settings.
+To change a transcode node's encoder, select the pencil in the node's header, set **Hardware Acceleration** or **GPU Devices**, and select **Save**. New transcodes on the node use the change within a minute, and running sessions keep their old settings.
 
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 

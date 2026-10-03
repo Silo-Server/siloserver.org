@@ -51,10 +51,10 @@ With separate [transcode nodes](/docs/transcode-nodes), the detected hardware co
 
 A single server checks its hardware again when it restarts: run `docker compose restart silo`.
 
-For a node in **Admin > Nodes**, use its **Re-probe** button instead. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
+For a node in **Admin > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
 
 - upgrade, downgrade, or reinstall its GPU driver
-- change which devices its container can open, such as the `/dev/dri` mount, the NVIDIA overlay, or group membership
+- change [which GPU devices its container can open](#give-the-container-access-to-your-gpu)
 - replace FFmpeg at the same path
 - see a [**Drift**](/docs/node-status#hardware-markers) marker and want to check whether it still applies
 
