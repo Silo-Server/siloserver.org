@@ -4,7 +4,7 @@ title: Read node status
 description: Understand the state, acceleration, load, and capacity readings in Admin > Nodes, and the metrics each node exports.
 ---
 
-Open **Admin > Nodes** to see every proxy and transcode node, listed under **Proxy Nodes** and **Transcode Nodes**. Each node shows its state and up to three blocks: **Acceleration** (transcode nodes only), **Load**, and **Capacity**. The page refreshes every 30 seconds while it's open. To add a node, see [Add and check transcode nodes](/docs/transcode-nodes).
+Open **Admin > Nodes** to see every proxy and transcode node, listed under **Proxy Nodes** and **Transcode Nodes**. Each node shows its state and up to three blocks: [**Acceleration**](#acceleration) (transcode nodes only), [**Load**](#load), and [**Capacity**](#capacity). The page refreshes every 30 seconds while it's open. To add a node, see [Add and check transcode nodes](/docs/transcode-nodes).
 
 A single server has no entries here. Its CPU, memory, and disk use are on the admin dashboard.
 
@@ -43,7 +43,7 @@ The badge shows the encoder the node's FFmpeg verified with a real test encode o
 | Badge | Meaning |
 | --- | --- |
 | **QSV**, **VAAPI**, or **NVENC** in green | The encoder passed its test. Hover to see the device. |
-| The same badges in amber | The encoder is set for this node but failed its test. Hover to see FFmpeg's reason. Transcodes still try it, because Silo uses an encoder you chose explicitly. |
+| The same badges in amber | The encoder is set for this node but failed its test. Hover to see FFmpeg's reason. Transcodes still try it, because the node's **Hardware Acceleration** setting names it. |
 | The same badges, plain | The encoder is in use, but the node reported no test for it. This happens when it had no device to test. |
 | **SW** | No hardware encoder passed, so the node encodes in software. |
 | **SW**, with "the configured GPU devices are not accessible on this node" on hover | The node couldn't open any of the configured devices, so it tested none of them. |
