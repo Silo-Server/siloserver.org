@@ -1,23 +1,36 @@
 ---
 slug: docs/markers
-title: Find and correct intro markers
+title: Find and correct skip markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---
 
-Markers tell the player where an intro, recap, credits, or preview starts and ends, so it can offer a skip button. Markers work without setup. Silo installs the TheIntroDB plugin when it starts (if it can reach the plugin catalog), looks markers up there, and detects intros on the server when no online intro exists.
+Markers tell the player where an intro, recap, credits, or preview starts and ends, so it can offer a skip button. Markers work without setup. Silo installs the TheIntroDB plugin when it starts (if it can reach the plugin catalog), looks markers up there, and detects intros and credits on the server when no online marker of that kind exists.
 
 ## Choose how markers are found
 
 1. Open **Admin > Settings > Library & Metadata** and find **Skip markers**.
 2. Set **Marker source**:
-   - **Online preferred + server detection** (the default) uses online markers and detects intros locally only when no online intro is saved.
+   - **Online preferred + server detection** (the default) uses online markers and detects an intro or credits locally only when no online one is saved.
    - **Online providers only** or **Detect on this server** uses one method.
    - **Off** stops finding markers.
-3. With online markers on, choose whether to **Save online markers** with **Save to library** (the default) or **Fetch when needed**.
-4. Leave **Find markers on playback** on to look for missing markers when someone starts playing an item. With local detection, this uses server CPU.
-5. Save, then use **Run now** on the marker tasks below the settings, such as **Sync online markers**, to process existing media.
+3. With local detection on, choose what it finds with **Detect intros** and **Detect credits**. Both are on by default. Credits detection uses more CPU than intro detection. Turning one off keeps the markers it already found.
+4. With online markers on, choose whether to **Save online markers** with **Save to library** (the default) or **Fetch when needed**.
+5. Leave **Find markers on playback** on to look for missing markers when someone starts playing an item. With local detection, this uses server CPU.
+6. Save, then use **Run now** on the marker tasks below the settings, such as **Sync online markers**, to process existing media.
 
-Local detection reads each season's audio. **Detection workers** sets how many seasons are analyzed at once. To skip detection for one library, turn off **Detect intro markers** in that library's **Advanced** settings.
+## How local detection works
+
+Silo first looks for a chapter in the file named for the intro or credits, such as `Opening` or `End Credits`, and uses it when it finds one. Otherwise:
+
+- An episode's intro comes from the opening audio its season shares.
+- An episode's credits come from the ending audio its season shares and from credit text on a black or plain background, so an episode with no others in its season can still get credits.
+- A movie gets credits only, from the picture near the end. This is best effort: some movies get no credits marker, or one that starts late.
+
+Reading the picture takes most of the CPU. When [transcoding uses a GPU](/docs/playback) through VA-API, QSV, or VideoToolbox, Silo reads it on the GPU too.
+
+**Detection workers** sets how many seasons or movies are analyzed at once. It defaults to 1; raise it to finish a large library sooner if your storage and CPU have room.
+
+To skip detection for one library, turn off its switch in the library's **Advanced** settings: **Detect intro and credits markers** for series and mixed libraries, or **Detect credits markers (best effort)** for movie libraries. Movie libraries you add start with it off.
 
 ## Manage marker providers
 
@@ -28,6 +41,16 @@ Local detection reads each season's audio. **Detection workers** sets how many s
 5. Choose **Save**, then **Test connection**.
 
 Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
+
+## Detect markers again for one item
+
+In the web app, an administrator can run local detection again for a single episode or movie, for example after replacing the file.
+
+1. Open the episode or movie's detail menu.
+2. For an episode, choose **Re-detect Markers**, then **Intro**, **Credits**, or **Intro and credits**. A kind turned off in marker settings can't be chosen.
+3. For a movie, choose **Re-detect Credits**.
+
+Silo shows **Re-detection started** and analyzes the item in the background. Manual markers and online markers stay as they are.
 
 ## Correct a marker
 
