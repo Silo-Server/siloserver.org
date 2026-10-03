@@ -46,7 +46,7 @@ If files are found but identified incorrectly, rename them using the [naming gui
 
 **Scan** finds new and changed files in the library folders. **Refresh Metadata** asks metadata providers again about items already in the library. Scan for a new file; refresh for an updated description or poster.
 
-For ongoing imports from another service, set up [Autoscan](/docs/autoscan) after a normal scan succeeds.
+After the first scan, Silo watches library folders on local disks and scans a new or changed file within seconds, so you rarely need **Scan**. For a library on a network share, set up an [autoscan source](/docs/autoscan#autoscan-sources) after a normal scan succeeds. [Keep libraries up to date](/docs/autoscan) covers both.
 
 ## Hide or remove a library
 
