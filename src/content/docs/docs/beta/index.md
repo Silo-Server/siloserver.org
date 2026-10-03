@@ -25,6 +25,7 @@ more.
 | Timeline previews | iPhone, iPad, Apple TV, native Mac app | [Timeline previews on Apple devices](/docs/timeline-previews) |
 | Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
 | Network Access (Tailscale) | Web admin | [Reach your server with Tailscale](/docs/network-access) |
+| Tailscale sign-in | Web, mobile, and TV | [Sign in with Tailscale](/docs/tailscale-sign-in) |
 | Native macOS app | Built from source | [Native macOS app](/docs/native-macos) |
 
 Try a Beta feature on a few titles first, and back up before you import or
