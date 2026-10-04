@@ -44,7 +44,7 @@ Then connect the bucket:
 4. For public storage, keep **How asset links are authorized** at **Signed links (recommended)** unless you have set up [another option](#choose-how-clients-download-files).
 5. Select **Check Connection**. It writes, reads, and deletes a test file, so a missing permission shows up here.
 6. Save and follow the restart notice.
-7. Open an image from a client on the network that will use it. The connection check runs from the server, so it can pass while clients still cannot reach the bucket.
+7. On a device that will use Silo, open some artwork in the app or web app, or a profile avatar for private storage. Apps load these files straight from the bucket, so **Check Connection** can pass while devices still can't reach it, for example when the **Endpoint** is an address only the server can see.
 
 ### Choose how clients download files
 
