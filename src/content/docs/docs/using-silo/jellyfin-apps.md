@@ -51,6 +51,17 @@ username.
 Sign out of the app, then sign in with the other profile's name and PIN.
 Progress and favorites belong to the profile you signed in with.
 
+### If you sign in with your organization's account
+
+These apps need a username and password, so they work only on some servers
+that use [single sign-on](/docs/single-sign-on):
+
+- If you sign in to Silo with your organization's username and password, use
+  those, with `#` and the profile name after the username as usual. Profiles
+  with a PIN can't be used this way; pick one without a PIN.
+- If you sign in with a button that opens your organization's sign-in page,
+  your account has no password these apps can use.
+
 ## If sign-in fails
 
 If the app says your username or password is wrong, check the server
@@ -58,6 +69,10 @@ address, your Silo username and password, the profile name, and the PIN.
 Try signing in to Silo's web app with the same username and password. If
 that works, the problem is in the Jellyfin-compatible sign-in; share the
 error with the person who runs your server.
+
+If the app reports that local password sign-in is turned off on this server,
+your Silo password no longer works there. Sign in with your organization's
+account as described above.
 
 ## What works
 
