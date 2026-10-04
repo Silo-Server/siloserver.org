@@ -27,9 +27,11 @@ Start playing the movie or episode, then open its
 - **Android TV:** choose **Search subtitles**. Pick a language and select
   **Search**.
 
-Choose the result that best matches your copy of the title. Silo saves it and
-adds it to the subtitle list. Select it if it isn't already on, and watch a
-few lines to make sure the timing fits.
+Choose the result that best matches your copy of the title. Silo saves it,
+adds it to the subtitle list, and
+[syncs it to the audio](/docs/subtitles#fix-subtitles-that-are-out-of-sync)
+in the background. Select it if it isn't already on, and watch a few lines
+to make sure the timing fits.
 
 ## Upload a file
 
@@ -37,7 +39,8 @@ In the web app, open **Add Subtitles…** in the player's subtitle menu, or
 **Add Subtitles** from the title page's **More** menu. Choose a `.srt`,
 `.vtt`, `.ass`, `.ssa`, or `.sub` file and check the language Silo detects.
 Turn on **Hearing impaired (HI)** if the file describes sounds as well as
-dialogue, then select **Upload**.
+dialogue, then select **Upload**. Silo syncs the new subtitle to the audio,
+except for `.sub` files.
 
 Only upload a file you're happy for everyone on the server to use.
 
