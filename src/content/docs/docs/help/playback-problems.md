@@ -16,10 +16,18 @@ clear which change fixed the problem, or which details to report.
 3. Try the same title in another Silo app, such as the web app.
 4. Choose a lower **Quality** if playback buffers on a slow connection.
 
+If the web player says `This file can't be played`, the file itself is empty,
+corrupt, or cut short, and trying again won't help. On a series page, the web
+app marks an episode like this **Damaged file**. Replace the file, then
+[scan the library](/docs/manage-libraries#scan-or-refresh). If someone else runs
+the server, tell them which title it is.
+
 If you run the server, check [active playback](/docs/active-playback) to see
 whether the stream is being converted, and [server health](/docs/server-health)
-for errors at that time. Otherwise, share the details below with the person who
-runs it.
+for errors at that time. Silo doesn't mark a file damaged when it can't open
+the file because of its permissions or its storage, such as a network mount
+that dropped. To find those files, filter **Admin > Logs** by the `scanner`
+component. Otherwise, share the details below with the person who runs it.
 
 ## Picture problems on a TV
 
