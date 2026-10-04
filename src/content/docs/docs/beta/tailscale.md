@@ -58,7 +58,9 @@ doesn't need to be approved again later.
      find it by its short name.
 
 The plugin serves Silo only on your tailnet. To reach Silo from the public
-internet, use a [reverse proxy](/docs/reverse-proxy).
+internet, use a [reverse proxy](/docs/reverse-proxy). If you used Funnel
+with an earlier version of the plugin, the server stops answering publicly
+after you update to 0.2.0 or later. Set up a reverse proxy instead.
 
 ## Connect the server
 
