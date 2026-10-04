@@ -57,20 +57,41 @@ and select **Save config**. Saving restarts the plugin.
 
 ## Set roles with grants
 
-Grants in your tailnet policy can set each person's Silo role. Add them in
-the Tailscale admin console, with the
-[visual policy editor](https://tailscale.com/docs/features/visual-editor) or
-the policy file; in the visual editor, the app and capability go under
-**Application-level options**. To make members of a group Silo admins, and everyone else,
-including people you share the server with, regular users, add two
-[grants](https://tailscale.com/docs/features/access-control/grants). These
-assume you [tagged the server](/docs/network-access#before-you-start)
-`tag:silo`.
+Grants in your tailnet policy can set each person's Silo role. Add them with
+the visual policy editor in the Tailscale admin console. These steps assume
+you [tagged the server](/docs/network-access#before-you-start) `tag:silo`.
+They make members of a `silo-admins` group Silo admins, and everyone else,
+including people you share the server with, regular users.
 
-| Source | Destination | App | Capability |
-| --- | --- | --- | --- |
-| Your admin group, for example `group:silo-admins` | `tag:silo` | `siloserver.org/cap/silo` | `{"role": "admin"}` |
-| `autogroup:member` and `autogroup:shared` | `tag:silo` | `siloserver.org/cap/silo` | `{"role": "user"}` |
+1. Open **Access controls > Definitions**. On the **Groups** tab, select
+   **Create group**. Enter `silo-admins` as the **Group name**, add the
+   people who should be Silo admins under **Members**, and select **Save
+   group**.
+
+   ![The Create group form in the Tailscale admin console, with the group name silo-admins and one member.](../../../../assets/docs/tailscale/create-group.png)
+
+2. Open **Access controls > Policies**. On the **General access rules** tab,
+   select **Add rule**.
+3. Set **Source** to `group:silo-admins` and **Destination** to `tag:silo`.
+   Leave **Port and protocol** at **All ports and protocols**.
+4. Expand **Application-level options**. Enter `siloserver.org/cap/silo` as
+   the **App** and `{"role": "admin"}` as the **Capability**, then select
+   **Save grant**.
+
+   ![The Add rule form with source group:silo-admins, destination tag:silo, app siloserver.org/cap/silo, and capability role admin. The JSON preview shows the matching grant.](../../../../assets/docs/tailscale/grant-admin-role.png)
+
+5. Select **Add rule** again. Set **Source** to `autogroup:member` and
+   `autogroup:shared`, and **Destination** to `tag:silo`. Under
+   **Application-level options**, enter `siloserver.org/cap/silo` as the
+   **App** and `{"role": "user"}` as the **Capability**, then select **Save
+   grant**.
+
+The **General access rules** tab then lists both rules. Each rule's **JSON
+preview** shows how it appears in the policy file, if you edit that instead.
+
+![The General access rules tab listing the default rule, a rule from group:silo-admins to tag:silo, and a rule from autogroup:member and autogroup:shared to tag:silo.](../../../../assets/docs/tailscale/access-rules.png)
+
+How Silo reads these grants:
 
 - `{"role": "admin"}` makes the person a Silo admin. `{"role": "user"}` or
   `{}` makes them a regular user. Any other value, such as
@@ -87,21 +108,28 @@ Anyone who can edit your tailnet policy can make themselves a Silo admin.
 ## Share your server with family and friends
 
 Tailscale's machine sharing lets someone outside your tailnet reach the Silo
-node and nothing else, without joining your tailnet. People who are already
-members of your tailnet don't need a share.
+node and nothing else. They don't join your tailnet. People who are already
+members of your tailnet don't need a share. A share covers one machine; to
+give someone more than one, Tailscale suggests inviting them to your tailnet
+instead.
 
 ### What you do
 
-1. [Share the Silo machine](https://tailscale.com/docs/features/sharing)
-   from the **Machines** page of the Tailscale admin console, by email or
-   with a share link. The machine is named after the plugin's **Hostname**.
-2. If you added the grants in [Set roles with grants](#set-roles-with-grants),
+1. In the Tailscale admin console, open **Machines** and select **Share...**
+   next to the Silo machine, which is named after the plugin's **Hostname**.
+2. Select **Share via email** and enter their addresses, or select **Copy
+   share link** and send the link yourself. Turn on **Reusable link** to send
+   one link to several people. Unused links expire after 30 days.
+
+   ![The Share machine dialog for silo, on the Copy share link tab, with the Reusable link switch and the Copy share link button.](../../../../assets/docs/tailscale/share-machine.png)
+
+3. If you added the rules in [Set roles with grants](#set-roles-with-grants),
    people you share the server with can already reach it. Otherwise, if your
    tailnet policy doesn't allow all traffic, add a rule with **Source**
    `autogroup:shared` and **Destination** `tag:silo`. If **Who can sign in**
    requires a grant, give that rule the `siloserver.org/cap/silo` capability
    too.
-3. Send them the server address from **Admin > Settings > Network Access**,
+4. Send them the server address from **Admin > Settings > Network Access**,
    for example `https://silo.example-tailnet.ts.net`. A shared machine
    answers only to its full name, so the short hostname won't work.
 

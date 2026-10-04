@@ -18,17 +18,24 @@ community contributors rather than the Silo project.
 
 ## Before you start
 
-In the Tailscale admin console, turn on
-[MagicDNS](https://tailscale.com/docs/features/magicdns) and
-[HTTPS certificates](https://tailscale.com/docs/how-to/set-up-https-certificates).
-The server can't get an HTTPS address without both.
+In the Tailscale admin console, open **DNS**. Check that **MagicDNS** is on,
+as it is for new tailnets. Under **HTTPS Certificates**, select **Enable
+HTTPS...** and confirm. The server can't get an HTTPS address without both.
+
+![The DNS page of the Tailscale admin console, showing the MagicDNS section and the Enable HTTPS button under HTTPS Certificates.](../../../../assets/docs/tailscale/dns-https-certificates.png)
 
 Tailscale records the certificate's name in public Certificate Transparency
 logs, so choose a hostname you don't mind being public.
 
-If you'll tag the server, [create the tag](https://tailscale.com/docs/features/tags)
-in your tailnet policy before you connect it. The
-[Tailscale sign-in](/docs/tailscale-sign-in) examples use `tag:silo`.
+To tag the server, which the [Tailscale sign-in](/docs/tailscale-sign-in)
+examples assume, create the tag before you connect it:
+
+1. Open **Access controls > Definitions** and select the **Tags** tab.
+2. Select **Create tag**. Enter `silo` as the **Tag name**, choose a **Tag
+   owner** such as `autogroup:admin`, and select **Save tag**.
+
+![The Create tag form in the Tailscale admin console, with the tag name silo and the owner autogroup:admin.](../../../../assets/docs/tailscale/create-tag.png)
+
 Tailscale turns off key expiry for tagged devices, so a tagged server
 doesn't need to be approved again later.
 
@@ -58,10 +65,18 @@ internet, use a [reverse proxy](/docs/reverse-proxy).
 1. Open **Admin > Settings > Network Access**.
 2. Under **Tailscale**, select **Connect** on the row for your server.
 3. If the row shows **Waiting for authorization**, select **Open the
-   authorization page**, sign in to Tailscale, and approve the server. With a
+   authorization page**, sign in to Tailscale, and select **Connect**. With a
    saved auth key, this step is skipped.
+
+   ![Tailscale's Connect device page, asking to connect the device silo to the tailnet.](../../../../assets/docs/tailscale/connect-device.png)
+
 4. Wait for **Connected**. The row then shows the address clients use, after
    **Clients reach this host at**.
+
+The server also appears on the **Machines** page of the Tailscale admin
+console, with its tag if you set one.
+
+![The Machines page of the Tailscale admin console, listing the silo machine with the tag:silo tag and Expiry disabled.](../../../../assets/docs/tailscale/machines-silo-tagged.png)
 
 Proxy nodes appear as their own rows, named `<hostname>-proxy-<node id>`.
 
