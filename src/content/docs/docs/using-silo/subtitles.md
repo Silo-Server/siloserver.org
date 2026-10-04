@@ -42,7 +42,70 @@ changes them. To use a different look on one device, see
 
 ## Fix subtitles that are out of sync
 
-If subtitles show up too early or too late, change the subtitle delay:
+Silo syncs each subtitle you [download or upload](/docs/missing-subtitles)
+to the video's audio when it's added, so most need no delay. Sync fixes
+subtitles that start too early or too late, run at the wrong speed because
+they were made for a version with a different frame rate, or slowly drift
+because they come from a different cut of the film. Other subtitles, such as
+AI subtitles and subtitle files beside the video, are synced the first time
+someone plays them. The lines on screen move to the new timing without a
+notice.
+
+Only SRT, WebVTT, ASS, and SSA subtitles can be synced. Subtitles inside the
+video file keep their own timing, and so do other formats, such as `.sub`
+files.
+
+### Sync a subtitle to the audio
+
+In the web app, select the subtitle in the subtitle menu and choose
+**Sync to audio** under **Timing**. Anyone who can play the title can sync
+its subtitles, and the new timing applies to everyone who watches it.
+**Reset timing** goes back to the subtitle's original timing, also for
+everyone. Demo servers don't allow either; the menu then shows
+**This server doesn't allow changing subtitle timing**.
+
+While Silo syncs, a card in the top-right corner of the player shows how far
+it got, also in fullscreen: **Listening to the audio…**, then
+**Matching lines to speech…**. Listening takes most of the time. Once Silo
+has the new timing, the card shows **Applying new timing…** until the
+corrected lines are on screen, then **Subtitles synced** with the change,
+such as **−3.0 s**. The card also follows the automatic sync of a subtitle
+you downloaded or uploaded. When someone else changes the timing of the
+subtitle you're watching, the player shows **Subtitle timing updated** once
+the new lines load.
+
+Sync never changes the subtitle file. Silo saves the correction and applies
+it each time it sends the subtitle. Editing or replacing a subtitle file
+beside the video, or replacing the video, drops the correction. Silo syncs
+the subtitle again the next time someone plays it.
+
+The mobile and TV apps and Jellyfin apps play the synced timing the next time
+they load the subtitle. To start a sync or follow one, use the web app.
+
+### Check how a subtitle was synced
+
+In the web app, the subtitle menu shows how each subtitle was synced, under
+its name:
+
+- **Syncing… 40%**: Silo is still working on it.
+- **Synced −3.2 s**: Silo moved it earlier or later by that much. If it also
+  corrected the speed, the line ends with the change, such as
+  **· 25→23.976 fps** or **· ×1.0008 speed**.
+- **Already in sync**: the timing was already right.
+- **Doesn't match this video**: the subtitle doesn't line up with the audio,
+  usually because it was made for a different release or title. Silo leaves
+  its timing alone. Choose another file that matches your copy of the title;
+  a delay won't fix it.
+- **Sync failed**: Silo couldn't finish. Select the subtitle to see why under
+  **Timing**: the subtitle changed during the sync, the video has no audio
+  Silo can read, or the server was busy. If the subtitle changed or the
+  server was busy, try **Sync to audio** again.
+
+### Change the delay on one device
+
+If subtitles still show up too early or too late, change the subtitle delay.
+The delay applies only on the device you're using, on top of the synced
+timing:
 
 - **Web:** in the subtitle menu, use **-** and **+** next to **Delay**.
   **Reset** sets it back to zero.
@@ -53,6 +116,4 @@ If subtitles show up too early or too late, change the subtitle delay:
 - **Apple TV and Android TV:** open the **Subtitles** tab and choose
   **Delay**.
 
-Change it a little at a time and replay a line to check. If the subtitles
-drift further out of sync as the movie goes on, a different subtitle file
-that matches your version of the title will work better than a bigger delay.
+Change it a little at a time and replay a line to check.
