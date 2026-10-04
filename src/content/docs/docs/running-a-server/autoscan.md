@@ -76,16 +76,20 @@ The sending service's **Test** button only checks that the URL works. The source
 
 Keep the webhook URL secret. If you rotate it, update the sending service too.
 
+### Manage sources
+
+Each source shows which libraries it feeds and whether it's working. Give a source a label when you have several of the same kind, such as two Sonarr servers; the label becomes its name in the list. To change a source's label, server, settings, or path mappings, choose **Edit**. Copy a webhook URL with the copy button, and rotate it or delete the source from the **⋯** menu.
+
 ### Add a polling source
 
 1. Install a scan-source [plugin](/docs/plugins). For Sonarr and Radarr, install **Sonarr / Radarr** from the Silo maintained catalog.
 2. Under **Sources > Advanced**, add a saved connection if the source needs one. Enter the service URL and credential, or reuse a Requests integration.
 3. Choose **Test connection** and save.
-4. Choose **Add source**, select the plugin, and bind the connection. New polling sources start turned off.
-5. On the source's row, open **Path rewrites**. Choose **Sync from server** to suggest mappings from the service's root folders, or add them yourself, then choose **Save rewrites**.
-6. Enable the source and Autoscan, then choose **Run now**. The first check only records a starting point and reports 0 changes. Imports after that appear in **Activity** on the next check.
+4. Choose **Add source**, select the plugin, and choose the server. Sonarr and Radarr sources need one. If the service sees different paths than Silo, add the path mappings now, and give the source a label if you like. The source is on as soon as you add it.
+5. To fill in mappings from the service instead, choose **Edit** on the source and open **Match paths**. Choose **Sync from server**, select the suggested mappings, choose **Add selected**, then choose **Save**.
+6. Turn on Autoscan if it's off, then choose **Run now**. The first check only records a starting point and reports 0 changes. Imports after that appear in **Activity** on the next check, or straight away when you choose **Run now** again.
 
-Sources check for changes at the **Default check interval** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** skips a source whose interval hasn't passed since its last check.
+Sources check for changes at the **Default check interval** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** appears while Autoscan is on and a polling source is enabled. It checks every enabled polling source straight away, whatever its interval.
 
 ### Match paths
 
@@ -109,9 +113,9 @@ If the status line says `Folders Silo can't read aren't monitored`, the rest of 
 
 ## Troubleshoot autoscan sources
 
-Start with **Activity**. An unresolved event means a path rewrite or library folder is wrong. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
+Start with **Activity**. In **Polls**, expand an event to see each path it received, the path after your rewrites, and what happened to it. An unresolved path means a path rewrite or library folder is wrong. **Scans** shows what each scan found, such as new or missing files. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
 
-The **Debounce (seconds)** setting under **Advanced** combines changes that arrive close together. After an event is handled, look in the library to see whether the file was scanned and matched.
+The **Debounce (seconds)** setting under **Advanced** skips repeat reports of an unchanged file that arrive within that many seconds. A changed or deleted file always starts a scan. After an event is handled, look in the library to see whether the file was scanned and matched.
 
 ## If old titles stay after a folder rename
 
