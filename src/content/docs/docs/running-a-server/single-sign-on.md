@@ -49,17 +49,17 @@ In the iPhone, iPad, and Android apps, signing in with the provider opens the de
 7. Under **Login button**, enter a **Directory name** such as `Company directory`, then save.
 8. Select **Turn on**.
 
-People then sign in with their directory username and password in the usual sign-in form. An account that still has its own Silo password keeps signing in with that password, never the directory one, until it's [connected to the directory](#choose-who-gets-an-account).
+People then sign in with their directory username and password in the usual sign-in form. An account that still has its own Silo password keeps signing in with that password until it's [connected to the directory](#choose-who-gets-an-account).
 
 ## Choose who gets an account
 
 With **Create accounts on first sign-in** on, which is the default, anyone the provider lets in gets a Silo account the first time they sign in. Their role follows **Admin groups** when you set it; everyone else becomes a regular user. Turn it off to let in only people whose Silo account is already connected to the provider.
 
-People who already have a Silo account should connect it rather than sign in with the provider straight away, or Silo refuses the sign-in because an account with their email already exists. There are three ways to connect one:
+Connect existing Silo accounts before their owners sign in with the provider. Otherwise Silo refuses the sign-in, because an account with their email already exists. There are three ways to connect one:
 
 - The person connects it in their own account settings. See [Connect a sign-in provider](/docs/accounts#connect-a-sign-in-provider).
 - An admin connects it on the account's **Sign-in** tab with **Connect identity**. See [Sign-in and break-glass accounts](/docs/manage-accounts#sign-in-and-break-glass-accounts).
-- **Match existing accounts by email**, under **Accounts and sessions**, connects a first sign-in to the regular account with the same email, when the provider says the address is verified. It's off by default. Silo doesn't check account emails, so whoever controls that address at the provider takes over the account. Turn it on only if the provider verifies every email and people can't change their own. Admin, owner, and break-glass accounts are never matched.
+- **Match existing accounts by email**, under **Accounts and sessions**, connects a first sign-in to the regular account with the same email, when the provider says the address is verified. It's off by default. Whoever controls that address at the provider takes over the Silo account, and matching signs the account out everywhere and deletes its API keys. Turn it on only if the provider verifies every email and people can't change their own. Admin, owner, and break-glass accounts are never matched.
 
 Connecting a provider turns off the account's Silo password, unless it's a break-glass account. The person signs in with the provider from then on.
 

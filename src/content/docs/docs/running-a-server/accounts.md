@@ -70,7 +70,7 @@ People can request a link using their username or email address. These links exp
 
 When the server uses [single sign-on](/docs/single-sign-on), open the person's name in **Admin > Users** and choose the **Sign-in** tab to see how the account signs in.
 
-**Password sign-in** says whether the account can sign in with a Silo password. Connecting a sign-in provider turns it off, unless the account is break-glass. To turn it back on, for example when the account's provider is gone, choose **Set a password**. The page header then shows **Reset password** again instead of **Set password**.
+**Password sign-in** says whether the account can sign in with a Silo password. Connecting a sign-in provider turns it off, unless the account is break-glass. To turn it back on, for example when the account's provider is gone, choose **Set a password**. While it's off, the page header shows **Set password** where other accounts show **Reset password**.
 
 **Break-glass account**, on admin accounts, keeps password sign-in when it's turned off for the server, so the admin can still get in if the provider is down. The server owner is break-glass by default, and only the owner can change this switch. Make sure at least one break-glass admin knows their Silo password.
 
