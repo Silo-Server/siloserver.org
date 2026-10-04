@@ -40,6 +40,8 @@ Make sure the host disk or network mount is available before scanning again. A f
 
 For Docker, compare `MEDIA_ROOT` with the folder entered in Silo. If the host's `/srv/media/movies` is mounted at `/mnt/media/movies`, enter `/mnt/media/movies` in Silo. Silo also needs read permission on the files and permission to open their parent folders.
 
+Silo adds only the [video file types](/docs/media-folders#file-types) it supports. Remux DVD and Blu-ray folders and `.iso` images into a single file first.
+
 If files are found but identified incorrectly, rename them using the [naming guide](/docs/media-folders) or use [Match Item](/docs/metadata#correct-a-wrong-match).
 
 ## Scan or refresh
