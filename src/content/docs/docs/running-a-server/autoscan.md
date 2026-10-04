@@ -66,23 +66,26 @@ Sonarr and Radarr webhooks can stay on for libraries that are also monitored. Wh
 
 ### Add a webhook source
 
-1. In **Sources**, choose **Add source** and select the source and webhook delivery option.
+1. In **Sources**, choose **Add source** and select **Sonarr/Radarr Webhook**. It's built in and needs no plugin.
 2. Follow **Match paths**. Map the paths the other service sends to the paths Silo sees inside its container.
-3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service.
+3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**.
 4. Turn on Autoscan in the page header.
-5. Send the service's test event or add one item, then open **Activity**. The event should resolve to the right library and queue a scan.
+5. Add one item in the sending service, then open **Activity** and choose **Polls**. The delivery has a **Webhook** badge, resolves to the right library, and creates a scan.
+
+The sending service's **Test** button only checks that the URL works. The source's row shows the new delivery time, but test events don't appear in **Activity** and don't start a scan.
 
 Keep the webhook URL secret. If you rotate it, update the sending service too.
 
 ### Add a polling source
 
-1. Install the required [scan-source plugin](/docs/plugins).
+1. Install a scan-source [plugin](/docs/plugins). For Sonarr and Radarr, install **Sonarr / Radarr** from the Silo maintained catalog.
 2. Under **Sources > Advanced**, add a saved connection if the source needs one. Enter the service URL and credential, or reuse a Requests integration.
 3. Choose **Test connection** and save.
-4. Choose **Add source**, select the plugin, and bind the connection. Review its settings and path rewrites.
-5. Enable the source and Autoscan, then choose **Run now**. Check **Activity** for the result.
+4. Choose **Add source**, select the plugin, and bind the connection. New polling sources start turned off.
+5. On the source's row, open **Path rewrites**. Choose **Sync from server** to suggest mappings from the service's root folders, or add them yourself, then choose **Save rewrites**.
+6. Enable the source and Autoscan, then choose **Run now**. The first check only records a starting point and reports 0 changes. Imports after that appear in **Activity** on the next check.
 
-Each polling source can set its own check interval instead of the default.
+Sources check for changes at the **Default check interval** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** skips a source whose interval hasn't passed since its last check.
 
 ### Match paths
 
