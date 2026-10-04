@@ -42,6 +42,14 @@ Change a host port in `.env` when it conflicts with another service. The contain
 
 The three Silo ports listen on every host interface without TLS. The Jellyfin and Audiobookshelf listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Settings > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
+## Discovery on the local network
+
+Silo announces itself on your network so the Silo app on Apple devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches the Silo process: Silo installed directly on a machine or in an LXC container, or Docker with host networking (`network_mode: host`).
+
+The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
+
+To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Settings > General**, save, and restart Silo. It's on by default.
+
 ## Data directories
 
 The media mount is read-only. Silo's writable directories live below `SILO_DATA_ROOT`, which defaults to `/opt/silo`:
