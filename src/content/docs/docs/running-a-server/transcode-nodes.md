@@ -10,7 +10,7 @@ A single Silo server already streams and converts video itself. Add nodes when y
 
 | Type | Does | Use it when |
 | --- | --- | --- |
-| Transcode | Converts video for playback and prepared downloads | The main server's CPU or GPU can't keep up, or another machine has a better GPU |
+| Transcode | Converts video for playback and prepared downloads, and reads audio for [subtitle sync](/docs/subtitle-providers#set-up-subtitle-sync) | The main server's CPU or GPU can't keep up, or another machine has a better GPU |
 | Proxy | Delivers streams and downloads to clients | You want streams to leave from somewhere other than the main server, such as a host with more bandwidth |
 
 Transcode nodes only talk to the main server and proxy nodes, so they need no public address. Clients connect to proxy nodes directly.

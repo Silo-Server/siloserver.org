@@ -46,13 +46,47 @@ Silo syncs each subtitle you [download or upload](/docs/missing-subtitles)
 to the video's audio when it's added, so most need no delay. Sync fixes
 subtitles that start too early or too late, run at the wrong speed because
 they were made for a version with a different frame rate, or slowly drift
-because they come from a different cut of the film. Subtitles that come with
-the video file, and `.sub` files, keep their own timing.
+because they come from a different cut of the film. Other subtitles, such as
+AI subtitles and subtitle files beside the video, are synced only when
+someone asks.
 
-In the web app, the subtitle menu shows how each added subtitle was synced,
-under its name:
+Only SRT, WebVTT, ASS, and SSA subtitles can be synced. Subtitles inside the
+video file keep their own timing, and so do other formats, such as `.sub`
+files.
 
-- **Syncing…**: Silo is still working on it.
+### Sync a subtitle to the audio
+
+In the web app, select the subtitle in the subtitle menu and choose
+**Sync to audio** under **Timing**. Anyone who can play the title can sync
+its subtitles, and the new timing applies to everyone who watches it.
+**Reset timing** goes back to the subtitle's original timing, also for
+everyone. Demo servers don't allow either; the menu then shows
+**This server doesn't allow changing subtitle timing**.
+
+While Silo syncs, a card in the top-right corner of the player shows how far
+it got, also in fullscreen: **Listening to the audio…**, then
+**Matching lines to speech…**. Listening takes most of the time. Once Silo
+has the new timing, the card shows **Applying new timing…** until the
+corrected lines are on screen, then **Subtitles synced** with the change,
+such as **−3.0 s**. The card also follows the automatic sync of a subtitle
+you downloaded or uploaded. When someone else changes the timing of the
+subtitle you're watching, the player shows **Subtitle timing updated** once
+the new lines load.
+
+Sync never changes the subtitle file. Silo saves the correction and applies
+it each time it sends the subtitle. Editing or replacing a subtitle file
+beside the video, or replacing the video, drops the correction, so sync it
+again.
+
+The mobile and TV apps and Jellyfin apps play the synced timing the next time
+they load the subtitle. To start a sync or follow one, use the web app.
+
+### Check how a subtitle was synced
+
+In the web app, the subtitle menu shows how each subtitle was synced, under
+its name:
+
+- **Syncing… 40%**: Silo is still working on it.
 - **Synced −3.2 s**: Silo moved it earlier or later by that much. If it also
   corrected the speed, the line ends with the change, such as
   **· 25→23.976 fps** or **· ×1.0008 speed**.
@@ -61,12 +95,12 @@ under its name:
   usually because it was made for a different release or title. Silo leaves
   its timing alone. Choose another file that matches your copy of the title;
   a delay won't fix it.
-- **Sync failed**: Silo couldn't finish. Try **Sync subtitle** again.
+- **Sync failed**: Silo couldn't finish. Select the subtitle to see why under
+  **Timing**: the subtitle changed during the sync, the video has no audio
+  Silo can read, or the server was busy. If the subtitle changed or the
+  server was busy, try **Sync to audio** again.
 
-To redo it, select the subtitle and choose **Sync subtitle** under **Timing**
-in the same menu. **Reset timing** goes back to the file's original timing.
-Both change the subtitle for everyone who watches the title, so only the
-person who added it or an admin can use them.
+### Change the delay on one device
 
 If subtitles still show up too early or too late, change the subtitle delay.
 The delay applies only on the device you're using, on top of the synced

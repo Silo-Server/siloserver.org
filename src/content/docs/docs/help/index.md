@@ -52,6 +52,7 @@ including picture, sound, and subtitle problems on a TV.
 | Problem | Guide |
 | --- | --- |
 | Wrong or missing subtitles | [Choose subtitles](/docs/subtitles) or [find a missing track](/docs/missing-subtitles) |
+| Subtitles out of sync | [Fix subtitles that are out of sync](/docs/subtitles#fix-subtitles-that-are-out-of-sync) |
 | An offline item will not play | [Downloads](/docs/downloads) |
 | Progress or watched status looks wrong | [Watch history and resume](/docs/watch-history) |
 | A setting changes on another device | [Profile preferences and device overrides](/docs/preferences) |
