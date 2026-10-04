@@ -39,7 +39,7 @@ curl -fsSL -o incident/silo-profile https://raw.githubusercontent.com/Silo-Serve
 
 The helper needs Node.js, which the Silo image already includes, so the steps below run it inside the container.
 
-The helper saves each capture to a file only you can read. It stops at 128 MiB (change this with `--max-bytes`), gives up after 75 seconds, and never overwrites an existing file. Beside each capture it writes a `.json` file with the build, Go version, instance, start and end times, size, and checksum. `"valid": true` means the capture finished. A capture that went over the size limit, was interrupted, or failed keeps a `.partial` name and has `"valid": false`. Don't send it as a complete capture.
+The helper saves each capture to a file only you can read. It stops at 128 MiB (change this with `--max-bytes`), gives up after 75 seconds, and never overwrites an existing file. Beside each capture it writes a `.json` file with the Silo revision, Go version, instance, start and end times, size, and checksum. `"valid": true` means the capture finished. A capture that went over the size limit, was interrupted, or failed keeps a `.partial` name and has `"valid": false`. Don't send it as a complete capture.
 
 ## Capture a profile with Docker
 
