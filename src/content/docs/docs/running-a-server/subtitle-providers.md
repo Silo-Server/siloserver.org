@@ -1,7 +1,7 @@
 ---
 slug: docs/subtitle-providers
 title: Set up subtitle providers
-description: Connect subtitle search providers and manage tracks stored on your server.
+description: Connect subtitle search providers, sync subtitles to the audio, and manage tracks stored on your server.
 ---
 
 Configure a subtitle provider when viewers need to search for tracks that are missing from a media file. AI translation and transcription have [separate settings](/docs/ai-services).
@@ -15,6 +15,14 @@ Configure a subtitle provider when viewers need to search for tracks that are mi
 5. Run the provider's connection test, then search for and download a subtitle for a known movie or episode in the web player.
 
 A working connection doesn't mean the provider has your language or release.
+
+## Set up subtitle sync
+
+Silo syncs downloaded and uploaded subtitles to the video's audio, so a subtitle made for another release of the title plays in time. The corrected timing applies to everyone who plays the subtitle; viewers see how it went in the [web subtitle menu](/docs/subtitles#fix-subtitles-that-are-out-of-sync). Sync is on by default. Its settings are under **Subtitle sync** in **Admin > Settings > Subtitles & Metadata**; choose **Save** after changing them.
+
+- **Sync new subtitles automatically** syncs each subtitle when it's downloaded or uploaded. Turn it off to sync only when someone chooses **Sync subtitle** in the web player.
+- **Where to analyze audio** chooses the machine that reads the audio: **Local server**, **Prefer transcode nodes** (the default), or **Transcode nodes only**. Sync reads a few minutes of the file's audio, about 45 seconds of CPU time the first time a file is synced. Later subtitles for the same file reuse that work. **Prefer transcode nodes** falls back to the main server when no [transcode node](/docs/transcode-nodes) can take it; **Transcode nodes only** fails the sync instead. A node needs the media at the same path as the main server.
+- **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears when **Where to analyze audio** uses transcode nodes.
 
 ## Inspect saved tracks
 
