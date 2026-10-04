@@ -65,6 +65,8 @@ Movie Name (2024) {imdb-tt1234567}
 
 Replace the sample numbers with the real ID for your title.
 
+A movie can carry the ID in its file name instead, as in `Movie Name (2024)/Movie Name (2024) {tmdb-12345}.mkv`. A show needs the ID in the show folder's name; an ID in an episode's file name doesn't identify the show.
+
 ## Also supported
 
 Silo reads these forms as well.
