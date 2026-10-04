@@ -37,7 +37,7 @@ suggestions.
 
 For your own named groups of titles, use [Collections](/docs/collections).
 
-## Save a title not yet in the library
+## Watchlist titles you don't have yet
 
 In the web app, you can add a movie or series to your watchlist before the
 server has it. This works only while the server has
