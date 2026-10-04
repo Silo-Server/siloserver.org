@@ -36,8 +36,9 @@ examples assume, create the tag before you connect it:
 
 ![The Create tag form in the Tailscale admin console, with the tag name silo and the owner autogroup:admin.](../../../../assets/docs/tailscale/create-tag.png)
 
-Tailscale turns off key expiry for tagged devices, so a tagged server
-doesn't need to be approved again later.
+Tailscale turns off key expiry for a server that's tagged when it first
+connects, so it won't need to sign in to Tailscale again. If you add the tag
+later, turn off key expiry for the server on the Tailscale **Machines** page.
 
 ## Install the plugin
 
@@ -51,7 +52,8 @@ doesn't need to be approved again later.
    - **Auth key** is optional. Without one, you approve the server in your
      browser in the next section. Use a reusable key if you also run proxy
      nodes, so each one enrolls on its own.
-   - **Tags** is optional, for example `tag:silo`. Your tailnet policy or
+   - **Tags** is optional. To tag the server, enter `tag:silo`, the tag you
+     created in [Before you start](#before-you-start). Your tailnet policy or
      auth key must allow the tags.
    - **Discovery** is on by default. The server also answers on port `80`,
      only to redirect to its HTTPS address, so Silo apps on your tailnet can
