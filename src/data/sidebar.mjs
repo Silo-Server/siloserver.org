@@ -64,6 +64,7 @@ export const sidebar = [
       group("Give people access", [
         "docs/manage-accounts",
         "docs/manage-access",
+        "docs/single-sign-on",
         "docs/reverse-proxy",
         "docs/third-party-access",
         "docs/help-a-user",
