@@ -19,6 +19,27 @@ With the default Docker setup, `MEDIA_ROOT=/srv/media` maps the host's media to 
 
 Mount network shares on the host first, and make sure Silo can read the files, before you [add the library](/docs/manage-libraries).
 
+## File types
+
+Movie and series libraries add video files with these extensions, in upper or lower case:
+
+| Format | Extensions |
+| --- | --- |
+| Matroska and WebM | `.mkv`, `.webm` |
+| MP4 and QuickTime | `.mp4`, `.m4v`, `.mov`, `.3gp`, `.3g2`, `.f4v` |
+| AVI | `.avi`, `.divx` |
+| MPEG transport stream | `.ts`, `.m2ts`, `.mts` |
+| MPEG program stream | `.mpg`, `.mpeg` |
+| Windows Media | `.wmv`, `.asf` |
+| Flash video | `.flv` |
+| Ogg | `.ogv`, `.ogm` |
+
+Silo skips files with any other extension.
+
+Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. DVD `.vob` files, `.iso` disc images, and the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder are left out. A disc splits one movie into several files next to its menus and extras, so each piece would show up as its own title.
+
+RealMedia files (`.rm` and `.rmvb`) are left out too. Convert them to one of the formats above to add them.
+
 ## Movies
 
 Use one folder per movie, especially when you have posters, subtitles, extras, or several versions:
