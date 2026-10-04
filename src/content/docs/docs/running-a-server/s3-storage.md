@@ -30,7 +30,7 @@ Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside 
 
 ## Set up S3
 
-Silo works with any S3-compatible service, including AWS S3, Ceph RGW, Garage, and Cloudflare R2. Create a bucket, then an access key with these permissions on it:
+Silo works with any S3-compatible service, including AWS S3, Cloudflare R2, Ceph RGW, and Garage. To host the storage yourself, we recommend [Garage](#garage). Create a bucket, then an access key with these permissions on it:
 
 - `s3:PutObject`, `s3:GetObject`, and `s3:DeleteObject` to store, read, and remove files.
 - `s3:ListBucket` to check the bucket and list its files. **Check Connection**, the [readiness check](/docs/server-health), storage transitions, and diagnostics cleanup all need it.
