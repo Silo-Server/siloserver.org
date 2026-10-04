@@ -234,7 +234,7 @@ person's role. Five kinds of device need care:
 - If you move the Silo node to another tailnet, Silo stops recognizing the
   Tailscale connections made in the old one.
 
-## When Continue as doesn't appear
+## If Continue as doesn't appear
 
 **Continue as** appears only when all of these are true:
 
@@ -242,20 +242,23 @@ person's role. Five kinds of device need care:
 - Silo is open at the server's Tailscale address, not a LAN or public address.
 - **Sign in with Tailscale** is on.
 - The device isn't tagged, and its Tailscale key hasn't expired.
+- The device isn't a subnet router while **Subnet routers** is set to
+  **Cannot sign in**.
 - The request doesn't pass through a proxy.
 - If **Who can sign in** requires a grant, the person holds a
   `siloserver.org/cap/silo` grant.
 
-If a Silo app says it can't reach the server through Tailscale, open the
-Tailscale app on that device and check that it's signed in to an account
-that can reach the server.
+If a TV you set up from your phone says it can't reach the server through
+Tailscale, open the Tailscale app on the TV and check that it's signed in to
+an account that can reach the server.
 
 When the button is there but sign-in fails, the message says why:
 
 | Message | What it means |
 | --- | --- |
 | **Open this server at its Tailscale address to sign in this way.** | The device reached Silo some other way. Use the address from **Admin > Settings > Network Access**. |
-| **Tailscale doesn't allow this device …** | The device is tagged or expired, **Who can sign in** requires a grant the person doesn't have, or the device is a subnet router and **Subnet routers** is set to **Cannot sign in**. It also appears when your OpenID Connect or LDAP provider has refused the account. |
+| **Tailscale doesn't allow this device …** | Your OpenID Connect or LDAP provider refused the account, or your tailnet policy changed a moment ago. |
+| **You don't have an account on this server yet.** | **Create accounts on first sign-in** is off and the account isn't connected to Tailscale yet. [Connect it](#connect-an-existing-account) or turn the setting on. |
 | **An account with your email already exists.** | Sign in with the password and [connect the account](#connect-an-existing-account). |
 
 For plugin problems, use the plugin's
