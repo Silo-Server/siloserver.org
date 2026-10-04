@@ -37,6 +37,26 @@ device out, use a reset link instead (below).
 If you were given a temporary password, sign in through the web app first and
 choose a new password when asked. Then use it in your other apps.
 
+## Connect a sign-in provider
+
+If your server lets you sign in with your organization's account, you can
+connect your existing Silo account to it. You need your Silo password.
+
+1. In the web app, open **Settings > Account**.
+2. Under **Sign-in**, select **Connect** and the provider's name.
+3. Enter your **Silo password**. For a provider that uses its own sign-in
+   page, select **Continue to** and the provider's name, then sign in there.
+   For one that uses a username and password, enter those and select
+   **Connect**.
+
+From then on, sign in with the provider. Connecting turns off your Silo
+password, so you sign in the same way in every app. If your account has no
+Silo password, ask the person who runs the server to connect it for you.
+
+**Disconnect** in the same section removes the connection. It works only
+while you can still sign in another way; otherwise, ask the person who runs
+the server to set a Silo password for you first.
+
 ## Forgot your password?
 
 1. Open your server's sign-in page in a browser and choose
