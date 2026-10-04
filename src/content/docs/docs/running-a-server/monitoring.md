@@ -37,7 +37,7 @@ The server repository has example files in [`deploy/observability/`](https://git
 | `silo.rules.test.yml` | Tests for the rules, run with `promtool test rules` |
 | `grafana-dashboard.json` | A Grafana dashboard |
 
-1. Start from `prometheus.yml` and replace its targets with your own: the `SILO_METRICS_LISTEN` address of each main server, and the address of each proxy or transcode node. Don't point a target at the main server's web port.
+1. Start from `prometheus.yml` and replace its targets with your own: each main server's metrics port at an address Prometheus can reach, such as `silo:9091` from the same Docker network, and the address of each proxy or transcode node. Don't point a target at the main server's web port.
 2. Keep the job name `silo`. The rules in `silo.rules.yml` expect it.
 3. Load `silo.rules.yml` under `rule_files`, as the example does.
 4. In Grafana, import `grafana-dashboard.json` and choose your Prometheus data source when Grafana asks for one.
