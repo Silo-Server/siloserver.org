@@ -22,7 +22,7 @@ devices, open Silo, and press **Continue as**.
 
 - Set up the Tailscale plugin and connect the server as described in
   [Reach your server with Tailscale](/docs/network-access). Tailscale sign-in
-  needs plugin version 0.2.0 or later.
+  requires plugin version 0.2.0 or later.
 - Read [Who Silo signs in](#who-silo-signs-in). Silo signs in whoever is
   signed in to Tailscale on the device, which matters for shared TVs and for
   devices that relay other people's traffic.
@@ -189,28 +189,25 @@ can't connect Tailscale this way.
 ## Who Silo signs in
 
 Silo signs in whoever is signed in to Tailscale on the device, with that
-person's role. Five kinds of device need care:
+person's role.
 
-- **Shared TVs.** Everyone using a TV signs in as the person who signed the
-  TV in to Tailscale. Sign shared TVs in to Tailscale as someone without an
-  admin grant, and use [profiles](/docs/profiles) to keep each viewer's
-  watching separate.
-- **Borrowed devices.** Someone using a device signed in to Tailscale as
-  another person can also connect that person's Tailscale identity to their
-  own Silo account.
-- **Relays.** A device that forwards other people's traffic to Silo, such as
-  a reverse proxy, a NAT or Docker host, or Tailscale Serve on another
-  machine, would make everyone behind it look like its owner. Silo shows no
-  **Continue as** for requests that carry proxy headers, but a plain
-  forwarder adds none. Tag every device that relays traffic to Silo; tagged
-  devices never sign in.
-- **Subnet routers.** A subnet router signs in as its owner, like any other
-  device. Devices on the LAN behind it keep their own addresses and get no
-  **Continue as**. If one of your routers rewrites forwarded LAN traffic to
-  its own Tailscale address, set the plugin's **Subnet routers** to **Cannot
-  sign in**. Exit nodes aren't affected.
-- **Tagged devices** never sign in this way, so don't tag the phones,
-  tablets, and TVs people watch on.
+- Everyone using a shared TV signs in as the person who signed the TV in to
+  Tailscale. Sign shared TVs in to Tailscale as someone without an admin
+  grant, and use [profiles](/docs/profiles) to keep each viewer's watching
+  separate.
+- Someone using a device signed in to Tailscale as another person can
+  connect that person's Tailscale identity to their own Silo account.
+- A device that forwards other people's traffic to Silo, such as a reverse
+  proxy, a NAT or Docker host, or Tailscale Serve on another machine, makes
+  everyone behind it look like its owner. Tag every device that relays
+  traffic to Silo; tagged devices never sign in.
+- A subnet router signs in as its owner, like any other device. Devices on
+  the LAN behind it keep their own addresses and get no **Continue as**. If
+  one of your routers rewrites forwarded LAN traffic to its own Tailscale
+  address, set the plugin's **Subnet routers** to **Cannot sign in**. Exit
+  nodes aren't affected.
+- Tagged devices never sign in this way, so don't tag the phones, tablets,
+  and TVs people watch on.
 
 ## Remove someone's access
 
@@ -218,7 +215,8 @@ person's role. Five kinds of device need care:
   admin console. Their devices can no longer reach the server.
 - If your server also has a public address, Silo signs them out at its next
   access re-check. The default is every 12 hours; change it with **Re-check
-  access every** under **Admin > Settings > Sign-in**.
+  access every**, under **Accounts and sessions** on **Admin > Settings >
+  Sign-in**.
 - If **Who can sign in** requires a grant, removing their grant stops new
   sign-ins, and the next re-check signs them out.
 - Turning off **Sign in with Tailscale** hides **Continue as**. Accounts and
@@ -232,7 +230,7 @@ person's role. Five kinds of device need care:
   they still sign in with a username and password. Accounts that Tailscale
   sign-in creates start without a Silo password.
 - Tailscale sign-in doesn't count as a replacement for passwords. Turning
-  off **Allow password sign-in** still needs an OpenID Connect or LDAP
+  off **Allow password sign-in** still requires an OpenID Connect or LDAP
   provider.
 - If you move the Silo node to another tailnet, Silo stops recognizing the
   Tailscale connections made in the old one.
