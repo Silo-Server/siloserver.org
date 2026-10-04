@@ -31,7 +31,8 @@ Choose the result that best matches your copy of the title. Silo saves it,
 adds it to the subtitle list, and
 [syncs it to the audio](/docs/subtitles#fix-subtitles-that-are-out-of-sync)
 in the background. Select it if it isn't already on, and watch a few lines
-to make sure the timing fits.
+to make sure the timing fits. Sync can't fix a subtitle made for a different
+release, which the web subtitle menu marks **Doesn't match this video**.
 
 ## Upload a file
 
