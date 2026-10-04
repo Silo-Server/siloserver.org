@@ -22,13 +22,13 @@ Silo syncs subtitles to the video's audio, so a subtitle made for another releas
 
 Sync is on by default. Its settings are under **Subtitle sync** in **Admin > Settings > Subtitles & Metadata**; choose **Save** after changing them.
 
-- **Sync new subtitles automatically** syncs each subtitle when it's downloaded or uploaded. Turn it off to sync only when someone chooses **Sync to audio** in the web player.
+- **Sync subtitles automatically** syncs a downloaded or uploaded subtitle when it's added, and any other subtitle the first time it's played. Turn it off to sync only when someone chooses **Sync to audio** in the web player.
 - **Where to analyze audio** chooses the machine that reads the audio: **Local server**, **Prefer transcode nodes** (the default), or **Transcode nodes only**. Sync reads a few minutes of the file's audio, about 45 seconds of CPU time the first time a file is synced. Later subtitles for the same file reuse that work. **Prefer transcode nodes** falls back to the main server when no [transcode node](/docs/transcode-nodes) can take it; **Transcode nodes only** fails the sync instead. A node needs the media at the same path as the main server.
 - **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears when **Where to analyze audio** uses transcode nodes.
 
 ### Subtitle files beside the media
 
-Viewers can also sync SRT, WebVTT, ASS, and SSA files you keep beside the video. Silo syncs these files only when someone chooses **Sync to audio**; it doesn't sync them during a scan or on a schedule. To keep the files in your media folders in sync automatically, use a tool that rewrites subtitle files, such as Bazarr. Subtitles inside the video file and `.sub` files can't be synced.
+Silo also syncs SRT, WebVTT, ASS, and SSA files you keep beside the video, the first time someone plays them, and viewers can sync them with **Sync to audio**. It doesn't sync them during a scan or on a schedule. Other apps that read your media folders still get the files' original timing; to fix the files themselves, use a tool that rewrites subtitle files, such as Bazarr. Subtitles inside the video file and `.sub` files can't be synced.
 
 ### How Silo stores the timing
 

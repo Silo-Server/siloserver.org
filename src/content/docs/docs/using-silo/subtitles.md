@@ -47,8 +47,9 @@ to the video's audio when it's added, so most need no delay. Sync fixes
 subtitles that start too early or too late, run at the wrong speed because
 they were made for a version with a different frame rate, or slowly drift
 because they come from a different cut of the film. Other subtitles, such as
-AI subtitles and subtitle files beside the video, are synced only when
-someone asks.
+AI subtitles and subtitle files beside the video, are synced the first time
+someone plays them. The lines on screen move to the new timing without a
+notice.
 
 Only SRT, WebVTT, ASS, and SSA subtitles can be synced. Subtitles inside the
 video file keep their own timing, and so do other formats, such as `.sub`
@@ -75,8 +76,8 @@ the new lines load.
 
 Sync never changes the subtitle file. Silo saves the correction and applies
 it each time it sends the subtitle. Editing or replacing a subtitle file
-beside the video, or replacing the video, drops the correction, so sync it
-again.
+beside the video, or replacing the video, drops the correction. Silo syncs
+the subtitle again the next time someone plays it.
 
 The mobile and TV apps and Jellyfin apps play the synced timing the next time
 they load the subtitle. To start a sync or follow one, use the web app.
