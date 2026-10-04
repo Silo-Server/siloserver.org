@@ -24,7 +24,7 @@ Don't scrape or publish the profiling port set by `SILO_DEBUG_LISTEN`. It's only
 
 ### Proxy and transcode nodes
 
-Proxy and transcode nodes serve `/metrics` on their own port, the one in the node's **URL** in **Admin > Nodes**. `SILO_METRICS_LISTEN` has no effect on them, and their `/metrics` has no authentication either. Clients stream from proxy nodes, so if clients reach a proxy node through a public hostname or a reverse proxy, block `/metrics` there.
+Proxy and transcode nodes serve `/metrics` on their own port, the one in the node's **URL** in **Admin > Nodes**. `SILO_METRICS_LISTEN` has no effect on them, and their `/metrics` has no authentication either. Clients stream from proxy nodes, so if clients reach a proxy node through a public hostname or a reverse proxy, block `/metrics` there. [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the node series and example alerts.
 
 ## Set up Prometheus and Grafana
 
