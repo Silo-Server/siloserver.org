@@ -59,6 +59,6 @@ Silo fills in bios, photos, and birth dates for cast and crew from metadata prov
 
 Silo looks each person up again after 90 days, even if the provider had no bio for them. If no provider knows a person, Silo stops looking them up in the background after three tries. Opening their page still looks them up.
 
-To change how fast the background lookups go, open **Admin > Settings > Library & Metadata**, open **Advanced** under **Scanning**, and set **Person lookups per minute**. The default is 120. Lower it if a provider limits how often Silo can ask; raise it to fill in a large library sooner. The limit applies to each Silo server, so with several `api` servers each one looks up that many. Opening a person's page doesn't count toward it. The change applies without a restart.
+To change how fast the background lookups go, open **Admin > Settings > Library & Metadata**, open **Advanced** under **Scanning**, and set **Person lookups per minute**. The default is 120. Lower it if a provider limits how often Silo can ask; raise it if your library is large and you want details sooner. The limit applies to each Silo server, so with several `api` servers each one looks up that many. Opening a person's page doesn't count toward it. The change applies without a restart.
 
 If a provider says Silo is asking too often, Silo pauses background lookups for up to 15 minutes and then carries on by itself.
