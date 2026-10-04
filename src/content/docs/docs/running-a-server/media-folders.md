@@ -55,7 +55,7 @@ Use `S01E01` for ordinary episodes and `S00E01` for specials. Text after the epi
 
 Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1` or `Temporada 1`. The number can come first (`3.Staffel`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
 
-Episodes can also sit directly in the show folder when each name has a code such as `S01E03`, for example `Show Name/Show Name S01E03.mkv`. A season pack folder such as `Show.Name.S01.COMPLETE` works inside the show's folder, and in a **Series** library also on its own as the show folder.
+Episodes can also sit directly in the show folder when each name has a code such as `S01E03`, for example `Show Name/Show Name S01E03.mkv`. A season pack folder such as `Show.Name.S01.COMPLETE` works inside the show's folder, and in a Series library also on its own as the show folder.
 
 Audiobook folders are covered in the [Beta audiobook guide](/docs/audiobook-libraries).
 
@@ -89,23 +89,23 @@ Silo reads these forms as well.
 
 A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
 
-A season folder named only with a number, such as `01`, works inside a show folder in a **Series** library. In a **Mixed** library it counts only when the file names have a code such as `S01E03`.
+A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
 
 ## Episode numbers without a season
 
 Put files numbered only by episode in a season folder, or add the season to the name. Without either, Silo has to work out the season:
 
 - A three-digit number that makes up the whole name, or is joined by dots or underscores, is read as season and episode. `Show.Name.103.mkv` is season 1 episode 3, and `Show Name/301.mkv` is season 3 episode 1. Set off by spaces or dashes, the number is an episode number on its own: `Show Name 103.mkv` is episode 103.
-- In a **Series** library, `Show Name/E03.mkv`, `Show Name/03.mkv`, and `[Group] Show Name - 136 [720p].mkv` are episodes with no season. Silo links such a file when its number matches exactly one season 1 episode, or when its name has an episode title that matches exactly one episode in the series. Otherwise the file isn't linked to an episode, and it never becomes a special. Rename it with its season to fix it.
+- In a Series library, `Show Name/E03.mkv`, `Show Name/03.mkv`, and `[Group] Show Name - 136 [720p].mkv` are episodes with no season. Silo links such a file when its number matches exactly one season 1 episode, or when its name has an episode title that matches exactly one episode in the series. Otherwise the file isn't linked to an episode, and it never becomes a special. Rename it with its season to fix it.
 - A season folder wins over a three-digit number that disagrees with it: `Season 21/301.mkv` is season 21 episode 301. A season in the file name wins over the folder: `Season 02/Show Name S01E05.mkv` is season 1 episode 5.
 
 Episode numbers can have up to five digits.
 
-Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If the provider lists several episodes on that date, Silo picks the one from the series' own provider and leaves the file unlinked if that doesn't settle it. Day-first dates such as `24.04.2026` aren't read as air dates.
+Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, the file may stay unlinked; rename it with season and episode. Day-first dates such as `24.04.2026` aren't read as air dates.
 
-## Which show an episode belongs to
+## Show folders
 
-A show folder's name wins over the file name, so `Show Name/Pilot - S01E01.mkv` belongs to Show Name.
+Give each show its own folder. The folder's name wins over the file name, so `Show Name/Pilot - S01E01.mkv` belongs to Show Name.
 
 Files placed directly in a library folder take their show from their own names, so `Show.One.S01E01.mkv` and `Show.Two.S01E01.mkv` can sit side by side there. In any other folder, such as `tv/Downloads/`, Silo treats the folder as one show. To keep several shows in one folder without show folders, add that folder as its own library folder.
 
@@ -141,18 +141,18 @@ Silo doesn't read `.plexignore` itself. Lines starting with `#` are comments in 
 
 If you add an ignore file to a folder that was already scanned, the next scan treats its titles like deleted files: they disappear from the apps and are removed from the library later.
 
-Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a **Movies** library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`.
+Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`.
 
 ## If a title isn't identified
 
-These layouts give Silo too little to go on. Fix the names, or correct the title in Silo:
+Fix the names, or correct the title in Silo, when a layout gives Silo too little to go on:
 
 - Episode files that don't name their show, in a folder that doesn't name it either. Put them in a show folder.
 - A folder and a file that name different titles, as in `On Fire (2024)/Soul on Fire (2025).mkv`. Add a [provider ID](#provider-ids) to the folder.
 - A disc rip such as `title00.mkv` in a folder that doesn't name the movie. Rename the folder, or use [Match Item](/docs/metadata#correct-a-wrong-match).
 - Episodes numbered in an order the provider doesn't use, such as absolute or DVD order, without matching episode titles. Rename them with season and episode.
 
-Folders Silo can't classify on its own are listed under [Ambiguous Roots](/docs/manage-libraries#resolve-ambiguous-folders), where you can set their type and title.
+Folders Silo can't classify on its own are listed under [**Ambiguous Roots**](/docs/manage-libraries#resolve-ambiguous-roots), where you can set their type and title.
 
 ## Renaming and moving files
 

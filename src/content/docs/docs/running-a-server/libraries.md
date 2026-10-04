@@ -56,19 +56,17 @@ For Docker, compare `MEDIA_ROOT` with the folder entered in Silo. If the host's 
 
 If files are found but identified incorrectly, rename them using the [naming guide](/docs/media-folders) or use [Match Item](/docs/metadata#correct-a-wrong-match).
 
-## Resolve ambiguous folders
+## Resolve ambiguous roots
 
-Silo leaves a folder out of automatic matching when its names don't settle what it holds, for example episode files that don't name their show, or a folder and file that name different titles, as in `On Fire (2024)/Soul on Fire (2025) [WEBDL-1080p].mkv`. A [provider ID](/docs/media-folders#provider-ids) in the folder name settles a title conflict like that one. Otherwise, tell Silo what the folder is:
+Set the type and title of a folder Silo can't classify on its own under **Ambiguous Roots**. Silo lists a folder there when its names don't settle what it holds, for example episode files that don't name their show, or a folder and file that name different titles, as in `On Fire (2024)/Soul on Fire (2025) [WEBDL-1080p].mkv`. For a title conflict like that one, you can instead add a [provider ID](/docs/media-folders#provider-ids) to the folder name.
 
 1. Open **Admin > Libraries** and expand **Ambiguous Roots**, below the list of libraries.
 2. Choose the library. Each folder is listed under **Root** with the **Type** Silo guessed, its **Confidence**, and the number of **Files**. To find a folder, filter by path, title, or sample file.
-3. Select **Override** beside the folder.
+3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮).
 4. Set **Type** to **Movie** or **Series**. Fill in **Title** and **Year**, or a **TMDB ID**, **IMDb ID**, or **TVDB ID** if you know it. **Note** is for your own record of why.
 5. Select **Save Override**, then [scan](#scan-or-refresh) the library. Saving doesn't scan; the folder changes at the next scan, and later scans keep the override.
 
 **Remove Override** in the same dialog returns the folder to automatic detection.
-
-If the folder already belongs to an item, **Resolve** opens that item. When files from different titles were merged into one item, use **Split Versions** from the item's menu instead. Silo won't save an override for a folder whose files belong to several items.
 
 ## Scan or refresh
 

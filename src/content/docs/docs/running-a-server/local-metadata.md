@@ -124,7 +124,7 @@ An event with a `<uniqueid type="tmdb">` still gets online details. An event wit
 
 If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
-1. In **Admin > Libraries**, look for the folder under [**Ambiguous Roots**](/docs/manage-libraries#resolve-ambiguous-folders). If it isn't listed, fix the folder layout and scan the library again instead.
+1. In **Admin > Libraries**, look for the folder under [**Ambiguous Roots**](/docs/manage-libraries#resolve-ambiguous-roots). If it isn't listed, fix the folder layout and scan the library again instead.
 2. Select **Override** beside the folder.
 3. Set **Type** to **Movie** or **Series**, then select **Save Override**.
 4. Scan the library.
