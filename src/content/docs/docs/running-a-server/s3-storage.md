@@ -40,7 +40,7 @@ Then connect the bucket:
 
 1. Open **Admin > Settings > Storage & Database**.
 2. Under **Public storage** or **Private storage**, enter the **Endpoint**, **Bucket**, **Access Key**, and **Secret Key**. Use your provider's S3 API endpoint, not the address of its web console.
-3. Under **Advanced**, set **Region** if your provider checks it, as Garage does. When it's blank, Silo signs requests for `us-east-1`. Turn on **Put the bucket name in the URL path** for MinIO and other providers that need it. **Folder inside the bucket** is optional.
+3. Under **Advanced**, set **Region** if your provider checks it, as Garage does. When it's blank, Silo signs requests for `us-east-1`. Turn on **Put the bucket name in the URL path** if your provider needs it. **Folder inside the bucket** is optional.
 4. For public storage, keep **How asset links are authorized** at **Signed links (recommended)** unless you have set up [another option](#choose-how-clients-download-files).
 5. Select **Check Connection**. It writes, reads, and deletes a test file, so a missing permission shows up here.
 6. Save and follow the restart notice.
