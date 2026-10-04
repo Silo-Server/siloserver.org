@@ -109,7 +109,7 @@ export const sidebar = [
       "docs/timeline-previews",
       "docs/catalog-seeds",
       "docs/native-macos",
-      "docs/network-access",
+      "docs/tailscale",
       "docs/tailscale-sign-in",
       "docs/podcasts-and-music",
     ].map(page),

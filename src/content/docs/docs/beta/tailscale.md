@@ -1,5 +1,5 @@
 ---
-slug: docs/network-access
+slug: docs/tailscale
 beta: true
 title: Reach your server with Tailscale (Beta)
 description: Put your Silo server on your Tailscale network so your devices can reach it without port forwarding.

@@ -21,7 +21,7 @@ devices, open Silo, and press **Continue as**.
 ## Before you start
 
 - Set up the Tailscale plugin and connect the server as described in
-  [Reach your server with Tailscale](/docs/network-access). Tailscale sign-in
+  [Reach your server with Tailscale](/docs/tailscale). Tailscale sign-in
   requires plugin version 0.2.0 or later.
 - Read [Who Silo signs in](#who-silo-signs-in). Silo signs in whoever is
   signed in to Tailscale on the device, which matters for shared TVs and for
@@ -59,7 +59,7 @@ and select **Save config**. Saving restarts the plugin.
 
 Grants in your tailnet policy can set each person's Silo role. Add them with
 the visual policy editor in the Tailscale admin console. These steps assume
-you [tagged the server](/docs/network-access#before-you-start) `tag:silo`.
+you [tagged the server](/docs/tailscale#before-you-start) `tag:silo`.
 They make members of a `silo-admins` group Silo admins, and everyone else,
 including people you share the server with, regular users.
 
