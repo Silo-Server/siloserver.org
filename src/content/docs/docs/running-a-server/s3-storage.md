@@ -26,7 +26,7 @@ Silo records the location the first time it stores a file. From then on, a chang
 
 **Private storage** holds files only the server reads: profile avatars, diagnostic bundles, and catalog seed artifacts. Without a private bucket, a local-disk install keeps these on local disk. An install that stores artwork in S3 needs a private bucket for profile avatar uploads.
 
-Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside the bucket** when it starts, even if nothing is stored there yet. Changing them afterwards takes a [storage transition](#change-storage-later).
+Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside the bucket** when it starts, even if nothing is stored there yet. Changing them afterwards needs a [storage transition](#change-storage-later).
 
 ## Set up S3
 
