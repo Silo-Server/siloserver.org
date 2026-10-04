@@ -23,6 +23,22 @@ If a title is already requested or in the library, its page shows that
 instead of the request button. If you can't request it, the page says why,
 for example **Request limit reached**.
 
+## Request from your watchlist
+
+When you add a title the library doesn't have to your
+[watchlist](/docs/saved-titles#watchlist-titles-you-dont-have-yet), Silo
+requests it for you, or follows the request someone else already made for it.
+Request limits and approval work the same as for the request button. When the
+title arrives, you're notified as for any request you made.
+
+To keep watchlist titles without requesting them, open **Settings > Requests**
+in the web app and turn off **Request titles I add to my watchlist**. If the
+page says that adding a title doesn't request it on this server, the person
+who runs the server has turned watchlist requests off.
+
+Removing a title from your watchlist cancels the request the watchlist made,
+as long as the request hasn't been sent to a download server yet.
+
 ## Request statuses
 
 In the web app and the Android apps, a request moves through **Pending**
