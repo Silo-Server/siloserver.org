@@ -26,7 +26,7 @@ for example **Request limit reached**.
 ## Request from your watchlist
 
 When you add a title the library doesn't have to your
-[watchlist](/docs/saved-titles#save-a-title-the-library-doesnt-have), Silo
+[watchlist](/docs/saved-titles#save-a-title-not-yet-in-the-library), Silo
 requests it for you, or follows the request someone else already made for it.
 Request limits and approval work the same as for the request button. When the
 title arrives, you're notified as for any request you made.
