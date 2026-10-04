@@ -43,6 +43,12 @@ Choose another subtitle track in the player. Text subtitles and image subtitles
 behave differently, so note the track's format and language. To add a track
 that's missing, see [Find or add missing subtitles](/docs/missing-subtitles).
 
+If a subtitle you downloaded or uploaded is out of sync, open the web
+subtitle menu and check the line under its name. **Doesn't match this video**
+means it was made for a different release or title, so choose another file.
+Otherwise choose **Sync subtitle** under **Timing**, or change the delay. See
+[Fix subtitles that are out of sync](/docs/subtitles#fix-subtitles-that-are-out-of-sync).
+
 ## What to include in a report
 
 - The title and the version you chose.
