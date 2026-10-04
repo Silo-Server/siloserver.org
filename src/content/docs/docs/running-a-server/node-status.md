@@ -95,7 +95,7 @@ Without a limit, the block shows the number and no meter. With one, it shows a m
 
 ## Node metrics in Prometheus
 
-Proxy and transcode nodes serve `/metrics` on their app port, such as 8082 or 8083 in the Compose examples, without authentication. Keep those ports on a private network. The main server exports the same series only on its `SILO_METRICS_LISTEN` address; see [Logs and monitoring](/docs/logging#metrics).
+Proxy and transcode nodes serve `/metrics` on their app port, such as 8082 or 8083 in the Compose examples, without authentication. Keep those ports on a private network. The main server exports the same series only on its `SILO_METRICS_LISTEN` address; see [Turn on metrics](/docs/monitoring#turn-on-metrics).
 
 - Host, with no labels: `streamapp_node_cpu_percent`, `streamapp_node_load1`, `streamapp_node_memory_used_bytes`, `streamapp_node_memory_total_bytes`, `streamapp_node_network_rx_bps`, `streamapp_node_network_tx_bps`
 - Disk, labeled by `mount`: `streamapp_node_disk_used_bytes`, `streamapp_node_disk_total_bytes`, `streamapp_node_disk_stale`

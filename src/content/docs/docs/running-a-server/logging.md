@@ -1,7 +1,7 @@
 ---
 slug: docs/logging
 title: Logs and monitoring
-description: Find errors, limit retained logs, and add private monitoring when needed.
+description: Find errors, limit retained logs, and export logs and traces to OpenTelemetry.
 ---
 
 Use **Admin > Logs** for searchable server logs. Use the container logs when Silo fails before the web app is available.
@@ -67,15 +67,11 @@ Add this to your existing override if you have one. Applying it recreates the co
 
 ## Metrics
 
-Prometheus metrics are off on the main server until you set `SILO_METRICS_LISTEN` to a listen address, for example `SILO_METRICS_LISTEN=127.0.0.1:9091`. The `/metrics` route has no authentication, so keep it on a private network and don't publish or proxy it. Inside Docker, `127.0.0.1` is the container itself, so your collector needs a private route to that address.
-
-Proxy and transcode nodes serve `/metrics` on their own port without authentication. Keep those ports private too. [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the node series and example alerts.
-
-For health and readiness checks, see [Check server health](/docs/server-health).
+To collect Prometheus metrics and alerts, see [Monitor Silo with Prometheus](/docs/monitoring). [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the proxy and transcode node series and example alerts. For health and readiness checks, see [Check server health](/docs/server-health).
 
 ## OpenTelemetry export
 
-To send logs to an existing OpenTelemetry collector, add its endpoint and protocol to `.env`, then recreate the container with `docker compose up -d`:
+To send logs and traces to an existing OpenTelemetry collector, add its endpoint and protocol to `.env`, then recreate the container with `docker compose up -d`:
 
 ```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://collector.example.com
@@ -84,4 +80,16 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 
 Replace the example with your collector's address and configure the authentication and certificates it needs. Setting `OTEL_EXPORTER_OTLP_ENDPOINT` turns export on. Setting only the per-signal endpoint variables does not; set `SILO_OTEL_ENABLED=true` in that case. Inside Docker, `localhost` does not reach a collector in another container, so use a hostname the Silo container can reach.
 
-Export is best effort. If the collector fails, the container log and **Admin > Logs** keep working, but buffered export data can be lost. Keep history you need at the collector.
+Export is best effort. If the collector fails, requests, the container log, and **Admin > Logs** keep working, but buffered export data can be lost. Keep history you need at the collector. With [metrics](/docs/monitoring) turned on, `silo_otel_export_records_total{outcome="error"}` counts failed exports.
+
+### Trace sampling
+
+Silo sends traces for 1% of requests by default. To change that, set the ratio in `.env` and recreate the container:
+
+```dotenv
+OTEL_TRACES_SAMPLER_ARG=0.1
+```
+
+`OTEL_TRACES_SAMPLER_ARG` is a number from `0` to `1`, and the default is `0.01`. Use `1` (every request) only while you investigate a specific problem, then set it back.
+
+`OTEL_TRACES_SAMPLER` chooses how Silo samples: `always_on`, `always_off`, `traceidratio`, `parentbased_always_on`, `parentbased_always_off`, or `parentbased_traceidratio`. The default is `parentbased_traceidratio`, and Silo uses it for any value it doesn't support.

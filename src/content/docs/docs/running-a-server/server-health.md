@@ -55,4 +55,8 @@ Open **Admin > Scheduled Tasks** to find the task and **Admin > Logs** for its e
 
 Watch free space for the database and artwork as well as transcodes. A full disk can break one task before the whole server stops responding.
 
-For logs and metrics, see [Logs and monitoring](/docs/logging). Share only a short, checked excerpt when [reporting a problem](/docs/report-a-problem).
+## If Silo is slow or uses too much memory
+
+If you collect Prometheus metrics, [When an alert fires](/docs/monitoring#when-an-alert-fires) lists what to check for each alert, such as CPU throttling, growing memory, or a full database pool. If a maintainer asks for more detail, [collect a performance profile](/docs/profiling).
+
+For logs, see [Logs and monitoring](/docs/logging). Share only a short, checked excerpt when [reporting a problem](/docs/report-a-problem).
