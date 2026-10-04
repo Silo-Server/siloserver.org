@@ -46,8 +46,11 @@ you there straight away.
 
 ### On a phone or tablet
 
-1. Open Silo, enter the full server address, including `https://` and any
-   port number you were given, and select **Connect**.
+1. Open Silo. If your server is listed under **Found nearby**, select it.
+   Otherwise enter the full server address, including `https://` and any
+   port number you were given, and select **Connect**. A server found on
+   your home network doesn't use HTTPS, so Silo asks **Connect without
+   encryption?** first; select **Connect** only on a network you trust.
 2. Enter your username (or email address) and password, and select
    **Sign in**.
 3. On **Who's watching?**, choose your profile and enter its PIN if asked.

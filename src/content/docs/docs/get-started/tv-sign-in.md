@@ -29,7 +29,8 @@ the devices apart. Use one of the methods below instead.
 
 ## Scan the TV's code
 
-First connect the TV to your server. On the setup screen, enter the address
+First connect the TV to your server. On Apple TV, if your server is listed
+under **No phone nearby?**, select it. Otherwise, enter the address
 under **Server address**, including any port number, and select
 **Connect to server**. On Apple TV, **Protocol and port** lets you set those
 separately. If Android TV warns that the server uses unencrypted HTTP,
