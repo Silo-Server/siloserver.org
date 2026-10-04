@@ -118,13 +118,13 @@ WWE/
       WWE SmackDown S27E15-thumb.jpg
 ```
 
-Silo decides whether a file is a movie or an episode from its folders and file name, before it reads any NFO. A file inside a season folder is an episode. A file in a folder named like a movie is a movie, even if its name has an `S01E01` code. An NFO can't change this, and Silo ignores a `tvshow.nfo` beside a file it treats as a movie.
+Silo decides whether a file is a movie or an episode from its folders and file name, before it reads any NFO. A file inside a season folder is an episode. A file in a folder with a TMDB or IMDb ID, such as `{tmdb-12345}`, is a movie, even if its name has an `S01E01` code. An NFO can't change this, and Silo ignores a `tvshow.nfo` beside a file it treats as a movie.
 
 An event with a `<uniqueid type="tmdb">` still gets online details. An event without one uses its NFO and local images.
 
 If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
-1. In **Admin > Libraries**, look for the folder under **Ambiguous Roots**. If it isn't listed, fix the folder layout and scan the library again instead.
+1. In **Admin > Libraries**, look for the folder under [**Ambiguous Roots**](/docs/manage-libraries#resolve-ambiguous-roots). If it isn't listed, fix the folder layout and scan the library again instead.
 2. Select **Override** beside the folder.
 3. Set **Type** to **Movie** or **Series**, then select **Save Override**.
 4. Scan the library.
