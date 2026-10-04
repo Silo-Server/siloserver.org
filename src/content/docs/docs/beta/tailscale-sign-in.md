@@ -35,7 +35,7 @@ devices, open Silo, and press **Continue as**.
 3. Leave **Create accounts on first sign-in** on if new people should get a
    Silo account the first time they press **Continue as**. Turn it off to
    let in only accounts that are already
-   [connected to Tailscale](#connect-an-existing-account).
+   [connected to Tailscale](#connect-tailscale-to-an-existing-account).
 
 Both switches apply at once. Tailscale sign-in works beside an OpenID Connect
 or LDAP provider and doesn't change whether Silo passwords work.
@@ -159,18 +159,21 @@ person signed in to Tailscale, with **via Tailscale** underneath.
 | Mobile | At the top of the sign-in screen, above the password form. |
 | TV | On the sign-in screen, above the code, QR code, and password options. It's usually selected when the screen opens; if not, move up to it. |
 
-## Connect an existing account
+## Connect Tailscale to an existing account
 
 If someone already has a Silo account, connect it to Tailscale before they
-press **Continue as**. Otherwise Silo creates a second account for them, or
-refuses with "An account with your email already exists" when their
-Tailscale login is that account's email.
+press **Continue as**. Otherwise Silo creates a second account for them when
+**Create accounts on first sign-in** is on, or refuses with "An account with
+your email already exists" when their Tailscale login is that account's
+email.
 
 1. On a device connected to Tailscale, open Silo at the server's Tailscale
-   address and sign in with the account's password.
-2. In the web app, open **Settings > Account**. In the mobile app, open
-   **Settings > Sign-in**.
-3. Select **Connect Tailscale** and confirm the Silo password.
+   address and sign in with the account's password. **Connect Tailscale**
+   appears only when Silo is open at that address.
+2. In the web app, open **Settings > Account** and find the **Sign-in**
+   section. In the mobile app, open **Settings** and go to **Sign-in**.
+3. Select **Connect Tailscale**, enter the Silo password, and select
+   **Connect**.
 
 After that, the account signs in with Tailscale instead of its password. The
 password stops working everywhere, including on a public address and in
@@ -258,8 +261,8 @@ When the button is there but sign-in fails, the message says why:
 | --- | --- |
 | **Open this server at its Tailscale address to sign in this way.** | The device reached Silo some other way. Use the address from **Admin > Settings > Network Access**. |
 | **Tailscale doesn't allow this device …** | Your OpenID Connect or LDAP provider refused the account, or your tailnet policy changed a moment ago. |
-| **You don't have an account on this server yet.** | **Create accounts on first sign-in** is off and the account isn't connected to Tailscale yet. [Connect it](#connect-an-existing-account) or turn the setting on. |
-| **An account with your email already exists.** | Sign in with the password and [connect the account](#connect-an-existing-account). |
+| **You don't have an account on this server yet.** | **Create accounts on first sign-in** is off and the account isn't connected to Tailscale yet. [Connect it](#connect-tailscale-to-an-existing-account) or turn the setting on. |
+| **An account with your email already exists.** | Sign in with the password and [connect the account](#connect-tailscale-to-an-existing-account). |
 
 For plugin problems, use the plugin's
 [GitHub issues](https://github.com/Silo-Community/silo-plugin-tailscale/issues).
