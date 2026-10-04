@@ -42,7 +42,35 @@ changes them. To use a different look on one device, see
 
 ## Fix subtitles that are out of sync
 
-If subtitles show up too early or too late, change the subtitle delay:
+Silo syncs each subtitle you [download or upload](/docs/missing-subtitles)
+to the video's audio when it's added, so most need no delay. Sync fixes
+subtitles that start too early or too late, run at the wrong speed because
+they were made for a version with a different frame rate, or slowly drift
+because they come from a different cut of the film. Subtitles that come with
+the video file, and `.sub` files, keep their own timing.
+
+In the web app, the subtitle menu shows how each added subtitle was synced,
+under its name:
+
+- **Syncing…**: Silo is still working on it.
+- **Synced −3.2 s**: Silo moved it earlier or later by that much. If it also
+  corrected the speed, the line ends with the change, such as
+  **· 25→23.976 fps** or **· ×1.0008 speed**.
+- **Already in sync**: the timing was already right.
+- **Doesn't match this video**: the subtitle doesn't line up with the audio,
+  usually because it was made for a different release or title. Silo leaves
+  its timing alone. Choose another file that matches your copy of the title;
+  a delay won't fix it.
+- **Sync failed**: Silo couldn't finish. Try **Sync subtitle** again.
+
+To redo it, select the subtitle and choose **Sync subtitle** under **Timing**
+in the same menu. **Reset timing** goes back to the file's original timing.
+Both change the subtitle for everyone who watches the title, so only the
+person who added it or an admin can use them.
+
+If subtitles still show up too early or too late, change the subtitle delay.
+The delay applies only on the device you're using, on top of the synced
+timing:
 
 - **Web:** in the subtitle menu, use **-** and **+** next to **Delay**.
   **Reset** sets it back to zero.
@@ -53,6 +81,4 @@ If subtitles show up too early or too late, change the subtitle delay:
 - **Apple TV and Android TV:** open the **Subtitles** tab and choose
   **Delay**.
 
-Change it a little at a time and replay a line to check. If the subtitles
-drift further out of sync as the movie goes on, a different subtitle file
-that matches your version of the title will work better than a bigger delay.
+Change it a little at a time and replay a line to check.
