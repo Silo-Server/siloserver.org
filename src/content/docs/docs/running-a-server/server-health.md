@@ -57,6 +57,6 @@ Watch free space for the database and artwork as well as transcodes. A full disk
 
 ## If Silo is slow or uses too much memory
 
-If you collect Prometheus metrics, [Diagnose with metrics](/docs/monitoring#diagnose-with-metrics) lists what to check for each alert, such as CPU throttling, growing memory, or a full database pool. If a maintainer asks for more detail, [collect a performance profile](/docs/profiling).
+If you collect Prometheus metrics, [When an alert fires](/docs/monitoring#when-an-alert-fires) lists what to check for each alert, such as CPU throttling, growing memory, or a full database pool. If a maintainer asks for more detail, [collect a performance profile](/docs/profiling).
 
 For logs, see [Logs and monitoring](/docs/logging). Share only a short, checked excerpt when [reporting a problem](/docs/report-a-problem).
