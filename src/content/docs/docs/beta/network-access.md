@@ -53,11 +53,12 @@ doesn't need to be approved again later.
      nodes, so each one enrolls on its own.
    - **Tags** is optional, for example `tag:silo`. Your tailnet policy or
      auth key must allow the tags.
+   - **Discovery** is on by default. The server also answers on port `80`,
+     only to redirect to its HTTPS address, so Silo apps on your tailnet can
+     find it by its short name.
 
 The plugin serves Silo only on your tailnet. To reach Silo from the public
-internet, use a [reverse proxy](/docs/reverse-proxy). Plugin version 0.2.0
-removed the earlier Funnel option, so a server that used Funnel stops
-answering publicly after the update.
+internet, use a [reverse proxy](/docs/reverse-proxy).
 
 ## Connect the server
 
@@ -89,7 +90,7 @@ add a suffix if the name is taken, so copy the address from the page.
 Jellyfin-compatible apps use the same name on port `8096`, and
 Audiobookshelf apps use port `13378`, when those endpoints are turned on.
 Your tailnet access policy must allow ports `443`, `8096`, and `13378` for
-the devices that connect.
+the devices that connect, and port `80` if **Discovery** is on.
 
 To share the server with people outside your tailnet and let them sign in
 without a password, see [Sign in with Tailscale](/docs/tailscale-sign-in).
