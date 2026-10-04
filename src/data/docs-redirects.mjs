@@ -16,5 +16,6 @@ export const docsRedirects = {
   "/docs/audiobookshelf-compatibility": "/docs/audiobookshelf",
   "/docs/apple-tv": "/docs/playback-problems",
   "/docs/feature-parity": "/docs/apps-and-features",
-  "/docs/troubleshooting": "/docs/report-a-problem"
+  "/docs/troubleshooting": "/docs/report-a-problem",
+  "/docs/network-access": "/docs/tailscale"
 };

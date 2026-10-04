@@ -6,7 +6,7 @@ description: Put Silo behind HTTPS and test it from a remote client.
 
 Get Silo working on your LAN before opening remote access. This example uses an existing Caddy installation on the same Linux host as Silo, a domain you control, and a router that can forward traffic to that host.
 
-If your connection is behind carrier-grade NAT or you cannot change router rules, port forwarding won't work. [Network access (Beta)](/docs/network-access) can reach the server through Tailscale instead.
+If your connection is behind carrier-grade NAT or you cannot change router rules, port forwarding won't work. [Network access (Beta)](/docs/tailscale) can reach the server through Tailscale instead.
 
 ## Set up HTTPS with Caddy
 

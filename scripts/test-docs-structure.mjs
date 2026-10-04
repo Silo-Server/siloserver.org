@@ -77,7 +77,7 @@ test('all previous public article URLs retain a page or a direct redirect', () =
     'deployment/docker', 'deployment/reverse-proxy', 'libraries', 'audiobooks',
     'configuration', 'logging', 'storage/s3', 'ai-services', 'notifications',
     'integrations/autoscan', 'jellyfin-compatibility', 'audiobookshelf-compatibility',
-    'apple-tv', 'feature-parity', 'troubleshooting', 'ebooks'];
+    'apple-tv', 'feature-parity', 'troubleshooting', 'ebooks', 'network-access'];
   assert.ok(source('docs'));
   for (const path of old) {
     const legacy = `/docs/${path}`;
