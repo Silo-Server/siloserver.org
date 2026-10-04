@@ -212,13 +212,6 @@ h1[data-page-title],
   font-weight: 700;
 }
 
-/* Screenshots: a hairline frame keeps light screenshots from blending into
-   a light page. */
-.sl-markdown-content img:not(:where(.not-content *)) {
-  border: 1px solid var(--sl-color-hairline-light);
-  border-radius: 0.375rem;
-}
-
 /* Numbered steps: top-level ordered lists get round counters. Lists that
    continue from an earlier number keep native numbering. */
 .sl-markdown-content ol:not(li ol, [start], :where(.not-content *)) {
