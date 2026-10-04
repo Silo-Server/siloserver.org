@@ -4,9 +4,10 @@ title: Connect and start watching
 description: Accept an invitation, sign in, choose a profile, and play your first title.
 ---
 
-You need an account on the server you're joining: either an invitation link
-or a username and password from the person who runs it. An account works only
-on the server that created it.
+You need an account on the server you're joining: an invitation link or a
+username and password from the person who runs it. Some servers instead let
+you sign in with your organization's account, and create your Silo account the
+first time you do. An account works only on the server that created it.
 
 ## Accept your invitation
 
@@ -39,6 +40,11 @@ If you were given a username and password instead, skip to signing in.
    told to use.
 3. On **Who's watching?**, choose your profile and enter its PIN if asked.
 
+If you sign in with your organization's account, select its button on the
+sign-in page and sign in on the page it opens. When that's the only way in,
+the server's address takes you there straight away. Some servers use your
+organization's username and password in Silo's own form instead.
+
 ### On a phone or tablet
 
 1. Open Silo, enter the full server address, including `https://` and any
@@ -47,6 +53,10 @@ If you were given a username and password instead, skip to signing in.
    **Sign in**.
 3. On **Who's watching?**, choose your profile and enter its PIN if asked.
    Silo opens on Home.
+
+If the server offers **Sign in with** and your organization's name, select it.
+Silo opens the sign-in page in your browser and returns to the app when you're
+done. To use a Silo password on that server, select **Sign in with a password**.
 
 Your account is the sign-in. A profile keeps one person's progress,
 preferences, and limits, so use your own profile to keep your viewing
