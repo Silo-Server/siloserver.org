@@ -17,11 +17,10 @@ than the Silo project.
 
 ## Before you start
 
-In the Tailscale admin console, open **DNS**. Check that **MagicDNS** is on,
-then under **HTTPS Certificates**, select **Enable HTTPS...** and confirm.
-The server needs both to get an HTTPS address.
-
-![The DNS page of the Tailscale admin console, showing the MagicDNS section and the Enable HTTPS button under HTTPS Certificates.](../../../../assets/docs/tailscale/dns-https-certificates.png)
+Open the [DNS page](https://login.tailscale.com/admin/dns) in the Tailscale
+admin console. Check that **MagicDNS** is on, then under **HTTPS
+Certificates**, select **Enable HTTPS...** and confirm. The server needs both
+to get an HTTPS address.
 
 The server's name appears in public certificate logs, so choose one you
 don't mind others seeing.
@@ -33,8 +32,6 @@ server:
 1. Open **Access controls > Definitions** and select the **Tags** tab.
 2. Select **Create tag**. Enter `silo` as the **Tag name**, choose a **Tag
    owner** such as `autogroup:admin`, and select **Save tag**.
-
-![The Create tag form in the Tailscale admin console, with the tag name silo and the owner autogroup:admin.](../../../../assets/docs/tailscale/create-tag.png)
 
 A server that's tagged when it first connects stays signed in to Tailscale.
 If you tag it later, turn off key expiry for it on the Tailscale **Machines**
@@ -65,15 +62,10 @@ public internet, use a [reverse proxy](/docs/reverse-proxy).
 3. If the row shows **Waiting for authorization**, select **Open the
    authorization page**, sign in to Tailscale, and select **Connect**. With a
    saved auth key, skip this step.
-
-   ![Tailscale's Connect device page, asking to connect the device silo to the tailnet.](../../../../assets/docs/tailscale/connect-device.png)
-
 4. Wait for **Connected**. The address clients use appears after **Clients
    reach this host at**.
 
 The server also appears on the Tailscale **Machines** page.
-
-![The Machines page of the Tailscale admin console, listing the silo machine with the tag:silo tag and Expiry disabled.](../../../../assets/docs/tailscale/machines-silo-tagged.png)
 
 If you run proxy nodes, each one joins your tailnet as its own machine. A
 reusable auth key lets them join without approving each one.
