@@ -58,7 +58,8 @@ watch it.
 To add a title to **Following**, [favorite it or add it to your watchlist](/docs/saved-titles).
 Every view respects your library access and profile rating limits.
 
-Badges mark a **SERIES PREMIERE**, **NEW SEASON**, or **FINALE**.
+Badges mark a series premiere, a new season (**NEW SEASON**), or a season
+finale (**FINALE**).
 
 ### Dates and empty weeks
 
@@ -67,8 +68,10 @@ to your device or browser's timezone, so a release can land on a different
 day on devices in different timezones. Date-only releases keep their listed
 date everywhere.
 
-An empty week has no releases for that view. Try **Trending** or **All**,
-change the week, or select **Today**. **Trending** is empty when the server
+If a week has nothing for the view you chose, Calendar says so and offers
+buttons for the other two views. Select one, change the week, or select
+**Today**. In the web app, the button for **All** reads **Show everything**.
+**Trending** is empty when the server
 has no trending data or none of the trending titles have a release that week.
 
 If a release you expect is missing from **All**, look at the active profile,
