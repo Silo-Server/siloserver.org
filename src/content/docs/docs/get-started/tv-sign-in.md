@@ -41,7 +41,7 @@ The TV then shows a sign-in screen with a QR code.
 2. Sign in to the server if asked, with your password or with your
    organization's sign-in button.
 3. Check that the code on the page matches the TV, then select
-   **Approve sign-in**.
+   **Sign in TV**.
 4. On the TV, choose a profile.
 
 You can also open the server's `/activate` page in any browser and type the
@@ -56,7 +56,7 @@ address the TV connected with. Your phone needs to be able to open it.
 
 After connecting to the server, select **Sign in with a password** on the TV
 and enter your Silo username and password. If the server address is wrong,
-**Use another server** takes you back. If your profile has a PIN, you enter it
+**Change server** takes you back. If your profile has a PIN, you enter it
 after signing in.
 
 If you sign in to Silo with your organization's username and password, enter
