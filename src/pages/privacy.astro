@@ -3,7 +3,7 @@
 import PolicyPage from "../components/PolicyPage.astro";
 import { SITE } from "../data/siteConfig";
 
-const EFFECTIVE = "August 16, 2026";
+const EFFECTIVE = "October 5, 2026";
 const CONTACT_EMAIL = "feedback@siloserver.org";
 ---
 
@@ -27,8 +27,8 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
   <p>
     This policy covers the first-party Silo client applications: Silo for
     Android, Silo for Android TV, Silo for iOS, Silo for tvOS, and Silo for
-    macOS (together, "the apps"), published by Silo Media L.L.C. ("Silo",
-    "we", or "us"). It also describes the optional Silo-managed diagnostics
+    macOS (together, "the apps"), published by Silo Media L.L.C. ("Silo
+    Media", "we", or "us"). It also describes the optional Silo-managed diagnostics
     collector and push relay, which Silo Media L.L.C. operates.
     Section 4 also describes equivalent external-resource requests made by the
     first-party web client bundled with a self-hosted Silo server. This policy
@@ -41,7 +41,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     The apps connect to the Silo server whose address you configure. Account
     registration, sign-in credentials, profiles, media-library data, playback
     progress, search queries, requests, and streaming traffic go to that
-    server. Silo does not receive or control this information.
+    server. We do not receive or control this information.
     Who can access it and how long it is retained are determined by the
     operator of the self-hosted server.
   </p>
@@ -207,8 +207,8 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>6. Push notifications</h2>
   <p>
-    Notifications for playback controls and download progress are generated
-    locally. Remote push is optional and off unless the user and server
+    Notifications about playback and downloads are generated on the device.
+    Remote push is optional and off unless the user and server
     administrator enable it. When enabled, the self-hosted server sends a
     content-free request to Silo's Cloudflare Worker push relay for delivery
     through Apple Push Notification service or Firebase Cloud Messaging.
