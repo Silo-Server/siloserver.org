@@ -97,13 +97,13 @@ If no admin can sign in, turn password sign-in back on from the server's command
 docker compose exec silo silo auth local-login enable
 ```
 
-Connecting a provider also turned off each connected account's own password. To turn it back on for one account, add its username or email:
+Connecting a provider also turns off each connected account's own password. To turn it back on for one account, add its username or email. An account created through the provider never had a Silo password, so also add `-temporary-password`:
 
 ```sh
-docker compose exec silo silo auth local-login enable -user alex
+docker compose exec silo silo auth local-login enable -user alex -temporary-password
 ```
 
-Add `-temporary-password` to give that account a new temporary password. The command prints it once, and the person must change it at their next sign-in.
+The command prints the temporary password once and signs the account out everywhere. The person must change the password at their next sign-in.
 
 ## Switch or remove the provider
 
