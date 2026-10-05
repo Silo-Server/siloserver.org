@@ -52,6 +52,27 @@ PostgreSQL is required. Redis is optional for a single `integrated` or `api` ser
 
 To use [Valkey](https://valkey.io/) in place of Redis, set `REDIS_URL` to your Valkey server with a `redis://` URL. There is no Valkey-specific setting. Silo is tested only against Redis, so Valkey support is provided as-is.
 
+### Redis Sentinel
+
+To connect through [Redis Sentinel](https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/), set `REDIS_URL` to a Sentinel URL:
+
+```text
+redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=sentinel-3:26379
+```
+
+- `master_name` is the name Sentinel monitors your master under. A URL with this parameter names a Sentinel deployment.
+- The host and each `addr` are Sentinel addresses. Give each one its port, and put an IPv6 address in brackets, such as `[2001:db8::1]:26379`.
+- The path is the database number on the Redis servers, as in a single-server URL.
+- A user name and password before the host (`redis://user:password@sentinel-1:26379`) sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers.
+- Percent-encode reserved characters in user names and passwords, and write a plus sign as `%2B`. Silo refuses a Sentinel URL that has a `#` in it, or a `;` or a `+` in its parameters.
+- With `rediss://`, Silo uses TLS for Sentinel and for the Redis servers, and checks every certificate against the host name in the URL. Each Sentinel and Redis server needs a certificate that's valid for that name.
+
+Silo reads and writes on the master only, so it refuses `route_by_latency`, `route_randomly`, `replica_only`, and `use_disconnected_replicas`. It also refuses a `dial_timeout` or `read_timeout` of 0; leave them out to use the defaults. Silo checks the URL when you save it and again at startup, where a refused URL stops the server from starting and the log gives the reason. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
+
+When Sentinel promotes a new master, Silo follows it without a restart. Redis commands go to the new master as soon as Sentinel has promoted it, and each server's event subscriptions follow a few seconds later. Events that one server sends to the others in that time, such as a settings change or a revoked session, aren't sent again.
+
+If the machine running a Sentinel stops answering without closing its connections, a Silo server that was using that Sentinel can keep asking it, and its Redis commands fail until that Sentinel answers again.
+
 ### Shared memory for your own PostgreSQL container
 
 Size `/dev/shm` when you create your own PostgreSQL container. The bundled `postgres` service sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
