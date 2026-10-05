@@ -56,7 +56,7 @@ organization's username and password in Silo's own form instead.
 
 If the server offers **Sign in with** and your organization's name, select it.
 Silo opens the sign-in page in your browser and returns to the app when you're
-done. To use a Silo password on that server, select **Sign in with a password**.
+done. To use a Silo password instead, enter it in the form below the button.
 
 Your account is the sign-in. A profile keeps one person's progress,
 preferences, and limits, so use your own profile to keep your viewing
