@@ -45,12 +45,13 @@ page.
 3. Find **Tailscale** under **Approved community** and select **Install**.
 4. Open the installed plugin, fill in its settings, and select **Save
    config**:
-   - **Hostname** is the server's name on your tailnet. The default is `silo`.
+   - **Hostname** is the server's name on your tailnet. Keep the default,
+     `silo`, so Silo apps can [find the server](#connect-your-devices) for
+     you.
    - **Auth key** is optional. Leave it empty to approve the server in your
      browser in the next section.
    - **Tags** is optional. Enter `tag:silo` if you created the tag.
-   - **Discovery** is on by default. It lets Silo apps on your tailnet find
-     the server by its short name.
+   - **Discovery** is on by default. Leave it on so apps can find the server.
 
 The plugin makes Silo reachable only on your tailnet. To reach it from the
 public internet, use a [reverse proxy](/docs/reverse-proxy).
@@ -73,7 +74,16 @@ reusable auth key lets them join without approving each one.
 ## Connect your devices
 
 Install the Tailscale app on each device and sign in to the same tailnet.
-Then add the server in the Silo app with the address from the **Network
+
+On iPhone, iPad, Mac, and Apple TV, the Silo app can find the server for
+you. It's listed under **Found nearby**, or under **No phone nearby?** on
+Apple TV, marked **Private network**. Select it instead of typing an
+address. The app looks for a machine named `silo`, or `silo-1` or `silo-2`,
+the names Tailscale gives a second or third server, so don't rename the
+machine in Tailscale. It finds the server only on devices in your tailnet.
+People you share it with enter the full address.
+
+If the server isn't listed, add it with the address from the **Network
 Access** page, for example `https://silo.example-tailnet.ts.net`.
 
 Jellyfin-compatible apps use the same address on port `8096`, and

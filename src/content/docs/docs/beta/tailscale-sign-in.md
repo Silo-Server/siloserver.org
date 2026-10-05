@@ -100,8 +100,9 @@ tailnet don't need a share.
    `siloserver.org/cap/silo` as the **App** and `{"role": "user"}` as the
    **Capability**.
 4. Send them the full server address from **Admin > Settings > Network
-   Access**, for example `https://silo.example-tailnet.ts.net`. The short
-   name won't work for them.
+   Access**, for example `https://silo.example-tailnet.ts.net`. Tailscale
+   reaches a shared machine only by its full name, so their apps won't find
+   the server on their own and the short name won't work.
 
 ### What they do
 
