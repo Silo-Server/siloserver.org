@@ -96,7 +96,9 @@ tailnet don't need a share.
    [Set roles with grants](#set-roles-with-grants), add a rule with
    **Source** `autogroup:shared` and **Destination** `tag:silo` so people you
    share with can reach the server. If **Who can sign in** requires a grant,
-   give the rule the `{"role": "user"}` capability too.
+   also expand **Application-level options** and enter
+   `siloserver.org/cap/silo` as the **App** and `{"role": "user"}` as the
+   **Capability**.
 4. Send them the full server address from **Admin > Settings > Network
    Access**, for example `https://silo.example-tailnet.ts.net`. The short
    name won't work for them.
