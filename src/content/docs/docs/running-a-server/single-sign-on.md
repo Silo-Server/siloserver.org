@@ -17,7 +17,7 @@ A server uses one of these at a time. Both work in the web app and the Silo apps
 2. Install **OpenID Connect Sign-in** or **LDAP Sign-in**. See [Install and maintain plugins](/docs/plugins) for catalog details.
 3. Open **Admin > Settings > Sign-in**. Under **Single sign-on**, select the plugin's card to show its setup steps.
 
-The steps on that page come from the plugin, so follow their numbering. The sections below cover what each step needs. Every change saves from the save bar at the bottom of the page, except **Turn on** and **Turn off**, which apply at once.
+The sections below follow the page's steps in order. The page also has a **Button icon** step and, for OpenID Connect, **Claim mapping**, which most setups can leave as they are. Every change saves from the save bar at the bottom of the page, except **Turn on** and **Turn off**, which apply at once.
 
 ## Connect an OpenID Connect provider
 
@@ -26,11 +26,10 @@ Set the **Silo public URL** in **Admin > Settings > General** first. The provide
 1. Under **Register Silo at your provider**, copy the **Redirect URI**. At your provider, create a confidential client for Silo and add that URI as its redirect (or callback) URL.
 2. Under **Client**, enter the **Issuer URL**, **Client ID**, and **Client secret** from the provider. Enter the issuer exactly as the provider shows it, including any trailing slash; authentik's has one.
 3. Under **Sign-in request**, turn on **Request the groups scope** if your provider needs it to send groups. The field's description lists which ones do. To let Silo [re-check people](#re-check-access-at-the-provider), turn on **Request offline access** too.
-4. Under **Access rules**, enter **Allowed groups** to limit who can sign in, and **Admin groups** for people who should be Silo admins. Enter one group per line. Leave **Admin groups** empty to manage roles in Silo instead.
-5. Choose whether to keep **Create accounts on first sign-in** on (see [Choose who gets an account](#choose-who-gets-an-account)), then save.
-6. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them.
-7. Under **Login button**, enter the **Provider name** people know, such as `authentik` or `Company SSO`. The preview shows the button as **Sign in with** and that name. Save.
-8. Select **Turn on**. The provider's card shows **On**.
+4. Under **Access rules**, enter **Allowed groups** to limit who can sign in, and **Admin groups** for people who should be Silo admins. Enter one group per line. Leave **Admin groups** empty to manage roles in Silo instead. Below them, choose whether to keep **Create accounts on first sign-in** on (see [Choose who gets an account](#choose-who-gets-an-account)), then save.
+5. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them.
+6. Under **Login button**, enter the **Provider name** people know, such as `authentik` or `Company SSO`. The preview shows the button as **Sign in with** and that name. Save.
+7. Select **Turn on**. The provider's card shows **On**.
 
 Sign out, or open a private window, and sign in through the new button to check it. Some providers need extra settings for groups or for re-checks, such as a group mapper in Keycloak or a scope for Zitadel roles. The plugin's [provider notes](https://github.com/Silo-Server/silo-plugin-auth-oidc#provider-notes) list them.
 
@@ -43,11 +42,10 @@ In the iPhone, iPad, and Android apps, signing in with the provider opens the de
 1. Under **Directory connection**, choose your **Directory type**. It fills in the filters and attribute names for common directories.
 2. Enter the **Directory URLs** (`ldap://` or `ldaps://`, one per line). Enter a **Service account DN** and **Service account password** for the account Silo searches the directory with, or leave them blank to search anonymously.
 3. Under **Users**, enter the **User base DN**: the part of the directory to search for people. Leave the other user settings blank unless your directory differs from the type you chose.
-4. Under **Groups and access**, enter **Allowed groups** and **Admin groups**, one per line. Each field's description says when a group needs its full DN.
-5. Choose whether to keep **Create accounts on first sign-in** on, then save.
-6. Under **Test the connection**, select **Test connection**. To check one person's groups and the role they'd get, enter them as **Test username** under **Users** first. No password is used.
-7. Under **Login button**, enter a **Directory name** such as `Company directory`, then save.
-8. Select **Turn on**.
+4. Under **Groups and access**, enter **Allowed groups** and **Admin groups**, one per line. Each field's description says when a group needs its full DN. Below them, choose whether to keep **Create accounts on first sign-in** on, then save.
+5. Under **Test the connection**, select **Test connection**. To check one person's groups and the role they'd get, enter them as **Test username** under **Users** first. No password is used.
+6. Under **Login button**, enter a **Directory name** such as `Company directory`, then save.
+7. Select **Turn on**.
 
 People then sign in with their directory username and password in the usual sign-in form. An account that still has its own Silo password keeps signing in with that password until it's [connected to the directory](#choose-who-gets-an-account).
 
