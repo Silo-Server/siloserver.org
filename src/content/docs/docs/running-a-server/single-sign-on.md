@@ -21,7 +21,7 @@ The sections below follow the page's steps in order. The page also has a **Butto
 
 ## Connect an OpenID Connect provider
 
-Set the **Silo public URL** in **Admin > Settings > General** first. The provider sends people back to that address after they sign in, and the **Redirect URI** stays empty until it's set.
+Set the **Silo public URL** in **Admin > Settings > General** first. The provider sends people back to that address after they sign in, and the **Redirect URI** doesn't appear until it's set.
 
 1. Under **Register Silo at your provider**, copy the **Redirect URI**. At your provider, create a confidential client for Silo and add that URI as its redirect (or callback) URL.
 2. Under **Client**, enter the **Issuer URL**, **Client ID**, and **Client secret** from the provider. Enter the issuer exactly as the provider shows it, including any trailing slash; authentik's has one.
