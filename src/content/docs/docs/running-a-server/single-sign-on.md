@@ -53,7 +53,7 @@ People then sign in with their directory username and password in the usual sign
 
 With **Create accounts on first sign-in** on, which is the default, anyone the provider lets in gets a Silo account the first time they sign in. Their role follows **Admin groups** when you set it; everyone else becomes a regular user. Turn it off to let in only people whose Silo account is already connected to the provider.
 
-Connect existing Silo accounts before their owners sign in with the provider. Otherwise Silo refuses the sign-in, because an account with their email already exists. There are three ways to connect one:
+Connect existing Silo accounts before their owners sign in with the provider. If the provider sends the email their Silo account already uses, Silo refuses the sign-in and asks them to have an admin connect it. If the email is different, they get a second, separate account. There are three ways to connect one:
 
 - The person connects it in their own account settings. See [Connect a sign-in provider](/docs/accounts#connect-a-sign-in-provider).
 - An admin connects it on the account's **Sign-in** tab with **Connect identity**. See [Sign-in and break-glass accounts](/docs/manage-accounts#sign-in-and-break-glass-accounts).
