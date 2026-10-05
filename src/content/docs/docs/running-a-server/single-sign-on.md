@@ -35,7 +35,7 @@ Sign out, or open a private window, and sign in through the new button to check 
 
 To end the provider's session when someone signs out of the web app, turn on **Sign out at the provider** under **Sign-in request**. Register the **Post-logout redirect URI** from step 1 at the provider as well. Authelia, Kanidm, and Tinyauth can't end their session this way.
 
-In the iPhone, iPad, and Android apps, signing in with the provider opens the device's browser and returns to the app afterwards. On a TV, people [sign in with a phone](/docs/tv-sign-in).
+In the iPhone, iPad, Mac, and Android apps, signing in with the provider opens the device's browser and returns to the app afterwards. On a TV, people [sign in with a phone](/docs/tv-sign-in).
 
 ## Connect an LDAP directory
 
@@ -76,9 +76,9 @@ Without re-checks, a session started through the provider ends after the **Refre
 
 ## Turn off Silo passwords
 
-Turn off **Allow password sign-in** under **Silo passwords** when everyone should sign in with the provider. Turn the provider on first.
+Turn off **Allow password sign-in** under **Silo passwords** when everyone should sign in with the provider. The switch can't be turned off until a provider is on.
 
-Silo keeps password sign-in for break-glass admins, so someone can still get in if the provider is down. The server owner is a break-glass account by default, and the setting lists the break-glass admins under its switch. To make another admin one, see [Sign-in and break-glass accounts](/docs/manage-accounts#sign-in-and-break-glass-accounts). Silo won't turn passwords off while no admin is break-glass.
+Silo keeps password sign-in for break-glass admins, so someone can still get in if the provider is down. The server owner is a break-glass account by default, and the setting lists the break-glass admins under its switch. To make another admin one, see [Sign-in and break-glass accounts](/docs/manage-accounts#sign-in-and-break-glass-accounts). Silo won't turn passwords off unless at least one break-glass admin can still sign in with a password.
 
 While password sign-in is off:
 
