@@ -130,9 +130,10 @@ refuses with "An account with your email already exists."
 3. Select **Connect Tailscale**, enter the Silo password, and select
    **Connect**.
 
-The account keeps its Silo password, so the person can still sign in from
-outside Tailscale and in Jellyfin-compatible apps. While Tailscale doesn't
-allow them, the password stops working too. See
+The account keeps its Silo password, so while **Allow password sign-in** is
+on the person can still sign in from outside Tailscale and in
+Jellyfin-compatible apps. While Tailscale doesn't allow them, the password
+stops working too. See
 [Remove someone's access](#remove-someones-access).
 
 ## Who Silo signs in
@@ -175,8 +176,9 @@ them.
 
 - Jellyfin-compatible and Audiobookshelf apps can't use Tailscale sign-in.
   Accounts that Tailscale sign-in creates start without a Silo password. For
-  someone who needs those apps, an administrator can set one, and the account
-  keeps signing in with Tailscale too.
+  someone who needs those apps, an administrator can set one while
+  **Allow password sign-in** is on, and the account keeps signing in with
+  Tailscale too.
 - Tailscale sign-in doesn't replace passwords. Turning off **Allow password
   sign-in** still requires an
   [OpenID Connect or LDAP provider](/docs/single-sign-on#turn-off-silo-passwords).
