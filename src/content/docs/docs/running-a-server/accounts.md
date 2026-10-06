@@ -8,7 +8,7 @@ Use an invitation when someone should choose their own password. Create an accou
 
 An account is a sign-in for your server. Its profiles keep household members' history and preferences separate. Make most people **User**, even if they manage profiles for their family. **Admin** gives control of the server.
 
-If people sign in with your organization's identity provider, see [Set up single sign-on](/docs/single-sign-on). Their accounts can be created the first time they sign in.
+If people sign in with an identity provider such as authentik or Active Directory, see [Set up single sign-on](/docs/single-sign-on). Their accounts can be created the first time they sign in.
 
 Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Settings > General** first, using an address the recipient can open. Without it, Silo can't create these links.
 

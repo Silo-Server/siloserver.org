@@ -39,8 +39,9 @@ choose a new password when asked. Then use it in your other apps.
 
 ## Connect a sign-in provider
 
-If your server lets you sign in with your organization's account, you can
-connect your existing Silo account to it. You need your Silo password.
+If **Settings > Account** shows **Connect** under **Sign-in**, your server
+has a sign-in provider, and you can connect your existing Silo account to it.
+You need your Silo password.
 
 1. In the web app, open **Settings > Account**.
 2. Under **Sign-in**, select **Connect** and the provider's name.

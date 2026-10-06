@@ -38,8 +38,8 @@ continue only if you trust the address and it's on your home network.
 The TV then shows a sign-in screen with a QR code.
 
 1. Scan the QR code with your phone's camera and open the link.
-2. Sign in to the server if asked, with your password or with your
-   organization's sign-in button.
+2. Sign in to the server if asked, with your password or the
+   **Sign in with** button.
 3. Check that the code on the page matches the TV, then select
    **Sign in TV**.
 4. On the TV, choose a profile.
@@ -55,14 +55,13 @@ address the TV connected with. Your phone needs to be able to open it.
 ## Use a password instead
 
 After connecting to the server, select **Sign in with a password** on the TV
-and enter your Silo username and password. If the server address is wrong,
+and enter your username and password. If the server address is wrong,
 **Change server** takes you back. If your profile has a PIN, you enter it
 after signing in.
 
-If you sign in to Silo with your organization's username and password, enter
-those. If you sign in with a button that opens your organization's sign-in
-page, scan the TV's code instead and sign in on your phone. Servers that sign
-in only that way don't show **Sign in with a password** on the TV.
+If you sign in to Silo with a **Sign in with** button, scan the TV's code
+instead and sign in on your phone. Servers that sign in only that way don't
+show **Sign in with a password** on the TV.
 
 Once the TV is set up, you can [control it from your phone or
 tablet](/docs/tv-remote).
