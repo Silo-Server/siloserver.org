@@ -72,7 +72,7 @@ When the server uses [single sign-on](/docs/single-sign-on), open the person's n
 
 **Password sign-in** says whether the account can sign in with a Silo password. Connecting a sign-in provider turns it off, unless the account is break-glass. To turn it back on, for example when the account's provider is gone, choose **Set a password**. While it's off, the page header shows **Set password** where other accounts show **Reset password**.
 
-**Break-glass account**, on admin accounts, keeps password sign-in when it's turned off for the server, so the admin can still get in if the provider is down. The server owner is break-glass by default, and only the owner can change this switch. Make sure at least one break-glass admin knows their Silo password.
+**Break-glass account**, on admin accounts, keeps password sign-in when it's turned off for the server, so the admin can still get in if the provider is down. The server owner is break-glass by default, and only the owner can change this switch. Make sure at least one break-glass admin knows their Silo password. To sign in with it, see [If you're locked out](/docs/single-sign-on#if-youre-locked-out).
 
 **Sign-in provider identities** lists the provider accounts this account signs in with. Choose **Unlink** to remove one. **Connect identity** connects one by hand, but it needs the provider's exact ID for the person, which the dialog explains. It's usually easier to have the person [connect it themselves](/docs/accounts#connect-a-sign-in-provider) while they still have a Silo password.
 

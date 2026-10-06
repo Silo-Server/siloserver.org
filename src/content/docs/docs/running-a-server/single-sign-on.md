@@ -89,7 +89,12 @@ While password sign-in is off:
 
 ## If you're locked out
 
-A break-glass admin can open `/login?local=1` on the server to get the password form when the page only offers the provider.
+A break-glass admin signs in with their Silo password in the web app:
+
+1. Open `/login?local=1` on your server, for example `https://silo.example.com/login?local=1`. The page shows the password form even when it would otherwise go straight to the provider.
+2. Enter the admin's username and Silo password.
+
+The Silo apps don't show the password form while password sign-in is off. To sign in on a TV, scan its code and approve it in the browser where you signed in.
 
 If no admin can sign in, turn password sign-in back on from the server's command line. With the standard Docker setup, run this in the folder with your `docker-compose.yml`:
 
