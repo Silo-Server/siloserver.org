@@ -9,7 +9,7 @@ Single sign-on lets people sign in to Silo with the account they already have at
 - [OpenID Connect](#connect-an-openid-connect-provider) providers, such as authentik, Authelia, Keycloak, or Entra ID. People select the provider's button and sign in on its own page.
 - [LDAP](#connect-an-ldap-directory) directories, such as Active Directory, OpenLDAP, or lldap. People type their directory username and password into Silo's sign-in form.
 
-A server uses one of these at a time. Both work in the web app and the Silo apps. Silo passwords keep working alongside the provider until you [turn them off](#turn-off-silo-passwords).
+A server uses one of these at a time. Both work in the web app and the Silo apps. Password sign-in keeps working alongside the provider until you [turn it off](#turn-off-silo-passwords).
 
 ## Install the sign-in plugin
 
