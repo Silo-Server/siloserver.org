@@ -171,7 +171,8 @@ them.
   Accounts that Tailscale sign-in creates start without a Silo password; an
   administrator can set one.
 - Tailscale sign-in doesn't replace passwords. Turning off **Allow password
-  sign-in** still requires an OpenID Connect or LDAP provider.
+  sign-in** still requires an
+  [OpenID Connect or LDAP provider](/docs/single-sign-on#turn-off-silo-passwords).
 
 ## If Continue as doesn't appear
 
