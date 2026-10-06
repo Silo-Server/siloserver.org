@@ -9,9 +9,9 @@ export const sidebar = [
     items: [
       page("docs"),
       page("docs/choose-an-app"),
-      page("docs/apps-and-features"),
       page("docs/connect-and-watch"),
       page("docs/tv-sign-in"),
+      page("docs/apps-and-features"),
     ],
   },
   {
