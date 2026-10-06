@@ -28,9 +28,11 @@ sign-in requires plugin version 0.2.0 or later.
    only accounts that are already
    [connected to Tailscale](#connect-tailscale-to-an-existing-account).
 
-Passwords and any other sign-in methods keep working. New accounts get the
-**User** role unless a [grant](#set-roles-with-grants) makes the person an
-admin.
+Turning this on doesn't change how existing accounts sign in. An account with
+a Silo password keeps signing in with it until it's
+[connected to Tailscale](#connect-tailscale-to-an-existing-account). New
+accounts get the **User** role unless a [grant](#set-roles-with-grants) makes
+the person an admin.
 
 ## Choose who can sign in
 
@@ -131,10 +133,13 @@ refuses with "An account with your email already exists."
 
 :::caution
 Connecting turns off the account's Silo password everywhere, including in
-Jellyfin-compatible apps. Don't connect an account that still needs to sign
-in from outside Tailscale. Admin accounts marked **Break-glass account**,
-including the server owner by default, keep their password. An
-administrator can turn a password back on by setting a new one.
+Jellyfin-compatible apps. This happens even while **Allow password sign-in**
+is on, and Silo refuses the old password as if it were wrong. Don't connect
+an account that still needs to sign in from outside Tailscale. Admin accounts
+marked **Break-glass account**, including the server owner by default, keep
+their password. An administrator can turn a password back on with
+**Set password** on the person's page in **Admin > Users**. The account then
+signs in with either its password or Tailscale.
 :::
 
 ## Who Silo signs in
@@ -168,8 +173,9 @@ them.
 ## Limits
 
 - Jellyfin-compatible and Audiobookshelf apps can't use Tailscale sign-in.
-  Accounts that Tailscale sign-in creates start without a Silo password; an
-  administrator can set one.
+  Accounts that Tailscale sign-in creates start without a Silo password. For
+  someone who needs those apps, an administrator can set one, and the account
+  keeps signing in with Tailscale too.
 - Tailscale sign-in doesn't replace passwords. Turning off **Allow password
   sign-in** still requires an
   [OpenID Connect or LDAP provider](/docs/single-sign-on#turn-off-silo-passwords).
