@@ -136,6 +136,10 @@ Jellyfin-compatible apps. While Tailscale doesn't allow them, the password
 stops working too. See
 [Remove someone's access](#remove-someones-access).
 
+Earlier versions of Silo turned the password off when an account connected
+Tailscale, and upgrading doesn't turn it back on. To restore it, open the
+person's name in **Admin > Users** and select **Set password**.
+
 ## Who Silo signs in
 
 Silo signs in whoever is signed in to Tailscale on the device, with that
