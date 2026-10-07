@@ -16,7 +16,7 @@ The setup wizard asks for the server name when you first install, so this is whe
 
 ## Change the logos and colors
 
-1. Under **Logos and icons**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Silo saves uploads in [artwork storage](/docs/s3-storage), on local disk or in S3. The **Logo (wordmark)** also appears at the top of every email the server sends, such as invitations and password resets. Without one, emails show the Silo wordmark.
+1. Under **Logos and icons** on **Admin > Settings > Appearance**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Silo saves uploads in [artwork storage](/docs/s3-storage), on local disk or in S3. The **Logo (wordmark)** also appears at the top of every email the server sends, such as invitations and password resets. Without one, emails show the Silo wordmark.
 2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar. Emails use it for their main button, such as the one in an invitation.
 3. Save, then look at a normal page and the signed-out sign-in page. To see the logo in an email, [send a test email](/docs/notification-delivery#set-up-email).
 
