@@ -28,9 +28,10 @@ sign-in requires plugin version 0.2.0 or later.
    only accounts that are already
    [connected to Tailscale](#connect-tailscale-to-an-existing-account).
 
-Passwords and any other sign-in methods keep working. New accounts get the
-**User** role unless a [grant](#set-roles-with-grants) makes the person an
-admin.
+Turning this on doesn't change anyone's password, and an account
+[connected to Tailscale](#connect-tailscale-to-an-existing-account) keeps its
+password too. New accounts get the **User** role unless a
+[grant](#set-roles-with-grants) makes the person an admin.
 
 ## Choose who can sign in
 
@@ -129,13 +130,11 @@ refuses with "An account with your email already exists."
 3. Select **Connect Tailscale**, enter the Silo password, and select
    **Connect**.
 
-:::caution
-Connecting turns off the account's Silo password everywhere, including in
-Jellyfin-compatible apps. Don't connect an account that still needs to sign
-in from outside Tailscale. Admin accounts marked **Break-glass account**,
-including the server owner by default, keep their password. An
-administrator can turn a password back on by setting a new one.
-:::
+The account keeps its Silo password, so while **Allow password sign-in** is
+on the person can still sign in from outside Tailscale and in
+Jellyfin-compatible apps. While Tailscale doesn't allow them, the password
+stops working too. See
+[Remove someone's access](#remove-someones-access).
 
 ## Who Silo signs in
 
@@ -155,11 +154,19 @@ person's role.
 ## Remove someone's access
 
 Revoke their share, or remove them from your tailnet, in the Tailscale admin
-console. Their devices can no longer reach the server. If your server also
-has a public address, Silo signs them out there at its next access check,
-every 12 hours by default. Change that with **Re-check access every** on
+console. Their devices can no longer reach the server. At its next access
+check, every 12 hours by default, Silo signs them out everywhere and stops
+accepting their Silo password, including at a public address and in
+Jellyfin-compatible apps. Change how often with **Re-check access every** on
 **Admin > Settings > Sign-in**. If **Who can sign in** requires a grant, you
 can remove their grant instead.
+
+If you add them back, their password works again after the next check, or as
+soon as they sign in with **Continue as**. Admin accounts marked
+**Break-glass account**, including the server owner by default, always keep
+their password. To let someone keep signing in with only their password,
+open their name in **Admin > Users**, choose the **Sign-in** tab, and
+**Unlink** Tailscale.
 
 If you turn off **Sign in with Tailscale**, people whose accounts have no
 Silo password can't sign in until you turn it back on or set a password for
@@ -168,8 +175,10 @@ them.
 ## Limits
 
 - Jellyfin-compatible and Audiobookshelf apps can't use Tailscale sign-in.
-  Accounts that Tailscale sign-in creates start without a Silo password; an
-  administrator can set one.
+  Accounts that Tailscale sign-in creates start without a Silo password. For
+  someone who needs those apps, an administrator can set one while
+  **Allow password sign-in** is on, and the account keeps signing in with
+  Tailscale too.
 - Tailscale sign-in doesn't replace passwords. Turning off **Allow password
   sign-in** still requires an
   [OpenID Connect or LDAP provider](/docs/single-sign-on#turn-off-silo-passwords).
