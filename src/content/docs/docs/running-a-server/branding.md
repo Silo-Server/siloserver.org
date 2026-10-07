@@ -16,7 +16,7 @@ The setup wizard asks for the server name when you first install, so this is whe
 
 ## Change how your server looks
 
-Everything in this section is on **Admin > Settings > Appearance**. Save after each change and look at the pages named below.
+Everything in this section is on **Admin > Settings > Appearance**.
 
 ### Change the logos and colors
 
