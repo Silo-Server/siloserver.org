@@ -4,7 +4,15 @@ title: Customize your server's appearance
 description: Set your server's logos, accent color, poster badges, and login background for the web app and emails.
 ---
 
-Use **Admin > Settings > Appearance** to change how your server looks in a browser and in the emails it sends. These settings don't change the Apple or Android app icons.
+Name your server under **Admin > Settings > General**, and use **Admin > Settings > Appearance** to change how it looks in a browser and in the emails it sends. The Apple and Android apps keep their own name and icon.
+
+## Name your server
+
+1. Under **Identity** on **Admin > Settings > General**, enter a **Server name**. It appears as the browser tab title and the heading on the sign-in page, and in the sidebar when you haven't uploaded a wordmark. The emails your server sends and the apps' sign-in screens use it too. Without one, your server is called Silo.
+2. Enter a **Login subtitle** to show a line of your own under the server name on the sign-in page, in place of "Sign in with an existing account."
+3. Save, then open the signed-out sign-in page. Neither change needs a restart.
+
+The setup wizard asks for the server name when you first install, so this is where you change it later.
 
 ## Change the logos and colors
 
