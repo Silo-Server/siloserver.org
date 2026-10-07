@@ -9,17 +9,31 @@ Ask which server, account, profile, and device show the problem. A setting that 
 ## Find the setting that differs
 
 1. Open **Admin > Users** and select the person.
-2. Open **Settings** to inspect saved user and profile settings.
-3. Open **Devices** for values saved to a particular device. Match its device name and profile to the report.
-4. Compare the affected value with the inherited value before changing it.
+2. Open **Preferences**. Choose a profile to see its saved settings and its
+   home screen rows, or choose one of its devices to see the values saved on
+   that device. Match the device name and profile to the report.
+3. Compare the affected value with the value it replaces before changing it.
 
-For a server-wide view, **Admin > Devices** can search by device, user, ID, or profile.
+For a server-wide view, **Admin > Devices** can search by device, user, ID, or
+profile. A device's **All Settings** tab lists every setting it uses and
+whether the value is set on the device, comes from the profile, or is the app
+default.
 
 ## Reset one override
 
-Use the setting's reset action and confirm **Reset this override?**. The inherited setting then applies again. Ask the user to reopen the affected screen.
+On **Admin > Devices**, use the setting's reset action and confirm **Reset this
+override?**. On **Preferences**, remove the saved value instead. The inherited
+setting then applies again. Ask the user to reopen the affected screen.
 
-These views also show raw values. Reset a wrong value rather than typing in a replacement, and leave unrelated settings alone.
+These views also show raw values. Reset a wrong value rather than typing in a
+replacement, and leave unrelated settings alone.
+
+## Fix a profile's home screen
+
+On **Preferences**, choose the profile. Its **Home sections** card lists the
+rows in the order that profile sees them. Drag a row to move it, select the eye
+to show or hide it, or choose **Reset to default** to go back to the server's
+layout. The change applies to that profile only.
 
 ## See the user's view
 
