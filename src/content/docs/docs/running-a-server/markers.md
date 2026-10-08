@@ -65,4 +65,4 @@ Use the clear button beside a segment to remove its marker. **Recent changes** i
 
 A manual marker takes priority over online and detected markers, so later lookups and detection don't replace it. Only another manual edit does.
 
-Chapter images are configured separately in [playback settings](/docs/playback).
+Chapter and marker previews use the library’s **Generate chapter thumbnails** switch. See [preview setup](/docs/playback#generate-chapter-thumbnails).
