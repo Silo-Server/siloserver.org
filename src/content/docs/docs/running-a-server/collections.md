@@ -1,80 +1,80 @@
 ---
 slug: docs/manage-collections
 title: Create shared and smart collections
-description: Build a library collection from filters, an imported list, or a template, and check what viewers can see.
+description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---
 
-Shared collections belong to a library and appear for everyone who can use it, for example a set of short films or a seasonal selection.
+Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab and in Home rows, for example a set of short films or a seasonal selection.
 
 ## Create a collection
 
-1. Open **Admin > Collections** and select the library.
-2. Choose **Add Collection**, then a collection type.
-3. For a smart collection, set the **Filters** and inspect the matching items. Select at least one library and set an item limit if needed.
-4. Continue to **Details**. Enter a **Title**, choose **Visibility**, and add a poster or backdrop if you want one.
-5. Choose **Create Collection**, then open the library's Collections view.
+1. Open **Admin > Collections** and choose **New collection**.
+2. Choose **Manual** to pick the titles, **Smart** to fill it from rules, or **Synced list** to follow a list from MDBList or TMDB.
+3. Enter a **Name** and choose the libraries it belongs to: under **Titles from** for a manual collection, in the **Rules** sentence for a smart collection, or under **Match into** for a synced list.
+4. Fill it in: titles for a manual collection, rules for a smart collection, or the list a synced list follows. For a smart collection, check **Live preview** for the titles that match.
+5. Choose **Create collection**.
 
-Smart collections find items with rules. Imported collections take their list from an external source.
+The editor works as it does for [personal collections](/docs/collections#make-a-collection-in-the-web-app), with these server parts under **Where it shows** and **Look**:
 
-## Start with a template
+- **Libraries**: **Change** takes you to where you pick them. If unticking a library would drop titles from a manual collection that are only in that library, the editor names them before you save.
+- **Shelf**: the heading the collection sits under on the library's **Collections** tab. Choose **Arrange** to move it.
+- **Show on the Collections tab**: turn it off to hide the collection from the tab. A hidden collection cannot be added as a row.
+- **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
+- **Look**: a poster and a backdrop. Without a poster, the collection shows a collage of its titles.
 
-Use a template for a collection that follows a published list and syncs again on a schedule, such as TMDB's trending movies or an MDBList list of Oscar winners. For a smart, manual, or one-off imported collection, use **Add Collection** instead.
+To change a collection later, select it in the list, edit it, and choose **Save**.
 
-1. Open **Admin > Collections** and choose **Browse Templates**. You can also choose **Add Collection**, then the **Browse Templates** tile.
-2. Search or pick a category, then select a template.
-3. Check the form. The template fills in every field, and you can change any of them.
-4. Choose **Create Collection**. Silo creates the collection and runs its first sync. The collection shows only titles that are already in your library, so a list of 100 trending movies may show far fewer.
+## Follow a list with a synced list
 
-Templates use these sources:
+A synced list reads a published list again on a schedule. Under **The list it follows**, choose:
 
-- TMDB lists such as trending, popular, top rated, now playing, upcoming, airing today, and on the air. These work without setup, because Silo includes a TMDB key.
-- A public TMDB list. Choose **Custom TMDB List** and paste the list's page, such as `https://www.themoviedb.org/list/310-my-movie-list`, or just its number. TMDB has no list search, so find the list on themoviedb.org first.
-- A public MDBList list. Following a list needs no key. Choose **Custom MDBList** to paste any public list. With an MDBList API key under **Admin > Settings > Subtitles & Metadata**, the form can also search MDBList for lists.
-- TMDB genre shelves and TMDB franchise collections. These can only be added with a [template bundle](#apply-a-template-bundle). Selecting one in the gallery shows what it fetches but has no create form.
+- **MDBList**: pick from **Popular picks** or paste any public MDBList link. With an MDBList API key under **Admin > Settings > Subtitles & Metadata**, you can also search MDBList.
+- **TMDB chart**: trending, popular, top rated, now playing, upcoming, airing today, or on the air, for movies, TV shows, or both. These work without setup, because Silo includes a TMDB key.
+- **TMDB list**: paste a public TMDB list's link, such as `https://www.themoviedb.org/list/310-my-movie-list`. TMDB has no list search, so find the list on themoviedb.org first.
 
-The form has these fields:
+Choose under **Sync** how often Silo reads the list again, from **Every hour** to monthly, or **No automatic sync** to sync only when you ask. **Custom schedule…** takes a cron schedule in server time.
 
-- **Libraries**: one or more. A movie template cannot go in a **Series** library, and a TV template cannot go in a **Movies** library. **Mixed** libraries take both.
-- **Collection Title** and **Description**.
-- **MDBList URL** or **TMDB list URL**, when the template follows a list you choose.
-- **Poster**: **Server default** keeps the template's poster, and **Custom URL** uses an image link instead.
-- **Max Items**: how many titles the collection keeps. Most templates keep 100, and a few keep more or have no limit.
-- **Featured**: surfaces the collection near the top of the library.
-- **Default Sort**: the order viewers see when they open the collection.
-- **Sync Schedule**: how often Silo reads the source again. Lists that change often, such as trending, start at daily or more often. Lists that change slowly, such as top rated or award winners, start at weekly. Choose **No automatic sync** to sync only when you ask.
+The list syncs for the first time when you create it. The collection shows only titles that are already in your library, so a list of 100 trending movies may show far fewer. To sync again, open **More actions** in the editor and choose **Sync now**. Save your changes first, because a sync runs the saved list.
 
-## Apply a template bundle
+Genre shelves and TMDB franchise collections come from [starter packs](#add-a-starter-pack).
 
-A bundle creates a whole set of template collections at once, such as a starter set of trending and top-rated lists or a shelf for each genre. Bundles appear at the top of **Browse Templates**, above the search, each with a short description and the number of templates it holds. **All Defaults** applies every bundle together.
+## Find and change collections
 
-Some templates are in no bundle, including **Custom MDBList** and **Custom TMDB List**. Add those one at a time.
+**Admin > Collections** opens on **List**, which shows every collection. Choose a library at the top, search, or filter by **Type**. A row's switch shows or hides the collection on its libraries' **Collections** tabs. Select a row to edit the collection, or open its action menu to **Sync now**, add it to Home or a library page, or delete it.
 
-1. Choose **Browse Templates**, then a bundle.
-2. Under **Libraries**, choose the libraries to fill. Every library starts selected, or only the one you had open. Each library gets only the templates that fit its type.
-3. Under **Featured Sections**, check the **Home Hero** and the hero chosen for each library. Silo creates these hero sections unless you choose **No home hero** or **No library hero**.
-4. Choose **Preview** to see the exact collections it would create, skip, and delete. Nothing changes yet.
-5. Choose **Apply Defaults**. Silo applies the bundle in the background. The collections appear first, and their titles fill in as each first sync finishes, showing only titles already in your library.
+To change several at once, open **More**, choose **Select collections**, and tick up to 100. The bar at the bottom syncs the selected lists, or has **Show on tabs**, **Hide from tabs**, and **Delete…**. Syncing skips manual and smart collections.
 
-Applying a bundle again is safe. Silo skips a template it already applied to a library, and a template whose title matches a collection already in that library.
+## Arrange shelves
 
-## Replace existing collections with a bundle
+Choose a library, then **Arrange**. Shelves are the headings on that library's **Collections** tab, top to bottom as viewers see them, and each library has its own.
 
-:::caution[Deletes collections you made]
-**Delete Existing Server Collections** removes every shared collection in the chosen libraries before the bundle is applied, including hidden ones and ones you made by hand. Hero sections the same bundle created before are removed too. Turn it on only when you want to start over.
-:::
+- Drag shelves and collections into place. Changes save right away.
+- **New shelf** adds a heading. A shelf's action menu renames, moves, or deletes it, and its **Order** sorts the collections on it.
+- A collection's action menu has **Move to shelf**, **Pin to the start of its shelf**, and **Hide from Collections tab**. A pinned collection also comes first under **Server collections** on each viewer's Collections page.
+- **No heading** holds collections that are not on a shelf.
+- **My collections** is where each viewer's own collections appear when they turn on **Show on the Collections tab**. You can rename or move it, and its contents are different for each viewer.
 
-Silo keeps a collection that also belongs to a library you did not choose, and a collection that a home section uses. Choose **Preview** first and read the list of collections it would delete.
+## Add a starter pack
 
-## Change a collection
+A starter pack adds a ready-made set of synced lists to your libraries, such as trending and top-rated lists or a shelf for each genre.
 
-Use its edit action to change filters, title, visibility, or artwork, then choose **Save Collection**. For an imported collection, use its sync action to update the list from the source.
+1. Open **Admin > Collections**, then **More > Starter packs…**.
+2. Choose a pack. **All Defaults** adds every pack.
+3. Under **Add to these libraries**, choose the libraries to fill. Each library gets only the lists that fit its type.
+4. Check **What will happen**. For each library it counts the lists that are new, already there, and not for that library.
+5. Leave **Also use the pack's hero banners** off to keep the hero banners you have now. Turn it on to let the pack set the hero banner on Home and on each library page.
+6. Choose the add button, which counts the collections it adds, such as **Add 15 collections**.
 
-**Hidden** removes a collection from normal browsing. **Featured** surfaces it near the top of the library. To put a collection in a particular home row, [add a section](/docs/home-sections).
+New lists land under **No heading** on each library's **Collections** tab, ready to move into a shelf in **Arrange**. Each one syncs for the first time right after, and shows only titles that are already in your library. Adding a pack again leaves the lists already there alone.
 
-If a collection looks empty, check its filters and source results. Each viewer sees only the items their libraries and profile restrictions allow.
+## Delete a collection
 
-## If a template collection does not sync
+Open the collection's action menu and choose **Delete…**. If Home or library page rows show it, the dialog lists them, and a button such as **Delete it and its 2 rows** removes both. To keep a row, open it from the dialog and point it at another collection first.
 
-The **TMDB Franchise** template, which some bundles add, is a placeholder that does not point at a TMDB franchise. Its collection stays empty, and syncing it fails with `TMDB franchise template requires a collection_id — edit the collection's source config and supply a real TMDB collection ID`. The collection editor cannot set that ID, so delete the collection.
+If a collection looks empty, check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
-MDBList lists are kept by MDBList users, and a list can be removed there. The collection's sync then fails. Delete the collection, or create a replacement from another list.
+## If a synced list does not sync
+
+The **Franchise Collections** and **All Defaults** packs add a **TMDB Franchise** list that does not follow a franchise yet. Its editor says `This list doesn't follow a TMDB collection yet. Add its ID so it can sync.` Enter the number from the collection's TMDB link under **TMDB collection ID**, for example `119` from `themoviedb.org/collection/119`, and choose **Save**.
+
+MDBList lists are kept by MDBList users, and a list can be removed there. The collection's sync then fails, and its editor shows the error while keeping the titles it already has. Choose **Change link** to follow another list, or delete the collection.
