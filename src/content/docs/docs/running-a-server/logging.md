@@ -25,6 +25,47 @@ Both filters apply to the live list and to **Browse log history**. They're kept 
 
 Early database and migration messages can appear only in the container logs, because Silo writes them before the admin log starts collecting.
 
+## Audit account and permission changes
+
+Use the web admin app's **Admin > Logs > Audit** tab. Only an authorized server
+administrator on its primary household profile can read audit history or open
+the live connection.
+
+1. Open **Audit**, then create or edit a test account in **Admin > Users**, or
+   change a permission in **Admin > Access Groups**.
+2. Return to **Audit** and compare **Actor**, **Action / changes**, and **Target**
+   with the change. The row includes the request ID, time, and HTTP outcome.
+3. Use **Action**, **Actor account ID**, **Target type**, and **Target ID** to
+   narrow the results. Action examples are `user.updated` and
+   `access_group.updated`; target types are `user` and `access_group`.
+4. Choose **Browse log history** to read retained entries. Use **Older** and
+   **Newer** to move through the pages. The same filters apply to live entries.
+5. Return to the live view, make another change, and check that its row arrives.
+   After a disconnect, choose **Reconnect**; use history to check anything
+   missed during the interruption.
+
+Successful account and group creation, edits, and deletion are recorded with
+safe changed-field details. Permission grants and revocations show the previous
+and new permission lists. A password change shows only **changed**, without the
+password or its hash. Older request-only entries show **HTTP request** and have
+no field-change details. Rejected writes and unchanged values do not fabricate
+a successful change entry.
+
+For impersonated requests, **Actor** identifies the administrator and shows
+which account they acted as. Keep the request ID when correlating the action
+with other logs. Filters are saved in the page address; that address can reveal
+account IDs to anyone you share it with.
+
+History is stored with the mutation; live updates are sent after commit across
+APIs sharing the installation. Live streaming is not a durable queue, so use
+history after a gap. When a replacement connection fails after changing filters,
+old matches are hidden instead of displayed under the new selection.
+Administrator demotion or session revocation closes an existing connection on
+the server's next authority check.
+
+Audit administration is a web-admin feature. The native phone and tablet apps
+perform the affected account's actions but do not provide an audit-admin screen.
+
 ## Log settings
 
 In **Admin > Settings > General**, under **Logging**:

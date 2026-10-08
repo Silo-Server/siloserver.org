@@ -75,3 +75,16 @@ The web app can save a title's original file through your browser.
 
 **Download** appears when your account is allowed to download. You get the
 original file, so you need a video player that can open its format.
+
+## When a download is limited
+
+Your administrator can set [download bandwidth and registration
+limits](/docs/manage-access#download-limits). Concurrent downloads and household
+profiles share the account's bandwidth allowance; the server's combined limit
+also applies. A quota rejection means you must wait for the rolling registration
+period, while a bandwidth limit slows the transfer.
+
+A download can fail if the server loses its settings or shared accounting
+service. Retry after the administrator restores it, using the controls available
+in your app. On Android, remove the failed download and start it again. Playback
+quality limits are separate from offline download byte pacing.
