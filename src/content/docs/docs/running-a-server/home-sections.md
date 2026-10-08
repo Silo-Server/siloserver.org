@@ -1,31 +1,41 @@
 ---
 slug: docs/home-sections
 title: Curate the home screen
-description: Add and arrange shared rows on Home or a library page.
+description: Add and arrange the rows everyone sees on Home and library pages.
 ---
 
-Sections are the rows people browse on Home and library pages. Use **Admin > Sections** to set their shared content and starting order.
+Home rows are the rows people browse on Home and above each library's grid. Use **Admin > Home rows** to choose them and their order for everyone.
 
 ## Add a row
 
-1. Choose **Home** or **Library**. For a library row, select the target library.
-2. Choose **Add Section**.
-3. Select a **Section Type** and enter a **Title**. For a collection row, choose an existing collection.
-4. Set **Item Limit** and keep **Enabled** on. Review the library or filter controls shown for that section type.
-5. Choose **Add Section**, then open the target page in the app.
+1. Open **Admin > Home rows** and choose the page: **Home** or a library.
+2. Choose **Add row**.
+3. Pick a kind of row from the tabs, or search for one, for example `trending` or `Christmas`. Under **Collections & rules**, **A collection** shows a collection and **Titles matching rules** builds a row from rules.
+4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
+5. Choose **Add row**. New rows go to the bottom of the page.
 
-**Add from Gallery** offers ready-made sections. Review their source and library choices before adding them.
+On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
 
-## Change the order or hide a row
+To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create shared and smart collections](/docs/manage-collections#create-a-collection).
 
-Drag sections into order. Open a section to change its title or contents and choose **Save**. Turn off **Enabled** to hide it without deleting its configuration.
+## Change the order or turn a row off
 
-**Restore Defaults** replaces the shared arrangement, including your own changes.
+Drag a row to move it. Changes save right away. The switch on each row turns it on or off for everyone, and a row that's off keeps its settings.
 
-Viewers can save their own order. If your change shows for a new profile but not an existing one, that profile has its own order.
+A row's action menu has **Edit row…**, **Use as hero banner**, **Move to top**, **Move to bottom**, and **Delete row…**. The web app shows the hero banner as a banner; the apps show it as a regular row.
+
+To change several rows at once, open **More** and choose **Select rows**. You can then turn them on or off, or delete them together.
+
+## Restore the default rows
+
+Open **More** and choose **Restore defaults…** to put back the rows Silo starts with on that page. Turn on the option to also reset every profile's page if profiles' own changes should go too.
+
+## What profiles can change
+
+Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
 
 ## A row is missing or empty
 
-Check whether the row is on Home or a library page, its **Enabled** setting, and any collection or filter it uses. Then check the viewer's library access and profile restrictions.
+Check that the row is on the page you're looking at and that its switch is on. Then check the collection or rules it uses, and the viewer's library access and profile restrictions.
 
 Recommendation rows show results from the [recommendation jobs](/docs/recommendations).
