@@ -169,6 +169,6 @@ Keep both buckets until you have checked for files written while the settings di
 
 ## Space and persistence
 
-Keep the database, artwork, and plugin data on persistent storage. Leave room for transcodes and prepared downloads; they grow while people watch or download.
+Keep the database, artwork, and plugin data on persistent storage. Leave room for transcodes and prepared downloads; they grow while people watch or download. To cap the space prepared downloads take, set a [storage budget](/docs/download-storage#set-storage-budgets).
 
 Watch free space on the host and its mounted volumes. A full disk can stop one task before the whole server fails. Before adding users, set up [backups](/docs/backup-restore).
