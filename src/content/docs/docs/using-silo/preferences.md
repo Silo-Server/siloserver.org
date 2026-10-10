@@ -41,11 +41,12 @@ A browser only lists the settings the web player uses. HDR, Dolby Vision,
 playback speed, and the sync offsets appear only for devices running the Silo
 apps.
 
-In the mobile and TV apps, changes on the **Playback** page apply to that
-device only. To go back to your profile's value for one setting, choose **Use
-Profile Setting** at the top of its list (**Use profile setting** on Android).
-On Android, a switch shows a **Use Profile Setting** row under it once the
-device has its own value. **Use Profile Settings** at
+In the mobile and TV apps, most settings on the **Playback** page apply to
+that device only. **Skip Back** and **Skip Forward** follow your profile to
+every device. To go back to your profile's value for a setting your profile
+also has, choose **Use Profile Setting** at the top of its list (**Use profile
+setting** on Android). On Android, a switch for one of these settings shows a
+**Use Profile Setting** row under it once the device has its own value. **Use Profile Settings** at
 the bottom of the page removes every change on the device.
 
 A setting changed on a device wins over your profile's value on that device.
