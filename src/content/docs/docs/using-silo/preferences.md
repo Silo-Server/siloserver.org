@@ -29,8 +29,8 @@ Silo has them. It doesn't change a movie's spoken audio; use
 ## Change one device
 
 1. Open **Settings > Your Devices** and choose the device.
-2. Change its quality, audio language, skipping, HDR, playback speed, or
-   audio and subtitle sync offsets. Each setting says where its value comes
+2. Change any setting it lists, such as quality, subtitle language, playing
+   the next episode, HDR, or the audio sync offset. Each setting says where its value comes
    from: **Changed here**, **From your profile**, or **App default**. A
    changed setting shows **Use your setting**; select it to go back to your
    profile's value. **Use profile settings** removes every change on the
