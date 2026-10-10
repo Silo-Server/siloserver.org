@@ -54,18 +54,18 @@ Silo shows **Re-detection started** and analyzes the item in the background. Man
 
 ## Correct a marker
 
-In the web app, an administrator or a user with **Marker Editing** permission can edit markers for movies and series episodes they can access, including videos in mixed libraries. Audiobooks, ebooks, and other library types have no marker editor. Native apps consume markers; editing is available in the web app.
+In the web app, an administrator or a user with **Marker editing** permission can edit markers for movies and episodes they can access in Movie, Series, and Mixed libraries.
 
-To authorize a non-admin account, open **Admin > Users**, open the user, choose **Access & limits**, and select **Edit** under **Library access**. Enable **Marker editing** and save. The user’s access group must also allow that permission. Revoking it prevents further saves immediately, including from an editor that was already open. An administrator using a secondary household profile also needs the assigned permission; the role bypass applies to the primary profile or unrestricted account scope.
+To let a user edit markers, open **Admin > Users**, open the user, choose **Access & limits**, then choose **Edit** under **Library access**. Turn on **Marker editing** and save. If the user's access group limits permissions, the group must allow **Marker editing** too. On an administrator account, only the primary profile can edit markers without this permission.
 
 1. Open the movie or episode's detail menu and choose **Edit Markers**.
 2. Enter start and end times for the segment, for example `1:30` and `2:45`. The end must be after the start.
 3. Choose **Save**.
 4. Play that section of the same file and check where the skip button lands.
 
-Use the clear button beside a segment and choose **Save** to remove that kind of marker from the selected file. It stays absent through provider lookups, detection, and rescans, even if the file is replaced. Enter and save times again to add it back. Other marker kinds and file versions are unchanged. **Recent changes** in the same dialog shows who changed what.
+To remove a marker, use the clear button beside its segment, then choose **Save**. Silo keeps that kind of marker off the file through later lookups, detection, and rescans, including after you replace the file under the same name. To add it back, enter its times and save again. Other marker kinds and other versions of the title keep their markers. **Recent changes** in the same dialog shows who changed what.
 
-A saved edit or deletion applies to everyone playing that file. Connected players receive the change without a library rescan or reopening playback; players read the current markers when they reconnect. Check the same file version when testing the change.
+A saved change applies to everyone who plays that file. Players that are already open pick it up without a rescan.
 
 A manual marker takes priority over online and detected markers, so later lookups and detection don't replace it. Only another manual edit does.
 
