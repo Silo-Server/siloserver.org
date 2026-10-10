@@ -32,9 +32,9 @@ replacement, and leave unrelated settings alone.
 ## Fix a profile's home screen
 
 On **Preferences**, choose the profile. Its **Home sections** card lists the
-rows in the order that profile sees them. Drag a row to move it, select the eye
-to show or hide it, or choose **Reset to default** to go back to the server's
-layout. The change applies to that profile only.
+rows in the order that profile sees them. Drag a row to move it, or select the eye
+to show or hide it. **Reset to default** goes back to the server's layout and
+removes any rows the profile added. Changes apply to that profile only.
 
 ## See the user's view
 
