@@ -73,11 +73,9 @@ or a collection until you stop. Nothing repeats until everything in it has
 played, specials included. Each pick starts from the beginning, not from
 where you stopped, and only titles your profile can access are picked.
 
-- In a library of movies or TV shows, select **Shuffle**. In the web app,
-  it's beside the **Recommended**, **Library**, and **Collections** tabs, and
-  in a narrow browser window only its icon shows. In the apps, it's next to
-  **Sort** and **Filter**. On Android phones and tablets, it's at the end of
-  the tabs on the **Library** tab.
+- In a library of movies or TV shows, select **Shuffle** at the top. In a
+  narrow browser window, only its icon shows. On Android phones and tablets,
+  it's on the **Library** tab.
 - For a series, open its **More** menu. In the web app, choose **Shuffle**;
   do the same on a season's page to shuffle only that season. In the apps,
   choose **Shuffle Series**, or the item for the season you're viewing, such
