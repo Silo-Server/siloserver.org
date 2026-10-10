@@ -66,14 +66,27 @@ After you fix a GPU, you don't need to re-probe: the node notices on its own wit
 
 ## Allow 4K and HEVC output
 
-Turn these on in **Admin > Settings > Playback** once your hardware handles ordinary conversions well. Both are off on a new server. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
+Both settings are in **Admin > Settings > Playback**. On a new server, **Allow 4K transcoding** is on and **Allow HEVC encoding** is off. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
 
-- **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
+- **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware and especially for a server without a GPU. Turn it off if 4K conversions can't keep up. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
 - **Allow HEVC encoding** converts video to HEVC for devices that can play HEVC streams. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264. The setting only covers converted video: a device that plays an HEVC file as it is, or after Silo repackages it, plays it the same way with the setting off.
 
 After turning on **Allow HEVC encoding**, play something that needs conversion on a device that plays HEVC, and check the session in **Admin > Activity**. **SW** means the CPU is encoding: a GPU that converts to H.264 can't always encode HEVC, and Silo then encodes HEVC on the CPU. A GPU that tone-maps HDR video keeps doing that part. If the CPU load is too much, turn the setting off. The change applies to playback that starts after you save; streams already playing keep their codec.
 
 With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo checks each node's HEVC support separately.
+
+## Convert HDR for SDR screens
+
+When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Advanced** in **Admin > Settings > Playback** allow it, and both are on by default:
+
+- **Enable Hardware HDR Tone Mapping** uses a GPU on the main server or a transcode node, once Silo has tested that it can tone-map.
+- **Enable Software HDR Tone Mapping** uses the CPU. It works without a GPU, but it's a heavy task for the CPU.
+
+With both on, Silo uses the GPU when it can and the CPU otherwise. With both off, Silo doesn't convert HDR video: an HDR title plays only on devices that can play it as it is, and downloads of it use **Original**.
+
+## Limit how far ahead Silo converts
+
+**Throttle transcoding**, under **Advanced** in **Admin > Settings > Playback**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead** sets how far ahead Silo converts, 300 seconds by default and at least 60.
 
 ## Generate chapter thumbnails
 
@@ -88,6 +101,6 @@ For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
 
 ### If previews don't appear
 
-Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
+Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**, the chapter thumbnail setting under **Advanced** in **Admin > Settings > Playback**. It's separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
 Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs** by the `chapterthumbs` component.
