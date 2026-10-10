@@ -1,7 +1,7 @@
 ---
 slug: docs/accounts
 title: Accounts and signed-in devices
-description: Change your password, sign out, and get help with a lost device.
+description: Change your password, see where you're signed in, sign out, and get help with a lost device.
 ---
 
 Everyone in a household shares one account and password. Profiles separate
@@ -11,6 +11,36 @@ each person's watching; see [Profiles, PINs, and shared devices](/docs/profiles)
 
 Open the profile menu (your profile picture) and choose **Sign Out**. In the
 web app it's **Logout**.
+
+## See where you're signed in
+
+In the web app, open **Settings > Signed-in sessions**, under **Account**, to
+see every browser and app signed in to your account. Only the primary profile
+or an admin can open it.
+
+**This browser** is the one you're using, and **Other signed-in sessions**
+lists the rest. Each row names the device, such as "Chrome on Windows" or the
+name a TV gave itself, and shows when it was last seen and when it signed in.
+**Last seen** updates at most once a minute. **Details** adds the IP address
+it signed in from, when the session expires, and its User-Agent.
+
+To sign out one you don't recognize:
+
+1. Choose **Sign out** on its row.
+2. Confirm with **Sign out**.
+
+That browser or app loses access the next time it contacts your server; a
+browser shows **Your session ended** on its sign-in page. A video already
+playing there may not stop right away. Your password, profiles, and saved
+device settings don't change, and your other sessions stay signed in.
+
+**Sign out this browser** on the **This browser** row signs you out where
+you are.
+
+[Jellyfin-compatible apps](/docs/jellyfin-apps) don't appear in the list,
+and signing out a session doesn't sign them out. To sign those out, use a reset
+link (see [Forgot your password?](#forgot-your-password)). API keys aren't
+sessions either.
 
 ## Switch to another server
 
@@ -79,16 +109,22 @@ recovery process.
 
 ## Lost or stolen device
 
-Silo can't sign out a single device, but you can sign out all of them. The
-quickest way is to request a reset link with **Forgot password?** (see above)
-and choose a new password; a private browser window works if you're signed in
-on that computer. Every device, including the lost one, is signed out.
+In the web app, open **Settings > Signed-in sessions** and choose **Sign out**
+on the lost device's row (see
+[See where you're signed in](#see-where-youre-signed-in)). Your other devices
+stay signed in, and the password stays the same.
 
-Your server administrator can do the same by setting a new password for your
-account or disabling it for a while. Then sign back in on the devices you
-still have.
+To sign out every device and change the password, request a reset link with
+**Forgot password?** (see above) and choose a new password. A private browser
+window works if you're signed in on that computer. Every device, including the
+lost one, is signed out.
+
+Your server administrator can also sign the device out, or sign your account
+out everywhere, from your account in **Admin > Users**. After a reset or
+signing out everywhere, sign back in on the devices you still have.
 
 **Forget** in **Settings > Your Devices** only removes that device's saved
-settings; it doesn't sign the device out.
+settings; it doesn't sign the device out. Use **Settings > Signed-in
+sessions** for that.
 
 Before you give a device to someone outside the household, sign out.
