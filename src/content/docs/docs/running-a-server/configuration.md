@@ -74,6 +74,22 @@ If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:
 
 To use [Valkey](https://valkey.io/) in place of Redis, set `REDIS_URL` to your Valkey server with a `redis://` URL. There is no Valkey-specific setting. Silo is tested only against Redis, so Valkey support is provided as-is.
 
+### Redis Sentinel
+
+To connect through [Redis Sentinel](https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/), set `REDIS_URL` to a Sentinel URL:
+
+```text
+redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=sentinel-3:26379
+```
+
+- `master_name` is the name Sentinel monitors your master under. A URL with this parameter names a Sentinel deployment.
+- The host and each `addr` are Sentinel addresses, each with its port.
+- The path is the database number, as in a single-server URL.
+- A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
+- With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
+
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
+
 ### Shared memory for your own PostgreSQL container
 
 Size `/dev/shm` when you create your own PostgreSQL container. The bundled `postgres` service sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
