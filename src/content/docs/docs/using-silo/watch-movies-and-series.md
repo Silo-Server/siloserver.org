@@ -25,6 +25,37 @@ episode for you.
 You can also choose the audio and subtitle tracks on the title's page before
 you start.
 
+## Shuffle a library, series, or collection
+
+Shuffle plays random movies and episodes from a library, a series, a season,
+or a collection until you stop. Nothing repeats until everything in it has
+played, specials included. Each pick starts from the beginning, not from
+where you stopped, and only titles your profile can access are picked.
+
+- In a library of movies or TV shows, select **Shuffle** at the top. In a
+  narrow browser window, only its icon shows. On Android phones and tablets,
+  it's on the **Library** tab.
+- For a series, open its **More** menu. In the web app, choose **Shuffle**;
+  do the same on a season's page to shuffle only that season. In the apps,
+  choose **Shuffle Series**, or the item for the season you're viewing, such
+  as **Shuffle Season 2**. A season needs at least two episodes that can play.
+- In a [collection](/docs/collections), select **Shuffle**. On Android phones
+  and tablets, it's the shuffle icon at the top of the screen.
+
+Near the end of each title, the next-up screen shows **Up Next at Random**
+and what you're shuffling:
+
+- **Play Now** starts the next pick.
+- **Pick Another** swaps it for a different random title. The one you skipped
+  can still come up later.
+- **Stop shuffling** ends the shuffle and returns you to the page where you
+  started it.
+
+If auto-play is on, the next pick starts on its own after a countdown. Select
+**Auto-play is on** on that screen to turn it off, or change it in
+**Settings > Playback**. During a shuffle, the player has no next episode
+control.
+
 ## Choose a version before playback
 
 Some titles have more than one file, such as a 4K and an HD copy, or a
