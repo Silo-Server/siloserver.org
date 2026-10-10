@@ -37,8 +37,9 @@ Silo has them. It doesn't change a movie's spoken audio; use
    device.
 3. Play something on that device to hear or see the result.
 
-A browser only lists the settings the web player uses. Playback speed, HDR,
-and the sync offsets appear for phones, tablets, and TVs.
+A browser only lists the settings the web player uses. HDR, Dolby Vision,
+playback speed, and the sync offsets appear only for devices running the Silo
+apps.
 
 In the mobile and TV apps, changes on the **Playback** page apply to that
 device only. To go back to your profile's value for one setting, choose **Use
