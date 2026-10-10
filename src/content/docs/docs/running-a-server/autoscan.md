@@ -119,6 +119,8 @@ If the status line says `Folders Silo can't read aren't monitored`, the rest of 
 
 Start with **Activity**. In **Polls**, expand an event to see each path it received, the path after your rewrites, and what happened to it. An unresolved path means a path rewrite or library folder is wrong. **Scans** shows what each scan found, such as new or missing files. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
 
+**Activity** keeps 30 days of polls and webhook deliveries. The **Database Maintenance** task in **Admin > Scheduled Tasks** removes older ones every day, at 05:00 by default. An event whose scan is still queued or running stays until the scan ends. A scan in **Scans** stays listed after its event is removed, but it shows **Autoscan** instead of the source's name and has no poll status. To keep events for longer, change the stored setting `autoscan.events_retention_days` through the [admin API](/docs/api). It accepts 1 to 3650 days and has no control in the web app. The next maintenance run uses the new value.
+
 The **Debounce (seconds)** setting under **Advanced** skips repeat reports of an unchanged file that arrive within that many seconds. It never skips a changed or deleted file. After an event is handled, look in the library to see whether the file was scanned and matched.
 
 ## If old titles stay after a folder rename
