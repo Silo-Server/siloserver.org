@@ -44,7 +44,7 @@ To use existing servers, write a Compose file or override that:
 - keeps the media, plugin, artwork, compatibility, transcode, and catalog seed mounts
 - uses the same `SECRET_KEY` for every Silo server and node
 
-For example, this override replaces both bundled services. Percent-encode any reserved characters in the password inside `DATABASE_URL`:
+For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it, because it goes into `DATABASE_URL` as written:
 
 ```yaml
 services:
@@ -55,6 +55,7 @@ services:
     environment:
       DATABASE_URL: postgres://silo:${EXTERNAL_DB_PASSWORD:?Set EXTERNAL_DB_PASSWORD}@db.example.com:5432/silo?sslmode=require
       REDIS_URL: redis://cache.example.com:6379
+      POSTGRES_TUNE: "off"
 ```
 
 The database needs the pgvector extension; the default stack uses PostgreSQL 18. Check the merged files before starting:
