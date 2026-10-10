@@ -32,7 +32,9 @@ docker compose logs -f silo
 
 `--no-deps` replaces only the Silo container and leaves PostgreSQL and Redis running.
 
-Silo applies database migrations as it starts, before it answers requests. A large migration can take a while, and `docker compose ps` can show Silo as `unhealthy` until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run.
+Silo applies database migrations as it starts, before it answers requests. A large migration can take a while, and `docker compose ps` can show Silo as `unhealthy` until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and PostgreSQL can keep holding the abandoned run's locks while Silo starts again.
+
+Some releases rewrite large tables in place. Silo can't read or write most of its data until the rewrite finishes, and PostgreSQL needs free disk for a second copy of each table and its indexes. When the release notes mention one, check the free space on the database disk before updating.
 
 Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit.
 
