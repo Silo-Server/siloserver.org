@@ -9,36 +9,33 @@ description: Put your Silo server on your Tailscale network so your devices can 
 This feature is in Beta and may change or be removed in a future release.
 :::
 
-The Tailscale plugin adds your Silo server to your Tailscale network
-(tailnet). Devices signed in to the same tailnet reach the server at an
-HTTPS address, with no port forwarding or public reverse proxy. The plugin
-runs its own Tailscale node inside Silo, so the server doesn't need the
-Tailscale app. The plugin is an approved community plugin, maintained by
-community contributors rather than the Silo project.
+The Tailscale plugin puts your Silo server on your Tailscale network
+(tailnet). Your devices then reach it at an HTTPS address, with no port
+forwarding. You don't need to install Tailscale on the server. The plugin is
+an approved community plugin, maintained by community contributors rather
+than the Silo project.
 
 ## Before you start
 
-In the Tailscale admin console, open **DNS**. Check that **MagicDNS** is on,
-as it is for new tailnets. Under **HTTPS Certificates**, select **Enable
-HTTPS...** and confirm. The server can't get an HTTPS address without both.
+Open the [DNS page](https://login.tailscale.com/admin/dns) in the Tailscale
+admin console. Check that **MagicDNS** is on, then under **HTTPS
+Certificates**, select **Enable HTTPS...** and confirm. The server needs both
+to get an HTTPS address.
 
-![The DNS page of the Tailscale admin console, showing the MagicDNS section and the Enable HTTPS button under HTTPS Certificates.](../../../../assets/docs/tailscale/dns-https-certificates.png)
+The server's name appears in public certificate logs, so choose one you
+don't mind others seeing.
 
-Tailscale records the certificate's name in public Certificate Transparency
-logs, so choose a hostname you don't mind being public.
-
-To tag the server, which the [Tailscale sign-in](/docs/tailscale-sign-in)
-examples assume, create the tag before you connect it:
+The [Sign in with Tailscale](/docs/tailscale-sign-in) examples use a `silo`
+tag on the server. To follow them, create the tag before you connect the
+server:
 
 1. Open **Access controls > Definitions** and select the **Tags** tab.
 2. Select **Create tag**. Enter `silo` as the **Tag name**, choose a **Tag
    owner** such as `autogroup:admin`, and select **Save tag**.
 
-![The Create tag form in the Tailscale admin console, with the tag name silo and the owner autogroup:admin.](../../../../assets/docs/tailscale/create-tag.png)
-
-Tailscale turns off key expiry for a server that's tagged when it first
-connects, so it won't need to sign in to Tailscale again. If you add the tag
-later, turn off key expiry for the server on the Tailscale **Machines** page.
+A server that's tagged when it first connects stays signed in to Tailscale.
+If you tag it later, turn off key expiry for it on the Tailscale **Machines**
+page.
 
 ## Install the plugin
 
@@ -46,23 +43,18 @@ later, turn off key expiry for the server on the Tailscale **Machines** page.
    **Catalog** tab.
 2. Turn on **Include approved community plugins**.
 3. Find **Tailscale** under **Approved community** and select **Install**.
-4. Open the installed plugin and fill in its settings, then select
-   **Save config**:
-   - **Hostname** is the server's name on your tailnet. The default is `silo`.
-   - **Auth key** is optional. Without one, you approve the server in your
-     browser in the next section. Use a reusable key if you also run proxy
-     nodes, so each one enrolls on its own.
-   - **Tags** is optional. To tag the server, enter `tag:silo`, the tag you
-     created in [Before you start](#before-you-start). Your tailnet policy or
-     auth key must allow the tags.
-   - **Discovery** is on by default. The server also answers on port `80`,
-     only to redirect to its HTTPS address, so Silo apps on your tailnet can
-     find it by its short name.
+4. Open the installed plugin, fill in its settings, and select **Save
+   config**:
+   - **Hostname** is the server's name on your tailnet. Keep the default,
+     `silo`, so Silo apps can [find the server](#connect-your-devices) for
+     you.
+   - **Auth key** is optional. Leave it empty to approve the server in your
+     browser in the next section.
+   - **Tags** is optional. Enter `tag:silo` if you created the tag.
+   - **Discovery** is on by default. Leave it on so apps can find the server.
 
-The plugin serves Silo only on your tailnet. To reach Silo from the public
-internet, use a [reverse proxy](/docs/reverse-proxy). If you used Funnel
-with an earlier version of the plugin, the server stops answering publicly
-after you update to 0.2.0 or later. Set up a reverse proxy instead.
+The plugin makes Silo reachable only on your tailnet. To reach it from the
+public internet, use a [reverse proxy](/docs/reverse-proxy).
 
 ## Connect the server
 
@@ -70,46 +62,46 @@ after you update to 0.2.0 or later. Set up a reverse proxy instead.
 2. Under **Tailscale**, select **Connect** on the row for your server.
 3. If the row shows **Waiting for authorization**, select **Open the
    authorization page**, sign in to Tailscale, and select **Connect**. With a
-   saved auth key, this step is skipped.
+   saved auth key, skip this step.
+4. Wait for **Connected**. The address clients use appears after **Clients
+   reach this host at**.
 
-   ![Tailscale's Connect device page, asking to connect the device silo to the tailnet.](../../../../assets/docs/tailscale/connect-device.png)
+The server also appears on the Tailscale **Machines** page.
 
-4. Wait for **Connected**. The row then shows the address clients use, after
-   **Clients reach this host at**.
-
-The server also appears on the **Machines** page of the Tailscale admin
-console, with its tag if you set one.
-
-![The Machines page of the Tailscale admin console, listing the silo machine with the tag:silo tag and Expiry disabled.](../../../../assets/docs/tailscale/machines-silo-tagged.png)
-
-Proxy nodes appear as their own rows, named `<hostname>-proxy-<node id>`.
+If you run proxy nodes, each one joins your tailnet as its own machine. A
+reusable auth key lets them join without approving each one.
 
 ## Connect your devices
 
 Install the Tailscale app on each device and sign in to the same tailnet.
-Then add the server in the Silo app using the address from the Network
-Access page, for example `https://silo.example-tailnet.ts.net`. Tailscale may
-add a suffix if the name is taken, so copy the address from the page.
 
-Jellyfin-compatible apps use the same name on port `8096`, and
-Audiobookshelf apps use port `13378`, when those endpoints are turned on.
-Your tailnet access policy must allow ports `443`, `8096`, and `13378` for
-the devices that connect, and port `80` if **Discovery** is on.
+On iPhone, iPad, Mac, and Apple TV, the Silo app can find the server for
+you. It's listed under **Found nearby**, or under **No phone nearby?** on
+Apple TV, marked **Private network**. Select it instead of typing an
+address. The app looks for a machine named `silo`, or `silo-1` or `silo-2`,
+the names Tailscale gives a second or third server, so don't rename the
+machine in Tailscale. It finds the server only on devices in your tailnet.
+People you share it with enter the full address.
 
-To share the server with people outside your tailnet and let them sign in
+If the server isn't listed, add it with the address from the **Network
+Access** page, for example `https://silo.example-tailnet.ts.net`.
+
+Jellyfin-compatible apps use the same address on port `8096`, and
+Audiobookshelf apps use port `13378`, if you've turned those on. If your
+tailnet policy limits which ports devices can reach, allow `443`, `80` for
+**Discovery**, and the ports those apps use.
+
+To share the server with people outside your tailnet, or let people sign in
 without a password, see [Sign in with Tailscale](/docs/tailscale-sign-in).
 
 ## If it doesn't connect
 
-When a row shows **Error**, the message under it gives the reason:
-
-- If it asks you to enable MagicDNS or HTTPS certificates in the Tailscale
-  admin console, turn that option on, then select **Connect** again.
-- If it says **Joined tailnet; HTTPS is not ready**, the server is waiting
-  for its certificate. The plugin retries on its own.
-
-If the row shows **Plugin not running**, start the plugin from its page
-under **Admin > Plugins**.
+- If an **Error** asks you to enable MagicDNS or HTTPS certificates, turn
+  that on in the Tailscale admin console, then select **Connect** again.
+- **Joined tailnet; HTTPS is not ready** means the server is waiting for its
+  certificate. The plugin keeps retrying.
+- **Plugin not running** means the plugin is stopped. Start it from its page
+  under **Admin > Plugins**.
 
 For plugin problems, use the plugin's
 [GitHub issues](https://github.com/Silo-Community/silo-plugin-tailscale/issues).

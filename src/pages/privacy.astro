@@ -3,7 +3,7 @@
 import PolicyPage from "../components/PolicyPage.astro";
 import { SITE } from "../data/siteConfig";
 
-const EFFECTIVE = "August 16, 2026";
+const EFFECTIVE = "October 5, 2026";
 const CONTACT_EMAIL = "feedback@siloserver.org";
 ---
 
@@ -27,8 +27,9 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
   <p>
     This policy covers the first-party Silo client applications: Silo for
     Android, Silo for Android TV, Silo for iOS, Silo for tvOS, and Silo for
-    macOS (together, "the apps"), published by the Silo project. It also
-    describes the optional Silo-managed diagnostics collector and push relay.
+    macOS (together, "the apps"), published by Silo Media L.L.C. ("Silo
+    Media", "we", or "us"). It also describes the optional Silo-managed diagnostics
+    collector and push relay, which Silo Media L.L.C. operates.
     Section 4 also describes equivalent external-resource requests made by the
     first-party web client bundled with a self-hosted Silo server. This policy
     does not otherwise govern a self-hosted Silo server or a third-party client.
@@ -40,7 +41,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     The apps connect to the Silo server whose address you configure. Account
     registration, sign-in credentials, profiles, media-library data, playback
     progress, search queries, requests, and streaming traffic go to that
-    server. The Silo project does not receive or control this information.
+    server. We do not receive or control this information.
     Who can access it and how long it is retained are determined by the
     operator of the self-hosted server.
   </p>
@@ -206,8 +207,8 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>6. Push notifications</h2>
   <p>
-    Notifications for playback controls and download progress are generated
-    locally. Remote push is optional and off unless the user and server
+    Notifications about playback and downloads are generated on the device.
+    Remote push is optional and off unless the user and server
     administrator enable it. When enabled, the self-hosted server sends a
     content-free request to Silo's Cloudflare Worker push relay for delivery
     through Apple Push Notification service or Firebase Cloud Messaging.
@@ -241,6 +242,19 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
   </p>
 
   <h2>8. App permissions</h2>
+  <p>The Apple apps ask for these permissions:</p>
+  <ul>
+    <li>
+      <strong>Local network</strong> — to find Silo servers on your network,
+      and on iPhone, iPad, and Apple TV to set up and control Silo on an Apple
+      TV; and
+    </li>
+    <li>
+      <strong>Notifications</strong> on iPhone and iPad — to report finished
+      or failed downloads, new episodes queued for download, and remote
+      notifications that you and your server's administrator enable.
+    </li>
+  </ul>
   <p>The Android apps request permissions needed for app functionality:</p>
   <ul>
     <li>
@@ -287,9 +301,10 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>11. This website</h2>
   <p>
-    siloserver.org is a static site hosted on GitHub Pages and runs no Silo
-    analytics. GitHub may log standard access data, such as IP addresses, as
-    the host. The site also loads web fonts from Google Fonts, which causes a
+    siloserver.org is a static site hosted on GitHub Pages behind
+    Cloudflare's network. It runs no Silo analytics. GitHub and Cloudflare
+    may log standard access data, such as IP addresses, to serve and protect
+    the site. The site also loads web fonts from Google Fonts, which causes a
     request to Google's servers.
   </p>
 
@@ -303,7 +318,8 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>13. Contact</h2>
   <p>
-    For privacy questions, open an issue on
+    Silo Media L.L.C. is responsible for the apps and the Silo-managed
+    services described in this policy. For privacy questions, open an issue on
     <a href={SITE.github.orgUrl}>GitHub</a> or email
     <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Silo cannot access
     or delete an account on a self-hosted server; use the

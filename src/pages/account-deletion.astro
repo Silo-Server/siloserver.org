@@ -2,22 +2,23 @@
 // Public URL supplied to app stores for account-deletion instructions.
 import PolicyPage from "../components/PolicyPage.astro";
 
-const UPDATED = "August 12, 2026";
+const UPDATED = "October 5, 2026";
 const CONTACT_EMAIL = "feedback@siloserver.org";
 ---
 
 <PolicyPage
   title="delete a Silo account"
-  description="How Silo Media Player users request deletion of an account and associated data from the operator of their self-hosted Silo server."
+  description="How users of the Silo apps, including Silo Media Player on Google Play, request deletion of an account and associated data from the operator of their self-hosted Silo server."
   eyebrow="legal / 02"
   heading="Delete a Silo account"
   meta={`Last updated ${UPDATED}`}
 >
   <p class="policy__lede">
-    Silo Media Player does not provide or host centralized user accounts. An
-    account created in the app belongs to the self-hosted Silo server selected
-    by the user. That server's operator—not the Silo project—controls the
-    account and its associated data.
+    The Silo apps, listed as Silo Media Player on Google Play, do not provide
+    or host centralized user accounts. A Silo account belongs to the
+    self-hosted Silo server selected by the user. That server's operator, not
+    Silo Media L.L.C. ("Silo Media"), controls the account and its associated
+    data.
   </p>
 
   <h2>Request deletion from your server operator</h2>
@@ -33,11 +34,11 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     <li>
       Give the operator the username or email address used on that server so
       they can locate the correct account. Share the server address and account
-      details only with that operator—not with the Silo project.
+      details only with that operator, not with Silo Media.
     </li>
   </ol>
   <p>
-    The Silo project cannot identify the operator of an arbitrary self-hosted
+    Silo Media cannot identify the operator of an arbitrary self-hosted
     server, access its administration tools, verify its users, or delete data
     from it.
   </p>
@@ -45,13 +46,16 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
   <h2>Instructions for a Silo server administrator</h2>
   <ol>
     <li>Sign in to the self-hosted Silo web application as an administrator.</li>
-    <li>Open <strong>Administration → Users</strong>.</li>
-    <li>Select the requesting user and choose <strong>Delete user</strong>.</li>
+    <li>Open <strong>Admin &gt; Users</strong>.</li>
+    <li>
+      In the requesting user's row, choose the trash icon
+      (<strong>Delete user</strong>).
+    </li>
     <li>Confirm the permanent deletion.</li>
   </ol>
   <p>
     Account deletion is performed by the self-hosted server. It does not send
-    account information or a deletion request to the Silo project.
+    account information or a deletion request to Silo Media.
   </p>
 
   <h2>Data deleted from the live server</h2>
@@ -80,7 +84,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
 
   <h2>Data stored on your device</h2>
   <p>
-    Removing a server from Silo Media Player, signing out, clearing the app's
+    Removing a server from a Silo app, signing out, clearing the app's
     storage, or uninstalling the app removes the applicable local credentials,
     caches, settings, and downloaded media. These actions do not delete the
     account held by the self-hosted server; the server operator must still
@@ -107,7 +111,7 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     Questions about these instructions may be sent to
     <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Do not send your
     password, authentication token, private server address, or other account
-    credentials. Silo cannot forward a deletion request to an unknown
+    credentials. Silo Media cannot forward a deletion request to an unknown
     self-hosted server operator.
   </p>
 </PolicyPage>
