@@ -18,16 +18,26 @@ every Silo app signed in to the same profile.
 
 ## Prepare the server
 
-An administrator enters Trakt and Simkl application credentials in
-**Admin > Settings > Watch Providers** before anyone can connect those
-services. MDBList needs no server setup: each person enters their own API key.
-Providers added by a plugin may need their own configuration.
+Each provider is a plugin. Before anyone can connect a provider, an
+administrator installs its plugin from the **Catalog** tab in
+**Admin > Plugins**: **Trakt Watch Provider**, **Simkl Watch Provider**, or
+**MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
+The Trakt and Simkl plugins also need the details of an app you create with
+that provider, entered on the plugin's page. MDBList needs no server setup:
+each person enters their own API key. Other watch-provider plugins may need
+settings of their own.
 
 To get Trakt credentials, create an API app on the
 [Trakt developer portal](https://developer.trakt.tv/). Trakt requires a
 verified GitHub account to create one. Silo signs in with a device code, so
-enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Copy the app's
-client ID and client secret into Silo.
+enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Enter the app's
+client ID and client secret on the Trakt plugin's page.
+
+To get a Simkl client ID, create an app in your Simkl account's
+[developer settings](https://simkl.com/settings/developer/) and choose the
+**TV, devices & command line** type. Silo doesn't use a client secret, and
+Simkl requires one for **Server apps & services** apps. Enter the app's
+client ID as **Client ID** on the Simkl plugin's page.
 
 If no provider is set up, the personal **Watch Providers** page says so.
 
