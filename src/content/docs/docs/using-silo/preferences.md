@@ -49,8 +49,9 @@ setting** on Android). On Android, a switch for one of these settings shows a
 **Use Profile Setting** row under it once the device has its own value. **Use Profile Settings** at
 the bottom of the page removes every change on the device.
 
-A setting changed on a device wins over your profile's value on that device.
-If a single title plays differently from others, look at the audio and
+A setting changed on a device wins over your profile's value on that device,
+except **Show title art** while **Apply to all devices** is on. If a single
+title plays differently from others, look at the audio and
 subtitle tracks chosen for it during playback before you change the whole
 profile.
 
