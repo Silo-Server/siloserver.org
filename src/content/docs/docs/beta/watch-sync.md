@@ -18,16 +18,26 @@ every Silo app signed in to the same profile.
 
 ## Prepare the server
 
-An administrator enters Trakt and Simkl application credentials in
-**Admin > Settings > Watch Providers** before anyone can connect those
-services. MDBList needs no server setup: each person enters their own API key.
-Providers added by a plugin may need their own configuration.
+Each provider is a plugin. Before anyone can connect a provider, an
+administrator installs its plugin from the **Catalog** tab in
+**Admin > Plugins**: **Trakt Watch Provider**, **Simkl Watch Provider**, or
+**MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
+The Trakt and Simkl plugins also need the details of an app you create with
+that provider, entered on the plugin's page. The MDBList plugin needs no
+settings: each person enters their own API key. Other watch-provider plugins
+may need settings of their own.
 
 To get Trakt credentials, create an API app on the
 [Trakt developer portal](https://developer.trakt.tv/). Trakt requires a
 verified GitHub account to create one. Silo signs in with a device code, so
-enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Copy the app's
-client ID and client secret into Silo.
+enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Enter the app's
+client ID and client secret on the Trakt plugin's page.
+
+To get a Simkl client ID, create an app in your Simkl account's
+[developer settings](https://simkl.com/settings/developer/) and choose the
+**TV, devices & command line** type. Silo doesn't use a client secret, and
+Simkl requires one for **Server apps & services** apps. Enter the app's
+client ID as **Client ID** on the Simkl plugin's page.
 
 If no provider is set up, the personal **Watch Providers** page says so.
 
@@ -39,7 +49,9 @@ If no provider is set up, the personal **Watch Providers** page says so.
 4. Sign in the way the provider asks. For a device code, select **Copy code**,
    open the provider's activation page, and paste it there. For MDBList,
    enter your API key.
-5. Choose which of the options below to turn on.
+5. Select **Settings** on the provider's card to show its options, then
+   choose which of the options below to turn on. The options start hidden
+   each time you open the page.
 
 Each connection belongs to one profile. Other household members connect
 their own profiles.
@@ -50,7 +62,8 @@ connected apps, then try again.
 
 ## Choose what syncs
 
-The options shown depend on what the provider supports.
+The options shown depend on what the provider supports. A provider's plugin
+can add options of its own, which appear in the same list.
 
 | Option | Effect |
 | --- | --- |
@@ -63,6 +76,7 @@ The options shown depend on what the provider supports.
 | **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
 | **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
 | **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
+| **Log rewatches** | Simkl only, off by default. Records another play of a title you already watched as a rewatch on Simkl, which otherwise ignores it. Needs a Simkl PRO or VIP account and **Send watched changes**. Simkl counts two plays of the same title less than two days apart as one. |
 
 Select **Sync now** to sync straight away. The connection card shows when
 it last imported and exported, how many items transferred, and any error.
