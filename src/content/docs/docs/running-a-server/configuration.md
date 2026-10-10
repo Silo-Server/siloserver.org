@@ -88,7 +88,7 @@ redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=senti
 - A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
 - With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
 
-Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL. If the **Database number** field under it has a value, that number replaces the one in the URL.
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
 
 ### Shared memory for your own PostgreSQL container
 
