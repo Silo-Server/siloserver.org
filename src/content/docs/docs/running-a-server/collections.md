@@ -71,7 +71,9 @@ New lists land under **No heading** on each library's **Collections** tab, ready
 
 Open the collection's action menu and choose **Delete…**. If Home or library page rows show it, the dialog lists them, and a button such as **Delete it and its 2 rows** removes both. To keep a row, open it from the dialog and point it at another collection first.
 
-If a collection looks empty, check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
+## If a collection looks empty
+
+Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
 ## If a synced list does not sync
 
