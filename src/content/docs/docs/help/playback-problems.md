@@ -24,10 +24,14 @@ the server, tell them which title it is.
 
 If you run the server, check [active playback](/docs/active-playback) to see
 whether the stream is being converted, and [server health](/docs/server-health)
-for errors at that time. Silo doesn't mark a file damaged when it can't open
-the file because of its permissions or its storage, such as a network mount
-that dropped. To find those files, filter **Admin > Logs** by the `scanner`
-component. Otherwise, share the details below with the person who runs it.
+for errors at that time. Otherwise, share the details below with the person who
+runs it.
+
+If a title won't start and isn't marked **Damaged file**, check that Silo can
+still read it. Filter **Admin > Logs** by the `scanner` component for
+`ffprobe failed because the file could not be read`. Fix the file's permissions
+or its storage, such as a network mount that dropped, then
+[scan the library](/docs/manage-libraries#scan-or-refresh).
 
 ## Picture problems on a TV
 
