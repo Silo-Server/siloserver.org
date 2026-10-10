@@ -22,7 +22,8 @@ default.
 ## Reset one override
 
 On **Admin > Devices**, use the setting's reset action and confirm **Reset this
-override?**. On **Preferences**, remove the saved value instead. The inherited
+override?**. On **Preferences**, select the trash button beside the setting and
+confirm. The inherited
 setting then applies again. Ask the user to reopen the affected screen.
 
 These views also show raw values. Reset a wrong value rather than typing in a
