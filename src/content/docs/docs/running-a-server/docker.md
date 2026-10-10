@@ -39,6 +39,8 @@ Change a host port in `.env` when it conflicts with another service. The contain
 | `ABS_PORT` | 13378 | Audiobookshelf-compatible apps (Beta) |
 | `POSTGRES_PORT` | 5432 | PostgreSQL, on the host's loopback address only |
 | `REDIS_PORT` | 6379 | Redis, on the host's loopback address only |
+| `PROXY_PORT` | 8083 | The commented `silo-proxy` example, once you turn it on |
+| `TRANSCODE_PORT` | 8082 | The commented `silo-transcode` example, once you turn it on |
 
 The three Silo ports listen on every host interface without TLS. The Jellyfin and Audiobookshelf listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Settings > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
@@ -61,7 +63,7 @@ The media mount is read-only. Silo's writable directories live below `SILO_DATA_
 | `plugins` | Installed plugin files |
 | `artwork` | Local artwork, uploads, and downloaded subtitles |
 | `compat` | Compatibility assets |
-| `transcode` | Temporary transcode output |
+| `transcode` | Temporary transcode output, mounted at `/tmp/silo-transcode` in the container |
 | `catalog-seeds` | Catalog seed inputs, mounted read-only |
 | `meilisearch` | Optional search index |
 
@@ -75,7 +77,11 @@ Search uses PostgreSQL unless you switch it. To add Meilisearch:
 2. Start the optional service with `docker compose --profile search up -d`.
 3. Open **Admin > Settings > Library & Metadata**. Under **Search**, set **Search engine** to **Meilisearch**, enter `http://meilisearch:7700` as the **Meilisearch URL**, and use the same key as the **Meilisearch API key**.
 4. Select **Check Connection**, save, and restart Silo.
-5. Silo builds the search index in the background. Test a known title once it finishes.
+5. Silo builds the search index in the background and tries again on its own if a build fails. Test a known title once it finishes.
+
+To see which engine is answering searches, expand **Search status** at the end of the **Search** group. **Answering searches** shows **Meilisearch**, **Meilisearch (keyword only)** while an older index serves keyword results until its replacement is ready, or **Postgres full-text** while there's no usable index. **Rebuild index** opens the task that rebuilds the index by hand.
+
+Some settings change the index format, such as **Match by meaning as well as words**. After you save and restart, Silo rebuilds the index on its own, and search keeps working from the older index or PostgreSQL until the new one is ready.
 
 Starting the container alone does not switch Silo's search engine. Port 7700 is published on the host's loopback address; keep it off the public internet.
 
