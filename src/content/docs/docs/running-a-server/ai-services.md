@@ -16,7 +16,9 @@ Before using a hosted model, check its charges and data policy. Translation send
 4. Turn on **Translate subtitles**, **Translate descriptions**, or both.
 5. Save, then translate one short item before using it across a library.
 
-**Description translation for viewers** controls translation on detail pages: **Off**, **Translate button on detail pages**, or **Automatic on view**. With **Off**, browsing never starts a translation job, and you can still translate from the metadata editor.
+**Description translation for viewers** controls translation while people browse: **Off**, **Translate button on detail pages**, or **Automatic on view**. Besides detail pages, it covers the episode list on a season or series page and the **Featured** banner on Home. With **Off**, browsing never starts a translation job, and you can still translate from the metadata editor or [for a whole library](/docs/metadata#translate-library-descriptions).
+
+Home and library rows show descriptions in the viewer's language once a translation exists. An AI translation is marked **Translated by AI** in the web app and the Apple and Android apps. Descriptions from a provider or written by hand have no mark.
 
 ## Connect speech-to-text
 
@@ -32,6 +34,8 @@ If the speech **Base URL** is blank, Silo sends audio to the text model's endpoi
 Under **Server-wide tuning**, set **Jobs running at once**; changing it needs a server restart. Under **Per-account limits**, choose a transcription allowance and how often it resets.
 
 All profiles in an account share its transcription allowance. An administrator using the account's primary profile is exempt; the account's other profiles still count against it.
+
+Each account can start only a limited number of description translations a minute while browsing, and only into a language its profile reads: the profile's metadata language, or the library's when the profile doesn't set one.
 
 Keep the default batch and audio-request sizes unless the provider reports a request-size or rate-limit error.
 
