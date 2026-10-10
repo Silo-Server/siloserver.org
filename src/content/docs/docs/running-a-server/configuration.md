@@ -22,6 +22,8 @@ Set these in `.env` beside the Compose file:
 
 Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable.
 
+Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The bundled stack also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
+
 `docker compose config` prints the full configuration with passwords and keys filled in. Use `docker compose config --quiet` to check the files without printing them, and never paste the full output into a public report.
 
 ## Admin-managed settings
@@ -41,6 +43,20 @@ To use existing servers, write a Compose file or override that:
 - leaves out the bundled `postgres` and `redis` services
 - keeps the media, plugin, artwork, compatibility, transcode, and catalog seed mounts
 - uses the same `SECRET_KEY` for every Silo server and node
+
+For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it, because it goes into `DATABASE_URL` as written:
+
+```yaml
+services:
+  postgres: !reset null
+  redis: !reset null
+  silo:
+    depends_on: !reset {}
+    environment:
+      DATABASE_URL: postgres://silo:${EXTERNAL_DB_PASSWORD:?Set EXTERNAL_DB_PASSWORD}@db.example.com:5432/silo?sslmode=require
+      REDIS_URL: redis://cache.example.com:6379
+      POSTGRES_TUNE: "off"
+```
 
 The database needs the pgvector extension; the default stack uses PostgreSQL 18. Check the merged files before starting:
 
