@@ -4,7 +4,7 @@ title: Create shared and smart collections
 description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---
 
-Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab and in Home rows, for example a set of short films or a seasonal selection.
+Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab, for example a set of short films or a seasonal selection. You can also show one as a row on Home or a library page.
 
 ## Create a collection
 
