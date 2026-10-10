@@ -44,7 +44,7 @@ The three Silo ports listen on every host interface without TLS. The Jellyfin an
 
 ## Discovery on the local network
 
-Silo announces itself on your network so the Silo app on Apple devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches the Silo process: Silo installed directly on a machine or in an LXC container, or Docker with host networking (`network_mode: host`).
+Silo announces itself on your network so the Silo app on Apple devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches Silo, such as Docker with host networking (`network_mode: host`).
 
 The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
 
