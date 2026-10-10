@@ -21,7 +21,7 @@ Mount network shares on the host first, and make sure Silo can read the files, b
 
 ## File types
 
-Movie and series libraries add video files with these extensions, in upper or lower case:
+Silo adds video files with these extensions, in upper or lower case:
 
 | Format | Extensions |
 | --- | --- |
@@ -34,7 +34,7 @@ Movie and series libraries add video files with these extensions, in upper or lo
 | Flash video | `.flv` |
 | Ogg | `.ogv`, `.ogm` |
 
-Silo skips files with any other extension.
+Silo doesn't add video files with any other extension.
 
 Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. DVD `.vob` files, `.iso` disc images, and the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder are left out. A disc splits one movie into several files next to its menus and extras, so each piece would show up as its own title.
 
