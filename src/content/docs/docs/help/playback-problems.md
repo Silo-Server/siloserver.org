@@ -37,6 +37,13 @@ TV or receiver is set to the input and sound output you expect. For Dolby Atmos,
 check what the receiver displays; a track labeled Atmos may still play as
 ordinary surround if part of the chain doesn't support it.
 
+In the Android apps, when the TV or receiver can't take a surround track's
+format as it is, such as TrueHD or DTS, Silo converts the track to 5.1 Dolby
+Digital Plus, or to Dolby Digital if that's all the receiver takes. Without
+that, many TVs mix the app's sound down to stereo. The receiver shows a 5.1
+Dolby format instead of the file's own. The picture doesn't change, and a track
+the receiver takes as it is still plays unchanged.
+
 ## Subtitle problems
 
 Choose another subtitle track in the player. Text subtitles and image subtitles
