@@ -27,7 +27,7 @@ Early database and migration messages can appear only in the container logs, bec
 
 ## Review the audit log
 
-The **Audit** tab in **Admin > Logs** lists requests made to your server: who made each one under **Actor**, when, and the result. Changes to accounts and access groups also show what changed under **Action / changes** and which account or group under **Target**. Other requests show **HTTP request**.
+The **Audit** tab in **Admin > Logs** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Changes an administrator makes to accounts and access groups also show what changed under **Action / changes** and which account or group under **Target**. Other requests show **HTTP request**.
 
 - Narrow the list by action, such as `user.updated` or `access_group.updated`, by actor account ID, or by target type and ID.
 - Choose **Browse log history** to page through older entries with **Older** and **Newer**.
@@ -35,7 +35,7 @@ The **Audit** tab in **Admin > Logs** lists requests made to your server: who ma
 
 Changed fields show their old and new values, and permission changes list the permissions before and after. A password change shows only that the password changed.
 
-If an administrator acted as another account, **Actor** shows both, for example `#1 (as #7)`. The filters are kept in the page address, so a shared link shows the account IDs you filtered by.
+If an administrator acted as another account, **Actor** shows both, for example `#1 (as #7)`, where #1 is the administrator. Filtering by actor finds the administrator, not the account they acted as. The filters are kept in the page address, so a shared link shows the account IDs you filtered by.
 
 ## Log settings
 
@@ -61,7 +61,7 @@ Read an excerpt before sharing it. Remove account details, private paths or titl
 
 ## Retention
 
-Set how long **Admin > Logs** keeps entries in **Admin > Settings > Storage & Database**, under **Logs**: **Delete log entries older than**, **Maximum log entries**, and **Maximum log size**.
+Set how long the **Application** tab keeps entries in **Admin > Settings > Storage & Database**, under **Logs**: **Delete log entries older than**, **Maximum log entries**, and **Maximum log size**. The **Audit** tab keeps entries for 90 days.
 
 Docker keeps container logs separately. For Docker's `json-file` driver, a Compose override can cap them:
 

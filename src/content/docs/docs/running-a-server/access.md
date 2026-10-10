@@ -35,7 +35,7 @@ An account can override its group. If a group change seems to have no effect, lo
 
 Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
 
-The bitrate limit caps the video's encoded bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it or picks a version that fits, and refuses playback only when neither works.
+The bitrate limit caps the stream's bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it. If it can't, it tries another version that fits, and refuses playback only when neither works.
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
@@ -45,7 +45,7 @@ Download permission and permission to create transcoded downloads are separate c
 
 ## Limit downloads
 
-Set download limits in **Admin > Settings > Downloads**. They apply to every download from your server, including those started in the mobile apps.
+Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps. Download counts apply only to downloads saved in the mobile apps.
 
 1. Turn on **Allow downloads**.
 2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
@@ -55,7 +55,7 @@ Set download limits in **Admin > Settings > Downloads**. They apply to every dow
 
 If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
 
-**Downloads per period** counts the downloads an account started within the last **Period length**, such as `24h`. Once an account reaches the count, it can start another download only after its oldest one in that window ages out.
+**Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
 ## Check household restrictions
 

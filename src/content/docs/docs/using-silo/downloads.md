@@ -78,4 +78,4 @@ original file, so you need a video player that can open its format.
 
 ## When a download is limited
 
-Your administrator can [limit downloads](/docs/manage-access#limit-downloads). Your account's download speed is shared by all of your downloads and profiles. If you've started as many downloads as your account allows for now, wait and try again later.
+Your administrator can [limit downloads](/docs/manage-access#limit-downloads). Your account's download speed is shared by all of your downloads and profiles. If you've reached your account's limit, remove a download you no longer need or try again later.
