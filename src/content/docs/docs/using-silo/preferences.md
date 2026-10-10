@@ -43,8 +43,9 @@ apps.
 
 In the mobile and TV apps, changes on the **Playback** page apply to that
 device only. To go back to your profile's value for one setting, choose **Use
-Profile Setting** at the top of its list; on Android, a switch shows that
-option under it once the device has its own value. **Use Profile Settings** at
+Profile Setting** at the top of its list (**Use profile setting** on Android).
+On Android, a switch shows a **Use Profile Setting** row under it once the
+device has its own value. **Use Profile Settings** at
 the bottom of the page removes every change on the device.
 
 A setting changed on a device wins over your profile's value on that device.
