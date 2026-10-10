@@ -62,7 +62,8 @@ connected apps, then try again.
 
 ## Choose what syncs
 
-The options shown depend on what the provider supports.
+The options shown depend on what the provider supports. A provider's plugin
+can add options of its own, which appear in the same list.
 
 | Option | Effect |
 | --- | --- |
@@ -75,6 +76,7 @@ The options shown depend on what the provider supports.
 | **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
 | **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
 | **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
+| **Log rewatches** | Simkl only, off by default. Records another play of a title you already watched as a rewatch on Simkl, which otherwise ignores it. Needs a Simkl PRO or VIP account and **Send watched changes**. Simkl counts two plays of the same title less than two days apart as one. |
 
 Select **Sync now** to sync straight away. The connection card shows when
 it last imported and exported, how many items transferred, and any error.
