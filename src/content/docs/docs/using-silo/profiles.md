@@ -113,6 +113,11 @@ Titles with no content rating are a separate case: the server's settings
 decide whether they appear under a content-rating limit. See
 [account access and profile restrictions](/docs/manage-access#check-household-restrictions).
 
+[**Show adult titles in Featured**](/docs/home-and-calendar#change-your-home-rows)
+in **Settings > Home Screen** isn't a parental control. Any profile without a
+rating limit can turn it on for itself, and it only changes the hero banner on
+Home. To keep titles away from a profile, use **Maximum content rating**.
+
 ### Show advisory ages
 
 In the web app, open **Settings > Playback** and turn on **Show advisory age**
