@@ -89,9 +89,11 @@ Each source shows which libraries it feeds and whether it's working. Turn a sour
 5. To fill in mappings from the service instead, choose **Edit** on the source and open **Match paths**. Choose **Sync from server**, select the suggested mappings, choose **Add selected**, then choose **Save**.
 6. Turn on Autoscan if it's off, then choose **Run now**. The first check records a starting point and usually reports 0 changes. Imports after that appear in **Activity** on the next check.
 
+Sonarr and Radarr polling sources don't report deletes; a webhook source or the daily library scan picks those up.
+
 Changing a source's server or settings, or the URL of the saved connection it uses, restarts its checks from now. Imports since its last check are picked up by the daily library scan instead.
 
-Sources check for changes at the **Default check interval** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** appears while Autoscan is on and a polling source is enabled. It checks every enabled polling source straight away, whatever its interval. If a check is already running, wait for it to finish and choose **Run now** again.
+Sources check for changes at the **Default check interval (seconds)** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** appears while Autoscan is on and a polling source is enabled. It checks every enabled polling source straight away, whatever its interval. If a check is already running, wait for it to finish and choose **Run now** again.
 
 ### Match paths
 
@@ -117,7 +119,7 @@ If the status line says `Folders Silo can't read aren't monitored`, the rest of 
 
 Start with **Activity**. In **Polls**, expand an event to see each path it received, the path after your rewrites, and what happened to it. An unresolved path means a path rewrite or library folder is wrong. **Scans** shows what each scan found, such as new or missing files. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
 
-The **Debounce (seconds)** setting under **Advanced** skips repeat reports of an unchanged file that arrive within that many seconds. It never skips a changed or deleted file. Sonarr and Radarr polling sources don't report deletes; a webhook source or the daily library scan picks those up. After an event is handled, look in the library to see whether the file was scanned and matched.
+The **Debounce (seconds)** setting under **Advanced** skips repeat reports of an unchanged file that arrive within that many seconds. It never skips a changed or deleted file. After an event is handled, look in the library to see whether the file was scanned and matched.
 
 ## If old titles stay after a folder rename
 
