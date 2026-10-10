@@ -49,7 +49,9 @@ If no provider is set up, the personal **Watch Providers** page says so.
 4. Sign in the way the provider asks. For a device code, select **Copy code**,
    open the provider's activation page, and paste it there. For MDBList,
    enter your API key.
-5. Choose which of the options below to turn on.
+5. Select **Settings** on the provider's card to show its options, then
+   choose which of the options below to turn on. The options start hidden
+   each time you open the page.
 
 Each connection belongs to one profile. Other household members connect
 their own profiles.
