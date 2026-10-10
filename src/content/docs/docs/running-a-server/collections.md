@@ -63,7 +63,7 @@ A starter pack adds a ready-made set of synced lists to your libraries, such as 
 3. Under **Add to these libraries**, choose the libraries to fill. Each library gets only the lists that fit its type.
 4. Check **What will happen**. For each library it counts the lists that are new, already there, and not for that library.
 5. Leave **Also use the pack's hero banners** off to keep the hero banners you have now. Turn it on to let the pack set the hero banner on Home and on each library page.
-6. Choose the add button, which counts the collections it adds, such as **Add 15 collections**.
+6. Choose **Add**. The button counts what it adds, for example **Add 15 collections**.
 
 New lists land under **No heading** on each library's **Collections** tab, ready to move into a shelf in **Arrange**. Each one syncs for the first time right after, and shows only titles that are already in your library. Adding a pack again leaves the lists already there alone.
 
