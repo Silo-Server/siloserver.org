@@ -45,7 +45,7 @@ Download permission and permission to create transcoded downloads are separate c
 
 ## Limit downloads
 
-Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps. Download counts apply only to downloads saved in the mobile apps.
+Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps and from Jellyfin-compatible apps such as Infuse. Download counts apply only to downloads saved in the mobile apps.
 
 1. Turn on **Allow downloads**.
 2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
