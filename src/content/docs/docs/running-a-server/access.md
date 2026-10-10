@@ -13,7 +13,7 @@ Administrator accounts cannot belong to access groups. Group policies apply only
 1. Open **Admin > Access Groups** and choose **New group**.
 2. Name the group, for example `Guests`, and create it.
 3. Open the group. Under **Libraries & playback**, choose the libraries and playback quality it can use.
-4. Review **Downloads & requests** and **Concurrent streams**. Under **Permissions**, choose which permissions member accounts may receive.
+4. Review **Downloads**, **Requests**, **Concurrent streams**, and **Profiles**. Under **Permissions**, choose which permissions member accounts may receive.
 5. Choose **Save changes**.
 
 Use **Default for new users** only if this should become the starting group for future accounts. Check its library access before making it the default.
@@ -36,6 +36,8 @@ An account can override its group. If a group change seems to have no effect, lo
 Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
+
+**Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and the limit must be at least 1. Accounts without a group, and administrator accounts, can have 5. To give one account its own limit, open its **Edit** dialog and turn on **Override** for **Max Profiles** under **Limits**. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
