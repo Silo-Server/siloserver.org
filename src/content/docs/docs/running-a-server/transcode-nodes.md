@@ -56,6 +56,19 @@ With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#a
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
+## Store prepared downloads on a node
+
+A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
+
+1. Open **Admin > Downloads**. On the node's card, select **Edit location**.
+2. Enter the path inside the node's container in **Prepared file directory**.
+3. Under **Storage budget**, keep **Default** to use **Default storage budget per location**, choose **Custom** and enter a size in GB, or choose **None** to rely on the disk ceiling only.
+4. Select **Save**. If you changed the directory, restart the node; it uses the new directory once it restarts.
+
+Changing the directory doesn't move files. Files that devices are still waiting for are prepared again in the new directory, and cached files are dropped. Old files stay in the old directory until you delete them.
+
+If **Prepared file directory** is set in **Admin > Settings > Downloads**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
+
 ## If work does not reach the node
 
 Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
