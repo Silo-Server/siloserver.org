@@ -51,7 +51,7 @@ This shows the web app only. For a problem on one phone, tablet, or TV, also loo
 
 ### When View as user is unavailable
 
-The target account must be enabled and have the **User** role. You cannot view as another administrator, yourself, or start another impersonation session while already in one. End the current session before choosing someone else.
+The target account must be enabled. You cannot view as the server owner or yourself, and only the server owner can view as another administrator. You also cannot start another session while already in one. End the current session before choosing someone else.
 
 ### Return to administration
 
