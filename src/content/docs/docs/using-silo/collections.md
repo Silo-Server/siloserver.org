@@ -76,7 +76,8 @@ Under **Where it shows**, turn on **Show to other profiles** and select
 **Save**. Every profile on your account then finds the collection under
 **Shared with me** and can watch it, but only you can change it. Each profile
 sees only the titles that both it and you can access, so a child profile may
-see fewer. Nobody else on the server sees it.
+see fewer. Nobody else on the server sees it. The switch and **Shared with me**
+appear only when your account has more than one profile.
 
 If you turn sharing off, the other profiles lose the collection, including any
 Home rows they made from it.
