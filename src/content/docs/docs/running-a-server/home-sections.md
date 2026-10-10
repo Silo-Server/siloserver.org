@@ -4,11 +4,11 @@ title: Curate the home screen
 description: Add and arrange the rows everyone sees on Home and library pages.
 ---
 
-Home rows are the rows people browse on Home and above each library's grid. Use **Admin > Home rows** to choose them and their order for everyone.
+Sections are the rows people browse on Home and above each library's grid. Use **Admin > Sections** to choose them and their order for everyone.
 
 ## Add a row
 
-1. Open **Admin > Home rows** and choose the page: **Home** or a library.
+1. Open **Admin > Sections** and choose the page: **Home** or a library.
 2. Choose **Add row**.
 3. Pick a kind of row from the tabs, or search for one, for example `trending` or `Christmas`. Under **Collections & rules**, **A collection** shows a collection and **Titles matching rules** builds a row from rules.
 4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
