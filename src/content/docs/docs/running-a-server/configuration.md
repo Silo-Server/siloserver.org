@@ -133,6 +133,12 @@ Plan PostgreSQL major-version upgrades separately from Silo updates.
 
 Separate nodes need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/transcode-nodes).
 
+## Rate limiting
+
+Rate limiting is on by default. Control it with **Enable rate limiting** in **Admin > Settings > Security & Access**, under **Rate limiting**, and set the limits under **Advanced**. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
+
+If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
+
 ## Logging
 
 See [Logs and monitoring](/docs/logging).
