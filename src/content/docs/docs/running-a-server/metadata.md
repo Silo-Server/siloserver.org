@@ -40,7 +40,7 @@ To translate while people browse, use **Description translation for viewers** in
 
 ## Choose artwork
 
-In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select a provider image, and choose **Apply**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
+In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select an image, and choose **Apply**. A badge on each image names where it comes from, such as **TMDB**. A movie or series also offers the artwork stored beside its files, marked **LOCAL**, so a title with no provider match can still use its own [artwork](/docs/local-metadata#add-artwork). The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
 
 If images don't appear, check [artwork storage](/docs/s3-storage).
 
