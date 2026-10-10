@@ -18,7 +18,7 @@ Administrator accounts cannot belong to access groups. Group policies apply only
 
 Use **Default for new users** only if this should become the starting group for future accounts. Check its library access before making it the default.
 
-A group permission only makes the permission available. Turn on **Marker Editing** or **Metadata Curation** for each account that needs it; both the group and the account must allow the action.
+A group permission only makes the permission available. Turn on **Marker Editing**, **Metadata Curation**, or **Subtitle Upload** for each account that needs it; both the group and the account must allow the action. New accounts start with **Marker Editing** and **Subtitle Upload** on, so to stop someone uploading subtitles, turn **Subtitle Upload** off on their account or remove **Subtitle upload** from their group.
 
 ## Assign a person to the group
 
@@ -39,7 +39,7 @@ Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a pre
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
-**Marker Editing** and **Metadata Curation** let a trusted user correct media in the libraries they can access, without making them a server administrator.
+**Marker Editing** and **Metadata Curation** let a trusted user correct media in the libraries they can access, without making them a server administrator. **Subtitle Upload** lets them add subtitle files that everyone with access to the title can use. Turning it off doesn't remove subtitles they've already uploaded, and they can still search for subtitles online.
 
 ## Check household restrictions
 
