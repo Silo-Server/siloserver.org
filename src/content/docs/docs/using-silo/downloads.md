@@ -78,13 +78,4 @@ original file, so you need a video player that can open its format.
 
 ## When a download is limited
 
-Your administrator can set [download bandwidth and registration
-limits](/docs/manage-access#download-limits). Concurrent downloads and household
-profiles share the account's bandwidth allowance; the server's combined limit
-also applies. A quota rejection means you must wait for the rolling registration
-period, while a bandwidth limit slows the transfer.
-
-A download can fail if the server loses its settings or shared accounting
-service. Retry after the administrator restores it, using the controls available
-in your app. On Android, remove the failed download and start it again. Playback
-quality limits are separate from offline download byte pacing.
+Your administrator can [limit downloads](/docs/manage-access#limit-downloads). Your account's download speed is shared by all of your downloads and profiles. If you've started as many downloads as your account allows for now, wait and try again later.

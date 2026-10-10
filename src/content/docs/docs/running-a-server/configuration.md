@@ -95,25 +95,11 @@ Plan PostgreSQL major-version upgrades separately from Silo updates.
 
 Separate nodes need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/transcode-nodes).
 
-## Request throttling
+## Rate limiting
 
-Open **Admin > Settings > Security & Access**. Under **Rate limiting**, expand
-**Advanced** and check **Where counters are kept** before configuring global,
-IP, or API-key limits. For multiple serving APIs, use Redis: memory counters
-belong to one process and cannot enforce a shared installation-wide budget.
+Turn on **Enable rate limiting** in **Admin > Settings > Security & Access**, under **Rate limiting**. Set the limits under **Advanced**. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
 
-Per-second and per-minute request budgets are separate from the rolling
-[download registration quota](/docs/manage-access#download-limits). The Redis
-request counters use clock-aligned windows, and configured burst handling also
-applies. Exhausting any applicable budget returns HTTP **429**. Clients should
-wait for the response's **Retry-After** interval before retrying.
-
-After saving, send a small number of test requests using a disposable API key
-and verify both the rejection and recovery. Use a test installation for load
-checks; leave enough administrator capacity to restore its settings.
-
-For byte and playback policies, see [Set access and limits](/docs/manage-access).
-A shared Redis service is also required when native download bandwidth is capped.
+If you run more than one API server, set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
 ## Logging
 

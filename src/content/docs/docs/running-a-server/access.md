@@ -35,76 +35,27 @@ An account can override its group. If a group change seems to have no effect, lo
 
 Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
 
+The bitrate limit caps the video's encoded bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it or picks a version that fits, and refuses playback only when neither works.
+
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
 **Marker Editing** and **Metadata Curation** let a trusted user correct media in the libraries they can access, without making them a server administrator.
 
-## Download limits
+## Limit downloads
 
-Download limits are configured in the web admin app. They apply to native
-Silo downloads, including downloads requested by the phone and tablet apps.
-They are separate from [playback bitrate limits](#playback-bitrate-limits).
+Set download limits in **Admin > Settings > Downloads**. They apply to every download from your server, including those started in the mobile apps.
 
-1. Open **Admin > Settings > Downloads** and turn on **Allow downloads**.
-2. Set **Per-user bandwidth** in Mbps. This is one default applied separately
-   to each account, shared by that account's concurrent downloads and household
-   profiles.
-3. Expand **Advanced**. Set **Server bandwidth** for all native downloads on
-   the installation combined. Both bandwidth limits apply; the stricter
-   available budget wins. **Unlimited** stores zero.
-4. Under **Per user**, set **Downloads per period**, **Period length**, and
-   **Downloads at once per user**, then save.
-5. Check the account's download permission in **Admin > Users** before testing
-   a download. See [Download for offline use](/docs/downloads) for the client
-   controls.
+1. Turn on **Allow downloads**.
+2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
+3. Expand **Advanced**. Under **Per user**, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
+4. Under **Whole server**, set **Server bandwidth** to cap all downloads combined. When both bandwidth limits are set, the lower one wins.
+5. Save. New limits apply within about 30 seconds. A download that's already running keeps the speed it started with.
 
-**Downloads per period** counts registrations in a rolling period, separately
-for each account. For example, a count of two over 20 seconds admits two new
-registrations and rejects another until an earlier registration leaves that
-period. It is neither a downloaded-byte quota nor a whole-server registration
-count. **Unlimited** removes the count limit. Quantity settings can take up to
-30 seconds to reach a serving API after a save.
+If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
 
-Bandwidth uses decimal Mbps: 1 Mbps is 125,000 bytes per second. Bandwidth
-changes apply at the next charged chunk of an active transfer. Short transfers
-can exceed the average rate because the shared budget allows a burst of
-250 milliseconds of the configured rate, with a minimum of 32 KiB.
-
-All serving APIs must share PostgreSQL and Redis for installation-wide
-accounting. A positive bandwidth limit requires Redis even on a single server.
-A settings or accounting failure stops a capped transfer rather than sending
-uncharged bytes. Restore the dependency before retrying. Capped downloads stay
-on the API byte-delivery path; they are not redirected to a worker that cannot
-participate in the shared budget. These byte limits do not pace Jellyfin
-playback or ordinary HLS segment fetches.
-
-**Prepared file storage budget** is a separate server-wide cache limit. It
-controls retained prepared files, not the amount an account can download.
-
-If the settings cannot be read, choose **Retry** before editing. A failed save
-keeps the draft; reload and resolve the error before treating it as active.
-
-## Playback bitrate limits
-
-Set the group policy under **Admin > Access Groups > Libraries & playback**,
-or edit one account under **Admin > Users**. An inherited account value uses
-the group policy; an explicit account value replaces that field, and
-**Unlimited** removes its cap.
-
-The local and remote limits measure encoded media rate per stream, in decimal
-Mbps in the web forms. They are not network transfer-speed limits. Silo chooses
-the policy when a playback attempt starts; editing it does not interrupt an
-existing attempt. If the original exceeds the policy, Silo needs a permitted
-transcode route or refuses that playback method.
-
-Encoder bursts, audio frames, and container headers can make a short sample
-higher than the selected video rate. The video encoder permits a burst of two
-seconds of its selected maximum rate; audio and container overhead are accounted
-for separately. An HLS segment fetched faster than its media duration does not
-by itself violate the playback limit. Native Silo and Jellyfin-compatible
-playback use the account/group policy.
+**Downloads per period** counts the downloads an account started within the last **Period length**, such as `24h`. Once an account reaches the count, it can start another download only after its oldest one in that window ages out.
 
 ## Check household restrictions
 
