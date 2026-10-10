@@ -28,7 +28,7 @@ To change several rows at once, open **More** and choose **Select rows**. You ca
 
 ## Restore the default rows
 
-Open **More** and choose **Restore defaults…** to put back the rows Silo starts with on that page. Turn on the option to also reset every profile's page if profiles' own changes should go too.
+Open **More** and choose **Restore defaults…** to put back the rows Silo starts with on that page. Rows that show a collection are removed, but the collections stay. Turn on **Also reset every profile's Home**, or the same switch for a library page, to also clear what each profile hid, renamed, moved, or added there.
 
 ## What profiles can change
 
