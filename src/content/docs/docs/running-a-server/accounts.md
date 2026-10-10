@@ -78,6 +78,14 @@ When the server uses [single sign-on](/docs/single-sign-on), open the person's n
 
 ## A lost device or unwanted playback
 
-Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback doesn't sign the account out. If an account is compromised, disable it while you arrange recovery with its owner.
+To sign out a lost device, open the person's name in **Admin > Users** and choose the **Sign-in** tab. **Signed-in sessions** lists the browsers and apps signed in to the account, with each one's device, last activity, and sign-in time. Choose **Sign out** on a row to end that session, or **Sign out everywhere** to end all of them. The password stays the same and the account stays enabled, so the person signs back in on the devices they still have.
+
+A signed-out session loses access on its next request, though a video already playing may not stop right away. **Sign out everywhere** also signs the account out of [Jellyfin-compatible apps](/docs/jellyfin-apps) and [Audiobookshelf-compatible apps](/docs/audiobookshelf), and cancels TV sign-ins the account approved that the TV hasn't finished yet. Those apps don't appear in the list, and signing out one session leaves them signed in. API keys are separate; [revoke them](/docs/api-keys#replace-a-key) if the account was compromised.
+
+Only the server owner can sign out another admin or the owner. Any admin can sign out their own sessions.
+
+People can sign out their own sessions in **Settings > Signed-in sessions**; see [See where you're signed in](/docs/accounts#see-where-youre-signed-in).
+
+Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback doesn't sign the account out. If an account is compromised, disable it while you arrange recovery with the person it belongs to.
 
 The admin **Devices** view holds saved preferences and device overrides, not sign-ins.
