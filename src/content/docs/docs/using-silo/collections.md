@@ -106,15 +106,10 @@ Drag a poster under **Your collections** to change the order. To delete a
 collection, open its action menu and select **Delete…**. It's removed for you
 and every profile you shared it with.
 
-## Make a collection on iPhone or iPad
+## Collections in the mobile apps
 
-1. Open **Collections** and select **+**.
-2. Enter a **Collection name** and select **Create Collection**.
-
-This makes an empty manual collection. Add titles to it in the web app's
-editor. To delete a collection, swipe left on it and select **Delete**.
-
-The Android apps can open collections but can't create them.
+The iPhone, iPad, and Android apps can open collections but can't create
+them. Make and fill your collections in the web app.
 
 For a simple reminder, [Watchlist or Favorites](/docs/saved-titles) is
 quicker than a collection.
