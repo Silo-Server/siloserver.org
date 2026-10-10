@@ -16,7 +16,7 @@ Sections are the rows people browse on Home and above each library's grid. Use *
 
 On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. The add button then counts the pages, for example **Add to 3 pages**. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
 
-To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create shared and smart collections](/docs/manage-collections#create-a-collection).
+To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create server collections](/docs/manage-collections#create-a-collection).
 
 ## Change the order or turn a row off
 

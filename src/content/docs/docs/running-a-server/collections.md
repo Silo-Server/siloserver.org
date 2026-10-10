@@ -1,6 +1,6 @@
 ---
 slug: docs/manage-collections
-title: Create shared and smart collections
+title: Create server collections
 description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---
 
