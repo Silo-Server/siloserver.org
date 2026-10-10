@@ -18,7 +18,7 @@ clear which change fixed the problem, or which details to report.
 
 If the web player says `This file can't be played`, the file itself is empty,
 corrupt, or cut short, and trying again won't help. On a series page, the web
-app marks an episode like this **Damaged file**. Replace the file, then
+app shows **Damaged file** next to an episode like this. Replace the file, then
 [scan the library](/docs/manage-libraries#scan-or-refresh). If someone else runs
 the server, tell them which title it is.
 
