@@ -46,14 +46,14 @@ that device only. **Skip Back** and **Skip Forward** follow your profile to
 every device. To go back to your profile's value for a setting your profile
 also has, choose **Use Profile Setting** at the top of its list (**Use profile
 setting** on Android). On Android, a switch for one of these settings shows a
-**Use Profile Setting** row under it once the device has its own value. **Use Profile Settings** at
-the bottom of the page removes every change on the device.
+**Use Profile Setting** row under it once the device has its own value. **Use
+Profile Settings** at the bottom of the page removes every change on the
+device.
 
 A setting changed on a device wins over your profile's value on that device,
 except **Show title art** while **Apply to all devices** is on. If a single
-title plays differently from others, look at the audio and
-subtitle tracks chosen for it during playback before you change the whole
-profile.
+title plays differently from others, look at the audio and subtitle tracks
+chosen for it during playback before you change the whole profile.
 
 **Forget** removes a device's saved settings and hides it until it's used
 again. It doesn't sign the device out; for a lost device, see
