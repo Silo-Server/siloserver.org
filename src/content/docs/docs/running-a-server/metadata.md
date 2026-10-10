@@ -34,9 +34,17 @@ This needs a text model and **Translate descriptions** turned on in [AI Services
 2. Choose the target **Language** and select **Translate**.
 3. Wait for the result and read the translation. For a series, the job also translates season and episode overviews.
 
-Turn on **Re-translate existing** only to replace an earlier translation. A provider's own translation can later replace the AI text.
+Descriptions a provider or a person already wrote in that language are kept. Turn on **Re-translate AI text** to refresh earlier AI translations as well. A provider's own translation can later replace the AI text.
 
-To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
+### Translate library descriptions
+
+1. In **Admin > Libraries**, select the library's edit button and open **Metadata**.
+2. Under **Translate library descriptions**, choose the **Language** and select **Translate**.
+3. Wait for the job to finish. Silo works through one title at a time, so a large library takes a while. Select **Stop** to cancel it.
+
+The job translates overviews and taglines, with season and episode overviews, that are missing in that language. Descriptions that already exist in that language are kept. If the model returns an error, the job stops. Run it again to pick up whatever is still missing. The panel appears only for a library that has been saved.
+
+You don't have to translate a library ahead of time. To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
 
 ## Choose artwork
 
