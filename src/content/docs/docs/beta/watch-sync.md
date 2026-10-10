@@ -18,9 +18,18 @@ every Silo app signed in to the same profile.
 
 ## Prepare the server
 
-An administrator enters Simkl application credentials in
-**Admin > Settings > Watch Providers** before anyone can connect Simkl. MDBList needs no server setup: each person enters their own API key.
-Providers added by a plugin may need their own configuration.
+Each provider is a plugin. Before anyone can connect a provider, an
+administrator installs its plugin from the **Catalog** tab in
+**Admin > Plugins**: **Simkl Watch Provider** or **MDBList Watch Provider**.
+See [Install and maintain plugins](/docs/plugins). MDBList needs no server
+setup: each person enters their own API key. Other watch-provider plugins may
+need settings of their own.
+
+To get a Simkl client ID, create an app in your Simkl account's
+[developer settings](https://simkl.com/settings/developer/) and choose the
+**TV, devices & command line** type. Silo doesn't use a client secret, and
+Simkl requires one for **Server apps & services** apps. Enter the app's
+client ID as **Client ID** on the Simkl plugin's page.
 
 If no provider is set up, the personal **Watch Providers** page says so.
 
