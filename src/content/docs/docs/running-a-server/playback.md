@@ -80,7 +80,7 @@ With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo che
 When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Advanced** in **Admin > Settings > Playback** allow it, and both are on by default:
 
 - **Enable Hardware HDR Tone Mapping** uses a GPU on the main server or a transcode node, once Silo has tested that it can tone-map.
-- **Enable Software HDR Tone Mapping** uses the CPU. It works without a GPU, but a single 4K stream can keep several cores busy.
+- **Enable Software HDR Tone Mapping** uses the CPU. It works without a GPU, but it's a heavy task for the CPU.
 
 With both on, Silo uses the GPU when it can and the CPU otherwise. With both off, Silo doesn't convert HDR video: an HDR title plays only on devices that can play it as it is, and downloads of it use **Original**.
 
