@@ -42,6 +42,11 @@ HDR and Dolby Vision depend on the whole chain: the file, the app, the TV, and
 anything in between, such as a receiver. Check what the TV reports it is
 receiving rather than the label on the file.
 
+On Android TV, if the bars around the picture look grey during HDR or Dolby
+Vision, turn on **True Black Bars** in **Settings > Playback**. On some devices
+it has the opposite effect, so turn it off again if the bars get lighter or
+show a thin line where they meet the picture.
+
 ## Sound problems on a TV or receiver
 
 Open the audio options during playback and try another track. Check that the
