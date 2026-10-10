@@ -23,9 +23,9 @@ administrator installs its plugin from the **Catalog** tab in
 **Admin > Plugins**: **Trakt Watch Provider**, **Simkl Watch Provider**, or
 **MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
 The Trakt and Simkl plugins also need the details of an app you create with
-that provider, entered on the plugin's page. MDBList needs no server setup:
-each person enters their own API key. Other watch-provider plugins may need
-settings of their own.
+that provider, entered on the plugin's page. The MDBList plugin needs no
+settings: each person enters their own API key. Other watch-provider plugins
+may need settings of their own.
 
 To get Trakt credentials, create an API app on the
 [Trakt developer portal](https://developer.trakt.tv/). Trakt requires a
