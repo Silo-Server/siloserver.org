@@ -29,14 +29,31 @@ Silo has them. It doesn't change a movie's spoken audio; use
 ## Change one device
 
 1. Open **Settings > Your Devices** and choose the device.
-2. Change its quality, HDR, audio sync offset, or subtitle sync offset.
-   A changed setting shows **Use your setting**; select it to go back to your
-   profile's value. **Clear all changes** resets the whole device.
+2. Change any setting it lists, such as quality, subtitle language, playing
+   the next episode, HDR, or the audio sync offset. Each setting says where its value comes
+   from: **Changed here**, **From your profile**, or **App default**. A
+   changed setting shows **Use your setting**; select it to go back to your
+   profile's value. **Use profile settings** removes every change on the
+   device.
 3. Play something on that device to hear or see the result.
 
-A setting changed here wins over your profile's value on that device. If a
-single title plays differently from others, look at the audio and subtitle
-tracks chosen for it during playback before you change the whole profile.
+A browser only lists the settings the web player uses. HDR, Dolby Vision,
+playback speed, and the sync offsets appear only for devices running the Silo
+apps.
+
+In the mobile and TV apps, most settings on the **Playback** page apply to
+that device only. **Skip Back** and **Skip Forward** follow your profile to
+every device. To go back to your profile's value for a setting your profile
+also has, choose **Use Profile Setting** at the top of its list (**Use profile
+setting** on Android). On Android, a switch for one of these settings shows a
+**Use Profile Setting** row under it once the device has its own value. **Use
+Profile Settings** at the bottom of the page removes every change on the
+device.
+
+A setting changed on a device wins over your profile's value on that device,
+except **Show title art** while **Apply to all devices** is on. If a single
+title plays differently from others, look at the audio and subtitle tracks
+chosen for it during playback before you change the whole profile.
 
 **Forget** removes a device's saved settings and hides it until it's used
 again. It doesn't sign the device out; for a lost device, see
