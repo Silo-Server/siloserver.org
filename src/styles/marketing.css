@@ -707,6 +707,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 .values__item p {
   margin: 0;

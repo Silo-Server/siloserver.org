@@ -316,8 +316,8 @@ export const values = [
     body: "No subscription. The server and apps are open source under the AGPL, and Silo will stay free and open source.",
   },
   {
-    title: "Smart features, run where you choose.",
-    body: "Translate subtitles and descriptions, create subtitles from the audio, and get recommendations. Run the AI on your own hardware or use a cloud provider. Each feature stays off until you turn it on.",
+    title: "Smart features, off until you need them.",
+    body: "Translate subtitles and descriptions, create subtitles from the audio, and get recommendations. Run the AI on your own hardware or use a cloud provider.",
   },
   {
     title: "Bring what you have.",
