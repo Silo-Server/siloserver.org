@@ -730,6 +730,22 @@ html:not(.js) .rotator__word:not(:first-child) {
   height: 2px;
   background: var(--step);
 }
+/* On hover a step lifts and its edge and glow light up in its own colour,
+   like the docs' previous and next cards. */
+.setup__item {
+  transition:
+    box-shadow 0.25s ease-out,
+    translate 0.25s ease-out;
+}
+@media (hover: hover) {
+  .setup__item:hover {
+    translate: 0 -2px;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--step) 55%, transparent),
+      0 0 1.5rem -0.25rem color-mix(in srgb, var(--step) 35%, transparent),
+      0 1.25rem 2.5rem -1.25rem color-mix(in srgb, var(--step) 45%, transparent);
+  }
+}
 .setup__item--1 {
   --step: #ff4d7d;
 }
