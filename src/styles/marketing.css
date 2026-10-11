@@ -1124,9 +1124,34 @@ html:not(.js) .rotator__word:not(:first-child) {
     height: auto;
     padding-bottom: 56px;
   }
+  /* The screen sits between the headline and the copy, so the rotating
+     word lands right above the TV it describes. */
+  .hero {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero__intro {
+    display: contents;
+  }
+  .hero__head,
+  .hero__aside {
+    position: relative;
+    z-index: 1;
+    width: calc(100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+  .hero__aside {
+    order: 1;
+    margin-top: 36px;
+    padding-bottom: 0;
+  }
+  /* Keeps the button and the link on one row on 375px-wide phones. */
+  .hero__actions {
+    column-gap: 20px;
+  }
   .hero__stage {
     container-type: normal;
-    margin-top: 44px;
+    margin-top: 36px;
   }
   .scene-anchor--hero,
   .hero--scene .scene-anchor--hero {
@@ -1147,8 +1172,30 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 @media (max-width: 560px) and (max-height: 760px) {
-  /* Short phones: a smaller headline and phone so the step text still fits
-     under the pinned scene. */
+  /* Short phones: the hero's type and spacing shrink with the screen's
+     height, so the headline, TV, copy and buttons all fit on the first
+     screen. */
+  .hero {
+    padding-top: clamp(76px, 12.6svh, 104px);
+  }
+  .hero .eyebrow {
+    margin-bottom: clamp(10px, 2.1svh, 22px);
+  }
+  .hero__title {
+    font-size: clamp(32px, 5.85svh, 46px);
+  }
+  .hero__stage,
+  .hero__aside {
+    margin-top: clamp(12px, 3.6svh, 36px);
+  }
+  .hero__aside p {
+    font-size: clamp(15px, 2.35svh, 17px);
+  }
+  .hero__actions {
+    margin-top: clamp(14px, 3svh, 28px);
+  }
+  /* A smaller headline and phone in the experience scene, so the step text
+     still fits under the pinned scene. */
   .experience__pin {
     padding-top: 76px;
     gap: 14px;
