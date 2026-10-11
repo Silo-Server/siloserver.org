@@ -1532,6 +1532,8 @@ html:not(.js) .rotator__word:not(:first-child) {
    the experience TV. They then fade in together. The library screen, which
    has no room, waits for its own pictures (home.ts) and fades in with its
    light.
+   If a room's picture fails, the room stays hidden but is still settled
+   (.is-settled), which releases its screens.
    An animation, unlike a transition, also runs when the picture was cached
    and is ready before first paint. */
 .js .room {
@@ -1540,25 +1542,25 @@ html:not(.js) .rotator__word:not(:first-child) {
 .js .room.is-ready {
   opacity: 1;
 }
-.js .scene-anchor:has(> .room:not(.is-ready)) > .screen,
-.js .experience__stage:has(.room:not(.is-ready)) > .experience__phone,
+.js .scene-anchor:has(> .room:not(.is-settled)) > .screen,
+.js .experience__stage:has(.room:not(.is-settled)) > .experience__phone,
 .js [data-wait-images]:not(.is-ready) > .screen,
 .js .library__stage:has(> [data-wait-images]:not(.is-ready))::before {
   opacity: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .room.is-ready,
-  .js .scene-anchor:has(> .room.is-ready) > .screen,
-  .js .experience__stage:has(.room.is-ready) > .experience__phone,
+  .js .scene-anchor:has(> .room.is-settled) > .screen,
+  .js .experience__stage:has(.room.is-settled) > .experience__phone,
   .js [data-wait-images].is-ready > .screen,
   .js .library__stage:has(> [data-wait-images].is-ready)::before {
     animation: hero-fade 1.4s var(--ease-out) backwards;
   }
   .js .hero--scene .room.is-ready,
-  .js .hero--scene .scene-anchor:has(> .room.is-ready) > .screen {
+  .js .hero--scene .scene-anchor:has(> .room.is-settled) > .screen {
     animation-delay: 0.35s;
   }
-  .js .scene-anchor:has(> .room:not(.is-ready)) > .screen {
+  .js .scene-anchor:has(> .room:not(.is-settled)) > .screen {
     animation: none;
   }
 }

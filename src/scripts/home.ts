@@ -22,17 +22,20 @@ document.querySelectorAll<HTMLElement>(".room").forEach((room) => {
   const img = room.querySelector("img");
   // Async images can fire load before their pixels are decoded. Keep the
   // room (including its grain) hidden until the picture can paint with it.
-  const ready = async () => {
-    if (!img) return;
-    try {
-      await img.decode();
-      room.classList.add("is-ready");
-    } catch {
-      // A failed image must not reveal the grain on its own.
-    }
-  };
-  if (!img || (img.complete && img.naturalWidth)) ready();
-  else img.addEventListener("load", ready, { once: true });
+  // Either way the room settles, which releases its screens: a failed picture
+  // leaves the room hidden but must not hide the app with it.
+  const settle = (ok: boolean) => room.classList.add("is-settled", ...(ok ? ["is-ready"] : []));
+  if (!img) return settle(false);
+  img
+    .decode()
+    .then(() => settle(true))
+    .catch(() => {
+      // decode() also rejects for a lazy picture that hasn't loaded yet
+      // (Safari); wait for it before giving up.
+      if (img.complete) return settle(img.naturalWidth > 0);
+      img.addEventListener("load", () => img.decode().then(() => settle(true), () => settle(false)), { once: true });
+      img.addEventListener("error", () => settle(false), { once: true });
+    });
 });
 
 /* ---------- Library: show the screen once its pictures can paint ---------- */
