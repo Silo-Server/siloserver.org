@@ -392,7 +392,7 @@ if (scene) {
   // the phone takes over soon after the scene pins, which shows that scrolling
   // drives it. The track's height in CSS (.experience__track) is one window
   // plus their sum.
-  const spans = [0.4, 0.55, 0.55, 0.55];
+  const spans = [0.25, 0.55, 0.55, 0.55];
   const spanSum = spans.reduce((a, b) => a + b, 0);
   const bounds = spans.reduce((b, s) => [...b, b[b.length - 1] + s / spanSum], [0]);
   const stepAt = (p: number) => {
