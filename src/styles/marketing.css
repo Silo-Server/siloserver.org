@@ -318,7 +318,7 @@ button {
   font-size: clamp(46px, 6.2vw, 88px);
   font-weight: 600;
   line-height: 1.06;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
 }
 .hero__your--end {
   display: none;
@@ -667,7 +667,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0 0 6px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 .experience__step p {
   margin: 0;
@@ -698,7 +698,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0 0 8px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 .values__item p {
   margin: 0;
@@ -795,7 +795,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 6px 0 8px;
   font-size: 21px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 .setup__item p {
   margin: 0;
@@ -913,7 +913,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   font-size: clamp(40px, 5.2vw, 72px);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   line-height: 1.08;
 }
 /* The Silo mark, upright, blurred, and large enough that the section crops
@@ -1262,7 +1262,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   font-size: clamp(44px, 6.4vw, 84px);
   font-weight: 600;
   line-height: 1.08;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
 }
 .page-head .lede {
   margin-top: 22px;
@@ -1281,7 +1281,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg);
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.01em;
   line-height: 1.25;
 }
 .prose h3 {
@@ -1289,6 +1289,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg);
   font-size: 18px;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 .prose p,
 .prose ul,
@@ -1421,7 +1422,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.01em;
 }
 .dl-app__body {
   margin: 12px 0 0;
