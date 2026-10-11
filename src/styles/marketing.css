@@ -1677,6 +1677,12 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
+/* Experience: the picture fills the painted TV's glass, inside its bezel:
+   about 0.3% of its width at the top, 1% at the sides, and a 1.2% chin.
+   The painting's TV is a little shorter than 16:9 at full width. */
+.experience--scene .screen--tv {
+  padding: 0.3% 1% 1.2%;
+}
 /* Experience: the room around the TV; it dims when the TV turns off. */
 .experience--scene .experience__pin::before {
   background: radial-gradient(40% 50% at 45% 55%, rgba(250, 118, 4, 0.3), transparent 75%);
