@@ -224,6 +224,19 @@ button {
     border-color 0.3s;
   border-bottom: 1px solid transparent;
 }
+/* The header's Get Silo fades out while the page's own is on screen. */
+.site-header__cta {
+  transition:
+    background-color 0.2s,
+    transform 0.2s var(--ease-out),
+    box-shadow 0.3s,
+    opacity 0.3s,
+    visibility 0.3s;
+}
+.site-header.is-cta-hidden .site-header__cta {
+  opacity: 0;
+  visibility: hidden;
+}
 .site-header.is-scrolled {
   background: rgba(5, 7, 13, 0.72);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);

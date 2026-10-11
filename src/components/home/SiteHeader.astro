@@ -13,8 +13,34 @@ const href = (p: string) => `${baseUrl}${p}`;
       <a href={href("/docs")}>Docs</a>
       <a href={SITE.github.orgUrl}>GitHub</a>
     </nav>
-    <a class="btn btn--primary btn--sm" href={href("/download")}>
+    <a class="btn btn--primary btn--sm site-header__cta" href={href("/download")}>
       Get Silo <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </a>
   </div>
 </header>
+
+<script>
+  // Only one Get Silo at a time: the header's button steps aside while the
+  // page's own (marked data-get-silo) is on screen. Without JS it stays.
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const pageButtons = document.querySelectorAll<HTMLElement>("[data-get-silo]");
+  if (header && pageButtons.length) {
+    const inView = new Set<Element>();
+    const update = () => header.classList.toggle("is-cta-hidden", inView.size > 0);
+    // Check once up front, so a button visible on load never flashes in the
+    // header first.
+    pageButtons.forEach((b) => {
+      const r = b.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) inView.add(b);
+    });
+    update();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) inView.add(e.target);
+        else inView.delete(e.target);
+      }
+      update();
+    });
+    pageButtons.forEach((b) => io.observe(b));
+  }
+</script>
