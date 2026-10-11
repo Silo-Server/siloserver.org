@@ -1,0 +1,213 @@
+---
+// How to contribute, in brief. The rules themselves live in each repository's
+// CONTRIBUTING.md (silo-server's is the reference); this page summarizes them
+// and links there, so keep it in step when that guide changes.
+import MarketingPage from "../layouts/MarketingPage.astro";
+import { SITE } from "../data/siteConfig";
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const server = `${SITE.github.orgUrl}/silo-server`;
+const guide = `${server}/blob/main/CONTRIBUTING.md`;
+
+const ways = [
+  {
+    id: "bug",
+    title: "Report a problem",
+    body: "Something broken in the server or web app? File a bug report in silo-server. Problems that only affect an app go to silo-apple or silo-android.",
+    links: [
+      { label: "Open an issue", href: `${server}/issues/new/choose` },
+      { label: "What to include", href: `${baseUrl}/docs/report-a-problem` },
+    ],
+  },
+  {
+    id: "feature",
+    title: "Suggest a feature",
+    body: "Describe the problem it solves and who it helps. Read the project non-goals first; some things Silo leaves out on purpose.",
+    links: [
+      { label: "Suggest a feature", href: `${server}/issues/new?template=feature-request.yml` },
+      { label: "Project non-goals", href: `${server}/blob/main/docs/non-goals.md` },
+    ],
+  },
+  {
+    id: "docs",
+    title: "Fix the docs",
+    body: "Spot something wrong or confusing in the manual? Small corrections can go straight to a pull request on the website.",
+    links: [{ label: "Improve the docs", href: `${baseUrl}/docs/improve-the-docs` }],
+  },
+  {
+    id: "security",
+    title: "Report a vulnerability",
+    body: "Report security problems privately so they can be fixed before anyone else learns of them. Never in a public issue.",
+    links: [{ label: "Report privately", href: `${server}/security/advisories/new` }],
+  },
+];
+---
+
+<MarketingPage
+  title="Contributing"
+  description="How to help make Silo better: report problems, suggest features, fix the docs, and when to open a pull request."
+>
+  <section class="container page-head">
+    <p class="eyebrow rise"><span>Contributing</span></p>
+    <h1 class="page-title reveal-lines"><span class="ln"><span>Help make</span></span><span class="ln"><span>Silo better.</span></span></h1>
+    <p class="lede rise">
+      <span>The most helpful thing you can do right now is open a clear, accurate issue. Here's where to send it, what to put in it, and when a pull request makes sense.</span>
+    </p>
+  </section>
+
+  <section class="container contrib-ways" aria-label="Ways to help">
+    {
+      ways.map((way) => (
+        <article class={`contrib-way contrib-way--${way.id}`}>
+          <h2 class="contrib-way__title">{way.title}</h2>
+          <p class="contrib-way__body">{way.body}</p>
+          <div class="contrib-way__links">
+            {way.links.map((l) => (
+              <a class="link-arrow" href={l.href} rel={l.href.startsWith("http") ? "noopener" : undefined}>
+                {l.label} <span aria-hidden="true">{l.href.startsWith("http") ? "↗" : "→"}</span>
+              </a>
+            ))}
+          </div>
+        </article>
+      ))
+    }
+  </section>
+
+  <div class="container">
+    <article class="prose contrib-prose">
+      <h2 id="why-issues">Why we're asking for issues</h2>
+      <p>
+        Pull requests now arrive faster than we can review them carefully. Reviewing a change properly means reading every
+        line, checking it against work already in flight, re-running validation, and owning the result after it merges.
+        Writing the change ourselves from a precise issue takes less time, and it keeps every change on one workflow with
+        the same tests and the same review.
+      </p>
+      <p>
+        This is about review capacity, not the quality of anyone's work, and it applies whether or not you used AI. We'll
+        revisit it as Silo approaches 1.0.
+      </p>
+
+      <h2 id="write-a-useful-issue">Write a useful issue</h2>
+      <ul>
+        <li>Search first. If an issue already covers the problem, add what's new there.</li>
+        <li>Keep to one problem or proposal per issue.</li>
+        <li>Describe what you saw before any theory about the cause.</li>
+        <li>
+          Give exact steps to reproduce, what you expected and what happened, your Silo version, how you run Silo, and which
+          apps were involved.
+        </li>
+        <li>
+          Paste raw logs rather than a summary. Redact passwords, tokens, personal details, and private media details, mark
+          each redaction, and leave the rest as it is.
+        </li>
+        <li>
+          If you found the cause or have a fix in mind, put it under Technical notes, apart from what you observed. Point to
+          the files involved; we may implement it differently.
+        </li>
+        <li>Say whether you used AI, or write "No AI used".</li>
+      </ul>
+      <p>
+        Using Claude Code or Codex? The <a href={`${SITE.github.orgUrl}/silo-troubleshooting-skill`} rel="noopener"
+          >Silo troubleshooting skill</a
+        > helps you collect these details and drafts the issue, then has independent reviewers check it against your evidence
+        before you post it.
+      </p>
+      <p>
+        For setup questions and help using Silo, ask in the <a href={SITE.discord} rel="noopener">Silo Discord</a> instead
+        of opening an issue.
+      </p>
+
+      <h2 id="pull-requests">Pull requests</h2>
+      <p>
+        Pull requests to silo-server, silo-apple, and silo-android are welcome from contributors who've had one merged in a
+        Silo repository, and from anyone a maintainer has asked for one, usually in an issue comment. We close other pull
+        requests without review. That isn't a judgment of the work: if the problem still matters, open an issue and link the
+        closed pull request, and we may use the code as a reference.
+      </p>
+      <p>If you're opening one, the short version is:</p>
+      <ul>
+        <li>One concern per pull request, with tests that fail before the change and pass after it.</li>
+        <li>State the problem in the pull request itself: what breaks or is missing, and who it affects.</li>
+        <li>
+          Show any change people can see with before-and-after screenshots or a short recording. Web changes need desktop
+          and mobile.
+        </li>
+        <li>Run the repository's full set of checks before asking for review.</li>
+        <li>Disclose AI use.</li>
+      </ul>
+      <p>
+        Each repository's contribution guide has the full rules; <a href={guide} rel="noopener">silo-server's</a> is the
+        reference.
+      </p>
+
+      <h2 id="ai">Using AI</h2>
+      <p>
+        AI-assisted work is welcome; most of Silo was written with AI assistance. Whoever submits the work is responsible
+        for understanding it, testing it, and explaining it, and that applies to maintainers too. Disclose AI use in every
+        issue and pull request, with the tools and models you used, or write "No AI used". The
+        <a href={`${server}/blob/main/docs/ai-contributions.md`} rel="noopener">AI-assisted contribution policy</a> has the
+        details.
+      </p>
+    </article>
+  </div>
+</MarketingPage>
+
+<style is:global>
+  .contrib-ways {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: clamp(64px, 8vw, 104px);
+  }
+  .contrib-way {
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-raise);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  /* A short bar in one of the mark's colours, the only colour on the card. */
+  .contrib-way::before {
+    content: "";
+    width: 28px;
+    height: 3px;
+    margin-bottom: 22px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  .contrib-way--bug { --accent: var(--red); }
+  .contrib-way--feature { --accent: var(--blue-text); }
+  .contrib-way--docs { --accent: var(--orange); }
+  .contrib-way--security { --accent: var(--fg-mute); }
+  .contrib-way__title {
+    margin: 0;
+    color: var(--fg);
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .contrib-way__body {
+    margin: 10px 0 0;
+    color: var(--fg-soft);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .contrib-way__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin-top: auto;
+    padding-top: 22px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .contrib-prose h2:first-child {
+    margin-top: 0;
+  }
+  @media (max-width: 720px) {
+    .contrib-ways {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

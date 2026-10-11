@@ -5,7 +5,7 @@ import { sidebar } from "./src/data/sidebar.mjs";
 import previewBanner from "./scripts/preview-banner.mjs";
 import { existsSync, statSync } from "node:fs";
 
-// The static pages in public/ (milestone, contributing) are folders with an
+// The static pages in public/ (the 1.0 milestone) are folders with an
 // index.html. GitHub Pages serves /milestone/1.0 from the folder; the dev
 // server doesn't, so map those URLs to their index.html while developing.
 // (Links use the slash-free form, matching trailingSlash: "never".)
