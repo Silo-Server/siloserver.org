@@ -474,9 +474,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 }
 
 /* Experience: pinned scene */
-.experience {
-  border-top: 1px solid var(--line);
-}
 .experience__pin {
   isolation: isolate;
 }
