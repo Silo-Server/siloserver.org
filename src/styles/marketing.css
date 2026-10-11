@@ -994,7 +994,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg);
 }
 .site-footer__legal {
-  margin-top: 36px;
+  margin-top: 56px;
   display: flex;
   justify-content: space-between;
   gap: 16px;
