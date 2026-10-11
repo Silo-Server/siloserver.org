@@ -431,23 +431,38 @@ if (scene) {
     tvset?.classList.toggle("is-off", next >= 3);
   };
 
+  // How much scroll each step gets, in window heights. The first is short so
+  // the phone takes over soon after the scene pins, which shows that scrolling
+  // drives it; the phone's own sequence gets the most. The track's height in
+  // CSS (.experience__track) is one window plus their sum.
+  const spans = [0.4, 0.8, 0.55, 0.55];
+  const spanSum = spans.reduce((a, b) => a + b, 0);
+  const bounds = spans.reduce((b, s) => [...b, b[b.length - 1] + s / spanSum], [0]);
+  const stepAt = (p: number) => {
+    let i = 0;
+    while (i < spans.length - 1 && p >= bounds[i + 1]) i++;
+    return i;
+  };
+
   // Clicking a step scrolls to its start in the pinned track. Clicking the
   // step already showing moves on to the next one (on phones only the
   // current step is visible, so this is how you advance).
   const goTo = (i: number) => {
     const track = scene.offsetHeight - innerHeight;
     const top = scene.getBoundingClientRect().top + scrollY;
-    const n = steps.length;
-    const target = i >= n ? top + track + 1 : top + ((i + 0.04) / n) * track;
+    const target =
+      i >= steps.length ? top + track + 1 : top + (bounds[i] + 0.04 * (bounds[i + 1] - bounds[i])) * track;
     scrollTo({ top: Math.round(target), behavior: reduce ? "auto" : "smooth" });
   };
   steps.forEach((s, i) => s.addEventListener("click", () => goTo(i === stage ? i + 1 : i)));
 
   listeners.push((el, p) => {
     if (el !== scene) return;
-    setStage(Math.min(3, Math.floor(p * 4)));
-    // Each step's bar fills across its quarter of the scroll.
-    steps.forEach((s, i) => s.style.setProperty("--fill", String(clamp(p * 4 - i))));
+    setStage(stepAt(p));
+    // Each step's bar fills across its own stretch of the scroll.
+    steps.forEach((s, i) =>
+      s.style.setProperty("--fill", String(clamp((p - bounds[i]) / (bounds[i + 1] - bounds[i])))),
+    );
   });
 }
 
