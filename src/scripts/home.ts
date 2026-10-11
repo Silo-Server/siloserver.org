@@ -353,28 +353,6 @@ if (scene) {
   addEventListener("resize", placePhone);
 
   const home = scene.querySelector<HTMLElement>(".ios-home");
-  const picker = scene.querySelector<HTMLElement>("[data-picker]");
-  const pickerRow = scene.querySelector<HTMLElement>("[data-picker-row]");
-  const remoteBtn = scene.querySelector<HTMLElement>("[data-remote-btn]");
-  const firstCard = scene.querySelector<HTMLElement>("[data-cw-first]");
-  const tap = scene.querySelector<HTMLElement>("[data-tap]");
-  let timers: number[] = [];
-
-  // Show a touch on a control inside the phone. The indicator lives in the
-  // phone's stage, which is scaled, so convert from screen pixels.
-  const touch = (target: HTMLElement | null) => {
-    const stageEl = tap?.parentElement;
-    if (!tap || !target || !stageEl) return;
-    const st = stageEl.getBoundingClientRect();
-    const r = target.getBoundingClientRect();
-    const s = st.width / stageEl.offsetWidth;
-    tap.style.left = `${(r.left + r.width / 2 - st.left) / s}px`;
-    tap.style.top = `${(r.top + r.height / 2 - st.top) / s}px`;
-    tap.classList.remove("is-tapping");
-    void tap.offsetWidth;
-    tap.classList.add("is-tapping");
-  };
-
   // Playing on the TV: the picture starts, the phone's remote opens on the
   // running episode, and the clock ticks on both.
   const setPlaying = (on: boolean) => {
@@ -386,45 +364,14 @@ if (scene) {
   };
   const setEngaged = (on: boolean) => home?.classList.toggle("is-engaged", on);
 
-  // Step 2 as it happens in the iOS app: Remote → Living Room → tap the
-  // episode in Continue Watching, which plays on the chosen TV.
-  const startFromPhone = () => {
-    const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
-    at(250, () => touch(remoteBtn));
-    at(550, () => picker?.classList.add("is-up"));
-    at(1350, () => {
-      touch(pickerRow);
-      pickerRow?.classList.add("is-pressed", "is-connecting");
-    });
-    at(2050, () => {
-      picker?.classList.remove("is-up");
-      pickerRow?.classList.remove("is-pressed", "is-connecting");
-      setEngaged(true);
-    });
-    at(2800, () => touch(firstCard));
-    at(3100, () => setPlaying(true));
-  };
-  const cancelSequence = () => {
-    timers.forEach(clearTimeout);
-    timers = [];
-    picker?.classList.remove("is-up");
-    pickerRow?.classList.remove("is-pressed", "is-connecting");
-  };
-
   const setStage = (next: number) => {
     if (next === stage) return;
-    const prev = stage;
     stage = next;
     steps.forEach((s, i) => s.classList.toggle("is-on", i === next));
-    cancelSequence();
-    if (next === 1 && prev <= 0 && !reduce) {
-      setEngaged(false);
-      setPlaying(false);
-      startFromPhone();
-    } else {
-      setEngaged(next >= 1);
-      setPlaying(next >= 1);
-    }
+    // One state per step: from step 2 the episode plays on the TV and the
+    // phone shows its remote, with no taps played out in between.
+    setEngaged(next >= 1);
+    setPlaying(next >= 1);
     phone?.classList.toggle("is-aside", next === 2);
     if (next >= 3) placePhone();
     phone?.classList.toggle("is-landscape", next >= 3);
@@ -433,9 +380,9 @@ if (scene) {
 
   // How much scroll each step gets, in window heights. The first is short so
   // the phone takes over soon after the scene pins, which shows that scrolling
-  // drives it; the phone's own sequence gets the most. The track's height in
-  // CSS (.experience__track) is one window plus their sum.
-  const spans = [0.4, 0.8, 0.55, 0.55];
+  // drives it. The track's height in CSS (.experience__track) is one window
+  // plus their sum.
+  const spans = [0.4, 0.55, 0.55, 0.55];
   const spanSum = spans.reduce((a, b) => a + b, 0);
   const bounds = spans.reduce((b, s) => [...b, b[b.length - 1] + s / spanSum], [0]);
   const stepAt = (p: number) => {

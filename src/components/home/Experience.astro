@@ -14,7 +14,6 @@ import TvSeries from "../mock/TvSeries.astro";
 import IosHome from "../mock/IosHome.astro";
 import IosRemote from "../mock/IosRemote.astro";
 import IosPlayer from "../mock/IosPlayer.astro";
-import IosPicker from "../mock/IosPicker.astro";
 import RoomScene from "./RoomScene.astro";
 import { backdrop, seriesPages } from "../../data/home";
 
@@ -67,10 +66,8 @@ const steps = [
         </div>
         <IPhone label="Silo on iPhone: choosing the Living Room TV, starting Breaking Bad on it, then the episode playing on the phone." class="experience__phone">
           <IosHome />
-          <IosPicker />
           <IosRemote />
           <IosPlayer />
-          <span class="ios-tap" data-tap></span>
         </IPhone>
       </div>
 

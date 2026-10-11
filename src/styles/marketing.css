@@ -529,10 +529,10 @@ html:not(.js) .rotator__word:not(:first-child) {
   filter: blur(60px);
   pointer-events: none;
 }
-/* One window plus each step's scroll (spans in home.ts): 0.4 + 0.8 + 0.55
+/* One window plus each step's scroll (spans in home.ts): 0.4 + 0.55 + 0.55
    + 0.55 window heights. */
 .experience__track {
-  height: 330vh;
+  height: 305vh;
   position: relative;
 }
 .experience__pin {
