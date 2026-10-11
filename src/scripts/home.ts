@@ -6,22 +6,15 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const params = new URLSearchParams(location.search);
 const root = document.documentElement;
 
-/* ---------- Reveal on enter ---------- */
+/* ---------- Reveal on load ---------- */
 
-const revealTargets = document.querySelectorAll<HTMLElement>(".rise, .reveal-lines, [data-reveal-group]");
-const revealIO = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      e.target.classList.add("is-in");
-      revealIO.unobserve(e.target);
-    }
-  },
-  { rootMargin: "0px 0px -8% 0px" },
-);
-revealTargets.forEach((el) => revealIO.observe(el));
-// The hero headline animates on load, not on scroll.
-requestAnimationFrame(() => document.querySelector(".hero")?.classList.add("is-loaded"));
+// Text animates in once, on the first frame after load, rather than as each
+// section scrolls into view. Blocks below the fold have finished by the time
+// anyone reaches them.
+requestAnimationFrame(() => {
+  document.querySelector(".hero")?.classList.add("is-loaded");
+  document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => el.classList.add("is-in"));
+});
 
 /* ---------- Scenes variant: show each room once its picture can paint ---------- */
 

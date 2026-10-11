@@ -22,20 +22,13 @@ const { title, description, glow = "blue" } = Astro.props;
 </Marketing>
 
 <script>
-  // Header backdrop once the page scrolls; reveal blocks as they enter.
+  // Header backdrop once the page scrolls.
   const header = document.querySelector<HTMLElement>("[data-header]");
   const onScroll = () => header?.classList.toggle("is-scrolled", scrollY > 8);
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-in");
-          io.unobserve(e.target);
-        }
-      }),
-    { rootMargin: "0px 0px -8% 0px" },
+  // Text animates in once on load, not as each block scrolls into view.
+  requestAnimationFrame(() =>
+    document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => el.classList.add("is-in")),
   );
-  document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => io.observe(el));
 </script>
