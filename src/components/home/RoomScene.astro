@@ -1,14 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import living from "../../assets/home/scenes/living.webp";
-import den from "../../assets/home/scenes/den.webp";
 import evening from "../../assets/home/scenes/evening.webp";
 
 interface Props {
-  kind: "living" | "den" | "evening";
+  kind: "living" | "evening";
 }
 const { kind } = Astro.props;
-const scenes = { living, den, evening };
+const scenes = { living, evening };
 // The 30:17 frame (3000×1700 masters) holds the device at x 1000–2000,
 // y 500–1062. The masters carry fine grain that dithers the dark gradients,
 // so they're served at a higher quality than Astro's default to keep it.

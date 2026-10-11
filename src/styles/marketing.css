@@ -1585,14 +1585,13 @@ html:not(.js) .rotator__word:not(:first-child) {
     animation: none;
   }
 }
-:is(.hero--scene, .library--scene, .experience--scene) .room > img {
+:is(.hero--scene, .experience--scene) .room > img {
   display: block;
   width: 100%;
   height: 100%;
   aspect-ratio: 30 / 17;
 }
 .hero--scene .scene-anchor,
-.library--scene .scene-anchor,
 .experience--scene .scene-anchor {
   isolation: isolate;
 }
@@ -1600,16 +1599,13 @@ html:not(.js) .rotator__word:not(:first-child) {
   --scene: #2f5bff;
   overflow: clip;
 }
-.library--scene {
-  --scene: #f50b4f;
-}
 .experience--scene {
   --scene: #fa7604;
 }
 
 /* The room's own TV is the frame: the live picture sits in its screen, so
    the CSS bezel, edge and shadow give way to the painting. */
-:is(.hero--scene, .library--scene, .experience--scene) .screen {
+:is(.hero--scene, .experience--scene) .screen {
   border-color: transparent;
   background: none;
   box-shadow: none;
@@ -1617,7 +1613,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 
 /* Text stays above the rooms. */
 .hero--scene .hero__intro,
-.library--scene .library__copy,
 .experience--scene .experience__head,
 .experience--scene .experience__steps {
   position: relative;
@@ -1657,55 +1652,28 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
-/* Library: the room fades out under the copy column. */
-.library--scene .room {
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 8%, #000 30%),
-    radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(90deg, transparent 8%, #000 30%),
-    radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
-  mask-composite: intersect;
-}
-/* The section is shorter than the room: fade the room into the page at the
-   section's top and bottom edges instead of cutting it off. */
-.library--scene::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(var(--bg), transparent 90px),
-    linear-gradient(transparent calc(100% - 150px), var(--bg));
-  pointer-events: none;
-}
-.library--scene::before {
+/* Library: no room. The screen sits on a soft red light, smaller and
+   fainter than the homepage's, and takes more of the row; the copy column
+   narrows to make room. */
+.library--scene .library__stage::before {
   content: "";
   position: absolute;
   z-index: -1;
-  right: -10%;
-  top: 10%;
-  width: 75%;
-  height: 85%;
-  background: radial-gradient(45% 50% at 55% 50%, rgba(245, 11, 79, 0.35), transparent 75%);
-  filter: blur(60px);
+  inset: -18% -12%;
+  background: radial-gradient(closest-side, rgba(245, 11, 79, 0.34) 45%, transparent);
+  filter: blur(50px);
   pointer-events: none;
 }
-/* The den's tower speakers stand just outside the TV (about 0.18 of its width
-   to the left and right). A slightly smaller TV, nudged right, keeps both in
-   view and the left one clear of the copy. */
 @media (min-width: 901px) {
-  .library--scene .scene-anchor {
-    width: 82%;
-    margin-left: 6%;
+  .library--scene .library__grid {
+    grid-template-columns: 1fr 1.75fr;
   }
-}
-/* Extra space above and below lets the room breathe and sets the section
-   apart from its neighbours: halfway between the section padding plus 100px
-   and half the window height. */
-@media (min-width: 561px) {
-  .library--scene {
-    padding-block: calc(var(--section-y) / 2 + 50px + 25svh);
+  /* The column never gets narrower than the title's first line. */
+  .library--scene .h2 .ln:first-child {
+    white-space: nowrap;
+  }
+  .library--scene .lede {
+    max-width: 22em;
   }
 }
 
