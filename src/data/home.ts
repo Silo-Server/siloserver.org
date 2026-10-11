@@ -297,7 +297,7 @@ export const setup = [
   },
   {
     title: "Pick your screens",
-    body: "Use the Silo apps for Apple TV, iPhone, iPad, Android, and Android TV, or any web browser.",
+    body: "Use the Silo apps on Apple TV, iPhone, iPad, Android, and Android TV, or watch in any web browser.",
   },
 ];
 
