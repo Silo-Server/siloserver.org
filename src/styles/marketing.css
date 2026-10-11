@@ -407,6 +407,11 @@ html:not(.js) .rotator__word:not(:first-child) {
 .hero:not(.hero--scene) .hero__stage {
   --bz: 0px;
 }
+/* In a tall window the script leaves room under the screen (--glow-room);
+   the light reaches down into it. */
+.hero:not(.hero--scene) .hero__stage::before {
+  inset: -4% -2% calc(-12% - var(--glow-room, 0px));
+}
 .screen--bare {
   border: 0;
   border-radius: clamp(10px, 1.1vw, 16px);

@@ -100,6 +100,8 @@ const phoneHero = matchMedia("(max-width: 560px)");
 const fitHero = () => {
   if (!plainHero || !heroIntro || !heroStage || !heroScreen) return;
   plainHero.style.height = "";
+  plainHero.style.paddingBottom = "";
+  plainHero.style.removeProperty("--glow-room");
   if (phoneHero.matches) return;
   const full = plainHero.offsetHeight;
   // With room to spare, the screen's height is set by its width alone.
@@ -107,13 +109,20 @@ const fitHero = () => {
   const screenHeight = heroScreen.offsetHeight;
   plainHero.style.height = "";
   const hero = getComputedStyle(plainHero);
+  const paddingBottom = parseFloat(hero.paddingBottom);
   const fit =
     parseFloat(hero.paddingTop) +
     heroIntro.offsetHeight +
     parseFloat(getComputedStyle(heroStage).marginTop) +
     screenHeight +
-    parseFloat(hero.paddingBottom);
-  if (fit < full) plainHero.style.height = `${Math.ceil(fit)}px`;
+    paddingBottom;
+  if (fit >= full) return;
+  // At full width the screen hides its blue light at the sides, so some of
+  // the spare room stays below it for the light to show before the library.
+  const glowRoom = Math.min(full - fit, screenHeight * 0.2);
+  plainHero.style.paddingBottom = `${paddingBottom + glowRoom}px`;
+  plainHero.style.setProperty("--glow-room", `${glowRoom}px`);
+  plainHero.style.height = `${Math.ceil(fit + glowRoom)}px`;
 };
 fitHero();
 addEventListener("resize", fitHero);
