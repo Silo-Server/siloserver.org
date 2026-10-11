@@ -16,18 +16,3 @@ export const SITE = {
     readmeUrl: "https://github.com/Silo-Server/silo-server#readme",
   },
 } as const;
-
-// Repo names used by the release-data layer.
-export const REPOS = {
-  server: "silo-server",
-  apple: "silo-apple",
-  android: "silo-android",
-  pluginSdk: "silo-plugin-sdk",
-  pluginTmdb: "silo-plugin-metadata-tmdb",
-  pluginTvdb: "silo-plugin-metadata-tvdb",
-  plugins: "silo-plugins",
-  themes: "silo-themes",
-} as const;
-
-export const repoUrl = (name: string) =>
-  `${SITE.github.orgUrl}/${name}`;
