@@ -491,8 +491,16 @@ html:not(.js) .rotator__word:not(:first-child) {
   isolation: isolate;
   overflow: clip;
 }
+/* Two lines, "Your collection," and "beautifully organized.", set a little
+   smaller and looser than the other section titles. */
 .library .h2 {
-  font-size: clamp(36px, 4.2vw, 58px);
+  font-size: clamp(32px, 3.05vw, 44px);
+  letter-spacing: -0.01em;
+}
+@media (min-width: 901px) {
+  .library .h2 .ln {
+    white-space: nowrap;
+  }
 }
 .library__grid {
   display: grid;
@@ -1698,10 +1706,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
   .library--scene .library__stage {
     margin-right: calc(-1 * clamp(0px, (100vw - var(--container)) / 2 - var(--gutter), 120px));
-  }
-  /* The column never gets narrower than the title's first line. */
-  .library--scene .h2 .ln:first-child {
-    white-space: nowrap;
   }
   .library--scene .lede {
     max-width: 22em;
