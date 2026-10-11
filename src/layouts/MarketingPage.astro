@@ -1,0 +1,41 @@
+---
+// Marketing pages other than the homepage: dark shell, shared header and
+// footer. Pass `glow` to tint the page-top light with one brand color.
+import Marketing from "./Marketing.astro";
+import SiteHeader from "../components/home/SiteHeader.astro";
+import SiteFooter from "../components/home/SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  glow?: "blue" | "red" | "orange";
+}
+const { title, description, glow = "blue" } = Astro.props;
+---
+
+<Marketing title={title} description={description}>
+  <SiteHeader />
+  <main id="main" class={`page page--${glow}`}>
+    <slot />
+  </main>
+  <SiteFooter />
+</Marketing>
+
+<script>
+  // Header backdrop once the page scrolls; reveal blocks as they enter.
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const onScroll = () => header?.classList.toggle("is-scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          io.unobserve(e.target);
+        }
+      }),
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => io.observe(el));
+</script>
