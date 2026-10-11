@@ -336,7 +336,7 @@ if (scene) {
   const stepList = scene.querySelector<HTMLElement>(".experience__steps");
   const phoneLayout = matchMedia("(max-width: 560px)");
 
-  // Where the phone goes in step 4: centred on the stage, turned to
+  // Where the phone goes in step 3: centred on the stage, turned to
   // landscape, and as wide as most of the TV. Measured from the untransformed layout.
   const placePhone = () => {
     if (!phone || !tvset) return;
@@ -382,17 +382,16 @@ if (scene) {
     // phone shows its remote, with no taps played out in between.
     setEngaged(next >= 1);
     setPlaying(next >= 1);
-    phone?.classList.toggle("is-aside", next === 2);
-    if (next >= 3) placePhone();
-    phone?.classList.toggle("is-landscape", next >= 3);
-    tvset?.classList.toggle("is-off", next >= 3);
+    if (next >= 2) placePhone();
+    phone?.classList.toggle("is-landscape", next >= 2);
+    tvset?.classList.toggle("is-off", next >= 2);
   };
 
   // How much scroll each step gets, in window heights. The first is short so
   // the phone takes over soon after the scene pins, which shows that scrolling
   // drives it. The track's height in CSS (.experience__track) is one window
   // plus their sum.
-  const spans = [0.25, 0.55, 0.55, 0.55];
+  const spans = [0.25, 0.55, 0.55];
   const spanSum = spans.reduce((a, b) => a + b, 0);
   const bounds = spans.reduce((b, s) => [...b, b[b.length - 1] + s / spanSum], [0]);
   const stepAt = (p: number) => {

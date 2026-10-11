@@ -537,9 +537,9 @@ html:not(.js) .rotator__word:not(:first-child) {
   pointer-events: none;
 }
 /* One window plus each step's scroll (spans in home.ts): 0.25 + 0.55 +
-   0.55 + 0.55 window heights. */
+   0.55 window heights. */
 .experience__track {
-  height: 290vh;
+  height: 235vh;
   position: relative;
 }
 .experience__pin {
@@ -582,31 +582,15 @@ html:not(.js) .rotator__word:not(:first-child) {
   width: 22%;
   transition: transform 1.1s var(--ease-in-out);
 }
-/* Step 4: the phone turns and moves to centre stage. home.ts measures the
+/* Step 3: the phone turns and moves to centre stage. home.ts measures the
    move (--lx, --ly) and scale (--ls) from the layout. */
 .experience__phone.is-landscape {
   transform: translate(var(--lx, 0px), var(--ly, 0px)) rotate(-90deg) scale(var(--ls, 1));
 }
-/* Step 3: the TV is the show. The phone, still a remote, slides most of
-   the way out of the frame and dims, and the TV's light comes up. */
-.experience__phone {
-  transition:
-    transform 1.1s var(--ease-in-out),
-    opacity 0.8s var(--ease-in-out);
-}
-.experience__phone.is-aside {
-  transform: translate(85%, 6%) scale(0.8);
-  opacity: 0.3;
-}
 .experience__pin::before {
-  transition:
-    opacity 0.9s var(--ease-in-out),
-    filter 0.9s var(--ease-in-out);
+  transition: opacity 0.9s var(--ease-in-out);
 }
-.experience__pin:has(.experience__phone.is-aside)::before {
-  filter: blur(60px) brightness(1.35);
-}
-/* Step 4: the TV turns off (the picture goes first), then the set fades away
+/* Step 3: the TV turns off (the picture goes first), then the set fades away
    so the phone, turning to landscape, has the stage to itself. */
 .tvset {
   transition: opacity 0.8s var(--ease-in-out);
@@ -629,7 +613,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   padding: 0;
   margin-block: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 /* Inactive steps stay readable (they're click targets); only the title
