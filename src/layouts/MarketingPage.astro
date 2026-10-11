@@ -1,6 +1,6 @@
 ---
-// Marketing pages other than the homepage: dark shell, shared header and
-// footer. Pass `glow` to tint the page-top light with one brand color.
+// Every page other than the homepage: the docs' dark theme, shared header
+// and footer.
 import Marketing from "./Marketing.astro";
 import SiteHeader from "../components/home/SiteHeader.astro";
 import SiteFooter from "../components/home/SiteFooter.astro";
@@ -8,14 +8,13 @@ import SiteFooter from "../components/home/SiteFooter.astro";
 interface Props {
   title?: string;
   description?: string;
-  glow?: "blue" | "red" | "orange";
 }
-const { title, description, glow = "blue" } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
-<Marketing title={title} description={description}>
+<Marketing title={title} description={description} theme="docs">
   <SiteHeader />
-  <main id="main" class={`page page--${glow}`}>
+  <main id="main" class="page">
     <slot />
   </main>
   <SiteFooter />

@@ -1,6 +1,8 @@
 ---
-// Dark-only shell for the marketing pages. The docs keep their own Starlight
-// theme and toggle; nothing here reads or writes the shared theme setting.
+// Dark-only shell for the marketing pages. The homepage uses the near-black
+// "home" theme; every other page uses "docs", the docs' dark colours. The docs
+// keep their own Starlight theme and toggle; nothing here reads or writes the
+// shared theme setting.
 import "../styles/marketing.css";
 import "../styles/mock.css";
 import { SITE } from "../data/siteConfig";
@@ -10,9 +12,10 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  theme?: "home" | "docs";
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, theme = "home" } = Astro.props;
 const pageTitle = title ? `${title} · Silo` : `Silo — ${SITE.tagline}`;
 const pageDesc = description ?? SITE.description;
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -20,14 +23,14 @@ const href = (path: string) => `${baseUrl}${path}`;
 ---
 
 <!doctype html>
-<html lang="en" class="mk">
+<html lang="en" class:list={["mk", { "mk--docs": theme === "docs" }]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#05070d" />
+    <meta name="theme-color" content={theme === "docs" ? "#101820" : "#05070d"} />
     <script is:inline>document.documentElement.classList.add("js");</script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

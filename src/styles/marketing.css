@@ -38,6 +38,24 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* Every page but the homepage reads on the docs' dark theme
+   (src/styles/docs.css): slate navy instead of near-black, with the docs'
+   panels, hairlines, and text greys. */
+.mk--docs {
+  --bg: #101820;
+  --bg-raise: #141d27;
+  --bg-card: #151e28;
+  --line: #1e2a35;
+  --line-strong: #263341;
+
+  --fg: #f1f4f8;
+  --fg-soft: #bfc8d3;
+  --fg-mute: #8b96a5;
+  --fg-faint: #5d6979;
+
+  --blue-text: #7ba4ff;
+}
+
 *,
 *::before,
 *::after {
@@ -229,6 +247,24 @@ button {
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   backdrop-filter: blur(20px) saturate(1.4);
   border-color: var(--line);
+}
+/* On the docs theme the header is always on its backdrop, with the docs
+   header's thin stripe in the mark's colours along the bottom. */
+.mk--docs .site-header {
+  background: rgba(16, 24, 32, 0.82);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-color: var(--line);
+}
+.mk--docs .site-header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent, var(--blue) 25%, var(--red) 55%, var(--orange) 80%, transparent);
+  opacity: 0.45;
+  pointer-events: none;
 }
 .site-header__inner {
   height: 72px;
@@ -1215,33 +1251,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   position: relative;
   isolation: isolate;
   padding-top: 72px;
-}
-.page::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: -160px;
-  width: min(1400px, 140vw);
-  height: 760px;
-  transform: translateX(-50%);
-  background:
-    radial-gradient(40% 50% at 30% 40%, var(--glow-a), transparent 75%),
-    radial-gradient(30% 40% at 75% 30%, var(--glow-b), transparent 75%);
-  filter: blur(60px);
-  pointer-events: none;
-}
-.page--blue {
-  --glow-a: rgba(0, 52, 251, 0.42);
-  --glow-b: rgba(245, 11, 79, 0.2);
-}
-.page--red {
-  --glow-a: rgba(245, 11, 79, 0.32);
-  --glow-b: rgba(250, 118, 4, 0.2);
-}
-.page--orange {
-  --glow-a: rgba(250, 118, 4, 0.3);
-  --glow-b: rgba(0, 52, 251, 0.22);
 }
 .page-head {
   padding-block: clamp(72px, 10vw, 128px) clamp(48px, 6vw, 72px);
