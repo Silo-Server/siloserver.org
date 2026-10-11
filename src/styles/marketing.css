@@ -408,18 +408,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   align-items: center;
   perspective: 1800px;
 }
-/* Each featured device is lit by one of the mark's colours, from behind and
-   wider than the screen so the light shows around it: blue here, red in the
-   library, orange in the experience scene. */
-.hero__stage::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -4% -2% -12%;
-  background: radial-gradient(55% 60% at 50% 58%, rgba(0, 52, 251, 0.55), transparent 72%);
-  filter: blur(70px);
-  pointer-events: none;
-}
 /* A current flat-panel TV: near-square corners, a thin black bezel, and a
    hairline aluminium edge that catches light along the top. */
 .screen {
@@ -441,16 +429,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 .screen--hero {
   padding: var(--bz);
 }
-/* On the homepage the hero is the picture itself: the screen's content with
-   rounded corners and no TV around it. The scenes variant keeps the TV. */
-.hero:not(.hero--scene) .hero__stage {
-  --bz: 0px;
-}
-/* In a tall window the script leaves room under the screen (--glow-room);
-   the light reaches down into it. */
-.hero:not(.hero--scene) .hero__stage::before {
-  inset: -4% -2% calc(-12% - var(--glow-room, 0px));
-}
 .screen--bare {
   border: 0;
   border-radius: clamp(10px, 1.1vw, 16px);
@@ -464,7 +442,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   padding: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* The screen and, in the scenes variant, its room fade in together. A
+  /* The screen and its room fade in together. A
      keyframe animation keeps them in step: it starts when each is first
      drawn, which a class-triggered transition can miss. */
   .js .screen--hero {
@@ -518,15 +496,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 .library__stage {
   position: relative;
 }
-.library:not(.library--scene) .library__stage::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -35% -30%;
-  background: radial-gradient(closest-side, rgba(245, 11, 79, 0.5) 62%, transparent);
-  filter: blur(60px);
-  pointer-events: none;
-}
 .screen--panel {
   box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.9);
 }
@@ -540,7 +509,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   position: absolute;
   z-index: -1;
   inset: 12% -5% 0;
-  background: radial-gradient(55% 50% at 48% 56%, rgba(250, 118, 4, 0.5) 45%, transparent 85%);
+  background: radial-gradient(40% 50% at 45% 55%, rgba(250, 118, 4, 0.3), transparent 75%);
   filter: blur(60px);
   pointer-events: none;
 }
@@ -1521,7 +1490,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
-/* ---------- Scenes variant (/home-scenes) ---------- */
+/* ---------- Rooms around the screens ---------- */
 /* Each main section sets its device in a silhouetted room lit by one brand
    color. The illustration is three screen-widths wide with the screen in the
    middle third, so it is positioned in units of the anchor's width. */
@@ -1650,10 +1619,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 .hero--scene .scene-anchor--hero {
   width: min(1120px, 100cqw - 2 * var(--gutter), ((100cqh - 2 * var(--bz)) * 1.7778 + 2 * var(--bz)) * 0.8);
 }
-/* The room carries its own light, so no glow sits under it. */
-.hero--scene .hero__stage::before {
-  content: none;
-}
 /* The room runs on past the hero's bottom edge. Fade it into the page over
    the space under the TV (about 15% of the hero) instead of cutting it off.
    Phones end the room above the edge, so they need no fade. */
@@ -1714,9 +1679,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   padding: 0.545% 0.48% 0.53% 0.62%;
 }
 /* Experience: the room around the TV; it dims when the TV turns off. */
-.experience--scene .experience__pin::before {
-  background: radial-gradient(40% 50% at 45% 55%, rgba(250, 118, 4, 0.3), transparent 75%);
-}
 /* In the room, only the TV goes: the room stays, lit by the lamp. */
 .experience--scene .tvset.is-off {
   opacity: 1;

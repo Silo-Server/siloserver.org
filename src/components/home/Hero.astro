@@ -4,15 +4,11 @@ import TvHome from "../mock/TvHome.astro";
 import RoomScene from "./RoomScene.astro";
 import { hero, features } from "../../data/home";
 
-interface Props {
-  scene?: boolean;
-}
-const { scene = false } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<section class:list={["hero", scene && "hero--scene"]} aria-labelledby="hero-title">
+<section class="hero hero--scene" aria-labelledby="hero-title">
   <div class="container hero__intro">
     <div class="hero__head">
       <h1 id="hero-title" class="hero__title">
@@ -40,8 +36,8 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   <div class="hero__stage">
     <div class="scene-anchor scene-anchor--hero">
-      {scene && <RoomScene kind="living" />}
-      <div class:list={["screen screen--hero", !scene && "screen--bare"]}>
+      <RoomScene kind="living" />
+      <div class="screen screen--hero">
         <Canvas w={1920} h={1080} label="Silo on Apple TV. The Home screen previews the title in focus in Continue Watching.">
           <TvHome />
         </Canvas>

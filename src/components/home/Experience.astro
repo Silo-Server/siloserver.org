@@ -1,12 +1,11 @@
 ---
-// Pinned scroll scene. Four steps, driven by scroll progress:
+// Pinned scroll scene in a room. Three steps, driven by scroll progress, each
+// one state:
 // 1. TV on Breaking Bad's series page, phone on Home with it in Continue
 //    Watching.
-// 2. On the phone: tap Remote, pick the Living Room TV, then tap Breaking Bad.
-//    The episode starts on the TV and the remote opens (iOS control mode:
-//    SiloControlModeButton → SiloControlTargetPickerView → launchOnEngagedTV).
-// 3. The TV plays; the phone steps back, still a remote.
-// 4. The TV turns off and the phone turns to landscape with the same episode.
+// 2. The episode plays on the TV and the phone shows its remote (iOS control
+//    mode, as after launchOnEngagedTV).
+// 3. The TV turns off and the phone turns to landscape with the same episode.
 import { Image } from "astro:assets";
 import Canvas from "../mock/Canvas.astro";
 import IPhone from "../mock/IPhone.astro";
@@ -17,10 +16,6 @@ import IosPlayer from "../mock/IosPlayer.astro";
 import RoomScene from "./RoomScene.astro";
 import { backdrop, seriesPages } from "../../data/home";
 
-interface Props {
-  scene?: boolean;
-}
-const { scene = false } = Astro.props;
 
 const steps = [
   {
@@ -38,7 +33,7 @@ const steps = [
 ];
 ---
 
-<section class:list={["experience", scene && "experience--scene"]} id="experience" aria-labelledby="experience-title">
+<section class="experience experience--scene" id="experience" aria-labelledby="experience-title">
   <div class="experience__track" data-scene data-progress data-progress-mode="pin">
     <div class="experience__pin">
       <div class="container experience__head">
@@ -50,8 +45,8 @@ const steps = [
 
       <div class="experience__stage">
         <div class="tvset scene-anchor" data-tvset>
-          {scene && <RoomScene kind="evening" />}
-          <div class:list={["screen screen--tv", !scene && "screen--bare"]}>
+          <RoomScene kind="evening" />
+          <div class="screen screen--tv">
             <Canvas w={1920} h={1080} label="Breaking Bad's series page on Apple TV, then the episode playing.">
               <TvSeries show={seriesPages["breaking-bad"]} />
               <div class="tv-playing" data-tv-playing>

@@ -19,7 +19,7 @@ Node 20+ also works; Bun is preferred for parity with the site's build tooling.
 
 ```
 src/
-├── assets/home/   artwork for the homepage mockups and the /home-scenes rooms
+├── assets/home/   artwork for the homepage mockups and the rooms around them
 ├── components/
 │   ├── home/      homepage sections, site header, and footer
 │   ├── mock/      Silo app screens (tvOS, iPhone) rebuilt for the homepage
@@ -317,7 +317,8 @@ runtime), with Silo's blue, red, and orange as accent light. The homepage
 shows the product itself: its mockups rebuild real Silo screens from the
 tvOS and iOS app source at real device ratios, so check a label or layout
 against the files listed at the top of `src/data/home.ts` before changing it.
-`/home-scenes` is a variant that sets each screen in a photo-real room.
+The hero and the pinned TV-and-phone scene sit in painted rooms; every other
+page uses the docs' dark theme.
 
 Colors live as CSS custom properties at the top of `src/styles/marketing.css`.
 The downloadable logo originals live under `public/brand/`. The Starlight docs

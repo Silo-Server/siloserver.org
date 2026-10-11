@@ -4,14 +4,10 @@ import TvBrowse from "../mock/TvBrowse.astro";
 import TvSeries from "../mock/TvSeries.astro";
 import { seriesLibrary, seriesPages } from "../../data/home";
 
-interface Props {
-  scene?: boolean;
-}
-const { scene = false } = Astro.props;
 
 ---
 
-<section class:list={["library section", scene && "library--scene"]} aria-labelledby="library-title">
+<section class="library library--scene section" aria-labelledby="library-title">
   <div class="container library__grid">
     <div class="library__copy">
       <h2 id="library-title" class="h2 reveal-lines">
@@ -24,7 +20,7 @@ const { scene = false } = Astro.props;
       </span></p>
     </div>
     <div class="library__stage">
-      <div class="scene-anchor" data-wait-images={scene ? "" : undefined}>
+      <div class="scene-anchor" data-wait-images>
         <div class="screen screen--panel screen--bare">
           <Canvas w={1920} h={1080} label="The Series library on Apple TV, opening Severance and The Sopranos from the grid.">
             <TvBrowse tab="Series" items={seriesLibrary} sort="Date Added" direction="Newest" />

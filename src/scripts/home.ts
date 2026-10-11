@@ -16,7 +16,7 @@ requestAnimationFrame(() => {
   document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => el.classList.add("is-in"));
 });
 
-/* ---------- Scenes variant: show each room once its picture can paint ---------- */
+/* ---------- Rooms: show each room once its picture can paint ---------- */
 
 document.querySelectorAll<HTMLElement>(".room").forEach((room) => {
   const img = room.querySelector("img");
@@ -35,7 +35,7 @@ document.querySelectorAll<HTMLElement>(".room").forEach((room) => {
   else img.addEventListener("load", ready, { once: true });
 });
 
-/* ---------- Scenes variant: show a screen once its pictures can paint ---------- */
+/* ---------- Library: show the screen once its pictures can paint ---------- */
 
 // The library screen has no room to wait for, so it waits for the pictures
 // in its first view instead (not the pages it opens later). They stay lazy
@@ -105,48 +105,6 @@ function whileVisible(el: Element | null, start: () => void, stop: () => void) {
   }).observe(el);
   document.addEventListener("visibilitychange", sync);
 }
-
-/* ---------- Hero: fit the height to the screen in tall windows ---------- */
-
-// The plain hero fills the window, and its screen grows to fit the space
-// under the text. In a tall, narrow window the screen runs out of width
-// first and floats in empty space, so the hero shrinks to hold the text and
-// the screen at its full width. Phones size the hero to its content in CSS.
-const plainHero = document.querySelector<HTMLElement>(".hero:not(.hero--scene)");
-const heroIntro = plainHero?.querySelector<HTMLElement>(".hero__intro");
-const heroStage = plainHero?.querySelector<HTMLElement>(".hero__stage");
-const heroScreen = heroStage?.querySelector<HTMLElement>(".scene-anchor--hero");
-const phoneHero = matchMedia("(max-width: 560px)");
-const fitHero = () => {
-  if (!plainHero || !heroIntro || !heroStage || !heroScreen) return;
-  plainHero.style.height = "";
-  plainHero.style.paddingBottom = "";
-  plainHero.style.removeProperty("--glow-room");
-  if (phoneHero.matches) return;
-  const full = plainHero.offsetHeight;
-  // With room to spare, the screen's height is set by its width alone.
-  plainHero.style.height = "10000px";
-  const screenHeight = heroScreen.offsetHeight;
-  plainHero.style.height = "";
-  const hero = getComputedStyle(plainHero);
-  const paddingBottom = parseFloat(hero.paddingBottom);
-  const fit =
-    parseFloat(hero.paddingTop) +
-    heroIntro.offsetHeight +
-    parseFloat(getComputedStyle(heroStage).marginTop) +
-    screenHeight +
-    paddingBottom;
-  if (fit >= full) return;
-  // At full width the screen hides its blue light at the sides, so some of
-  // the spare room stays below it for the light to show before the library.
-  const glowRoom = Math.min(full - fit, screenHeight * 0.2);
-  plainHero.style.paddingBottom = `${paddingBottom + glowRoom}px`;
-  plainHero.style.setProperty("--glow-room", `${glowRoom}px`);
-  plainHero.style.height = `${Math.ceil(fit + glowRoom)}px`;
-};
-fitHero();
-addEventListener("resize", fitHero);
-document.fonts?.ready.then(fitHero);
 
 /* ---------- Hero: rotating word drives tvOS focus ---------- */
 
