@@ -151,7 +151,7 @@ button {
   margin: 0;
   font-size: clamp(40px, 5.6vw, 72px);
   font-weight: 600;
-  line-height: 1.02;
+  line-height: 1.1;
   letter-spacing: -0.022em;
 }
 .lede {
@@ -317,7 +317,7 @@ button {
   margin: 0;
   font-size: clamp(46px, 6.2vw, 88px);
   font-weight: 600;
-  line-height: 0.98;
+  line-height: 1.06;
   letter-spacing: -0.03em;
 }
 .hero__your--end {
@@ -923,7 +923,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   font-size: clamp(40px, 5.2vw, 72px);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.08;
 }
 /* The Silo mark, upright, blurred, and large enough that the section crops
    it to a few soft shapes. */
@@ -1221,7 +1221,7 @@ html:not(.js) .rotator__word:not(:first-child) {
     margin-bottom: clamp(10px, 2.1svh, 22px);
   }
   .hero__title {
-    font-size: clamp(32px, 5.85svh, 46px);
+    font-size: clamp(31px, 5.7svh, 46px);
   }
   .hero__stage,
   .hero__aside {
@@ -1229,6 +1229,8 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
   .hero__aside p {
     font-size: clamp(15px, 2.35svh, 17px);
+    /* Normal tracking keeps the copy to three lines on an iPhone SE. */
+    letter-spacing: 0;
   }
   .hero__actions {
     margin-top: clamp(14px, 3svh, 28px);
@@ -1268,7 +1270,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   font-size: clamp(44px, 6.4vw, 84px);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.08;
   letter-spacing: -0.03em;
 }
 .page-head .lede {
