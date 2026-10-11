@@ -912,9 +912,10 @@ html:not(.js) .rotator__word:not(:first-child) {
   align-items: flex-start;
   gap: clamp(28px, 3vw, 40px);
 }
+/* One line on desktop; it wraps, balanced, on narrower screens. */
 .closing__title {
   margin: 0;
-  font-size: clamp(44px, 7vw, 96px);
+  font-size: clamp(40px, 5.2vw, 72px);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 1;
