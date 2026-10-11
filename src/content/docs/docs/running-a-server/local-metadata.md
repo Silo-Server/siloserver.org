@@ -17,10 +17,18 @@ NFO files describe a movie or series from files you keep beside the media. Silo 
 
 | Item | File |
 | --- | --- |
-| Movie | `movie.nfo`, then `<media basename>.nfo` |
+| Movie | `<media basename>.nfo`, then `movie.nfo` |
 | Series | `tvshow.nfo` in the show folder |
 | Season | `season.nfo` inside the season folder |
 | Episode | `<episode basename>.nfo` beside the video |
+
+Names match in any letter case, so Silo also finds `Movie.NFO` and `TVSHOW.nfo`.
+
+The parts of a [multipart movie](/docs/media-folders#also-supported), such as `Movie-cd1.mkv` and `Movie-cd2.mkv`, can share one `Movie.nfo`. Silo reads it only when two or more parts are in the folder.
+
+`movie.nfo` and `tvshow.nfo` apply only when the folder holds a single title, as `poster.jpg` does. A `movie.nfo` in a folder of several movies applies to none of them.
+
+Silo skips NFO files over 4 MiB and symbolic links.
 
 ## Add artwork
 
@@ -53,12 +61,30 @@ After you replace an image, refresh the item. Local images don't appear in the *
 
 Your own recordings need no provider ID. For a published title, add its real ID in a `<uniqueid type="tmdb">` element so online providers can identify it.
 
+## Identify a title with a link
+
+An NFO can hold just a link to the title's page instead of XML:
+
+```text
+https://www.themoviedb.org/movie/12345-movie-name
+```
+
+| Provider | Link |
+| --- | --- |
+| TMDB | `themoviedb.org/movie/<id>` for a movie, `themoviedb.org/tv/<id>` for a series |
+| IMDb | `imdb.com/title/tt<number>`, or the ID on its own, such as `tt1234567` |
+| TVDB | a series link that includes the number, such as `thetvdb.com/?tab=series&id=12345` |
+
+Silo uses the link to identify the title and takes its details from online providers. TVDB's usual `thetvdb.com/series/<name>` links carry no number, so Silo can't use them. Silo ignores a link of the wrong kind, such as a TMDB movie link in `tvshow.nfo`.
+
+Some tools write XML with a link on the line after it. Silo reads the XML and adds the link's ID when the XML has no ID from that provider.
+
 ## What gets used
 
 | Element | Applies to | Becomes |
 | --- | --- | --- |
 | `<title>`, `<originaltitle>`, `<tagline>`, `<plot>` | movie, series | title, original title, tagline, description |
-| `<year>` | movie, series | year; taken from the release or air date when missing |
+| `<year>` | movie, series | year; taken from the release or air date when missing or not a number |
 | `<runtime>` | movie, series | runtime in minutes; a value that isn't a number is ignored |
 | `<premiered>` or `<releasedate>` | movie | release date, as `YYYY-MM-DD` |
 | `<premiered>` or `<aired>` | series | first air date, as `YYYY-MM-DD` |
@@ -66,11 +92,14 @@ Your own recordings need no provider ID. For a published title, add its real ID 
 | `<genre>`, `<studio>`, `<country>`, `<tag>`, each repeated | movie, series | genres, studios, countries, keywords |
 | `<ratings>` with `<rating name="...">` | movie, series, episode | ratings named `imdb`, `tmdb` or `themoviedb`, `tomatometerallcritics` or `rottentomatoes`, and `tomatometerallaudience` |
 | `<rating>` on its own | movie, series, episode | IMDb rating, when `<ratings>` has none |
-| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; actor photos in `<thumb>` are ignored |
+| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; actor photos in `<thumb>` and an `<order>` that isn't a number are ignored |
 | `<director>`, `<credits>` | movie, series | directors, writers |
-| `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title |
+| `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title. Other spellings such as `TheMovieDB` and `TheTVDB` work too, and a `<uniqueid>` with no type counts when it holds an IMDb ID. |
+| `<imdbid>`, `<imdb_id>`, `<tmdbid>`, `<tvdbid>`, `<id>`, and a series' `<episodeguide>` | movie, series | provider IDs, when `<uniqueid>` has none from that provider. `<id>` counts when it holds an IMDb ID or has a `TMDB`, `TVDB`, or `IMDB` attribute; a bare number in `<id>` is ignored. |
 | `<title>`, `<plot>` in `<season>` | season | season name and description |
 | `<title>`, `<plot>`, `<aired>`, `<runtime>` in `<episodedetails>` | episode | episode title, description, air date, runtime |
+
+Silo reads NFO files saved as UTF-8, UTF-16 with a byte-order mark, Windows-1252, or ISO-8859-1. HTML entities such as `&eacute;` work, and a plain `&`, as in `Salt & Pepper`, doesn't need to be written as `&amp;`.
 
 Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
 
@@ -134,6 +163,12 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 Scheduled metadata work only fills gaps, so after editing an NFO, refresh the item yourself.
 
 The NFO's root element must match the media type: `<movie>`, `<tvshow>`, `<season>`, or `<episodedetails>`. Silo may skip a broken or wrong-type file. Put one episode block in each episode's NFO.
+
+If Silo can't read an NFO, for example because of the file's permissions or a network share that isn't connected, **Refresh Metadata** shows an error and the item keeps its current values. Fix the permissions or reconnect the share, then refresh again.
+
+Silo waits to match a new item whose NFO it can't read, and tries again later. A permission problem doesn't clear on its own, so in that case Silo matches the item without its NFO. Fix the permissions, then refresh the item.
+
+When an NFO's `<uniqueid>` and a provider ID in the folder or file name, such as `{tmdb-12345}`, name different titles, Silo matches a new item to the NFO's title.
 
 Folder names and `S01E01`-style filenames decide the series structure; NFO episode numbers can't move a video to another season. Fix the [naming](/docs/media-folders#series) instead.
 
