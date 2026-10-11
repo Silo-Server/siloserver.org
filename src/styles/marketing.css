@@ -1656,21 +1656,26 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
-/* Library: no room. The screen sits on a soft red light, smaller and
-   fainter than the homepage's, and takes more of the row; the copy column
-   narrows to make room. */
+/* Library: no room. The screen sits on a soft red light in the shape of
+   the screen, takes more of the row, and on wide windows reaches into the
+   page margin; the copy column narrows to make room. */
 .library--scene .library__stage::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -18% -12%;
-  background: radial-gradient(closest-side, rgba(245, 11, 79, 0.34) 45%, transparent);
-  filter: blur(50px);
+  inset: -1% -1.5%;
+  border-radius: clamp(16px, 2vw, 28px);
+  background: rgba(245, 11, 79, 0.36);
+  filter: blur(48px);
   pointer-events: none;
 }
 @media (min-width: 901px) {
   .library--scene .library__grid {
     grid-template-columns: 1fr 1.75fr;
+    column-gap: clamp(40px, 4.5vw, 64px);
+  }
+  .library--scene .library__stage {
+    margin-right: calc(-1 * clamp(0px, (100vw - var(--container)) / 2 - var(--gutter), 120px));
   }
   /* The column never gets narrower than the title's first line. */
   .library--scene .h2 .ln:first-child {
