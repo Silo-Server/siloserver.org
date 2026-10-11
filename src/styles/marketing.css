@@ -869,15 +869,16 @@ html:not(.js) .rotator__word:not(:first-child) {
   letter-spacing: -0.045em;
   line-height: 1;
 }
-/* The Silo mark, upright and large enough that the section crops it to a
-   few of its shapes, sliding in with scroll. */
+/* The Silo mark, upright, blurred, and large enough that the section crops
+   it to a few soft shapes. */
 .closing__mark {
   position: absolute;
   right: -4%;
   top: 62%;
   height: 230%;
   width: auto;
-  transform: translate(calc((1 - var(--p, 1)) * 40%), -50%);
+  transform: translateY(-50%);
+  filter: blur(16px);
   opacity: 0.22;
   pointer-events: none;
 }
@@ -1038,9 +1039,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 @media (prefers-reduced-motion: reduce) {
   .experience__phone {
     transform: none;
-  }
-  .closing__mark {
-    transform: translateY(-50%);
   }
   *,
   *::before,
