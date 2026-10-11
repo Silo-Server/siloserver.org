@@ -16,7 +16,7 @@ Before the first library scan, open **Admin > Settings > Storage & Database** an
 
 Save and follow the restart notice. For a single host, local disk is enough.
 
-**Keep provider artwork**, under **Artwork** in **Admin > Settings > Library & Metadata**, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
+**Keep provider artwork**, under **Artwork** in **Admin > Settings > Library & Metadata**, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load provider artwork straight from the providers. Images you keep beside your media files are [copied either way](/docs/local-metadata#add-artwork).
 
 Silo records the location the first time it stores a file. From then on, a change goes through a [storage transition](#change-storage-later).
 
