@@ -1217,9 +1217,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   .hero {
     padding-top: clamp(76px, 12.6svh, 104px);
   }
-  .hero .eyebrow {
-    margin-bottom: clamp(10px, 2.1svh, 22px);
-  }
   .hero__title {
     font-size: clamp(31px, 5.7svh, 46px);
   }

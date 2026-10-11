@@ -28,13 +28,11 @@ export const episode = (slug: string, season: number, ep: number) =>
   pick(episodes, "episodes", `${slug}-s${season}e${ep}`, "jpg");
 
 export const hero = {
-  // Non-breaking spaces keep each phrase whole when the line wraps.
-  eyebrow: "Your\u00a0media. Your\u00a0server. Every\u00a0screen.",
   lead: "A home for",
   // Used when ?static is in the URL, or when reduced motion is on.
   staticWord: "movies.",
   body:
-    "Silo keeps your movies and series in one library on a server you run at home, then plays them beautifully on your TV, phone, and computer.",
+    "Silo keeps your movies and series in one library on a server you run at home, then plays them on your TV, phone, and computer.",
 };
 
 // Each rotating word moves tvOS focus along the Continue Watching row, and the
@@ -309,11 +307,11 @@ export const setup = [
 export const values = [
   {
     title: "Your data stays with you.",
-    body: "Your library, watch history, and accounts live on a server you run. There's no Silo account to sign up for, no ads, and no tracking.",
+    body: "Your library, watch history, and accounts live on a server you run. You don't need a Silo account, and there are no ads or tracking.",
   },
   {
     title: "Free and open source.",
-    body: "No subscription. The server and apps are open source under the AGPL, and Silo will stay free and open source.",
+    body: "There's no subscription. The server and apps are open source under the AGPL, and they'll stay that way.",
   },
   {
     title: "Smart features, off until you need them.",
@@ -336,11 +334,11 @@ export const faq = [
   },
   {
     q: "Is Silo free?",
-    a: "Yes. Silo is free and open source under the AGPL-3.0 license, with no subscription. You run it on your own hardware.",
+    a: "Yes. There's no subscription and no paid tier.",
   },
   {
     q: "Where can I watch?",
-    a: "On Apple TV, iPhone, iPad, Android phones and tablets, Android TV, and in any web browser. Many Jellyfin apps, including Infuse, can connect too.",
+    a: "On the Silo apps, in any web browser, and in many Jellyfin apps, including Infuse.",
   },
   {
     q: "Can everyone at home use it?",
