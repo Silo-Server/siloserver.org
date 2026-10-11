@@ -1,0 +1,1665 @@
+/* ============================================================
+   silo — marketing pages
+   Dark, cinematic, quiet. The product imagery carries the color;
+   the page stays near-black with brand light leaking around it.
+   type: Plus Jakarta Sans (the wordmark's family)
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #05070d;
+  --bg-raise: #0b0e17;
+  --bg-card: #10141f;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  --fg: #f4f5f8;
+  --fg-soft: rgba(244, 245, 248, 0.78);
+  --fg-mute: rgba(244, 245, 248, 0.56);
+  --fg-faint: rgba(244, 245, 248, 0.36);
+
+  /* Brand signal colors, from silo-branding/src/build.py */
+  --blue: #0034fb;
+  --blue-bright: #3d6bff;
+  --blue-text: #6f93ff;
+  --red: #f50b4f;
+  --orange: #fa7604;
+
+  --ff: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --container: 1200px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --section-y: clamp(96px, 14vw, 180px);
+  --radius: 14px;
+  --radius-lg: 22px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Glows run wider than the page; never let them widen it on phones. */
+  overflow-x: clip;
+  scroll-padding-top: 72px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--ff);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue-text);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+/* ---------- Type ---------- */
+
+.eyebrow {
+  margin: 0 0 22px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+}
+.h2 {
+  margin: 0;
+  font-size: clamp(40px, 5.6vw, 72px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.lede {
+  margin: 24px 0 0;
+  max-width: 30em;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
+  color: var(--fg-soft);
+}
+
+/* ---------- Buttons & links ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition:
+    background-color 0.2s,
+    transform 0.2s var(--ease-out),
+    box-shadow 0.3s;
+}
+.btn > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn--primary {
+  background: var(--blue);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 8px 30px rgba(0, 52, 251, 0.35);
+}
+.btn--primary:hover {
+  background: #1a4bff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 40px rgba(0, 52, 251, 0.5);
+}
+.btn--primary:active {
+  transform: translateY(1px);
+}
+.btn--sm {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+.btn--lg {
+  height: 58px;
+  padding: 0 28px;
+  font-size: 17px;
+  border-radius: 12px;
+}
+.btn svg {
+  transition: transform 0.25s var(--ease-out);
+}
+.btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 4px;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  transition: background-size 0.35s var(--ease-out);
+}
+.link-arrow:hover {
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-scrolled {
+  background: rgba(5, 7, 13, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-color: var(--line);
+}
+.site-header__inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.site-header__brand img {
+  height: 34px;
+  width: auto;
+}
+.site-header__nav {
+  margin-left: auto;
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-soft);
+}
+.site-header__nav a:hover {
+  color: var(--fg);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  height: max(100vh, 680px);
+  height: max(100svh, 680px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding-top: clamp(104px, 13vh, 150px);
+  padding-bottom: clamp(28px, 5vh, 56px);
+}
+.hero__glow {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 0;
+  width: min(1400px, 130vw);
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(45% 55% at 50% 30%, color-mix(in srgb, var(--tint) 45%, transparent), transparent 70%);
+  filter: blur(40px);
+  transition: background 1.2s;
+  pointer-events: none;
+}
+.hero__intro {
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 380px);
+  column-gap: 48px;
+  row-gap: 32px;
+  align-items: end;
+}
+.hero__aside {
+  padding-bottom: 0.6em;
+}
+.hero__title {
+  margin: 0;
+  font-size: clamp(46px, 6.2vw, 88px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+.hero__your--end {
+  display: none;
+}
+@media (max-width: 560px) {
+  .hero__your--end {
+    display: inline;
+  }
+  .hero__your--start {
+    display: none;
+  }
+}
+.hero__aside p {
+  margin: 0;
+  font-size: clamp(17px, 1.45vw, 20px);
+  line-height: 1.5;
+  color: var(--fg-soft);
+  max-width: 27em;
+}
+.hero__actions {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.rotator {
+  position: relative;
+  display: inline-grid;
+  vertical-align: bottom;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  transition: width 0.7s var(--ease-out);
+}
+.rotator__word {
+  grid-area: 1 / 1;
+  justify-self: start;
+  /* Room for descenders: background-clip: text only paints inside the box. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  white-space: nowrap;
+  background: linear-gradient(100deg, #5b82ff 0%, #8aa6ff 45%, #b9c8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateY(120%);
+}
+.rotator__word.is-on {
+  transform: none;
+}
+.js .rotator.is-cycling .rotator__word.is-on {
+  animation: word-in 0.75s var(--ease-out) both;
+}
+.js .rotator.is-cycling .rotator__word.is-out {
+  animation: word-out 0.75s var(--ease-out) both;
+}
+@keyframes word-in {
+  from {
+    transform: translateY(120%);
+  }
+}
+@keyframes word-out {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(-120%);
+  }
+}
+.rotator.is-static {
+  width: auto !important;
+}
+.rotator.is-static .rotator__word:not(.is-on) {
+  display: none;
+}
+html:not(.js) .rotator__word:not(:first-child) {
+  display: none;
+}
+
+.hero__stage {
+  --bz: clamp(3px, 0.32vw, 5px);
+  position: relative;
+  container-type: size;
+  min-height: 0;
+  margin-top: clamp(28px, 5vh, 56px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1800px;
+}
+/* Brand light around the TV: the mark's blue, with red and orange at the edges. */
+.hero__stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 4% 6% -6%;
+  background:
+    radial-gradient(40% 60% at 50% 55%, rgba(0, 52, 251, 0.7), transparent 75%),
+    radial-gradient(30% 45% at 12% 75%, rgba(245, 11, 79, 0.35), transparent 75%),
+    radial-gradient(30% 45% at 90% 70%, rgba(250, 118, 4, 0.3), transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+/* A current flat-panel TV: near-square corners, a thin black bezel, and a
+   hairline aluminium edge that catches light along the top. */
+.screen {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: var(--bz, clamp(3px, 0.32vw, 5px));
+  background:
+    linear-gradient(#060607, #060607) padding-box,
+    linear-gradient(180deg, #74777d, #2c2e32 14%, #17181b 55%, #26282c 92%, #45474c) border-box;
+  box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.9);
+}
+.screen .canvas {
+  border-radius: 1px;
+}
+.scene-anchor--hero {
+  width: min(1240px, 100cqw - 2 * var(--gutter), (100cqh - 2 * var(--bz)) * 1.7778 + 2 * var(--bz));
+}
+.screen--hero {
+  padding: var(--bz);
+}
+/* On the homepage the hero is the picture itself: the screen's content with
+   rounded corners and no TV around it. The scenes variant keeps the TV. */
+.hero:not(.hero--scene) .hero__stage {
+  --bz: 0px;
+}
+.screen--bare {
+  border: 0;
+  border-radius: clamp(10px, 1.1vw, 16px);
+  overflow: hidden;
+  background: none;
+}
+.screen--bare .canvas {
+  border-radius: inherit;
+}
+.screen--bare {
+  padding: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The screen and, in the scenes variant, its room fade in together. A
+     keyframe animation keeps them in step: it starts when each is first
+     drawn, which a class-triggered transition can miss. */
+  .js .screen--hero {
+    animation: hero-fade 1.4s var(--ease-out) 0.35s both;
+  }
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  padding-block: var(--section-y);
+}
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* A regular section, sized by its content (the standard section padding),
+   not a full-screen scene. */
+.library {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border-top: 1px solid var(--line);
+}
+.library::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -10%;
+  top: 10%;
+  width: 75%;
+  height: 85%;
+  background:
+    radial-gradient(45% 50% at 55% 50%, rgba(245, 11, 79, 0.45), transparent 75%),
+    radial-gradient(35% 40% at 85% 85%, rgba(250, 118, 4, 0.28), transparent 75%),
+    radial-gradient(35% 40% at 20% 15%, rgba(0, 52, 251, 0.3), transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.library .h2 {
+  font-size: clamp(36px, 4.2vw, 58px);
+}
+.library__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
+.library__stage {
+  position: relative;
+}
+.screen--panel {
+  box-shadow:
+    0 50px 120px -30px rgba(0, 0, 0, 0.9),
+    0 0 80px -10px rgba(245, 11, 79, 0.25);
+}
+
+/* Experience: pinned scene */
+.experience {
+  border-top: 1px solid var(--line);
+}
+.experience__pin {
+  isolation: isolate;
+}
+.experience__pin::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 20% 0 10%;
+  background:
+    radial-gradient(35% 45% at 40% 55%, rgba(250, 118, 4, 0.32), transparent 75%),
+    radial-gradient(25% 40% at 78% 60%, rgba(245, 11, 79, 0.32), transparent 75%),
+    radial-gradient(30% 40% at 15% 35%, rgba(0, 52, 251, 0.25), transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.experience__track {
+  height: 440vh;
+  position: relative;
+}
+.experience__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(20px, 3vh, 40px);
+  padding-top: 72px;
+  overflow: hidden;
+}
+.experience__head .h2 {
+  font-size: clamp(36px, 4.6vw, 60px);
+}
+.experience__stage {
+  position: relative;
+  width: min(100% - 2 * var(--gutter), 1120px);
+  margin-inline: auto;
+  /* Fit the TV + steps into one screen height. */
+  max-width: calc((100svh - 380px) * 1.778 * 1.05);
+}
+.tvset {
+  width: 86%;
+}
+.tv-playing {
+  opacity: 0;
+  transition: opacity 0.9s;
+}
+.tv-playing.is-on {
+  opacity: 1;
+}
+.experience__phone {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: -4%;
+  width: 22%;
+  transition: transform 1.1s var(--ease-in-out);
+}
+/* Step 4: the phone turns and moves to centre stage. home.ts measures the
+   move (--lx, --ly) and scale (--ls) from the layout. */
+.experience__phone.is-landscape {
+  transform: translate(var(--lx, 0px), var(--ly, 0px)) rotate(-90deg) scale(var(--ls, 1));
+}
+/* Step 3: the TV is the show. The phone, still a remote, steps back and
+   dims, and the TV's light comes up. */
+.experience__phone {
+  transition:
+    transform 1.1s var(--ease-in-out),
+    opacity 0.8s var(--ease-in-out);
+}
+.experience__phone.is-aside {
+  transform: translate(14%, 10%) scale(0.8);
+  opacity: 0.5;
+}
+.experience__pin::before {
+  transition:
+    opacity 0.9s var(--ease-in-out),
+    filter 0.9s var(--ease-in-out);
+}
+.experience__pin:has(.experience__phone.is-aside)::before {
+  filter: blur(60px) brightness(1.35);
+}
+/* Step 4: the TV turns off (the picture goes first), then the set fades away
+   so the phone, turning to landscape, has the stage to itself. */
+.tvset {
+  transition: opacity 0.8s var(--ease-in-out);
+}
+.tvset .screen .canvas {
+  transition: opacity 0.5s var(--ease-in-out);
+}
+.tvset.is-off .screen .canvas {
+  opacity: 0;
+}
+.tvset.is-off {
+  opacity: 0;
+  transition-delay: 0.45s;
+}
+.experience__pin:has(.tvset.is-off)::before {
+  opacity: 0.35;
+}
+.experience__steps {
+  list-style: none;
+  padding: 0;
+  margin-block: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+/* Inactive steps stay readable (they're click targets); only the title
+   dims, and the bar shows which step is current. */
+.experience__step h3 {
+  color: var(--fg-mute);
+  transition: color 0.4s;
+}
+.experience__step.is-on h3 {
+  color: var(--fg);
+}
+/* Each step is a target: clicking it scrolls the scene to that step. The
+   title is the button, for keyboards and screen readers. */
+.js .experience__step {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.js .experience__step:not(.is-on):hover h3 {
+  color: var(--fg-soft);
+}
+.experience__goto {
+  all: unset;
+  cursor: inherit;
+}
+.experience__goto:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.experience__step.is-on {
+  opacity: 1;
+}
+.experience__bar {
+  display: block;
+  height: 2px;
+  background: var(--line-strong);
+  margin-bottom: 18px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.experience__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform-origin: left;
+  transform: scaleX(var(--fill, 0));
+}
+.experience__step h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.experience__step p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--fg-mute);
+  line-height: 1.5;
+}
+.experience__notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 48px;
+  align-items: end;
+  padding-block: 56px var(--section-y);
+  border-top: 1px solid var(--line);
+}
+.experience__notes h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.experience__notes p {
+  margin: 0;
+  color: var(--fg-mute);
+  font-size: 15px;
+}
+
+/* Setup */
+.setup {
+  position: relative;
+  isolation: isolate;
+  border-top: 1px solid var(--line);
+}
+.setup::before,
+.faq::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -10%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(40% 45% at 30% 40%, rgba(0, 52, 251, 0.18), transparent 75%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+.faq::before {
+  left: auto;
+  right: -10%;
+  background: radial-gradient(40% 45% at 70% 50%, rgba(245, 11, 79, 0.13), transparent 75%);
+}
+.setup__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+/* Three steps side by side, each topped with one of the mark's colours. */
+.setup__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.4vw, 32px);
+}
+.setup__item {
+  --step: #5b82ff;
+  position: relative;
+  padding: 28px 28px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+  isolation: isolate;
+}
+.setup__item::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--step);
+}
+.setup__item::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40% -20% auto;
+  height: 80%;
+  background: radial-gradient(50% 50% at 30% 50%, color-mix(in srgb, var(--step) 22%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.setup__item--1 {
+  --step: #ff4d7d;
+}
+.setup__item--2 {
+  --step: #ff9a3d;
+}
+.setup__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  color: var(--step);
+  background: color-mix(in srgb, var(--step) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--step) 30%, transparent);
+}
+.setup__num {
+  display: block;
+  margin-top: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--step);
+}
+.setup__item h3 {
+  margin: 6px 0 8px;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.setup__item p {
+  margin: 0;
+  color: var(--fg-mute);
+}
+@media (max-width: 900px) {
+  .setup__list {
+    grid-template-columns: 1fr;
+  }
+  .setup__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+/* FAQ */
+.faq {
+  position: relative;
+  isolation: isolate;
+  border-top: 1px solid var(--line);
+}
+.faq.section {
+  padding-bottom: clamp(64px, 8vw, 112px);
+}
+.faq__item {
+  border-bottom: 1px solid var(--line);
+  interpolate-size: allow-keywords;
+}
+.faq__item:first-child {
+  border-top: 1px solid var(--line);
+}
+.faq__item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  font-size: 19px;
+  font-weight: 500;
+}
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+.faq__icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease-out);
+}
+.faq__icon::after {
+  transform: rotate(90deg);
+}
+.faq__item[open] .faq__icon::after {
+  transform: rotate(0deg);
+}
+.faq__item p {
+  margin: 0;
+  padding: 0 48px 26px 0;
+  color: var(--fg-soft);
+  max-width: 40em;
+}
+.faq__item::details-content {
+  height: 0;
+  overflow: clip;
+  transition:
+    height 0.45s var(--ease-out),
+    content-visibility 0.45s allow-discrete;
+}
+.faq__item[open]::details-content {
+  height: auto;
+}
+
+/* Closing */
+.closing {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  padding-block: clamp(96px, 12vw, 160px);
+}
+.closing__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.closing__title {
+  margin: 0;
+  font-size: clamp(44px, 7vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+.closing::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(35% 60% at 80% 50%, rgba(0, 52, 251, 0.35), transparent 75%),
+    radial-gradient(25% 50% at 95% 80%, rgba(250, 118, 4, 0.25), transparent 75%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+/* The mark's three bars at the logo's 30° angle, sliding in with scroll. */
+.closing__bars {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  gap: 18%;
+  transform: translate(calc((1 - var(--p, 1)) * 60%), -50%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.closing__bars span {
+  display: block;
+  aspect-ratio: 266 / 151.5;
+  width: 60%;
+  border-radius: 14px;
+  transform: skewY(-30deg);
+  filter: blur(1px);
+}
+.closing__bars span:nth-child(1) { background: var(--blue); margin-left: 0; }
+.closing__bars span:nth-child(2) { background: var(--red); margin-left: 14%; }
+.closing__bars span:nth-child(3) { background: var(--orange); margin-left: 28%; }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 48px 0 40px;
+}
+.site-footer__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--fg-mute);
+  font-size: 14px;
+}
+.site-footer__brand img {
+  height: 40px;
+  width: auto;
+}
+.site-footer__nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, auto));
+  gap: 32px 64px;
+  font-size: 14px;
+  color: var(--fg-soft);
+}
+.site-footer__group h2 {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.site-footer__group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+@media (max-width: 560px) {
+  .site-footer__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+    width: 100%;
+  }
+}
+.site-footer__nav a:hover {
+  color: var(--fg);
+}
+.site-footer__legal {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--fg-mute);
+}
+.site-footer__legal p {
+  margin: 0;
+}
+
+/* ---------- Reveal motion ---------- */
+/* Lines rise out of a mask; blocks fade up. Only hidden once JS is ready to
+   reveal them, and never under reduced motion. */
+
+.ln {
+  display: block;
+  text-wrap: balance;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.ln > span {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  .js .reveal-lines .ln > span,
+  .js .hero__title .ln > span {
+    transform: translateY(110%);
+    transition: transform 1s var(--ease-out);
+  }
+  .js .reveal-lines .ln:nth-child(2) > span,
+  .js .hero__title .ln:nth-child(2) > span {
+    transition-delay: 0.08s;
+  }
+  .js .reveal-lines.is-in .ln > span,
+  .js .hero.is-loaded .hero__title .ln > span {
+    transform: none;
+  }
+
+  .js .rise {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s var(--ease-out),
+      transform 0.9s var(--ease-out);
+    transition-delay: 0.12s;
+  }
+  .js .rise.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js [data-reveal-group] > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.8s var(--ease-out),
+      transform 0.8s var(--ease-out);
+  }
+  .js [data-reveal-group].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+  .js [data-reveal-group].is-in > :nth-child(2) { transition-delay: 0.08s; }
+  .js [data-reveal-group].is-in > :nth-child(3) { transition-delay: 0.16s; }
+  .js [data-reveal-group].is-in > :nth-child(4) { transition-delay: 0.24s; }
+
+  .js .tv-progress > span,
+  .js .ios-progress > span {
+    animation: fill-in 1.4s var(--ease-out) both 0.4s;
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fill-in {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience__phone,
+  .closing__bars {
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .hero__intro,
+  .library__grid,
+  .split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .site-header__nav a:not(:first-child) {
+    display: none;
+  }
+  .experience__steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .experience__step {
+    display: none;
+  }
+  .experience__step.is-on {
+    display: block;
+  }
+  .experience__stage {
+    max-width: none;
+  }
+  .tvset {
+    width: 100%;
+  }
+  .experience__phone {
+    width: 30%;
+    right: -2%;
+    bottom: -30%;
+  }
+  .experience__notes {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .experience__pin {
+    justify-content: flex-start;
+    padding-top: 100px;
+    gap: 28px;
+  }
+  .experience__steps {
+    margin-top: 18vw;
+  }
+}
+@media (min-width: 561px) and (max-width: 900px) {
+  /* Tablet: centre the pinned scene instead of leaving space below it. */
+  .experience__pin {
+    justify-content: center;
+    padding-top: 72px;
+  }
+}
+@media (max-width: 560px) {
+  .site-header__inner {
+    gap: 20px;
+  }
+  /* Hero: the content sets the height, so the TV follows the buttons
+     instead of floating at the bottom of a full-height screen. */
+  .hero {
+    height: auto;
+    padding-bottom: 56px;
+  }
+  .hero__stage {
+    container-type: normal;
+    margin-top: 44px;
+  }
+  .scene-anchor--hero,
+  .hero--scene .scene-anchor--hero {
+    width: calc(100% - 2 * var(--gutter));
+  }
+  /* Experience: the TV runs edge to edge and the phone sits below its
+     corner, larger, so both stay legible. */
+  .experience__stage {
+    width: 100vw;
+  }
+  .experience__phone {
+    width: 32%;
+    right: 5%;
+    bottom: -74%;
+  }
+  .experience__steps {
+    margin-top: 46vw;
+  }
+}
+@media (max-width: 560px) and (max-height: 760px) {
+  /* Short phones: a smaller headline and phone so the step text still fits
+     under the pinned scene. */
+  .experience__pin {
+    padding-top: 76px;
+    gap: 14px;
+  }
+  .experience__head .h2 {
+    font-size: 32px;
+  }
+  .experience__phone {
+    width: 26%;
+    bottom: -54%;
+  }
+  .experience__steps {
+    margin-top: 31vw;
+  }
+}
+
+/* ---------- Inner marketing pages ---------- */
+
+.page {
+  position: relative;
+  isolation: isolate;
+  padding-top: 72px;
+}
+.page::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -160px;
+  width: min(1400px, 140vw);
+  height: 760px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(40% 50% at 30% 40%, var(--glow-a), transparent 75%),
+    radial-gradient(30% 40% at 75% 30%, var(--glow-b), transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.page--blue {
+  --glow-a: rgba(0, 52, 251, 0.42);
+  --glow-b: rgba(245, 11, 79, 0.2);
+}
+.page--red {
+  --glow-a: rgba(245, 11, 79, 0.32);
+  --glow-b: rgba(250, 118, 4, 0.2);
+}
+.page--orange {
+  --glow-a: rgba(250, 118, 4, 0.3);
+  --glow-b: rgba(0, 52, 251, 0.22);
+}
+.page-head {
+  padding-block: clamp(72px, 10vw, 128px) clamp(48px, 6vw, 72px);
+}
+.page-head .eyebrow {
+  margin-bottom: 18px;
+}
+.page-title {
+  margin: 0;
+  font-size: clamp(44px, 6.4vw, 84px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.page-head .lede {
+  margin-top: 22px;
+}
+
+/* Long-form text (policies and other reading pages). */
+.prose {
+  max-width: 720px;
+  padding-bottom: var(--section-y);
+  color: var(--fg-soft);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.prose h2 {
+  margin: 56px 0 14px;
+  color: var(--fg);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.prose h3 {
+  margin: 32px 0 10px;
+  color: var(--fg);
+  font-size: 18px;
+  font-weight: 600;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 16px;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+.prose li + li {
+  margin-top: 6px;
+}
+.prose a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.prose a:hover {
+  text-decoration-color: currentColor;
+}
+.prose strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--fg);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 24px;
+  font-size: 15px;
+}
+.prose th,
+.prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.prose th {
+  color: var(--fg);
+  font-weight: 600;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 48px 0;
+}
+
+/* ---------- Download ---------- */
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--fg);
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.dl-apps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-bottom: var(--section-y);
+}
+.dl-app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+}
+.dl-app::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto auto;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(closest-side, var(--accent), transparent);
+  opacity: 0.35;
+  filter: blur(30px);
+  pointer-events: none;
+}
+.dl-app--apple { --accent: var(--blue); }
+.dl-app--android { --accent: var(--red); }
+.dl-app--web { --accent: var(--orange); }
+.dl-app__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dl-app__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.dl-app__status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--fg-soft);
+}
+.dl-app__devices {
+  margin: 28px 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.dl-app__name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.dl-app__body {
+  margin: 12px 0 0;
+  color: var(--fg-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.dl-app__links {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.dl-app__links .btn {
+  height: 42px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+.dl-app__note {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+.dl-app--web .dl-app__body {
+  margin-bottom: auto;
+}
+.dl-server {
+  position: relative;
+  isolation: isolate;
+  border-top: 1px solid var(--line);
+}
+.dl-server::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 40% 0 -10%;
+  background: radial-gradient(40% 45% at 40% 45%, rgba(0, 52, 251, 0.22), transparent 75%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+.dl-needs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dl-needs li {
+  position: relative;
+  padding: 18px 0 18px 32px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-soft);
+}
+.dl-needs li:first-child {
+  padding-top: 6px;
+}
+.dl-needs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  transform: skewY(-30deg);
+  background: var(--blue);
+}
+.dl-needs li:first-child::before {
+  top: calc(50% - 12px);
+}
+.dl-needs li:nth-child(2)::before { background: var(--red); }
+.dl-needs li:nth-child(3)::before { background: var(--orange); }
+.dl-needs li:nth-child(4)::before { background: var(--fg-mute); }
+.dl-footnote {
+  margin: 20px 0 0;
+  font-size: 14px;
+  color: var(--fg-mute);
+}
+.dl-server__actions {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+@media (max-width: 960px) {
+  .dl-apps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Scenes variant (/home-scenes) ---------- */
+/* Each main section sets its device in a silhouetted room lit by one brand
+   color. The illustration is three screen-widths wide with the screen in the
+   middle third, so it is positioned in units of the anchor's width. */
+
+.scene-anchor {
+  position: relative;
+}
+.room {
+  position: absolute;
+  z-index: -1;
+  left: -100%;
+  top: 0;
+  width: 300%;
+  height: auto;
+  aspect-ratio: 3000 / 1700;
+  margin-top: -50%;
+  max-width: none;
+  color: var(--scene);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
+}
+/* Film grain over the room. It dithers the dark gradients at screen
+   resolution, whichever image size the browser picked, and the room's mask
+   fades it out with the picture. */
+.room::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+  pointer-events: none;
+}
+/* A room stays hidden until its picture has decoded (home.ts adds
+   .is-ready), so the grain never shows on its own. It then fades in; in the
+   hero, the screen's fade waits for it so the two arrive together. An
+   animation, unlike a transition, also runs when the picture was cached and
+   is ready before first paint. */
+.js .room {
+  opacity: 0;
+}
+.js .room.is-ready {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .room.is-ready {
+    animation: hero-fade 1.4s var(--ease-out) backwards;
+  }
+  .js .hero--scene .room.is-ready {
+    animation-delay: 0.35s;
+  }
+  .js .hero--scene:not(:has(.room.is-ready)) .screen--hero {
+    opacity: 0;
+    animation: none;
+  }
+}
+:is(.hero--scene, .library--scene, .experience--scene) .room > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 30 / 17;
+}
+/* The room supplies the scene's light. */
+.hero--scene .hero__glow {
+  display: none;
+}
+.hero--scene .scene-anchor,
+.library--scene .scene-anchor,
+.experience--scene .scene-anchor {
+  isolation: isolate;
+}
+.hero--scene {
+  --scene: #2f5bff;
+  overflow: clip;
+}
+.library--scene {
+  --scene: #f50b4f;
+}
+.experience--scene {
+  --scene: #fa7604;
+}
+
+/* The room's own TV is the frame: the live picture sits in its screen, so
+   the CSS bezel, edge and shadow give way to the painting. */
+:is(.hero--scene, .library--scene, .experience--scene) .screen {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+
+/* Text stays above the rooms. */
+.hero--scene .hero__intro,
+.library--scene .library__copy,
+.experience--scene .experience__head,
+.experience--scene .experience__steps {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero: a smaller TV, set on its console, with room for the floor below. */
+.hero--scene .hero__stage {
+  align-items: flex-start;
+}
+.hero--scene .scene-anchor--hero {
+  width: min(1120px, 100cqw - 2 * var(--gutter), ((100cqh - 2 * var(--bz)) * 1.7778 + 2 * var(--bz)) * 0.8);
+}
+/* The room carries its own light, so no glow sits under it. */
+.hero--scene .hero__stage::before {
+  content: none;
+}
+
+/* Library: the room fades out under the copy column. */
+.library--scene .room {
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 8%, #000 30%),
+    radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 8%, #000 30%),
+    radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
+  mask-composite: intersect;
+}
+/* The section is shorter than the room: fade the room into the page at the
+   section's top and bottom edges instead of cutting it off. */
+.library--scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--bg), transparent 90px),
+    linear-gradient(transparent calc(100% - 150px), var(--bg));
+  pointer-events: none;
+}
+.library--scene::before {
+  background: radial-gradient(45% 50% at 55% 50%, rgba(245, 11, 79, 0.35), transparent 75%);
+}
+/* The den's tower speakers stand just outside the TV (about 0.18 of its width
+   to the left and right). A slightly smaller TV, nudged right, keeps both in
+   view and the left one clear of the copy. */
+@media (min-width: 901px) {
+  .library--scene .scene-anchor {
+    width: 82%;
+    margin-left: 6%;
+  }
+}
+/* Extra space above and below lets the room breathe and sets the section
+   apart from its neighbours: halfway between the section padding plus 100px
+   and half the window height. */
+@media (min-width: 561px) {
+  .library--scene {
+    padding-block: calc(var(--section-y) / 2 + 50px + 25svh);
+  }
+}
+
+/* Experience: the room around the TV; it dims when the TV turns off. */
+.experience--scene .experience__pin::before {
+  background: radial-gradient(40% 50% at 45% 55%, rgba(250, 118, 4, 0.3), transparent 75%);
+}
+/* In the room, only the TV goes: the room stays, lit by the lamp. */
+.experience--scene .tvset.is-off {
+  opacity: 1;
+}
+.experience--scene .tvset.is-off .room {
+  opacity: 0.35;
+}
+.experience--scene .room {
+  transition: opacity 0.9s var(--ease-in-out);
+  -webkit-mask-image: radial-gradient(ellipse 50% 44% at 50% 44%, #000 50%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 44% at 50% 44%, #000 50%, transparent 100%);
+}

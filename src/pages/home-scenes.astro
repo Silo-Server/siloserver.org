@@ -1,0 +1,30 @@
+---
+// Design variant of the homepage: the three main sections set in
+// silhouetted home settings. Not linked from the site; noindex.
+import Marketing from "../layouts/Marketing.astro";
+import SiteHeader from "../components/home/SiteHeader.astro";
+import Hero from "../components/home/Hero.astro";
+import Library from "../components/home/Library.astro";
+import Experience from "../components/home/Experience.astro";
+import Setup from "../components/home/Setup.astro";
+import Faq from "../components/home/Faq.astro";
+import Closing from "../components/home/Closing.astro";
+import SiteFooter from "../components/home/SiteFooter.astro";
+---
+
+<Marketing title="Home (scenes variant)" noindex>
+  <SiteHeader />
+  <main id="main">
+    <Hero scene />
+    <Library scene />
+    <Experience scene />
+    <Setup />
+    <Faq />
+    <Closing />
+  </main>
+  <SiteFooter />
+</Marketing>
+
+<script>
+  import "../scripts/home";
+</script>
