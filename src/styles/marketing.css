@@ -643,12 +643,11 @@ html:not(.js) .rotator__word:not(:first-child) {
   line-height: 1.5;
 }
 /* Values: what Silo stands for, as four ruled points beside the heading.
-   The band is a step lighter than the page, so the last sections alternate
-   tone rather than running on as one black. */
+   Values and setup share one ground a step lighter than the page. It fades
+   in at the top of values and back out at the foot of setup, so the last
+   sections don't run on as one flat black. */
 .values {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: var(--bg-raise);
+  background: linear-gradient(180deg, var(--bg) 0, var(--bg-raise) 240px);
 }
 .values__list {
   list-style: none;
@@ -679,22 +678,7 @@ html:not(.js) .rotator__word:not(:first-child) {
 .setup {
   position: relative;
   isolation: isolate;
-}
-/* A faint drafting grid behind the steps, after the mark's construction
-   drawing, fading out toward the edges. */
-.setup::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: center;
-  -webkit-mask-image: radial-gradient(75% 80% at 50% 60%, #000 30%, transparent);
-  mask-image: radial-gradient(75% 80% at 50% 60%, #000 30%, transparent);
-  pointer-events: none;
+  background: linear-gradient(180deg, var(--bg-raise) calc(100% - 280px), var(--bg) 100%);
 }
 .setup__head {
   display: flex;
@@ -717,8 +701,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   position: relative;
   padding: 28px 28px 32px;
   border-radius: var(--radius-lg);
-  /* Solid underneath, so the section's grid doesn't show through. */
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)), var(--bg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), var(--bg-raise);
   box-shadow: inset 0 0 0 1px var(--line);
   overflow: hidden;
   isolation: isolate;
@@ -800,7 +783,6 @@ html:not(.js) .rotator__word:not(:first-child) {
 .faq {
   position: relative;
   isolation: isolate;
-  border-top: 1px solid var(--line);
 }
 .faq.section {
   padding-bottom: clamp(64px, 8vw, 112px);
@@ -874,6 +856,15 @@ html:not(.js) .rotator__word:not(:first-child) {
   overflow: hidden;
   border-top: 1px solid var(--line);
   padding-block: clamp(96px, 12vw, 160px);
+}
+/* The mark fades into the page at the section's top and bottom instead of
+   stopping at a hard edge. Masking the mark itself would clip its blur. */
+.closing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--bg) 0, transparent 35%, transparent 65%, var(--bg) 100%);
 }
 /* Title, then the button below it, both clear of the mark on the right. */
 .closing__inner {
