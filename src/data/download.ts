@@ -58,7 +58,7 @@ export const server = {
     "A Linux host, x86-64 or arm64, that can run Docker and Docker Compose",
     "A folder of movies or series the host can read",
     "Disk space for the database, artwork, and temporary transcodes",
-    "Internet access for posters, descriptions, and cast",
+    "Internet access for posters, descriptions, and cast, unless you keep your own artwork and NFO files",
   ],
   footnote: "No graphics card required to start. Silo is in prerelease and updates often.",
   guide: "/docs/install",
