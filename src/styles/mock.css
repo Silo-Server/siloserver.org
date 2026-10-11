@@ -442,6 +442,47 @@
   color: #fff;
 }
 
+/* Opening a title from the grid: the pressed poster dips, then the detail
+   page fades in over the grid; Back reverses it. */
+.tvb__cell.is-pressed .tv-poster {
+  transform: scale(1.04) translateY(-2px);
+  transition-duration: 0.15s;
+}
+.tvb {
+  transition: opacity 0.45s, transform 0.5s var(--ease-out, ease);
+}
+.tvb.is-covered {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.tv-push {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.45s, transform 0.5s var(--ease-out, ease);
+}
+.tv-push.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.tvb__rail {
+  position: absolute;
+  right: 34px;
+  top: 262px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.45);
+}
+.tvb__rail .is-on {
+  color: #ededed;
+}
+
 /* ---------- Apple TV: series detail ---------- */
 
 .tvs {
