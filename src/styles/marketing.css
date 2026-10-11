@@ -491,6 +491,14 @@ html:not(.js) .rotator__word:not(:first-child) {
   isolation: isolate;
   overflow: clip;
 }
+/* A little more room above, where the hero's screen ends, and a little less
+   below, before the next section's heading. */
+@media (min-width: 901px) {
+  .library {
+    padding-top: calc(var(--section-y) + 40px);
+    padding-bottom: calc(var(--section-y) - 40px);
+  }
+}
 /* Two lines, "Your collection," and "beautifully organized.", set a little
    smaller than the other section titles. */
 .library .h2 {
