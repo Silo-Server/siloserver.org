@@ -642,9 +642,13 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg-mute);
   line-height: 1.5;
 }
-/* Values: what Silo stands for, as four ruled points beside the heading. */
+/* Values: what Silo stands for, as four ruled points beside the heading.
+   The band is a step lighter than the page, so the last sections alternate
+   tone rather than running on as one black. */
 .values {
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raise);
 }
 .values__list {
   list-style: none;
@@ -675,7 +679,22 @@ html:not(.js) .rotator__word:not(:first-child) {
 .setup {
   position: relative;
   isolation: isolate;
-  border-top: 1px solid var(--line);
+}
+/* A faint drafting grid behind the steps, after the mark's construction
+   drawing, fading out toward the edges. */
+.setup::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(75% 80% at 50% 60%, #000 30%, transparent);
+  mask-image: radial-gradient(75% 80% at 50% 60%, #000 30%, transparent);
+  pointer-events: none;
 }
 .setup__head {
   display: flex;
