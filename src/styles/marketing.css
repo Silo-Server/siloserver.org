@@ -152,7 +152,7 @@ button {
   font-size: clamp(40px, 5.6vw, 72px);
   font-weight: 600;
   line-height: 1.1;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.01em;
 }
 .lede {
   margin: 24px 0 0;
@@ -492,10 +492,9 @@ html:not(.js) .rotator__word:not(:first-child) {
   overflow: clip;
 }
 /* Two lines, "Your collection," and "beautifully organized.", set a little
-   smaller and looser than the other section titles. */
+   smaller than the other section titles. */
 .library .h2 {
   font-size: clamp(32px, 3.05vw, 44px);
-  letter-spacing: -0.01em;
 }
 @media (min-width: 901px) {
   .library .h2 .ln {
