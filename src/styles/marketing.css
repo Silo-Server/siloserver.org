@@ -1219,6 +1219,51 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
+/* Very short phones (an iPhone SE in Safari is about 553px tall): a smaller
+   headline and TV, so the pinned scene's step text still fits on screen. */
+@media (max-width: 560px) and (max-height: 620px) {
+  .experience__pin {
+    padding-top: 70px;
+    gap: 10px;
+  }
+  .experience__head .h2 {
+    font-size: 28px;
+  }
+  .experience__stage {
+    width: 82vw;
+  }
+  .experience__phone {
+    width: 27%;
+    bottom: -46%;
+  }
+  .experience__steps {
+    margin-top: 23vw;
+  }
+}
+/* Short windows wider than a phone: the TV is sized by the window's height,
+   and the phone sits over its corner rather than below it, so the headline
+   and step text both stay in view. */
+@media (min-width: 561px) and (max-width: 900px) and (max-height: 760px) {
+  .experience__pin {
+    padding-top: 72px;
+    gap: 14px;
+  }
+  .experience__head .h2 {
+    font-size: clamp(28px, 5.4svh, 36px);
+  }
+  .experience__stage {
+    max-width: calc((100svh - 330px) * 1.778);
+  }
+  .experience__phone {
+    width: 24%;
+    right: -1%;
+    bottom: -5%;
+  }
+  .experience__steps {
+    margin-top: 14px;
+  }
+}
+
 /* ---------- Inner marketing pages ---------- */
 
 .page {
