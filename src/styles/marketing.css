@@ -1554,7 +1554,8 @@ html:not(.js) .rotator__word:not(:first-child) {
 }
 /* A room stays hidden until its picture has decoded (home.ts adds
    .is-ready), so the grain never shows on its own, and its screen waits with
-   it: a screen never shows without its room. The two then fade in together.
+   it: a screen never shows without its room, and nor does the phone beside
+   the experience TV. They then fade in together.
    An animation, unlike a transition, also runs when the picture was cached
    and is ready before first paint. */
 .js .room {
@@ -1563,12 +1564,14 @@ html:not(.js) .rotator__word:not(:first-child) {
 .js .room.is-ready {
   opacity: 1;
 }
-.js .scene-anchor:has(> .room:not(.is-ready)) > .screen {
+.js .scene-anchor:has(> .room:not(.is-ready)) > .screen,
+.js .experience__stage:has(.room:not(.is-ready)) > .experience__phone {
   opacity: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .room.is-ready,
-  .js .scene-anchor:has(> .room.is-ready) > .screen {
+  .js .scene-anchor:has(> .room.is-ready) > .screen,
+  .js .experience__stage:has(.room.is-ready) > .experience__phone {
     animation: hero-fade 1.4s var(--ease-out) backwards;
   }
   .js .hero--scene .room.is-ready,
