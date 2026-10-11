@@ -717,7 +717,8 @@ html:not(.js) .rotator__word:not(:first-child) {
   position: relative;
   padding: 28px 28px 32px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  /* Solid underneath, so the section's grid doesn't show through. */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)), var(--bg);
   box-shadow: inset 0 0 0 1px var(--line);
   overflow: hidden;
   isolation: isolate;
