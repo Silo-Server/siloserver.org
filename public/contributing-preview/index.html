@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#05070d">
+<meta name="theme-color" content="#101820">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="/web-app-icon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -14,17 +14,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <style>
   html{overflow-x:clip}
-  /* ---- Silo marketing shell (mirrors src/styles/marketing.css) ---- */
+  /* ---- Silo marketing shell (mirrors src/styles/marketing.css) ----
+     Surfaces and text follow the docs' dark theme (src/styles/docs.css),
+     like every page but the homepage. */
   :root{
     color-scheme:dark;
-    --bg:#05070d; --bg-raise:#0b0e17; --bg-card:#10141f;
-    --line:rgba(255,255,255,.08); --line-soft:rgba(255,255,255,.05); --line-strong:rgba(255,255,255,.16);
-    --fg:#f4f5f8; --fg-soft:rgba(244,245,248,.78); --fg-mute:rgba(244,245,248,.56); --fg-faint:rgba(244,245,248,.36);
+    --bg:#101820; --bg-raise:#141d27; --bg-card:#151e28;
+    --line:#1e2a35; --line-soft:#19232d; --line-strong:#263341;
+    --fg:#f1f4f8; --fg-soft:#bfc8d3; --fg-mute:#8b96a5; --fg-faint:#5d6979;
     --brand-blue:#0034fb; --brand-red:#f50b4f; --brand-orange:#fa7604;
-    /* text-safe tints of the signal colors on the near-black page */
-    --blue:#6f93ff; --red:#ff5c87; --orange:#ff9d47; --green:#45d396;
+    /* text-safe tints of the signal colors on the page */
+    --blue:#7ba4ff; --red:#ff5c87; --orange:#ff9d47; --green:#45d396;
     --blue-wash:rgba(0,52,251,.18); --red-wash:rgba(245,11,79,.14); --orange-wash:rgba(250,118,4,.13); --green-wash:rgba(69,211,150,.12);
-    --card:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    --card:var(--bg-raise);
     --ff:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --gutter:clamp(20px,4vw,40px);
@@ -35,10 +37,6 @@
   *,*::before,*::after{box-sizing:border-box}
   html{background:var(--bg);color:var(--fg);font-family:var(--ff);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth}
   body{margin:0;position:relative;isolation:isolate;overflow-x:clip;background:var(--bg);color:var(--fg-soft);font-family:var(--ff);font-size:17px;line-height:1.7}
-  /* brand light leaking in at the top of the page */
-  body::before{content:"";position:absolute;z-index:-1;left:50%;top:-200px;width:min(1400px,140vw);height:820px;transform:translateX(-50%);
-    background:radial-gradient(40% 50% at 30% 40%,rgba(0,52,251,.42),transparent 75%),radial-gradient(30% 40% at 75% 30%,rgba(245,11,79,.2),transparent 75%);
-    filter:blur(60px);pointer-events:none}
   ::selection{background:var(--brand-blue);color:#fff}
   a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
   img,svg{display:block;max-width:100%}
@@ -47,8 +45,11 @@
   .skip-link:focus{top:calc(16px + var(--preview-height,0px))}
 
   /* header: same 72px bar as the homepage, always on its blurred backdrop */
-  .site-header{position:sticky;top:var(--preview-height,0px);z-index:200;background:rgba(5,7,13,.72);
+  .site-header{position:sticky;top:var(--preview-height,0px);z-index:200;background:rgba(16,24,32,.82);
     -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--line)}
+  /* the docs header's thin stripe in the mark's colors */
+  .site-header::after{content:"";position:absolute;inset-inline:0;bottom:-1px;height:2.5px;pointer-events:none;opacity:.45;
+    background:linear-gradient(90deg,transparent,var(--brand-blue) 25%,var(--brand-red) 55%,var(--brand-orange) 80%,transparent)}
   .site-header__inner{width:min(100% - 2 * var(--gutter),1200px);margin-inline:auto;height:var(--header-h);display:flex;align-items:center;gap:40px}
   .site-header__brand{display:block;flex:none;border-radius:6px}
   .site-header__brand img{height:34px;width:auto}
