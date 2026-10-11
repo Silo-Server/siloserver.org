@@ -1552,25 +1552,29 @@ html:not(.js) .rotator__word:not(:first-child) {
   pointer-events: none;
 }
 /* A room stays hidden until its picture has decoded (home.ts adds
-   .is-ready), so the grain never shows on its own. It then fades in; in the
-   hero, the screen's fade waits for it so the two arrive together. An
-   animation, unlike a transition, also runs when the picture was cached and
-   is ready before first paint. */
+   .is-ready), so the grain never shows on its own, and its screen waits with
+   it: a screen never shows without its room. The two then fade in together.
+   An animation, unlike a transition, also runs when the picture was cached
+   and is ready before first paint. */
 .js .room {
   opacity: 0;
 }
 .js .room.is-ready {
   opacity: 1;
 }
+.js .scene-anchor:has(> .room:not(.is-ready)) > .screen {
+  opacity: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .js .room.is-ready {
+  .js .room.is-ready,
+  .js .scene-anchor:has(> .room.is-ready) > .screen {
     animation: hero-fade 1.4s var(--ease-out) backwards;
   }
-  .js .hero--scene .room.is-ready {
+  .js .hero--scene .room.is-ready,
+  .js .hero--scene .scene-anchor:has(> .room.is-ready) > .screen {
     animation-delay: 0.35s;
   }
-  .js .hero--scene:not(:has(.room.is-ready)) .screen--hero {
-    opacity: 0;
+  .js .scene-anchor:has(> .room:not(.is-ready)) > .screen {
     animation: none;
   }
 }
