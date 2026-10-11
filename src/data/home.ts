@@ -288,7 +288,7 @@ export const clock = (s: number) => {
 
 export const setup = [
   {
-    title: "Run it at home",
+    title: "Spin it up",
     body: "Install Silo Server with Docker on a Linux computer or NAS you already own.",
   },
   {
