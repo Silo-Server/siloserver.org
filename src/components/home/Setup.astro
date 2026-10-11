@@ -1,6 +1,5 @@
 ---
 import { setup } from "../../data/home";
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // One line icon per step: a home server, a folder of films, and screens.
 const icons = [
@@ -17,7 +16,6 @@ const icons = [
         <span class="ln"><span>Up and running</span></span>
         <span class="ln"><span>in three steps.</span></span>
       </h2>
-      <a class="link-arrow" href={`${baseUrl}/download`}>Get Silo <span aria-hidden="true">→</span></a>
     </div>
     <ol class="setup__list" data-reveal-group>
       {
