@@ -6,11 +6,13 @@ const year = new Date().getFullYear();
 
 const groups = [
   {
-    title: "Silo",
+    // Not "Silo": the headings are set in capitals, and the name never is.
+    title: "Project",
     links: [
       ["Download", href("/download")],
       ["Docs", href("/docs")],
       ["1.0 milestone", href("/milestone/1.0")],
+      ["Sponsor", SITE.sponsor],
     ],
   },
   {

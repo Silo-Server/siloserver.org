@@ -8,6 +8,8 @@ export const SITE = {
   status: "pre-1.0",
   license: "AGPL-3.0-or-later",
   discord: "https://discord.gg/siloserver",
+  // GitHub Sponsors, as in silo-server's .github/FUNDING.yml.
+  sponsor: "https://github.com/sponsors/Quick104",
   github: {
     org: "Silo-Server",
     orgUrl: "https://github.com/Silo-Server",
