@@ -850,17 +850,25 @@ html:not(.js) .rotator__word:not(:first-child) {
   letter-spacing: -0.045em;
   line-height: 1;
 }
-/* The Silo mark, upright and partly off the right edge, sliding in with
-   scroll. */
+/* The Silo mark, upright and large enough that the section crops it to a
+   few of its shapes, sliding in with scroll. */
 .closing__mark {
   position: absolute;
-  right: -2%;
-  top: 50%;
-  height: 118%;
+  right: -4%;
+  top: 62%;
+  height: 230%;
   width: auto;
   transform: translate(calc((1 - var(--p, 1)) * 40%), -50%);
   opacity: 0.22;
   pointer-events: none;
+}
+
+/* On a phone the title runs across most of the width, so the mark moves
+   further off the edge to sit beside it rather than behind it. */
+@media (max-width: 560px) {
+  .closing__mark {
+    right: -26%;
+  }
 }
 
 /* Footer */
