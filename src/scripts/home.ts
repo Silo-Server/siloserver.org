@@ -295,6 +295,7 @@ if (scene) {
     if (playerElapsed) playerElapsed.textContent = fmt(seconds);
     if (playerRemaining) playerRemaining.textContent = `\u2212${fmt(total - seconds)}`;
     playerBar?.style.setProperty("--p", String(seconds / total));
+    if (seconds >= total) syncClock();
   };
 
   const phone = scene.querySelector<HTMLElement>(".experience__phone");
@@ -336,12 +337,35 @@ if (scene) {
   const home = scene.querySelector<HTMLElement>(".ios-home");
   // Playing on the TV: the picture starts, the phone's remote opens on the
   // running episode, and the clock ticks on both.
+  // The clock ticks only while an episode plays, the scene is on screen, and
+  // the episode hasn't reached its end.
+  let isPlaying = false;
+  let sceneVisible = false;
+  function syncClock() {
+    const run = isPlaying && sceneVisible && seconds < total;
+    if (run && !clock) clock = window.setInterval(tick, 1000);
+    if (!run && clock) {
+      clearInterval(clock);
+      clock = 0;
+    }
+  }
+  whileVisible(
+    scene,
+    () => {
+      sceneVisible = true;
+      syncClock();
+    },
+    () => {
+      sceneVisible = false;
+      syncClock();
+    },
+  );
   const setPlaying = (on: boolean) => {
     playing?.classList.toggle("is-on", on);
     remote?.classList.toggle("is-up", on);
     pp?.classList.toggle("is-paused", !on);
-    clearInterval(clock);
-    clock = on ? window.setInterval(tick, 1000) : 0;
+    isPlaying = on;
+    syncClock();
   };
   const setEngaged = (on: boolean) => home?.classList.toggle("is-engaged", on);
 
