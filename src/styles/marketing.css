@@ -1141,10 +1141,6 @@ html:not(.js) .rotator__word:not(:first-child) {
     margin-top: 36px;
     padding-bottom: 0;
   }
-  /* Keeps the button and the link on one row on 375px-wide phones. */
-  .hero__actions {
-    column-gap: 20px;
-  }
   .hero__stage {
     container-type: normal;
     margin-top: 36px;

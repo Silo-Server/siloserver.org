@@ -32,10 +32,9 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
     <div class="hero__aside rise">
       <p>{hero.body}</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href={`${baseUrl}/download`}>
+        <a class="btn btn--primary" href={`${baseUrl}/download`} data-get-silo>
           Get Silo <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </a>
-        <a class="link-arrow" href="#experience">See it on every screen <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
