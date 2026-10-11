@@ -301,6 +301,30 @@ export const setup = [
   },
 ];
 
+// What Silo stands for. Each claim is checked against the project: no
+// central accounts (privacy policy), AGPL licence and "will stay free and open
+// source" (silo-server README), AI features off by default with self-hosted or
+// hosted providers (docs/running-a-server/ai-services.md, recommendations.md),
+// and watch history import (docs/using-silo/import-watch-history.md).
+export const values = [
+  {
+    title: "Your data stays with you.",
+    body: "Your library, watch history, and accounts live on a server you run. There's no Silo account to sign up for, no ads, and no tracking.",
+  },
+  {
+    title: "Free and open source.",
+    body: "No subscription. The server and apps are open source under the AGPL, and Silo will stay free and open source.",
+  },
+  {
+    title: "Smart features, run where you choose.",
+    body: "Translate subtitles and descriptions, create subtitles from the audio, and get recommendations. Run the AI on your own hardware or use a cloud provider. Each feature stays off until you turn it on.",
+  },
+  {
+    title: "Bring what you have.",
+    body: "Import your watch history from Plex, Jellyfin, or Emby. Many Jellyfin apps work, including Infuse. Plugins and an open API let you build on it.",
+  },
+];
+
 export const faq = [
   {
     q: "What do I need to run Silo?",

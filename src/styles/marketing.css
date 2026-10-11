@@ -642,20 +642,29 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg-mute);
   line-height: 1.5;
 }
-.experience__notes {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 48px;
-  align-items: end;
-  padding-block: 56px var(--section-y);
+/* Values: what Silo stands for, as four ruled points beside the heading. */
+.values {
   border-top: 1px solid var(--line);
 }
-.experience__notes h3 {
-  margin: 0 0 6px;
+.values__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 48px;
+}
+.values__item {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.values__item h3 {
+  margin: 0 0 8px;
   font-size: 18px;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
-.experience__notes p {
+.values__item p {
   margin: 0;
   color: var(--fg-mute);
   font-size: 15px;
@@ -1055,7 +1064,7 @@ html:not(.js) .rotator__word:not(:first-child) {
     right: -2%;
     bottom: -30%;
   }
-  .experience__notes {
+  .values__list {
     grid-template-columns: 1fr;
     gap: 28px;
   }

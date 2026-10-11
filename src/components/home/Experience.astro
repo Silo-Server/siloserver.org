@@ -23,7 +23,6 @@ interface Props {
 }
 const { scene = false } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const steps = [
   {
     title: "Pick up where you left off.",
@@ -89,15 +88,4 @@ const steps = [
     </div>
   </div>
 
-  <div class="container experience__notes">
-    <div>
-      <h3>Sign in a TV from your phone.</h3>
-      <p>Check that the code on the TV matches, then approve it. No typing with a remote.</p>
-    </div>
-    <div>
-      <h3>An app for every screen.</h3>
-      <p>Apple TV, iPhone, iPad, Android, Android TV, and the web. Many Jellyfin apps, including Infuse, work too.</p>
-    </div>
-    <a class="link-arrow" href={`${baseUrl}/download`}>Get the apps <span aria-hidden="true">→</span></a>
-  </div>
 </section>
