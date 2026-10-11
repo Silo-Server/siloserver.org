@@ -200,7 +200,7 @@ if (grid && browse) {
   const pageFor = (i: number) => pages.find((p) => Number(p.dataset.from) === i);
   const focus = (i: number) => cells.forEach((c, n) => c.classList.toggle("is-focused", n === i));
   // [cell, how long to rest there]; a cell with a page is opened after resting.
-  const route: Array<[number, number]> = [[0, 1400], [1, 800], [2, 800], [3, 1400], [2, 800], [1, 800]];
+  const route: Array<[number, number]> = [[0, 900], [1, 550], [2, 550], [3, 900], [2, 550], [1, 550]];
   let timers: number[] = [];
   let running = false;
   const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
@@ -217,11 +217,11 @@ if (grid && browse) {
           browse.classList.add("is-covered");
           page.classList.add("is-on");
         });
-        at(t + 4800, () => {
+        at(t + 3200, () => {
           page.classList.remove("is-on");
           browse.classList.remove("is-covered");
         });
-        t += 5600;
+        t += 3800;
       }
     }
     at(t, run);
