@@ -86,6 +86,39 @@ function whileVisible(el: Element | null, start: () => void, stop: () => void) {
   document.addEventListener("visibilitychange", sync);
 }
 
+/* ---------- Hero: fit the height to the screen in tall windows ---------- */
+
+// The plain hero fills the window, and its screen grows to fit the space
+// under the text. In a tall, narrow window the screen runs out of width
+// first and floats in empty space, so the hero shrinks to hold the text and
+// the screen at its full width. Phones size the hero to its content in CSS.
+const plainHero = document.querySelector<HTMLElement>(".hero:not(.hero--scene)");
+const heroIntro = plainHero?.querySelector<HTMLElement>(".hero__intro");
+const heroStage = plainHero?.querySelector<HTMLElement>(".hero__stage");
+const heroScreen = heroStage?.querySelector<HTMLElement>(".scene-anchor--hero");
+const phoneHero = matchMedia("(max-width: 560px)");
+const fitHero = () => {
+  if (!plainHero || !heroIntro || !heroStage || !heroScreen) return;
+  plainHero.style.height = "";
+  if (phoneHero.matches) return;
+  const full = plainHero.offsetHeight;
+  // With room to spare, the screen's height is set by its width alone.
+  plainHero.style.height = "10000px";
+  const screenHeight = heroScreen.offsetHeight;
+  plainHero.style.height = "";
+  const hero = getComputedStyle(plainHero);
+  const fit =
+    parseFloat(hero.paddingTop) +
+    heroIntro.offsetHeight +
+    parseFloat(getComputedStyle(heroStage).marginTop) +
+    screenHeight +
+    parseFloat(hero.paddingBottom);
+  if (fit < full) plainHero.style.height = `${Math.ceil(fit)}px`;
+};
+fitHero();
+addEventListener("resize", fitHero);
+document.fonts?.ready.then(fitHero);
+
 /* ---------- Hero: rotating word drives tvOS focus ---------- */
 
 const rotator = document.querySelector<HTMLElement>("[data-rotator]");
