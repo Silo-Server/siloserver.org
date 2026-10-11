@@ -97,7 +97,6 @@ function whileVisible(el: Element | null, start: () => void, stop: () => void) {
 
 const rotator = document.querySelector<HTMLElement>("[data-rotator]");
 const tvHome = document.querySelector<HTMLElement>("[data-tv-home]");
-const glow = document.querySelector<HTMLElement>("[data-hero-glow]");
 
 if (rotator && tvHome) {
   const words = Array.from(rotator.querySelectorAll<HTMLElement>(".rotator__word"));
@@ -105,7 +104,6 @@ if (rotator && tvHome) {
   const mqs = tvHome.querySelectorAll<HTMLElement>(".tvh__mq");
   const cards = tvHome.querySelectorAll<HTMLElement>(".tv-still");
   const track = tvHome.querySelector<HTMLElement>("[data-tv-track]");
-  const tints = Array.from(bgs).map((b) => b.style.getPropertyValue("--tint"));
   let index = 0;
 
   const sizeTo = (el: HTMLElement) => {
@@ -143,7 +141,6 @@ if (rotator && tvHome) {
       const card = cards[next];
       const overflow = card ? card.offsetLeft + card.offsetWidth + 80 - tvHome.offsetWidth : 0;
       track?.style.setProperty("--row-x", String(Math.max(0, overflow)));
-      glow?.style.setProperty("--tint", tints[next]);
     };
 
     // From the end of the row, getting back to the first card takes Back

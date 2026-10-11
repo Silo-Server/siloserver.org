@@ -168,13 +168,13 @@ button {
   color: #fff;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 8px 30px rgba(0, 52, 251, 0.35);
+    0 1px 2px rgba(0, 0, 0, 0.4);
 }
 .btn--primary:hover {
   background: #1a4bff;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 10px 40px rgba(0, 52, 251, 0.5);
+    0 6px 20px rgba(0, 52, 251, 0.28);
 }
 .btn--primary:active {
   transform: translateY(1px);
@@ -264,19 +264,6 @@ button {
   padding-top: clamp(104px, 13vh, 150px);
   padding-bottom: clamp(28px, 5vh, 56px);
 }
-.hero__glow {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 0;
-  width: min(1400px, 130vw);
-  height: 70%;
-  transform: translateX(-50%);
-  background: radial-gradient(45% 55% at 50% 30%, color-mix(in srgb, var(--tint) 45%, transparent), transparent 70%);
-  filter: blur(40px);
-  transition: background 1.2s;
-  pointer-events: none;
-}
 .hero__intro {
   display: grid;
   grid-template-columns: 1fr minmax(300px, 380px);
@@ -332,14 +319,11 @@ button {
 .rotator__word {
   grid-area: 1 / 1;
   justify-self: start;
-  /* Room for descenders: background-clip: text only paints inside the box. */
+  /* Room for descenders inside the clipped rotator. */
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
   white-space: nowrap;
-  background: linear-gradient(100deg, #5b82ff 0%, #8aa6ff 45%, #b9c8ff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #7d9bff;
   transform: translateY(120%);
 }
 .rotator__word.is-on {
@@ -385,17 +369,16 @@ html:not(.js) .rotator__word:not(:first-child) {
   align-items: center;
   perspective: 1800px;
 }
-/* Brand light around the TV: the mark's blue, with red and orange at the edges. */
+/* Each featured device is lit by one of the mark's colours, from behind and
+   wider than the screen so the light shows around it: blue here, red in the
+   library, orange in the experience scene. */
 .hero__stage::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 4% 6% -6%;
-  background:
-    radial-gradient(40% 60% at 50% 55%, rgba(0, 52, 251, 0.7), transparent 75%),
-    radial-gradient(30% 45% at 12% 75%, rgba(245, 11, 79, 0.35), transparent 75%),
-    radial-gradient(30% 45% at 90% 70%, rgba(250, 118, 4, 0.3), transparent 75%);
-  filter: blur(60px);
+  inset: -4% -2% -12%;
+  background: radial-gradient(55% 60% at 50% 58%, rgba(0, 52, 251, 0.55), transparent 72%);
+  filter: blur(70px);
   pointer-events: none;
 }
 /* A current flat-panel TV: near-square corners, a thin black bezel, and a
@@ -465,21 +448,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   overflow: clip;
   border-top: 1px solid var(--line);
 }
-.library::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  right: -10%;
-  top: 10%;
-  width: 75%;
-  height: 85%;
-  background:
-    radial-gradient(45% 50% at 55% 50%, rgba(245, 11, 79, 0.45), transparent 75%),
-    radial-gradient(35% 40% at 85% 85%, rgba(250, 118, 4, 0.28), transparent 75%),
-    radial-gradient(35% 40% at 20% 15%, rgba(0, 52, 251, 0.3), transparent 75%);
-  filter: blur(60px);
-  pointer-events: none;
-}
 .library .h2 {
   font-size: clamp(36px, 4.2vw, 58px);
 }
@@ -492,10 +460,17 @@ html:not(.js) .rotator__word:not(:first-child) {
 .library__stage {
   position: relative;
 }
+.library:not(.library--scene) .library__stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -35% -30%;
+  background: radial-gradient(closest-side, rgba(245, 11, 79, 0.5) 62%, transparent);
+  filter: blur(60px);
+  pointer-events: none;
+}
 .screen--panel {
-  box-shadow:
-    0 50px 120px -30px rgba(0, 0, 0, 0.9),
-    0 0 80px -10px rgba(245, 11, 79, 0.25);
+  box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.9);
 }
 
 /* Experience: pinned scene */
@@ -509,11 +484,8 @@ html:not(.js) .rotator__word:not(:first-child) {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 20% 0 10%;
-  background:
-    radial-gradient(35% 45% at 40% 55%, rgba(250, 118, 4, 0.32), transparent 75%),
-    radial-gradient(25% 40% at 78% 60%, rgba(245, 11, 79, 0.32), transparent 75%),
-    radial-gradient(30% 40% at 15% 35%, rgba(0, 52, 251, 0.25), transparent 75%);
+  inset: 12% -5% 0;
+  background: radial-gradient(55% 50% at 48% 56%, rgba(250, 118, 4, 0.5) 45%, transparent 85%);
   filter: blur(60px);
   pointer-events: none;
 }
@@ -695,24 +667,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   isolation: isolate;
   border-top: 1px solid var(--line);
 }
-.setup::before,
-.faq::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: -10%;
-  top: 0;
-  width: 60%;
-  height: 100%;
-  background: radial-gradient(40% 45% at 30% 40%, rgba(0, 52, 251, 0.18), transparent 75%);
-  filter: blur(50px);
-  pointer-events: none;
-}
-.faq::before {
-  left: auto;
-  right: -10%;
-  background: radial-gradient(40% 45% at 70% 50%, rgba(245, 11, 79, 0.13), transparent 75%);
-}
 .setup__head {
   display: flex;
   align-items: flex-end;
@@ -743,17 +697,8 @@ html:not(.js) .rotator__word:not(:first-child) {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 3px;
+  height: 2px;
   background: var(--step);
-}
-.setup__item::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -40% -20% auto;
-  height: 80%;
-  background: radial-gradient(50% 50% at 30% 50%, color-mix(in srgb, var(--step) 22%, transparent), transparent 70%);
-  pointer-events: none;
 }
 .setup__item--1 {
   --step: #ff4d7d;
@@ -767,9 +712,9 @@ html:not(.js) .rotator__word:not(:first-child) {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  color: var(--step);
-  background: color-mix(in srgb, var(--step) 14%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--step) 30%, transparent);
+  color: var(--fg-soft);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 .setup__num {
   display: block;
@@ -777,7 +722,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   font-size: 14px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--step);
+  color: var(--fg-mute);
 }
 .setup__item h3 {
   margin: 6px 0 8px;
@@ -895,17 +840,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   letter-spacing: -0.045em;
   line-height: 1;
 }
-.closing::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background:
-    radial-gradient(35% 60% at 80% 50%, rgba(0, 52, 251, 0.35), transparent 75%),
-    radial-gradient(25% 50% at 95% 80%, rgba(250, 118, 4, 0.25), transparent 75%);
-  filter: blur(50px);
-  pointer-events: none;
-}
 /* The mark's three bars at the logo's 30° angle, sliding in with scroll. */
 .closing__bars {
   position: absolute;
@@ -925,7 +859,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   width: 60%;
   border-radius: 14px;
   transform: skewY(-30deg);
-  filter: blur(1px);
 }
 .closing__bars span:nth-child(1) { background: var(--blue); margin-left: 0; }
 .closing__bars span:nth-child(2) { background: var(--red); margin-left: 14%; }
@@ -1555,10 +1488,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   height: 100%;
   aspect-ratio: 30 / 17;
 }
-/* The room supplies the scene's light. */
-.hero--scene .hero__glow {
-  display: none;
-}
 .hero--scene .scene-anchor,
 .library--scene .scene-anchor,
 .experience--scene .scene-anchor {
@@ -1627,7 +1556,16 @@ html:not(.js) .rotator__word:not(:first-child) {
   pointer-events: none;
 }
 .library--scene::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -10%;
+  top: 10%;
+  width: 75%;
+  height: 85%;
   background: radial-gradient(45% 50% at 55% 50%, rgba(245, 11, 79, 0.35), transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
 }
 /* The den's tower speakers stand just outside the TV (about 0.18 of its width
    to the left and right). A slightly smaller TV, nudged right, keeps both in
