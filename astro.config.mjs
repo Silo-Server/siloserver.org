@@ -46,7 +46,7 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      title: "silo docs",
+      title: "Silo docs",
       description:
         "Documentation for installing, configuring, and operating Silo.",
       favicon: "/favicon.ico",

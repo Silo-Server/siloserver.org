@@ -2,9 +2,10 @@
 
 export const SITE = {
   name: "silo",
-  tagline: "a self-hosted media server, on modern infra.",
+  // The homepage's title and the default description when a page is shared.
+  tagline: "Your media. Your server. Every screen.",
   description:
-    "Silo is a self-hosted media server. Go + Postgres. Performance-first. Native clients for Apple, Android, and Web. Plays nice with the Jellyfin client ecosystem.",
+    "Silo keeps your movies and series in one library on a server you run at home, then plays them on your TV, phone, and computer.",
   status: "pre-1.0",
   license: "AGPL-3.0-or-later",
   discord: "https://discord.gg/siloserver",
