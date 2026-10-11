@@ -52,8 +52,10 @@ const href = (path: string) => `${baseUrl}${path}`;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={href("/web-app-icon-512.png")} />
-    <meta name="twitter:card" content="summary_large_image" />
+    {/* Link previews need an absolute image URL. The image is the square app
+        icon, so ask for the small card rather than a wide one that crops it. */}
+    <meta property="og:image" content={new URL(href("/web-app-icon-512.png"), Astro.site).href} />
+    <meta name="twitter:card" content="summary" />
     {
       PREVIEW || noindex ? (
         <meta name="robots" content="noindex, nofollow" />

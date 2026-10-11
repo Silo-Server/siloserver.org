@@ -50,6 +50,15 @@ export default defineConfig({
       description:
         "Documentation for installing, configuring, and operating Silo.",
       favicon: "/favicon.ico",
+      // Link previews: the square app icon, at an absolute URL, in the small
+      // card. These replace Starlight's default twitter:card.
+      head: [
+        {
+          tag: "meta",
+          attrs: { property: "og:image", content: new URL(`${base.replace(/\/$/, "")}/web-app-icon-512.png`, site).href },
+        },
+        { tag: "meta", attrs: { name: "twitter:card", content: "summary" } },
+      ],
       lastUpdated: true,
       customCss: ["./src/styles/docs.css"],
       editLink: {
