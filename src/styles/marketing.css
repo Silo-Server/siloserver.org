@@ -80,6 +80,9 @@ body {
   font-size: 17px;
   line-height: 1.5;
   font-weight: 400;
+  /* Plus Jakarta Sans sets tight; open it up a touch. Headings ease their
+     negative tracking for the same reason. */
+  letter-spacing: 0.01em;
 }
 
 img,
@@ -149,7 +152,7 @@ button {
   font-size: clamp(40px, 5.6vw, 72px);
   font-weight: 600;
   line-height: 1.02;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.022em;
 }
 .lede {
   margin: 24px 0 0;
@@ -170,7 +173,7 @@ button {
   border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.005em;
   transition:
     background-color 0.2s,
     transform 0.2s var(--ease-out),
@@ -315,7 +318,7 @@ button {
   font-size: clamp(46px, 6.2vw, 88px);
   font-weight: 600;
   line-height: 0.98;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
 }
 .hero__your--end {
   display: none;
@@ -671,7 +674,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0 0 6px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .experience__step p {
   margin: 0;
@@ -702,7 +705,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0 0 8px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .values__item p {
   margin: 0;
@@ -799,7 +802,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 6px 0 8px;
   font-size: 21px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .setup__item p {
   margin: 0;
@@ -917,7 +920,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   font-size: clamp(40px, 5.2vw, 72px);
   font-weight: 600;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 /* The Silo mark, upright, blurred, and large enough that the section crops
@@ -1264,7 +1267,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   font-size: clamp(44px, 6.4vw, 84px);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
 }
 .page-head .lede {
   margin-top: 22px;
@@ -1283,7 +1286,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg);
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.008em;
   line-height: 1.25;
 }
 .prose h3 {
@@ -1423,7 +1426,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.008em;
 }
 .dl-app__body {
   margin: 12px 0 0;
