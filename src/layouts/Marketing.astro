@@ -52,10 +52,13 @@ const href = (path: string) => `${baseUrl}${path}`;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:type" content="website" />
-    {/* Link previews need an absolute image URL. The image is the square app
-        icon, so ask for the small card rather than a wide one that crops it. */}
-    <meta property="og:image" content={new URL(href("/web-app-icon-512.png"), Astro.site).href} />
-    <meta name="twitter:card" content="summary" />
+    {/* Link previews: the Silo wordmark on the site's dark ground, 1200x630,
+        at an absolute URL, in the large card. */}
+    <meta property="og:image" content={new URL(href("/social-card.png"), Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Silo" />
+    <meta name="twitter:card" content="summary_large_image" />
     {
       PREVIEW || noindex ? (
         <meta name="robots" content="noindex, nofollow" />
