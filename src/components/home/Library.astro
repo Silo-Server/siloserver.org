@@ -24,7 +24,7 @@ const { scene = false } = Astro.props;
       </span></p>
     </div>
     <div class="library__stage">
-      <div class="scene-anchor">
+      <div class="scene-anchor" data-wait-images={scene ? "" : undefined}>
         <div class="screen screen--panel screen--bare">
           <Canvas w={1920} h={1080} label="The Series library on Apple TV, opening Severance and The Sopranos from the grid.">
             <TvBrowse tab="Series" items={seriesLibrary} sort="Date Added" direction="Newest" />

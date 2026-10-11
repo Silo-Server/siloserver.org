@@ -35,6 +35,16 @@ document.querySelectorAll<HTMLElement>(".room").forEach((room) => {
   else img.addEventListener("load", ready, { once: true });
 });
 
+/* ---------- Scenes variant: show a screen once its pictures can paint ---------- */
+
+// The library screen has no room to wait for, so it waits for the pictures
+// in its first view instead (not the pages it opens later). They load lazily,
+// so it fades in as the section comes near.
+document.querySelectorAll<HTMLElement>("[data-wait-images]").forEach((el) => {
+  const imgs = Array.from(el.querySelectorAll("img")).filter((img) => !img.closest("[data-push]"));
+  Promise.all(imgs.map((img) => img.decode().catch(() => undefined))).then(() => el.classList.add("is-ready"));
+});
+
 /* ---------- Header ---------- */
 
 const header = document.querySelector<HTMLElement>("[data-header]");
