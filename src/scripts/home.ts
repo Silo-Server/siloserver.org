@@ -345,10 +345,17 @@ if (scene) {
   };
   const setEngaged = (on: boolean) => home?.classList.toggle("is-engaged", on);
 
+  let focusOnArrival = -1;
   const setStage = (next: number) => {
     if (next === stage) return;
     stage = next;
     steps.forEach((s, i) => s.classList.toggle("is-on", i === next));
+    // On phones only the current step shows, so the step that was clicked to
+    // advance disappears; hand its focus to the step the scene arrives at.
+    if (next === focusOnArrival) {
+      steps[next].querySelector<HTMLElement>("[data-goto]")?.focus({ preventScroll: true });
+      focusOnArrival = -1;
+    }
     // One state per step: from step 2 the episode plays on the TV and the
     // phone shows its remote, with no taps played out in between.
     setEngaged(next >= 1);
@@ -381,7 +388,13 @@ if (scene) {
       i >= steps.length ? top + track + 1 : top + (bounds[i] + 0.04 * (bounds[i + 1] - bounds[i])) * track;
     scrollTo({ top: Math.round(target), behavior: reduce ? "auto" : "smooth" });
   };
-  steps.forEach((s, i) => s.addEventListener("click", () => goTo(i === stage ? i + 1 : i)));
+  steps.forEach((s, i) =>
+    s.addEventListener("click", () => {
+      const target = i === stage ? i + 1 : i;
+      if (target < steps.length) focusOnArrival = target;
+      goTo(target);
+    }),
+  );
 
   listeners.push((el, p) => {
     if (el !== scene) return;
