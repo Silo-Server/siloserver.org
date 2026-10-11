@@ -668,6 +668,7 @@ html:not(.js) .rotator__word:not(:first-child) {
   margin: 0;
   color: var(--fg-mute);
   font-size: 15px;
+  line-height: 1.6;
 }
 
 /* Setup */
@@ -833,14 +834,14 @@ html:not(.js) .rotator__word:not(:first-child) {
   border-top: 1px solid var(--line);
   padding-block: clamp(96px, 12vw, 160px);
 }
+/* Title, then the button below it, both clear of the mark on the right. */
 .closing__inner {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(28px, 3vw, 40px);
 }
 .closing__title {
   margin: 0;
@@ -849,29 +850,18 @@ html:not(.js) .rotator__word:not(:first-child) {
   letter-spacing: -0.045em;
   line-height: 1;
 }
-/* The mark's three bars at the logo's 30° angle, sliding in with scroll. */
-.closing__bars {
+/* The Silo mark, upright and partly off the right edge, sliding in with
+   scroll. */
+.closing__mark {
   position: absolute;
-  right: -6%;
+  right: -2%;
   top: 50%;
-  width: 22%;
-  display: flex;
-  flex-direction: column;
-  gap: 18%;
-  transform: translate(calc((1 - var(--p, 1)) * 60%), -50%);
-  opacity: 0.16;
+  height: 118%;
+  width: auto;
+  transform: translate(calc((1 - var(--p, 1)) * 40%), -50%);
+  opacity: 0.22;
   pointer-events: none;
 }
-.closing__bars span {
-  display: block;
-  aspect-ratio: 266 / 151.5;
-  width: 60%;
-  border-radius: 14px;
-  transform: skewY(-30deg);
-}
-.closing__bars span:nth-child(1) { background: var(--blue); margin-left: 0; }
-.closing__bars span:nth-child(2) { background: var(--red); margin-left: 14%; }
-.closing__bars span:nth-child(3) { background: var(--orange); margin-left: 28%; }
 
 /* Footer */
 .site-footer {
@@ -1019,9 +1009,11 @@ html:not(.js) .rotator__word:not(:first-child) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .experience__phone,
-  .closing__bars {
+  .experience__phone {
     transform: none;
+  }
+  .closing__mark {
+    transform: translateY(-50%);
   }
   *,
   *::before,
