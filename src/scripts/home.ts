@@ -279,6 +279,9 @@ if (scene) {
   const playerElapsed = scene.querySelector<HTMLElement>("[data-player-elapsed]");
   const playerRemaining = scene.querySelector<HTMLElement>("[data-player-remaining]");
   const playerBar = scene.querySelector<HTMLElement>("[data-player-bar]");
+  const head = scene.querySelector<HTMLElement>(".experience__head");
+  const stepList = scene.querySelector<HTMLElement>(".experience__steps");
+  const phoneLayout = matchMedia("(max-width: 560px)");
 
   // Where the phone goes in step 4: centred on the TV, turned to landscape,
   // and as wide as most of the TV. Measured from the untransformed layout.
@@ -290,8 +293,14 @@ if (scene) {
     const left = phone.offsetLeft + (phone.offsetParent as HTMLElement).getBoundingClientRect().left;
     const top = phone.offsetTop + (phone.offsetParent as HTMLElement).getBoundingClientRect().top;
     const scale = Math.min((tv.width * 0.86) / h, (tv.height * 1.05) / w);
+    // On phones the TV sits high on the screen, so the phone lands centred
+    // between the headline and the step text instead.
+    let centerY = tv.top + tv.height / 2;
+    if (phoneLayout.matches && head && stepList) {
+      centerY = (head.getBoundingClientRect().bottom + stepList.getBoundingClientRect().top) / 2;
+    }
     phone.style.setProperty("--lx", `${tv.left + tv.width / 2 - (left + w / 2)}px`);
-    phone.style.setProperty("--ly", `${tv.top + tv.height / 2 - (top + h / 2)}px`);
+    phone.style.setProperty("--ly", `${centerY - (top + h / 2)}px`);
     phone.style.setProperty("--ls", scale.toFixed(3));
   };
   placePhone();
