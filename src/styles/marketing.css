@@ -1624,6 +1624,27 @@ html:not(.js) .rotator__word:not(:first-child) {
 .hero--scene .hero__stage::before {
   content: none;
 }
+/* The room runs on past the hero's bottom edge. Fade it into the page over
+   the space under the TV (about 15% of the hero) instead of cutting it off.
+   Phones end the room above the edge, so they need no fade. */
+@media (min-width: 561px) {
+  .hero--scene::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: auto 0 0;
+    height: 15%;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in srgb, var(--bg) 25%, transparent) 30%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 60%,
+      color-mix(in srgb, var(--bg) 90%, transparent) 84%,
+      var(--bg)
+    );
+    pointer-events: none;
+  }
+}
 
 /* Library: the room fades out under the copy column. */
 .library--scene .room {
