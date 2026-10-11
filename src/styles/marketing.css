@@ -1712,13 +1712,15 @@ html:not(.js) .rotator__word:not(:first-child) {
 }
 
 /* Experience: the painted TV runs from y 500 to 1057, a little wider than
-   16:9. Stretched 2.2%, it shows about 0.9% at the top and bottom and 1% at
-   the sides. */
+   16:9; stretched 1.32%, its glass is 16:9. The picture covers the glass
+   exactly, so only the painted bezel, about 5px of grey lip, shows on each
+   side. The left padding is a touch wider because the painting's left edge
+   fades into the wall. */
 .experience--scene .room {
-  transform: scaleY(1.022);
+  transform: scaleY(1.0132);
 }
 .experience--scene .screen--tv {
-  padding: 0.85% 1% 0.9%;
+  padding: 0.545% 0.48% 0.53% 0.62%;
 }
 /* Experience: the room around the TV; it dims when the TV turns off. */
 .experience--scene .experience__pin::before {
