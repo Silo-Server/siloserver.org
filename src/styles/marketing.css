@@ -921,10 +921,9 @@ html:not(.js) .rotator__word:not(:first-child) {
   border-top: 1px solid var(--line);
   padding: 48px 0 40px;
 }
-/* The logo and tagline sit level with the last row of links. */
 .site-footer__top {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
   flex-wrap: wrap;
