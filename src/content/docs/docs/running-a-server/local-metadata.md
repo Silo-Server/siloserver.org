@@ -50,6 +50,8 @@ Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when 
 
 If the library's folder can't be reached during a refresh, such as a network share that isn't mounted, Silo keeps the local images it already has.
 
+Silo copies local images into its artwork storage and serves them from there, whether or not **Keep provider artwork** is on. A new image shows up shortly after the scan finds it. Until then, the item shows an online provider's image if it has one.
+
 After you replace an image, refresh the item.
 
 For a movie or series, the **Images** list in **Edit Metadata** also offers these images, marked **LOCAL**, even when **Local metadata (NFO + artwork)** is off for the library. The list follows the rules above, so files they skip don't appear. Apply one as you would a provider image, as described in [Choose artwork](/docs/metadata#choose-artwork).
