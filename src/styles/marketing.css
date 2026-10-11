@@ -1629,10 +1629,21 @@ html:not(.js) .rotator__word:not(:first-child) {
   z-index: 1;
 }
 
-/* The hero's painted TV is 16:9, like the picture, so its bezel keeps that
-   ratio: 0.65% of the width at the top and bottom, 1.16% at the sides. */
+/* Each room's TV is a touch too short for a 16:9 picture inside a thin,
+   even bezel, so the room is stretched very slightly upright from the TV's
+   top edge (y 500 of 1700). The bezel is set as a share of the TV's width.
+   Hero: the TV spans x 1000-1998 and y 500-1062.5; stretched 0.64%, it
+   shows 0.6% at the top and bottom and about 0.75% at each side (the right
+   padding makes up the TV's 2 missing pixels). */
+.hero--scene .room,
+.experience--scene .room {
+  transform-origin: 50% 29.41%;
+}
+.hero--scene .room {
+  transform: scaleY(1.0064);
+}
 .hero--scene .screen--hero {
-  padding: 0.65% 1.16%;
+  padding: 0.6% 0.95% 0.6% 0.75%;
 }
 /* Hero: a smaller TV, set on its console, with room for the floor below. */
 .hero--scene .hero__stage {
@@ -1697,12 +1708,14 @@ html:not(.js) .rotator__word:not(:first-child) {
   }
 }
 
-/* Experience: the picture sits inside the painted TV with an even bezel,
-   1.2% of its width at the top and bottom and 1.82% at each side, which
-   keeps a 16:9 picture filling the painting's slightly short TV (56.6% as
-   tall as it is wide). */
+/* Experience: the painted TV runs from y 500 to 1057, a little wider than
+   16:9. Stretched 2.2%, it shows about 0.9% at the top and bottom and 1% at
+   the sides. */
+.experience--scene .room {
+  transform: scaleY(1.022);
+}
 .experience--scene .screen--tv {
-  padding: 1.2% 1.82%;
+  padding: 0.85% 1% 0.9%;
 }
 /* Experience: the room around the TV; it dims when the TV turns off. */
 .experience--scene .experience__pin::before {
