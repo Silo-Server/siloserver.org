@@ -38,10 +38,20 @@ document.querySelectorAll<HTMLElement>(".room").forEach((room) => {
 /* ---------- Scenes variant: show a screen once its pictures can paint ---------- */
 
 // The library screen has no room to wait for, so it waits for the pictures
-// in its first view instead (not the pages it opens later). They load lazily,
-// so it fades in as the section comes near.
+// in its first view instead (not the pages it opens later). They stay lazy
+// until the section is a window away, then all load at once: a lazy picture
+// clipped by the screen's edge might otherwise never load, and the screen
+// would never show.
 document.querySelectorAll<HTMLElement>("[data-wait-images]").forEach((el) => {
   const imgs = Array.from(el.querySelectorAll("img")).filter((img) => !img.closest("[data-push]"));
+  new IntersectionObserver(
+    (entries, observer) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      observer.disconnect();
+      imgs.forEach((img) => (img.loading = "eager"));
+    },
+    { rootMargin: "100% 0px" },
+  ).observe(el);
   Promise.all(imgs.map((img) => img.decode().catch(() => undefined))).then(() => el.classList.add("is-ready"));
 });
 
