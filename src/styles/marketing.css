@@ -446,7 +446,6 @@ html:not(.js) .rotator__word:not(:first-child) {
   position: relative;
   isolation: isolate;
   overflow: clip;
-  border-top: 1px solid var(--line);
 }
 .library .h2 {
   font-size: clamp(36px, 4.2vw, 58px);
