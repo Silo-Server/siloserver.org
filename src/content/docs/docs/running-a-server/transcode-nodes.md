@@ -66,7 +66,20 @@ To see which case you're in, filter **Admin > Logs** by the `nodepool` component
 
 ## Maintain a node
 
-Turn a node's switch off to stop new work while current sessions finish. After changing its driver or devices, use its re-probe button; Silo refuses it while the node is transcoding. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
+To stop or upgrade a transcode node without cutting playback, drain it first:
+
+1. In **Admin > Nodes**, select the pause icon in the node's header. Silo sends the node no new work, and streams already on it keep playing. Its state changes to **Draining**, and the line under its address counts the work left, such as **Draining · 2 transcodes left**.
+2. Wait for **Drained · safe to stop**. Streams play until they end, so this can take as long as the longest one left on the node.
+3. Stop or upgrade the node. While it's stopped, it shows **Unhealthy**, and if it's in a [group](/docs/node-status#groups), Silo sends that group no new transcodes until the node is back.
+4. Once the node is running again, select the play icon in its header to resume it. It stays drained after a restart until you resume it.
+
+The [admin API](/docs/api) has the same actions: `POST /api/v2/admin/nodes/{id}/drain` and `POST /api/v2/admin/nodes/{id}/resume`.
+
+You can also stop a transcode node directly, and it drains on its own. It takes no new work and keeps serving its streams until they end or `SILO_NODE_DRAIN_TIMEOUT` passes, then stops and ends any streams still on it. The timeout is `10m` by default. Set it on the node as a duration such as `15m` or a number of seconds, or set it to `0` to turn the drain off. A second stop signal stops the node at once. Docker kills a container 10 seconds after asking it to stop, so set the node's `stop_grace_period` to the timeout plus a minute, as in [Distributed and external services](/docs/docker#distributed-and-external-services).
+
+Proxy nodes don't drain. Turn a proxy node's switch off to stop new work while its current streams finish.
+
+After changing a node's driver or devices, use its re-probe button. Silo refuses it while the node is transcoding, so drain the node first and resume it once the re-probe finishes. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
 
 To change a transcode node's encoder, select the pencil in the node's header, set **Hardware Acceleration** or **GPU Devices**, and select **Save**. New transcodes on the node use the change within a minute, and running sessions keep their old settings.
 
