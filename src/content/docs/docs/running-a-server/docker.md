@@ -111,4 +111,10 @@ The LXC's load average is correct only when lxcfs runs with load average support
 
 The Compose file includes commented examples for separate proxy and transcode workers. Leave them off on a single host; see [Transcode nodes](/docs/transcode-nodes).
 
+Docker asks a container to stop and kills it 10 seconds later unless the service sets a longer `stop_grace_period`. The Compose file sets one on each Silo service, so each can stop without cutting requests or streams:
+
+- `silo` has `2m`. When it's told to stop, Silo fails its [readiness check](/docs/server-health#check-startup) and keeps serving for `SILO_SHUTDOWN_DELAY`, `5s` by default, so a load balancer in front of several servers can send new requests elsewhere. Then it finishes the requests it's already serving. A single server with nothing in front of it gains nothing from the wait; set `SILO_SHUTDOWN_DELAY=0` in `.env` to stop at once. A restart from the web app skips the wait.
+- The `silo-proxy` example has `2m`, so the proxy can finish the requests it's serving.
+- The `silo-transcode` example has `11m`: up to `10m` for the node to [drain](/docs/transcode-nodes#maintain-a-node) (`SILO_NODE_DRAIN_TIMEOUT`), and a minute for the shutdown after it. If you change the timeout, set `stop_grace_period` to the new value plus a minute.
+
 For external PostgreSQL or Redis and PostgreSQL tuning, see [Server configuration](/docs/configuration).
