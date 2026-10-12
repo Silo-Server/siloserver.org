@@ -37,7 +37,7 @@ Add the node in Silo, then start it.
 
 1. Open **Admin > Nodes** and select **Add Transcode** or **Add Proxy**.
 2. Enter a **Name** that matches the node's `NODE_NAME`.
-3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine. If a reverse proxy sits between them, it must pass request paths through unchanged, so a URL with a path that the proxy removes, such as `https://example.com/node1`, doesn't work.
+3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine.
 4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
 5. If the node shares a host or local network with other nodes, give them all the same **Group**, such as `rack-1`. Silo then keeps their streams inside the group; see [Groups](/docs/node-status#groups).
 6. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
