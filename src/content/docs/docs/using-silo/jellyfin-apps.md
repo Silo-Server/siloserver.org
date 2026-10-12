@@ -70,9 +70,9 @@ Try signing in to Silo's web app with the same username and password. If
 that works, the problem is in the Jellyfin-compatible sign-in; share the
 error with the person who runs your server.
 
-If the app says you aren't authorized to access the server at this time after
-a few failed tries, wait a minute and sign in again. Silo limits repeated
-sign-in attempts.
+Silo limits repeated sign-in attempts. After a few failed tries, the app may
+say there were too many requests, or in Jellyfin Web, that you aren't
+authorized to access the server at this time. Wait a minute and sign in again.
 
 If the app reports that local password sign-in is turned off on this server,
 your Silo password no longer works there. See
