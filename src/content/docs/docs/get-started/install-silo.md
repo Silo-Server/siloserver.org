@@ -100,7 +100,7 @@ Open `http://localhost:8090` on the server, or `http://SERVER-IP:8090` from anot
 
 ## 5. Finish setup in the browser
 
-1. Create the admin account with your username, email, and password. Create your first profile if asked.
+1. Create the admin account with your username, email, and password. Create your first profile if asked. If the wizard asks for a **Setup token**, your browser isn't on the server's local network. Run `docker compose logs silo` and copy the token from the line `Silo setup token:`. Silo prints a new one each time it starts.
 2. Give the server a name. Leave playback settings at their defaults for the first test.
 3. At **Storage**, leave **Automatic** selected for a single-host install. With no S3 bucket, it uses local disk. If you want S3, set it up now: after the first scan, changing storage means a [storage transition](/docs/s3-storage#change-storage-later).
 4. At **Libraries**, enter a name, choose **Movies** or **Series**, and add the container path. For example, use `/mnt/media/movies`. Select **Add library**, then continue.
