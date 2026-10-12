@@ -30,10 +30,18 @@ Put images beside the media with these names. Each name can end in `.jpg`, `.jpe
 | --- | --- |
 | Movie poster | `<media basename>-poster`, then `poster`, `folder`, `cover`, `default`, or `movie` in the movie folder |
 | Series poster | `poster`, `folder`, `cover`, `default`, or `show` in the show folder |
-| Background | `<media basename>-fanart` for a movie, then `fanart`, `backdrop`, `background`, or `art` |
+| Background | `<media basename>-fanart` for a movie, then `fanart`, `backdrop`, `background`, or `art`. More backgrounds can follow, as described below the table. |
 | Logo | `<media basename>-logo` or `<media basename>-clearlogo` for a movie, then `logo` or `clearlogo` |
+| Banner | `<media basename>-banner` for a movie, then `banner` |
+| Landscape thumbnail | `<media basename>-landscape` or `<media basename>-thumb` for a movie, then `landscape`, then `thumb` |
+| Clear art | `<media basename>-clearart` for a movie, then `clearart` |
+| Disc art | Movies only: `<media basename>-disc`, `<media basename>-cdart`, or `<media basename>-discart`, then `disc`, `cdart`, or `discart` |
 | Season poster | `poster`, `folder`, or `cover` inside the season folder, or `seasonNN-poster` in the show folder, such as `season01-poster.jpg`. Specials also accept `season-specials-poster`. |
 | Episode image | `<episode basename>-thumb`, then `<episode basename>`, beside the video |
+
+A movie or show can have up to 20 backgrounds. The first one found in the table is the main background. Numbered images come next: `fanart-1`, `fanart-2`, and so on (Kodi's `fanart1` works too), then `background-1` and up, `art-1` and up, and `backdrop1` and up. Each numbered series stops after three missing numbers in a row. Every image in an `extrafanart` folder comes last, in name order. A `backdrops` folder holds theme videos, so Silo doesn't read images from it.
+
+Apps that connect to Silo as a Jellyfin server can show all of these images, including every background.
 
 Silo uses these images only when **NFO Files** is checked for the library, but an image works without an `.nfo` file. A local image wins over images from online providers, and viewers who use another metadata language see it too. Silo skips empty files, files over 25 MiB, and symbolic links.
 
