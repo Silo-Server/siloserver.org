@@ -28,6 +28,7 @@ From another machine, replace `localhost` with the server's address.
 | HTTP 200, `{"status":"ok"}` | Ready |
 | HTTP 200, `"status":"degraded"` | Artwork or S3 storage failed its check. The body shows which: `"s3":false` or `"artwork":false`. Silo keeps serving, but images may be missing. |
 | HTTP 503, `"status":"error"` | Silo cannot reach PostgreSQL |
+| HTTP 503, `"status":"shutting_down"` | Silo is stopping. It keeps serving for `SILO_SHUTDOWN_DELAY`, 5 seconds by default, so a load balancer can send new requests elsewhere first. See [Distributed and external services](/docs/docker#distributed-and-external-services). |
 
 A degraded answer still returns HTTP 200, so read the body. Readiness doesn't check Redis or playback.
 
