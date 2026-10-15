@@ -68,12 +68,12 @@ Use the web app for that.
 
 ### On Android phones, tablets, and TVs
 
-Only server administrators see profile management in the Android apps. Other
-household managers use the web app.
+Any account can manage its profiles from the Android apps. If the primary
+profile has a PIN, enter it when the app asks.
 
-1. On the profile picker, select **Manage Profiles** (**Manage** on Android
-   TV). If the primary profile has a PIN, enter it.
-2. Select **Add Profile**, or the edit button on a profile to open
+1. On the profile picker, select **Manage**, or **Add profile** to go straight
+   to a new profile. If the primary profile has a PIN, enter it.
+2. Select **Add profile**, or the edit button on a profile to open
    **Edit Profile**.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
