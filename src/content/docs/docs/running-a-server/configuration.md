@@ -22,6 +22,8 @@ Set these in `.env` beside the Compose file:
 
 Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable.
 
+Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The bundled stack also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
+
 `docker compose config` prints the full configuration with passwords and keys filled in. Use `docker compose config --quiet` to check the files without printing them, and never paste the full output into a public report.
 
 ## Admin-managed settings
@@ -42,6 +44,20 @@ To use existing servers, write a Compose file or override that:
 - keeps the media, plugin, artwork, compatibility, transcode, and catalog seed mounts
 - uses the same `SECRET_KEY` for every Silo server and node
 
+For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it, because it goes into `DATABASE_URL` as written:
+
+```yaml
+services:
+  postgres: !reset null
+  redis: !reset null
+  silo:
+    depends_on: !reset {}
+    environment:
+      DATABASE_URL: postgres://silo:${EXTERNAL_DB_PASSWORD:?Set EXTERNAL_DB_PASSWORD}@db.example.com:5432/silo?sslmode=require
+      REDIS_URL: redis://cache.example.com:6379
+      POSTGRES_TUNE: "off"
+```
+
 The database needs the pgvector extension; the default stack uses PostgreSQL 18. Check the merged files before starting:
 
 ```sh
@@ -50,7 +66,29 @@ docker compose -f docker-compose.yml -f your-override.yml config --quiet
 
 PostgreSQL is required. Redis is optional for a single `integrated` or `api` server and required once you add proxy or transcode nodes.
 
+If several Silo installs share one Redis server, give each install its own database number in `REDIS_URL`. The number is the URL's path, such as `1` in `redis://redis.example.com:6379/1`, and a URL without one uses database 0. The main server and every node of one install use the same number. Installs on the same number mix their cached data and events, such as settings changes and live log rows.
+
+If you set up Redis in **Admin > Settings > Storage & Database** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
+
+If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:*`. On a database number other than 0, Silo adds the number to its channel names, such as `silo:catalog@db1`. A user granted only the plain names (`silo:catalog`, `silo:admin`, `silo:playback`, `silo:logs`, and `silo:events`) is refused with a `NOPERM` error, and Silo exits at startup. Database 0 uses the plain names.
+
 To use [Valkey](https://valkey.io/) in place of Redis, set `REDIS_URL` to your Valkey server with a `redis://` URL. There is no Valkey-specific setting. Silo is tested only against Redis, so Valkey support is provided as-is.
+
+### Redis Sentinel
+
+To connect through [Redis Sentinel](https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/), set `REDIS_URL` to a Sentinel URL:
+
+```text
+redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=sentinel-3:26379
+```
+
+- `master_name` is the name Sentinel monitors your master under. A URL with this parameter names a Sentinel deployment.
+- The host and each `addr` are Sentinel addresses, each with its port.
+- The path is the database number, as in a single-server URL.
+- A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
+- With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
+
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
 
 ### Shared memory for your own PostgreSQL container
 
@@ -94,6 +132,12 @@ Plan PostgreSQL major-version upgrades separately from Silo updates.
 | `transcode` | Remote conversion worker |
 
 Separate nodes need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/transcode-nodes).
+
+## Rate limiting
+
+Rate limiting is on by default. Control it with **Enable rate limiting** in **Admin > Settings > Security & Access**, under **Rate limiting**, and set the limits under **Advanced**. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
+
+If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
 ## Logging
 

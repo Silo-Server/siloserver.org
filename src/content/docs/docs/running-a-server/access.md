@@ -35,11 +35,27 @@ An account can override its group. If a group change seems to have no effect, lo
 
 Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
 
+The bitrate limit caps the stream's bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it. If it can't, it tries another version that fits, and refuses playback only when neither works.
+
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
 **Marker Editing** and **Metadata Curation** let a trusted user correct media in the libraries they can access, without making them a server administrator.
+
+## Limit downloads
+
+Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps. Download counts apply only to downloads saved in the mobile apps.
+
+1. Turn on **Allow downloads**.
+2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
+3. Expand **Advanced**. Under **Per user**, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
+4. Under **Whole server**, set **Server bandwidth** to cap all downloads combined. When both bandwidth limits are set, the lower one wins.
+5. Save. New limits apply within about 30 seconds. A download that's already running keeps the speed it started with.
+
+If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
+
+**Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
 ## Check household restrictions
 
