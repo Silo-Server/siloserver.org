@@ -14,6 +14,8 @@ Fix titles, descriptions, and artwork in the web app as a server administrator. 
 4. Select the right result and choose **Apply Match**.
 5. Reopen the item and check the title, year, artwork, and files. For a series, also check seasons and episodes.
 
+Later refreshes keep the match you apply, even if an [NFO file](/docs/local-metadata) beside the media names another title.
+
 If one folder holds unrelated titles, fix the [folder layout](/docs/media-folders) first.
 
 ## Change a description or title

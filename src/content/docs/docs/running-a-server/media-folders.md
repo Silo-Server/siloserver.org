@@ -52,7 +52,7 @@ movies/
     poster.jpg
 ```
 
-Silo uses `poster.jpg` only when **NFO Files** is checked for the library. See [artwork names](/docs/local-metadata#add-artwork).
+Silo uses `poster.jpg` only while **Local metadata (NFO + artwork)** is on for the library, which it is by default. See [artwork names](/docs/local-metadata#add-artwork).
 
 Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-style names like `Movie.Name.2024.1080p.BluRay.mkv`, names without a year like `Movie.Name.1080p.BluRay.x264-GROUP.mkv`, and a year in square brackets, as in `Movie Name [2024] 720p.mkv`. Silo removes resolution, source, and codec details from the search title. Brackets and dots that belong to the title, as in `[REC]` or `S.W.A.T.`, stay.
 
