@@ -137,7 +137,8 @@ export function extractBlocks(html) {
     block.text = text;
     block.plain = normalize(text);
     // Code keeps its spacing, so an indentation-only edit still counts.
-    block.key = [block.tag, block.tag === 'pre' ? block.text : block.plain, block.links.map(link => link.href).join(' '),
+    block.key = [block.tag, block.tag === 'pre' ? block.text : block.plain,
+      JSON.stringify(block.links.map(link => [link.href, link.text])),
       block.images.join(' '), block.formats.join('\u0002')].join('\u0001');
     delete block.pieces;
   }
@@ -210,6 +211,11 @@ function notes(before, after) {
     if (!after.links.some(other => other.href === link.href)) links.push({ text: link.text, from: link.href, to: null });
   }
   if (links.length) result.push({ type: 'links', links: links.slice(0, 5) });
+  // Same words and destinations, but the link now covers different words.
+  const linked = block => block.links.map(link => link.text);
+  if (!links.length && before.plain === after.plain && linked(before).join('\u0001') !== linked(after).join('\u0001')) {
+    result.push({ type: 'linked', from: linked(before), to: linked(after) });
+  }
   if (before.images.join() !== after.images.join()) result.push({ type: 'image' });
   if (before.plain === after.plain && before.formats.join() !== after.formats.join()) result.push({ type: 'format' });
   if (before.tag === 'pre' && before.plain === after.plain && before.text !== after.text) result.push({ type: 'spacing' });
@@ -355,8 +361,16 @@ export function diffPage(baseHtml, headHtml) {
 }
 
 // The JSON a changed page carries for the browser script.
+// The heading a block sits under, so identical edits in different sections
+// get different signatures.
+function section(blocks, id) {
+  for (let i = id; i >= 0; i--) if (/^h[1-6]$/.test(blocks[i].tag)) return blocks[i].plain;
+  return '';
+}
+
 function pageData(path, diff, baseHtml, headHtml) {
   const tops = { base: {}, head: {} };
+  const occurrences = new Map();
   const hunks = diff.hunks.map(hunk => {
     const items = hunk.items.map(item => {
       const block = item.head !== undefined ? diff.head.blocks[item.head] : diff.base.blocks[item.base];
@@ -379,7 +393,13 @@ function pageData(path, diff, baseHtml, headHtml) {
     const signature = JSON.stringify(hunk.items.map(item => [item.kind,
       item.base !== undefined ? diff.base.blocks[item.base].key : '',
       item.head !== undefined ? diff.head.blocks[item.head].key : '']));
-    return { sig: hash(`${path}\n${signature}`), rewrite: Boolean(hunk.rewrite), items, groups: hunk.groups, sbs: hunk.sbs };
+    const first = hunk.items.find(item => item.head !== undefined);
+    const context = first ? section(diff.head.blocks, first.head) : section(diff.base.blocks, hunk.items[0].base);
+    // Identical edits under the same heading are told apart by their order.
+    const key = `${path}\n${context}\n${signature}`;
+    const occurrence = occurrences.get(key) ?? 0;
+    occurrences.set(key, occurrence + 1);
+    return { sig: hash(`${key}\n${occurrence}`), rewrite: Boolean(hunk.rewrite), items, groups: hunk.groups, sbs: hunk.sbs };
   });
   return { path, status: diff.status, title: diff.title, hunks, tops };
 }

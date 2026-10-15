@@ -318,7 +318,10 @@
           }
         } else if (note.type === 'image') notes.push('Image changed');
         else if (note.type === 'format') notes.push('Formatting changed');
-        else if (note.type === 'spacing') notes.push('Indentation or spacing changed: Side by side shows it');
+        else if (note.type === 'linked') {
+          const quote = texts => texts.length ? texts.map(text => `“${text}”`).join(', ') : 'nothing';
+          notes.push(`Linked words changed to ${quote(note.to)} (was ${quote(note.from)})`);
+        } else if (note.type === 'spacing') notes.push('Indentation or spacing changed: Side by side shows it');
       }
     }
     if (hunk.rewrite && prefs.mode !== 'side') notes.push('Mostly rewritten: Side by side may be easier to read');

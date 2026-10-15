@@ -273,3 +273,34 @@ test('an indentation-only edit in a code block is a change, with a note', () => 
   // Prose still ignores spacing differences.
   assert.equal(diffPage(page('<p>Same  words.</p>'), page('<p>Same words.</p>')), null);
 });
+
+test('a link moved to other words is a change, with a note', () => {
+  const diff = diffPage(page('<p><a href="/docs/x">Read</a> the guide.</p>'), page('<p>Read the <a href="/docs/x">guide</a>.</p>'));
+  assert.equal(diff.hunks.length, 1);
+  assert.deepEqual(diff.hunks[0].items[0].notes, [{ type: 'linked', from: ['Read'], to: ['guide'] }]);
+});
+
+test('identical edits in different places get different signatures', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'silo-changes-sig-'));
+  try {
+    const body = (a, b) => `${heading('one', 'One')}<p>Intro one.</p>${a}<p>End one.</p>` +
+      `${heading('two', 'Two')}<p>Intro two.</p>${b}<p>End two.</p><p>Intro three.</p>${b}<p>End three.</p>`;
+    const added = '<p>Restart the server.</p>';
+    const sigs = async (a, b) => {
+      await mkdir(join(directory, 'base/docs'), { recursive: true });
+      await mkdir(join(directory, 'head/docs'), { recursive: true });
+      await writeFile(join(directory, 'base/docs/a.html'), page(body('', '')));
+      await writeFile(join(directory, 'head/docs/a.html'), page(body(a, b)));
+      const pages = await collectChanges(join(directory, 'base'), join(directory, 'head'));
+      return changesManifest(pages, { info, compare: null }).pages[0].hunks.map(hunk => hunk.sig);
+    };
+    const first = await sigs(added, '');
+    const later = await sigs(added, added);
+    assert.equal(later.length, 3);
+    assert.equal(new Set(later).size, 3);
+    // The edit seen on the first visit keeps its signature; the repeats are new.
+    assert.equal(later[0], first[0]);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
