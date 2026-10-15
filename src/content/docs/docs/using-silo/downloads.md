@@ -75,3 +75,7 @@ The web app can save a title's original file through your browser.
 
 **Download** appears when your account is allowed to download. You get the
 original file, so you need a video player that can open its format.
+
+## When a download is limited
+
+Your administrator can [limit downloads](/docs/manage-access#limit-downloads). Your account's download speed is shared by all of your downloads and profiles. If you've reached your account's limit, remove a download you no longer need or try again later.

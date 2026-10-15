@@ -14,7 +14,7 @@ Plugins add providers and integrations to your server, such as metadata, skip ma
 4. Open the plugin. If it shows **Finish setting up**, fill in the listed settings and save them.
 5. Try it in the feature that uses it: match one library item or run one scan source.
 
-Some providers also need to be selected in the library or feature settings, for example in a library's **Provider Priority**.
+Some providers also need to be selected in the library or feature settings, for example in a library's **Provider Priority**. Sign-in plugins are set up and turned on in **Admin > Settings > Sign-in**; see [Set up single sign-on](/docs/single-sign-on).
 
 ## Choose sources you trust
 

@@ -8,6 +8,8 @@ Use an invitation when someone should choose their own password. Create an accou
 
 An account is a sign-in for your server. Its profiles keep household members' history and preferences separate. Make most people **User**, even if they manage profiles for their family. **Admin** gives control of the server.
 
+If people sign in with an identity provider such as authentik or Active Directory, see [Set up single sign-on](/docs/single-sign-on). Their accounts can be created the first time they sign in.
+
 Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Settings > General** first, using an address the recipient can open. Without it, Silo can't create these links.
 
 ## Invite someone
@@ -21,6 +23,8 @@ Invitation and password reset links point to your server's **Silo public URL**. 
 The link works once and expires after seven days. The recipient chooses a password, then signs in to your server. Send them [Join a server](/docs/connect-and-watch) with the invitation.
 
 If the link expires, resend the invitation to create a new link. Revoking a pending invitation stops its link from working; it doesn't remove an account that has already accepted.
+
+Invitations create accounts with a Silo password, so they can't be sent or accepted while **Allow password sign-in** is off in **Admin > Settings > Sign-in**. People join by signing in with the [sign-in provider](/docs/single-sign-on) instead.
 
 ## Create an account yourself
 
@@ -54,13 +58,23 @@ Emailing the link needs [email set up](/docs/notification-delivery#set-up-email)
 
 To hand over a temporary password instead, choose **Edit**, enter a new password, and select **Require change at next sign-in** before saving. The person then signs in through the web app to replace it before using their other apps.
 
-Completing a reset link or setting a temporary password signs the account out on its devices. API keys remain active; [revoke those separately](/docs/api-keys#replace-a-key) if the account was compromised. For accounts managed by another sign-in provider, reset the password with that provider.
+Completing a reset link or setting a temporary password signs the account out on its devices. API keys remain active; [revoke those separately](/docs/api-keys#replace-a-key) if the account was compromised. For accounts connected to a [sign-in provider](/docs/single-sign-on), reset the password with that provider.
 
 ### Let people reset their own passwords
 
 Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** in **Admin > Settings > General** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
 
 People can request a link using their username or email address. These links expire after one hour. See [Forgot your password?](/docs/accounts#forgot-your-password) for the steps to share with them.
+
+## Sign-in and break-glass accounts
+
+When the server uses [single sign-on](/docs/single-sign-on), open the person's name in **Admin > Users** and choose the **Sign-in** tab to see how the account signs in.
+
+**Password sign-in** says whether the account can sign in with a Silo password. Connecting a sign-in provider turns it off, unless the account is break-glass. To turn it back on, for example when the account's provider is gone, choose **Set a password**. While it's off, the page header shows **Set password** where other accounts show **Reset password**.
+
+**Break-glass account**, on admin accounts, keeps password sign-in when it's turned off for the server, so the admin can still get in if the provider is down. The server owner is break-glass by default, and only the owner can change this switch. Make sure at least one break-glass admin knows their Silo password. To sign in with it, see [If you're locked out](/docs/single-sign-on#if-youre-locked-out).
+
+**Sign-in provider identities** lists the provider accounts this account signs in with. Choose **Unlink** to remove one. **Connect identity** connects one by hand, but it needs the provider's exact ID for the person, which the dialog explains. It's usually easier to have the person [connect it themselves](/docs/accounts#connect-a-sign-in-provider) while they still have a Silo password.
 
 ## A lost device or unwanted playback
 

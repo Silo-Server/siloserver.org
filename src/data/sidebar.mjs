@@ -9,9 +9,9 @@ export const sidebar = [
     items: [
       page("docs"),
       page("docs/choose-an-app"),
-      page("docs/apps-and-features"),
       page("docs/connect-and-watch"),
       page("docs/tv-sign-in"),
+      page("docs/apps-and-features"),
     ],
   },
   {
@@ -64,6 +64,7 @@ export const sidebar = [
       group("Give people access", [
         "docs/manage-accounts",
         "docs/manage-access",
+        "docs/single-sign-on",
         "docs/reverse-proxy",
         "docs/third-party-access",
         "docs/help-a-user",
