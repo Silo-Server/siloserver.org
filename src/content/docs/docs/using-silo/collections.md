@@ -6,6 +6,9 @@ description: Open collections, make your own, and share them with the other prof
 
 A collection groups titles together. In the web, mobile, or TV app, open
 **Collections**, select a collection, then select a title to open it.
+Select **Shuffle** on a collection's page to
+[play random titles from it](/docs/watch-movies-and-series#shuffle-a-library-series-or-collection)
+until you stop.
 
 In the web app, **Collections** has three parts:
 
