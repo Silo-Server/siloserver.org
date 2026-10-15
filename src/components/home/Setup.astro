@@ -1,0 +1,35 @@
+---
+import { setup } from "../../data/home";
+
+// One line icon per step: a home server, a folder of films, and screens.
+const icons = [
+  '<rect x="5" y="3.5" width="14" height="7" rx="1.6" /><rect x="5" y="13.5" width="14" height="7" rx="1.6" /><path d="M8.5 7h.01M8.5 17h.01" stroke-width="2.6" />',
+  '<path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V7.5Z" /><path d="m10.5 11.2 4 2.3-4 2.3v-4.6Z" fill="currentColor" stroke="none" />',
+  '<rect x="2.5" y="4" width="14" height="10" rx="1.6" /><path d="M7 18h5" /><rect x="16" y="9" width="5.5" height="10.5" rx="1.4" />',
+];
+---
+
+<section class="setup section" aria-labelledby="setup-title">
+  <div class="container">
+    <div class="setup__head">
+      <h2 id="setup-title" class="h2 reveal-lines">
+        <span class="ln"><span>Up and running</span></span>
+        <span class="ln"><span>in three steps.</span></span>
+      </h2>
+    </div>
+    <ol class="setup__list">
+      {
+        setup.map((s, i) => (
+          <li class={`setup__item setup__item--${i}`}>
+            <span class="setup__icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i]} />
+            </span>
+            <span class="setup__num">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
