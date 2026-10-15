@@ -19,18 +19,21 @@ Node 20+ also works; Bun is preferred for parity with the site's build tooling.
 
 ```
 src/
-├── components/    one .astro file per page section + small reusables
+├── assets/home/   artwork for the homepage mockups and the rooms around them
+├── components/
+│   ├── home/      homepage sections, site header, and footer
+│   ├── mock/      Silo app screens (tvOS, iPhone) rebuilt for the homepage
+│   └── PolicyPage.astro  shell for /privacy and /account-deletion
 ├── content/docs/  Starlight docs content — Markdown under docs/
 ├── data/          content + config — edit copy here, not in templates
 │   ├── siteConfig.ts   site-wide constants (name, license, repo names)
-│   ├── pillars.ts      infrastructure pillars (section 01)
-│   ├── features.ts     feature grid (section 02)
-│   ├── clients.ts      native clients + Jellyfin-compat list (section 04)
-│   ├── faq.ts          FAQ items (section 05)
-│   └── releases.ts     build-time fetch of latest GitHub releases
-├── layouts/       base layout — head, fonts, shell
+│   ├── home.ts         homepage copy and mockup content
+│   └── download.ts     apps and server install on /download
+├── layouts/       Marketing.astro (head, fonts, shell) and MarketingPage.astro
 ├── pages/         file-based routing — index.astro is the homepage
-└── styles/global.css   the entire design system
+├── scripts/home.ts  homepage motion: hero focus, library, pinned scroll scene
+└── styles/        marketing.css (site design), mock.css (app mockups),
+                   docs.css (Starlight theme)
 ```
 
 ## Editing content
@@ -38,16 +41,14 @@ src/
 | To change                       | Edit                                      |
 | ------------------------------- | ----------------------------------------- |
 | Site name, license, repo URLs   | `src/data/siteConfig.ts`                  |
-| Infrastructure pillar copy      | `src/data/pillars.ts`                     |
-| Feature card copy + chips       | `src/data/features.ts`                    |
-| Client list (native or compat)  | `src/data/clients.ts`                     |
-| FAQ items                       | `src/data/faq.ts`                         |
-| Hero subhead, status bar nav    | `src/components/Hero.astro`, `StatusBar.astro` |
-| Architecture diagrams           | `src/components/Deployment.astro`         |
+| Homepage copy, setup steps, FAQ | `src/data/home.ts`                        |
+| Mockup titles and metadata      | `src/data/home.ts` (see its header note)  |
+| Download page apps              | `src/data/download.ts`                    |
+| Header and footer links         | `src/components/home/SiteHeader.astro`, `SiteFooter.astro` |
 | Documentation pages             | `src/content/docs/docs/**/*.md`           |
 | Documentation sidebar           | `src/data/sidebar.mjs`                    |
 | Old documentation URLs          | `src/data/docs-redirects.mjs`              |
-| Colors, spacing, typography     | `src/styles/global.css`                   |
+| Colors, spacing, typography     | `src/styles/marketing.css`                |
 
 Almost every copy change is a data-file edit, not a markup edit. That's
 deliberate — the components don't need to be touched unless the layout
@@ -136,23 +137,6 @@ The extra nested `docs/` directory is intentional: Starlight routes pages
 from `src/content/docs/`, so nesting the public docs there gives the site
 the `/docs` URL prefix while keeping everything in the same Astro project.
 
-## Release links on client cards
-
-The client cards in section 04 link to the latest release of each app repo
-(`silo-server`, `silo-apple`, `silo-android`). These are fetched from the
-GitHub API at build time by `src/data/releases.ts` and baked into the
-static HTML — no client-side JS, no runtime API calls. Cards show a plain
-status (shipping or beta) and never a version number.
-
-The data is refreshed on three triggers:
-
-1. Every push to `main`
-2. Every 6 hours via a scheduled workflow
-3. Every time a sibling repo publishes a release (cross-repo dispatch)
-
-If the API is unreachable or rate-limited at build time, cards fall back
-to the repo home page instead. The build never fails for this reason.
-
 ## Cross-repo release dispatch
 
 When a release is published in `silo-server`, `silo-apple`, or
@@ -238,6 +222,47 @@ standalone pages copied from `public/`, documentation, and redirects. It runs
 only when valid preview metadata is supplied. The banner reserves space above
 navigation and adjusts when its text wraps; production HTML is unchanged.
 
+### Reviewing docs changes in a preview
+
+A preview marks what the pull request changed in the docs. A box in the
+bottom-right corner of every docs page has a **Show changes** switch, buttons
+that step through each change across all changed pages, and a list of those
+pages. Added blocks are outlined in green, changed blocks in amber with the
+inserted and removed words marked, and removed blocks become a red note that
+expands to show the old text. **Side by side** shows the whole list, table, or
+paragraph from before and after the change, which is easier to read when a
+section was rewritten. Press `]` and `[` to step through changes and `c` to
+switch the highlights on or off.
+
+When you open a preview again after a new push, **Only new since your last
+visit** limits the list to changes you haven't seen. The browser remembers the
+changes on each preview it has shown, so this works per browser. The preview
+comment on the pull request lists the changed pages, each linked to its first
+change.
+
+`scripts/preview-changes.mjs` does this after a preview build. It builds the
+commit the pull request is compared with in a temporary worktree: on GitHub,
+the target branch in the pull request's merge commit; locally, where the branch
+left `origin/main`. It then compares the rendered page title and Markdown body
+of both builds, block by block, and adds the differences and
+`scripts/preview-changes-overlay.js` to each docs page. This adds about 15
+seconds to a preview build. A failed comparison shows a notice in the box and
+does not fail the build. The pull request comment comes from
+`.github/preview-tools/docs-changes-summary.cjs`, which runs in the trusted
+deploy workflow and accepts only validated paths, counts, and plain-text
+titles from the build artifact.
+
+To try it locally, build with preview metadata and serve the result:
+
+```sh
+PUBLIC_PREVIEW_PR_NUMBER=1 \
+PUBLIC_PREVIEW_PR_URL=https://github.com/Silo-Server/siloserver.org/pull/1 \
+bun run build && bun run preview
+```
+
+Set `PREVIEW_CHANGES_BASE` to a commit or branch to compare with something
+else, or `PREVIEW_CHANGES=0` to skip the comparison.
+
 The split into two workflows is deliberate: `pr-build.yml` runs contributor
 code, including from forks, with no secrets and no write permissions.
 `preview-deploy.yml` holds the Cloudflare token but never checks out or
@@ -254,6 +279,16 @@ commit from the trusted `workflow_run` event and the GitHub API, never from
 the artifact. A fork can edit the build workflow and write anything into an
 artifact, so artifact contents must not decide where a deployment lands or
 which comment and commit status are written.
+
+Pull requests from forks get previews too. GitHub doesn't link a commit that
+exists only in a fork to this repository's pull requests, so
+`.github/preview-tools/find-pull-request.cjs` also looks the pull request up
+by the fork's owner and branch from the build run. Either way, the pull request
+must be open, with the built commit as its head, from the same repository and
+branch. A first-time contributor's build waits until a maintainer selects
+**Approve and run** on the pull request. To stop someone's pull requests from
+building at all, block them in the organization settings, which stops them
+from opening pull requests.
 
 One visible consequence: the build job has no `GITHUB_TOKEN`, so the
 build-time release lookup in `src/data/releases.ts` may be rate-limited on
@@ -311,20 +346,17 @@ Purge permission for this zone. It is sent only to Cloudflare's API.
 
 ## Design system
 
-The site uses an industrial-datasheet aesthetic: warm paper surfaces,
-ink hairline tables, blueprint figures, and a single dark "instrument
-console" panel in the hero. Three typefaces (loaded from Google Fonts
-at runtime):
+The site is dark only, set in Plus Jakarta Sans (loaded from Google Fonts at
+runtime), with Silo's blue, red, and orange as accent light. The homepage
+shows the product itself: its mockups rebuild real Silo screens from the
+tvOS and iOS app source at real device ratios, so check a label or layout
+against the files listed at the top of `src/data/home.ts` before changing it.
+The hero and the pinned TV-and-phone scene sit in painted rooms; every other
+page uses the docs' dark theme.
 
-- **Big Shoulders** — display, condensed industrial
-- **Archivo** — body
-- **IBM Plex Mono** — code, spec labels, status
-
-Colors live as CSS custom properties at the top of `src/styles/global.css`.
-The official horizontal wordmark is rendered by `BrandLockup` and the
-downloadable originals live under `public/brand/`. Three skewed bars in blue,
-red, and orange recur as a decorative (non-logo) motif via `SiloBars`. The
-Starlight docs are themed to match via `src/styles/docs.css`.
+Colors live as CSS custom properties at the top of `src/styles/marketing.css`.
+The downloadable logo originals live under `public/brand/`. The Starlight docs
+are themed via `src/styles/docs.css`.
 
 ## License & Trademarks
 
