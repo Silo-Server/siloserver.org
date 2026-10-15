@@ -1,0 +1,79 @@
+---
+// Pinned scroll scene in a room. Three steps, driven by scroll progress, each
+// one state:
+// 1. TV on Breaking Bad's series page, phone on Home with it in Continue
+//    Watching.
+// 2. The episode plays on the TV and the phone shows its remote (iOS control
+//    mode, as after launchOnEngagedTV).
+// 3. The TV turns off and the phone turns to landscape with the same episode.
+import { Image } from "astro:assets";
+import Canvas from "../mock/Canvas.astro";
+import IPhone from "../mock/IPhone.astro";
+import TvSeries from "../mock/TvSeries.astro";
+import IosHome from "../mock/IosHome.astro";
+import IosRemote from "../mock/IosRemote.astro";
+import IosPlayer from "../mock/IosPlayer.astro";
+import RoomScene from "./RoomScene.astro";
+import { backdrop, seriesPages } from "../../data/home";
+
+
+const steps = [
+  {
+    title: "Pick up where you left off.",
+    body: "Your place is saved on your server, so every screen knows where you stopped.",
+  },
+  {
+    title: "Or start it from your phone.",
+    body: "Pick a TV in the Silo app and tap an episode to play it there, then pause or skip from either remote.",
+  },
+  {
+    title: "Keep watching on the go.",
+    body: "Turn off the TV and carry on from your phone.",
+  },
+];
+---
+
+<section class="experience experience--scene" id="experience" aria-labelledby="experience-title">
+  <div class="experience__track" data-scene data-progress data-progress-mode="pin">
+    <div class="experience__pin">
+      <div class="container experience__head">
+        <h2 id="experience-title" class="h2 reveal-lines">
+          <span class="ln"><span>From the big screen</span></span>
+          <span class="ln"><span>to the palm of your hand.</span></span>
+        </h2>
+      </div>
+
+      <div class="experience__stage">
+        <div class="tvset scene-anchor" data-tvset>
+          <RoomScene kind="evening" />
+          <div class="screen screen--tv">
+            <Canvas w={1920} h={1080} label="Breaking Bad's series page on Apple TV, then the episode playing.">
+              <TvSeries show={seriesPages["breaking-bad"]} />
+              <div class="tv-playing" data-tv-playing>
+                <Image src={backdrop("breaking-bad")} alt="" widths={[900, 1600]} sizes="(min-width: 1200px) 1000px, 90vw" />
+              </div>
+            </Canvas>
+          </div>
+        </div>
+        <IPhone label="Silo on iPhone: the Home screen, then the remote for the episode playing on the TV, then the episode playing on the phone." class="experience__phone">
+          <IosHome />
+          <IosRemote />
+          <IosPlayer />
+        </IPhone>
+      </div>
+
+      <ol class="container experience__steps">
+        {
+          steps.map((s, i) => (
+            <li class:list={["experience__step", i === 0 && "is-on"]} data-step={i}>
+              <span class="experience__bar"><span></span></span>
+              <h3><button type="button" class="experience__goto" data-goto={i}>{s.title}</button></h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+
+</section>

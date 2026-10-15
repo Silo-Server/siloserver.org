@@ -13,8 +13,9 @@ async function invoke(options = {}) {
     head_branch: 'feature', head_repository: { full_name: 'contributor/fork' },
     status: 'queued', conclusion: null, run_attempt: 1,
     html_url: 'https://github.com/test/site/actions/runs/10', ...options.run };
-  const pr = { number: 22, state: 'open', head: { sha: 'abc', ref: 'feature',
-    repo: {full_name: 'contributor/fork'} }, ...options.pr };
+  const pr = { number: 22, state: 'open', user: { login: 'contributor' }, head: { sha: 'abc', ref: 'feature',
+    repo: {full_name: 'contributor/fork', owner: {login: 'contributor'}} }, ...options.pr };
+  const lookups = [];
   const written = [];
   // Use the real client used by github-script v7. Stub transport, not method
   // names: nonexistent Octokit methods must fail here just as they do in CI.
@@ -26,7 +27,11 @@ async function invoke(options = {}) {
     let data;
     switch (route) {
       case 'GET /repos/test/site/actions/runs/10': data = run; break;
-      case 'GET /repos/test/site/commits/abc/pulls': data = [pr]; break;
+      case 'GET /repos/test/site/commits/abc/pulls': data = options.forkOnly ? [] : [pr]; break;
+      case 'GET /repos/test/site/pulls':
+        lookups.push(url.searchParams.get('head'));
+        data = url.searchParams.get('head') === 'contributor:feature' ? [pr] : [];
+        break;
       case 'GET /repos/test/site/pulls/22': data = options.freshPr ?? pr; break;
       case 'GET /repos/test/site/actions/workflows/1/runs':
         data = {total_count: (options.runs ?? [run]).length, workflow_runs: options.runs ?? [run]};
@@ -49,6 +54,7 @@ async function invoke(options = {}) {
   process.env.DEPLOY_ATTEMPT = String(options.deployAttempt ?? 1);
   await report({github, context: {repo: {owner: 'test', repo: 'site'}}, core: {info() {}},
     runId: 10, sha: 'abc', phase: options.phase ?? 'build'});
+  if (options.lookups) options.lookups.push(...lookups);
   return written;
 }
 const built = {status: 'completed', conclusion: 'success'};
@@ -103,4 +109,14 @@ test('late duplicate deploying event cannot downgrade terminal result', async ()
 test('unexpected build identity fails closed', async () => {
   await assert.rejects(invoke({run: {event: 'push'}}), /identity/);
   await assert.rejects(invoke({run: {head_sha: 'wrong'}}), /identity/);
+});
+test('a fork commit GitHub does not link to the PR is found by its owner and branch', async () => {
+  const lookups = [];
+  const [result] = await invoke({forkOnly: true, run: built, phase: 'success', lookups});
+  assert.equal(result.state, 'success');
+  assert.ok(result.target_url.startsWith('https://pr-22.siloserver-org.pages.dev'));
+  assert.deepEqual(lookups, ['contributor:feature']);
+  // The branch lookup still requires the exact head commit and repository.
+  assert.deepEqual(await invoke({forkOnly: true, pr: {head: {sha: 'newer', ref: 'feature', repo: {full_name: 'contributor/fork'}}}}), []);
+  assert.deepEqual(await invoke({forkOnly: true, pr: {head: {sha: 'abc', ref: 'feature', repo: {full_name: 'other/fork'}}}}), []);
 });
