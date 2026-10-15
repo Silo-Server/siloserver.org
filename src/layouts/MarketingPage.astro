@@ -1,0 +1,33 @@
+---
+// Every page other than the homepage: the docs' dark theme, shared header
+// and footer.
+import Marketing from "./Marketing.astro";
+import SiteHeader from "../components/home/SiteHeader.astro";
+import SiteFooter from "../components/home/SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<Marketing title={title} description={description} theme="docs">
+  <SiteHeader />
+  <main id="main" class="page">
+    <slot />
+  </main>
+  <SiteFooter />
+</Marketing>
+
+<script>
+  // Header backdrop once the page scrolls.
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const onScroll = () => header?.classList.toggle("is-scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  // Text animates in once on load, not as each block scrolls into view.
+  requestAnimationFrame(() =>
+    document.querySelectorAll(".rise, .reveal-lines, [data-reveal-group]").forEach((el) => el.classList.add("is-in")),
+  );
+</script>

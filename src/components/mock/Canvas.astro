@@ -1,0 +1,17 @@
+---
+// Lays out a mock screen at its native point size (1920×1080 for Apple TV,
+// 402×874 for iPhone) and scales it to fit its box. The scale is set by the
+// script in Marketing.astro, so every measurement inside can be copied from
+// the app source as-is.
+interface Props {
+  w: number;
+  h: number;
+  label: string;
+  class?: string;
+}
+const { w, h, label, class: extra = "" } = Astro.props;
+---
+
+<div class={`canvas ${extra}`} style={`--cw:${w};--ch:${h}`} data-canvas={w} role="img" aria-label={label}>
+  <div class="canvas__stage" aria-hidden="true" inert><slot /></div>
+</div>

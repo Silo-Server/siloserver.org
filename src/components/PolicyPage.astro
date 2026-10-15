@@ -1,8 +1,7 @@
 ---
-import Base from "../layouts/Base.astro";
-import Bottombar from "./Bottombar.astro";
-import BrandLockup from "./BrandLockup.astro";
-import { SITE } from "../data/siteConfig";
+// Shell for legal and policy pages (/privacy, /account-deletion). App store
+// listings link to these URLs, so they must stay stable and public.
+import MarketingPage from "../layouts/MarketingPage.astro";
 
 interface Props {
   title: string;
@@ -15,151 +14,37 @@ interface Props {
 const { title, description, eyebrow, heading, meta } = Astro.props;
 ---
 
-<Base title={title} description={description}>
-  <header class="policy-bar">
-    <a class="policy-bar__brand" href="/" aria-label={`${SITE.name} home`}>
-      <BrandLockup />
-    </a>
-    <nav class="policy-bar__nav" aria-label="Primary">
-      <a href="/">home</a>
-      <a href="/docs">docs</a>
-      <a href="/brand">brand</a>
-      <a href="/privacy">privacy</a>
-      <a href="/account-deletion">account deletion</a>
-      <a href={SITE.discord}>discord ↗</a>
-      <a href={SITE.github.orgUrl}>github ↗</a>
-    </nav>
-  </header>
-
-  <main id="main" class="policy">
-    <article class="policy__body">
-      <p class="policy__eyebrow">{eyebrow}</p>
-      <h1>{heading}</h1>
-      {meta && <p class="policy__meta">{meta}</p>}
+<MarketingPage title={title} description={description}>
+  <div class="container">
+    <header class="page-head policy-head">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="page-title policy-title">{heading}</h1>
+      {meta && <p class="policy-meta">{meta}</p>}
+    </header>
+    <article class="prose">
       <slot />
     </article>
-  </main>
-  <Bottombar />
-</Base>
+  </div>
+</MarketingPage>
 
 <style is:global>
-  .policy-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 1.1rem 1.5rem;
-    border-bottom: 1px solid var(--rule);
+  .policy-title {
+    font-size: clamp(36px, 4.6vw, 60px);
+    max-width: 18em;
   }
-  .policy-bar__brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-family: var(--ff-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.02em;
-    color: var(--ink);
-    text-decoration: none;
+  .policy-meta {
+    margin: 18px 0 0;
+    color: var(--fg-mute);
+    font-size: 14px;
   }
-  .policy-bar__nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.6rem 1.25rem;
-    font-family: var(--ff-mono);
-    font-size: 0.8rem;
+  .policy-head {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
   }
-  .policy-bar__nav a {
-    color: var(--ink-soft);
-    text-decoration: none;
-  }
-  .policy-bar__nav a:hover {
-    color: var(--blue);
-  }
-
-  .policy {
-    max-width: var(--container-narrow);
-    margin: 0 auto;
-    padding: 3rem 1.5rem 4.5rem;
-  }
-  .policy__eyebrow {
-    font-family: var(--ff-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    margin: 0 0 0.75rem;
-  }
-  .policy h1 {
-    font-family: var(--ff-display);
-    font-size: clamp(2.1rem, 5vw, 3.2rem);
-    font-weight: 800;
-    line-height: 1.05;
-    margin: 0 0 0.5rem;
-    color: var(--ink);
-  }
-  .policy__meta {
-    font-family: var(--ff-mono);
-    font-size: 0.8rem;
-    color: var(--ink-mute);
-    margin: 0 0 2rem;
-  }
-  .policy__lede {
-    font-size: 1.1rem;
-    line-height: 1.65;
-    color: var(--ink-soft);
-    border-left: 3px solid var(--blue);
-    padding-left: 1rem;
-    margin: 0 0 2.5rem;
-  }
-  .policy h2,
-  .policy h3 {
-    font-family: var(--ff-display);
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .policy h2 {
-    font-size: 1.35rem;
-    margin: 2.2rem 0 0.6rem;
-  }
-  .policy h3 {
-    font-size: 1.08rem;
-    margin: 1.4rem 0 0.45rem;
-  }
-  .policy p,
-  .policy li {
-    font-family: var(--ff-body);
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--ink-soft);
-  }
-  .policy p {
-    margin: 0 0 0.9rem;
-  }
-  .policy ul,
-  .policy ol {
-    margin: 0 0 0.9rem;
-    padding-left: 1.4rem;
-  }
-  .policy li {
-    margin-bottom: 0.35rem;
-  }
-  .policy a {
-    color: var(--blue);
-  }
-  .policy strong {
-    color: var(--ink);
-  }
-
-  @media (max-width: 720px) {
-    .policy-bar {
-      align-items: flex-start;
-    }
-    .policy-bar__nav {
-      max-width: 72%;
-    }
+  .prose .policy__lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--fg);
   }
 </style>
