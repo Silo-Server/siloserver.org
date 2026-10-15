@@ -1,0 +1,58 @@
+---
+// tvOS library Browse grid (a library tab → Browse). TVCatalogGrid.swift and
+// TVBrowseFilterUI.swift: 6 columns of 260×390 posters, 40pt column and 60pt
+// row gaps; a controls row of 24pt pills, "Sort · <key> <direction>" with
+// arrow.up.arrow.down, "Filter" with line.3.horizontal.decrease, and
+// "Shuffle" with shuffle; and the All/#/A–Z rail on the right.
+import { Image } from "astro:assets";
+import TvTopBar from "./TvTopBar.astro";
+import { poster } from "../../data/home";
+
+interface Props {
+  tab: string;
+  items: { slug: string; title: string; year: string }[];
+  sort: string;
+  direction: string;
+  focused?: number;
+}
+const { tab, items, sort, direction, focused = 0 } = Astro.props;
+const rail = ["All", "#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+---
+
+<div class="tvb" data-tv-browse>
+  <TvTopBar active={tab} dim />
+  <div class="tvb__controls">
+    <span class="tvb__pill">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M3.5 7.5 7 4l3.5 3.5M17 20V4M13.5 16.5 17 20l3.5-3.5"></path></svg>
+      Sort · {sort} <em>{direction}</em>
+    </span>
+    <span class="tvb__pill">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"></path></svg>
+      Filter
+    </span>
+    <span class="tvb__pill">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3.5c4 0 6.5 10 10.5 10H21M3 17h3.5c1.6 0 2.9-1.6 4-3.6M13.5 9.6C14.6 8.4 15.6 7 17 7h4M18.5 4.5 21 7l-2.5 2.5M18.5 14.5 21 17l-2.5 2.5"></path></svg>
+      Shuffle
+    </span>
+  </div>
+  <div class="tvb__viewport">
+    <div class="tvb__grid" data-tv-grid>
+      {
+        items.map((m, i) => (
+          <div class:list={["tvb__cell", i === focused && "is-focused"]} data-cell={i}>
+            <div class="tv-poster tv-poster--lg">
+              <Image src={poster(m.slug)} alt="" width={520} />
+            </div>
+            <div class="tv-cap">
+              <span class="tv-cap__title">{m.title}</span>
+              <span class="tv-cap__line">{m.year}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="tvb__rail">
+    {rail.map((r) => <span class:list={[r === "All" && "is-on"]}>{r}</span>)}
+  </div>
+</div>
