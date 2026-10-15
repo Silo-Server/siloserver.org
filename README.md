@@ -222,6 +222,47 @@ standalone pages copied from `public/`, documentation, and redirects. It runs
 only when valid preview metadata is supplied. The banner reserves space above
 navigation and adjusts when its text wraps; production HTML is unchanged.
 
+### Reviewing docs changes in a preview
+
+A preview marks what the pull request changed in the docs. A box in the
+bottom-right corner of every docs page has a **Show changes** switch, buttons
+that step through each change across all changed pages, and a list of those
+pages. Added blocks are outlined in green, changed blocks in amber with the
+inserted and removed words marked, and removed blocks become a red note that
+expands to show the old text. **Side by side** shows the whole list, table, or
+paragraph from before and after the change, which is easier to read when a
+section was rewritten. Press `]` and `[` to step through changes and `c` to
+switch the highlights on or off.
+
+When you open a preview again after a new push, **Only new since your last
+visit** limits the list to changes you haven't seen. The browser remembers the
+changes on each preview it has shown, so this works per browser. The preview
+comment on the pull request lists the changed pages, each linked to its first
+change.
+
+`scripts/preview-changes.mjs` does this after a preview build. It builds the
+commit the pull request is compared with in a temporary worktree: on GitHub,
+the target branch in the pull request's merge commit; locally, where the branch
+left `origin/main`. It then compares the rendered page title and Markdown body
+of both builds, block by block, and adds the differences and
+`scripts/preview-changes-overlay.js` to each docs page. This adds about 15
+seconds to a preview build. A failed comparison shows a notice in the box and
+does not fail the build. The pull request comment comes from
+`.github/preview-tools/docs-changes-summary.cjs`, which runs in the trusted
+deploy workflow and accepts only validated paths, counts, and plain-text
+titles from the build artifact.
+
+To try it locally, build with preview metadata and serve the result:
+
+```sh
+PUBLIC_PREVIEW_PR_NUMBER=1 \
+PUBLIC_PREVIEW_PR_URL=https://github.com/Silo-Server/siloserver.org/pull/1 \
+bun run build && bun run preview
+```
+
+Set `PREVIEW_CHANGES_BASE` to a commit or branch to compare with something
+else, or `PREVIEW_CHANGES=0` to skip the comparison.
+
 The split into two workflows is deliberate: `pr-build.yml` runs contributor
 code, including from forks, with no secrets and no write permissions.
 `preview-deploy.yml` holds the Cloudflare token but never checks out or

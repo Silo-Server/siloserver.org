@@ -204,6 +204,26 @@ jobs:
             }
             core.info(`Removed ${ids.length} deployment(s) for closed PR #${pr.number}.`);
 
+      - name: Summarize documentation changes
+        # Lists changed docs pages with links to their first change. The manifest
+        # comes from the untrusted artifact; trusted tooling validates every field.
+        id: changes
+        if: steps.reconcile.outputs.publish == 'true'
+        continue-on-error: true
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          PR_NUMBER: ${{ steps.ctx.outputs.pr }}
+        with:
+          script: |
+            const fs = require('node:fs');
+            const summarize = require(`${process.env.GITHUB_WORKSPACE}/trusted-preview/.github/preview-tools/docs-changes-summary.cjs`);
+            const path = 'dist/_changes/manifest.json';
+            const stat = fs.lstatSync(path, { throwIfNoEntry: false });
+            const manifest = stat?.isFile() && stat.size <= 512 * 1024 ? fs.readFileSync(path, 'utf8') : '';
+            core.setOutput('summary', summarize(manifest, {
+              origin: `https://pr-${process.env.PR_NUMBER}.${process.env.PREVIEW_PROJECT}.pages.dev`,
+            }));
+
       - name: Comment on the pull request
         if: steps.reconcile.outputs.publish == 'true'
         uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
@@ -216,6 +236,8 @@ jobs:
             | | |
             | --- | --- |
             | Commit | `${{ steps.ctx.outputs.short }}` |
+
+            ${{ steps.changes.outputs.summary }}
 
             The alias updates after a successful build and deployment. The preview is removed when this pull request closes.
 

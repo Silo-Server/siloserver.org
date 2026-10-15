@@ -211,6 +211,59 @@ try {
         self.assertNotEqual(self.run_status([{'name': 'deploy', 'status': 'success'}], api_success=False).returncode, 0)
 
 
+class ChangesSummaryTests(unittest.TestCase):
+    def summarize(self, write):
+        script = block('preview-deploy.yml', 'Summarize documentation changes', 'script')
+        harness = r'''
+const outputs = {};
+const core = {setOutput: (key, value) => outputs[key] = value};
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+await new AsyncFunction('require', 'core', process.env.SCRIPT)(require, core);
+console.log(JSON.stringify(outputs));
+'''
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            tools = folder / 'trusted-preview/.github/preview-tools'
+            tools.mkdir(parents=True)
+            (tools / 'docs-changes-summary.cjs').symlink_to(ROOT / '.github/preview-tools/docs-changes-summary.cjs')
+            (folder / 'dist/_changes').mkdir(parents=True)
+            write(folder / 'dist/_changes/manifest.json', folder)
+            env = dict(os.environ, SCRIPT=script, GITHUB_WORKSPACE=str(folder), PR_NUMBER='21', PREVIEW_PROJECT='test')
+            result = subprocess.run(['node', '--input-type=module', '-e',
+                                     "import { createRequire } from 'node:module';\nconst require = createRequire(process.cwd() + '/');\n" + harness],
+                                    cwd=folder, env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            return json.loads(result.stdout)['summary']
+
+    def test_links_point_at_this_preview(self):
+        manifest = {'pages': [{'path': '/docs/a', 'title': 'A', 'status': 'changed', 'hunks': [{'sig': 'x'}]}]}
+        summary = self.summarize(lambda path, _: path.write_text(json.dumps(manifest)))
+        self.assertIn('[A](https://pr-21.test.pages.dev/docs/a?change=1) | 1 |', summary)
+
+    def test_missing_oversized_or_linked_manifests_are_ignored(self):
+        self.assertEqual(self.summarize(lambda path, _: None), '')
+        self.assertEqual(self.summarize(lambda path, _: path.write_text(' ' * (600 * 1024))), '')
+        def link(path, folder):
+            secret = folder / 'secret.json'
+            secret.write_text(json.dumps({'pages': [{'path': '/docs/a', 'title': 'A', 'status': 'changed', 'hunks': []}]}))
+            path.symlink_to(secret)
+        self.assertEqual(self.summarize(link), '')
+
+    def test_summary_is_optional_and_trusted(self):
+        result = subprocess.run(['bun', '-e', '''
+console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/preview-deploy.yml').text())));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        steps = json.loads(result.stdout)['jobs']['deploy']['steps']
+        names = [step['name'] for step in steps]
+        summary = steps[names.index('Summarize documentation changes')]
+        # A broken summary must never hold back the preview comment.
+        self.assertTrue(summary['continue-on-error'])
+        self.assertEqual(summary['if'], "steps.reconcile.outputs.publish == 'true'")
+        self.assertIn('/trusted-preview/.github/preview-tools/', summary['with']['script'])
+        self.assertLess(names.index('Summarize documentation changes'), names.index('Comment on the pull request'))
+        self.assertIn('${{ steps.changes.outputs.summary }}', steps[names.index('Comment on the pull request')]['with']['message'])
+
+
 class RedirectTests(unittest.TestCase):
     def publish(self, records=None):
         script = block('preview-teardown.yml', 'Publish a redirect on the preview address', 'run')
