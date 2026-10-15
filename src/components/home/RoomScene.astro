@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import living from "../../assets/home/scenes/living.webp";
+import evening from "../../assets/home/scenes/evening.webp";
+
+interface Props {
+  kind: "living" | "evening";
+}
+const { kind } = Astro.props;
+const scenes = { living, evening };
+// The 30:17 frame (3000×1700 masters) holds the device at x 1000–2000,
+// y 500–1062. The masters carry fine grain that dithers the dark gradients,
+// so they're served at a higher quality than Astro's default to keep it.
+// .room positions this frame relative to the live screen at every viewport.
+---
+
+<div class={`room room--${kind}`} aria-hidden="true">
+  <Image
+    src={scenes[kind]}
+    alt=""
+    widths={[1500, 2200, 3000]}
+    sizes="(min-width: 960px) 2400px, 300vw"
+    quality={88}
+    loading={kind === "living" ? "eager" : "lazy"}
+    decoding="async"
+  />
+</div>
