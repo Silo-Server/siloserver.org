@@ -1,0 +1,108 @@
+---
+// iPhone Home. HomeView.swift / HomeFeedKit.swift: no hero; pinned header
+// with the 72pt wordmark and the Search · Remote · Profile cluster (44pt);
+// 16pt gutter, 10pt card spacing, 30pt between sections; 240pt 16:9 resume
+// stills and 132pt 2:3 posters; floating Home · Libraries · For You ·
+// Calendar tab bar.
+import { Image } from "astro:assets";
+import { backdrop, poster, nowPlaying } from "../../data/home";
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const added = [
+  ["arrival", "Arrival", "2016"],
+  ["blade-runner-2049", "Blade Runner 2049", "2017"],
+  ["interstellar", "Interstellar", "2014"],
+];
+const released = ["the-martian", "ex-machina", "parasite"];
+---
+
+<div class="ios-home">
+  <div class="ios-home__head">
+    <img class="ios-home__mark" src={`${baseUrl}/brand/silo-wordmark-white.svg`} alt="" width="72" height="37" />
+    <span class="ios-glass ios-glass--icon">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg>
+    </span>
+    <!-- SiloControlModeButton: appletvremote.gen4, filled while control mode is on. -->
+    <span class="ios-glass ios-glass--icon ios-remote-btn">
+      <svg class="ios-remote-btn__off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2.5" width="8" height="19" rx="3"></rect><circle cx="12" cy="7" r="1.6" fill="currentColor"></circle><path d="M12 11.5v.01M12 14.5v.01M12 17.5v.01" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      <svg class="ios-remote-btn__on" viewBox="0 0 24 24" width="18" height="18"><rect x="7" y="1.5" width="10" height="21" rx="3.8" fill="currentColor"></rect><circle cx="12" cy="7" r="2.4" fill="#111"></circle><path d="M12 11.5v.01M12 14.5v.01M12 17.5v.01" stroke="#111" stroke-width="2.4" stroke-linecap="round"></path></svg>
+    </span>
+    <span class="ios-glass ios-glass--avatar">A</span>
+  </div>
+
+  <div class="ios-home__section">
+    <div class="ios-head">
+      <svg viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="10" fill="currentColor" opacity=".6"></circle><path d="M8 6.2v7.6c0 .5.6.8 1 .5l5.8-3.8a.6.6 0 0 0 0-1L9 5.7c-.4-.3-1 0-1 .5Z" fill="#111"></path></svg>
+      Continue Watching
+    </div>
+    <div class="ios-rail">
+      <div class="ios-still">
+        <div class="ios-still__art">
+          <Image src={backdrop("breaking-bad")} alt="" width={720} />
+          <span class="ios-ov">1080P</span>
+          <span class="ios-still__play">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4.5v15c0 .8.9 1.3 1.6.8l11.3-7.5a1 1 0 0 0 0-1.6L8.6 3.7C7.9 3.2 7 3.7 7 4.5Z" fill="#fff"></path></svg>
+          </span>
+          <span class="ios-progress"><span style={`--p:${nowPlaying.progress}`}></span></span>
+        </div>
+        <span class="ios-cap__title">Breaking Bad</span>
+        <span class="ios-cap__line">S01E01 · Pilot</span>
+        <span class="ios-cap__line">{nowPlaying.left}</span>
+      </div>
+      <div class="ios-still">
+        <div class="ios-still__art">
+          <Image src={backdrop("dune")} alt="" width={720} />
+          <span class="ios-ov">4K DV</span>
+          <span class="ios-still__play">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4.5v15c0 .8.9 1.3 1.6.8l11.3-7.5a1 1 0 0 0 0-1.6L8.6 3.7C7.9 3.2 7 3.7 7 4.5Z" fill="#fff"></path></svg>
+          </span>
+          <span class="ios-progress"><span style="--p:0.66"></span></span>
+        </div>
+        <span class="ios-cap__title">Dune</span>
+        <span class="ios-cap__line">2021</span>
+        <span class="ios-cap__line">52m left</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ios-home__section">
+    <div class="ios-head">Recently Added in Movies</div>
+    <div class="ios-rail">
+      {
+        added.map(([slug, title, year]) => (
+          <div class="ios-poster">
+            <Image class="ios-poster__art" src={poster(slug)} alt="" width={400} />
+            <span class="ios-cap__title">{title}</span>
+            <span class="ios-cap__line">{year}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="ios-home__section">
+    <div class="ios-head">Recently Released in Movies</div>
+    <div class="ios-rail">
+      {released.map((slug) => <div class="ios-poster"><Image class="ios-poster__art" src={poster(slug)} alt="" width={400} /></div>)}
+    </div>
+  </div>
+
+  <div class="ios-tabbar">
+    <span class="ios-tab is-on">
+      <svg viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M3.3 11.2 12 3.6l8.7 7.6a.8.8 0 0 1-.5 1.4H19V20a1 1 0 0 1-1 1h-3.5v-5.5h-5V21H6a1 1 0 0 1-1-1v-7.4H3.8a.8.8 0 0 1-.5-1.4Z"></path></svg>
+      Home
+    </span>
+    <span class="ios-tab">
+      <svg viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><rect x="3" y="8" width="18" height="13" rx="2.5"></rect><rect x="5" y="5" width="14" height="1.8" rx=".9"></rect><rect x="7" y="2.3" width="10" height="1.6" rx=".8"></rect></svg>
+      Libraries
+    </span>
+    <span class="ios-tab">
+      <svg viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M11 4c.6 4.2 2.8 6.4 7 7-4.2.6-6.4 2.8-7 7-.6-4.2-2.8-6.4-7-7 4.2-.6 6.4-2.8 7-7Z"></path><path d="M18.5 2c.3 1.6 1 2.3 2.5 2.5-1.6.3-2.3 1-2.5 2.5-.3-1.6-1-2.3-2.5-2.5 1.6-.3 2.3-1 2.5-2.5Z"></path></svg>
+      For You
+    </span>
+    <span class="ios-tab">
+      <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 9.5h17"></path><path d="M8 13h.01M12 13h.01M16 13h.01M8 16.5h.01M12 16.5h.01" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      Calendar
+    </span>
+  </div>
+</div>
