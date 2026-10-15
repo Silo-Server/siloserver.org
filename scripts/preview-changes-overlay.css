@@ -1,0 +1,313 @@
+/* Docs change overlay for pull request previews (see preview-changes.mjs). */
+:root {
+  --silo-added: #3fb950;
+  --silo-added-bg: rgb(63 185 80 / 0.12);
+  --silo-changed: #d29922;
+  --silo-changed-bg: rgb(210 153 34 / 0.12);
+  --silo-removed: #f85149;
+  --silo-removed-bg: rgb(248 81 73 / 0.12);
+}
+:root[data-theme="light"] {
+  --silo-added: #1a7f37;
+  --silo-added-bg: rgb(26 127 55 / 0.1);
+  --silo-changed: #9a6700;
+  --silo-changed-bg: rgb(212 167 44 / 0.16);
+  --silo-removed: #cf222e;
+  --silo-removed-bg: rgb(207 34 46 / 0.08);
+}
+
+/* ---- Highlights, shown only while the switch is on ---- */
+[data-silo-kind="added"] { --silo-kind: var(--silo-added); --silo-kind-bg: var(--silo-added-bg); }
+[data-silo-kind="changed"] { --silo-kind: var(--silo-changed); --silo-kind-bg: var(--silo-changed-bg); }
+[data-silo-kind="removed"] { --silo-kind: var(--silo-removed); --silo-kind-bg: var(--silo-removed-bg); }
+
+.silo-changes-on [data-silo-kind]:not(tr) {
+  outline: 2px solid var(--silo-kind);
+  outline-offset: 3px;
+  border-radius: 2px;
+  background-color: var(--silo-kind-bg);
+}
+.silo-changes-on tr[data-silo-kind] > * { background-color: var(--silo-kind-bg); }
+.silo-changes-on tr[data-silo-kind] > :first-child { box-shadow: inset 3px 0 var(--silo-kind); }
+.silo-changes-on .silo-current[data-silo-kind]:not(tr) {
+  outline-width: 3px;
+  box-shadow: 0 0 0 7px var(--silo-kind-bg);
+  animation: silo-pulse 0.9s ease-out 1;
+}
+.silo-changes-on tr.silo-current > * { box-shadow: inset 0 2px var(--silo-kind), inset 0 -2px var(--silo-kind); }
+.silo-changes-on tr.silo-current > :first-child { box-shadow: inset 3px 0 var(--silo-kind), inset 0 2px var(--silo-kind), inset 0 -2px var(--silo-kind); }
+.silo-changes-on.silo-changes-only-new .silo-seen[data-silo-kind]:not(tr) { outline-style: dashed; outline-width: 1px; background-color: transparent; }
+.silo-changes-on.silo-changes-only-new tr.silo-seen > * { background-color: transparent; }
+@keyframes silo-pulse { from { box-shadow: 0 0 0 0 var(--silo-kind); } }
+@media (prefers-reduced-motion: reduce) { .silo-changes-on .silo-current[data-silo-kind] { animation: none; } }
+
+.silo-changes-on .silo-page-added {
+  box-shadow: -14px 0 0 -11px var(--silo-added);
+}
+
+/* Word-level marks inside changed blocks. */
+ins.silo-ins { text-decoration: none; color: inherit; }
+del.silo-del { display: none; }
+.silo-changes-on ins.silo-ins {
+  background-color: var(--silo-added-bg);
+  box-shadow: inset 0 -2px var(--silo-added);
+  border-radius: 2px;
+}
+.silo-changes-on del.silo-del {
+  display: inline;
+  color: var(--silo-removed);
+  background-color: var(--silo-removed-bg);
+  text-decoration: line-through;
+  border-radius: 2px;
+  margin-inline-end: 0.25em;
+}
+.silo-changes-on.silo-changes-only-new .silo-seen :is(ins.silo-ins, del.silo-del) { background-color: transparent; box-shadow: none; }
+
+/* Removed blocks: a collapsed note where they were. */
+.silo-removed { display: none !important; }
+.silo-changes-on .silo-removed { display: block !important; list-style: none; }
+.silo-changes-on tr.silo-removed { display: table-row !important; }
+.silo-changes-on li.silo-removed::marker { content: none; }
+.silo-removed-toggle {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  color: var(--silo-removed);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.silo-removed-toggle:focus-visible { outline: 2px solid var(--silo-removed); outline-offset: 4px; }
+.silo-removed-label { font-weight: 600; }
+.silo-removed-preview { font-weight: 400; opacity: 0.85; }
+.silo-removed-toggle[aria-expanded="true"] .silo-removed-preview { display: none; }
+.silo-removed-action { flex: none; text-decoration: underline; }
+.silo-removed-body { margin-top: 0.75rem; text-decoration: line-through; text-decoration-color: var(--silo-removed); opacity: 0.85; }
+.silo-removed-body > :first-child { margin-top: 0; }
+
+/* ---- Box ---- */
+.silo-changes {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  max-width: calc(100vw - 2rem);
+  font-family: var(--sl-font, system-ui, sans-serif);
+  color: var(--sl-color-text);
+  pointer-events: none;
+}
+.silo-changes > * { pointer-events: auto; }
+body[data-mobile-menu-expanded] .silo-changes { display: none; }
+@media print { .silo-changes, .silo-removed { display: none !important; } }
+
+.silo-box, .silo-pill, .silo-sbs {
+  background: var(--sl-color-bg-nav, #1b1d22);
+  border: 1px solid var(--sl-color-gray-5, #3a3d46);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.35);
+}
+.silo-box {
+  box-sizing: border-box;
+  width: 18rem;
+  max-width: 100%;
+  padding: 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.silo-box[hidden], .silo-pill[hidden], .silo-sbs[hidden] { display: none; }
+.silo-box button, .silo-pill {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.silo-box :focus-visible, .silo-pill:focus-visible, .silo-sbs :focus-visible {
+  outline: 2px solid var(--sl-color-text-accent);
+  outline-offset: 2px;
+}
+.silo-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.silo-switch { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; cursor: pointer; }
+.silo-switch input {
+  appearance: none;
+  position: relative;
+  flex: none;
+  width: 2.125rem;
+  height: 1.25rem;
+  margin: 0;
+  border-radius: 1rem;
+  background: var(--sl-color-gray-5);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.silo-switch input::after {
+  content: "";
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+.silo-switch input:checked { background: var(--silo-added); }
+.silo-switch input:checked::after { transform: translateX(0.875rem); }
+.silo-switch input:focus-visible { outline: 2px solid var(--sl-color-text-accent); outline-offset: 2px; }
+.silo-collapse {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  font-size: 1rem;
+}
+.silo-collapse:hover { background: var(--sl-color-gray-6); }
+
+.silo-nav { display: flex; align-items: stretch; gap: 0.5rem; margin-top: 0.75rem; }
+.silo-step {
+  flex: none;
+  width: 2.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.5rem;
+  background: var(--sl-color-gray-6);
+  font-size: 1.25rem !important;
+  line-height: 1;
+}
+.silo-step:hover:not(:disabled) { border-color: var(--sl-color-gray-3); }
+.silo-step:disabled { opacity: 0.4; cursor: default; }
+.silo-position {
+  flex: 1;
+  min-width: 0;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  text-align: center;
+}
+.silo-position:hover { background: var(--sl-color-gray-6); }
+.silo-position strong, .silo-position small { display: block; }
+.silo-position small {
+  overflow: hidden;
+  color: var(--sl-color-gray-2);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.silo-detail { margin: 0.625rem 0 0; color: var(--sl-color-gray-2); overflow-wrap: anywhere; }
+.silo-error { color: var(--silo-removed); }
+
+.silo-modes { display: flex; margin-top: 0.625rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; overflow: hidden; }
+.silo-modes button { flex: 1; padding: 0.3rem 0.5rem; border: 0; background: transparent; }
+.silo-modes button + button { border-left: 1px solid var(--sl-color-gray-5); }
+.silo-modes button[aria-pressed="true"] { background: var(--sl-color-gray-5); font-weight: 600; }
+.silo-modes button:disabled { opacity: 0.45; cursor: default; }
+
+.silo-new { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.625rem; cursor: pointer; }
+.silo-new input { margin: 0; accent-color: var(--silo-added); }
+.silo-new:has(input:disabled) { opacity: 0.6; cursor: default; }
+
+.silo-legend { display: flex; gap: 0.75rem; margin-top: 0.625rem; color: var(--sl-color-gray-2); font-size: 0.6875rem; }
+.silo-legend span::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline-end: 0.3rem;
+  border-radius: 2px;
+}
+.silo-legend .is-added::before { background: var(--silo-added); }
+.silo-legend .is-changed::before { background: var(--silo-changed); }
+.silo-legend .is-removed::before { background: var(--silo-removed); }
+
+.silo-pages {
+  max-height: 14rem;
+  margin: 0.625rem 0 0;
+  padding: 0.25rem 0 0;
+  overflow-y: auto;
+  border-top: 1px solid var(--sl-color-gray-5);
+  list-style: none;
+}
+.silo-pages[hidden] { display: none; }
+.silo-pages li { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.3rem 0; margin: 0; }
+.silo-pages a { min-width: 0; overflow: hidden; color: var(--sl-color-text-accent); text-overflow: ellipsis; white-space: nowrap; }
+.silo-pages .is-current a { color: var(--sl-color-white); font-weight: 600; }
+.silo-pages span { flex: none; color: var(--sl-color-gray-2); }
+
+.silo-pill { padding: 0.5rem 0.875rem; font-size: 0.8125rem; font-weight: 600; }
+
+.silo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Side by side ---- */
+.silo-sbs {
+  box-sizing: border-box;
+  width: min(60rem, calc(100vw - 2rem));
+  max-height: 45vh;
+  overflow-y: auto;
+  padding: 0 1rem 1rem;
+}
+.silo-sbs-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0 0.5rem;
+  background: inherit;
+  font-size: 0.8125rem;
+}
+.silo-sbs-close {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.silo-sbs-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.silo-sbs-column { min-width: 0; }
+.silo-sbs-column > h2 {
+  margin: 0 0 0.5rem;
+  color: var(--sl-color-gray-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.silo-sbs-body { font-size: 0.875rem; }
+.silo-sbs-body > :first-child { margin-top: 0; }
+.silo-sbs-body .sl-anchor-link { display: none; }
+.silo-sbs-body [data-silo-kind]:not(tr) {
+  outline: 2px solid var(--silo-kind);
+  outline-offset: 2px;
+  border-radius: 2px;
+  background-color: var(--silo-kind-bg);
+}
+.silo-sbs-body tr[data-silo-kind] > * { background-color: var(--silo-kind-bg); }
+.silo-sbs-column:first-child [data-silo-kind="changed"] { --silo-kind: var(--silo-removed); --silo-kind-bg: var(--silo-removed-bg); }
+/* Wide windows: the panel sits beside the box, leaving the page above clear. */
+@media (min-width: 64rem) {
+  .silo-changes { flex-direction: row; }
+  .silo-sbs { width: min(56rem, calc(100vw - 22rem)); max-height: 50vh; }
+}
+@media (max-width: 50rem) {
+  .silo-sbs-columns { grid-template-columns: 1fr; }
+  .silo-sbs { max-height: 50vh; }
+  .silo-changes { left: max(1rem, env(safe-area-inset-left)); }
+  .silo-box { width: 100%; }
+  /* Keep the box short so the change above it stays readable. */
+  .silo-legend { display: none; }
+  .silo-detail:not(.is-open) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+}

@@ -1,0 +1,85 @@
+---
+// tvOS series detail with Play focused, on first open (Show mode).
+// TVSeriesDetailView.swift / TVDetailHero.swift / TVDetailActions.swift /
+// TVEpisodeRail.swift:
+//   logo max 650×160 in 116–276; metadata row at 290 (chip, then
+//   year · seasons · rating · genres); 3-line synopsis at 340; "Starring" at
+//   471; VERSION / AUDIO / SUBTITLES readout at 507; action row at 557: a
+//   340×76 "Resume S1:E1" or "Play S1:E1" pill, then 76pt icon-only circles,
+//   18pt apart: Start Over (only when the episode is in progress), Versions,
+//   Audio, Subtitles, Watchlist, More; season tabs at 694; episode stills
+//   360×200 at 776 with "S01E01 · Title" captions.
+// Cast & Crew starts below the first screen, so it isn't drawn.
+import { Image } from "astro:assets";
+import { backdrop, logo, episode, nowPlaying, type SeriesPage } from "../../data/home";
+
+interface Props {
+  show: SeriesPage;
+}
+const { show } = Astro.props;
+
+// SF Symbols: backward.end.fill, square.stack, speaker.wave.2,
+// captions.bubble, bookmark, ellipsis.
+const startOver =
+  '<path d="M7 5v14" stroke-width="2.6" /><path d="M19 5.6v12.8a.8.8 0 0 1-1.2.7L8.6 12.7a.8.8 0 0 1 0-1.4l9.2-6.4a.8.8 0 0 1 1.2.7Z" fill="currentColor" stroke="none" />';
+const circles = [
+  ...(show.inProgress ? [startOver] : []),
+  '<rect x="4" y="8" width="16" height="12" rx="2.2" /><path d="M6.5 5h11M9 2.5h6" />',
+  '<path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" /><path d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.8a7.5 7.5 0 0 1 0 10.4" />',
+  '<path d="M5 4.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4.5 3.5v-3.5H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" /><path d="M7 9.5h4M13 9.5h4M7 12.5h6" />',
+  '<path d="M7 3.5h10v17l-5-3.6-5 3.6v-17Z" />',
+  '<circle cx="5.5" cy="12" r="1.6" fill="currentColor" stroke="none" /><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" /><circle cx="18.5" cy="12" r="1.6" fill="currentColor" stroke="none" />',
+];
+const seasons = Array.from({ length: show.seasons }, (_, i) => i + 1);
+---
+
+<div class="tvs" style={`--tint:${show.tint}`}>
+  <div class="tvd__bg">
+    <Image class="tvh__backdrop" src={backdrop(show.slug)} alt="" widths={[900, 1500]} sizes="(min-width: 1200px) 760px, 64vw" />
+  </div>
+
+  <div class="tvs__logo"><Image src={logo(show.slug)} alt="" width={500} /></div>
+  <div class="tvs__meta">
+    <span class="tvd__chip">{show.rating}</span>
+    <span>{show.year}</span><i>·</i><span>{show.seasons} Seasons</span><i>·</i><span class="tvs__rating"><b>IMDb</b> {show.imdb}</span><i>·</i><span class="tvs__genres">{show.genres}</span>
+  </div>
+  <p class="tvs__synopsis">{show.synopsis}</p>
+  <p class="tvs__starring">Starring {show.starring}</p>
+  <div class="tvs__readout">
+    <span style="min-width:313px"><b>VERSION</b>{show.version}</span>
+    <span style="min-width:364px"><b>AUDIO</b>{show.audio}</span>
+    <span style="min-width:338px"><b>SUBTITLES</b>Auto · None</span>
+  </div>
+
+  <div class="tvs__actions">
+    <span class="tvs__play">
+      <svg viewBox="0 0 24 24" width="31" height="31"><path d="M6.5 4.2v15.6c0 .9 1 1.4 1.7.9l11.6-7.8a1 1 0 0 0 0-1.8L8.2 3.3c-.7-.5-1.7 0-1.7.9Z" fill="currentColor"></path></svg>
+      {show.inProgress ? "Resume" : "Play"} S1:E1
+    </span>
+    {
+      circles.map((d) => (
+        <span class="tvs__circle">
+          <svg viewBox="0 0 24 24" width="31" height="31" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" set:html={d} />
+        </span>
+      ))
+    }
+  </div>
+
+  <div class="tvs__seasons">
+    {seasons.map((n) => <span class:list={["tvs__season", n === 1 && "is-selected"]}>Season {n}</span>)}
+  </div>
+
+  <div class="tvs__rail">
+    {
+      show.episodes.map((title, i) => (
+        <div class="tvs__ep">
+          <div class="tvs__still">
+            <Image src={episode(show.slug, 1, i + 1)} alt="" width={720} />
+            {show.inProgress && i === 0 && <span class="tvs__progress"><span style={`--p:${nowPlaying.progress}`} /></span>}
+          </div>
+          <span class:list={["tvs__cap", i === 0 && "is-current"]}>S01E0{i + 1} · {title}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
