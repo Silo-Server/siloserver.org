@@ -318,6 +318,7 @@
           }
         } else if (note.type === 'image') notes.push('Image changed');
         else if (note.type === 'format') notes.push('Formatting changed');
+        else if (note.type === 'spacing') notes.push('Indentation or spacing changed: Side by side shows it');
       }
     }
     if (hunk.rewrite && prefs.mode !== 'side') notes.push('Mostly rewritten: Side by side may be easier to read');

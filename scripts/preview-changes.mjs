@@ -136,7 +136,8 @@ export function extractBlocks(html) {
     }
     block.text = text;
     block.plain = normalize(text);
-    block.key = [block.tag, block.plain, block.links.map(link => link.href).join(' '),
+    // Code keeps its spacing, so an indentation-only edit still counts.
+    block.key = [block.tag, block.tag === 'pre' ? block.text : block.plain, block.links.map(link => link.href).join(' '),
       block.images.join(' '), block.formats.join('\u0002')].join('\u0001');
     delete block.pieces;
   }
@@ -211,6 +212,7 @@ function notes(before, after) {
   if (links.length) result.push({ type: 'links', links: links.slice(0, 5) });
   if (before.images.join() !== after.images.join()) result.push({ type: 'image' });
   if (before.plain === after.plain && before.formats.join() !== after.formats.join()) result.push({ type: 'format' });
+  if (before.tag === 'pre' && before.plain === after.plain && before.text !== after.text) result.push({ type: 'spacing' });
   return result;
 }
 
@@ -464,16 +466,16 @@ async function copyBaseAssets(pages, baseDir, headDir) {
 
 const git = (cwd, args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 
-// The commit to compare with. GitHub builds a pull request from a merge
-// commit whose first parent is the target branch, so the comparison shows
-// exactly what merging would change. Elsewhere, compare with where the branch
-// left origin/main.
+// The commit to compare with. GitHub builds a pull request from its merge ref,
+// a merge commit whose first parent is the target branch, so the comparison
+// shows exactly what merging would change. Elsewhere, including a local branch
+// that merged main, compare with where the branch left origin/main.
 export function changesBase(root, env = process.env) {
   if (env.PREVIEW_CHANGES_BASE) {
     return { ref: git(root, ['rev-parse', '--verify', `${env.PREVIEW_CHANGES_BASE}^{commit}`]), label: env.PREVIEW_CHANGES_BASE };
   }
   const commits = git(root, ['rev-list', '--parents', '-n', '1', 'HEAD']).split(/\s+/);
-  if (commits.length === 3) return { ref: commits[1], label: env.GITHUB_BASE_REF || 'main' };
+  if (/^refs\/pull\/\d+\/merge$/.test(env.GITHUB_REF ?? '') && commits.length === 3) return { ref: commits[1], label: env.GITHUB_BASE_REF || 'main' };
   for (const upstream of ['origin/main', 'main']) {
     try { return { ref: git(root, ['merge-base', 'HEAD', upstream]), label: upstream }; } catch {}
   }

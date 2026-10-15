@@ -229,7 +229,15 @@ test('the base is the first parent of a pull request merge commit, or where the 
     assert.deepEqual(changesBase(directory, {}), { ref: base, label: 'main' });
     git('switch', '-q', '--detach', 'main');
     git('merge', '-q', '--no-ff', '-m', 'merge', 'feature');
-    assert.deepEqual(changesBase(directory, { GITHUB_BASE_REF: 'main' }), { ref: main, label: 'main' });
+    assert.deepEqual(changesBase(directory, { GITHUB_REF: 'refs/pull/7/merge', GITHUB_BASE_REF: 'main' }), { ref: main, label: 'main' });
+    // A local branch that merged main is not GitHub's merge ref: compare with
+    // where the branch now leaves main, not with its previous tip.
+    git('switch', '-q', 'feature');
+    const feature = git('rev-parse', 'HEAD');
+    git('merge', '-q', '--no-ff', '-m', 'merge main', 'main');
+    git('update-ref', 'refs/remotes/origin/main', main);
+    assert.equal(git('rev-parse', 'HEAD^1'), feature);
+    assert.deepEqual(changesBase(directory, {}), { ref: main, label: 'origin/main' });
     assert.equal(changesBase(directory, { PREVIEW_CHANGES_BASE: base.slice(0, 7) }).ref, base);
     assert.throws(() => changesBase(directory, { PREVIEW_CHANGES_BASE: 'no-such-ref' }));
   } finally {
@@ -253,4 +261,15 @@ test('a build without docs changes gets a manifest but no overlay', async () => 
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test('an indentation-only edit in a code block is a change, with a note', () => {
+  const code = indent => page(`<div class="expressive-code"><figure><pre><code><div class="ec-line">services:</div><div class="ec-line">${indent}silo:</div></code></pre></figure></div>`);
+  const diff = diffPage(code('  '), code('    '));
+  assert.equal(diff.hunks.length, 1);
+  const [item] = diff.hunks[0].items;
+  assert.equal(item.kind, 'changed');
+  assert.deepEqual(item.notes, [{ type: 'spacing' }]);
+  // Prose still ignores spacing differences.
+  assert.equal(diffPage(page('<p>Same  words.</p>'), page('<p>Same words.</p>')), null);
 });
