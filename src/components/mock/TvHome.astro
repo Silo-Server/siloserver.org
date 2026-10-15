@@ -1,0 +1,85 @@
+---
+// tvOS Home: the passive focus marquee over a top-right backdrop, with the
+// Continue Watching row below. Focus moves along the row with the hero word;
+// the marquee always previews the focused card, as TVFocusMarquee does.
+// Card overlays (quality badges on the stills) are off, as with the
+// profile setting ui.card_overlays_enabled = false.
+import { Image } from "astro:assets";
+import TvTopBar from "./TvTopBar.astro";
+import { features, library, backdrop, logo, poster } from "../../data/home";
+
+const recent = library.slice(6, 15);
+---
+
+<div class="tvh" data-tv-home>
+  {
+    features.map((f, i) => (
+      <div class:list={["tvh__bg", i === 0 && "is-on"]} data-feature={i} style={`--tint:${f.tint}`}>
+        <Image
+          class="tvh__backdrop"
+          src={backdrop(f.slug)}
+          alt=""
+          widths={[900, 1500]}
+          sizes="(min-width: 1200px) 760px, 64vw"
+          loading={i === 0 ? "eager" : "lazy"}
+        />
+      </div>
+    ))
+  }
+  <div class="tvh__scrim"></div>
+
+  <TvTopBar active="Home" dim />
+
+  <div class="tvh__marquee">
+    {
+      features.map((f, i) => (
+        <div class:list={["tvh__mq", i === 0 && "is-on"]} data-feature={i}>
+          <Image class="tvh__logo" src={logo(f.slug)} alt="" width={500} />
+          <div class="tvh__meta">
+            <span class="tv-chip">{f.rating}</span>
+            <span>{f.meta}</span>
+          </div>
+          <p class="tvh__synopsis">{f.synopsis}</p>
+          <p class="tvh__detail">{f.detail}</p>
+          <div class="tvh__badges">
+            {f.badges.map((b) => <span class="tv-badge">{b}</span>)}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="tvh__rows">
+    <div class="tv-row-head">
+      <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#EDEDED"></circle><path d="M12.6 10.2v11.6c0 .8.9 1.3 1.6.9l9.2-5.8c.6-.4.6-1.3 0-1.7l-9.2-5.8c-.7-.4-1.6.1-1.6.8Z" fill="#000"></path></svg>
+      Continue Watching
+    </div>
+    <div class="tvh__track" data-tv-track>
+      {
+        features.map((f, i) => (
+          <div class:list={["tv-still", i === 0 && "is-focused"]} data-card={i}>
+            <div class="tv-still__art">
+              <Image src={backdrop(f.slug)} alt="" width={720} />
+              <span class="tv-progress"><span style={`--p:${f.progress}`}></span></span>
+            </div>
+            <div class="tv-cap">
+              <span class="tv-cap__title">{f.title}</span>
+              <span class="tv-cap__line">{f.line}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="tv-row-head tv-row-head--next">Recently Added in Movies</div>
+    <div class="tvh__posters">
+      {
+        recent.map((m) => (
+          <div class="tv-poster">
+            <Image src={poster(m.slug)} alt="" width={352} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

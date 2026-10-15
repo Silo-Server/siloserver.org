@@ -59,7 +59,7 @@ test('audience groups and Beta contain real articles without duplicates', () => 
 test('first-run paths separate joining a server from installing one', () => {
   const start = sidebar.find(group => group.label === 'Get started');
   assert.deepEqual(entries(start.items), [
-    'docs', 'docs/choose-an-app', 'docs/apps-and-features', 'docs/connect-and-watch', 'docs/tv-sign-in',
+    'docs', 'docs/choose-an-app', 'docs/connect-and-watch', 'docs/tv-sign-in', 'docs/apps-and-features',
   ]);
   const server = sidebar.find(group => group.label === 'Running a server');
   assert.deepEqual(server.items.slice(0, 2).map(item => item.slug), [

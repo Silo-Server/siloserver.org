@@ -1,0 +1,23 @@
+---
+// tvOS top menu: wordmark left, Search + text tabs centred, avatar right.
+// TVTopMenuBar.swift — 88pt insets, 56pt from the top, 64pt tall.
+interface Props {
+  active: string;
+  dim?: boolean;
+}
+const { active, dim = false } = Astro.props;
+const tabs = ["Home", "Movies", "Series", "For You", "Calendar"];
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class:list={["tvbar", dim && "tvbar--dim"]}>
+  <img class="tvbar__mark" src={`${baseUrl}/brand/silo-wordmark-white.svg`} alt="" width="96" height="50" />
+  <div class="tvbar__center">
+    <span class="tvbar__search">
+      <svg viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg>
+    </span>
+    {tabs.map((t) => <span class:list={["tvbar__tab", t === active && "is-selected"]} data-tab={t}>{t}</span>)}
+    <span class="tvbar__spacer"></span>
+  </div>
+  <span class="tvbar__avatar">A</span>
+</div>

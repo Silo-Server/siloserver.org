@@ -1,13 +1,13 @@
 // Runs only from trusted default-branch tooling, never from the PR artifact.
+const findPullRequest = require('./find-pull-request.cjs');
+
 module.exports = async ({ github, context, core, runId, sha, phase }) => {
   const repo = context.repo;
   const { data: run } = await github.rest.actions.getWorkflowRun({ ...repo, run_id: runId });
   if (run.event !== 'pull_request' || run.head_sha !== sha) throw new Error('Unexpected build identity');
-  const prs = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit,
-    { ...repo, commit_sha: sha, per_page: 100 });
   const matches = p => p.head.sha === sha && p.head.repo?.full_name === run.head_repository.full_name &&
     p.head.ref === run.head_branch;
-  const candidate = prs.find(p => p.state === 'open' && matches(p));
+  const candidate = await findPullRequest({ github, repo, run, sha });
   if (!candidate) return;
   const { data: pr } = await github.rest.pulls.get({ ...repo, pull_number: candidate.number });
   if (pr.state !== 'open' || !matches(pr)) return;

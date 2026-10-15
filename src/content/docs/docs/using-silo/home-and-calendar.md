@@ -80,9 +80,17 @@ person who runs your server to [refresh its metadata](/docs/metadata#refresh-met
 
 ## Change your home rows
 
-In the web app, open **Settings > Home Screen**. Under **Editing scope**,
-choose the home screen or a library view, then add, reorder, or hide its
-sections. **Reset to Default** restores the server's layout.
+In the web app, open **Settings > Home Screen** and choose **Home** or a
+library page. Changes save as you go.
+
+- Turn a row's switch off to hide it, or drag rows into a new order.
+- Choose **Add row** to add your own row, for example one of your
+  [collections](/docs/collections).
+- In a row's action menu, **Edit row…** renames it, and **Use the original
+  name** undoes a rename.
+- Under **More**, **Export layout** saves your rows for every page to a file,
+  and **Import layout…** loads one. The reset option there brings back hidden
+  rows and original names, and removes rows you added.
 
 These changes apply only to you. They don't change the shared layout or
 anyone else's library access.
