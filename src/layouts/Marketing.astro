@@ -1,0 +1,92 @@
+---
+// Dark-only shell for the marketing pages. The homepage uses the near-black
+// "home" theme; every other page uses "docs", the docs' dark colours. The docs
+// keep their own Starlight theme and toggle; nothing here reads or writes the
+// shared theme setting.
+import "../styles/marketing.css";
+import "../styles/mock.css";
+import { SITE } from "../data/siteConfig";
+import { PREVIEW } from "../data/preview";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  // Keep the page's images out of image search (the homepage's posters and
+  // backdrops belong to their owners); the page itself is still indexed.
+  noimageindex?: boolean;
+  theme?: "home" | "docs";
+}
+
+const { title, description, noindex = false, noimageindex = false, theme = "home" } = Astro.props;
+const pageTitle = title ? `${title} · Silo` : `Silo · ${SITE.tagline}`;
+const pageDesc = description ?? SITE.description;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const href = (path: string) => `${baseUrl}${path}`;
+---
+
+<!doctype html>
+<html lang="en" class:list={["mk", { "mk--docs": theme === "docs" }]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content={theme === "docs" ? "#101820" : "#05070d"} />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href={href("/favicon.ico")} sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href={href("/web-app-icon-192.png")} />
+    <link rel="icon" type="image/png" sizes="512x512" href={href("/web-app-icon-512.png")} />
+    <link rel="apple-touch-icon" href={href("/apple-touch-icon.png")} />
+    <link rel="manifest" href={href("/site.webmanifest")} />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:type" content="website" />
+    {/* Link previews: the Silo wordmark on the site's dark ground, 1200x630,
+        at an absolute URL, in the large card. */}
+    <meta property="og:image" content={new URL(href("/social-card.png"), Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Silo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {
+      PREVIEW || noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        noimageindex && <meta name="robots" content="noimageindex" />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+    <script is:inline>
+      // Scale each mock screen to its box before first paint (see Canvas.astro).
+      (function () {
+        var fit = function (el) {
+          el.style.setProperty("--s", el.clientWidth / +el.getAttribute("data-canvas"));
+        };
+        var ro =
+          "ResizeObserver" in window
+            ? new ResizeObserver(function (entries) {
+                entries.forEach(function (e) { fit(e.target); });
+              })
+            : null;
+        document.querySelectorAll("[data-canvas]").forEach(function (el) {
+          fit(el);
+          if (ro) ro.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

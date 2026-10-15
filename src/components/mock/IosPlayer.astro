@@ -1,0 +1,73 @@
+---
+// iPhone player in landscape, controls showing, playing Breaking Bad S1 E1.
+// MobilePlayerControls.swift: 40% black wash over the video; top strip with
+// close, "SERIES · S1 · E1" eyebrow (10pt semibold, uppercase) over the
+// episode title (13pt), then PiP, AirPlay, rotate and rotation lock as 44pt
+// glass buttons; centre cluster of 52pt glass skips around a 64pt white
+// play/pause, 48pt apart; bottom stack with elapsed / "−remaining" (caption2),
+// a 6pt capsule scrubber, and the Quality · Audio & Subtitles · ⋯ row.
+// The layer is 874×402 (the display in landscape) and is mounted rotated
+// inside the portrait screen, so it reads upright when the phone turns.
+import { Image } from "astro:assets";
+import { backdrop, nowPlaying, clock } from "../../data/home";
+
+const glass = (d: string, size = 16) =>
+  `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const icons = {
+  close: glass('<path d="M6 6l12 12M18 6 6 18" />', 14),
+  pip: glass('<rect x="3" y="5" width="18" height="14" rx="2" /><rect x="12" y="12" width="7" height="5" rx="1" fill="currentColor" stroke="none" />'),
+  airplay: glass('<path d="M6 17H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1" /><path d="m12 15 5 6H7l5-6Z" fill="currentColor" stroke="none" />'),
+  rotate: glass('<rect x="2.5" y="7" width="19" height="10" rx="2" /><path d="M8 3.5h3l-1.5-1.5M8 3.5 9.5 5" />'),
+  lock: glass('<path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v4h-4" /><rect x="9" y="11" width="6" height="5" rx="1" /><path d="M10.2 11V9.8a1.8 1.8 0 0 1 3.6 0" />'),
+  more: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="5.5" cy="12" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="18.5" cy="12" r="1.7" /></svg>',
+};
+const skip = (dir: "back" | "fwd") =>
+  `<svg viewBox="0 0 30 30" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${
+    dir === "back" ? '<path d="M8.5 6.5A11 11 0 1 1 4 15" /><path d="M9 2v5H4" />' : '<path d="M21.5 6.5A11 11 0 1 0 26 15" /><path d="M21 2v5h5" />'
+  }<text x="15" y="19.3" text-anchor="middle" font-size="9" font-weight="700" fill="currentColor" stroke="none" font-family="system-ui">10</text></svg>`;
+---
+
+<div class="ios-player" data-player>
+  <Image class="ios-player__video" src={backdrop(nowPlaying.slug)} alt="" widths={[900, 1600]} sizes="(min-width: 1200px) 900px, 80vw" />
+  <div class="ios-player__wash"></div>
+
+  <div class="ios-player__top">
+    <span class="ios-pglass" set:html={icons.close} />
+    <span class="ios-player__titles">
+      <span class="ios-player__eyebrow">{nowPlaying.subtitle.toUpperCase()}</span>
+      <span class="ios-player__title">{nowPlaying.title}</span>
+    </span>
+    <span class="ios-player__spacer"></span>
+    <span class="ios-pglass" set:html={icons.pip} />
+    <span class="ios-pglass" set:html={icons.airplay} />
+    <span class="ios-pglass" set:html={icons.rotate} />
+    <span class="ios-pglass" set:html={icons.lock} />
+  </div>
+
+  <div class="ios-player__center">
+    <span class="ios-pglass ios-pglass--skip" set:html={skip("back")} />
+    <span class="ios-player__pp">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="rgba(0,0,0,.85)"><rect x="6" y="4.5" width="4" height="15" rx="1.2"></rect><rect x="14" y="4.5" width="4" height="15" rx="1.2"></rect></svg>
+    </span>
+    <span class="ios-pglass ios-pglass--skip" set:html={skip("fwd")} />
+  </div>
+
+  <div class="ios-player__bottom">
+    <div class="ios-player__times">
+      <span data-player-elapsed>{clock(nowPlaying.elapsed)}</span>
+      <span data-player-remaining>−{clock(nowPlaying.duration - nowPlaying.elapsed)}</span>
+    </div>
+    <div class="ios-player__bar" style={`--p:${nowPlaying.progress}`} data-player-bar><span></span></div>
+    <div class="ios-player__actions">
+      <span class="ios-pill">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg>
+        Quality <em>Auto</em>
+      </span>
+      <span class="ios-pill">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 4.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4.5 3.5v-3.5H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"></path></svg>
+        Audio &amp; Subtitles
+      </span>
+      <span class="ios-pglass" set:html={icons.more} />
+    </div>
+  </div>
+</div>
