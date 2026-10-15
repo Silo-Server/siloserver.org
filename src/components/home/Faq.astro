@@ -1,0 +1,25 @@
+---
+import { faq } from "../../data/home";
+---
+
+<section class="faq section" aria-labelledby="faq-title">
+  <div class="container split">
+    <h2 id="faq-title" class="h2 reveal-lines">
+      <span class="ln"><span>Before you</span></span>
+      <span class="ln"><span>press play.</span></span>
+    </h2>
+    <div class="faq__list" data-reveal-group>
+      {
+        faq.map((f) => (
+          <details class="faq__item">
+            <summary>
+              {f.q}
+              <span class="faq__icon" aria-hidden="true" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

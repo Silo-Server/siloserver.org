@@ -1,691 +1,729 @@
 ---
-import Base from "../layouts/Base.astro";
-import StatusBar from "../components/StatusBar.astro";
-import Bottombar from "../components/Bottombar.astro";
-import SiloBars from "../components/SiloBars.astro";
+import MarketingPage from "../layouts/MarketingPage.astro";
 import { SITE } from "../data/siteConfig";
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const assetHref = (name: string) => `${baseUrl}/brand/${name}`;
 const policyHref =
   "https://github.com/Silo-Server/siloserver.org/blob/main/TRADEMARK.md";
+const down =
+  '<path d="M8 3v8M4.5 7.5 8 11l3.5-3.5M3.5 13.5h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />';
+const out =
+  '<path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />';
 ---
 
-<Base
-  title="brand assets"
+<MarketingPage
+  title="Brand assets"
   description="Official Silo logos, icons, colors, and practical guidance for using the Silo brand."
 >
-  <StatusBar />
-
-  <main id="main" class="brand-page">
-    <header class="brand-hero">
+  <div class="brand-page">
+    <header class="container page-head brand-hero">
       <div class="brand-hero__copy">
-        <p class="brand-kicker">
-          <SiloBars size="sm" />
-          brand manual / rev 01
+        <p class="eyebrow brand-kicker rise">
+          <span><i class="bars" aria-hidden="true"><b></b><b></b><b></b></i>Brand manual · Rev 01</span>
         </p>
-        <h1>Silo brand assets.</h1>
-        <p class="brand-hero__lede">
-          Official artwork for articles, integrations, presentations, and
-          other places where you need to identify Silo clearly.
+        <h1 class="page-title reveal-lines">
+          <span class="ln"><span>Silo brand</span></span><span class="ln"><span>assets.</span></span>
+        </h1>
+        <p class="lede rise">
+          <span>
+            Official artwork for articles, integrations, presentations, and
+            other places where you need to identify Silo clearly.
+          </span>
         </p>
-        <p class="brand-hero__meta">
-          5 asset types / 18 files <span>·</span> SVG masters + PNG renders +
-          motion <span>·</span> © 2026 Silo Media L.L.C.
-        </p>
+        <div class="brand-hero__meta rise">
+          <ul aria-label="About these assets">
+            <li>5 asset types / 18 files</li>
+            <li>SVG masters + PNG renders + motion</li>
+            <li>© 2026 Silo Media L.L.C.</li>
+          </ul>
+        </div>
+        <div class="brand-hero__actions rise">
+          <span>
+            <a class="btn btn--primary" href="#assets">
+              Download the originals
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+            </a>
+            <a class="link-arrow" href="#usage">Usage guidelines</a>
+          </span>
+        </div>
       </div>
 
-      <div class="brand-hero__specimen" aria-label="Silo wordmark specimen">
-        <img
-          src={assetHref("silo-wordmark-white.svg")}
-          alt="Silo"
-          width="1389"
-          height="720"
-        />
-        <span>primary horizontal lockup / full color + white</span>
-      </div>
+      <figure class="brand-hero__specimen rise" aria-label="Silo wordmark specimen">
+        <span class="brand-hero__plate">
+          <img
+            src={assetHref("silo-wordmark-white.svg")}
+            alt="Silo"
+            width="1389"
+            height="720"
+          />
+          <figcaption>Primary horizontal lockup / full color + white</figcaption>
+        </span>
+      </figure>
     </header>
 
-    <section class="brand-section" aria-labelledby="downloads-title">
-      <div class="brand-section__heading">
-        <p>01 / assets</p>
-        <div>
-          <h2 id="downloads-title">Download the originals</h2>
-          <p>
-            Every SVG here is a master: no linked fonts, no embedded rasters,
-            no external references. Prefer them wherever vectors are accepted
-            and reach for a PNG only when they are not. Use the artwork as
-            supplied—there is no need to redraw the mark or typeset the name.
+    <section class="brand-section" id="assets" aria-labelledby="downloads-title">
+      <div class="container">
+        <div class="brand-head">
+          <div>
+            <p class="eyebrow">01 · Assets</p>
+            <h2 id="downloads-title" class="brand-h2 reveal-lines">
+              <span class="ln"><span>Download the</span></span><span class="ln"><span>originals</span></span>
+            </h2>
+          </div>
+          <p class="brand-head__body rise">
+            <span>
+              Every SVG here is a master: no linked fonts, no embedded rasters,
+              no external references. Prefer them wherever vectors are accepted
+              and reach for a PNG only when they are not. Use the artwork as
+              supplied—there is no need to redraw the mark or typeset the name.
+            </span>
           </p>
         </div>
-      </div>
 
-      <div class="asset-grid">
-        <article class="asset-card asset-card--wide">
-          <div class="asset-card__preview asset-card__preview--wordmark">
-            <img
-              src={assetHref("silo-wordmark-white.svg")}
-              alt="Full-color Silo mark with a white Silo wordmark"
-              width="1389"
-              height="720"
-            />
-          </div>
-          <div class="asset-card__body">
-            <p class="asset-card__index">LOGO / 01</p>
-            <h3>Horizontal wordmark</h3>
-            <p>
-              The preferred lockup for partner pages, articles, slides, and
-              other horizontal placements. Choose dark lettering for light
-              fields, white for deep blue and dark fields, or the mono cut
-              when you have one ink to spend.
-            </p>
-            <dl>
-              <div><dt>masters</dt><dd>3 transparent SVGs</dd></div>
-              <div><dt>renders</dt><dd>2 PNGs · 1544 × 800 px</dd></div>
-              <div><dt>mono</dt><dd>inherits currentColor</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-wordmark-dark.svg")}
-                download="silo-wordmark-dark.svg"
-              >SVG / light fields <span>↓</span></a>
-              <a
-                class="asset-download"
-                href={assetHref("silo-wordmark-white.svg")}
-                download="silo-wordmark-white.svg"
-              >SVG / dark fields <span>↓</span></a>
-              <a
-                class="asset-download"
-                href={assetHref("silo-wordmark-mono.svg")}
-                download="silo-wordmark-mono.svg"
-              >SVG / one color <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-wordmark-dark.png")}
-                download="silo-wordmark-dark.png"
-              >PNG / light <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-wordmark-white.png")}
-                download="silo-wordmark-white.png"
-              >PNG / dark <span>↓</span></a>
+        <div class="asset-grid" data-reveal-group>
+          <article class="card asset-card asset-card--wide">
+            <div class="asset-card__preview asset-card__preview--pair">
+              <div class="tile tile--light">
+                <img
+                  src={assetHref("silo-wordmark-dark.svg")}
+                  alt="Full-color Silo mark with a dark Silo wordmark"
+                  width="1389"
+                  height="720"
+                />
+              </div>
+              <div class="tile tile--field">
+                <img
+                  src={assetHref("silo-wordmark-white.svg")}
+                  alt="Full-color Silo mark with a white Silo wordmark"
+                  width="1389"
+                  height="720"
+                />
+              </div>
             </div>
-          </div>
-        </article>
-
-        <article class="asset-card">
-          <div class="asset-card__preview asset-card__preview--mark">
-            <img
-              src={assetHref("silo-mark.svg")}
-              alt="The Silo mark: a play triangle above three stacked bars"
-              width="266"
-              height="855"
-            />
-          </div>
-          <div class="asset-card__body">
-            <p class="asset-card__index">MARK / 02</p>
-            <h3>The mark</h3>
-            <p>
-              The symbol on its own, for setting beside your own type. The
-              dimensional cut is the default; use the flat cut below about
-              48&nbsp;px and the mono cut for print, embroidery, and
-              engraving.
-            </p>
-            <dl>
-              <div><dt>masters</dt><dd>3 transparent SVGs</dd></div>
-              <div><dt>ratio</dt><dd>266 × 855 units</dd></div>
-              <div><dt>min size</dt><dd>24 px tall</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-mark.svg")}
-                download="silo-mark.svg"
-              >SVG / dimensional <span>↓</span></a>
-              <a
-                class="asset-download"
-                href={assetHref("silo-mark-flat.svg")}
-                download="silo-mark-flat.svg"
-              >SVG / flat <span>↓</span></a>
-              <a
-                class="asset-download"
-                href={assetHref("silo-mark-mono.svg")}
-                download="silo-mark-mono.svg"
-              >SVG / one color <span>↓</span></a>
+            <div class="card__body">
+              <p class="card__index">Logo · 01</p>
+              <h3>Horizontal wordmark</h3>
+              <p class="card__text">
+                The preferred lockup for partner pages, articles, slides, and
+                other horizontal placements. Choose dark lettering for light
+                fields, white for deep blue and dark fields, or the mono cut
+                when you have one ink to spend.
+              </p>
+              <dl class="specs">
+                <div><dt>Masters</dt><dd>3 transparent SVGs</dd></div>
+                <div><dt>Renders</dt><dd>2 PNGs · 1544 × 800 px</dd></div>
+                <div><dt>Mono</dt><dd>inherits currentColor</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-wordmark-dark.svg")} download="silo-wordmark-dark.svg">
+                  SVG · light fields<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl" href={assetHref("silo-wordmark-white.svg")} download="silo-wordmark-white.svg">
+                  SVG · dark fields<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl" href={assetHref("silo-wordmark-mono.svg")} download="silo-wordmark-mono.svg">
+                  SVG · one color<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-wordmark-dark.png")} download="silo-wordmark-dark.png">
+                  PNG · light<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-wordmark-white.png")} download="silo-wordmark-white.png">
+                  PNG · dark<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="asset-card">
-          <div class="asset-card__preview asset-card__preview--icon">
-            <img
-              src={assetHref("silo-project-icon.svg")}
-              alt="Silo project icon"
-              width="1024"
-              height="1024"
-            />
-          </div>
-          <div class="asset-card__body">
-            <p class="asset-card__index">ICON / 03</p>
-            <h3>Project icon</h3>
-            <p>
-              A compact square for avatars, favicons, directories, and
-              integrations where the horizontal wordmark will not fit. The
-              rounded corners are already cut, so the tile drops onto any
-              background as-is.
-            </p>
-            <dl>
-              <div><dt>master</dt><dd>SVG · corners cut</dd></div>
-              <div><dt>render</dt><dd>PNG · 1024 × 1024 px</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-project-icon.svg")}
-                download="silo-project-icon.svg"
-              >download SVG <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-project-icon.png")}
-                download="silo-project-icon.png"
-              >download PNG <span>↓</span></a>
+          <article class="card asset-card">
+            <div class="asset-card__preview">
+              <div class="tile tile--light tile--mark">
+                <img
+                  src={assetHref("silo-mark.svg")}
+                  alt="The Silo mark: a play triangle above three stacked bars"
+                  width="266"
+                  height="855"
+                />
+              </div>
             </div>
-          </div>
-        </article>
-
-        <article class="asset-card">
-          <div class="asset-card__preview asset-card__preview--icon">
-            <img
-              src={assetHref("silo-app-icon.svg")}
-              alt="Silo app icon"
-              width="1024"
-              height="1024"
-            />
-          </div>
-          <div class="asset-card__body">
-            <p class="asset-card__index">APP / 04</p>
-            <h3>App icon</h3>
-            <p>
-              The official product artwork, full bleed on the deep blue field
-              so each store can cut its own corners. Provided for press and
-              editorial coverage, not as an identity for third-party apps or
-              forks.
-            </p>
-            <dl>
-              <div><dt>master</dt><dd>SVG · full bleed</dd></div>
-              <div><dt>render</dt><dd>PNG · 1024 × 1024 px</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-app-icon.svg")}
-                download="silo-app-icon.svg"
-              >download SVG <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-app-icon.png")}
-                download="silo-app-icon.png"
-              >download PNG <span>↓</span></a>
+            <div class="card__body">
+              <p class="card__index">Mark · 02</p>
+              <h3>The mark</h3>
+              <p class="card__text">
+                The symbol on its own, for setting beside your own type. The
+                dimensional cut is the default; use the flat cut below about
+                48&nbsp;px and the mono cut for print, embroidery, and
+                engraving.
+              </p>
+              <dl class="specs">
+                <div><dt>Masters</dt><dd>3 transparent SVGs</dd></div>
+                <div><dt>Ratio</dt><dd>266 × 855 units</dd></div>
+                <div><dt>Min size</dt><dd>24 px tall</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-mark.svg")} download="silo-mark.svg">
+                  SVG · dimensional<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl" href={assetHref("silo-mark-flat.svg")} download="silo-mark-flat.svg">
+                  SVG · flat<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl" href={assetHref("silo-mark-mono.svg")} download="silo-mark-mono.svg">
+                  SVG · one color<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
             </div>
-          </div>
-        </article>
-      </div>
+          </article>
 
-      <p class="asset-notice">
-        Downloads are Silo trademarks and remain © Silo Media L.L.C. See the
-        <a href={assetHref("NOTICE.txt")}>asset notice</a> and guidance below.
-      </p>
-    </section>
-
-    <section class="brand-section brand-section--rules" aria-labelledby="usage-title">
-      <div class="brand-section__heading">
-        <p>02 / usage</p>
-        <div>
-          <h2 id="usage-title">Most uses need no permission</h2>
-          <p>
-            If you are writing about Silo, building something that works with
-            it, or running it yourself, use the name and artwork freely. The
-            only thing we ask is that your own project keeps its own identity,
-            so nobody mistakes it for an official Silo release.
-          </p>
-        </div>
-      </div>
-
-      <div class="rules-grid">
-        <article class="rules-card rules-card--do">
-          <p class="rules-card__label">Go ahead</p>
-          <ul>
-            <li>Describe your work as “compatible with Silo,” “a Silo client,” “a plugin for Silo,” or “based on Silo.”</li>
-            <li>Show the logo beside your product, at a referential size, to signal that the two work together.</li>
-            <li>Write articles, tutorials, reviews, and talks about Silo, with the artwork.</li>
-            <li>Redistribute official, unmodified builds under the Silo name.</li>
-            <li>Run, modify, and self-host Silo for yourself or your organization.</li>
-          </ul>
-        </article>
-
-        <article class="rules-card rules-card--dont">
-          <p class="rules-card__label">Ask us first</p>
-          <ul>
-            <li>Shipping a modified build under the Silo name or logo.</li>
-            <li>Publishing an app to any app store as Silo, or with a look-alike identity.</li>
-            <li>Putting Silo in your company, product, domain, or app name in a way that reads as official. Wordplay is exempt; see naming below.</li>
-            <li>Merchandise, or using the logo or wordmark to sell your own product beyond a “works with Silo” placement.</li>
-            <li>Anything that suggests we run, sponsor, or endorse your offering.</li>
-          </ul>
-        </article>
-      </div>
-
-      <p class="rules-intro rules-intro--after">
-        We say yes to most reasonable requests. The policy exists to prevent
-        confusion, not to stop people building on Silo. Never use the name or
-        logo to promote piracy or to impersonate the project.
-      </p>
-
-      <h3 class="rules-subhead" id="naming-title">Naming your project</h3>
-      <p class="rules-intro">
-        Pick a name that is yours, then mention Silo in the tagline. That is
-        how the official products are told apart: the server is
-        <strong>Silo Server</strong>, and official apps join “Silo” to a
-        product word with no space, such as SiloRemote and SiloMac. So that
-        pattern, and “Silo” on its own, are reserved. The test is simple: would
-        a reasonable user think the Silo team made it?
-      </p>
-
-      <div class="rules-grid">
-        <article class="rules-card rules-card--do">
-          <p class="rules-card__label">Works well</p>
-          <ul>
-            <li>“Bramble — a Silo client for Android TV”</li>
-            <li>“Lantern, a lightweight Silo web player”</li>
-            <li>“Trakt sync plugin for Silo”</li>
-            <li>Repository and package names such as <code>silo-plugin-trakt</code>, where “silo” only describes what it plugs into.</li>
-            <li>Wordplay such as “Siloette” or “Silodeon,” which reads as its own word rather than an official product. This is the exception to the reserved patterns, wherever you publish, as long as you use your own logo.</li>
-          </ul>
-        </article>
-
-        <article class="rules-card rules-card--dont">
-          <p class="rules-card__label">Please avoid</p>
-          <ul>
-            <li>“Silo” alone, or as the first word of a product name, including “Silo Client” or “Silo Player” as the name itself.</li>
-            <li>“Silo[word]” names such as SiloTV, SiloPlay, or SiloFlix, which read as official apps.</li>
-            <li>“[word]Silo” names such as OpenSilo or MySilo, which read as the project itself.</li>
-            <li>Misspellings and look-alikes such as Sylo or Si1o.</li>
-          </ul>
-        </article>
-      </div>
-
-      <h3 class="rules-subhead" id="writing-title">Writing the name</h3>
-      <div class="context-table" role="region" aria-label="How to write the Silo name" tabindex="0">
-        <table>
-          <thead>
-            <tr><th>context</th><th>write it as</th><th>example</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>prose and UI text</td>
-              <td>Silo, capital S, one word</td>
-              <td>“Connect to your Silo server.”</td>
-            </tr>
-            <tr>
-              <td>the server product</td>
-              <td>Silo Server, two words</td>
-              <td>“Requires Silo Server 1.0 or later.”</td>
-            </tr>
-            <tr>
-              <td>repositories, packages, command-line binaries</td>
-              <td>lowercase silo</td>
-              <td><code>silo-server</code>, <code>silo-plugin-trakt</code></td>
-            </tr>
-            <tr>
-              <td>app bundles and product names</td>
-              <td>display form</td>
-              <td><code>Silo</code>, <code>SiloTV</code></td>
-            </tr>
-            <tr>
-              <td>paths and config directories</td>
-              <td>follow the platform convention</td>
-              <td><code>/var/lib/silo</code>, <code>~/Library/Application Support/Silo</code></td>
-            </tr>
-            <tr>
-              <td>never</td>
-              <td>SILO, SiLo, Si-lo, or a typeset “Silo” in place of the wordmark</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="rules-subhead" id="artwork-title">Handling the artwork</h3>
-      <div class="rules-grid">
-        <article class="rules-card rules-card--do">
-          <p class="rules-card__label">Do</p>
-          <ul>
-            <li>Use the supplied artwork without redrawing it.</li>
-            <li>Leave comfortable clear space on every side.</li>
-            <li>Use the wordmark variant with clear background contrast.</li>
-            <li>Keep your own product name and identity more prominent.</li>
-          </ul>
-        </article>
-
-        <article class="rules-card rules-card--dont">
-          <p class="rules-card__label">Don’t</p>
-          <ul>
-            <li>Stretch, skew, rotate, crop, or rearrange the artwork.</li>
-            <li>Recolor the mark or add shadows, outlines, or effects.</li>
-            <li>Build the mark into your own logo.</li>
-            <li>Use the icon as the identity of a fork or third-party app.</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="context-table" role="region" aria-label="Asset selection guide" tabindex="0">
-        <table>
-          <thead>
-            <tr><th>asset</th><th>best for</th><th>background</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>horizontal wordmark</td>
-              <td>articles, decks, partner and compatibility pages</td>
-              <td>dark art on light; white art on dark</td>
-            </tr>
-            <tr>
-              <td>mark</td>
-              <td>the symbol beside your own type</td>
-              <td>transparent; flat cut below 48 px</td>
-            </tr>
-            <tr>
-              <td>mono wordmark / mark</td>
-              <td>one-color print, embroidery, engraving</td>
-              <td>inherits currentColor</td>
-            </tr>
-            <tr>
-              <td>project icon</td>
-              <td>avatars, favicons, compact square placements</td>
-              <td>use the complete supplied canvas</td>
-            </tr>
-            <tr>
-              <td>app icon</td>
-              <td>press coverage of official Silo applications</td>
-              <td>use the complete supplied canvas</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="brand-section brand-section--build" aria-labelledby="construction-title">
-      <div class="brand-section__heading">
-        <p>03 / construction</p>
-        <div>
-          <h2 id="construction-title">Clear space and size</h2>
-          <p>
-            The mark is built on one rule: every slanted edge sits at exactly
-            30° from horizontal. You never need to redraw it, but these are
-            the measurements that keep a placement correct.
-          </p>
-        </div>
-      </div>
-
-      <div class="build-grid">
-        <figure class="build-figure">
-          <img
-            src={assetHref("silo-construction.svg")}
-            alt="Construction drawing of the Silo mark showing its clear space, 30° edges, and element measurements"
-            width="712"
-            height="800"
-            loading="lazy"
-          />
-          <figcaption>construction drawing / units of the 1024 px icon</figcaption>
-        </figure>
-
-        <div class="build-notes">
-          <div class="build-note">
-            <p class="build-note__label">Clear space</p>
-            <p>
-              Keep at least the width of one bar counter—54 units, about 20%
-              of the mark's width—free on all four sides. Nothing else sits
-              inside it.
-            </p>
-          </div>
-          <div class="build-note">
-            <p class="build-note__label">Minimum size</p>
-            <p>
-              The mark reads cleanly down to about 24&nbsp;px tall. Below
-              that use the flat cut, and below 16&nbsp;px use a single element
-              rather than the full stack.
-            </p>
-          </div>
-          <div class="build-note">
-            <p class="build-note__label">Typography</p>
-            <p>
-              The wordmark is Plus Jakarta Sans ExtraBold at −0.04&nbsp;em
-              tracking, converted to outlines. It is artwork, not live text—do
-              not re-typeset it. The website's own faces are not part of the
-              logo.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="brand-section brand-section--palette" aria-labelledby="palette-title">
-      <div class="brand-section__heading">
-        <p>04 / palette</p>
-        <div>
-          <h2 id="palette-title">Logo palette</h2>
-          <p>
-            When the logo appears beside supporting graphics, these colors
-            keep the surrounding material in the same visual family. Do not
-            use them to recolor the supplied artwork. You are welcome to use
-            the colors, and the three-bar motif from the website, in your own
-            client or plugin interface. The logo, wordmark, and icons are what we
-            reserve, so keep your own logo a different shape.
-          </p>
-        </div>
-      </div>
-
-      <div class="swatches" aria-label="Silo logo colors">
-        <div class="swatch" style="--swatch: #0034fb">
-          <span></span><strong>signal blue</strong><code>#0034FB</code>
-        </div>
-        <div class="swatch" style="--swatch: #f50b4f">
-          <span></span><strong>signal red</strong><code>#F50B4F</code>
-        </div>
-        <div class="swatch" style="--swatch: #fa7604">
-          <span></span><strong>signal orange</strong><code>#FA7604</code>
-        </div>
-        <div class="swatch" style="--swatch: #010d9f">
-          <span></span><strong>icon field</strong><code>#010D9F</code>
-        </div>
-        <div class="swatch" style="--swatch: #070b82">
-          <span></span><strong>deep field</strong><code>#070B82</code>
-        </div>
-        <div class="swatch" style="--swatch: #181511">
-          <span></span><strong>wordmark ink</strong><code>#181511</code>
-        </div>
-      </div>
-    </section>
-
-    <section class="brand-section brand-section--motion" aria-labelledby="motion-title">
-      <div class="brand-section__heading">
-        <p>05 / motion</p>
-        <div>
-          <h2 id="motion-title">The logo in motion</h2>
-          <p>
-            The animation our apps play on launch, built from the same vector
-            masters. The mark assembles a bar at a time, then slides aside to
-            let the wordmark out from behind it.
-          </p>
-        </div>
-      </div>
-
-      <div class="motion-grid">
-        <article class="motion-card motion-card--wide">
-          <div class="motion-card__stage">
-            <video
-              src={assetHref("silo-motion-splash.mp4")}
-              width="1920"
-              height="1080"
-              autoplay
-              loop
-              muted
-              playsinline
-              preload="metadata"
-              aria-label="The Silo logo assembling, then revealing the wordmark"
-            ></video>
-          </div>
-          <div class="motion-card__body">
-            <p class="asset-card__index">MOTION / 01</p>
-            <h3>Startup splash</h3>
-            <p>
-              Four seconds, ending on the horizontal lockup. Use it for launch
-              screens, intros, and title cards. The Lottie cut is vector, so it
-              stays sharp at any size and weighs a fraction of the video.
-            </p>
-            <dl>
-              <div><dt>video</dt><dd>3840 × 2160 · 60 fps · 4.0 s</dd></div>
-              <div><dt>lottie</dt><dd>vector · 62 KB</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-motion-splash.json")}
-                download="silo-motion-splash.json"
-              >Lottie JSON <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-motion-splash.mp4")}
-                download="silo-motion-splash.mp4"
-              >MP4 / 4K <span>↓</span></a>
+          <article class="card asset-card">
+            <div class="asset-card__preview">
+              <div class="tile tile--dark tile--icon">
+                <img
+                  src={assetHref("silo-project-icon.svg")}
+                  alt="Silo project icon"
+                  width="1024"
+                  height="1024"
+                />
+              </div>
             </div>
-          </div>
-        </article>
-
-        <article class="motion-card">
-          <div class="motion-card__stage motion-card__stage--square">
-            <img
-              class="motion-anim"
-              src={assetHref("silo-motion-mark.gif")}
-              alt="The Silo mark assembling one bar at a time"
-              width="512"
-              height="512"
-              loading="lazy"
-            />
-            <img
-              class="motion-still"
-              src={assetHref("silo-app-icon.svg")}
-              alt="The assembled Silo mark on the icon field"
-              width="512"
-              height="512"
-              loading="lazy"
-            />
-          </div>
-          <div class="motion-card__body">
-            <p class="asset-card__index">MOTION / 02</p>
-            <h3>Animated mark</h3>
-            <p>
-              A square, looping cut with the wordmark dropped, for avatars,
-              chat emoji, and anywhere the horizontal lockup would be too small
-              to read. Take the transparent version when the background is
-              unknown or already dark.
-            </p>
-            <dl>
-              <div><dt>format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
-              <div><dt>loop</dt><dd>2.0 s · 50 fps</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-motion-mark.gif")}
-                download="silo-motion-mark.gif"
-              >GIF / icon field <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-motion-mark-alpha.gif")}
-                download="silo-motion-mark-alpha.gif"
-              >GIF / transparent <span>↓</span></a>
+            <div class="card__body">
+              <p class="card__index">Icon · 03</p>
+              <h3>Project icon</h3>
+              <p class="card__text">
+                A compact square for avatars, favicons, directories, and
+                integrations where the horizontal wordmark will not fit. The
+                rounded corners are already cut, so the tile drops onto any
+                background as-is.
+              </p>
+              <dl class="specs">
+                <div><dt>Master</dt><dd>SVG · corners cut</dd></div>
+                <div><dt>Render</dt><dd>PNG · 1024 × 1024 px</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-project-icon.svg")} download="silo-project-icon.svg">
+                  Download SVG<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-project-icon.png")} download="silo-project-icon.png">
+                  Download PNG<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="motion-card">
-          <div class="motion-card__stage motion-card__stage--square">
-            <img
-              class="motion-anim"
-              src={assetHref("silo-motion-play-alpha.gif")}
-              alt="The Silo mark opening into a play button, which is pressed and reassembles the mark"
-              width="512"
-              height="512"
-              loading="lazy"
-            />
-            <img
-              class="motion-still"
-              src={assetHref("silo-app-icon.svg")}
-              alt="The assembled Silo mark on the icon field"
-              width="512"
-              height="512"
-              loading="lazy"
-            />
-          </div>
-          <div class="motion-card__body">
-            <p class="asset-card__index">MOTION / 03</p>
-            <h3>Play loop</h3>
-            <p>
-              Rests on the finished mark, so it reads as the logo while it is
-              stopped. The bars spin away, the triangle becomes a play button,
-              and pressing it puts the mark back together.
-            </p>
-            <dl>
-              <div><dt>format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
-              <div><dt>loop</dt><dd>2.9 s · 50 fps</dd></div>
-            </dl>
-            <div class="asset-downloads">
-              <a
-                class="asset-download"
-                href={assetHref("silo-motion-play.gif")}
-                download="silo-motion-play.gif"
-              >GIF / icon field <span>↓</span></a>
-              <a
-                class="asset-download asset-download--ghost"
-                href={assetHref("silo-motion-play-alpha.gif")}
-                download="silo-motion-play-alpha.gif"
-              >GIF / transparent <span>↓</span></a>
+          <article class="card asset-card">
+            <div class="asset-card__preview">
+              <div class="tile tile--dark tile--icon">
+                <img
+                  src={assetHref("silo-app-icon.svg")}
+                  alt="Silo app icon"
+                  width="1024"
+                  height="1024"
+                />
+              </div>
             </div>
-          </div>
-        </article>
-      </div>
+            <div class="card__body">
+              <p class="card__index">App · 04</p>
+              <h3>App icon</h3>
+              <p class="card__text">
+                The official product artwork, full bleed on the deep blue field
+                so each store can cut its own corners. Provided for press and
+                editorial coverage, not as an identity for third-party apps or
+                forks.
+              </p>
+              <dl class="specs">
+                <div><dt>Master</dt><dd>SVG · full bleed</dd></div>
+                <div><dt>Render</dt><dd>PNG · 1024 × 1024 px</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-app-icon.svg")} download="silo-app-icon.svg">
+                  Download SVG<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-app-icon.png")} download="silo-app-icon.png">
+                  Download PNG<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
 
-      <p class="asset-notice">
-        Keep the timing and the artwork as supplied—the animation is part of the
-        mark. Do not re-time it, add effects, or loop the splash as a spinner.
-      </p>
-    </section>
-
-    <section class="permission" aria-labelledby="permission-title">
-      <p class="permission__index">06 / permissions</p>
-      <div>
-        <h2 id="permission-title">Open source code. Protected identity.</h2>
-        <p>
-          The code is AGPL and yours to fork. The name and logo identify the
-          official project, so a distributed fork picks its own name and logo
-          and says it is “based on Silo.” This page is the practical guide;
-          the trademark policy on GitHub is the canonical text. Not sure
-          whether your use is fine? Ask in Discord or email us. We answer
-          quickly and usually say yes.
+        <p class="notice">
+          Downloads are Silo trademarks and remain © Silo Media L.L.C. See the
+          <a href={assetHref("NOTICE.txt")}>asset notice</a> and guidance below.
         </p>
-        <div class="permission__actions">
-          <a href={policyHref}>read the full trademark policy ↗</a>
-          <a href={SITE.discord}>ask in discord ↗</a>
-          <a href="mailto:trademark@siloserver.org">trademark@siloserver.org</a>
+      </div>
+    </section>
+
+    <section class="brand-section brand-section--usage" id="usage" aria-labelledby="usage-title">
+      <div class="container">
+        <div class="brand-head">
+          <div>
+            <p class="eyebrow">02 · Usage</p>
+            <h2 id="usage-title" class="brand-h2 reveal-lines">
+              <span class="ln"><span>Most uses need</span></span><span class="ln"><span>no permission</span></span>
+            </h2>
+          </div>
+          <p class="brand-head__body rise">
+            <span>
+              If you are writing about Silo, building something that works with
+              it, or running it yourself, use the name and artwork freely. The
+              only thing we ask is that your own project keeps its own identity,
+              so nobody mistakes it for an official Silo release.
+            </span>
+          </p>
+        </div>
+
+        <div class="rules-grid" data-reveal-group>
+          <article class="card rules-card rules-card--do">
+            <p class="rules-card__label">Go ahead</p>
+            <ul>
+              <li>Describe your work as “compatible with Silo,” “a Silo client,” “a plugin for Silo,” or “based on Silo.”</li>
+              <li>Show the logo beside your product, at a referential size, to signal that the two work together.</li>
+              <li>Write articles, tutorials, reviews, and talks about Silo, with the artwork.</li>
+              <li>Redistribute official, unmodified builds under the Silo name.</li>
+              <li>Run, modify, and self-host Silo for yourself or your organization.</li>
+            </ul>
+          </article>
+
+          <article class="card rules-card rules-card--dont">
+            <p class="rules-card__label">Ask us first</p>
+            <ul>
+              <li>Shipping a modified build under the Silo name or logo.</li>
+              <li>Publishing an app to any app store as Silo, or with a look-alike identity.</li>
+              <li>Putting Silo in your company, product, domain, or app name in a way that reads as official. Wordplay is exempt; see naming below.</li>
+              <li>Merchandise, or using the logo or wordmark to sell your own product beyond a “works with Silo” placement.</li>
+              <li>Anything that suggests we run, sponsor, or endorse your offering.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="rules-intro rules-intro--after">
+          We say yes to most reasonable requests. The policy exists to prevent
+          confusion, not to stop people building on Silo. Never use the name or
+          logo to promote piracy or to impersonate the project.
+        </p>
+
+        <h3 class="rules-subhead" id="naming-title">Naming your project</h3>
+        <p class="rules-intro">
+          Pick a name that is yours, then mention Silo in the tagline. That is
+          how the official products are told apart: the server is
+          <strong>Silo Server</strong>, and official apps join “Silo” to a
+          product word with no space, such as SiloRemote and SiloMac. So that
+          pattern, and “Silo” on its own, are reserved. The test is simple: would
+          a reasonable user think the Silo team made it?
+        </p>
+
+        <div class="rules-grid" data-reveal-group>
+          <article class="card rules-card rules-card--do">
+            <p class="rules-card__label">Works well</p>
+            <ul>
+              <li>“Bramble — a Silo client for Android TV”</li>
+              <li>“Lantern, a lightweight Silo web player”</li>
+              <li>“Trakt sync plugin for Silo”</li>
+              <li>Repository and package names such as <code>silo-plugin-trakt</code>, where “silo” only describes what it plugs into.</li>
+              <li>Wordplay such as “Siloette” or “Silodeon,” which reads as its own word rather than an official product. This is the exception to the reserved patterns, wherever you publish, as long as you use your own logo.</li>
+            </ul>
+          </article>
+
+          <article class="card rules-card rules-card--dont">
+            <p class="rules-card__label">Please avoid</p>
+            <ul>
+              <li>“Silo” alone, or as the first word of a product name, including “Silo Client” or “Silo Player” as the name itself.</li>
+              <li>“Silo[word]” names such as SiloTV, SiloPlay, or SiloFlix, which read as official apps.</li>
+              <li>“[word]Silo” names such as OpenSilo or MySilo, which read as the project itself.</li>
+              <li>Misspellings and look-alikes such as Sylo or Si1o.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3 class="rules-subhead" id="writing-title">Writing the name</h3>
+        <div class="card table-card" role="region" aria-label="How to write the Silo name" tabindex="0">
+          <table>
+            <thead>
+              <tr><th>Context</th><th>Write it as</th><th>Example</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Context">Prose and UI text</td>
+                <td data-label="Write it as">Silo, capital S, one word</td>
+                <td data-label="Example">“Connect to your Silo server.”</td>
+              </tr>
+              <tr>
+                <td data-label="Context">The server product</td>
+                <td data-label="Write it as">Silo Server, two words</td>
+                <td data-label="Example">“Requires Silo Server 1.0 or later.”</td>
+              </tr>
+              <tr>
+                <td data-label="Context">Repositories, packages, command-line binaries</td>
+                <td data-label="Write it as">Lowercase silo</td>
+                <td data-label="Example"><code>silo-server</code>, <code>silo-plugin-trakt</code></td>
+              </tr>
+              <tr>
+                <td data-label="Context">App bundles and product names</td>
+                <td data-label="Write it as">Display form</td>
+                <td data-label="Example"><code>Silo</code>, <code>SiloTV</code></td>
+              </tr>
+              <tr>
+                <td data-label="Context">Paths and config directories</td>
+                <td data-label="Write it as">Follow the platform convention</td>
+                <td data-label="Example"><code>/var/lib/silo</code>, <code>~/Library/Application Support/Silo</code></td>
+              </tr>
+              <tr class="is-never">
+                <td data-label="Context">Never</td>
+                <td data-label="Write it as">SILO, SiLo, Si-lo, or a typeset “Silo” in place of the wordmark</td>
+                <td data-label="Example">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="rules-subhead" id="artwork-title">Handling the artwork</h3>
+        <div class="rules-grid" data-reveal-group>
+          <article class="card rules-card rules-card--do">
+            <p class="rules-card__label">Do</p>
+            <ul>
+              <li>Use the supplied artwork without redrawing it.</li>
+              <li>Leave comfortable clear space on every side.</li>
+              <li>Use the wordmark variant with clear background contrast.</li>
+              <li>Keep your own product name and identity more prominent.</li>
+            </ul>
+          </article>
+
+          <article class="card rules-card rules-card--dont">
+            <p class="rules-card__label">Don’t</p>
+            <ul>
+              <li>Stretch, skew, rotate, crop, or rearrange the artwork.</li>
+              <li>Recolor the mark or add shadows, outlines, or effects.</li>
+              <li>Build the mark into your own logo.</li>
+              <li>Use the icon as the identity of a fork or third-party app.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="card table-card table-card--after" role="region" aria-label="Asset selection guide" tabindex="0">
+          <table>
+            <thead>
+              <tr><th>Asset</th><th>Best for</th><th>Background</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Asset">Horizontal wordmark</td>
+                <td data-label="Best for">Articles, decks, partner and compatibility pages</td>
+                <td data-label="Background">Dark art on light; white art on dark</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Mark</td>
+                <td data-label="Best for">The symbol beside your own type</td>
+                <td data-label="Background">Transparent; flat cut below 48 px</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Mono wordmark / mark</td>
+                <td data-label="Best for">One-color print, embroidery, engraving</td>
+                <td data-label="Background">Inherits currentColor</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Project icon</td>
+                <td data-label="Best for">Avatars, favicons, compact square placements</td>
+                <td data-label="Background">Use the complete supplied canvas</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">App icon</td>
+                <td data-label="Best for">Press coverage of official Silo applications</td>
+                <td data-label="Background">Use the complete supplied canvas</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
-  </main>
 
-  <Bottombar />
-</Base>
+    <section class="brand-section" id="construction" aria-labelledby="construction-title">
+      <div class="container">
+        <div class="brand-head">
+          <div>
+            <p class="eyebrow">03 · Construction</p>
+            <h2 id="construction-title" class="brand-h2 reveal-lines">
+              <span class="ln"><span>Clear space</span></span><span class="ln"><span>and size</span></span>
+            </h2>
+          </div>
+          <p class="brand-head__body rise">
+            <span>
+              The mark is built on one rule: every slanted edge sits at exactly
+              30° from horizontal. You never need to redraw it, but these are
+              the measurements that keep a placement correct.
+            </span>
+          </p>
+        </div>
+
+        <div class="build-grid">
+          <figure class="card build-figure">
+            <img
+              src={assetHref("silo-construction.svg")}
+              alt="Construction drawing of the Silo mark showing its clear space, 30° edges, and element measurements"
+              width="712"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption>Construction drawing / units of the 1024 px icon</figcaption>
+          </figure>
+
+          <div class="build-notes" data-reveal-group>
+            <div class="card build-note">
+              <p class="build-note__label">Clear space</p>
+              <p>
+                Keep at least the width of one bar counter—54 units, about 20%
+                of the mark's width—free on all four sides. Nothing else sits
+                inside it.
+              </p>
+            </div>
+            <div class="card build-note">
+              <p class="build-note__label">Minimum size</p>
+              <p>
+                The mark reads cleanly down to about 24&nbsp;px tall. Below
+                that use the flat cut, and below 16&nbsp;px use a single element
+                rather than the full stack.
+              </p>
+            </div>
+            <div class="card build-note">
+              <p class="build-note__label">Typography</p>
+              <p>
+                The wordmark is Plus Jakarta Sans ExtraBold at −0.04&nbsp;em
+                tracking, converted to outlines. It is artwork, not live text—do
+                not re-typeset it. The website's own faces are not part of the
+                logo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-section" id="palette" aria-labelledby="palette-title">
+      <div class="container">
+        <div class="brand-head">
+          <div>
+            <p class="eyebrow">04 · Palette</p>
+            <h2 id="palette-title" class="brand-h2 reveal-lines">
+              <span class="ln"><span>Logo palette</span></span>
+            </h2>
+          </div>
+          <p class="brand-head__body rise">
+            <span>
+              When the logo appears beside supporting graphics, these colors
+              keep the surrounding material in the same visual family. Do not
+              use them to recolor the supplied artwork. You are welcome to use
+              the colors, and the three-bar motif from the website, in your own
+              client or plugin interface. The logo, wordmark, and icons are what we
+              reserve, so keep your own logo a different shape.
+            </span>
+          </p>
+        </div>
+
+        <div class="swatches" aria-label="Silo logo colors">
+          <div class="card swatch" style="--swatch: #0034fb">
+            <span></span><strong>Signal blue</strong><code>#0034FB</code>
+          </div>
+          <div class="card swatch" style="--swatch: #f50b4f">
+            <span></span><strong>Signal red</strong><code>#F50B4F</code>
+          </div>
+          <div class="card swatch" style="--swatch: #fa7604">
+            <span></span><strong>Signal orange</strong><code>#FA7604</code>
+          </div>
+          <div class="card swatch" style="--swatch: #010d9f">
+            <span></span><strong>Icon field</strong><code>#010D9F</code>
+          </div>
+          <div class="card swatch" style="--swatch: #070b82">
+            <span></span><strong>Deep field</strong><code>#070B82</code>
+          </div>
+          <div class="card swatch" style="--swatch: #181511">
+            <span></span><strong>Wordmark ink</strong><code>#181511</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-section" id="motion" aria-labelledby="motion-title">
+      <div class="container">
+        <div class="brand-head">
+          <div>
+            <p class="eyebrow">05 · Motion</p>
+            <h2 id="motion-title" class="brand-h2 reveal-lines">
+              <span class="ln"><span>The logo</span></span><span class="ln"><span>in motion</span></span>
+            </h2>
+          </div>
+          <p class="brand-head__body rise">
+            <span>
+              The animation our apps play on launch, built from the same vector
+              masters. The mark assembles a bar at a time, then slides aside to
+              let the wordmark out from behind it.
+            </span>
+          </p>
+        </div>
+
+        <div class="motion-grid">
+          <article class="card motion-card motion-card--wide">
+            <div class="motion-card__stage motion-card__stage--video">
+              <video
+                src={assetHref("silo-motion-splash.mp4")}
+                width="1920"
+                height="1080"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+                aria-label="The Silo logo assembling, then revealing the wordmark"
+              ></video>
+            </div>
+            <div class="card__body">
+              <p class="card__index">Motion · 01</p>
+              <h3>Startup splash</h3>
+              <p class="card__text">
+                Four seconds, ending on the horizontal lockup. Use it for launch
+                screens, intros, and title cards. The Lottie cut is vector, so it
+                stays sharp at any size and weighs a fraction of the video.
+              </p>
+              <dl class="specs">
+                <div><dt>Video</dt><dd>3840 × 2160 · 60 fps · 4.0 s</dd></div>
+                <div><dt>Lottie</dt><dd>vector · 62 KB</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-motion-splash.json")} download="silo-motion-splash.json">
+                  Lottie JSON<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-motion-splash.mp4")} download="silo-motion-splash.mp4">
+                  MP4 · 4K<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card motion-card">
+            <div class="motion-card__stage">
+              <div class="tile tile--light tile--motion">
+                <img
+                  class="motion-anim"
+                  src={assetHref("silo-motion-mark.gif")}
+                  alt="The Silo mark assembling one bar at a time"
+                  width="512"
+                  height="512"
+                  loading="lazy"
+                />
+                <img
+                  class="motion-still"
+                  src={assetHref("silo-app-icon.svg")}
+                  alt="The assembled Silo mark on the icon field"
+                  width="512"
+                  height="512"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__index">Motion · 02</p>
+              <h3>Animated mark</h3>
+              <p class="card__text">
+                A square, looping cut with the wordmark dropped, for avatars,
+                chat emoji, and anywhere the horizontal lockup would be too small
+                to read. Take the transparent version when the background is
+                unknown or already dark.
+              </p>
+              <dl class="specs">
+                <div><dt>Format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
+                <div><dt>Loop</dt><dd>2.0 s · 50 fps</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-motion-mark.gif")} download="silo-motion-mark.gif">
+                  GIF · icon field<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-motion-mark-alpha.gif")} download="silo-motion-mark-alpha.gif">
+                  GIF · transparent<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card motion-card">
+            <div class="motion-card__stage">
+              <div class="tile tile--light tile--motion">
+                <img
+                  class="motion-anim"
+                  src={assetHref("silo-motion-play-alpha.gif")}
+                  alt="The Silo mark opening into a play button, which is pressed and reassembles the mark"
+                  width="512"
+                  height="512"
+                  loading="lazy"
+                />
+                <img
+                  class="motion-still"
+                  src={assetHref("silo-app-icon.svg")}
+                  alt="The assembled Silo mark on the icon field"
+                  width="512"
+                  height="512"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="card__index">Motion · 03</p>
+              <h3>Play loop</h3>
+              <p class="card__text">
+                Rests on the finished mark, so it reads as the logo while it is
+                stopped. The bars spin away, the triangle becomes a play button,
+                and pressing it puts the mark back together.
+              </p>
+              <dl class="specs">
+                <div><dt>Format</dt><dd>2 GIFs · 512 × 512 px</dd></div>
+                <div><dt>Loop</dt><dd>2.9 s · 50 fps</dd></div>
+              </dl>
+              <div class="downloads">
+                <a class="btn btn--ghost dl" href={assetHref("silo-motion-play.gif")} download="silo-motion-play.gif">
+                  GIF · icon field<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+                <a class="btn btn--ghost dl dl--quiet" href={assetHref("silo-motion-play-alpha.gif")} download="silo-motion-play-alpha.gif">
+                  GIF · transparent<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" set:html={down} />
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="notice">
+          Keep the timing and the artwork as supplied—the animation is part of the
+          mark. Do not re-time it, add effects, or loop the splash as a spinner.
+        </p>
+      </div>
+    </section>
+
+    <section class="brand-section brand-section--last" aria-labelledby="permission-title">
+      <div class="container">
+        <div class="card permission">
+          <p class="eyebrow">06 · Permissions</p>
+          <h2 id="permission-title" class="brand-h2 reveal-lines">
+            <span class="ln"><span>Open source code.</span></span><span class="ln"><span>Protected identity.</span></span>
+          </h2>
+          <p class="permission__body">
+            The code is AGPL and yours to fork. The name and logo identify the
+            official project, so a distributed fork picks its own name and logo
+            and says it is “based on Silo.” This page is the practical guide;
+            the trademark policy on GitHub is the canonical text. Not sure
+            whether your use is fine? Ask in Discord or email us. We answer
+            quickly and usually say yes.
+          </p>
+          <div class="permission__actions">
+            <a class="btn btn--primary" href={policyHref} rel="noopener">
+              Read the full trademark policy
+              <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" set:html={out} />
+            </a>
+            <a class="btn btn--ghost" href={SITE.discord} rel="noopener">
+              Ask in Discord
+              <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" set:html={out} />
+            </a>
+            <a class="link-arrow" href="mailto:trademark@siloserver.org">trademark@siloserver.org</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</MarketingPage>
 
 <script>
   // CSS can gate the GIF but not video autoplay, so hand the splash back to the
@@ -701,476 +739,672 @@ const policyHref =
 
 <style>
   .brand-page {
-    max-width: var(--container-wide);
-    margin: 0 auto;
-    border-left: 1px solid var(--rule);
-    border-right: 1px solid var(--rule);
-    background: color-mix(in srgb, var(--paper) 96%, transparent);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --blue-hi: var(--blue-text);
+    --red-hi: #ff4d7d;
+    --orange-hi: #ff9a3d;
+    --field: linear-gradient(150deg, #0b169f 0%, #070b82 62%, #050766 100%);
+    --tile-light: #eef0f5;
   }
+
+  /* ---------- Hero ---------- */
 
   .brand-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.62fr);
-    min-height: 420px;
-    border-bottom: 1px solid var(--ink);
-  }
-  .brand-hero__copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-  }
-  .brand-kicker {
-    display: flex;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(40px, 6vw, 88px);
     align-items: center;
-    gap: 0.65rem;
-    margin: 0 0 1.5rem;
-    font: 500 0.72rem/1 var(--ff-mono);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
   }
-  .brand-hero h1 {
-    max-width: 620px;
-    margin: 0;
-    font: 800 clamp(3.2rem, 6vw, 5.4rem)/0.92 var(--ff-display);
-    letter-spacing: -0.015em;
-    text-transform: uppercase;
-    color: var(--ink);
+  .brand-kicker > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
   }
-  .brand-hero__lede {
-    max-width: 630px;
-    margin: 1.5rem 0 0;
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
-    line-height: 1.55;
-    color: var(--ink-soft);
+  .bars {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
   }
+  .bars b {
+    display: block;
+    width: 12px;
+    height: 3px;
+    border-radius: 1px;
+    background: var(--blue);
+    transform: skewY(-30deg);
+  }
+  .bars b:nth-child(2) {
+    margin-left: 2px;
+    background: var(--red);
+  }
+  .bars b:nth-child(3) {
+    margin-left: 4px;
+    background: var(--orange);
+  }
+  /* Separators sit before every item; the one that starts a line is clipped. */
   .brand-hero__meta {
-    margin: 1.75rem 0 0;
-    font: 500 0.7rem/1.6 var(--ff-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
+    margin-top: 28px;
+    overflow: hidden;
   }
-  .brand-hero__meta span {
-    padding: 0 0.35rem;
-    color: var(--orange);
+  .brand-hero__meta ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    margin: 0 0 0 -28px;
+    padding: 0;
+    list-style: none;
+    color: var(--fg-mute);
+    font-size: 14px;
+  }
+  .brand-hero__meta li::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin: 0 12px;
+    border-radius: 50%;
+    vertical-align: middle;
+    background: var(--orange);
+  }
+  .brand-hero__actions {
+    margin-top: 36px;
+  }
+  .brand-hero__actions > span {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
   }
   .brand-hero__specimen {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 360px;
-    overflow: hidden;
-    background: linear-gradient(145deg, #0b169f, #070b82 68%, #060864);
-    border-left: 1px solid var(--ink);
+    margin: 0;
   }
-  .brand-hero__specimen img {
+  .brand-hero__specimen::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 8% -6% -10% 4%;
+    background:
+      radial-gradient(50% 50% at 40% 50%, rgba(0, 52, 251, 0.45), transparent 75%),
+      radial-gradient(35% 40% at 85% 85%, rgba(250, 118, 4, 0.18), transparent 75%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+  .brand-hero__plate {
     position: relative;
-    z-index: 1;
-    width: min(52%, 210px);
+    display: grid;
+    place-items: center;
+    aspect-ratio: 5 / 4;
+    border-radius: var(--radius-lg);
+    background: var(--field);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 30px 80px -20px rgba(1, 13, 159, 0.6);
+    overflow: hidden;
+  }
+  .brand-hero__plate img {
+    width: min(46%, 240px);
     height: auto;
   }
-  .brand-hero__specimen span {
+  .brand-hero__plate figcaption {
     position: absolute;
-    right: 28px;
-    bottom: 26px;
-    left: 28px;
-    z-index: 1;
-    font: 500 0.62rem/1.4 var(--ff-mono);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.62);
-  }
-
-  .brand-section {
-    padding: clamp(3.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-    border-bottom: 1px solid var(--rule);
-  }
-  .brand-section__heading {
-    display: grid;
-    grid-template-columns: minmax(120px, 0.25fr) minmax(0, 1fr);
-    gap: 2rem;
-    margin-bottom: 2.25rem;
-  }
-  .brand-section__heading > p,
-  .permission__index {
-    margin: 0.45rem 0 0;
-    font: 500 0.68rem/1.4 var(--ff-mono);
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--ink-mute);
-  }
-  .brand-section__heading h2,
-  .permission h2 {
-    margin: 0;
-    font: 800 clamp(2.1rem, 4vw, 3.4rem)/1 var(--ff-display);
-    letter-spacing: -0.015em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .brand-section__heading div > p {
-    max-width: 720px;
-    margin: 1.1rem 0 0;
-    color: var(--ink-soft);
+    color: rgba(255, 255, 255, 0.6);
   }
 
-  .asset-grid {
+  /* ---------- Sections ---------- */
+
+  .brand-section {
+    position: relative;
+    padding-block: clamp(80px, 10vw, 136px);
+    border-top: 1px solid var(--line);
+  }
+  .brand-section--usage::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    width: min(1200px, 120vw);
+    height: 600px;
+    transform: translateX(-50%);
+    background: radial-gradient(40% 45% at 75% 20%, rgba(245, 11, 79, 0.1), transparent 75%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .brand-head {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px 64px;
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 64px);
   }
-  .asset-card {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    background: var(--paper-high);
+  .brand-head .eyebrow {
+    margin-bottom: 18px;
   }
-  .asset-card--wide {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  .brand-h2 {
+    margin: 0;
+    font-size: clamp(36px, 4.6vw, 60px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
   }
-  .asset-card__preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 230px;
-    padding: 1.75rem;
-    border-bottom: 1px solid var(--rule);
+  .brand-head__body {
+    margin: 0;
+    max-width: 34em;
+    color: var(--fg-soft);
+    font-size: 17px;
+    line-height: 1.65;
   }
-  .asset-card__preview--wordmark {
-    background: #070b82;
+
+  /* ---------- Cards ---------- */
+
+  .card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
   }
-  .asset-card__preview--wordmark img {
-    width: min(68%, 220px);
-    height: auto;
+  /* Hairline drawn above children so edge-to-edge media keeps the inset. */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px var(--line);
+    pointer-events: none;
   }
-  .asset-card__preview--icon {
-    background: var(--paper-dim);
-  }
-  .asset-card__preview--icon img {
-    width: min(62%, 170px);
-    height: auto;
-    box-shadow: 0 10px 24px rgba(11, 10, 8, 0.14);
-  }
-  .asset-card__preview--mark {
-    background: var(--paper-dim);
-  }
-  .asset-card__preview--mark img {
-    width: auto;
-    height: min(46vw, 170px);
-  }
-  .asset-card__body {
+  .card__body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
+    padding: 28px;
   }
-  .asset-card__index,
-  .rules-card__label {
-    margin: 0 0 1rem;
-    font: 600 0.65rem/1 var(--ff-mono);
+  .card__index {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
     letter-spacing: 0.16em;
-    color: var(--blue);
-  }
-  .asset-card h3 {
-    margin: 0;
-    font: 800 clamp(1.7rem, 2.5vw, 2.35rem)/1 var(--ff-display);
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--fg-mute);
   }
-  .asset-card__body > p:not(.asset-card__index) {
-    margin: 1rem 0 1.5rem;
-    font-size: 0.92rem;
-    line-height: 1.65;
-    color: var(--ink-soft);
+  .card h3 {
+    margin: 0;
+    font-size: clamp(22px, 2vw, 26px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
-  .asset-card dl {
+  .card__text {
+    margin: 12px 0 24px;
+    color: var(--fg-soft);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .specs {
     width: 100%;
-    margin: auto 0 1.5rem;
-    border-top: 1px solid var(--rule);
+    margin: auto 0 22px;
   }
-  .asset-card dl div {
+  .specs div {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--rule);
-    font: 500 0.67rem/1.4 var(--ff-mono);
+    gap: 16px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
   }
-  .asset-card dt {
-    color: var(--ink-mute);
-    text-transform: uppercase;
+  .specs div:last-child {
+    border-bottom: 1px solid var(--line);
   }
-  .asset-card dd {
+  .specs dt {
+    color: var(--fg-mute);
+  }
+  .specs dd {
     margin: 0;
-    color: var(--ink);
+    color: var(--fg);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
-  .asset-download {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    min-width: 180px;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--ink);
-    background: var(--ink);
-    color: var(--paper-high);
-    font: 600 0.68rem/1 var(--ff-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: background 0.14s ease, border-color 0.14s ease;
-  }
-  .asset-downloads {
+  .downloads {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    width: 100%;
+    gap: 8px;
   }
-  .asset-downloads .asset-download {
-    flex: 1 1 145px;
-    min-width: 0;
+  .dl {
+    height: 40px;
+    padding: 0 14px;
+    gap: 8px;
+    font-size: 14px;
   }
-  .asset-download:hover {
-    border-color: var(--blue);
-    background: var(--blue);
+  .dl svg {
+    opacity: 0.8;
   }
-  .asset-download--ghost {
+  .dl:hover svg {
+    transform: translateY(2px);
+  }
+  .dl--quiet {
     background: transparent;
-    color: var(--ink);
+    color: var(--fg-soft);
   }
-  .asset-download--ghost:hover {
-    color: var(--paper-high);
+  .dl--quiet:hover {
+    color: var(--fg);
   }
-  .asset-download span {
-    font-size: 1rem;
+  .notice {
+    margin: 24px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--fg-mute);
   }
-  .asset-notice {
-    margin: 1rem 0 0;
-    font: 500 0.68rem/1.6 var(--ff-mono);
-    color: var(--ink-mute);
-  }
-  .asset-notice a {
-    color: var(--blue);
+  .notice a {
+    color: var(--fg);
     text-decoration: underline;
-    text-underline-offset: 0.2em;
+    text-decoration-color: rgba(255, 255, 255, 0.35);
+    text-underline-offset: 3px;
+  }
+  .notice a:hover {
+    text-decoration-color: currentColor;
   }
 
-  .brand-section--rules {
-    background: var(--paper-dim);
+  /* Preview tiles sit inset in their card. Dark-on-light art gets a light tile. */
+  .tile {
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    overflow: hidden;
   }
+  .tile--light {
+    background: var(--tile-light);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+  .tile--field {
+    background: var(--field);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  .tile--dark {
+    background:
+      radial-gradient(60% 60% at 50% 40%, rgba(0, 52, 251, 0.16), transparent 75%),
+      rgba(255, 255, 255, 0.025);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+
+  /* ---------- Asset grid ---------- */
+
+  .asset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .asset-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .asset-card--wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+  .asset-card--wide .card__body {
+    padding: clamp(28px, 3.4vw, 44px);
+  }
+  .asset-card__preview {
+    padding: 8px 8px 0;
+  }
+  .asset-card__preview .tile {
+    height: 240px;
+  }
+  .asset-card__preview--pair {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+  .asset-card__preview--pair .tile {
+    height: auto;
+    min-height: 200px;
+  }
+  .asset-card__preview--pair img {
+    width: min(40%, 220px);
+    height: auto;
+  }
+  .tile--mark img {
+    width: auto;
+    height: 150px;
+  }
+  .tile--icon img {
+    width: 140px;
+    height: auto;
+    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ---------- Usage ---------- */
+
   .rules-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
+    gap: 20px;
   }
   .rules-card {
-    padding: clamp(1.75rem, 4vw, 3.25rem);
-    background: var(--paper-high);
-  }
-  .rules-card--do {
-    border-top: 5px solid var(--blue);
+    --accent: var(--blue);
+    --accent-hi: var(--blue-hi);
+    padding: clamp(26px, 3vw, 36px);
+    overflow: hidden;
   }
   .rules-card--dont {
-    border-top: 5px solid var(--red);
+    --accent: var(--red);
+    --accent-hi: var(--red-hi);
   }
-  .rules-card--dont .rules-card__label {
-    color: var(--red);
+  .rules-card::before {
+    content: "";
+    position: absolute;
+    top: -45%;
+    right: -15%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(closest-side, var(--accent), transparent);
+    opacity: 0.18;
+    filter: blur(30px);
+    pointer-events: none;
   }
-  .rules-subhead {
-    margin: 3rem 0 1rem;
-    font: 800 clamp(1.3rem, 2vw, 1.7rem)/1.1 var(--ff-display);
-    letter-spacing: -0.02em;
-    color: var(--ink);
+  .rules-card__label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    color: var(--accent-hi);
+    font-size: 13px;
+    font-weight: 700;
   }
-  .rules-intro {
-    max-width: 720px;
-    margin: 0 0 1.5rem;
-    color: var(--ink-soft);
-  }
-  .rules-intro--after {
-    margin: 1.5rem 0 0;
-  }
-  .rules-card code,
-  .context-table code {
-    font: 500 0.85em/1 var(--ff-mono);
-    color: var(--ink);
-  }
-  .rules-grid + .rules-subhead,
-  .context-table + .rules-subhead {
-    margin-top: 3rem;
+  .rules-card__label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
   }
   .rules-card ul {
+    position: relative;
     margin: 0;
     padding: 0;
     list-style: none;
   }
   .rules-card li {
     position: relative;
-    padding: 0.85rem 0 0.85rem 1.75rem;
-    border-bottom: 1px solid var(--rule-soft);
-    color: var(--ink-soft);
+    padding: 14px 0 14px 36px;
+    border-top: 1px solid var(--line);
+    color: var(--fg-soft);
+    font-size: 15px;
+    line-height: 1.6;
   }
-  .rules-card li:last-child {
-    border-bottom: 0;
+  .rules-card li:first-child {
+    border-top: 0;
   }
   .rules-card li::before {
     content: "+";
     position: absolute;
     left: 0;
-    color: var(--blue);
-    font: 600 1rem/1.6 var(--ff-mono);
+    top: 15px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent-hi);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
   }
   .rules-card--dont li::before {
     content: "×";
-    color: var(--red);
   }
-  .context-table {
-    margin-top: 2rem;
+  .rules-card code,
+  .table-card code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--fg);
+    white-space: nowrap;
+  }
+  .rules-card strong,
+  .rules-intro strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .rules-subhead {
+    margin: clamp(64px, 8vw, 96px) 0 16px;
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .rules-subhead + .table-card,
+  .rules-subhead + .rules-grid {
+    margin-top: 28px;
+  }
+  .rules-intro {
+    max-width: 44em;
+    margin: 0 0 28px;
+    color: var(--fg-soft);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  .rules-intro--after {
+    margin: 28px 0 0;
+    color: var(--fg-mute);
+    font-size: 15px;
+  }
+
+  /* ---------- Tables ---------- */
+
+  .table-card {
     overflow-x: auto;
-    border: 1px solid var(--ink);
   }
-  .context-table table {
+  .table-card--after {
+    margin-top: 20px;
+  }
+  .table-card table {
     width: 100%;
-    min-width: 700px;
+    min-width: 640px;
     border-collapse: collapse;
-    background: var(--paper-high);
+    font-size: 15px;
   }
-  .context-table th,
-  .context-table td {
-    padding: 0.9rem 1.1rem;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
+  .table-card th,
+  .table-card td {
+    padding: 18px 24px;
     text-align: left;
+    vertical-align: top;
+    border-top: 1px solid var(--line);
   }
-  .context-table th:last-child,
-  .context-table td:last-child {
-    border-right: 0;
-  }
-  .context-table tbody tr:last-child td {
-    border-bottom: 0;
-  }
-  .context-table th {
-    background: var(--ink);
-    color: var(--paper-high);
-    font: 600 0.65rem/1 var(--ff-mono);
-    letter-spacing: 0.12em;
+  .table-card th {
+    border-top: 0;
+    padding-block: 20px 16px;
+    color: var(--fg-mute);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
-  .context-table td {
-    color: var(--ink-soft);
-    font-size: 0.82rem;
+  .table-card td {
+    color: var(--fg-soft);
+    line-height: 1.55;
   }
-  .context-table td:first-child {
-    color: var(--ink);
-    font-family: var(--ff-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
+  .table-card td:first-child {
+    width: 30%;
+    color: var(--fg);
+    font-weight: 600;
   }
+  .table-card .is-never td:first-child {
+    color: var(--red-hi);
+  }
+
+  /* ---------- Construction ---------- */
 
   .build-grid {
     display: grid;
-    grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
-    gap: 1px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 20px;
   }
   .build-figure {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 24px;
     margin: 0;
-    padding: clamp(1.75rem, 4vw, 3rem);
-    background: linear-gradient(145deg, #0b169f, #070b82 68%, #060864);
+    padding: clamp(28px, 4vw, 48px);
+    background: var(--field);
+    overflow: hidden;
+  }
+  .build-figure::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
   .build-figure img {
-    width: min(100%, 300px);
+    width: min(100%, 320px);
     height: auto;
   }
   .build-figure figcaption {
-    font: 500 0.62rem/1.4 var(--ff-mono);
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     text-align: center;
-    color: rgba(255, 255, 255, 0.62);
+    color: rgba(255, 255, 255, 0.6);
   }
   .build-notes {
     display: flex;
     flex-direction: column;
-    background: var(--paper-high);
+    gap: 20px;
   }
   .build-note {
     flex: 1;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-    border-bottom: 1px solid var(--rule);
-  }
-  .build-note:last-child {
-    border-bottom: 0;
+    padding: clamp(24px, 3vw, 32px);
   }
   .build-note__label {
-    margin: 0 0 0.75rem;
-    font: 600 0.65rem/1 var(--ff-mono);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 10px;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+  }
+  .build-note__label::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--blue);
+    transform: skewY(-30deg);
+  }
+  .build-note:nth-child(2) .build-note__label::before {
+    background: var(--red);
+  }
+  .build-note:nth-child(3) .build-note__label::before {
+    background: var(--orange);
   }
   .build-note p:not(.build-note__label) {
-    max-width: 620px;
+    max-width: 36em;
     margin: 0;
-    font-size: 0.92rem;
+    color: var(--fg-soft);
+    font-size: 15px;
     line-height: 1.65;
-    color: var(--ink-soft);
   }
 
-  .brand-section--motion {
-    background: var(--paper-dim);
+  /* ---------- Palette ---------- */
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
   }
+  .swatch {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 8px 8px 0;
+  }
+  .swatch > span {
+    grid-column: 1 / -1;
+    display: block;
+    height: 150px;
+    border-radius: 16px;
+    background: var(--swatch);
+    /* Keeps the darkest inks distinct from the page. */
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+  .swatch strong,
+  .swatch code {
+    padding: 16px 12px 18px;
+  }
+  .swatch strong {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .swatch code {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fg-mute);
+  }
+
+  /* ---------- Motion ---------- */
+
   .motion-grid {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
   .motion-card {
     display: flex;
     flex-direction: column;
-    grid-column: span 3;
-    background: var(--paper-high);
   }
   .motion-card--wide {
-    grid-column: span 6;
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .motion-card--wide .card__body {
+    padding: clamp(28px, 3.4vw, 44px);
   }
   .motion-card__stage {
+    padding: 8px 8px 0;
+  }
+  .motion-card__stage--video {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0;
-    border-bottom: 1px solid var(--rule);
-    background: #000;
+    padding: 8px;
   }
   .motion-card__stage video {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 16px;
+    background: #000;
   }
-  .motion-card__stage--square {
-    padding: clamp(1.25rem, 3vw, 2rem);
-    background: var(--paper-dim);
+  .tile--motion {
+    height: 300px;
   }
-  .motion-card__stage--square img {
-    width: min(70%, 200px);
+  .tile--motion img {
+    width: 200px;
     height: auto;
   }
   /* The GIF's last frame is the app icon, so the still is an exact stand-in. */
@@ -1185,198 +1419,177 @@ const policyHref =
       display: block;
     }
   }
-  .motion-card__body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex: 1;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-  }
-  .motion-card__body h3 {
-    margin: 0;
-    font: 800 clamp(1.7rem, 2.5vw, 2.35rem)/1 var(--ff-display);
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .motion-card__body > p:not(.asset-card__index) {
-    margin: 1rem 0 1.5rem;
-    font-size: 0.92rem;
-    line-height: 1.65;
-    color: var(--ink-soft);
-  }
-  .motion-card dl {
-    width: 100%;
-    margin: auto 0 1.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  .motion-card dl div {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--rule);
-    font: 500 0.67rem/1.4 var(--ff-mono);
-  }
-  .motion-card dt {
-    color: var(--ink-mute);
-    text-transform: uppercase;
-  }
-  .motion-card dd {
-    margin: 0;
-    color: var(--ink);
-  }
 
-  .swatches {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
-  }
-  .swatch {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    background: var(--paper-high);
-  }
-  .swatch > span {
-    grid-column: 1 / -1;
-    display: block;
-    height: 100px;
-    background: var(--swatch);
-    border-bottom: 1px solid var(--ink);
-  }
-  .swatch strong,
-  .swatch code {
-    padding: 0.8rem 0.9rem;
-    font: 500 0.65rem/1 var(--ff-mono);
-  }
-  .swatch strong {
-    color: var(--ink);
-    text-transform: uppercase;
-  }
-  .swatch code {
-    color: var(--ink-mute);
-  }
+  /* ---------- Permission ---------- */
 
+  .brand-section--last {
+    padding-bottom: clamp(96px, 12vw, 160px);
+  }
   .permission {
-    display: grid;
-    grid-template-columns: minmax(120px, 0.25fr) minmax(0, 1fr);
-    gap: 2rem;
-    padding: clamp(3.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-    background: var(--console);
-    color: var(--console-ink);
+    padding: clamp(32px, 6vw, 80px);
+    overflow: hidden;
+    isolation: isolate;
   }
-  .permission__index {
-    color: var(--console-mute);
+  .permission::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -30% -10% auto 30%;
+    height: 120%;
+    background:
+      radial-gradient(40% 45% at 55% 40%, rgba(0, 52, 251, 0.38), transparent 75%),
+      radial-gradient(25% 30% at 85% 70%, rgba(245, 11, 79, 0.16), transparent 75%);
+    filter: blur(40px);
+    pointer-events: none;
   }
-  .permission h2 {
-    max-width: 850px;
-    color: var(--console-ink);
+  .permission .brand-h2 {
+    font-size: clamp(36px, 5.2vw, 68px);
   }
-  .permission p {
-    max-width: 820px;
-    margin: 1.5rem 0 0;
-    color: var(--console-mute);
-    font-size: 1rem;
-    line-height: 1.7;
+  .permission__body {
+    max-width: 40em;
+    margin: 24px 0 0;
+    color: var(--fg-soft);
+    font-size: clamp(16px, 1.3vw, 18px);
+    line-height: 1.65;
   }
   .permission__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1px;
-    margin-top: 2rem;
+    align-items: center;
+    gap: 12px 12px;
+    margin-top: 36px;
   }
-  .permission__actions a {
-    padding: 0.85rem 1rem;
-    border: 1px solid var(--console-rule);
-    color: var(--console-ink);
-    font: 500 0.68rem/1 var(--ff-mono);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .permission__actions a:hover {
-    border-color: var(--blue);
-    color: #fff;
-    background: var(--blue);
+  .permission__actions .link-arrow {
+    margin-left: 16px;
   }
 
-  @media (max-width: 980px) {
-    .brand-hero {
-      grid-template-columns: 1fr;
-    }
-    .brand-hero__specimen {
-      min-height: 380px;
-      border-top: 1px solid var(--ink);
-      border-left: 0;
-    }
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 1040px) {
     .asset-grid {
       grid-template-columns: 1fr 1fr;
     }
-    .asset-card--wide {
-      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+    .asset-card:last-child {
+      grid-column: 1 / -1;
     }
-    .build-grid {
+  }
+
+  @media (max-width: 900px) {
+    .brand-hero,
+    .brand-head,
+    .build-grid,
+    .asset-card--wide,
+    .motion-card--wide {
       grid-template-columns: 1fr;
     }
-    .motion-card,
-    .motion-card--wide {
-      grid-column: span 6;
+    .brand-head {
+      align-items: start;
     }
-    .motion-card--wide {
-      grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+    .asset-card--wide .asset-card__preview--pair {
+      grid-template-rows: none;
+      grid-template-columns: 1fr 1fr;
+      padding-bottom: 0;
+    }
+    .asset-card__preview--pair img {
+      width: min(64%, 200px);
+    }
+    .motion-card--wide .motion-card__stage--video {
+      padding-bottom: 0;
     }
     .swatches {
       grid-template-columns: 1fr 1fr;
     }
   }
 
-  @media (max-width: 680px) {
-    .brand-page {
-      border-right: 0;
-      border-left: 0;
-    }
-    .brand-hero {
-      min-height: 0;
-    }
-    .brand-hero__copy {
-      padding: 4rem 1.25rem;
-    }
-    .brand-hero h1 {
-      font-size: clamp(3rem, 16vw, 4.6rem);
-    }
-    .brand-hero__specimen {
-      min-height: 310px;
-    }
-    .brand-section,
-    .permission {
-      padding: 3.5rem 1.25rem;
-    }
-    .brand-section__heading,
-    .permission {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
+  @media (max-width: 720px) {
     .asset-grid,
     .rules-grid,
-    .swatches,
-    .build-grid,
     .motion-grid {
       grid-template-columns: 1fr;
     }
-    .motion-card,
-    .motion-card--wide {
+    .asset-card:last-child {
       grid-column: auto;
-      display: flex;
     }
-    .asset-card--wide {
-      grid-column: auto;
-      display: flex;
+    .asset-card__preview--pair .tile {
+      min-height: 150px;
     }
-    .asset-card__preview {
-      min-height: 260px;
+    .asset-card__preview .tile {
+      height: 200px;
+    }
+    .tile--motion {
+      height: 240px;
+    }
+    .card__body {
+      padding: 24px;
+    }
+    .swatches {
+      gap: 12px;
     }
     .swatch > span {
-      height: 110px;
+      height: 96px;
+      border-radius: 14px;
+    }
+    .swatch {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .swatch strong {
+      padding: 14px 8px 2px;
+    }
+    .swatch code {
+      padding: 0 8px 16px;
+    }
+    .permission__actions .link-arrow {
+      margin: 8px 0 0;
+    }
+
+    /* Tables become stacked rows instead of scrolling sideways. */
+    .table-card table {
+      min-width: 0;
+    }
+    .table-card thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    .table-card tr,
+    .table-card td {
+      display: block;
+    }
+    .table-card tr {
+      padding: 18px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .table-card tbody tr:first-child {
+      border-top: 0;
+    }
+    .table-card td {
+      width: auto;
+      padding: 0;
+      border: 0;
+    }
+    .table-card td:first-child {
+      width: auto;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .table-card td + td {
+      margin-top: 8px;
+    }
+    .table-card td:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 2px;
+      color: var(--fg-mute);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .table-card code {
+      white-space: normal;
     }
   }
 </style>
