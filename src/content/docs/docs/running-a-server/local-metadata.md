@@ -37,7 +37,7 @@ Put images beside the media with these names. Each name can end in `.jpg`, `.jpe
 
 Silo uses these images only when **NFO Files** is checked for the library, but an image works without an `.nfo` file. A local image wins over images from online providers, and viewers who use another metadata language see it too. Silo skips empty files, files over 25 MiB, and symbolic links.
 
-Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when the folder holds a single title. A `folder.jpg` shared by a folder of several movies applies to none of them. `<media basename>-poster.jpg` always applies to its own movie. A show uses only its own folder's names, so an image named after an episode, such as `Show S01E01-poster.jpg`, never becomes the show's poster. When a show's episodes sit directly in the show folder, that folder's `poster.jpg` is used only as the show's poster.
+Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when the folder holds a single title. A `folder.jpg` shared by a folder of several movies applies to none of them. `<media basename>-poster.jpg` always applies to its own movie. A show doesn't use the `<media basename>` names, so an image named after an episode, such as `Show S01E01-poster.jpg`, never becomes the show's poster. When a show's episodes sit directly in the show folder, that folder's `poster.jpg` is the show's poster, not a season's. Name the season poster `season01-poster.jpg` there instead.
 
 If the library's folder can't be reached during a refresh, such as a network share that isn't mounted, Silo keeps the local images it already has.
 
