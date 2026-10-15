@@ -1,116 +1,30 @@
 ---
-import Base from "../layouts/Base.astro";
-import StatusBar from "../components/StatusBar.astro";
-import Hero from "../components/Hero.astro";
-import Pillars from "../components/Pillars.astro";
-import Features from "../components/Features.astro";
-import Deployment from "../components/Deployment.astro";
-import Clients from "../components/Clients.astro";
-import FAQ from "../components/FAQ.astro";
-import CTA from "../components/CTA.astro";
-import Bottombar from "../components/Bottombar.astro";
+import Marketing from "../layouts/Marketing.astro";
+import SiteHeader from "../components/home/SiteHeader.astro";
+import Hero from "../components/home/Hero.astro";
+import Library from "../components/home/Library.astro";
+import Experience from "../components/home/Experience.astro";
+import Values from "../components/home/Values.astro";
+import Setup from "../components/home/Setup.astro";
+import Faq from "../components/home/Faq.astro";
+import Closing from "../components/home/Closing.astro";
+import SiteFooter from "../components/home/SiteFooter.astro";
 ---
 
-<Base>
-  <StatusBar />
+<Marketing noimageindex>
+  <SiteHeader />
   <main id="main">
     <Hero />
-    <Pillars />
-    <Features />
-    <Deployment />
-    <Clients />
-    <FAQ />
-    <CTA />
+    <Library />
+    <Experience />
+    <Values />
+    <Setup />
+    <Faq />
+    <Closing />
   </main>
-  <Bottombar />
+  <SiteFooter />
+</Marketing>
 
-  <script>
-    // Click-to-copy on the primary "docker compose up -d" button.
-    (() => {
-      const flash = (el: HTMLElement, text: string) => {
-        el.classList.add("copied");
-        const note = document.createElement("span");
-        note.className = "copy-toast";
-        note.textContent = text;
-        el.appendChild(note);
-        setTimeout(() => {
-          note.remove();
-          el.classList.remove("copied");
-        }, 1400);
-      };
-
-      const copy = async (text: string) => {
-        try {
-          await navigator.clipboard.writeText(text);
-          return true;
-        } catch {
-          return false;
-        }
-      };
-
-      document.querySelectorAll<HTMLAnchorElement>(".btn--primary").forEach(
-        (btn) => {
-          const cmd = btn
-            .querySelector("span:nth-child(2)")
-            ?.textContent?.trim();
-          if (!cmd || !cmd.startsWith("docker")) return;
-          btn.addEventListener("click", async (e) => {
-            e.preventDefault();
-            const ok = await copy(cmd);
-            if (ok) flash(btn, "copied ✓");
-          });
-        },
-      );
-    })();
-
-    // Scroll reveal: each section head and each grid rises into place once
-    // as it enters the viewport. A grid reveals as one unit with a short
-    // stagger across its children, so rows never pop in one card at a time.
-    // Reduced motion shows everything immediately.
-    (() => {
-      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const groups = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-reveal-stagger]"),
-      );
-      const singles = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-reveal]"),
-      ).filter((el) => !el.parentElement?.hasAttribute("data-reveal-stagger"));
-      let pending = [...groups, ...singles];
-      if (reduce) {
-        pending.forEach((t) => t.classList.add("is-in"));
-        return;
-      }
-      groups.forEach((group) => {
-        group
-          .querySelectorAll<HTMLElement>(":scope > [data-reveal]")
-          .forEach((child, i) => {
-            child.style.setProperty("--reveal-delay", `${Math.min(i, 11) * 40}ms`);
-          });
-      });
-      const check = () => {
-        // A hidden or not-yet-laid-out tab reports a zero viewport; fall
-        // back to a generous height so nothing is left invisible.
-        const vh = innerHeight || document.documentElement.clientHeight || 900;
-        pending = pending.filter((el) => {
-          const r = el.getBoundingClientRect();
-          // Anything at or above the viewport counts as seen, so jumping to
-          // an anchor never leaves the sections above it blank.
-          if (r.top < vh) {
-            el.classList.add("is-in");
-            return false;
-          }
-          return true;
-        });
-        if (!pending.length) {
-          removeEventListener("scroll", check);
-          removeEventListener("resize", check);
-          document.removeEventListener("visibilitychange", check);
-        }
-      };
-      addEventListener("scroll", check, { passive: true });
-      addEventListener("resize", check);
-      document.addEventListener("visibilitychange", check);
-      check();
-    })();
-  </script>
-</Base>
+<script>
+  import "../scripts/home";
+</script>

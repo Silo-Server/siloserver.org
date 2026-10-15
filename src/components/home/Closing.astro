@@ -1,0 +1,13 @@
+---
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<section class="closing" aria-labelledby="closing-title">
+  <img class="closing__mark" src={`${baseUrl}/brand/silo-mark.svg`} alt="" aria-hidden="true" width="266" height="855" loading="lazy" decoding="async" />
+  <div class="container closing__inner">
+    <h2 id="closing-title" class="closing__title reveal-lines"><span class="ln"><span>Give your collection a home.</span></span></h2>
+    <a class="btn btn--primary btn--lg rise" href={`${baseUrl}/download`}><span>
+      Get Silo <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </span></a>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+import { values } from "../../data/home";
+---
+
+<section class="values section" aria-labelledby="values-title">
+  <div class="container split">
+    <h2 id="values-title" class="h2 reveal-lines">
+      <span class="ln"><span>Free, open,</span></span>
+      <span class="ln"><span>and yours.</span></span>
+    </h2>
+    <ul class="values__list" data-reveal-group>
+      {
+        values.map((v) => (
+          <li class="values__item">
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
