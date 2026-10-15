@@ -1,0 +1,20 @@
+---
+import { SITE } from "../../data/siteConfig";
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const href = (p: string) => `${baseUrl}${p}`;
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href={href("/")} aria-label="Silo home">
+      <img src={href("/brand/silo-wordmark-white.svg")} alt="Silo" width="1389" height="720" />
+    </a>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href={href("/docs")}>Docs</a>
+      <a href={SITE.github.orgUrl}>GitHub</a>
+    </nav>
+    <a class="btn btn--primary btn--sm" href={href("/download")}>
+      Get Silo <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </a>
+  </div>
+</header>
