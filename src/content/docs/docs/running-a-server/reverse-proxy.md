@@ -40,4 +40,8 @@ Remote proxy nodes and S3 storage can hand clients their own addresses. Those mu
 
 Jellyfin-compatible and Audiobookshelf-compatible apps use their own ports (see [Docker ports](/docs/docker#ports)). Publish only the ones your users need, each on its own hostname, and follow [third-party access](/docs/third-party-access).
 
+At home, the Silo app on Apple devices switches to the server's local address on its own once someone is signed in. Browsing, artwork, and video then skip the proxy and go straight to Silo's [own port](/docs/docker#ports) on your network. While the app is connected this way, the server list under **Switch Server** shows **Connected on your local network** below the active server. This needs the address the app signed in with to be HTTPS at the root of its hostname, as set up above.
+
+The app learns the local address from Silo's [announcement on the local network](/docs/docker#discovery-on-the-local-network). Under Docker's default bridge network, which blocks the announcement, it uses **Local network address** instead. When the device changes networks or the local address stops answering, the app goes back to the HTTPS address until the local one answers again. Sign-in and subtitles always use the HTTPS address, so it has to work from inside your home too. The app may ask for local network access the first time.
+
 Remote access doesn't make TV discovery work across networks: a phone or tablet finds a TV only on the same LAN.
