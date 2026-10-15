@@ -3,6 +3,7 @@ import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import { sidebar } from "./src/data/sidebar.mjs";
 import previewBanner from "./scripts/preview-banner.mjs";
+import previewChanges from "./scripts/preview-changes.mjs";
 import { existsSync, statSync } from "node:fs";
 
 // The static pages in public/ (the 1.0 milestone) are folders with an
@@ -33,6 +34,9 @@ const base = process.env.BASE_PATH ?? "/";
 // Tailscale, not just on localhost. Set DEV_HOST to a single address to narrow
 // that, e.g. DEV_HOST=100.x.y.z to bind only the tailnet interface.
 const devHost = process.env.DEV_HOST ?? true;
+
+// Docs slugs in sidebar order, so a preview's changes are listed in reading order.
+const sidebarSlugs = (items) => items.flatMap((item) => (item.slug ? [item.slug] : sidebarSlugs(item.items ?? [])));
 
 export default defineConfig({
   site,
@@ -93,6 +97,7 @@ export default defineConfig({
       sidebar,
     }),
     previewBanner(),
+    previewChanges({ order: sidebarSlugs(sidebar) }),
   ],
   vite: {
     plugins: [publicFolderIndex],

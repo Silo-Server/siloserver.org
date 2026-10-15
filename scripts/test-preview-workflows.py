@@ -211,6 +211,124 @@ try {
         self.assertNotEqual(self.run_status([{'name': 'deploy', 'status': 'success'}], api_success=False).returncode, 0)
 
 
+class ResolvePullRequestTests(unittest.TestCase):
+    def resolve(self, by_commit=True, pr=None):
+        script = block('preview-deploy.yml', 'Resolve the pull request from trusted event data', 'script')
+        pr = pr or {'number': 21, 'state': 'open', 'user': {'login': 'contributor'},
+                    'head': {'sha': 'current', 'ref': 'feature', 'repo': {'full_name': 'contributor/fork', 'owner': {'login': 'contributor'}}}}
+        harness = r'''
+const outputs = {}, lookups = [];
+const pr = JSON.parse(process.env.PR);
+const github = {
+  paginate: async (method, params) => method(params),
+  rest: {
+    repos: {listPullRequestsAssociatedWithCommit: async () => process.env.BY_COMMIT === '1' ? [pr] : []},
+    pulls: {list: async ({head}) => { lookups.push(head); return head === 'contributor:feature' ? [pr] : []; }},
+  },
+};
+const context = {repo: {owner: 'test', repo: 'site'}, payload: {workflow_run: {
+  head_sha: 'current', head_branch: 'feature', head_repository: {full_name: 'contributor/fork'}}}};
+const core = {setOutput: (key, value) => outputs[key] = value, info: () => {}};
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+await new AsyncFunction('require', 'github', 'context', 'core', process.env.SCRIPT)(require, github, context, core);
+console.log(JSON.stringify({outputs, lookups}));
+'''
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            tools = folder / 'trusted-preview/.github/preview-tools'
+            tools.mkdir(parents=True)
+            (tools / 'find-pull-request.cjs').symlink_to(ROOT / '.github/preview-tools/find-pull-request.cjs')
+            env = dict(os.environ, SCRIPT=script, GITHUB_WORKSPACE=str(folder), PR=json.dumps(pr),
+                       BY_COMMIT='1' if by_commit else '0')
+            result = subprocess.run(['node', '--input-type=module', '-e',
+                                     "import { createRequire } from 'node:module';\nconst require = createRequire(process.cwd() + '/');\n" + harness],
+                                    cwd=folder, env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            return json.loads(result.stdout)
+
+    def test_same_repository_pr_is_found_by_commit(self):
+        data = self.resolve()
+        self.assertEqual(data['outputs'], {'skip': 'false', 'pr': '21', 'sha': 'current', 'short': 'current'})
+        self.assertEqual(data['lookups'], [])
+
+    def test_fork_pr_is_found_by_owner_and_branch(self):
+        data = self.resolve(by_commit=False)
+        self.assertEqual(data['outputs']['skip'], 'false')
+        self.assertEqual(data['outputs']['pr'], '21')
+        self.assertEqual(data['lookups'], ['contributor:feature'])
+
+    def test_branch_match_still_needs_the_built_commit(self):
+        pr = {'number': 21, 'state': 'open', 'user': {'login': 'contributor'},
+              'head': {'sha': 'newer', 'ref': 'feature', 'repo': {'full_name': 'contributor/fork'}}}
+        self.assertEqual(self.resolve(by_commit=False, pr=pr)['outputs'], {'skip': 'true'})
+
+    def test_tooling_is_checked_out_before_the_lookup(self):
+        result = subprocess.run(['bun', '-e', '''
+console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/preview-deploy.yml').text())));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        steps = json.loads(result.stdout)['jobs']['deploy']['steps']
+        names = [step['name'] for step in steps]
+        checkout = steps[names.index('Checkout trusted deployment tooling')]
+        self.assertLess(names.index('Checkout trusted deployment tooling'), names.index('Resolve the pull request from trusted event data'))
+        self.assertEqual(checkout['with']['ref'], '${{ github.workflow_sha }}')
+        self.assertFalse(checkout['with']['persist-credentials'])
+        # The artifact never lands where the trusted tooling is loaded from.
+        self.assertEqual(steps[names.index('Download build')]['with']['path'], 'dist')
+
+
+class ChangesSummaryTests(unittest.TestCase):
+    def summarize(self, write):
+        script = block('preview-deploy.yml', 'Summarize documentation changes', 'script')
+        harness = r'''
+const outputs = {};
+const core = {setOutput: (key, value) => outputs[key] = value};
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+await new AsyncFunction('require', 'core', process.env.SCRIPT)(require, core);
+console.log(JSON.stringify(outputs));
+'''
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            tools = folder / 'trusted-preview/.github/preview-tools'
+            tools.mkdir(parents=True)
+            (tools / 'docs-changes-summary.cjs').symlink_to(ROOT / '.github/preview-tools/docs-changes-summary.cjs')
+            (folder / 'dist/_changes').mkdir(parents=True)
+            write(folder / 'dist/_changes/manifest.json', folder)
+            env = dict(os.environ, SCRIPT=script, GITHUB_WORKSPACE=str(folder), PR_NUMBER='21', PREVIEW_PROJECT='test')
+            result = subprocess.run(['node', '--input-type=module', '-e',
+                                     "import { createRequire } from 'node:module';\nconst require = createRequire(process.cwd() + '/');\n" + harness],
+                                    cwd=folder, env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            return json.loads(result.stdout)['summary']
+
+    def test_links_point_at_this_preview(self):
+        manifest = {'pages': [{'path': '/docs/a', 'title': 'A', 'status': 'changed', 'hunks': [{'sig': 'x'}]}]}
+        summary = self.summarize(lambda path, _: path.write_text(json.dumps(manifest)))
+        self.assertIn('[A](https://pr-21.test.pages.dev/docs/a?change=1) | 1 |', summary)
+
+    def test_missing_oversized_or_linked_manifests_are_ignored(self):
+        self.assertEqual(self.summarize(lambda path, _: None), '')
+        self.assertEqual(self.summarize(lambda path, _: path.write_text(' ' * (600 * 1024))), '')
+        def link(path, folder):
+            secret = folder / 'secret.json'
+            secret.write_text(json.dumps({'pages': [{'path': '/docs/a', 'title': 'A', 'status': 'changed', 'hunks': []}]}))
+            path.symlink_to(secret)
+        self.assertEqual(self.summarize(link), '')
+
+    def test_summary_is_optional_and_trusted(self):
+        result = subprocess.run(['bun', '-e', '''
+console.log(JSON.stringify(Bun.YAML.parse(await Bun.file('.github/workflows/preview-deploy.yml').text())));
+'''], cwd=ROOT, capture_output=True, text=True, check=True)
+        steps = json.loads(result.stdout)['jobs']['deploy']['steps']
+        names = [step['name'] for step in steps]
+        summary = steps[names.index('Summarize documentation changes')]
+        # A broken summary must never hold back the preview comment.
+        self.assertTrue(summary['continue-on-error'])
+        self.assertEqual(summary['if'], "steps.reconcile.outputs.publish == 'true'")
+        self.assertIn('/trusted-preview/.github/preview-tools/', summary['with']['script'])
+        self.assertLess(names.index('Summarize documentation changes'), names.index('Comment on the pull request'))
+        self.assertIn('${{ steps.changes.outputs.summary }}', steps[names.index('Comment on the pull request')]['with']['message'])
+
+
 class RedirectTests(unittest.TestCase):
     def publish(self, records=None):
         script = block('preview-teardown.yml', 'Publish a redirect on the preview address', 'run')
