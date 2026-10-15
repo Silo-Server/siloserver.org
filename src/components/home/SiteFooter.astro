@@ -1,0 +1,61 @@
+---
+import { SITE } from "../../data/siteConfig";
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const href = (p: string) => `${baseUrl}${p}`;
+const year = new Date().getFullYear();
+
+const groups = [
+  {
+    // Not "Silo": the headings are set in capitals, and the name never is.
+    title: "Project",
+    links: [
+      ["Download", href("/download")],
+      ["Docs", href("/docs")],
+      ["1.0 milestone", href("/milestone/1.0")],
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      ["Discord", SITE.discord],
+      ["GitHub", SITE.github.orgUrl],
+      ["Sponsor", SITE.sponsor],
+    ],
+  },
+  {
+    title: "About",
+    links: [
+      ["Brand", href("/brand")],
+      ["Privacy", href("/privacy")],
+      ["Account deletion", href("/account-deletion")],
+    ],
+  },
+];
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__top">
+    <div class="site-footer__brand">
+      <img src={href("/brand/silo-wordmark-white.svg")} alt="Silo" width="1389" height="720" />
+      <span>{SITE.tagline}</span>
+    </div>
+    <nav class="site-footer__nav" aria-label="Footer">
+      {
+        groups.map((g) => (
+          <div class="site-footer__group">
+            <h2>{g.title}</h2>
+            <ul>
+              {g.links.map(([label, url]) => (
+                <li><a href={url}>{label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+  <div class="container site-footer__legal">
+    <p>© {year} Silo Media L.L.C. Silo and the Silo logo are trademarks of Silo Media L.L.C.</p>
+    <p>Posters and artwork shown are the property of their owners.</p>
+  </div>
+</footer>
