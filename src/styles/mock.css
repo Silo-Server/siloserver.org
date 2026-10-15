@@ -1,0 +1,1372 @@
+/* ============================================================
+   Product mockups. Every length is in the device's own points
+   (1920×1080 for Apple TV, 402×874 for iPhone); .canvas scales
+   the stage to fit. Values come from silo-apple — see the
+   comments in src/components/mock/*.astro.
+   ============================================================ */
+
+.canvas,
+.iphone {
+  /* The apps' own type, not the site's tracking. */
+  letter-spacing: normal;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.canvas {
+  position: relative;
+  aspect-ratio: var(--cw) / var(--ch);
+  overflow: hidden;
+  background: #000;
+}
+.canvas__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--cw) * 1px);
+  height: calc(var(--ch) * 1px);
+  transform: scale(var(--s, 0.5));
+  transform-origin: 0 0;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Helvetica Neue", Arial, sans-serif;
+  color: #ededed;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+}
+.canvas img {
+  max-width: none;
+}
+
+/* ---------- Apple TV: shared ---------- */
+
+.tvbar {
+  position: absolute;
+  z-index: 5;
+  left: 88px;
+  right: 88px;
+  top: 56px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: opacity 0.4s;
+}
+.tvbar--dim {
+  opacity: 0.7;
+}
+.tvbar__mark {
+  width: 96px;
+  height: auto;
+}
+.tvbar__center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tvbar__search,
+.tvbar__spacer {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.62);
+}
+.tvbar__tab {
+  white-space: nowrap;
+  padding: 12px 29px;
+  border-radius: 999px;
+  font-size: 26px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.62);
+  border: 1px solid transparent;
+}
+.tvbar__tab.is-selected {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+/* Focus in the bar (TVTopMenuCapsuleChrome): the tab inverts to a white
+   capsule with black text, and the bar comes back to full strength. */
+.tvbar__tab {
+  transition: background-color 0.25s, color 0.25s, transform 0.25s var(--ease-out, ease);
+}
+.tvbar__tab.is-focused {
+  color: #000;
+  background: #fff;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+.tvbar__tab.is-pressed {
+  transform: scale(0.97);
+}
+.tvbar.is-active {
+  opacity: 1;
+}
+.tvbar__avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.tv-row-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 36px;
+  font-weight: 600;
+  color: #ededed;
+  margin-left: 80px;
+}
+
+.tv-cap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+}
+.tv-cap__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tv-cap__line {
+  font-size: 20px;
+  color: rgba(237, 237, 237, 0.6);
+}
+
+.tv-chip {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #ededed;
+  text-transform: uppercase;
+}
+.tv-badge {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  text-transform: uppercase;
+}
+.tv-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.tv-progress > span {
+  display: block;
+  height: 100%;
+  width: calc(var(--p) * 100%);
+  background: #ededed;
+  border-radius: 0 2px 2px 0;
+  transform-origin: left;
+}
+
+.tv-poster {
+  width: 176px;
+  height: 264px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex: none;
+  background: #15171c;
+}
+.tv-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tv-poster--lg {
+  width: 260px;
+  height: 390px;
+}
+
+/* Backdrop pinned top-right, 64% × 70% of the screen, fading left and down
+   into a tint over black (TVRootHeroBackdrop.swift). */
+.tvh__bg,
+.tvd__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(225deg, var(--tint) 0%, color-mix(in srgb, var(--tint) 50%, #000) 45%, color-mix(in srgb, var(--tint) 18%, #000) 100%);
+}
+.tvh__backdrop {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1229px;
+  height: 756px;
+  object-fit: cover;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 68%),
+    linear-gradient(to bottom, #000 38%, rgba(0, 0, 0, 0.88) 52%, rgba(0, 0, 0, 0.58) 68%, rgba(0, 0, 0, 0.24) 81%, transparent 90%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 68%),
+    linear-gradient(to bottom, #000 38%, rgba(0, 0, 0, 0.88) 52%, rgba(0, 0, 0, 0.58) 68%, rgba(0, 0, 0, 0.24) 81%, transparent 90%);
+  mask-composite: intersect;
+}
+
+/* ---------- Apple TV: Home ---------- */
+
+.tvh {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.tvh__bg {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-in-out, ease);
+}
+.tvh__bg.is-on {
+  opacity: 1;
+}
+.tvh__bg .tvh__backdrop {
+  transform: scale(1.04);
+  transition: transform 6s linear;
+}
+.tvh__bg.is-on .tvh__backdrop {
+  transform: scale(1);
+}
+.tvh__scrim {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 190px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
+}
+
+.tvh__marquee {
+  position: absolute;
+  left: 88px;
+  bottom: 540px;
+  width: 880px;
+}
+.tvh__mq {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.45s,
+    transform 0.6s var(--ease-out, ease);
+  pointer-events: none;
+}
+.tvh__mq.is-on {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.15s;
+}
+.tvh__logo {
+  width: auto;
+  height: auto;
+  max-width: 560px;
+  max-height: 170px;
+  object-fit: contain;
+  object-position: left bottom;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+.tvh__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(237, 237, 237, 0.6);
+}
+.tvh__meta .tv-chip {
+  padding: 3px 9px;
+  color: rgba(237, 237, 237, 0.8);
+}
+.tvh__synopsis {
+  margin: 0;
+  max-width: 780px;
+  font-size: 22px;
+  line-height: 1.45;
+  color: rgba(237, 237, 237, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tvh__detail {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(237, 237, 237, 0.5);
+}
+.tvh__badges {
+  display: flex;
+  gap: 10px;
+}
+
+.tvh__rows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 572px;
+}
+.tvh__track {
+  display: flex;
+  gap: 40px;
+  padding-left: 80px;
+  margin-top: 20px;
+  transition: transform 0.7s var(--ease-out, ease);
+  transform: translateX(calc(var(--row-x, 0) * -1px));
+}
+.tv-still {
+  width: 360px;
+  flex: none;
+  transition: transform 0.35s var(--ease-out, ease);
+}
+.tv-still__art {
+  position: relative;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #15171c;
+  transition: box-shadow 0.35s;
+}
+.tv-still__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tv-still.is-focused {
+  transform: scale(1.06);
+  transform-origin: 50% 0;
+}
+.tv-still.is-focused .tv-still__art {
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.55);
+}
+.tv-still.is-focused .tv-cap__title {
+  color: #fff;
+}
+.tv-row-head--next {
+  margin-top: 44px;
+}
+.tvh__posters {
+  display: flex;
+  gap: 40px;
+  padding-left: 80px;
+  margin-top: 20px;
+}
+
+/* ---------- Apple TV: Browse grid ---------- */
+
+.tvb {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 70% 0%, #1a1c22 0%, #000 70%);
+}
+.tvb__controls {
+  position: absolute;
+  left: 88px;
+  top: 168px;
+  display: flex;
+  gap: 16px;
+}
+.tvb__pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+.tvb__pill em {
+  font-style: normal;
+  color: rgba(237, 237, 237, 0.6);
+}
+/* The clip starts just under the controls and the first row sits 48pt
+   below it, so a focused poster's lift and shadow aren't cut off. */
+.tvb__viewport {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 224px;
+  bottom: 0;
+  overflow: hidden;
+}
+.tvb__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 260px);
+  column-gap: 40px;
+  row-gap: 60px;
+  padding: 48px 0 0 88px;
+}
+.tvb__cell .tv-poster {
+  transition:
+    transform 0.35s var(--ease-out, ease),
+    box-shadow 0.35s;
+}
+.tvb__cell.is-focused .tv-poster {
+  transform: scale(1.1) translateY(-6px);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6);
+}
+.tvb__cell .tv-cap {
+  margin-top: 22px;
+  transition: transform 0.35s var(--ease-out, ease);
+}
+.tvb__cell.is-focused .tv-cap {
+  transform: translateY(18px);
+}
+.tvb__cell.is-focused .tv-cap__title {
+  color: #fff;
+}
+
+/* Opening a title from the grid: the pressed poster dips, then the detail
+   page fades in over the grid; Back reverses it. */
+.tvb__cell.is-pressed .tv-poster {
+  transform: scale(1.04) translateY(-2px);
+  transition-duration: 0.15s;
+}
+.tvb {
+  transition: opacity 0.45s, transform 0.5s var(--ease-out, ease);
+}
+.tvb.is-covered {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.tv-push {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.45s, transform 0.5s var(--ease-out, ease);
+}
+.tv-push.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.tvb__rail {
+  position: absolute;
+  right: 34px;
+  top: 262px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.45);
+}
+.tvb__rail .is-on {
+  color: #ededed;
+}
+
+/* ---------- Apple TV: series detail ---------- */
+
+.tvs {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.tvd__bg {
+  background: color-mix(in srgb, var(--tint) 42%, #000);
+}
+.tvs__logo {
+  position: absolute;
+  left: 100px;
+  top: 116px;
+  width: 650px;
+  height: 160px;
+  display: flex;
+  align-items: flex-end;
+}
+.tvs__logo img {
+  max-width: 650px;
+  max-height: 160px;
+  width: auto;
+  height: auto;
+}
+.tvs__meta {
+  position: absolute;
+  left: 100px;
+  top: 290px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+.tvs__meta i {
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+}
+.tvd__chip {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.78);
+  border-radius: 5px;
+  color: #fff;
+  margin-right: 0;
+}
+.tvs__rating {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.tvs__rating b {
+  font-size: 21px;
+  font-weight: 600;
+  opacity: 0.72;
+  margin-right: 8px;
+}
+.tvs__genres {
+  color: rgba(255, 255, 255, 0.9);
+}
+.tvs__synopsis {
+  position: absolute;
+  left: 100px;
+  top: 340px;
+  width: 1080px;
+  margin: 0;
+  font-size: 26px;
+  line-height: 34px;
+  color: rgba(255, 255, 255, 0.92);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tvs__starring {
+  position: absolute;
+  left: 100px;
+  top: 471px;
+  margin: 0;
+  font-size: 23px;
+  line-height: 28px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.tvs__readout {
+  position: absolute;
+  left: 100px;
+  top: 507px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 23px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+/* Each column keeps its measured width, and a long value still leaves a gap
+   before the next label. */
+.tvs__readout > span {
+  box-sizing: border-box;
+  padding-right: 28px;
+}
+.tvs__readout b {
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  color: rgba(255, 255, 255, 0.48);
+  margin-right: 6px;
+}
+.tvs__actions {
+  position: absolute;
+  left: 100px;
+  top: 557px;
+  display: flex;
+  gap: 18px;
+}
+.tvs__play {
+  width: 340px;
+  height: 76px;
+  border-radius: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 29px;
+  font-weight: 600;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+}
+.tvs__circle {
+  width: 76px;
+  height: 76px;
+  border-radius: 38px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.tvs__seasons {
+  position: absolute;
+  left: 100px;
+  top: 694px;
+  display: flex;
+  gap: 12px;
+}
+.tvs__season {
+  height: 52px;
+  padding: 0 24px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+.tvs__season.is-selected {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+}
+.tvs__rail {
+  position: absolute;
+  left: 116px;
+  top: 776px;
+  display: flex;
+  gap: 40px;
+}
+.tvs__ep {
+  width: 360px;
+  flex: none;
+}
+.tvs__still {
+  position: relative;
+  height: 200px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #15171c;
+}
+.tvs__still img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tvs__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.tvs__progress > span {
+  display: block;
+  height: 100%;
+  width: calc(var(--p) * 100%);
+  background: #fff;
+}
+.tvs__cap {
+  display: block;
+  margin-top: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: rgba(237, 237, 237, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tvs__cap.is-current {
+  color: #ededed;
+}
+
+/* Playback: the TV shows only the film. */
+.tv-playing {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.tv-playing img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- iPhone ---------- */
+
+.iphone {
+  container-type: inline-size;
+}
+/* 15pt from the body's edge to the display: a ~4.5pt titanium band seen
+   edge-on, then black cover glass around the panel. */
+.iphone__body {
+  position: relative;
+  aspect-ratio: 432 / 904;
+  padding: calc(10.5 / 432 * 100cqw);
+  border: calc(4.5 / 432 * 100cqw) solid transparent;
+  border-radius: calc(77 / 432 * 100cqw);
+  background:
+    linear-gradient(#030304, #030304) padding-box,
+    linear-gradient(135deg, #b9bbc0, #6a6c71 9%, #2e2f33 24%, #1c1d20 46%, #2a2b2f 64%, #66686d 84%, #c2c4c9) border-box;
+  box-shadow:
+    inset 0 0 0 calc(0.8 / 432 * 100cqw) rgba(255, 255, 255, 0.07),
+    0 0 0 calc(0.6 / 432 * 100cqw) rgba(0, 0, 0, 0.7),
+    0 40px 80px rgba(0, 0, 0, 0.55);
+}
+.iphone__screen {
+  border-radius: calc(62 / 432 * 100cqw);
+  /* Chrome's rounded overflow clip leaves see-through slivers at the top
+     corners over the scaled stage; a clip-path clips cleanly. */
+  clip-path: inset(0 round calc(62 / 432 * 100cqw));
+}
+/* Buttons sit on the band and stand ~1.5pt proud of it. Offsets are from the
+   padding box, so they include the 4.5pt band. */
+.iphone__btn {
+  position: absolute;
+  width: calc(3 / 432 * 100cqw);
+  border-radius: calc(1.5 / 432 * 100cqw);
+}
+.iphone__btn--action,
+.iphone__btn--volup,
+.iphone__btn--voldown {
+  left: calc(-6 / 432 * 100cqw);
+  background: linear-gradient(90deg, #8d8f94, #45474b 60%, #2a2b2e);
+}
+.iphone__btn--power,
+.iphone__btn--camera {
+  right: calc(-6 / 432 * 100cqw);
+  background: linear-gradient(270deg, #8d8f94, #45474b 60%, #2a2b2e);
+}
+.iphone__btn--action { top: 18%; height: 3.6%; }
+.iphone__btn--volup { top: 25%; height: 7%; }
+.iphone__btn--voldown { top: 34%; height: 7%; }
+.iphone__btn--power { top: 27%; height: 11%; }
+.iphone__btn--camera { top: 58%; height: 5.5%; }
+
+.ios-status {
+  position: absolute;
+  z-index: 40;
+  inset: 0 0 auto;
+  height: 62px;
+  color: #fff;
+  pointer-events: none;
+}
+.ios-status__time {
+  position: absolute;
+  left: 52px;
+  top: 21px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+.ios-status__island {
+  position: absolute;
+  left: 138px;
+  top: 11px;
+  width: 126px;
+  height: 37px;
+  border-radius: 19px;
+  background: #000;
+}
+.ios-status__icons {
+  position: absolute;
+  right: 32px;
+  top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ios-glass {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  color: #ededed;
+}
+.ios-glass--avatar {
+  background: #000;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* iPhone Home */
+.ios-home {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  transition: filter 0.75s, transform 0.75s var(--ease-out, ease);
+  background:
+    radial-gradient(120% 40% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 70%),
+    #111;
+  overflow: hidden;
+}
+.ios-home__head {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 66px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ios-home__mark {
+  width: 72px;
+  height: auto;
+  margin-right: auto;
+}
+.ios-home__section {
+  margin-left: 16px;
+}
+.ios-home__section:first-of-type {
+  margin-top: 0;
+}
+.ios-home__head + .ios-home__section {
+  padding-top: 136px;
+}
+.ios-home__section + .ios-home__section {
+  margin-top: 30px;
+}
+.ios-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 12px;
+}
+.ios-rail {
+  display: flex;
+  gap: 10px;
+}
+.ios-still {
+  width: 240px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+.ios-still__art {
+  position: relative;
+  height: 135px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.ios-still__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ios-still__art::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+}
+.ios-still__play {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+.ios-ov {
+  position: absolute;
+  z-index: 1;
+  left: 8px;
+  top: 8px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.ios-progress {
+  position: absolute;
+  z-index: 1;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.ios-progress > span {
+  display: block;
+  height: 100%;
+  width: calc(var(--p) * 100%);
+  background: #fff;
+}
+.ios-cap__title {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ios-cap__line {
+  font-size: 11px;
+  color: rgba(237, 237, 237, 0.5);
+  margin-top: 1px;
+}
+.ios-poster {
+  width: 132px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+.ios-poster__art {
+  width: 132px;
+  height: 198px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+}
+.ios-tabbar {
+  position: absolute;
+  left: 21px;
+  right: 21px;
+  bottom: 22px;
+  height: 62px;
+  border-radius: 31px;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background: rgba(40, 40, 44, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.ios-tab {
+  flex: 1;
+  height: 54px;
+  border-radius: 27px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #ededed;
+}
+.ios-tab.is-on {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* iPhone remote sheet */
+.ios-remote {
+  position: absolute;
+  z-index: 10;
+  inset: 62px 0 0;
+  border-radius: 38px 38px 0 0;
+  overflow: hidden;
+  background: #000;
+  transform: translateY(105%);
+  transition: transform 0.75s var(--ease-out, ease);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+.ios-remote.is-up {
+  transform: none;
+}
+.ios-home:has(~ .ios-remote.is-up) {
+  filter: brightness(0.45);
+}
+
+/* Remote button in Home's top bar: outline, filled once a TV is chosen. */
+.ios-remote-btn svg {
+  grid-area: 1 / 1;
+  transition: opacity 0.25s;
+}
+.ios-remote-btn__on,
+.ios-home.is-engaged .ios-remote-btn__off {
+  opacity: 0;
+}
+.ios-home.is-engaged .ios-remote-btn__on {
+  opacity: 1;
+}
+
+.ios-remote__bg {
+  position: absolute;
+  inset: 0;
+}
+.ios-remote__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(40px);
+  opacity: 0.45;
+  transform: scale(1.3);
+}
+.ios-remote__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.ios-remote__bar {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+.ios-remote__body {
+  position: absolute;
+  inset: 70px 24px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ios-remote__art {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 12px 0;
+  min-height: 0;
+}
+.ios-remote__art img {
+  height: 300px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.4);
+}
+.ios-remote__title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+}
+.ios-remote__subtitle {
+  margin-top: 4px;
+  font-size: 15px;
+  text-align: center;
+  color: rgba(237, 237, 237, 0.6);
+}
+.ios-remote__pill {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(237, 237, 237, 0.85);
+}
+.ios-remote__scrub {
+  align-self: stretch;
+  margin-top: 24px;
+}
+.ios-slider {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.ios-slider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.ios-slider > span {
+  position: absolute;
+  left: 0;
+  height: 6px;
+  border-radius: 3px;
+  width: calc(var(--p) * 100%);
+  background: #ededed;
+}
+.ios-slider > i {
+  position: absolute;
+  left: calc(var(--p) * 100%);
+  width: 38px;
+  height: 24px;
+  margin-left: -19px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.ios-slider--thin > i {
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+}
+.ios-remote__times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(237, 237, 237, 0.6);
+}
+.ios-remote__transport {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.ios-remote__transport > svg:last-child {
+  margin-left: -4px;
+}
+.ios-remote__pp {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ededed;
+  display: grid;
+  place-items: center;
+}
+.ios-remote__pp svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.2s,
+    transform 0.25s;
+}
+.ios-remote__pp .pp-play {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.ios-remote__pp.is-paused .pp-play {
+  opacity: 1;
+  transform: none;
+}
+.ios-remote__pp.is-paused .pp-pause {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.ios-remote__volume {
+  margin-top: 20px;
+  width: 280px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ios-remote__chips {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;
+}
+.ios-remote__chips span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: rgba(237, 237, 237, 0.85);
+}
+
+/* iPhone player, landscape. Mounted rotated 90° inside the portrait screen;
+   it reads upright once the whole phone turns -90°. Landscape safe area on
+   iPhone 16 Pro: 62pt left and right, 21pt bottom. */
+.ios-player {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  width: 874px;
+  height: 402px;
+  transform-origin: 0 0;
+  transform: translateX(402px) rotate(90deg);
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.5s 0.25s;
+}
+.is-landscape .ios-player {
+  opacity: 1;
+}
+.is-landscape .ios-status__time,
+.is-landscape .ios-status__icons {
+  opacity: 0;
+}
+.ios-status__time,
+.ios-status__icons {
+  transition: opacity 0.3s;
+}
+.ios-player__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ios-player__wash {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+.ios-pglass {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.ios-pglass--skip {
+  width: 52px;
+  height: 52px;
+}
+.ios-player__top {
+  position: absolute;
+  left: 78px;
+  right: 78px;
+  top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ios-player__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+.ios-player__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.65);
+}
+.ios-player__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+.ios-player__spacer {
+  flex: 1;
+}
+.ios-player__center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+}
+.ios-player__pp {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.9);
+}
+.ios-player__bottom {
+  position: absolute;
+  left: 78px;
+  right: 78px;
+  bottom: 23px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ios-player__times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ios-player__times span:last-child {
+  color: rgba(255, 255, 255, 0.6);
+}
+.ios-player__bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  margin-top: -2px;
+}
+.ios-player__bar > span {
+  display: block;
+  height: 100%;
+  width: calc(var(--p) * 100%);
+  border-radius: 3px;
+  background: #fff;
+}
+.ios-player__actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.ios-pill {
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.ios-pill em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.7;
+}

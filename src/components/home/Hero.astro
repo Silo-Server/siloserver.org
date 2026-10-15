@@ -1,0 +1,47 @@
+---
+import Canvas from "../mock/Canvas.astro";
+import TvHome from "../mock/TvHome.astro";
+import RoomScene from "./RoomScene.astro";
+import { hero, features } from "../../data/home";
+
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<section class="hero hero--scene" aria-labelledby="hero-title">
+  <div class="container hero__intro">
+    <div class="hero__head">
+      <h1 id="hero-title" class="hero__title">
+        {/* On phones "your" joins the first line, so the rotating word always
+            has a line of its own and the headline never changes height. */}
+        <span class="ln"><span>{hero.lead}<span class="hero__your hero__your--end"> your</span></span></span>
+        <span class="ln"><span>
+          <span class="hero__your hero__your--start">your </span><span class="rotator" data-rotator data-static-word={hero.staticWord}>
+            {features.map((f, i) => (
+              <span class:list={["rotator__word", i === 0 && "is-on"]} aria-hidden={i === 0 ? undefined : "true"}>{f.word}</span>
+            ))}
+          </span>
+        </span></span>
+      </h1>
+    </div>
+    <div class="hero__aside rise">
+      <p>{hero.body}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={`${baseUrl}/download`}>
+          Get Silo <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__stage">
+    <div class="scene-anchor scene-anchor--hero">
+      <RoomScene kind="living" />
+      <div class="screen screen--hero">
+        <Canvas w={1920} h={1080} label="Silo on Apple TV. The Home screen previews the title in focus in Continue Watching.">
+          <TvHome />
+        </Canvas>
+      </div>
+    </div>
+  </div>
+</section>

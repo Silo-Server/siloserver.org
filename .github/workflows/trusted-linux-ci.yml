@@ -45,10 +45,8 @@ jobs:
 
       - name: Build preview
         env:
-          # No GITHUB_TOKEN here on purpose. src/data/releases.ts falls back to
-          # plain repository links when the release lookup is rate-limited,
-          # which is an acceptable difference in a preview and keeps this job
-          # free of credentials that contributor code could read.
+          # No GITHUB_TOKEN here on purpose: this job builds contributor code,
+          # so it stays free of credentials that code could read.
           #
           # Preview alias: pr-<number>.<project>.pages.dev. Cloudflare repoints
           # it to the newest upload for the branch, so the URL stays stable.
@@ -91,8 +89,6 @@ jobs:
 
       - name: Build site
         env:
-          # Used by src/data/releases.ts to raise the GitHub API rate limit.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Override these in the workflow (or set repo secrets/vars) when
           # the site moves to a custom domain. SITE is the canonical origin
           # used for OpenGraph/sitemap; BASE_PATH is the URL prefix.
