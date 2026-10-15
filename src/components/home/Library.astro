@@ -1,0 +1,35 @@
+---
+import Canvas from "../mock/Canvas.astro";
+import TvBrowse from "../mock/TvBrowse.astro";
+import TvSeries from "../mock/TvSeries.astro";
+import { seriesLibrary, seriesPages } from "../../data/home";
+
+
+---
+
+<section class="library library--scene section" aria-labelledby="library-title">
+  <div class="container library__grid">
+    <div class="library__copy">
+      <h2 id="library-title" class="h2 reveal-lines">
+        <span class="ln"><span>Your collection,</span></span>
+        <span class="ln"><span>beautifully organized.</span></span>
+      </h2>
+      <p class="lede rise"><span>
+        Silo fills in the artwork, cast, and every season and episode, so browsing your own files feels like a streaming
+        service.
+      </span></p>
+    </div>
+    <div class="library__stage">
+      <div class="scene-anchor" data-wait-images>
+        <div class="screen screen--panel screen--bare">
+          <Canvas w={1920} h={1080} label="The Series library on Apple TV, opening Severance and The Sopranos from the grid.">
+            <TvBrowse tab="Series" items={seriesLibrary} sort="Date Added" direction="Newest" />
+            {/* Opened from the grid by home.ts; data-from is the grid cell. */}
+            <div class="tv-push" data-push data-from="0"><TvSeries show={seriesPages.severance} /></div>
+            <div class="tv-push" data-push data-from="3"><TvSeries show={seriesPages["the-sopranos"]} /></div>
+          </Canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

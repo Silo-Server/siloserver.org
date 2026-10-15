@@ -1,0 +1,35 @@
+---
+// iPhone 16 Pro / 17 Pro: a 402×874pt display (1206×2622 at 3x, the size of
+// the real captures in silo-apple/project-images), 62pt display corners, and
+// a 126×37pt Dynamic Island 11pt from the top. The body adds 15pt per side,
+// which gives the device's 71.5 × 149.6 mm outline.
+import Canvas from "./Canvas.astro";
+
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: extra = "" } = Astro.props;
+---
+
+<div class={`iphone ${extra}`}>
+  <div class="iphone__body">
+  <span class="iphone__btn iphone__btn--action"></span>
+  <span class="iphone__btn iphone__btn--volup"></span>
+  <span class="iphone__btn iphone__btn--voldown"></span>
+  <span class="iphone__btn iphone__btn--power"></span>
+  <span class="iphone__btn iphone__btn--camera"></span>
+  <Canvas w={402} h={874} label={label} class="iphone__screen">
+    <slot />
+    <div class="ios-status">
+      <span class="ios-status__time">9:41</span>
+      <span class="ios-status__island"></span>
+      <span class="ios-status__icons">
+        <svg viewBox="0 0 18 12" width="18" height="12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+        <svg viewBox="0 0 17 12" width="17" height="12" fill="currentColor"><path d="M8.5 2.3c2.3 0 4.4.9 6 2.4l1.2-1.2A10.2 10.2 0 0 0 8.5.6C5.7.6 3.2 1.7 1.3 3.5l1.2 1.2c1.6-1.5 3.7-2.4 6-2.4Zm0 3.4c1.4 0 2.7.5 3.6 1.4l1.2-1.2a6.9 6.9 0 0 0-9.6 0l1.2 1.2c.9-.9 2.2-1.4 3.6-1.4Zm0 3.4c-.5 0-1 .2-1.3.6L8.5 11l1.3-1.3c-.3-.4-.8-.6-1.3-.6Z"></path></svg>
+        <svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2.5" fill="currentColor"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="currentColor" fill-opacity=".4"></path></svg>
+      </span>
+    </div>
+  </Canvas>
+  </div>
+</div>
