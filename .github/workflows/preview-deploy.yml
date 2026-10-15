@@ -57,21 +57,23 @@ jobs:
     # so the unprivileged PR build cannot read them.
     environment: Preview
     steps:
+      - name: Checkout trusted deployment tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: trusted-preview
+          sparse-checkout: .github/preview-tools
+          persist-credentials: false
+
       - name: Resolve the pull request from trusted event data
         id: ctx
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
-            const sha = context.payload.workflow_run.head_sha;
-            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: sha,
-            });
+            const findPullRequest = require(`${process.env.GITHUB_WORKSPACE}/trusted-preview/.github/preview-tools/find-pull-request.cjs`);
             const run = context.payload.workflow_run;
-            const pr = prs.find((p) => p.state === 'open' && p.head.sha === sha &&
-              p.head.repo?.full_name === run.head_repository.full_name &&
-              p.head.ref === run.head_branch);
+            const sha = run.head_sha;
+            const pr = await findPullRequest({ github, repo: context.repo, run, sha });
             if (!pr) {
               core.info(`No open pull request has ${sha} as its head commit; skipping.`);
               core.setOutput('skip', 'true');
@@ -90,15 +92,6 @@ jobs:
           path: dist
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout trusted deployment tooling
-        if: steps.ctx.outputs.skip == 'false'
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          ref: ${{ github.workflow_sha }}
-          path: trusted-preview
-          sparse-checkout: .github/preview-tools
-          persist-credentials: false
 
       - name: Install locked deployment tooling
         if: steps.ctx.outputs.skip == 'false'

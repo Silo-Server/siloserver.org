@@ -280,6 +280,16 @@ the artifact. A fork can edit the build workflow and write anything into an
 artifact, so artifact contents must not decide where a deployment lands or
 which comment and commit status are written.
 
+Pull requests from forks get previews too. GitHub doesn't link a commit that
+exists only in a fork to this repository's pull requests, so
+`.github/preview-tools/find-pull-request.cjs` also looks the pull request up
+by the fork's owner and branch from the build run. Either way, the pull request
+must be open, with the built commit as its head, from the same repository and
+branch. A first-time contributor's build waits until a maintainer selects
+**Approve and run** on the pull request. To stop someone's pull requests from
+building at all, block them in the organization settings, which stops them
+from opening pull requests.
+
 One visible consequence: the build job has no `GITHUB_TOKEN`, so the
 build-time release lookup in `src/data/releases.ts` may be rate-limited on
 shared runners. Client cards then fall back to plain repository links instead
