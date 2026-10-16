@@ -139,7 +139,7 @@ With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it h
 
 Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Settings > Storage & Database** (advanced, `20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
 
-Silo tunes with the same `DATABASE_URL` user it runs with. The bundled database user already has the permission it needs. On an external database, tuning requires granting that user `ALTER SYSTEM`, which lets anyone holding Silo's database credential change server-wide PostgreSQL settings. If you trust that setup, grant it and set `POSTGRES_TUNE_MEMORY` and `POSTGRES_TUNE_CPUS` to the database host's values.
+Silo tunes with the same `DATABASE_URL` user it runs with. The bundled database user is a superuser, so tuning works there. On an external database, that user needs superuser rights, or on PostgreSQL 15 and later `ALTER SYSTEM` on each setting Silo tunes plus `EXECUTE` on `pg_reload_conf()`. Either lets anyone holding Silo's database credential change server-wide PostgreSQL settings. If you accept that, set `POSTGRES_TUNE_MEMORY` to the memory PostgreSQL may use on the database host, and `POSTGRES_TUNE_CPUS` to that host's CPU count.
 
 Plan PostgreSQL major-version upgrades separately from Silo updates.
 
