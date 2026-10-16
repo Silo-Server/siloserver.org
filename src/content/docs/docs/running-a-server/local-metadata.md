@@ -41,7 +41,7 @@ Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when 
 
 If the library's folder can't be reached during a refresh, such as a network share that isn't mounted, Silo keeps the local images it already has.
 
-Silo copies local images into its artwork storage and serves them from there, whether or not **Keep provider artwork** is on. A new image shows up shortly after the scan finds it. Until then, the item shows an online provider's image if it has one.
+Silo copies local images into its artwork storage and serves them from there. A new image shows up shortly after the scan finds it. Until then, the item shows an online provider's image if it has one. Silo uses local images only while [**Save provider artwork to storage**](/docs/s3-storage) is on. With it off, Silo uses the providers' images instead and still reads the text in your NFO files.
 
 After you replace an image, refresh the item. Local images don't appear in the **Images** list in **Edit Metadata**.
 
