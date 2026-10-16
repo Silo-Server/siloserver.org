@@ -63,10 +63,12 @@ household managers use the web app.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
    select **Remove**.
-4. For a child, turn on **Child Profile** and choose a **Maximum rating**. The
-   profile can watch titles at that rating and below. Under **Libraries**,
-   **Choose libraries** starts selected: check at least one library the profile
-   can browse, or select **All libraries**.
+4. Choose a **Maximum rating**: the profile can watch titles at that rating
+   and below, or any rating with **Any**. Under **Libraries**, keep **All
+   libraries** or select **Choose libraries** and check at least one library
+   the profile can browse. These limits work on any profile. For a child, turn
+   on **Child Profile** first: it fills in PG and **Choose libraries** for the
+   limits you haven't set yet.
 5. Select **Create Profile** or **Save Changes**.
 
 ### Forgotten PIN
@@ -78,8 +80,8 @@ removes its watch history and preferences.
 ## Set parental controls
 
 The web app has every parental control. The Apple apps can set a content
-rating and library limit when creating a child profile, and the Android apps
-when creating or editing one.
+rating and library limit when creating a child profile. The Android apps can
+set them on any profile, when creating or editing it.
 
 In the web app, from the primary profile, open **Settings > Profiles** and
 select **Edit** on the profile you want to restrict. The web app calls it a
