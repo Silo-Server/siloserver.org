@@ -37,10 +37,11 @@ device settings don't change, and your other sessions stay signed in.
 **Sign out this browser** on the **This browser** row signs you out where
 you are.
 
-[Jellyfin-compatible apps](/docs/jellyfin-apps) don't appear in the list,
-and signing out a session doesn't sign them out. To sign those out, use a reset
-link (see [Forgot your password?](#forgot-your-password)). API keys aren't
-sessions either.
+[Jellyfin-compatible apps](/docs/jellyfin-apps) appear in the list too, and
+signing one out ends only that app.
+[Audiobookshelf-compatible apps](/docs/audiobookshelf) don't appear; a reset
+link signs them out (see [Forgot your password?](#forgot-your-password)).
+API keys aren't sessions.
 
 ## Switch to another server
 
