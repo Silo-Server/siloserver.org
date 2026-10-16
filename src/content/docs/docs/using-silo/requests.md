@@ -11,17 +11,28 @@ account is allowed to use them. The person who runs the server sets this up in
 
 ## Make a request
 
-1. Open **Requests**. In the web app it's in the sidebar. In the mobile and
-   TV apps, open your profile menu and choose **Requests**.
+1. Open **Requests**. In the web app it's in the sidebar. In the phone and
+   tablet apps, open your profile menu and choose **Requests**. In the TV
+   apps, choose **Requests** in the top menu. Search results also offer
+   titles you can request.
 2. Search for the title. Open the result with the right year and type.
 3. Select **Request movie** or **Request series** (**Request Movie** or
    **Request Series** in the Apple apps, **Request** in the Android apps).
-4. Follow its progress under **Yours** in the web app or **My Requests** in
-   the apps.
+4. Follow its progress under **Yours** in the web app, **My Requests** in the
+   phone and tablet apps, or the **Your requests** row on the TV apps'
+   Requests page.
 
-If a title is already requested or in the library, its page shows that
-instead of the request button. If you can't request it, the page says why,
-for example **Request limit reached**.
+If a title is already in the library, its page opens the library title
+instead. If you can't request it, the page says why, for example **Request
+limit reached**.
+
+## Get notified about someone else's request
+
+If someone else already requested a title, you can't request it again, but
+you can ask to be told when it arrives. On the title's page, choose **Notify
+me when available** (**Notify Me** in the Apple apps). Choose **Stop notifying
+me** (**Stop Notifying Me** in the Apple apps) to undo it. When the title
+arrives, you're notified the same way as for your own requests.
 
 ## Request from your watchlist
 
