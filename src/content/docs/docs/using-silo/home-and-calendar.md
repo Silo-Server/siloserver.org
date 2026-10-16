@@ -13,6 +13,17 @@ profile, **For You** suggests titles, and **Calendar** lists upcoming releases.
 2. Open **For You** for suggestions. Select a title to read its details
    before playing or requesting it.
 
+**Continue Watching** puts what you watched most recently first, whether it's
+a title you're partway through or the next episode of a show you're watching.
+When a new episode or season of a show you've caught up on reaches your
+server, that show moves to the front. There's no setting to change this
+order. A separate **Next Up** row, if you've chosen one, uses the same order,
+and so does **Next Up** in [Jellyfin-compatible apps](/docs/jellyfin-apps).
+
+Only episodes newly added to your server move a show. Adding or re-adding a
+library, importing watch history, or matching an older file to its show
+doesn't change the order.
+
 For You picks titles from your profile's viewing history and ratings, so
 [rating what you watch](/docs/saved-titles) improves it. In the web app, you
 can also open **Settings > Personalize**, select **Open the picker**, and
