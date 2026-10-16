@@ -14,7 +14,9 @@ Open an unfinished item from **Continue Watching**, or open its page and
 select **Play** or **Resume**. **Continue Watching** also shows the next
 episode of each series you're watching. To give those episodes their own
 **Next Up** row, open **Settings > Home Screen** in the web app and set
-**Next up episodes** to **Separate row**. See
+**Next up episodes** to **Separate row**. On the same page,
+**Show new episodes first** moves a show you've caught up on to the front
+when a new episode or season arrives. See
 [how Home orders these rows](/docs/home-and-calendar#find-your-next-title).
 
 In the web app, selecting **Play** on a movie or episode you've started asks
