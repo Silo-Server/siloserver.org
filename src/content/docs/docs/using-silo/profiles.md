@@ -63,9 +63,10 @@ household managers use the web app.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
    select **Remove**.
-4. For a child, turn on **Child Profile** and choose a maximum content rating.
-   **Restrict Libraries** starts on: pick at least one library the profile can
-   browse, or turn it off to allow every library.
+4. For a child, turn on **Child Profile** and choose a **Maximum rating**. The
+   profile can watch titles at that rating and below. Under **Libraries**,
+   **Choose libraries** starts selected: check at least one library the profile
+   can browse, or select **All libraries**.
 5. Select **Create Profile** or **Save Changes**.
 
 ### Forgotten PIN
