@@ -112,7 +112,7 @@ PostgreSQL installed directly on a host or VM does not use Docker's `shm_size` s
 
 ## PostgreSQL tuning
 
-With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Settings that need a database restart are logged by name on every start until PostgreSQL restarts. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections. It's easiest right after the first start, before you add libraries:
+With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Some settings only take effect after PostgreSQL restarts. Silo names them in a `postgres restart required to finish applying auto-tuned settings` warning on every start, even after you've restarted, so one restart is enough. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections. It's easiest right after the first start, before you add libraries:
 
 ```sh
 docker compose restart postgres silo
