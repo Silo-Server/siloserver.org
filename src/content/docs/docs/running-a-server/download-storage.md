@@ -23,11 +23,11 @@ Warnings appear above the cards when a disk is near its ceiling, when prepared f
 
 ## Set storage budgets
 
-The limits are in **Admin > Settings > Downloads**, under **Advanced**:
+The limits are in **Admin > Settings > Downloads**:
 
 - **Default storage budget per location** caps the prepared files at the server and at each node that has no budget of its own. Each location counts separately. There's no budget unless you set one.
-- **Keep cached files for** sets how many hours a cached file stays after its last use, from 0 to 720. The default is 72.
 - **Disk ceiling (%)** is how full a location's disk can get before Silo deletes cached files there early, whatever the budget. It accepts 50 to 95, and the default is 85.
+- **Keep cached files for**, under **Advanced**, sets how many hours a cached file stays after its last use, from 0 to 720. The default is 72.
 
 Over a budget or the ceiling, Silo deletes cached files first, least recently used first. It never deletes a file a device is still waiting for. If a location stays over with nothing cached left to delete, its card says so: a node gets no new preparations until space frees up, and downloads that would be prepared on the server wait.
 
