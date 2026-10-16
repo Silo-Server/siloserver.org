@@ -75,11 +75,11 @@ Search uses PostgreSQL unless you switch it. To add Meilisearch:
 
 1. Generate a key with `openssl rand -hex 32` and set `MEILI_MASTER_KEY` in `.env`. Keep it private.
 2. Start the optional service with `docker compose --profile search up -d`.
-3. Open **Admin > Settings > Library & Metadata**. Under **Search**, set **Search engine** to **Meilisearch**, enter `http://meilisearch:7700` as the **Meilisearch URL**, and use the same key as the **Meilisearch API key**.
+3. Open **Admin > Settings > Search**. Set **Search engine** to **Meilisearch**, enter `http://meilisearch:7700` as the **Meilisearch URL**, and use the same key as the **Meilisearch API key**.
 4. Select **Check Connection**, save, and restart Silo.
 5. Silo builds the search index in the background and tries again on its own if a build fails. Test a known title once it finishes.
 
-To see which engine is answering searches, expand **Search status** at the end of the **Search** group. **Answering searches** shows **Meilisearch**, **Meilisearch (keyword only)** while an older index serves keyword results until its replacement is ready, or **Postgres full-text** while there's no usable index. **Rebuild index** opens the task that rebuilds the index by hand.
+To see which engine is answering searches, open **Advanced** on the same page and look under **Search status**. **Answering searches** shows **Meilisearch**, **Meilisearch (keyword only)** while an older index serves keyword results until its replacement is ready, or **Postgres full-text** while Meilisearch can't answer, such as when it's unreachable or has no usable index. **Rebuild index** opens the task that rebuilds the index by hand.
 
 Some settings change the index format, such as **Match by meaning as well as words**. After you save and restart, Silo rebuilds the index on its own, and search keeps working from the older index or PostgreSQL until the new one is ready.
 
