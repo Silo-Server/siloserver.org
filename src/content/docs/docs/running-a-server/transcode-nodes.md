@@ -26,6 +26,7 @@ The server repository's [Compose file](https://github.com/Silo-Server/silo-serve
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
 - A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space.
 - For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
+- A clock that stays within 30 seconds of the main server and the other nodes, for example kept in sync with NTP. A node whose clock is further off refuses requests from the main server and proxy nodes, so work sent to it fails.
 
 The examples publish the node on port 8082 (transcode) or 8083 (proxy). The default Compose file publishes PostgreSQL and Redis only on the main host's loopback address, so a node on another machine can't reach them until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network.
 
@@ -59,7 +60,7 @@ A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acce
 
 ## If work does not reach the node
 
-Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
+Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A node can show **Healthy** and still refuse work when its clock is more than 30 seconds off, so check its time too. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
 
 A transcode node whose transcode directory is 95% full is skipped while another node has room. If every transcode node is that full, Silo uses one anyway, and streams on it can fail once the disk fills. Silo never skips a node whose disk use it can't read.
 
@@ -73,4 +74,4 @@ To change a transcode node's encoder, select the pencil in the node's header, se
 
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
-Update all nodes together with the main server when the release notes say so. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
+Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server: some releases change how the main server and proxies talk to nodes, and a node that hasn't been updated yet can't answer them. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
