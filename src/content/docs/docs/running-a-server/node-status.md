@@ -15,6 +15,8 @@ The colored rail on the node's left edge, the dot in its header, and the label b
 | Label | Meaning |
 | --- | --- |
 | **Healthy** | The last check reached the node. It can take new work. |
+| **Draining** | You [drained](/docs/transcode-nodes#maintain-a-node) the node, or it's stopping. It gets no new work while its current streams finish, but it stays in its group and Silo keeps checking it. |
+| **Drained** | A draining node with nothing left on it. You can stop it without cutting a stream. |
 | **Unhealthy** | The last check failed. Silo sends no new work to the node. |
 | **Disabled** | The node's switch is off. It gets no new work and drops out of its group. Current streams keep running. |
 
@@ -24,7 +26,9 @@ When a node stops answering, playback already running on it can't continue there
 
 A disabled node is dimmed and Silo stops checking it, so its readings are from its last check.
 
-A node's state only says whether Silo can reach it. A node whose GPU stopped working still shows **Healthy**. Check its **Acceleration** block, and see [After a driver or device change](/docs/playback#after-a-driver-or-device-change).
+A draining transcode node also has a line under its address that counts the work left, such as **Draining · 2 transcodes left**. Once nothing is left, a node you drained shows **Drained · safe to stop**, and a node that's stopping shows **Drained · no work left** just before it exits. A node you drained shows **Draining · not answering** while it's **Unhealthy**, such as while it's stopped, and **Drain requested** while its switch is off. Turning the switch back on doesn't resume it.
+
+A node's state only says whether Silo can reach it and whether it's draining. A node whose GPU stopped working still shows **Healthy**. Check its **Acceleration** block, and see [After a driver or device change](/docs/playback#after-a-driver-or-device-change).
 
 ## Groups
 
