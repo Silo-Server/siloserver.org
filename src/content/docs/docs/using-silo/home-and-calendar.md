@@ -91,6 +91,15 @@ library page. Changes save as you go.
 - Under **More**, **Export layout** saves your rows for every page to a file,
   and **Import layout…** loads one. The reset option there brings back hidden
   rows and original names, and removes rows you added.
+- Below the rows, turn on **Hide watched items** to take titles you've
+  finished out of Home's rows. The hero banner and watch-history rows keep
+  them.
+- Turn on **Show adult titles in Featured** to let titles rated 18 or over,
+  such as NC-17 or FSK 18, appear in the hero banner at the top of Home. It's
+  off by default, so the banner leaves them out. R and TV-MA titles aren't
+  affected, and other rows, library pages, and search show the same titles
+  either way. On a Kids profile or one with a **Maximum content rating**, the
+  switch stays off.
 
 These changes apply only to you. They don't change the shared layout or
 anyone else's library access.

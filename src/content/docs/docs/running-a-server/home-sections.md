@@ -38,6 +38,8 @@ Profiles can still hide, rename, or reorder these rows, and add their own, in [*
 
 Check that the row is on the page you're looking at and that its switch is on. Then check the collection or rules it uses, and the viewer's library access and profile restrictions.
 
+On Home, a hero banner leaves out titles rated 18 or over, such as NC-17, for each profile that hasn't turned on [**Show adult titles in Featured**](/docs/home-and-calendar#change-your-home-rows). For those profiles the banner can show fewer titles than its source, and Home skips it when none are left.
+
 Rows that pick titles by rating, such as **Critically Acclaimed**, show only titles that enough people have rated on TMDB. Silo gets those vote counts from the TMDB plugin, version 1.2.25 or later, when a title's metadata refreshes, so these rows can be short or empty until then. To fill in every count at once, choose [**Refresh Metadata**](/docs/manage-libraries#scan-or-refresh) on each library, then **Refresh All Metadata**. When nothing matches a row, its preview in **Add row** or **Edit row** says what it looks for.
 
 Recommendation rows show results from the [recommendation jobs](/docs/recommendations).
