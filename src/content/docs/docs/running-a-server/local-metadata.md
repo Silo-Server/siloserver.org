@@ -17,10 +17,18 @@ NFO files describe a movie or series from files you keep beside the media. Silo 
 
 | Item | File |
 | --- | --- |
-| Movie | `movie.nfo`, then `<media basename>.nfo` |
+| Movie | `<media basename>.nfo`, then `movie.nfo` |
 | Series | `tvshow.nfo` in the show folder |
 | Season | `season.nfo` inside the season folder |
 | Episode | `<episode basename>.nfo` beside the video |
+
+Names match in any letter case, so Silo also finds `Movie.NFO` and `TVSHOW.nfo`.
+
+The parts of a [multipart movie](/docs/media-folders#also-supported), such as `Movie-cd1.mkv` and `Movie-cd2.mkv`, can share one `Movie.nfo`. Silo reads it only when two or more parts are in the folder.
+
+`movie.nfo` and `tvshow.nfo` apply only when the folder holds a single title, as `poster.jpg` does. A `movie.nfo` in a folder of several movies applies to none of them.
+
+Silo skips NFO files over 4 MiB and symbolic links.
 
 ## Add artwork
 
@@ -56,24 +64,73 @@ After you replace an image, refresh the item. Local images don't appear in the *
 
 Your own recordings need no provider ID. For a published title, add its real ID in a `<uniqueid type="tmdb">` element so online providers can identify it.
 
+## Identify a title with a link
+
+An NFO can hold just a link to the title's page instead of XML:
+
+```text
+https://www.themoviedb.org/movie/12345-movie-name
+```
+
+| Provider | Link |
+| --- | --- |
+| TMDB | `themoviedb.org/movie/<id>` for a movie, `themoviedb.org/tv/<id>` for a series |
+| IMDb | `imdb.com/title/tt<number>`, or the ID on its own, such as `tt1234567` |
+| TVDB | a series link that includes the number, such as `thetvdb.com/?tab=series&id=12345` |
+
+Silo uses the link to identify the title and takes its details from online providers. TVDB's usual `thetvdb.com/series/<name>` links carry no number, so Silo can't use them. Silo ignores a link of the wrong kind, such as a TMDB movie link in `tvshow.nfo`.
+
+Some tools write XML with a link on the line after it. Silo reads the XML and adds the link's ID when the XML has no ID from that provider.
+
 ## What gets used
 
 | Element | Applies to | Becomes |
 | --- | --- | --- |
-| `<title>`, `<originaltitle>`, `<tagline>`, `<plot>` | movie, series | title, original title, tagline, description |
-| `<year>` | movie, series | year; taken from the release or air date when missing |
-| `<runtime>` | movie, series | runtime in minutes; a value that isn't a number is ignored |
+| `<title>`, `<originaltitle>`, `<sorttitle>`, `<tagline>` | movie, series | title, original title, sort title, tagline |
+| `<plot>`, or `<outline>` when there's no `<plot>` | movie, series, season, episode | description |
+| `<year>` | movie, series | year; taken from the release or air date when missing or not a number |
+| `<runtime>` | movie, series, episode | runtime in minutes, also written as `117 min` or `1h 32m`; any other value is ignored |
 | `<premiered>` or `<releasedate>` | movie | release date, as `YYYY-MM-DD` |
 | `<premiered>` or `<aired>` | series | first air date, as `YYYY-MM-DD` |
-| `<mpaa>` | movie, series | content rating |
-| `<genre>`, `<studio>`, `<country>`, `<tag>`, each repeated | movie, series | genres, studios, countries, keywords |
-| `<ratings>` with `<rating name="...">` | movie, series, episode | ratings named `imdb`, `tmdb` or `themoviedb`, `tomatometerallcritics` or `rottentomatoes`, and `tomatometerallaudience` |
+| `<mpaa>`, or `<certification>` when there's no `<mpaa>` | movie, series | content rating. From a list such as `US:PG-13 / GB:12A`, Silo takes the first rating, `PG-13`. |
+| `<originallanguage>` | movie, series | original language, when it's a language code such as `fr` |
+| `<status>` | series | whether the show is still airing, such as `Continuing` or `Ended` |
+| `<genre>`, `<studio>`, `<country>`, `<tag>`, each repeated | movie, series | genres, studios, countries, keywords. Values joined with ` / `, as in `Drama / Mystery`, count separately, except in `<tag>`. A show's studios are also its networks. |
+| `<trailer>` | movie, series | trailer, from a YouTube or Vimeo link, including the YouTube add-on links Kodi writes |
+| `<ratings>` with `<rating name="...">` and `<votes>` | movie, series, episode | ratings named `imdb`, `tmdb` or `themoviedb`, `tomatometerallcritics` or `rottentomatoes`, `tomatometerallaudience`, `metacritic`, `trakt`, `tvdb`, and `letterboxd`. Episodes keep only IMDb and TMDB. |
 | `<rating>` on its own | movie, series, episode | IMDb rating, when `<ratings>` has none |
-| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; actor photos in `<thumb>` are ignored |
-| `<director>`, `<credits>` | movie, series | directors, writers |
-| `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title |
-| `<title>`, `<plot>` in `<season>` | season | season name and description |
-| `<title>`, `<plot>`, `<aired>`, `<runtime>` in `<episodedetails>` | episode | episode title, description, air date, runtime |
+| `<criticrating>` | movie, series | Rotten Tomatoes critics score |
+| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; an `<order>` that isn't a number is ignored. `<type>`, such as `GuestStar`, sets the kind of credit, `<tmdbid>`, `<imdbid>`, and `<tvdbid>` identify the person, and `<thumb>` is their photo, as described below. |
+| `<director>`, `<credits>`, `<writer>` | movie, series | directors, writers. Values joined with ` / ` count separately. |
+| `<thumb>`, `<fanart>` | movie, series | poster, logo, and background, as described below |
+| `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title. Other spellings such as `TheMovieDB` and `TheTVDB` work too, and a `<uniqueid>` with no type counts when it holds an IMDb ID. |
+| `<imdbid>`, `<imdb_id>`, `<tmdbid>`, `<tvdbid>`, `<id>`, and a series' `<episodeguide>` | movie, series | provider IDs, when `<uniqueid>` has none from that provider. `<id>` counts when it holds an IMDb ID or has a `TMDB`, `TVDB`, or `IMDB` attribute; a bare number in `<id>` is ignored. |
+| `<title>` or `<seasonname>`, and `<premiered>` or `<aired>`, in `<season>` | season | season name and air date |
+| `<namedseason number="1">` in `<tvshow>` | season | season name, when the season's `season.nfo` gives none |
+| `<title>`, `<aired>`, `<premiered>`, or `<releasedate>`, `<uniqueid>`, and `<thumb>` in `<episodedetails>` | episode | episode title, air date, provider IDs, and episode image |
+
+Ratings other than IMDb and TMDB show only after you turn them on under **Ratings** in **Admin > Settings > Library & Metadata**.
+
+An episode's `<uniqueid>` applies only to the episode it describes, so Silo skips it in an NFO that covers several episodes or gives numbers that don't match the file name.
+
+### Images named in an NFO
+
+Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for the slots that image files named as in [Add artwork](#add-artwork) leave empty:
+
+| Element | Image |
+| --- | --- |
+| `<thumb aspect="poster">`, or `<thumb>` with no `aspect` | poster |
+| `<thumb aspect="clearlogo">` | logo |
+| `<fanart>` with a `<thumb>` inside | background |
+| `<thumb aspect="poster" season="1">` in `<tvshow>` | poster for season 1 |
+| `<thumb>` in `<episodedetails>` | episode image |
+| `<thumb>` in `<actor>` | the person's photo |
+
+Each can be a path relative to the NFO, such as `.actors/Jane_Doe.jpg`, or a web address. A path must stay inside the title's folder. Silo copies a web address into its own image storage before any app shows it, and skips one that points to an address on your local network.
+
+An image the NFO names wins over the online providers' artwork. A person's photo is shared by every title they appear in, so an NFO photo is used only when the person has no photo yet.
+
+Silo reads NFO files saved as UTF-8, UTF-16 with a byte-order mark, Windows-1252, or ISO-8859-1. HTML entities such as `&eacute;` work, and a plain `&`, as in `Salt & Pepper`, doesn't need to be written as `&amp;`.
 
 Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
 
@@ -137,6 +194,12 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 Scheduled metadata work only fills gaps, so after editing an NFO, refresh the item yourself.
 
 The NFO's root element must match the media type: `<movie>`, `<tvshow>`, `<season>`, or `<episodedetails>`. Silo may skip a broken or wrong-type file. Put one episode block in each episode's NFO.
+
+If Silo can't read an NFO, for example because of the file's permissions or a network share that isn't connected, **Refresh Metadata** shows an error and the item keeps its current values. Fix the permissions or reconnect the share, then refresh again.
+
+Silo waits to match a new item whose NFO it can't read, and tries again later. A permission problem doesn't clear on its own, so in that case Silo matches the item without its NFO. Fix the permissions, then refresh the item.
+
+When an NFO's `<uniqueid>` and a provider ID in the folder or file name, such as `{tmdb-12345}`, name different titles, Silo matches a new item to the NFO's title.
 
 Folder names and `S01E01`-style filenames decide the series structure; NFO episode numbers can't move a video to another season. Fix the [naming](/docs/media-folders#series) instead.
 
