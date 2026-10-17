@@ -74,3 +74,5 @@ To change a transcode node's encoder, select the pencil in the node's header, se
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
 Update all nodes together with the main server when the release notes say so. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
+
+A transcode node that runs an older Silo version than the main server still converts video, but it can't put the subtitles from inside a video file into the converted stream. Apps then download those subtitles separately, and on network storage they can take a long time to appear. Silo prefers updated nodes for that playback, so update every transcode node to keep subtitles fast.
