@@ -44,6 +44,8 @@ To suspend an account without deleting it, turn off **Enabled** under **Account 
 
 The **Profiles** tab lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
 
+To fix the rows one profile sees on Home, see [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen).
+
 To see the web app as that person does, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect their account.
 
 ### Help someone reset their password
