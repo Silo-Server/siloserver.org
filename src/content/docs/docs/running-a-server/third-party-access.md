@@ -26,7 +26,7 @@ Test from outside your home network with the same address you give people. A wor
 
 ## Accounts and profiles
 
-Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Jellyfin apps can sign in with a combined username and profile, and protected profiles use a combined password and PIN.
+Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Apps that offer Quick Connect sign in with a code the person approves on Silo's `/activate` page, where they choose the profile. Other apps sign in with a combined username and profile, and protected profiles use a combined password and PIN.
 
 Apps differ in which Jellyfin features they use, so note the app and server versions when you report a problem.
 

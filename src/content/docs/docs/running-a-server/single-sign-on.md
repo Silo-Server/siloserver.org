@@ -85,7 +85,7 @@ While password sign-in is off:
 - Everyone else signs in with the provider. The web sign-in page goes straight to an OpenID Connect provider when it's the only option.
 - Invitations can't be sent or accepted, because they create accounts with a Silo password. People join by signing in with the provider instead.
 - TVs don't offer **Sign in with a password** unless the provider is an LDAP directory. People sign in on a TV [with a phone or the QR code](/docs/tv-sign-in).
-- [Jellyfin-compatible apps](/docs/jellyfin-apps) accept only break-glass accounts and, with an LDAP directory, directory accounts.
+- [Jellyfin-compatible apps](/docs/jellyfin-apps) sign in with [Quick Connect](/docs/jellyfin-apps#sign-in-with-quick-connect). Their password sign-in accepts only break-glass accounts and, with an LDAP directory, directory accounts.
 
 ## If you're locked out
 
