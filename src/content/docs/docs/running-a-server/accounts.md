@@ -38,11 +38,11 @@ For a group of people with the same access, [configure an access group](/docs/ma
 
 ## Change access or reset a password
 
-Open the person's name in **Admin > Users**, then choose **Edit** to change their access. Leave the password blank to keep it unchanged.
+Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
 
-To suspend an account without deleting it, turn off **Enabled** under **Account status**, then save.
+To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
-The **Profiles** tab lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
+The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
 
 To see the web app as that person does, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect their account.
 
@@ -51,12 +51,12 @@ To see the web app as that person does, use [View as user](/docs/help-a-user#see
 For an enabled account that uses a local password:
 
 1. Open the person's name in **Admin > Users** and choose **Reset password**.
-2. Choose **Email reset link**, or **Create link to share** and then **Copy link** to send it privately.
+2. Choose **Email a reset link**, then **Email link**. To send the link yourself, choose **Create a link to share**, then **Create link**, and use **Copy link** to send it privately.
 3. Have the person open the link and choose a new password.
 
 Emailing the link needs [email set up](/docs/notification-delivery#set-up-email) and an email address on the account. A link works once and expires after 24 hours. Creating a new reset link replaces the previous one.
 
-To hand over a temporary password instead, choose **Edit**, enter a new password, and select **Require change at next sign-in** before saving. The person then signs in through the web app to replace it before using their other apps.
+To hand over a temporary password instead, choose **Reset password**, then **Set a temporary password**. Enter the password, keep **They must choose a new one at next sign-in** selected, and choose **Set password**. The person then signs in through the web app to replace it before using their other apps.
 
 Completing a reset link or setting a temporary password signs the account out on its devices. API keys remain active; [revoke those separately](/docs/api-keys#replace-a-key) if the account was compromised. For accounts connected to a [sign-in provider](/docs/single-sign-on), reset the password with that provider.
 
