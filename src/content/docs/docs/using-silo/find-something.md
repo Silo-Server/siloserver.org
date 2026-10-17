@@ -16,6 +16,19 @@ tablet.
    title you expect disappears, clear the filters.
 4. Select **Play** or **Resume**.
 
+In the web app, sort a library by **Title** to jump through it by letter. An
+A–Z bar appears on the right edge of the screen. Choose a letter to scroll to
+its first title. The bar doesn't filter, so the rest of the library stays in
+the list above and below. Letters with no titles are greyed out, and **#**
+holds titles that start with a digit or symbol. Titles file under their sort
+title, so "The Office" is under O, and an accented first letter counts as its
+base letter, so "Élite" is under E.
+
+On a phone-width screen the bar is a narrow strip. Tap a letter, or slide your
+finger along the strip to jump as you pass each letter. With a keyboard, press
+Tab to reach the bar, use the arrow keys or type a letter to move between
+letters, and press Enter or Space to jump.
+
 In the web app, **Remember library pages** under **Settings > Libraries**
 returns each library to the last tab, sort, and filters you used on that
 profile and device. A saved filter is often why two profiles show different
