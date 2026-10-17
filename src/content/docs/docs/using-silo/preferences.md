@@ -31,7 +31,9 @@ Silo has them. It doesn't change a movie's spoken audio; use
 1. Open **Settings > Your Devices** and choose the device.
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
-   from: **Changed here**, **From your profile**, or **App default**. A
+   from: **Changed here**, **From your profile**, or **App default**.
+   **Show title art** can also say **Server default**, which your server's
+   administrator sets. A
    changed setting shows **Use your setting**; select it to go back to your
    profile's value. **Use profile settings** removes every change on the
    device.
@@ -51,7 +53,10 @@ Profile Settings** at the bottom of the page removes every change on the
 device.
 
 A setting changed on a device wins over your profile's value on that device,
-except **Show title art** while **Apply to all devices** is on. If a single
+except **Show title art** while **Apply to all devices** is on. In the web
+app, **Use server default** under **Settings > Navigation & Cards** clears
+your own **Show title art** choice so it follows your server's default again.
+If a single
 title plays differently from others, look at the audio and subtitle tracks
 chosen for it during playback before you change the whole profile.
 
