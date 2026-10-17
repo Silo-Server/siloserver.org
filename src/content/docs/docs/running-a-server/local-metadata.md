@@ -134,13 +134,15 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
 ## When changes don't appear
 
-Scheduled metadata work only fills gaps, so after editing an NFO, refresh the item yourself.
+Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does.
+
+A value you delete from an NFO, or an image you delete, stays until you refresh the item and an online provider fills it. An NFO or image directly in a library's top folder, beside loose movie files, waits for the daily library scan.
 
 The NFO's root element must match the media type: `<movie>`, `<tvshow>`, `<season>`, or `<episodedetails>`. Silo may skip a broken or wrong-type file. Put one episode block in each episode's NFO.
 
 Folder names and `S01E01`-style filenames decide the series structure; NFO episode numbers can't move a video to another season. Fix the [naming](/docs/media-folders#series) instead.
 
-An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next refresh links the item to that provider.
+An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next scan or refresh links the item to that provider.
 
 If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one.
 
