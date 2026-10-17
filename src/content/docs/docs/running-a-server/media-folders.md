@@ -74,7 +74,7 @@ tv/
 
 Use `S01E01` for ordinary episodes and `S00E01` for specials. Text after the episode number, such as an episode title or release details, is fine.
 
-Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1` or `Temporada 1`. The number can come first (`3.Staffel`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
+Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1`, `Temporada 1`, or `Saison 1`. The number can come first (`3.Staffel`) or be an ordinal (`1st Season`, `2nd Season`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
 
 Episodes can also sit directly in the show folder when each name has a code such as `S01E03`, for example `Show Name/Show Name S01E03.mkv`. A season pack folder such as `Show.Name.S01.COMPLETE` works inside the show's folder, and in a Series library also on its own as the show folder.
 
@@ -105,7 +105,7 @@ Silo reads these forms as well.
 | Release numbering after the episode | `Show Name - S01E01.001 - Pilot [Bluray-1080p].mkv` is `S01E01` |
 | Several episodes in one file | `S01E01-E03`, `S01E01-03`, `S01E01E02`, `1x01x02`, `2009x03-E15` |
 | Air dates | `Show Name - 2024-02-15.mkv`, `Show.Name.2024.02.15.mkv`; underscores and spaces also work as separators |
-| Season folder names | `Season 01`, `Season.01`, `Season_01`, `S01`, `Specials`, and `Staffel`, `Stagione`, `Sæson`, `Säsong`, `Temporada`, `Seizoen`, `Kausi`, `Sezon`, `Sezona`, `Sezóna`, `Sezonul`, `시즌`, `シーズン`, `сезон`, or `Series` with a number |
+| Season folder names | `Season 01`, `Season.01`, `Season_01`, `S01`, `1st Season`, `Specials`, and `Staffel`, `Stagione`, `Saison`, `Sæson`, `Säsong`, `Temporada`, `Seizoen`, `Kausi`, `Sezon`, `Sezona`, `Sezóna`, `Sezonul`, `Serie`, `Série`, `Seria`, `Séria`, `시즌`, `シーズン`, `сезон`, or `Series` with a number |
 | Provider IDs in other styles | `(tmdb-12345)`, `{tmdb=12345}`, `[tmdbid=12345]`, `[tmdbid-12345]`, `[imdbid-tt1234567]`, `[tvdbid=12345]`, `[tt1234567]`, or a folder name ending in an IMDb ID, as in `Movie Name tt1234567` |
 | Editions | `{edition-Director's Cut}`, or words such as `Extended`, `Theatrical`, or `Director's Cut` in the name |
 | Multipart movies | `Movie Name (2024) cd1.mkv`, `disc2`, `part1`, `pt2` |
@@ -113,6 +113,8 @@ Silo reads these forms as well.
 A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
 
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
+
+A folder directly in a library folder named `Series`, `Serie`, or `Seria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. `Series 2` and `Series 2 (2019)` in the same place still count as seasons, and inside a show folder `Series 5 Matt Smith` is season 5.
 
 ## Episode numbers without a season
 
