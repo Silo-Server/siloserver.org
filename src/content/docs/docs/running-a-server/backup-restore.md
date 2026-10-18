@@ -51,7 +51,7 @@ Run these from the directory that holds your Compose file.
    | `compat` | Yes |
    | `catalog-seeds` | Yes, if you put files there |
    | `postgres` | No, use the dump instead |
-   | `redis`, `transcode`, `meilisearch` | No. These hold temporary, cache, or rebuildable data. |
+   | `redis`, `transcode`, `download-artifacts`, `meilisearch` | No. These hold temporary, cache, or rebuildable data. Silo prepares downloads again if devices are still waiting for them. |
 
 5. If you use S3 storage, back up the public and private buckets with your provider's tools, at about the same time as the dump.
 

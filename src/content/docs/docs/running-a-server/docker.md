@@ -64,10 +64,11 @@ The media mount is read-only. Silo's writable directories live below `SILO_DATA_
 | `artwork` | Local artwork, uploads, and downloaded subtitles |
 | `compat` | Compatibility assets |
 | `transcode` | Temporary transcode output, mounted at `/tmp/silo-transcode` in the container |
+| `download-artifacts` | Downloads the main server [prepared](/docs/download-storage) for devices, mounted at `/tmp/silo-download-artifacts` in the container |
 | `catalog-seeds` | Catalog seed inputs, mounted read-only |
 | `meilisearch` | Optional search index |
 
-[Backups](/docs/backup-restore) lists which of these to keep.
+To cap how much space `download-artifacts` takes, set a [storage budget](/docs/download-storage#set-storage-budgets). [Backups](/docs/backup-restore) lists which of these to keep.
 
 ## Optional Meilisearch
 

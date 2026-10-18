@@ -21,6 +21,12 @@ Silo cleans up on its own every few minutes. To free space at one location strai
 
 Warnings appear above the cards when a disk is near its ceiling, when prepared files are on temporary storage that a restart clears, when an offline node holds prepared files, when a location has untracked files, or when files are kept only for devices nobody has seen in 14 days. Each warning has a button that opens the place to fix it.
 
+## Keep the server's prepared files across updates
+
+The default Compose file keeps the server's prepared files in `download-artifacts` under `SILO_DATA_ROOT`, so they survive image updates. Silo writes them to a `silo-download-artifacts` folder beside its **Transcode directory**, `/tmp/silo-download-artifacts` in the container, and the Compose file mounts that path.
+
+If you change **Transcode directory** in **Admin > Playback > Settings**, the folder moves with it and that mount no longer covers it. Mount the new `silo-download-artifacts` folder from the host, or set **Prepared file directory** in **Admin > Downloads > Settings** to a path that's already mounted. Then restart Silo. Without a mount, every container update loses the prepared files, and Silo has to prepare them again for the devices still waiting. The server's card on the **Storage** tab shows **Temporary storage** while that's the case.
+
 ## Set storage budgets
 
 The limits are in the **Downloads** group of **Admin > Downloads > Settings**:
