@@ -63,9 +63,9 @@ Connecting a provider turns off the account's Silo password, unless it's a break
 
 ## Re-check access at the provider
 
-Every 12 hours, Silo asks the provider again whether each person may still sign in. Someone you remove, disable, or take out of the allowed groups at the provider is signed out of Silo at the next check, and their Silo API keys are removed. When you set **Admin groups**, each check updates the person's role too.
+Every 12 hours by default, Silo asks the provider again whether each person may still sign in. Someone you remove, disable, or take out of the allowed groups at the provider is signed out of Silo at the next check, and their Silo API keys are removed. When you set **Admin groups**, each check updates the person's role too.
 
-If the provider is unreachable, people stay signed in and Silo asks again later. Neither has a control in the web app. To change them, set `auth.provider_recheck_interval`, for example to `1h`, or set `auth.provider_recheck_outage_policy` to `fail_closed` through the [admin API](/docs/api). With `fail_closed`, a session due for a check can't renew until the provider answers, so apps stop working during an outage.
+If the provider is unreachable, people stay signed in and Silo asks again later. Neither the interval nor the outage behavior has a control in the web app. To change them, set `auth.provider_recheck_interval`, for example to `1h`, or set `auth.provider_recheck_outage_policy` to `fail_closed` with `PUT /api/v2/admin/settings/{key}` in the [admin API](/docs/api). With `fail_closed`, a session due for a check can't renew until the provider answers, so apps stop working during an outage.
 
 An LDAP directory is always re-checked. An OpenID Connect provider can be re-checked only when **Request offline access** is on and the provider grants it. Some providers, such as Authelia, also need **Refresh token lifetime** under **Sign-in request**; its description says which. If you leave it blank, someone removed at the provider keeps their Silo sessions until the age limit below.
 

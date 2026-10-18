@@ -26,7 +26,7 @@ Silo records the location the first time it stores a file. From then on, a chang
 
 **Private storage** holds files that are never public: profile avatars, diagnostic bundles, and catalog seed artifacts. Without a private bucket, a local-disk install keeps these on local disk. An install that stores artwork in S3 needs a private bucket for profile avatar uploads.
 
-**Admin > Server > Storage** shows **Public storage** and **Private storage** when **Backend** is **S3** or **Automatic**. With **Local disk** it hides them, and shows **Private storage** only if a private bucket is already saved.
+**Admin > Server > Storage** shows **Public storage** and **Private storage** when **Backend** is **S3** or **Automatic**. With **Local disk** it hides them, and shows **Private storage** only if a private bucket is already saved. To add a private bucket to a local-disk install, set **Backend** to **Automatic**. Without a public bucket, Automatic keeps artwork on local disk and shows both sections.
 
 Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside the bucket** when it starts, even if nothing is stored there yet. Changing them afterwards requires a [storage transition](#change-storage-later).
 
@@ -134,7 +134,7 @@ Use a storage transition to move from local disk to S3 (for example, before addi
 1. Make a [backup](/docs/backup-restore) first.
 2. For a new local path, mount it into the container before you start.
 3. Open **Admin > Server > Storage**. To move to S3, set **Backend** to **S3** first so **Public storage** and **Private storage** appear. For a new bucket, enter its **Endpoint**, **Bucket**, and keys under **Public storage** or **Private storage**, and select **Check Connection**.
-4. Start the transition. Choosing **Local disk** to leave S3 opens the transition dialog right away. After choosing **S3** or editing a location (the **Local storage path**, or a bucket's **Endpoint**, **Bucket**, or **Folder inside the bucket**), select **Review transition** in the save bar.
+4. Start the transition. Choosing **Local disk**, or **Automatic** with no public bucket, to leave S3 opens the transition dialog right away. After choosing **S3** or editing a location (the **Local storage path**, or a bucket's **Endpoint**, **Bucket**, or **Folder inside the bucket**), select **Review transition** in the save bar.
 5. In the **Change artwork storage** dialog, check the **Target**. The dialog is called **Change private storage** when only private storage moves.
 6. Under **What should move?**, choose a policy (see below), then select **Queue transition**.
 7. Wait for the transition to finish. The page shows each step, such as **Copying storage objects** and **Verifying copied objects**. Select **Cancel transition** to stop it before the switch.

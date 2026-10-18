@@ -24,7 +24,7 @@ Sync is on by default. Its settings are under **Subtitle sync** on **Admin > Lib
 
 - **Sync subtitles automatically** syncs a downloaded or uploaded subtitle when it's added, and any other subtitle the first time it's played. Turn it off to sync only when someone chooses **Sync to audio** in the web player.
 - **Where to analyze audio**, under **Advanced**, chooses the machine that reads the audio: **Local server**, **Prefer transcode nodes** (the default), or **Transcode nodes only**. Sync reads a few minutes of the file's audio, about 45 seconds of CPU time the first time a file is synced. Later subtitles for the same file reuse that work. **Prefer transcode nodes** falls back to the main server when no [transcode node](/docs/transcode-nodes) can take it; **Transcode nodes only** fails the sync instead. A node needs the media at the same path as the main server.
-- **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears when **Where to analyze audio** uses transcode nodes.
+- **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears under **Advanced** when **Where to analyze audio** uses transcode nodes.
 
 ### Subtitle files beside the media
 

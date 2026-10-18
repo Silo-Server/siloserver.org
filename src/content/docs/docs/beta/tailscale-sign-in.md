@@ -158,7 +158,8 @@ console. Their devices can no longer reach the server. At its next access
 check, every 12 hours by default, Silo signs them out everywhere and stops
 accepting their Silo password, including at a public address and in
 Jellyfin-compatible apps. To change how often, set
-`auth.provider_recheck_interval` through the [admin API](/docs/api); the web
+`auth.provider_recheck_interval` with `PUT /api/v2/admin/settings/{key}` in
+the [admin API](/docs/api); the web
 app has no control for it. If **Who can sign in** requires a grant, you can
 remove their grant instead.
 
