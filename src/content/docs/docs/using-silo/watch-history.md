@@ -24,6 +24,14 @@ whether to **Resume at** your saved time or **Play from Beginning**.
 **Play from Beginning** is also in the title's **More** menu (⋮). Replaying
 from the start moves your resume point back.
 
+To clear your resume point on a movie or episode you've started, select
+**Reset Progress** in the web app. It's in the menu (⋮) on a
+**Continue Watching** card or an episode, or in the long-press menu on a
+phone. On a movie or episode page, it's in the **More** menu (⋮), after
+**Play from Beginning**. The item leaves
+**Continue Watching**, and the next play starts from the beginning. Its watch
+history stays, and an item you'd already watched stays watched.
+
 ## Change watched status
 
 On a phone or tablet, open the title and select
@@ -34,6 +42,10 @@ In the web app, the button's label shows what it will change, for example
 or **Mark Series Watched** on a series. The change applies as soon as you
 select it; select the button again to undo it. On a narrow screen, season and
 series pages shorten the label to **Mark Watched**.
+
+**Mark Unwatched** clears the item's resume point and removes its watch
+history too. To clear only the resume point, use
+[**Reset Progress**](#continue-or-start-over) instead.
 
 ## Continue on another device
 
