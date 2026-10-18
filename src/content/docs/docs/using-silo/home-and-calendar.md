@@ -21,7 +21,8 @@ web app and turn on **Show new episodes first**. Shows you haven't caught up
 on keep their place. A separate **Next Up** row, if you've chosen one, uses
 the same order, and so does **Next Up** in
 [Jellyfin-compatible apps](/docs/jellyfin-apps). The setting follows your
-profile to every device.
+profile to every device. Until you choose, it follows the server default,
+which your server's admin can turn on for everyone.
 
 Only episodes newly added to your server count as new, not the episodes in a
 library you add or re-add, or an older file once it's matched to its show.
