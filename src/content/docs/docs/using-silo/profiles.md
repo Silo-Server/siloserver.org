@@ -137,14 +137,15 @@ decide whether they appear under a content-rating limit. See
 
 ### Show advisory ages
 
-In the web app, open **Settings > Playback** and turn on **Show advisory age**
-to show the recommendation on title pages.
+In the web app, open **Settings > Title Pages** and, under **Age guidance**,
+turn on **Show advisory age** to show the recommendation on title pages.
 
-To show it on poster cards as well, open **Settings > Card Overlays** and, under
-**Ratings & Certifications**, turn on **Advisory Age**. Cards then show the age,
-such as `13+`, in the bottom-right corner. Titles without an advisory age show
-no badge. The badge doesn't depend on **Show advisory age**; you can turn on
-either one alone.
+To show it on poster cards as well, open **Settings > Navigation & Cards**.
+Under **Badges**, with **Show badges on posters** on, open
+**Ratings & Certifications** and turn on **Advisory Age**. Cards then show the
+age, such as `13+`, in the bottom-right corner. Titles without an advisory age
+show no badge. The badge doesn't depend on **Show advisory age**; you can turn
+on either one alone.
 
 Both settings only change what's displayed; the profile's age limit applies
 either way.

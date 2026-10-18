@@ -28,8 +28,8 @@ If the language you want isn't there,
 
 ## Set your usual language and look
 
-Open **Settings** and go to **Subtitles**. Every Silo app has this section.
-There you can choose:
+In the web app, open **Settings > Language & Subtitles**. The mobile and TV
+apps have a **Subtitles** page under **Settings**. There you can choose:
 
 - your subtitle language
 - when subtitles appear (the behavior setting)

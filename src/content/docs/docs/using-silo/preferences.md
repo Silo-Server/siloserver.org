@@ -13,14 +13,18 @@ pages under **Settings**. The pages below are in the web app.
 
 ## Change a profile preference in the web app
 
-Open **Settings** from your profile menu, then choose a page:
+Open **Settings** from your profile menu. The settings pages replace the
+app's sidebar, and **Back to App** at the top returns you to the page you
+came from. On a phone, Settings opens as a list of pages. Choose a page:
 
-- **Playback:** quality, spoken and metadata languages, skipping, and what
-  plays next.
-- **Subtitles:** language, when subtitles appear, and how they look.
+- **Playback:** quality, skipping, and what plays next.
+- **Language & Subtitles:** spoken and metadata languages, when subtitles
+  appear, and how they look.
 - **Home Screen:** which rows appear on Home and in what order.
-- **Appearance**, **Navigation & Cards**, and **Accessibility:** how the web
-  app looks. These don't change the native apps.
+- **Title Pages:** title art, theme music, spoilers, and advisory ages on
+  movie and show pages.
+- **Navigation & Cards** and **Accessibility:** how the web app looks. These
+  don't change the native apps.
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
@@ -28,7 +32,8 @@ Silo has them. It doesn't change a movie's spoken audio; use
 
 ## Change one device
 
-1. Open **Settings > Your Devices** and choose the device.
+1. Open **Settings > Your Devices** and choose the device. The one you're
+   using says **This device**.
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
    from: **Changed here**, **From your profile**, or **App default**. A
