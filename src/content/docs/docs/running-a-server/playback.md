@@ -88,6 +88,23 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 **Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
 
+## Use complete playlists for copied video
+
+Turn on **Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, to send the player every segment of a video from the start. It's experimental and off by default. Without it, when Silo repackages a file without converting its video, the player gets a playlist that grows as Silo copies the video. Some players handle that badly: Safari, for example, can stop partway through a video. With the setting on, Silo plans the segments from the file's own keyframes before it starts copying.
+
+Silo uses the complete playlist only when all of these are true:
+
+- The file is an MKV or WebM whose keyframe index lists the video's keyframes.
+- Silo copies the video and packages it as fMP4. MPEG-2 video and Dolby Vision in the Jellyfin app on LG TVs are packaged as MPEG-TS, so they keep the growing playlist.
+- Playback starts from the beginning. A title resumed partway through gets the growing playlist.
+- Silo knows the file's length.
+
+Every other stream gets the growing playlist, as it does with the setting off. If Silo finds that a file's index doesn't match where the video is actually cut, later plays of that file get the growing playlist until the file changes.
+
+Once a stream has the complete playlist, segments Silo has already copied play at once. A seek a little past what Silo has copied waits a moment for the copy to catch up, because copying runs much faster than playback. For a seek further ahead, or back to a segment that **Transcode back buffer** has already cleaned up, Silo restarts the copy at that point and the new segments still match the playlist. Switching the audio track also restarts the copy, and Silo copies any segments it had already made again with the new track.
+
+If Silo has to rebuild a stream, for example after it restarts, and can't plan the same segments again, playback stops and has to be started again on the device. Because the setting is experimental, test playing, seeking, and switching audio on the devices you use before leaving it on, and turn it off if playback stops.
+
 ## Generate chapter thumbnails
 
 Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
