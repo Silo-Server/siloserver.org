@@ -36,8 +36,8 @@ tablet, or TV, `localhost` only works if the server runs on that same device.
    seconds.
 
 The code lasts 15 minutes. If it expires, start Quick Connect again in the
-app. Only approve a code from an app in front of you. If you mistype codes
-many times, the page asks you to wait before trying again.
+app. Only approve a code from an app in front of you. If you try too many
+codes in a short time, the page asks you to wait before trying again.
 
 If you're already signed in to a Jellyfin-compatible app, you can approve
 the code there instead: open Quick Connect in that app's settings or user
