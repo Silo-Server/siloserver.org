@@ -133,7 +133,7 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
 Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does.
 
-A value you delete from an NFO, or an image you delete, stays until you refresh the item and an online provider fills it. An NFO or image directly in a library's top folder, beside loose movie files, waits for the daily library scan.
+A value you delete from an NFO stays until you refresh the item and an online provider fills it. An image you delete stays until you refresh the item. An NFO or image directly in a library's top folder, beside loose movie files, waits for the daily library scan.
 
 The NFO's root element must match the media type: `<movie>`, `<tvshow>`, `<season>`, or `<episodedetails>`. Silo may skip a broken or wrong-type file. Put one episode block in each episode's NFO.
 
