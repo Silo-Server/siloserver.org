@@ -28,6 +28,8 @@ A disabled node is dimmed and Silo stops checking it, so its readings are from i
 
 A draining transcode node also has a line under its address that counts the work left, such as **Draining · 2 transcodes left**. Once nothing is left, a node you drained shows **Drained · safe to stop**, and a node that's stopping shows **Drained · no work left** just before it exits. A node you drained shows **Draining · not answering** while it's **Unhealthy**, such as while it's stopped, and **Drain requested** while its switch is off. Turning the switch back on doesn't resume it.
 
+A transcode node also has a line under its address for its key. **Key issued** means the node has a key, and **No key: this node takes no work** means Silo sends it nothing until you issue one. The link beside it reads **Issue key** or **Rotate key**; see [Add the node](/docs/transcode-nodes#add-the-node). The same line reads **Reads media from this server** when the node's **Source Access** is **Read from this server over HTTP**.
+
 A node's state only says whether Silo can reach it and whether it's draining. A node whose GPU stopped working still shows **Healthy**. Check its **Acceleration** block, and see [After a driver or device change](/docs/playback#after-a-driver-or-device-change).
 
 ## Groups
