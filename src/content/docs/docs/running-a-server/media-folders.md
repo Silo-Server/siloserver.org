@@ -144,7 +144,7 @@ A folder named only with a number directly in a library folder, such as `tv/86/`
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle files beside the item they describe. Silo doesn't look for subtitles in a `Subs` folder. See [Local metadata](/docs/local-metadata) for what Silo reads.
+Keep NFO files, posters, and subtitle files beside the item they describe. Silo doesn't look for subtitles in a `Subs` folder. See [Local metadata](/docs/local-metadata) for what Silo reads, and [Subtitle file names](#subtitle-file-names) for how to mark a subtitle's language.
 
 Put extras in a folder inside the movie's or show's folder, or inside a season folder. Silo recognizes these folder names, in any letter case and with `.`, `_`, or `-` in place of spaces:
 
@@ -159,6 +159,19 @@ An extra can also sit beside the movie file with a suffix, as in `Movie Name (20
 Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
 
 An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
+
+## Subtitle file names
+
+Name each subtitle file after its video, then add words between the video's name and the extension to describe the track. Silo reads `.srt`, `.vtt`, `.ass`, `.ssa`, and `.sub` files. The words can come in any order, so `Movie Name (2024).en.sdh.srt` and `Movie Name (2024).sdh.en.srt` are the same track.
+
+| Word in the name | What it sets |
+| --- | --- |
+| A language code or English language name, such as `en`, `eng`, `pt-BR`, or `English` | The track's language |
+| `forced` | A forced subtitle, which covers only selected dialogue or on-screen text |
+| `sdh` or `cc` | Subtitles for the deaf and hard of hearing (SDH). In the web app, the item page lists these tracks as **HI** |
+| `hi` | Hindi when no other word names a language, as in `Movie Name (2024).hi.srt`. With another language, as in `Movie Name (2024).en.hi.srt`, it marks the track as SDH |
+
+Silo skips words that aren't languages when it looks for the language, so `Movie Name (2024).ai.hr.srt` is Croatian. When two words name a language, Silo uses the first. A file with no language word, such as `Movie Name (2024).srt`, has no language set.
 
 ## Leave files out of a scan
 
