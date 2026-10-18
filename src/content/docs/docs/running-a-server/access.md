@@ -26,7 +26,7 @@ A group permission only makes the permission available. Turn on **Marker Editing
 2. Choose **Edit** under **Library access**, select the group in **Access group**, then choose **Save**.
 3. Check the limits on the **Playback & streaming** and **Downloads** cards.
 
-An account can override its group. If a group change seems to have no effect, look for an override on the account.
+An account can override its group. If a group change seems to have no effect, look for values tagged **CUSTOM**.
 
 Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means Silo's built-in default: full access for an administrator, and the server's defaults for an account without a group.
 
