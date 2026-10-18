@@ -68,7 +68,7 @@ household managers use the web app.
    libraries** or select **Choose libraries** and check at least one library
    the profile can browse. These limits work on any profile. For a child, turn
    on **Child Profile** first: it fills in PG and **Choose libraries** for the
-   limits you haven't set yet.
+   limits you haven't set yet. Turning it off clears both limits.
 5. Select **Create Profile** or **Save Changes**.
 
 ### Forgotten PIN
