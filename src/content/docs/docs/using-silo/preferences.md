@@ -31,6 +31,42 @@ narrow window, Settings opens as a list of pages. Choose a page:
 Silo has them. It doesn't change a movie's spoken audio; use
 **Spoken language** for that.
 
+## Set playback quality
+
+**Resolution** and **Maximum bitrate** set the quality Silo plays at:
+
+- **Resolution** sets the largest picture size. With **Auto**, the default,
+  Silo plays the original file whenever your device can play it and your
+  connection is fast enough, and converts it only when it can't. A size such
+  as **1080p** plays files up to 1080p as they are, however fast your
+  connection is, and converts larger files down to 1080p.
+- **Maximum bitrate** caps how much data playback uses, from 200 Mbps down
+  to 1.5 Mbps. Silo converts a file above it to fit. The default is
+  **No limit**.
+
+In the web app, they're under **Quality** in **Settings > Playback**, where
+**Resolution** is called **Preferred quality**. On iPhone, iPad, Apple TV,
+and Mac, open **Settings > Playback** and look under **Quality**. On Android
+phones, tablets, and TVs, look under **Streaming** in **Settings > Playback**.
+
+Choosing a quality in the player doesn't change these settings. See
+[Controls while you watch](/docs/watch-movies-and-series#controls-while-you-watch).
+
+### Quality on mobile data
+
+On iPhone, iPad, and Android phones and tablets, **Cellular Quality** in
+**Settings > Playback** replaces both settings while you're on mobile data or
+a network the device treats as metered, such as a phone hotspot, Low Data
+Mode on iPhone, or a Wi-Fi network marked as metered on Android. It's one
+list, from **Auto** to **480p**. The default, **720p**, plays up to 720p at
+2 Mbps. If your connection changes during playback, the app switches to the
+other setting.
+
+The web app does the same when the browser reports a cellular connection or
+has Data Saver on. To change it for one browser, open that browser in
+**Settings > Your Devices** and set **Cellular quality** and **Cellular
+maximum bitrate** under **Picture**.
+
 ## Change one device
 
 1. Open **Settings > Your Devices** and choose the device. The one you're
