@@ -56,8 +56,8 @@ Downloader to install apps when asked.
 
 | App | Downloader code |
 | --- | --- |
-| Silo for Android phone or tablet | `1051382` |
-| Silo for Android TV | `1636227` |
+| Silo for Android phone or tablet | `1141108` |
+| Silo for Android TV | `2249835` |
 
 Download Silo only from the links on this page; other apps with similar names
 aren't part of this project.

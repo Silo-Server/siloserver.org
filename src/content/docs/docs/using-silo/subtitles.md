@@ -17,6 +17,12 @@ While a title is playing, open the subtitle list and choose a track:
 Choose **Off** to hide subtitles. The same language can appear more than
 once when the title has several subtitle tracks in that language.
 
+When Silo converts the video for your device, the mobile and TV apps get a
+text subtitle from inside the video file along with the video, so it appears
+as soon as playback starts. Turning on a subtitle from inside the file, or
+switching to another one, restarts the video at the same spot, which takes a
+moment.
+
 If the language you want isn't there,
 [find, upload, or generate subtitles](/docs/missing-subtitles).
 

@@ -124,7 +124,15 @@ Put files numbered only by episode in a season folder, or add the season to the 
 
 Episode numbers can have up to five digits.
 
-Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, the file may stay unlinked; rename it with season and episode. Day-first dates such as `24.04.2026` aren't read as air dates.
+Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, Silo picks one in this order:
+
+1. The episode whose title matches the text after the date. Case and punctuation don't matter.
+2. The episode in the file's season folder, such as `Season 2026` or `Specials`.
+3. If the name has no episode title, the ordinary episode rather than a same-day special. A generic title such as `Episode 12`, or the `Unknown` some renamers write, counts as no title.
+
+If that still leaves more than one episode, the file stays unlinked. For example, `Season 2026/Show Name - 2026-04-24.mkv` stays unlinked when two season 2026 episodes aired that day. Rename it with season and episode to link it.
+
+Day-first dates such as `24.04.2026` aren't read as air dates.
 
 ## Show folders
 

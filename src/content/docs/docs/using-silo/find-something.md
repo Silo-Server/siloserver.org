@@ -23,8 +23,8 @@ results.
 
 ## Search and explore people
 
-Open **Search** and enter a title. In the web app you can also search for
-people by name. When several results share a title, pick by year.
+Open **Search** and enter a title or a person's name. Cast and crew who match
+appear under **People**. When several results share a title, pick by year.
 
 On a movie or series page, select a cast or crew member to open their
 **Filmography**. Choose **Movies** or **Series** to narrow it.

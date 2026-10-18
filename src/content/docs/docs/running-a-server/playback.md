@@ -23,7 +23,7 @@ Then add it in `.env`:
 COMPOSE_FILE=docker-compose.yml:docker-compose.vaapi.yml
 ```
 
-For NVIDIA, use the same checks and download URL with `docker-compose.nvidia.yml` instead, and list that file. Use only the overlay that matches the host.
+For NVIDIA, use the same checks and download URL with `docker-compose.nvidia.yml` instead, and list that file. Use only the overlay that matches the host. The NVIDIA overlay gives Silo one GPU. To give it more, also set `NVIDIA_GPU_COUNT` in `.env`, for example `NVIDIA_GPU_COUNT=2`.
 
 If you already set `COMPOSE_FILE`, add the GPU overlay to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
 

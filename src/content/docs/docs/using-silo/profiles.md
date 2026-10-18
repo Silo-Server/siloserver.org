@@ -9,10 +9,11 @@ password signs the household in; a four-digit PIN locks one profile. Library
 access set by the server administrator applies to every profile.
 
 The **primary profile** is the first profile on the account. Only the primary
-profile, or a server administrator, can add, edit, and delete profiles, set
-parental controls, and change the account password. If the primary profile
-has a PIN, Silo asks for it before you manage profiles. The primary profile
-can't be deleted.
+profile can add, edit, and delete profiles, set parental controls, and change
+the account password. That applies to a server administrator's account too:
+its other profiles, including a kids profile, can't manage profiles. If the
+primary profile has a PIN, Silo asks for it before you manage profiles. The
+primary profile can't be deleted.
 
 ## Switch profiles
 
@@ -20,6 +21,11 @@ On **Who's watching?**, choose your profile and enter its PIN if asked. To
 change profiles later, open the profile menu (your profile picture) and choose
 **Switch Profile**. On a shared device, look at the profile picture before you
 change settings or start playing something.
+
+After five wrong PINs within five minutes, Silo locks that profile for five
+minutes on every device, including Jellyfin apps that sign in with the PIN.
+Until the lock ends, even the right PIN is refused. The web app says
+`Too many incorrect PINs.` and how many minutes are left.
 
 ## Add or edit a profile
 
@@ -57,7 +63,7 @@ Only server administrators see profile management in the Android apps. Other
 household managers use the web app.
 
 1. On the profile picker, select **Manage Profiles** (**Manage** on Android
-   TV).
+   TV). If the primary profile has a PIN, enter it.
 2. Select **Add Profile**, or the edit button on a profile to open
    **Edit Profile**.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
@@ -69,8 +75,10 @@ household managers use the web app.
 ### Forgotten PIN
 
 Ask whoever manages the household's profiles to set a new PIN or remove it in
-the web app. Don't delete the profile to get around the PIN: deleting it also
-removes its watch history and preferences.
+the web app. Setting a new PIN or removing it also ends a lock after too many
+wrong PINs, so nobody has to wait out the five minutes. Don't delete the
+profile to get around the PIN: deleting it also removes its watch history and
+preferences.
 
 ## Set parental controls
 
@@ -132,15 +140,19 @@ either way.
 A PIN stops someone from switching into a profile. By default, though, Silo
 reopens the last profile used on a device without asking for its PIN again.
 
-- On iPhone, iPad, and Apple TV, set **Profile Selection** to **Every Time**
-  (see below) so the device shows **Who's watching?** each time.
-- The Android apps and the web app have no such setting. Before
-  you hand the device to a child, switch to the child's profile or sign out.
+- On iPhone, iPad, Apple TV, and Android TV, set **Profile Selection** to
+  **Every Time** (see below) so the device shows **Who's watching?** each time.
+- In the web app, set **Profile at launch** to **Ask who's watching** (see
+  below) so each new tab or window shows **Who's watching?**.
+- On other devices, switch to the child's profile or sign out before you hand
+  the device to a child.
 
-## Choose what happens when Silo opens on Apple devices
+## Choose what happens when Silo opens
+
+### On Apple devices and Android TV
 
 Open **Settings > General > Profile Selection**. On Apple TV it's under
-**PROFILE AT LAUNCH**.
+**PROFILE AT LAUNCH**, and on Android TV under **Profile at Launch**.
 
 - **Automatic** reopens the last profile used on this device, without asking
   for its PIN. On Apple TV, it uses the profile paired with the current Apple
@@ -148,6 +160,20 @@ Open **Settings > General > Profile Selection**. On Apple TV it's under
 - **Every Time** shows **Who's watching?** whenever you return to Silo.
 - **After 1 Hour** and **After 12 Hours** show it after that long away.
 
-The setting applies only to that device.
+When **Who's watching?** appears this way, a profile with a PIN needs it
+again. The setting applies only to that device.
+
+### In the web app
+
+Open **Settings > Your Devices** and, under **This browser**, choose
+**Profile at launch**:
+
+- **Remember last profile** opens new tabs and windows with the profile last
+  used in this browser. This is the default.
+- **Ask who's watching** starts each new tab or window at **Who's watching?**,
+  and a profile with a PIN needs it again. Reloading a tab keeps its profile,
+  and tabs that are already open keep theirs.
+
+The setting applies only to that browser.
 
 For a lost or stolen device, see [Accounts and signed-in devices](/docs/accounts).

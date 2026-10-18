@@ -22,6 +22,7 @@ The server repository's [Compose file](https://github.com/Silo-Server/silo-serve
 - `MODE=transcode` or `MODE=proxy`.
 - `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address. Silo matches the running node to its entry by these values.
 - The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis. Use the same Redis [database number](/docs/configuration#external-postgresql-and-redis) as the main server. Behind [Redis Sentinel](/docs/configuration#redis-sentinel), use the main server's Sentinel URL, and let the node reach every Sentinel and Redis server.
+- Enough PostgreSQL connections for every node. Each node opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
 - A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space.
 - For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
@@ -57,6 +58,19 @@ With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#a
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
+## Store prepared downloads on a node
+
+A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
+
+1. Open **Admin > Downloads**. On the node's card, select **Edit location**.
+2. Enter the path inside the node's container in **Prepared file directory**.
+3. Under **Storage budget**, keep **Default** to use **Default storage budget per location**, choose **Custom** and enter a size in GB, or choose **None** to rely on the disk ceiling only.
+4. Select **Save**. If you changed the directory, restart the node; it uses the new directory once it restarts.
+
+Changing the directory doesn't move files. Files that devices are still waiting for are prepared again in the new directory, and cached files are dropped. Old files stay in the old directory until you delete them.
+
+If **Prepared file directory** is set in **Admin > Settings > Downloads**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
+
 ## If work does not reach the node
 
 Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A node can show **Healthy** and still refuse work when its clock is more than 30 seconds off, so check its time too. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
@@ -74,3 +88,5 @@ To change a transcode node's encoder, select the pencil in the node's header, se
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
 Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server: some releases change how the main server and proxies talk to nodes, and a node that hasn't been updated yet can't answer them. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
+
+A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Node routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
