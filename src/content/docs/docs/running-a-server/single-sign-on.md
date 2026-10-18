@@ -13,15 +13,15 @@ A server uses one of these at a time. Both work in the web app and the Silo apps
 
 ## Install the sign-in plugin
 
-1. Open **Admin > Plugins** and choose the **Catalog** tab.
+1. Open **Admin > Integrations > Plugins** and choose the **Catalog** tab.
 2. Install **OpenID Connect Sign-in** or **LDAP Sign-in**. See [Install and maintain plugins](/docs/plugins) for catalog details.
-3. Open **Admin > Settings > Sign-in**. Under **Single sign-on**, select the plugin's card to show its setup steps.
+3. Open **Admin > Sign-in & Security > Sign-in**. Under **Single sign-on**, select the plugin's card to show its setup steps.
 
 The sections below follow the page's steps in order. The page also has a **Button icon** step and, for OpenID Connect, **Claim mapping**, which most setups can leave as they are. Every change saves from the save bar at the bottom of the page, except **Turn on** and **Turn off**, which apply at once.
 
 ## Connect an OpenID Connect provider
 
-Set the **Silo public URL** in **Admin > Settings > General** first. The provider sends people back to that address after they sign in, and the **Redirect URI** doesn't appear until it's set.
+Set the **Silo public URL** in **Admin > Server > General** first. The provider sends people back to that address after they sign in, and the **Redirect URI** doesn't appear until it's set.
 
 1. Under **Register Silo at your provider**, copy the **Redirect URI**. At your provider, create a confidential client for Silo and add that URI as its redirect (or callback) URL.
 2. Under **Client**, enter the **Issuer URL**, **Client ID**, and **Client secret** from the provider. Enter the issuer exactly as the provider shows it, including any trailing slash; authentik's has one.
@@ -57,22 +57,19 @@ Connect existing Silo accounts before their owners sign in with the provider. If
 
 - The person connects it in their own account settings. See [Connect a sign-in provider](/docs/accounts#connect-a-sign-in-provider).
 - An admin connects it on the account's **Sign-in** tab with **Connect identity**. See [Sign-in and break-glass accounts](/docs/manage-accounts#sign-in-and-break-glass-accounts).
-- **Match existing accounts by email**, under **Accounts and sessions**, connects a first sign-in to the regular account with the same email, when the provider says the address is verified. It's off by default. Whoever controls that address at the provider takes over the Silo account, and matching signs the account out everywhere and deletes its API keys. Turn it on only if the provider verifies every email and people can't change their own. Admin, owner, and break-glass accounts are never matched.
+- **Match existing accounts by email**, under **Single sign-on**, connects a first sign-in to the regular account with the same email, when the provider says the address is verified. It's off by default. Whoever controls that address at the provider takes over the Silo account, and matching signs the account out everywhere and deletes its API keys. Turn it on only if the provider verifies every email and people can't change their own. Admin, owner, and break-glass accounts are never matched.
 
 Connecting a provider turns off the account's Silo password, unless it's a break-glass account. The person signs in with the provider from then on.
 
 ## Re-check access at the provider
 
-Silo asks the provider again whether each person may still sign in. Someone you remove, disable, or take out of the allowed groups at the provider is signed out of Silo at the next check, and their Silo API keys are removed. When you set **Admin groups**, each check updates the person's role too.
+Every 12 hours, Silo asks the provider again whether each person may still sign in. Someone you remove, disable, or take out of the allowed groups at the provider is signed out of Silo at the next check, and their Silo API keys are removed. When you set **Admin groups**, each check updates the person's role too.
 
-Set how often under **Accounts and sessions**:
-
-- **Re-check access every** is 12 hours by default.
-- **If the provider is unreachable** decides what happens during an outage. **Keep people signed in**, the default, lets sessions carry on and asks again later. **Stop sessions from renewing** stops apps from working until the provider answers again.
+If the provider is unreachable, people stay signed in and Silo asks again later. Neither has a control in the web app. To change them, set `auth.provider_recheck_interval`, for example to `1h`, or set `auth.provider_recheck_outage_policy` to `fail_closed` through the [admin API](/docs/api). With `fail_closed`, a session due for a check can't renew until the provider answers, so apps stop working during an outage.
 
 An LDAP directory is always re-checked. An OpenID Connect provider can be re-checked only when **Request offline access** is on and the provider grants it. Some providers, such as Authelia, also need **Refresh token lifetime** under **Sign-in request**; its description says which. If you leave it blank, someone removed at the provider keeps their Silo sessions until the age limit below.
 
-Without re-checks, a session started through the provider ends after the **Refresh token expiry** set in **Admin > Settings > Security & Access**, 30 days by default, and the person signs in with the provider again.
+Without re-checks, a session started through the provider ends after 30 days, and the person signs in with the provider again. That age is the `auth.refresh_token_expiry` setting, which also has no control in the web app and is set the same way.
 
 ## Turn off Silo passwords
 

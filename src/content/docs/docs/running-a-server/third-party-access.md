@@ -8,7 +8,7 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 
 ## Set the address for Jellyfin apps
 
-1. Open **Admin > Settings > Compatibility**.
+1. Open **Admin > Integrations > Compatibility**.
 2. Check that **Allow Jellyfin apps to connect** is on. Changing this switch needs a server restart.
 3. In **Address Jellyfin apps should use**, enter the address people should type into their Jellyfin app, for example `http://192.168.1.20:8096` on your home network or `https://jellyfin.example.com` from outside it.
 4. Save.

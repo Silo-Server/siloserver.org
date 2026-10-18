@@ -10,11 +10,11 @@ An account is a sign-in for your server. Its profiles keep household members' hi
 
 If people sign in with an identity provider such as authentik or Active Directory, see [Set up single sign-on](/docs/single-sign-on). Their accounts can be created the first time they sign in.
 
-Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Settings > General** first, using an address the recipient can open. Without it, Silo can't create these links.
+Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Server > General** first, using an address the recipient can open. Without it, Silo can't create these links.
 
 ## Invite someone
 
-1. Open **Admin > Users > Invitations** and choose **Invite someone**.
+1. Open the **Invitations** tab on **Admin > Users** and choose **Invite someone**.
 2. Enter their email address. This will also be their sign-in username.
 3. Choose an **Access group** and check the library access. Leave **Role** set to **User**.
 4. Keep **Create their first profile** on if they need a ready-to-use profile.
@@ -24,7 +24,7 @@ The link works once and expires after seven days. The recipient chooses a passwo
 
 If the link expires, resend the invitation to create a new link. Revoking a pending invitation stops its link from working; it doesn't remove an account that has already accepted.
 
-Invitations create accounts with a Silo password, so they can't be sent or accepted while **Allow password sign-in** is off in **Admin > Settings > Sign-in**. People join by signing in with the [sign-in provider](/docs/single-sign-on) instead.
+Invitations create accounts with a Silo password, so they can't be sent or accepted while **Allow password sign-in** is off in **Admin > Sign-in & Security > Sign-in**. People join by signing in with the [sign-in provider](/docs/single-sign-on) instead.
 
 ## Create an account yourself
 
@@ -62,7 +62,7 @@ Completing a reset link or setting a temporary password signs the account out on
 
 ### Let people reset their own passwords
 
-Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** in **Admin > Settings > General** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
+Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** under **Silo passwords** in **Admin > Sign-in & Security > Sign-in** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
 
 People can request a link using their username or email address. These links expire after one hour. See [Forgot your password?](/docs/accounts#forgot-your-password) for the steps to share with them.
 
@@ -88,4 +88,4 @@ People can sign out their own sessions in **Settings > Signed-in sessions**; see
 
 Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback doesn't sign the account out. If an account is compromised, disable it while you arrange recovery with the person it belongs to.
 
-The admin **Devices** view holds saved preferences and device overrides, not sign-ins.
+**Admin > Users > Devices** holds saved preferences and device overrides, not sign-ins.
