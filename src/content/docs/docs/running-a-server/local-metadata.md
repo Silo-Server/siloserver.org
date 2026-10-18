@@ -142,7 +142,7 @@ The NFO's root element must match the media type: `<movie>`, `<tvshow>`, `<seaso
 
 Folder names and `S01E01`-style filenames decide the series structure; NFO episode numbers can't move a video to another season. Fix the [naming](/docs/media-folders#series) instead.
 
-An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next scan or refresh links the item to that provider.
+An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next scan or refresh links the item to that provider. If you only want a movie or series off the unmatched list and don't need your own title, description, or artwork, [**Ignore**](/docs/metadata#ignore-an-unmatched-item) does that without an `.nfo`.
 
 If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one.
 
