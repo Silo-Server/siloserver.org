@@ -26,9 +26,10 @@ tablet, or TV, `localhost` only works if the server runs on that same device.
    six-digit code.
 2. On a phone or computer, open the server's `/activate` page in a browser,
    for example `https://silo.example.com/activate`. Use Silo's web address,
-   not the Jellyfin-compatible one. Sign in to Silo if asked, with your
-   password or the **Sign in with** button.
-3. Type the code and select **Continue**.
+   not the Jellyfin-compatible one.
+3. Type the code and select **Continue**. If you aren't signed in, select
+   **Sign in to approve** and sign in with your password or the
+   **Sign in with** button.
 4. Check that the page names the app and shows the same code. Choose the
    profile the app should use. If the profile has a PIN, enter it.
 5. Select **Sign in**. The app finishes signing in on its own within a few
