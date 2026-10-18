@@ -75,7 +75,7 @@ Start Redis before you set it up in either place. When you save a new **Connecti
 - `Redis refused the connection, ...`: the database number, and the user name and password in the URL.
 - `Silo could not connect to Redis with these settings, ...`: that Redis is running, and the host and port in the URL.
 
-If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:*`. On a database number other than 0, Silo adds the number to its channel names, such as `silo:catalog@db1`. A user granted only the plain names (`silo:catalog`, `silo:admin`, `silo:playback`, `silo:logs`, and `silo:events`) is refused with a `NOPERM` error. With `REDIS_URL`, Silo then exits at startup. In the admin settings or the setup wizard, the save is refused with `Redis refused a subscription to Silo's event channels, ...`. Database 0 uses the plain names.
+If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:*`. On a database number other than 0, Silo adds the number to its channel names, such as `silo:catalog@db1`. Database 0 uses the plain names. A user granted only the plain names (`silo:catalog`, `silo:admin`, `silo:playback`, `silo:logs`, and `silo:events`) is refused with a `NOPERM` error. With `REDIS_URL`, Silo then exits at startup. In the admin settings or the setup wizard, the save is refused with `Redis refused a subscription to Silo's event channels, ...`.
 
 To use [Valkey](https://valkey.io/) in place of Redis, set `REDIS_URL` to your Valkey server with a `redis://` URL. There is no Valkey-specific setting. Silo is tested only against Redis, so Valkey support is provided as-is.
 
