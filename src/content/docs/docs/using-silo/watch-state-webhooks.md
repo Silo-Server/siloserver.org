@@ -17,7 +17,7 @@ differently from these related features:
 - [Importing your history](/docs/import-watch-history) is a one-time copy of
   past viewing into one profile. Use it when you move to Silo; use Webhook
   Sync to keep receiving changes afterward.
-- [Trakt, Simkl, or MDBList sync](/docs/watch-sync) (Beta) connects one
+- [Simkl or MDBList sync](/docs/watch-sync) (Beta) connects one
   profile to an online tracking service instead of another media server.
 
 Webhook Sync only receives changes. It doesn't send Silo's watched status back

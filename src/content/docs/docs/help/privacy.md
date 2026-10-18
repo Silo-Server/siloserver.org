@@ -31,8 +31,8 @@ policies.
 | Silo Push Relay (`push.siloserver.org`) | When a notification needs to reach a phone or tablet that allowed notifications | A content-free wake-up: the device's push token and delivery IDs, with no titles, message text, or server address | Yes on new servers. See [mobile push](/docs/notification-delivery#mobile-push) |
 | The browser's push service | When a browser that allowed notifications needs one | The encrypted notification, including its title and text | Yes |
 | Email (SMTP), Discord, and webhooks | When a [notification](/docs/notification-delivery) or email is sent through that channel | The notification or email content | No. Each needs setup |
-| Trakt, Simkl, MDBList ([Beta sync](/docs/watch-sync)) | Only for a profile that connected an account | Watch history, progress, watchlist, ratings, and playback activity, depending on the options chosen | No |
-| Trakt and MDBList lists | When an administrator creates or syncs a list-based collection | Requests for the list | No |
+| Simkl, MDBList ([Beta sync](/docs/watch-sync)) | Only for a profile that connected an account | Watch history, progress, watchlist, ratings, and playback activity, depending on the options chosen | No |
+| MDBList lists | When an administrator creates or syncs a list-based collection | Requests for the list | No |
 | plex.tv or Emby Connect | During a [watch-history import](/docs/import-watch-history) that signs in there | Your Plex or Emby Connect sign-in, then requests for your servers and watch history | No |
 | GitHub and npm, for Jellyfin's web player | When an administrator installs or updates the Jellyfin web player | Download requests | No |
 
