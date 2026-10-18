@@ -15,7 +15,8 @@ pages under **Settings**. The pages below are in the web app.
 
 Open **Settings** from your profile menu. The settings pages replace the
 app's sidebar, and **Back to App** at the top returns you to the page you
-came from. On a phone, Settings opens as a list of pages. Choose a page:
+came from. **Search settings** finds a setting by its name. On a phone,
+Settings opens as a list of pages. Choose a page:
 
 - **Playback:** quality, skipping, and what plays next.
 - **Language & Subtitles:** spoken and metadata languages, when subtitles
