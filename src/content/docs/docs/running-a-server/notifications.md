@@ -15,6 +15,7 @@ Two switches run the pipeline for new content: **Notice new content** records ne
 3. Save. Enter a recipient next to **Send test**, send a test email, and look for it in the inbox and spam folder.
 4. For notification emails, open **Admin > Integrations > Notifications** and turn on the **Email** channel.
 5. Turn on **Let people pick an email per episode** to offer an email for each episode instead of only the daily summary. The **Daily summary hour** is under **Advanced** in the channel.
+6. Save.
 
 Emails link back to Silo through the **Silo public URL** in **Admin > Server > General**. Use an address recipients can open, not a Docker-only hostname.
 
@@ -27,8 +28,8 @@ Turn on **Web Push** and save. Each person then subscribes from their browser an
 ## Mobile push
 
 1. Turn on the **Silo Push Relay** channel and read its privacy disclosure.
-2. Save. Silo registers with the relay the first time it sends a push, and the channel then shows **Relay configured**. To register straight away, open **Advanced** in the channel and choose **Register relay**.
-3. To send to only Apple or only Android devices, turn off **Apple Push (APNs)** or **Android Push (FCM)** under **Advanced**.
+2. To send to only Apple or only Android devices, open **Advanced** in the channel and turn off **Apple Push (APNs)** or **Android Push (FCM)**.
+3. Save. Silo registers with the relay the first time it sends a push, and the channel then shows **Relay configured**. To register straight away, choose **Register relay** under **Advanced**.
 4. Each person allows notifications in the mobile app and in their device settings.
 
 Your server sends the relay a push request with no content, and the relay delivers it through Apple or Google. The app then fetches the notification from your server. The relay never receives titles, message text, names, or your server URL, but it does see your server's IP address and delivery metadata.
