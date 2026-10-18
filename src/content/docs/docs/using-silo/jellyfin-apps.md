@@ -31,7 +31,7 @@ tablet, or TV, `localhost` only works if the server runs on that same device.
    **Sign in to approve** and sign in with your password or the
    **Sign in with** button.
 4. Check that the page names the app and shows the same code. Choose the
-   profile the app should use. If the profile has a PIN, enter it.
+   profile the app should use. If the page asks for the profile's PIN, enter it.
 5. Select **Sign in**. The app finishes signing in on its own within a few
    seconds.
 
