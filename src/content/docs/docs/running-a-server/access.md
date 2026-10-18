@@ -52,7 +52,7 @@ Set download limits in **Admin > Downloads > Settings**. They apply to downloads
 4. In the same place, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
 5. Save. New limits apply within about 30 seconds. A download that's already running keeps the speed it started with.
 
-If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
+If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
 
 **Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
