@@ -62,6 +62,6 @@ name it reports still appears under it. To go back to the reported name,
 select **Rename**, clear the name, and select **Save**. Each profile names its
 own devices.
 
-**Forget** removes a device's saved settings and hides it until it's used
-again. It doesn't sign the device out; for a lost device, see
+**Forget** removes a device's saved settings and its name, and hides it until
+it's used again. It doesn't sign the device out; for a lost device, see
 [Accounts and signed-in devices](/docs/accounts).
