@@ -37,8 +37,8 @@ primary profile has a PIN, enter it.
 **Edit**, and **Delete**. You can also open it from the primary profile's
 settings. You can't delete the primary profile or the profile you're using.
 
-1. Select **New profile**, or **Edit** on an existing profile. From
-   **Add profile**, the form is already open.
+1. Select **New profile**, or **Edit** on an existing profile. If you came
+   from **Add profile**, the form is already open.
 2. Enter a **Name**.
 3. To add a PIN, enter four digits in **PIN (optional)**. On a profile that
    already has a PIN, the field is **New PIN**: type a new PIN to replace it,
