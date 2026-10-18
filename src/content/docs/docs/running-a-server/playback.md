@@ -36,7 +36,7 @@ docker compose up -d
 
 ## Choose and test acceleration
 
-1. Open **Admin > Settings > Playback**.
+1. Open **Admin > Playback > Settings**.
 2. Leave **Video transcoding** on and set **Hardware acceleration** to **Auto**. Save and follow any restart notice. With **Video transcoding** off, Silo never re-encodes video, but it still repackages files and converts audio for devices that need it.
 3. Check the line under **Hardware acceleration**. It names the detected hardware, such as **Detected VA-API on /dev/dri/renderD128**, or shows **No supported graphics hardware found**.
 4. Start a video on a client, then choose a lower quality that makes Silo convert the video.
@@ -45,13 +45,13 @@ docker compose up -d
 
 If Silo finds no hardware or the session shows **SW**, check the host driver, the device mount, and the Silo logs. Test HDR files separately from ordinary video.
 
-With separate [transcode nodes](/docs/transcode-nodes), the detected hardware comes from a node and the line ends with **(transcode node)**. Check each node's **Acceleration** block in **Admin > Nodes**.
+With separate [transcode nodes](/docs/transcode-nodes), the detected hardware comes from a node and the line ends with **(transcode node)**. Check each node's **Acceleration** block in **Admin > Playback > Nodes**.
 
 ## After a driver or device change
 
 A single server checks its hardware again when it restarts: run `docker compose restart silo`.
 
-For a node in **Admin > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
+For a node in **Admin > Playback > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
 
 - upgrade, downgrade, or reinstall its GPU driver
 - change [which GPU devices its container can open](#give-the-container-access-to-your-gpu)
@@ -66,7 +66,7 @@ After you fix a GPU, you don't need to re-probe: the node notices on its own wit
 
 ## Allow 4K and HEVC output
 
-Both settings are in **Admin > Settings > Playback**. On a new server, **Allow 4K transcoding** is on and **Allow HEVC encoding** is off. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
+Both settings are under **Transcoding** on **Admin > Playback > Settings**. On a new server, **Allow 4K transcoding** is on and **Allow HEVC encoding** is off. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
 
 - **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware and especially for a server without a GPU. Turn it off if 4K conversions can't keep up. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
 - **Allow HEVC encoding** converts video to HEVC for devices that can play HEVC streams. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264. The setting only covers converted video: a device that plays an HEVC file as it is, or after Silo repackages it, plays it the same way with the setting off.
@@ -77,7 +77,7 @@ With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo che
 
 ## Convert HDR for SDR screens
 
-When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Advanced** in **Admin > Settings > Playback** allow it, and both are on by default:
+When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Transcoding** on **Admin > Playback > Settings** allow it, and both are on by default:
 
 - **Enable Hardware HDR Tone Mapping** uses a GPU on the main server or a transcode node, once Silo has tested that it can tone-map.
 - **Enable Software HDR Tone Mapping** uses the CPU. It works without a GPU, but it's a heavy task for the CPU.
@@ -86,7 +86,7 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 ## Limit how far ahead Silo converts
 
-**Throttle transcoding**, under **Advanced** in **Admin > Settings > Playback**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead** sets how far ahead Silo converts, 300 seconds by default and at least 60.
+**Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
 
 ## Generate chapter thumbnails
 
@@ -101,6 +101,6 @@ For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
 
 ### If previews don't appear
 
-Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**, the chapter thumbnail setting under **Advanced** in **Admin > Settings > Playback**. It's separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
+Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**. Both settings are under **Advanced** in **Preview images** on **Admin > Playback > Settings**. **Software HDR tone mapping** is separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
-Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs** by the `chapterthumbs` component.
+Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.

@@ -1,10 +1,10 @@
 ---
 slug: docs/node-status
 title: Read node status
-description: Understand the state, acceleration, load, and capacity readings in Admin > Nodes, and the metrics each node exports.
+description: Understand the state, acceleration, load, and capacity readings in Admin > Playback > Nodes, and the metrics each node exports.
 ---
 
-Open **Admin > Nodes** to see every proxy and transcode node, listed under **Proxy Nodes** and **Transcode Nodes**. Each node shows its state and up to three blocks: [**Acceleration**](#acceleration) (transcode nodes only), [**Load**](#load), and [**Capacity**](#capacity). The page refreshes every 30 seconds while it's open. To add a node, see [Add and check transcode nodes](/docs/transcode-nodes).
+Open **Admin > Playback > Nodes** to see every proxy and transcode node, listed under **Proxy Nodes** and **Transcode Nodes**. Each node shows its state and up to three blocks: [**Acceleration**](#acceleration) (transcode nodes only), [**Load**](#load), and [**Capacity**](#capacity). The page refreshes every 30 seconds while it's open. To add a node, see [Add and check transcode nodes](/docs/transcode-nodes).
 
 A single server has no entries here. Its CPU, memory, and disk use are on the admin dashboard.
 

@@ -4,7 +4,7 @@ title: Logs and monitoring
 description: Find errors, limit retained logs, and export logs and traces to OpenTelemetry.
 ---
 
-Use **Admin > Logs** for searchable server logs. Use the container logs when Silo fails before the web app is available.
+Use **Admin > Logs > Server Log** for searchable server logs. Use the container logs when Silo fails before the web app is available.
 
 ## View logs
 
@@ -16,7 +16,7 @@ docker compose logs --tail 100 --timestamps silo
 
 Add `--follow` to watch new lines while you reproduce a problem. Press Ctrl+C to stop watching; Silo keeps running.
 
-In **Admin > Logs**, search around the time of the failure by message, component, request ID, or playback session ID. On the **Application** tab, narrow the list with **Level** and **Component**.
+In **Admin > Logs > Server Log**, search around the time of the failure by message, component, request ID, or playback session ID. On the **Application** tab, narrow the list with **Level** and **Component**.
 
 - **Level** shows only entries at the level you pick: `debug`, `info`, `warn`, or `error`. Picking `warn` doesn't include errors. **All levels** removes the filter. `debug` entries appear only if they're enabled with `opslog.capture_level`, which is off by default; see [Log settings](#log-settings).
 - **Component** suggests known components as you type, and accepts any other name, such as `apiv2` or `notifications.fanout`. The name has to match exactly, so `notifications` doesn't show `notifications.fanout` entries. Clear the field to show every component.
@@ -27,7 +27,7 @@ Early database and migration messages can appear only in the container logs, bec
 
 ## Review the audit log
 
-The **Audit** tab in **Admin > Logs** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Changes an administrator makes to accounts and access groups also show what changed under **Action / changes** and which account or group under **Target**. Other requests show **HTTP request**.
+The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Changes an administrator makes to accounts and access groups also show what changed under **Action / changes** and which account or group under **Target**. Other requests show **HTTP request**.
 
 - Narrow the list by action, such as `user.updated` or `access_group.updated`, by actor account ID, or by target type and ID.
 - Choose **Browse log history** to page through older entries with **Older** and **Newer**.
@@ -39,7 +39,7 @@ If an administrator acted as another account, **Actor** shows both, for example 
 
 ## Log settings
 
-In **Admin > Settings > General**, under **Logging**:
+On **Admin > Logs > Settings**, under **Server log**:
 
 | Setting | Effect | Takes effect |
 | --- | --- | --- |
@@ -48,9 +48,9 @@ In **Admin > Settings > General**, under **Logging**:
 
 Set **Log level** to **Debug** only while you collect a short sample, then set it back.
 
-**Admin > Logs** has its own threshold and keeps **Info** and above by default, so **Debug** doesn't add lines there. Two stored settings have no control in the web app. You can change them through the [admin API](/docs/api), and both need a restart:
+**Admin > Logs > Server Log** has its own threshold and keeps **Info** and above by default, so **Debug** doesn't add lines there. Two stored settings have no control in the web app. You can change them through the [admin API](/docs/api), and both need a restart:
 
-- `opslog.capture_level`: the lowest level kept in **Admin > Logs** (`debug`, `info`, `warn`, or `error`)
+- `opslog.capture_level`: the lowest level kept in **Admin > Logs > Server Log** (`debug`, `info`, `warn`, or `error`)
 - `server.log_format`: `text` or `json` in the container log
 
 ## Redaction
@@ -61,7 +61,7 @@ Read an excerpt before sharing it. Remove account details, private paths or titl
 
 ## Retention
 
-Set how long the **Application** tab keeps entries in **Admin > Settings > Storage & Database**, under **Logs**: **Delete log entries older than**, **Maximum log entries**, and **Maximum log size**. The **Audit** tab keeps entries for 90 days.
+Set how long the **Application** tab keeps entries on **Admin > Logs > Settings**, under **Log retention**: **Delete log entries older than** and **Maximum log size**, and **Maximum log entries** under **Advanced**. The **Audit** tab keeps entries for 90 days.
 
 Docker keeps container logs separately. For Docker's `json-file` driver, a Compose override can cap them:
 
@@ -92,7 +92,7 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 
 Replace the example with your collector's address and configure the authentication and certificates it needs. Setting `OTEL_EXPORTER_OTLP_ENDPOINT` turns export on. Setting only the per-signal endpoint variables does not; set `SILO_OTEL_ENABLED=true` in that case. Inside Docker, `localhost` does not reach a collector in another container, so use a hostname the Silo container can reach.
 
-Export is best effort. If the collector fails, requests, the container log, and **Admin > Logs** keep working, but buffered export data can be lost. Keep history you need at the collector. With [metrics](/docs/monitoring) turned on, `silo_otel_export_records_total{outcome="error"}` counts failed exports.
+Export is best effort. If the collector fails, requests, the container log, and **Admin > Logs > Server Log** keep working, but buffered export data can be lost. Keep history you need at the collector. With [metrics](/docs/monitoring) turned on, `silo_otel_export_records_total{outcome="error"}` counts failed exports.
 
 ### Trace sampling
 

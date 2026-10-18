@@ -19,7 +19,7 @@ policies.
 | Service | When it's contacted | What's sent | On by default? |
 | --- | --- | --- | --- |
 | Silo plugin catalog on GitHub | At startup, once a day, and when an administrator opens the plugin catalog | A request for the catalog and any plugin being installed or updated | Yes |
-| Approved community plugin catalog on GitHub | Same as the Silo catalog | Same as the Silo catalog | No. Turn on **Include approved community plugins** under **Admin > Plugins** |
+| Approved community plugin catalog on GitHub | Same as the Silo catalog | Same as the Silo catalog | No. Turn on **Include approved community plugins** under **Admin > Integrations > Plugins** |
 | TMDB and TVDB, through their metadata [plugins](/docs/plugins) | When Silo matches or refreshes metadata | Titles, years, language, and IDs to look up, with the plugin's API key | Yes. Both plugins are installed on first start |
 | TMDB, for [requests](/docs/manage-requests) and TMDB-based collections | When someone searches or browses requests, or such a collection syncs | Search text and TMDB IDs | No. Requests stay off until an administrator turns them on |
 | TheIntroDB, through its [markers](/docs/markers) plugin | When an episode starts playing, and during a daily marker sync | The title's TMDB, TVDB, or IMDb ID, season and episode numbers, and the file's duration | Yes. The plugin is installed on first start |
@@ -55,7 +55,7 @@ In a native app, **Settings > Diagnostics** chooses where reports go:
   [privacy policy](https://siloserver.org/privacy) describes what it keeps and for how long.
 - **My Silo Server** in the Apple apps, or **This Silo server** in the Android
   apps, sends them to the server you use, where its administrator can read
-  them.
+  them in **Admin > Logs > Client Diagnostics**.
 
 **Crash Reports** controls automatic reports: **Ask**, **Always**, or
 **Never** (**Ask before sending**, **Always send**, or **Never send** on an

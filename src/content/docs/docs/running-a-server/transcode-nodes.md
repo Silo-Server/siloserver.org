@@ -36,7 +36,7 @@ Local artwork on the main server isn't shared with other hosts automatically. Fo
 
 Add the node in Silo, then start it.
 
-1. Open **Admin > Nodes** and select **Add Transcode** or **Add Proxy**.
+1. Open **Admin > Playback > Nodes** and select **Add Transcode** or **Add Proxy**.
 2. Enter a **Name** that matches the node's `NODE_NAME`.
 3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine.
 4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
@@ -50,11 +50,11 @@ Then play something that needs conversion, or from a client that uses the proxy.
 
 ## Route playback to nodes
 
-**Node routing** in **Admin > Settings > Playback** decides where remuxing and transcoding run and which machine sends each stream to the client. **Silo Defaults** prefers transcode nodes for conversion and proxy nodes for delivery, and falls back to the main server. **GPU offload** keeps direct play and remuxing on the main server and sends video transcodes to nodes. **Central egress** runs conversion on nodes but sends every stream from the main server. A setting ending in "only" never falls back, so that kind of playback fails while no healthy node of the needed type is available.
+**Routing** on **Admin > Playback > Nodes** decides where remuxing and transcoding run and which machine sends each stream to the client. Choose a **Routing preset**. **Silo Defaults** prefers transcode nodes for conversion and proxy nodes for delivery, and falls back to the main server. **GPU offload** keeps direct play and remuxing on the main server and sends video transcodes to nodes. **Central egress** runs conversion on nodes but sends every stream from the main server. To set the five routes one by one, open **Advanced** under the presets. A route ending in "only" never falls back, so that kind of playback fails while no healthy node of the needed type is available.
 
 ## Convert to HEVC on nodes
 
-With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#allow-4k-and-hevc-output)), Silo checks each machine's encoders separately, so HEVC support on the main server doesn't mean a node has it. HEVC is used only when a machine that may convert video under **Node routing** can encode it, and HEVC jobs go only to nodes that can. When none can, devices get H.264.
+With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#allow-4k-and-hevc-output)), Silo checks each machine's encoders separately, so HEVC support on the main server doesn't mean a node has it. HEVC is used only when a machine that may convert video under **Routing** can encode it, and HEVC jobs go only to nodes that can. When none can, devices get H.264.
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
@@ -62,14 +62,14 @@ A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acce
 
 A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
 
-1. Open **Admin > Downloads**. On the node's card, select **Edit location**.
+1. Open **Admin > Downloads > Prepared Files**. On the node's card, select **Edit location**.
 2. Enter the path inside the node's container in **Prepared file directory**.
 3. Under **Storage budget**, keep **Default** to use **Default storage budget per location**, choose **Custom** and enter a size in GB, or choose **None** to rely on the disk ceiling only.
 4. Select **Save**. If you changed the directory, restart the node; it uses the new directory once it restarts.
 
 Changing the directory doesn't move files. Files that devices are still waiting for are prepared again in the new directory, and cached files are dropped. Old files stay in the old directory until you delete them.
 
-If **Prepared file directory** is set in **Admin > Settings > Downloads**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
+If **Prepared file directory** is set in **Admin > Downloads > Settings**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
 
 ## If work does not reach the node
 
@@ -77,13 +77,13 @@ Check that the node is enabled, **Healthy**, below its limit, and can read the f
 
 A transcode node whose transcode directory is 95% full is skipped while another node has room. If every transcode node is that full, Silo uses one anyway, and streams on it can fail once the disk fills. Silo never skips a node whose disk use it can't read.
 
-To see which case you're in, filter **Admin > Logs** by the `nodepool` component. `transcode scratch guard ignored: every eligible node is over the scratch threshold` means new sessions are going to a nearly full disk. To fix it, enlarge the node's transcode volume or clear old files from its transcode directory.
+To see which case you're in, filter **Admin > Logs > Server Log** by the `nodepool` component. `transcode scratch guard ignored: every eligible node is over the scratch threshold` means new sessions are going to a nearly full disk. To fix it, enlarge the node's transcode volume or clear old files from its transcode directory.
 
 ## Maintain a node
 
 To stop or upgrade a transcode node without cutting playback, drain it first:
 
-1. In **Admin > Nodes**, select the pause icon in the node's header. Silo sends the node no new work, and streams already on it keep playing. Its state changes to **Draining**, and the line under its address counts the work left, such as **Draining · 2 transcodes left**.
+1. In **Admin > Playback > Nodes**, select the pause icon in the node's header. Silo sends the node no new work, and streams already on it keep playing. Its state changes to **Draining**, and the line under its address counts the work left, such as **Draining · 2 transcodes left**.
 2. Wait for **Drained · safe to stop**. Streams play until they end, so this can take as long as the longest one left on the node.
 3. Stop or upgrade the node. While it's stopped, it shows **Unhealthy**, and if it's in a [group](/docs/node-status#groups), Silo sends that group no new transcodes until the node is back.
 4. Once the node is running again, select the play icon in its header to resume it. It stays drained after a restart until you resume it.
@@ -102,4 +102,4 @@ To make a node re-read its configuration straight away, use force reload in the 
 
 Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
 
-A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Node routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
+A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
