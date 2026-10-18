@@ -68,7 +68,7 @@ PostgreSQL is required. Redis is optional for a single `integrated` or `api` ser
 
 If several Silo installs share one Redis server, give each install its own database number in `REDIS_URL`. The number is the URL's path, such as `1` in `redis://redis.example.com:6379/1`, and a URL without one uses database 0. The main server and every node of one install use the same number. Installs on the same number mix their cached data and events, such as settings changes and live log rows.
 
-If you set up Redis in **Admin > Settings > Storage & Database** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
+If you set up Redis in **Admin > Settings > General** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
 
 Start Redis before you set it up in either place. When you save a new **Connection URL** or **Database number**, Silo first connects with the new value. If it can't, Silo refuses the save and stores nothing, so it isn't left with a setting it can't start with. A number your Redis server doesn't have, such as 16 on a Redis with the default 16 databases, is refused too. Check these for each error:
 
@@ -93,7 +93,7 @@ redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=senti
 - A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
 - With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
 
-Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > General** takes the same URL.
 
 ### Shared memory for your own PostgreSQL container
 
