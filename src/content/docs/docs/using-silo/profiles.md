@@ -25,8 +25,8 @@ change settings or start playing something.
 
 ### In the web app
 
-On **Who's watching?**, **Add profile** and **Manage profiles** ask for the
-primary profile's PIN if it has one:
+On **Who's watching?**, select **Add profile** or **Manage profiles**. If the
+primary profile has a PIN, enter it.
 
 - **Add profile** opens the **New profile** form without switching profiles.
   When you save, the new profile appears on **Who's watching?**.
