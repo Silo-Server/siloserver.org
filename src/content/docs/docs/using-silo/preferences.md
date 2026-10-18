@@ -15,43 +15,16 @@ pages under **Settings**. The pages below are in the web app.
 
 Open **Settings** from your profile menu. The settings pages replace the
 app's sidebar, and **Back to App** at the top returns you to the page you
-came from. **Search settings** finds a setting by its name. On a phone,
-Settings opens as a list of the same pages.
+came from. On a phone, Settings opens as a list of pages. Choose a page:
 
-The sidebar groups the pages like this:
-
-- **Playback**
-  - **Playback:** quality, skipping, and what plays next.
-  - **Language & Subtitles:** spoken and metadata languages, and
-    [when subtitles appear and how they look](/docs/subtitles).
-  - **Your Devices:** [settings for one device](#change-one-device).
-- **Appearance**
-  - **Navigation & Cards:** poster size and captions, shortcuts and badges on
-    posters, and your menu.
-  - **Title Pages:** title art, theme music, spoilers, and advisory ages on
-    movie and show pages.
-  - **Accessibility:** text size, contrast, and date and time formats.
-- **Home & Discovery**
-  - **Home Screen:** [which rows appear on Home](/docs/home-and-calendar)
-    and on each library page.
-  - **Libraries:** which libraries you see and in what order.
-  - **Personalize:** the taste profile behind your recommendations.
-  - **Requests:** whether adding a title to your watchlist also
-    [requests it](/docs/requests). It appears while your server takes
-    requests.
-- **Connections**
-  - **Connect Apps:** sign-in details for the Silo apps and
-    [Jellyfin-compatible apps](/docs/jellyfin-apps).
-  - **Watch Providers:** [sync with an outside service](/docs/watch-sync).
-  - **Webhook Sync:** [watched status from Plex, Emby, or Jellyfin](/docs/watch-state-webhooks).
-  - **History Import:** [a one-time copy of your history](/docs/import-watch-history).
-- **Account**
-  - **Notifications:** [what you hear about and how](/docs/notification-inbox).
-  - **Profiles**, **Account**, and **Signed-in sessions:** the household's
-    [profiles](/docs/profiles) and [sign-in](/docs/accounts). Only the primary
-    profile and administrators see these.
-
-**Navigation & Cards** and **Accessibility** change only the web app.
+- **Playback:** quality, skipping, and what plays next.
+- **Language & Subtitles:** spoken and metadata languages, when subtitles
+  appear, and how they look.
+- **Home Screen:** which rows appear on Home and in what order.
+- **Title Pages:** title art, theme music, spoilers, and advisory ages on
+  movie and show pages.
+- **Navigation & Cards** and **Accessibility:** how the web app looks. These
+  don't change the native apps.
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
