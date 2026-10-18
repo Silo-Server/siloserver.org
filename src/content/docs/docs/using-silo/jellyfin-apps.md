@@ -71,13 +71,13 @@ If you enter only your username, Silo picks a profile this way:
 If neither applies, sign-in fails. Add `#` and the profile name to your
 username.
 
-### Switch profiles
+## Switch profiles
 
 Sign out of the app, then sign in again with Quick Connect and choose the
 other profile, or with the other profile's name and PIN. Progress and
 favorites belong to the profile you signed in with.
 
-### If you don't use a Silo password
+## If you don't use a Silo password
 
 Use [Quick Connect](#sign-in-with-quick-connect). It works however you sign
 in to Silo.
