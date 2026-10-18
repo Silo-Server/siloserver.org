@@ -24,10 +24,10 @@ holds titles that start with a digit or symbol. Titles file under their sort
 title, so "The Office" is under O, and an accented first letter counts as its
 base letter, so "Élite" is under E.
 
-On a phone-width screen the bar is a narrow strip. Tap a letter, or slide your
-finger along the strip to jump as you pass each letter. With a keyboard, press
-Tab to reach the bar, use the arrow keys or type a letter to move between
-letters, and press Enter or Space to jump.
+On a touchscreen, tap a letter, or slide your finger along the bar to jump as
+you pass each letter. With a keyboard, press Tab to reach the bar, use the
+arrow keys or type a letter to move between letters, and press Enter or Space
+to jump.
 
 In the web app, **Remember library pages** under **Settings > Libraries**
 returns each library to the last tab, sort, and filters you used on that
