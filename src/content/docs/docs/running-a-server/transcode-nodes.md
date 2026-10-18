@@ -73,7 +73,7 @@ If **Prepared file directory** is set in **Admin > Settings > Downloads**, a nod
 
 ## If work does not reach the node
 
-Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A node can show **Healthy** and still refuse work when its clock is more than 30 seconds off, so check its time too. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
+Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A node can show **Healthy** and still refuse work when its clock is more than 30 seconds off, so check that its clock agrees with the main server's. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
 
 A transcode node whose transcode directory is 95% full is skipped while another node has room. If every transcode node is that full, Silo uses one anyway, and streams on it can fail once the disk fills. Silo never skips a node whose disk use it can't read.
 
