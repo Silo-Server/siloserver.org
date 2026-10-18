@@ -148,7 +148,7 @@ Put extras in a folder inside the movie's or show's folder, or inside a season f
 
 An extra can also sit beside the movie file with a suffix, as in `Movie Name (2024)-trailer.mkv`. The suffixes are `-trailer`, `-teaser`, `-featurette`, `-clip`, `-behindthescenes`, `-bloopers`, `-deleted`, `-deletedscene`, `-interview`, `-scene`, `-short`, `-extra`, and `-other`. A `.` works in place of the `-`.
 
-Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file directly in the show's `Extras` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
+Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
 
 An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
 
