@@ -41,23 +41,30 @@ switching to a different cut, check where playback resumes.
 pause and seek, you can change the audio track, [subtitles](/docs/subtitles),
 and **Chapters**. On a narrow screen, some of these move under
 **More player options**. The gear button holds **Speed**, from 0.5× to 3×,
-and **Quality**. A lower **Quality** can help on a slow connection.
-When the speed isn't 1×, the gear button shows it. The speed lasts until you
-close the player, and a Watch Party always plays at normal speed.
+and **Quality**. When the speed isn't 1×, the gear button shows it. The
+speed lasts until you close the player, and a Watch Party always plays at
+normal speed.
 
 **iPhone and iPad:** tap the picture. **Audio & Subtitles** picks tracks,
 **Chapters** appears when the file has chapters, and **Playback Settings**
 has **Quality** and more.
 
-**Android phones and tablets:** tap the picture. **Audio and subtitles**
-picks tracks, and **Chapters** appears when the file has chapters.
-**Quality** switches between versions and only appears when the title has
-more than one. On a small screen, these are under **More playback controls**.
+**Android phones and tablets:** tap the picture. **Audio & Subtitles**
+picks tracks, **Chapters** appears when the file has chapters, and
+**Quality** changes the quality. The button with three dots opens playback
+settings, which also have **Quality**, and **Version** when the title has
+more than one.
 
 **Apple TV and Android TV:** use the remote to show the controls and open
 the options panel (**Info and options** on Apple TV). It has tabs for
 **Video**, **Audio**, **Subtitles**, and **Chapters** when the file has
 them.
+
+**Quality** lists **Auto** and lower qualities for the title. Choose a lower
+one if playback keeps stopping on a slow connection. Choose **Auto** to let
+Silo pick again, which plays the original file when your device and
+connection can. Your choice applies to what you're watching and doesn't
+change your [quality settings](/docs/preferences#set-playback-quality).
 
 ## Chapters, intros, and the next episode
 
