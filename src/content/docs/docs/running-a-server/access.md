@@ -28,7 +28,7 @@ A group permission only makes the permission available. Turn on **Marker Editing
 
 An account can override its group. If a group change seems to have no effect, look for an override on the account.
 
-Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means the server default, which accounts without a group and administrator accounts use.
+Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means Silo's built-in default: full access for an administrator, and the server's defaults for an account without a group.
 
 ## Choose limits that fit the task
 
