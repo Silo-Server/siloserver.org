@@ -150,7 +150,7 @@ An extra can also sit beside the movie file with a suffix, as in `Movie Name (20
 
 Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up once the show has an episode in your library. In a series, a file directly in the show's `Extras` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
 
-An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that has its own season folders, such as `Shorts/Season 01/`, is a show.
+An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
 
 ## Leave files out of a scan
 
