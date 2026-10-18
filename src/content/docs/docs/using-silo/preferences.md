@@ -57,10 +57,11 @@ chosen for it during playback before you change the whole profile.
 
 To tell apart devices that show the same name, such as two TVs that both say
 "Apple TV", choose one, select **Rename**, type a name such as "Living Room",
-and select **Save**. The device keeps that name when it's used again, and the
-name it reports still appears under it. To go back to the reported name,
-select **Rename**, clear the name, and select **Save**. Each profile names its
-own devices.
+and select **Save**. The device keeps that name when it's used again, and its
+heading shows "Reports itself as Apple TV" under the new name. To go back to
+the reported name, select **Rename**, clear the name, and select **Save**.
+Names belong to your profile, so a TV that two profiles use can have a
+different name in each.
 
 **Forget** removes a device's saved settings and its name, and hides it until
 it's used again. It doesn't sign the device out; for a lost device, see
