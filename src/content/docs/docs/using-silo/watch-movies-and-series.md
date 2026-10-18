@@ -58,7 +58,13 @@ them.
 
 ## Chapters, intros, and the next episode
 
-Open **Chapters** and choose one to jump to it. **Skip Intro** and similar
+Open **Chapters** and choose one to jump to it. In the web player, this menu can show chapter images. Moving the pointer over a chapter or skip-marker position on the seek bar shows its preview when one is available. A marker uses its own image, which can differ from the chapter image at the same part of the video.
+
+Your administrator enables [chapter and marker previews](/docs/playback#generate-chapter-thumbnails) separately for each library. If previews are disabled, still being generated, or unavailable, use the chapter names and times and the skip controls as usual. An image is not required to navigate or play.
+
+For 1.0, iPhone, iPad, Apple TV, Android phones, Android tablets, and Android TV support chapter navigation without requiring preview images. Native preview images and full timeline scrubbing/trickplay are outside this feature's 1.0 scope. Chapter and marker images do not provide a new image for every position on the timeline.
+
+**Skip Intro** and similar
 buttons appear when Silo knows where that part starts and ends. If one skips
 the wrong part, send a [problem report](/docs/report-a-problem) with the
 title, episode, and times.
