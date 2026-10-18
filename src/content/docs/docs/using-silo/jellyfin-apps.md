@@ -11,7 +11,7 @@ different from Silo's web address. If you run the server, see
 
 To sign in, use [Quick Connect](#sign-in-with-quick-connect) if the app offers
 it: you approve the app from a browser where you're signed in to Silo, so
-there's nothing to type on a TV remote. Otherwise you need your Silo username
+you don't type a password on the TV. Otherwise you need your Silo username
 and password, the name of the profile you want to use, and its PIN if it has
 one.
 
