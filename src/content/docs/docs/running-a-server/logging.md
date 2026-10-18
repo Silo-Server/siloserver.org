@@ -37,6 +37,10 @@ Changed fields show their old and new values, and permission changes list the pe
 
 If an administrator acted as another account, **Actor** shows both, for example `#1 (as #7)`, where #1 is the administrator. Filtering by actor finds the administrator, not the account they acted as. The filters are kept in the page address, so a shared link shows the account IDs you filtered by.
 
+A **Status** of `499` means the client closed the connection before Silo finished answering, for example when someone leaves a page while it loads or an app cancels a request. Silo never sends a 499; it only records one. This covers every request in the list, including requests from Jellyfin-compatible apps.
+
+A server error that happens after the client has left is recorded as 499 too, not 500. Silo still logs the error at its usual level, so look for the cause on the **Application** tab around the same time. Many 499s on the same path can mean that request takes so long that the client or your reverse proxy stops waiting. If it's the proxy, its own log shows the timeout, such as a 504.
+
 ## Log settings
 
 On **Admin > Logs > Settings**, under **Server log**:
