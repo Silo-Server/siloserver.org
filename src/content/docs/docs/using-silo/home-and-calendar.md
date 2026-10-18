@@ -23,9 +23,8 @@ the same order, and so does **Next Up** in
 [Jellyfin-compatible apps](/docs/jellyfin-apps). The setting follows your
 profile to every device.
 
-Only episodes newly added to your server count as new. Adding or re-adding a
-library, importing watch history, or matching an older file to its show
-doesn't change the order.
+Only episodes newly added to your server count as new, not the episodes in a
+library you add or re-add, or an older file once it's matched to its show.
 
 For You picks titles from your profile's viewing history and ratings, so
 [rating what you watch](/docs/saved-titles) improves it. In the web app, you
