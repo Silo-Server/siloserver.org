@@ -16,6 +16,21 @@ Fix titles, descriptions, and artwork in the web app as a server administrator. 
 
 If one folder holds unrelated titles, fix the [folder layout](/docs/media-folders) first.
 
+## Ignore an unmatched item
+
+Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has.
+
+1. Open **Admin > Libraries** and expand **Unmatched Items**, below the list of libraries. The section appears only while an item is awaiting a match or ignored.
+2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
+
+While an item is ignored, scans don't retry it or count it as unmatched, and it drops out of **Metadata Matcher**.
+
+To see ignored items, switch the menu beside the search from **Awaiting a match** to **Ignored**. **Restore** puts an item back on the list, and Silo tries to match it again. **Match** works in both views, and a successful match ends the ignore.
+
+An **Override** saved in [**Ambiguous Roots**](/docs/manage-libraries#resolve-ambiguous-roots) for an ignored item's folder waits until you restore the item. To identify the item straight away, use **Match**.
+
+Renaming or moving an ignored item's file brings it back to **Unmatched Items** as a new item. So does a new version of an ignored movie added beside it.
+
 ## Change a description or title
 
 1. Choose **Edit Metadata** from the item's actions menu.
