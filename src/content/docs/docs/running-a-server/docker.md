@@ -42,7 +42,7 @@ Change a host port in `.env` when it conflicts with another service. The contain
 | `PROXY_PORT` | 8083 | The commented `silo-proxy` example, once you turn it on |
 | `TRANSCODE_PORT` | 8082 | The commented `silo-transcode` example, once you turn it on |
 
-The three Silo ports listen on every host interface without TLS. The Jellyfin and Audiobookshelf listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Settings > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
+The three Silo ports listen on every host interface without TLS. The Jellyfin and Audiobookshelf listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
 ## Discovery on the local network
 
@@ -50,7 +50,7 @@ Silo announces itself on your network so the Silo app on Apple devices can list 
 
 The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
 
-To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Settings > General**, save, and restart Silo. It's on by default.
+To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Server > General**, save, and restart Silo. It's on by default.
 
 ## Data directories
 
@@ -75,7 +75,7 @@ Search uses PostgreSQL unless you switch it. To add Meilisearch:
 
 1. Generate a key with `openssl rand -hex 32` and set `MEILI_MASTER_KEY` in `.env`. Keep it private.
 2. Start the optional service with `docker compose --profile search up -d`.
-3. Open **Admin > Settings > Search**. Set **Search engine** to **Meilisearch**, enter `http://meilisearch:7700` as the **Meilisearch URL**, and use the same key as the **Meilisearch API key**.
+3. Open **Admin > Server > Search**. Set **Search engine** to **Meilisearch**, enter `http://meilisearch:7700` as the **Meilisearch URL**, and use the same key as the **Meilisearch API key**.
 4. Select **Check Connection**, save, and restart Silo.
 5. Silo builds the search index in the background and tries again on its own if a build fails. Test a known title once it finishes.
 

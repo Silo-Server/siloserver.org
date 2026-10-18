@@ -43,14 +43,14 @@ If a scan finds no files, fix the path before you confirm any cleanup or delete 
 Try one known file and note the client, the time, and the audio and subtitle tracks you chose. Then:
 
 1. Open **Admin > Activity** while the file plays. A converted stream shows its encoder, such as **HW VAAPI** or **SW** for software.
-2. On a single server, open **Admin > Settings > Playback**. The line under **Hardware acceleration** shows the detected hardware, or **No supported graphics hardware found**. The admin dashboard shows the server's CPU, memory, and disk use.
-3. With separate nodes, open **Admin > Nodes** and check the node's state, **Acceleration**, **Load**, and **Capacity**. [Read node status](/docs/node-status) explains each reading. A single server has no entries here.
+2. On a single server, open **Admin > Playback > Settings**. The line under **Hardware acceleration**, in the **Transcoding** group, shows the detected hardware, or **No supported graphics hardware found**. The admin dashboard shows the server's CPU, memory, and disk use.
+3. With separate nodes, open **Admin > Playback > Nodes** and check the node's state, **Acceleration**, **Load**, and **Capacity**. [Read node status](/docs/node-status) explains each reading. A single server has no entries here.
 
 Make sure the server or node can read the file and has free space for transcodes. If only remote clients fail, check [external access](/docs/reverse-proxy). If only converted streams fail, check [transcoding](/docs/playback).
 
 ## Background work fails
 
-Open **Admin > Scheduled Tasks** to find the task and **Admin > Logs** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.
+Open **Admin > Server > Scheduled Tasks** to find the task and **Admin > Logs > Server Log** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.
 
 ## Disk space
 

@@ -4,7 +4,7 @@ title: Manage download storage
 description: See how much space prepared downloads take on the server and transcode nodes, free it, and revoke downloads on a device.
 ---
 
-When someone downloads a smaller quality, or a file their device can't play, Silo first prepares a copy on the server or a [transcode node](/docs/transcode-nodes). Open **Admin > Downloads** in the web app to see how much space those prepared files take, free it, and take downloads back from a device. Download permissions and limits are covered in [Set access and limits](/docs/manage-access#limit-downloads).
+When someone downloads a smaller quality, or a file their device can't play, Silo first prepares a copy on the server or a [transcode node](/docs/transcode-nodes). Open **Admin > Downloads > Prepared Files** in the web app to see how much space those prepared files take, free it, and take downloads back from a device. Download permissions and limits are covered in [Set access and limits](/docs/manage-access#limit-downloads).
 
 ## Check storage use
 
@@ -23,7 +23,7 @@ Warnings appear above the cards when a disk is near its ceiling, when prepared f
 
 ## Set storage budgets
 
-The limits are in **Admin > Settings > Downloads**:
+The limits are in the **Downloads** group of **Admin > Downloads > Settings**:
 
 - **Default storage budget per location** caps the prepared files at the server and at each node that has no budget of its own. Each location counts separately. There's no budget unless you set one.
 - **Disk ceiling (%)** is how full a location's disk can get before Silo deletes cached files there early, whatever the budget. It accepts 50 to 95, and the default is 85.

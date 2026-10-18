@@ -59,7 +59,13 @@ Do not copy the `postgres` directory while the database is running: the copy may
 
 ### Per-user data on SQLite
 
-Open **Admin > Settings > Storage & Database** and check **Where per-user data is stored** under **Database** (in **Advanced**). If it shows SQLite, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. The default Compose file does not keep that directory. Mount it from the host and back it up with the dump.
+Silo keeps per-user data in PostgreSQL, where the dump covers it, unless the `userdb.backend` setting is `sqlite`. The admin pages have no control for this setting. To check it on the default stack:
+
+```sh
+docker compose exec -T postgres psql -U silo -d silo -c "SELECT value FROM server_settings WHERE key = 'userdb.backend'"
+```
+
+If it shows `sqlite`, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. The default Compose file does not keep that directory. Mount it from the host and back it up with the dump.
 
 ## Test a restore
 

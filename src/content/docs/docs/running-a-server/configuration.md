@@ -28,7 +28,7 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 ## Admin-managed settings
 
-Sign in as an admin and open **Admin > Settings**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
+Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
 A value set in the environment can override the stored setting. For example, `SILO_TRUSTED_PROXIES` replaces the **Trusted proxies** setting on every start. Manage each value in one place.
 
@@ -68,7 +68,7 @@ PostgreSQL is required. Redis is optional for a single `integrated` or `api` ser
 
 If several Silo installs share one Redis server, give each install its own database number in `REDIS_URL`. The number is the URL's path, such as `1` in `redis://redis.example.com:6379/1`, and a URL without one uses database 0. The main server and every node of one install use the same number. Installs on the same number mix their cached data and events, such as settings changes and live log rows.
 
-If you set up Redis in **Admin > Settings > General** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
+If you set up Redis in **Admin > Server > General** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
 
 Start Redis before you set it up in either place. When you save a new **Connection URL** or **Database number**, Silo first connects with the new value. If it can't, Silo refuses the save and stores nothing, so it isn't left with a setting it can't start with. A number your Redis server doesn't have, such as 16 on a Redis with the default 16 databases, is refused too. Check these for each error:
 
@@ -93,7 +93,7 @@ redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=senti
 - A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
 - With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
 
-Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > General** takes the same URL.
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Server > General** takes the same URL.
 
 ### Shared memory for your own PostgreSQL container
 
@@ -142,7 +142,7 @@ These `.env` values adjust automatic tuning:
 
 With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it has one, and the host's memory otherwise. The default budget leaves 25% of it for Silo, Redis, plugins, transcodes, and the operating system. If Silo runs in a container with no memory limit and can only see a figure above 128 GB, it skips tuning and logs `postgres auto-tuning disabled`. Set `POSTGRES_TUNE_MEMORY`, or mount `/proc/meminfo:/host/proc/meminfo:ro` on the `silo` service as the default Compose file does.
 
-Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Settings > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
+Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Server > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
 
 Silo tunes with the same `DATABASE_URL` user it runs with. The bundled database user is a superuser, so tuning works there. On an external database, that user needs superuser rights, or on PostgreSQL 15 and later `ALTER SYSTEM` on each setting Silo tunes plus `EXECUTE` on `pg_reload_conf()`. Either lets anyone holding Silo's database credential change server-wide PostgreSQL settings. If you accept that, set `POSTGRES_TUNE_MEMORY` to the memory PostgreSQL may use on the database host, and `POSTGRES_TUNE_CPUS` to that host's CPU count.
 
@@ -161,7 +161,7 @@ Separate nodes need the shared database, Redis, and encryption key. See [Transco
 
 ## Rate limiting
 
-Rate limiting is on by default. Control it with **Enable rate limiting** in **Admin > Settings > Security & Access**, under **Rate limiting**, and set the limits under **Advanced**. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
+Rate limiting is on by default. Control it with **Enable rate limiting** under **Rate limiting** on **Admin > Sign-in & Security > Security**, and set the limits in the same group. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
 
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
