@@ -14,9 +14,9 @@ Silo notices new, changed, and removed files in three ways:
 
 Silo watches every folder in a library, including season and other subfolders, and scans only what changed. A file that's still being copied is scanned once the copy finishes. Editing an NFO file or adding an image beside a video counts as a change too, so the item picks up its [local metadata](/docs/local-metadata) without a refresh. While a scan is running, a button such as **2 scans** appears at the top of **Admin > Libraries**. Click it to open the scan queue, where scans that monitoring started are tagged **File change**.
 
-**Real-time monitoring** on a library's **Folders** tab turns it off for that library only. Open **Admin > Libraries** and edit the library to find it.
+Monitoring is on by default. To turn it off for one library, open **Admin > Libraries**, edit the library, and turn off **Real-time monitoring** on its **Folders** tab.
 
-Monitoring is also on for the whole server by default. If it has been turned off server-wide, the library's switch is greyed out and links to **Admin > Libraries > Settings**. Turn **Real-time monitoring** back on there under **Scanning**. That switch shows only while monitoring is off server-wide, and the change applies without a restart.
+If monitoring has been turned off for the whole server, that switch is greyed out and links to **Admin > Libraries > Settings**. Turn **Real-time monitoring** back on there under **Scanning**; the switch appears only while server-wide monitoring is off. The change applies without a restart.
 
 Libraries that aren't **Enabled** aren't monitored.
 
