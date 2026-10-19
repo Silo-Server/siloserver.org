@@ -163,6 +163,10 @@ Separate nodes need the shared database, Redis, and encryption key. See [Transco
 
 Rate limiting is on by default. Control it with **Enable rate limiting** under **Rate limiting** on **Admin > Sign-in & Security > Security**, and set the limits in the same group. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
 
+**Per address and account** sets two separate allowances: one for each client address and one shared by everyone signed in to the same account. The account allowance covers all household profiles, sessions, devices and API keys, including requests from Jellyfin-compatible apps. Both default to 120 requests per second, 6000 per minute and a burst of 120. Switching profiles or creating another key does not give the account more requests.
+
+Separate accounts behind the same proxy keep separate account allowances. They still share any limits that apply to their client address and the server as a whole. A key's own rate limit also applies; raising it does not raise the account allowance.
+
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
 ## Logging

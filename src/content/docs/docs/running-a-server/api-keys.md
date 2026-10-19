@@ -26,4 +26,6 @@ Revoking a key stops requests that use it. Browser and app sign-ins on the ownin
 
 **Edit rate limit** switches a key between the **Standard** and **Elevated** rate limits. It doesn't change what the key can access.
 
+All keys owned by an account share its [account allowance](/docs/configuration#rate-limiting) with that account's profiles, app sessions and devices. Creating another key or choosing **Elevated** does not increase that shared allowance.
+
 For the installed server's API viewer and developer entry points, see [Developers & integrations](/docs/developers).
