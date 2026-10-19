@@ -167,6 +167,10 @@ The limits also cover [Jellyfin-compatible apps](/docs/jellyfin-apps). A sign-in
 
 Per-address limits count a public IPv6 address by its /64 network, so every device on one IPv6 home connection shares a limit, as devices behind one IPv4 address do. Unique local and link-local IPv6 addresses, which come only from your local network, each count on their own.
 
+**Per address and account** sets two separate allowances: one for each client address and one shared by everyone signed in to the same account. The account allowance covers all household profiles, sessions, devices and API keys, including requests from Jellyfin-compatible apps. Both default to 120 requests per second, 6000 per minute and a burst of 120. Switching profiles or creating another key does not give the account more requests.
+
+Separate accounts behind the same proxy keep separate account allowances. They still share any limits that apply to their client address and the server as a whole. A key's own rate limit also applies; raising it does not raise the account allowance.
+
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
 ### Failed sign-ins per name
