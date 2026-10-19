@@ -39,10 +39,10 @@ Open the card's menu and choose **Remove from Continue Watching** or
 
 - In the web app, point at the card and open its menu (⋮). On a
   touchscreen, touch and hold the card instead.
-- On iPhone and iPad, touch and hold the card.
+- On iPhone, iPad, and Android phones and tablets, touch and hold the card.
 - In the [native Mac app](/docs/native-macos), Control-click or right-click
   the card.
-- On Apple TV, focus the card, then press and hold Select.
+- On Apple TV and Android TV, focus the card, then press and hold Select.
 
 On a title you've started, the menu says **Remove from Continue Watching**.
 In the web app, it says **Remove from Continue Listening** for an audiobook
@@ -57,7 +57,8 @@ back the next time you play it. Your resume point and watched status stay as
 they are, and the change applies to your profile on every device.
 
 In the web app, a message confirms the removal. Select **Undo** in it to put
-the title back.
+the title back. The Apple and Android apps don't have an undo, so play the
+title again to bring it back.
 
 ## Change watched status
 
