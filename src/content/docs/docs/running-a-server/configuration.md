@@ -165,6 +165,25 @@ Rate limiting is on by default. Control it with **Enable rate limiting** under *
 
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
+## Live-update connections
+
+Leave the live-update thresholds at their defaults unless you need different values for observation. Silo starts in observation mode: it counts connections and records when a threshold would refuse one, while still accepting connections beyond it. These thresholds don't enforce a connection limit or protect the server from too many sockets.
+
+To change a threshold, set it in the environment of the Silo API process and restart that process. With Docker, add it to `environment` on the `silo` service in a Compose override; adding it to `.env` alone doesn't pass it to the container.
+
+| Variable | Default | Observation threshold |
+| --- | --- | --- |
+| `SILO_EVENTS_MAX_SOCKETS_PER_ACCOUNT` | `64` | Connections per login account on each API process |
+| `SILO_EVENTS_MAX_SOCKETS_PER_PROCESS` | `2048` | Connections across all accounts on one API process |
+
+Counts include connections being established and those already open. All profiles, devices, and credentials on an account share its count. Native v1/v2 event connections and Jellyfin-compatible connections share the same count, including alternate Jellyfin URL forms and connections used only for `KeepAlive`.
+
+Each API process counts independently, including processes on the same host. There is no cluster-wide account quota. The HTTP rate-limit setting **Where counters are kept** above doesn't change this.
+
+Values are read once at startup. Silo trims whitespace and accepts a positive base-10 integer that fits the server's integer range. An unset or blank value uses the default. Invalid, overflowing, zero, or negative values use the default and produce a warning naming the variable and fallback, without printing the rejected value. The startup log shows observation mode and the effective thresholds.
+
+No environment variable or admin switch enables enforcement. Enforcing quotas requires a separately reviewed server change. During shutdown, Silo does refuse new event connections; see [API recovery](/docs/api#reconnect-live-updates) or [Jellyfin app recovery](/docs/jellyfin-apps#if-live-updates-stop).
+
 ## Logging
 
 See [Logs and monitoring](/docs/logging).
