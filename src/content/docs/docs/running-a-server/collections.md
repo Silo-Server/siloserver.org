@@ -24,6 +24,10 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 
 To change a collection later, select it in the list, edit it, and choose **Save**.
 
+Silo checks the complexity of smart rules before saving or running them. If it
+refuses a definition, simplify the rules or shorten their values. This limits
+query work without capping the number of titles a collection can contain.
+
 ## Follow a list with a synced list
 
 A synced list reads a published list again on a schedule. Under **The list it follows**, choose:
