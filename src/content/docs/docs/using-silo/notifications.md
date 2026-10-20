@@ -66,9 +66,13 @@ email notifications.
 
 ### Discord direct messages
 
-Select **Link Discord** and authorize the connection. Your Discord account
-must share a Discord server with the Silo bot. The link covers every profile
-on your Silo account.
+Switch to your account's primary profile, then select **Link Discord** and
+authorize the connection. If that profile has a PIN, unlock it first. Your
+Discord account must share a Discord server with the Silo bot.
+
+The linked account receives notifications covering every profile on your Silo
+account. Only the primary profile can change the Discord frequency, turn delivery
+on or off, or select **Unlink**. Other profiles can view these settings.
 
 ### Webhooks
 

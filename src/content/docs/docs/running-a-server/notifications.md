@@ -38,7 +38,7 @@ If the channel shows **Re-registration required**, choose **Re-register relay** 
 
 ## Discord and personal webhooks
 
-For Discord, open **Setup guide** in the **Discord** channel and follow it to create a Discord application. Enter the **Client ID**, **Client secret**, and **Bot token**, save, then choose **Test bot token**. Each person then links their own Discord account to get direct messages.
+For Discord, open **Setup guide** in the **Discord** channel and follow it to create a Discord application. Enter the **Client ID**, **Client secret**, and **Bot token**, save, then choose **Test bot token**. Each Silo account's primary profile then links a Discord account in **Settings > Notifications**. The linked account receives direct messages covering every profile on that Silo account; the primary profile manages the link and delivery frequency.
 
 Turn on **Personal Webhooks** only if you want people to add their own Discord or generic webhook destinations. A destination receives details of that person's notifications. **Allow webhooks to private addresses**, under **Advanced** in the channel, lets webhooks reach LAN and localhost addresses; it is meant for development, so leave it off.
 
