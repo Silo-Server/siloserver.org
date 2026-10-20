@@ -64,6 +64,13 @@ the account's sign-in email.
 Your server may only offer the daily digest. Child profiles can't receive
 email notifications.
 
+To stop notification emails, open **Unsubscribe** at the bottom of a Silo
+email, then select **Unsubscribe** on the confirmation page. Opening the page
+leaves your preferences unchanged. You don't need to sign in to confirm.
+
+To receive emails again, turn on **Email this profile's notifications** in
+**Settings > Notifications**.
+
 ### Discord direct messages
 
 Select **Link Discord** and authorize the connection. Your Discord account
