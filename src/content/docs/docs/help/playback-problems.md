@@ -33,6 +33,46 @@ still read it. Filter **Admin > Logs > Server Log** by the `scanner` component f
 or its storage, such as a network mount that dropped, then
 [scan the library](/docs/manage-libraries#scan-or-refresh).
 
+## If the web app converts HEVC files on Linux
+
+Turn on hardware video decoding in your browser. Most 4K, HDR, and Dolby
+Vision files use HEVC, and most browsers on Linux can't play it until hardware
+decoding is on, so Silo converts those files on the server.
+
+To check, start the title in the web app, open **Playback info** in the player,
+and look at **Play method**. **Transcode** means the server is converting the
+file, and **Direct Play** means the browser is playing the original.
+
+1. Check that your graphics driver can decode HEVC. Run `vainfo`, from the
+   `libva-utils` package, and look for `VAProfileHEVCMain10`. If it isn't
+   listed, install the VA-API driver for your GPU.
+2. Turn on hardware decoding in the browser:
+   - In Chrome, Chromium, Brave, and other Chromium-based browsers, start the
+     browser with these flags:
+
+     ```
+     --enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiOnNvidiaGPUs,VaapiIgnoreDriverChecks
+     --ignore-gpu-blocklist
+     ```
+
+     If your browser's package reads a flags file, such as
+     `~/.config/chromium-flags.conf` on Arch Linux, put each flag on its own
+     line there. The browser uses only the last `--enable-features` flag it
+     gets, so if you already have one, add these features to it.
+   - In Firefox, open `about:config` and set `media.ffmpeg.vaapi.enabled` and
+     `media.hardware-video-decoding.force-enabled` to `true`.
+3. Quit the browser completely, then start it again.
+4. Check that the browser now decodes HEVC. In a Chromium-based browser, open
+   `chrome://gpu` and look for HEVC Main 10 under **Video Acceleration
+   Information**. In Firefox, open `about:support` and check that HEVC shows
+   hardware decoding under **Codec Support**.
+5. Start the title again and check **Play method** in **Playback info**.
+
+On a screen without HDR, Silo also converts HDR and Dolby Vision files to
+standard range on the server. To have the browser do that instead, open
+**Settings > Playback** and, under **This browser**, turn on **Decode in the
+browser (beta)**. It applies from the next video you start.
+
 ## Picture problems on a TV
 
 Check the selected version before you press **Play**, and try another if one
