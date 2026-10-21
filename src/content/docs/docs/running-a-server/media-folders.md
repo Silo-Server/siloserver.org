@@ -36,6 +36,8 @@ Silo adds video files with these extensions, in upper or lower case:
 
 Silo doesn't add video files with any other extension.
 
+Silo also leaves out a Matroska, WebM, MP4, QuickTime, AVI, or Windows Media file that has no video, such as a soundtrack saved as `.mkv`. Filter **Admin > Logs > Server Log** by the `scanner` component to see which files a scan skipped. If one of these files is already in your library, the next scan treats its title like a deleted file: it disappears from the apps and is removed from the library later. Files in the other formats above are added even when Silo finds no video in them, because their video can start later in the file than the part Silo checks.
+
 Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. DVD `.vob` files, `.iso` disc images, and the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder are left out. A disc splits one movie into several files next to its menus and extras, so each piece would show up as its own title.
 
 RealMedia files (`.rm` and `.rmvb`) are left out too. Convert them to one of the formats above to add them.
