@@ -75,6 +75,8 @@ Open the collection's action menu and choose **Delete…**. If Home or library p
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
+If a collection is missing for a child profile, check that profile's **Maximum content rating**, **Maximum advisory age**, and **Restrict libraries** under [parental controls](/docs/profiles#set-parental-controls), and the libraries its account can use. A collection does not appear for a profile that can open none of its titles, in the web app, the apps, or Jellyfin clients. A collection with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
+
 ## If a synced list does not sync
 
 The **Franchise Collections** and **All Defaults** packs add a **TMDB Franchise** list that does not follow a franchise yet. Its editor says `This list doesn't follow a TMDB collection yet. Add its ID so it can sync.` Enter the number from the collection's TMDB link under **TMDB collection ID**, for example `119` from `themoviedb.org/collection/119`, and choose **Save**.
