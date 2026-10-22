@@ -167,6 +167,20 @@ The limits also cover [Jellyfin-compatible apps](/docs/jellyfin-apps). A sign-in
 
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
+### Failed sign-ins per name
+
+Silo also counts failed password sign-ins for each username or email address, wherever they come from. After 10 failed attempts within 15 minutes, Silo locks the name for 15 minutes. Until the lock ends, every sign-in with that name gets HTTP `429` and a `Retry-After` delay, even with the right password. The web app shows `Too many failed sign-ins for this name. Try again later.` A successful sign-in clears the count.
+
+The count covers every password sign-in: the web app, the Silo apps, [Jellyfin-compatible](/docs/jellyfin-apps) and [Audiobookshelf-compatible](/docs/audiobookshelf) apps, and connecting an account to an [LDAP directory](/docs/single-sign-on#connect-an-ldap-directory), which counts the directory username. A name without an account is counted and locked the same way, so the lock doesn't show which names exist.
+
+The lock applies even with **Enable rate limiting** off, and the limit settings don't change it. When Redis is set up, every server shares the count, whatever **Where counters are kept** is set to. Without Redis, each server keeps its own.
+
+You can't end a lock early; it ends after 15 minutes. Someone who knows a name can keep it locked by trying again every 15 minutes, and their failed sign-ins appear in the [audit log](/docs/logging#review-the-audit-log). While a name is locked:
+
+- Devices already signed in to the account keep working.
+- A [password reset link](/docs/accounts#forgot-your-password) or an invitation still signs the person in.
+- A device that's already signed in can sign in another, such as a TV by [scanning its code](/docs/tv-sign-in#scan-the-tvs-code) or a Jellyfin-compatible app with [Quick Connect](/docs/jellyfin-apps#sign-in-with-quick-connect).
+
 ## Logging
 
 See [Logs and monitoring](/docs/logging).
