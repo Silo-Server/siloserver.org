@@ -30,10 +30,10 @@ marks.** This reservation is expressly permitted by AGPL-3.0 §7(e).
   Silo," "built on Silo," "a fork of Silo." Use the word to refer to *our*
   project, not to brand *yours*.
 - **Showing the Silo logo or icon in a project that works with Silo** — for
-  example, to mark a watch as coming from Silo, to list Silo as a server type,
-  or on a "Connect to Silo" button. You may include the official, unmodified
-  asset files in your project's source code and builds for this. Do not alter
-  the artwork or use it as your own project's logo or app icon.
+  example, to list Silo as a server type or on a "Connect to Silo" button. You
+  may include the official, unmodified asset files in your project's source
+  code and builds for this. Do not alter the artwork or use it as your own
+  project's logo or app icon.
 - **Redistributing official, unmodified builds** under the Silo name, with all
   notices kept intact.
 - **Running, modifying, and self-hosting** Silo for yourself or your
