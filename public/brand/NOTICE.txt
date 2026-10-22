@@ -12,7 +12,8 @@ logo or icon in a project that works with Silo, to refer to Silo, or when
 writing about Silo. You may include these unmodified files in that project's
 source code and builds. Do not alter them or use them as your project's own
 logo or app icon.
-Modified distributions and forks must remove or replace the Silo brand assets.
+Forks and modified redistributions of Silo must remove or replace the Silo
+brand assets.
 Publishing a Silo-branded app, merchandise, or other commercial use requires
 written permission from Silo Media L.L.C.
 
