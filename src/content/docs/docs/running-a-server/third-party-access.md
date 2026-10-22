@@ -8,7 +8,7 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 
 ## Set the address for Jellyfin apps
 
-1. Open **Admin > Settings > Compatibility**.
+1. Open **Admin > Integrations > Compatibility**.
 2. Check that **Allow Jellyfin apps to connect** is on. Changing this switch needs a server restart.
 3. In **Address Jellyfin apps should use**, enter the address people should type into their Jellyfin app, for example `http://192.168.1.20:8096` on your home network or `https://jellyfin.example.com` from outside it.
 4. Save.
@@ -26,7 +26,7 @@ Test from outside your home network with the same address you give people. A wor
 
 ## Accounts and profiles
 
-Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Jellyfin apps can sign in with a combined username and profile, and protected profiles use a combined password and PIN.
+Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Apps that offer Quick Connect sign in with a code the person approves on Silo's `/activate` page, where they choose the profile. Other apps sign in with a combined username and profile, and protected profiles use a combined password and PIN.
 
 Apps differ in which Jellyfin features they use, so note the app and server versions when you report a problem.
 

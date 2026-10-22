@@ -8,7 +8,7 @@ Markers tell the player where an intro, recap, credits, or preview starts and en
 
 ## Choose how markers are found
 
-1. Open **Admin > Settings > Library & Metadata** and find **Skip markers**.
+1. Open **Admin > Playback > Settings** and find **Skip markers**.
 2. Set **Marker source**:
    - **Online preferred + server detection** (the default) uses online markers and detects an intro or credits locally only when no online one is saved.
    - **Online providers only** or **Detect on this server** uses one method.
@@ -34,10 +34,10 @@ To skip detection for one library, turn off its switch in the library's **Advanc
 
 ## Manage marker providers
 
-1. Choose **Marker providers** next to **Skip markers**. It opens **Subtitles & Metadata**.
+1. Choose **Marker providers** next to **Skip markers**. It opens **Admin > Integrations > Providers**.
 2. Choose **Manage** on a provider.
 3. Use **Get markers from this provider** to turn lookups on or off.
-4. If several providers are on, set **Provider priority**. A lower number wins when two providers return a marker for the same section.
+4. If several providers are on, set **Provider priority** under **Advanced**. A lower number wins when two providers return a marker for the same section.
 5. Choose **Save**, then **Test connection**.
 
 Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
@@ -63,7 +63,7 @@ To let a user edit markers, open **Admin > Users**, open the user, choose **Acce
 3. Choose **Save**.
 4. Play that section of the same file and check where the skip button lands.
 
-To remove a marker, use the clear button beside its segment, then choose **Save**. Silo keeps that kind of marker off the file through later lookups, detection, and rescans, including after you replace the file under the same name. To add it back, enter its times and save again. Other marker kinds and other versions of the title keep their markers. **Recent changes** in the same dialog shows who changed what.
+To remove a marker, use the clear button beside its segment, then choose **Save**. Silo keeps that kind of marker off the file through later lookups, detection, and rescans, including after you replace the file under the same name. To add it back, enter its times and save again. Other marker kinds and other versions of the title keep their markers. **Recent changes** in the same dialog shows who changed what, and **Admin > Playback > Skip Markers** lists recent manual edits across the server.
 
 A saved change applies to everyone who plays that file. Players that are already open pick it up without a rescan.
 

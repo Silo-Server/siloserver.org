@@ -28,7 +28,7 @@ for errors at that time. Otherwise, share the details below with the person who
 runs it.
 
 If a title won't start and isn't marked **Damaged file**, check that Silo can
-still read it. Filter **Admin > Logs** by the `scanner` component for
+still read it. Filter **Admin > Logs > Server Log** by the `scanner` component for
 `ffprobe failed because the file could not be read`. Fix the file's permissions
 or its storage, such as a network mount that dropped, then
 [scan the library](/docs/manage-libraries#scan-or-refresh).

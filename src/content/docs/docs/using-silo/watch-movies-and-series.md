@@ -39,8 +39,11 @@ switching to a different cut, check where playback resumes.
 
 **Web:** move the pointer or tap the picture to show the controls. Besides
 pause and seek, you can change the audio track, [subtitles](/docs/subtitles),
-**Chapters**, and **Quality**. On a narrow screen, some of these move under
-**More player options**. A lower **Quality** can help on a slow connection.
+and **Chapters**. On a narrow screen, some of these move under
+**More player options**. The gear button holds **Speed**, from 0.5× to 3×,
+and **Quality**. A lower **Quality** can help on a slow connection.
+When the speed isn't 1×, the gear button shows it. The speed lasts until you
+close the player, and a Watch Party always plays at normal speed.
 
 **iPhone and iPad:** tap the picture. **Audio & Subtitles** picks tracks,
 **Chapters** appears when the file has chapters, and **Playback Settings**

@@ -20,7 +20,7 @@ Set these in `.env` beside the Compose file:
 | `SECRET_KEY` | Key that encrypts stored credentials |
 | `POSTGRES_TUNE` | Automatic PostgreSQL tuning, `auto` by default |
 
-Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable.
+Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
 
 Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The bundled stack also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
 
@@ -28,7 +28,7 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 ## Admin-managed settings
 
-Sign in as an admin and open **Admin > Settings**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
+Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
 A value set in the environment can override the stored setting. For example, `SILO_TRUSTED_PROXIES` replaces the **Trusted proxies** setting on every start. Manage each value in one place.
 
@@ -68,9 +68,14 @@ PostgreSQL is required. Redis is optional for a single `integrated` or `api` ser
 
 If several Silo installs share one Redis server, give each install its own database number in `REDIS_URL`. The number is the URL's path, such as `1` in `redis://redis.example.com:6379/1`, and a URL without one uses database 0. The main server and every node of one install use the same number. Installs on the same number mix their cached data and events, such as settings changes and live log rows.
 
-If you set up Redis in **Admin > Settings > Storage & Database** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
+If you set up Redis in **Admin > Server > General** or the setup wizard instead of with `REDIS_URL`, the **Database number** field below **Connection URL** replaces the number in the URL. It shows the number in use, so give each node's `REDIS_URL` that number. Changing it requires a restart and switches Silo to another database without moving existing data.
 
-If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:*`. On a database number other than 0, Silo adds the number to its channel names, such as `silo:catalog@db1`. A user granted only the plain names (`silo:catalog`, `silo:admin`, `silo:playback`, `silo:logs`, and `silo:events`) is refused with a `NOPERM` error, and Silo exits at startup. Database 0 uses the plain names.
+Start Redis before you set it up in either place. When you save a new **Connection URL** or **Database number**, Silo first connects with the new value. If it can't, Silo refuses the save and stores nothing, so it isn't left with a setting it can't start with. A number your Redis server doesn't have, such as 16 on a Redis with the default 16 databases, is refused too. Check these for each error:
+
+- `Redis refused the connection, ...`: the database number, and the user name and password in the URL.
+- `Silo could not connect to Redis with these settings, ...`: that Redis is running, and the host and port in the URL.
+
+If your Redis user is restricted by an ACL, grant it the channel pattern `&silo:*`. On a database number other than 0, Silo adds the number to its channel names, such as `silo:catalog@db1`. Database 0 uses the plain names. A user granted only the plain names (`silo:catalog`, `silo:admin`, `silo:playback`, `silo:logs`, and `silo:events`) is refused with a `NOPERM` error. With `REDIS_URL`, Silo then exits at startup. In the admin settings or the setup wizard, the save is refused with `Redis refused a subscription to Silo's event channels, ...`.
 
 To use [Valkey](https://valkey.io/) in place of Redis, set `REDIS_URL` to your Valkey server with a `redis://` URL. There is no Valkey-specific setting. Silo is tested only against Redis, so Valkey support is provided as-is.
 
@@ -88,7 +93,7 @@ redis://sentinel-1:26379/1?master_name=mymaster&addr=sentinel-2:26379&addr=senti
 - A user name and password before the host sign in to Sentinel. The `username` and `password` parameters sign in to the Redis servers. Percent-encode reserved characters in them, and write a plus sign as `%2B`.
 - With `rediss://`, every Sentinel and Redis server needs a certificate that's valid for the host name in the URL.
 
-Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Settings > Storage & Database** takes the same URL.
+Silo follows a new master after a failover without a restart. The **Connection URL** field in the **Redis** group of **Admin > Server > General** takes the same URL.
 
 ### Shared memory for your own PostgreSQL container
 
@@ -112,13 +117,34 @@ PostgreSQL installed directly on a host or VM does not use Docker's `shm_size` s
 
 ## PostgreSQL tuning
 
-With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Settings that need a database restart are logged by name on every start until PostgreSQL restarts. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections:
+With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Some settings only take effect after PostgreSQL restarts. Silo names them in a `postgres restart required to finish applying auto-tuned settings` warning on every start, even after you've restarted, so one restart is enough. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections. It's easiest right after the first start, before you add libraries:
 
 ```sh
 docker compose restart postgres silo
 ```
 
-Set `POSTGRES_TUNE=off` before starting Silo if you manage PostgreSQL settings yourself, and for an external database: automatic detection measures the Silo container, not the database host. Turning tuning off leaves settings already written to `postgresql.auto.conf` in place; reset them yourself if needed. The other `POSTGRES_TUNE_*` values in `.env.example` override the detected memory, CPU count, and storage type.
+Set `POSTGRES_TUNE=off` before starting Silo if you manage PostgreSQL settings yourself, and for an external database: automatic detection measures the Silo container, not the database host. Turning tuning off leaves settings already written to `postgresql.auto.conf` in place; reset them yourself if needed.
+
+Silo also turns PostgreSQL's JIT compiler off on its own connections, unless the server configuration, `ALTER DATABASE`, `ALTER ROLE`, or `DATABASE_URL` (for example `?jit=on`) already sets `jit`. Silo's queries are short, and compiling them took longer than running them. Automatic tuning sets `jit = off` for the whole server.
+
+These `.env` values adjust automatic tuning:
+
+| Variable | Default | What it sets |
+| --- | --- | --- |
+| `POSTGRES_TUNE_PROFILE` | `oltp` | Tuning profile. `oltp` is the only one. |
+| `POSTGRES_TUNE_MEMORY` | `auto` | Memory to tune for, such as `8GB`. Silo uses a value you set as it is. |
+| `POSTGRES_TUNE_MEMORY_BUDGET_PERCENT` | `75` | Share of detected memory given to PostgreSQL |
+| `POSTGRES_TUNE_CPUS` | `auto` | CPU count used for worker settings |
+| `POSTGRES_TUNE_STORAGE` | `ssd` | `hdd`, `ssd`, `san`, or `nvme` |
+| `POSTGRES_TUNE_DB_SIZE` | `auto` | Database size compared with memory: `less_ram`, `mid_ram`, or `greater_ram` |
+| `POSTGRES_TUNE_CONNECTIONS` | `100` | PostgreSQL's `max_connections` |
+| `POSTGRES_SHM_SIZE` | `8gb` | `/dev/shm` size of the bundled `postgres` container |
+
+With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it has one, and the host's memory otherwise. The default budget leaves 25% of it for Silo, Redis, plugins, transcodes, and the operating system. If Silo runs in a container with no memory limit and can only see a figure above 128 GB, it skips tuning and logs `postgres auto-tuning disabled`. Set `POSTGRES_TUNE_MEMORY`, or mount `/proc/meminfo:/host/proc/meminfo:ro` on the `silo` service as the default Compose file does.
+
+Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Server > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
+
+Silo tunes with the same `DATABASE_URL` user it runs with. The bundled database user is a superuser, so tuning works there. On an external database, that user needs superuser rights, or on PostgreSQL 15 and later `ALTER SYSTEM` on each setting Silo tunes plus `EXECUTE` on `pg_reload_conf()`. Either lets anyone holding Silo's database credential change server-wide PostgreSQL settings. If you accept that, set `POSTGRES_TUNE_MEMORY` to the memory PostgreSQL may use on the database host, and `POSTGRES_TUNE_CPUS` to that host's CPU count.
 
 Plan PostgreSQL major-version upgrades separately from Silo updates.
 
@@ -127,7 +153,7 @@ Plan PostgreSQL major-version upgrades separately from Silo updates.
 | Mode | Purpose |
 | --- | --- |
 | `integrated` | Default single-host server |
-| `api` | Main server for a custom distributed setup |
+| `api` | Main server for a custom distributed setup. It can still transcode when node routing falls back to it. |
 | `proxy` | Remote streaming node |
 | `transcode` | Remote conversion worker |
 
@@ -135,7 +161,7 @@ Separate nodes need the shared database, Redis, and encryption key. See [Transco
 
 ## Rate limiting
 
-Rate limiting is on by default. Control it with **Enable rate limiting** in **Admin > Settings > Security & Access**, under **Rate limiting**, and set the limits under **Advanced**. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
+Rate limiting is on by default. Control it with **Enable rate limiting** under **Rate limiting** on **Admin > Sign-in & Security > Security**, and set the limits in the same group. Limit changes apply right away. If the server started with rate limiting off, turning it on applies after a restart. A client that goes over a limit gets HTTP `429` with a `Retry-After` delay.
 
 The limits also cover [Jellyfin-compatible apps](/docs/jellyfin-apps). A sign-in from one of these apps counts against the same sign-in limit as Silo's own apps and web, per client address, so switching apps doesn't reset the count. Browsing and playback in them count against the same per-address and server-wide limits, and images and artwork aren't limited. When a sign-in from Jellyfin Web goes over the limit, it gets HTTP `403` instead of `429`, with the same `Retry-After` delay, because Jellyfin Web shows a `429` at sign-in as a server it can't reach.
 

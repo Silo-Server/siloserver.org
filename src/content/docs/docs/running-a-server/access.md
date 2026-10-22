@@ -10,7 +10,7 @@ Administrator accounts cannot belong to access groups. Group policies apply only
 
 ## Create an access group
 
-1. Open **Admin > Access Groups** and choose **New group**.
+1. Open **Admin > Users > Access Groups** and choose **New group**.
 2. Name the group, for example `Guests`, and create it.
 3. Open the group. Under **Libraries & playback**, choose the libraries and playback quality it can use.
 4. Review **Downloads & requests** and **Concurrent streams**. Under **Permissions**, choose which permissions member accounts may receive.
@@ -22,14 +22,13 @@ A group permission only makes the permission available. Turn on **Marker Editing
 
 ## Assign a person to the group
 
-1. Open **Admin > Users**, choose the person, then **Edit**.
-2. In **Access**, select the group. Leave inherited values alone unless this account needs a different setting.
-3. Check **Limits** and save.
-4. Reopen the user's **Overview** to review the permissions and limits it shows.
+1. Open **Admin > Users**, open the person, then choose **Access & limits**. The pencil on their row opens this tab directly.
+2. Choose **Edit** under **Library access**, select the group in **Access group**, then choose **Save**.
+3. Check the limits on the **Playback & streaming** and **Downloads** cards.
 
-An account can override its group. If a group change seems to have no effect, look for an override on the account.
+An account can override its group. If a group change seems to have no effect, look for values tagged **CUSTOM**.
 
-**Inherited** means the value comes from the access group. An account without a group shows **Server default** instead; an administrator account shows **Admin default**.
+Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means Silo's built-in default: full access for an administrator, and the server's defaults for an account without a group.
 
 ## Choose limits that fit the task
 
@@ -45,12 +44,12 @@ Download permission and permission to create transcoded downloads are separate c
 
 ## Limit downloads
 
-Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps. Download counts apply only to downloads saved in the mobile apps.
+Set download limits in **Admin > Downloads > Settings**. They apply to downloads from the Silo web and mobile apps and from [Jellyfin-compatible apps](/docs/jellyfin-apps). Download counts apply only to downloads saved in the mobile apps.
 
 1. Turn on **Allow downloads**.
-2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
-3. Expand **Advanced**. Under **Per user**, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
-4. Under **Whole server**, set **Server bandwidth** to cap all downloads combined. When both bandwidth limits are set, the lower one wins.
+2. Set **Server bandwidth** in Mbps to cap all downloads combined.
+3. Expand **Advanced**. Under **Per user**, set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles. When both bandwidth limits are set, the lower one wins.
+4. In the same place, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
 5. Save. New limits apply within about 30 seconds. A download that's already running keeps the speed it started with.
 
 If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
@@ -68,8 +67,8 @@ The household's primary profile can configure **Maximum content rating**,
 See [Set parental controls](/docs/profiles#set-parental-controls) for the steps.
 When both rating limits are set, titles must pass both.
 
-**Titles with no age rating**, in **Admin > Settings > Library & Metadata**
-under **Browsing**, decides whether profiles with a content-rating limit see
+**Titles with no age rating**, in **Admin > Libraries > Settings**
+under **Maturity limits**, decides whether profiles with a content-rating limit see
 titles that have no rating or are marked Not Rated (`NR`). **Hide from profiles
 with a ceiling** is the default; **Show to every profile** lets them through.
 A rating Silo can't read stays hidden from those profiles either way.

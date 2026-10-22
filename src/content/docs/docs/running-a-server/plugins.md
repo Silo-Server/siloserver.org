@@ -8,13 +8,13 @@ Plugins add providers and integrations to your server, such as metadata, skip ma
 
 ## Install from the catalog
 
-1. Open **Admin > Plugins** and choose the **Catalog** tab.
+1. Open **Admin > Integrations > Plugins** and choose the **Catalog** tab.
 2. Search for the plugin. Read its description, publisher, and version.
 3. Choose **Install**. The plugin appears under **Installed**.
 4. Open the plugin. If it shows **Finish setting up**, fill in the listed settings and save them.
 5. Try it in the feature that uses it: match one library item or run one scan source.
 
-Some providers also need to be selected in the library or feature settings, for example in a library's **Provider Priority**. Sign-in plugins are set up and turned on in **Admin > Settings > Sign-in**; see [Set up single sign-on](/docs/single-sign-on).
+Some providers also need to be selected in the library or feature settings, for example in a library's **Provider Priority**. Sign-in plugins are set up and turned on in **Admin > Sign-in & Security > Sign-in**; see [Set up single sign-on](/docs/single-sign-on).
 
 ## Choose sources you trust
 
@@ -26,7 +26,7 @@ Catalog installs are checked against the catalog's checksum. That confirms the d
 
 Use a test server for an unpublished plugin. Review its source first: Silo runs the file to read its manifest during installation.
 
-1. Open **Admin > Plugins > Catalog** and find **Install from a file**.
+1. Open the **Catalog** tab on **Admin > Integrations > Plugins** and find **Install from a file**.
 2. Choose **Choose plugin file...** and select the file built for your server's operating system and processor.
 3. Choose **Upload**. The plugin appears under **Installed**.
 4. Configure it and try it on test data.

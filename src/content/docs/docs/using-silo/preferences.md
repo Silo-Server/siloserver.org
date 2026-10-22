@@ -13,14 +13,19 @@ pages under **Settings**. The pages below are in the web app.
 
 ## Change a profile preference in the web app
 
-Open **Settings** from your profile menu, then choose a page:
+Open **Settings** from your profile menu. The settings pages replace the
+app's sidebar, and **Back to App** at the top returns you to the page you
+came from. **Search settings** finds a setting by its name. On a phone or a
+narrow window, Settings opens as a list of pages. Choose a page:
 
-- **Playback:** quality, spoken and metadata languages, skipping, and what
-  plays next.
-- **Subtitles:** language, when subtitles appear, and how they look.
+- **Playback:** quality, skipping, and what plays next.
+- **Language & Subtitles:** spoken and metadata languages, when subtitles
+  appear, and how they look.
 - **Home Screen:** which rows appear on Home and in what order.
-- **Appearance**, **Navigation & Cards**, and **Accessibility:** how the web
-  app looks. These don't change the native apps.
+- **Title Pages:** title art, theme music, spoilers, and advisory ages on
+  movie and show pages.
+- **Navigation & Cards** and **Accessibility:** how the web app looks. These
+  don't change the native apps.
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
@@ -28,7 +33,8 @@ Silo has them. It doesn't change a movie's spoken audio; use
 
 ## Change one device
 
-1. Open **Settings > Your Devices** and choose the device.
+1. Open **Settings > Your Devices** and choose the device. The one you're
+   using says **This device**.
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
    from: **Changed here**, **From your profile**, or **App default**. A
@@ -55,6 +61,14 @@ except **Show title art** while **Apply to all devices** is on. If a single
 title plays differently from others, look at the audio and subtitle tracks
 chosen for it during playback before you change the whole profile.
 
-**Forget** removes a device's saved settings and hides it until it's used
-again. It doesn't sign the device out; for a lost device, see
+To tell apart devices that show the same name, such as two TVs that both say
+"Apple TV", choose one, select **Rename**, type a name such as "Living Room",
+and select **Save**. The device keeps that name when it's used again, and its
+heading shows "Reports itself as Apple TV" under the new name. To go back to
+the reported name, select **Rename**, clear the name, and select **Save**.
+Names belong to your profile, so a TV that two profiles use can have a
+different name in each.
+
+**Forget** removes a device's saved settings and its name, and hides it until
+it's used again. It doesn't sign the device out; for a lost device, see
 [Accounts and signed-in devices](/docs/accounts).

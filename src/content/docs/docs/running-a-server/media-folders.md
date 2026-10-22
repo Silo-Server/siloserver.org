@@ -124,7 +124,15 @@ Put files numbered only by episode in a season folder, or add the season to the 
 
 Episode numbers can have up to five digits.
 
-Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, the file may stay unlinked; rename it with season and episode. Day-first dates such as `24.04.2026` aren't read as air dates.
+Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, Silo picks one in this order:
+
+1. The episode whose title matches the text after the date. Case and punctuation don't matter.
+2. The episode in the file's season folder, such as `Season 2026` or `Specials`.
+3. If the name has no episode title, the ordinary episode rather than a same-day special. A generic title such as `Episode 12`, or the `Unknown` some renamers write, counts as no title.
+
+If that still leaves more than one episode, the file stays unlinked. For example, `Season 2026/Show Name - 2026-04-24.mkv` stays unlinked when two season 2026 episodes aired that day. Rename it with season and episode to link it.
+
+Day-first dates such as `24.04.2026` aren't read as air dates.
 
 ## Show folders
 
@@ -148,7 +156,9 @@ Put extras in a folder inside the movie's or show's folder, or inside a season f
 
 An extra can also sit beside the movie file with a suffix, as in `Movie Name (2024)-trailer.mkv`. The suffixes are `-trailer`, `-teaser`, `-featurette`, `-clip`, `-behindthescenes`, `-bloopers`, `-deleted`, `-deletedscene`, `-interview`, `-scene`, `-short`, `-extra`, and `-other`. A `.` works in place of the `-`.
 
-Extras appear in the title's **Extras** section and are never offered as versions. An extras folder name at the top of a library, outside any title, doesn't count: Silo scans its files as ordinary titles. In a series, a file in `Extras` with a name like `S00E01` is a special, and `S01E01` goes to season 1.
+Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
+
+An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
 
 ## Leave files out of a scan
 
