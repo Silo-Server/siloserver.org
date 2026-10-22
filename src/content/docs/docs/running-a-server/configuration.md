@@ -165,6 +165,8 @@ Rate limiting is on by default. Control it with **Enable rate limiting** under *
 
 The limits also cover [Jellyfin-compatible apps](/docs/jellyfin-apps). A sign-in from one of these apps counts against the same sign-in limit as Silo's own apps and web, per client address, so switching apps doesn't reset the count. Browsing and playback in them count against the same per-address and server-wide limits, and images and artwork aren't limited.
 
+Per-address limits count a public IPv6 address by its /64 network, so every device on one IPv6 home connection shares a limit, as devices behind one IPv4 address do. Unique local and link-local IPv6 addresses, which come only from your local network, each count on their own.
+
 If you run more than one API server, configure Redis, then set **Where counters are kept** to **Shared via Redis** so every server counts against the same limits. With **This server only**, each server keeps its own count. The change applies after a restart.
 
 ### Failed sign-ins per name
