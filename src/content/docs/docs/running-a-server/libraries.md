@@ -11,7 +11,7 @@ A library is a set of media folders with its own metadata settings. Manage libra
 1. [Prepare your folders](/docs/media-folders). In Docker, find the path inside the container, for example `/mnt/media/movies`.
 2. Open **Admin > Libraries** and select **Add Library**.
 3. Enter a name and choose **Movies**, **Series**, or **Mixed**. Add the folder under **Folders**. You can add more than one folder for the same type.
-4. Review **Metadata Language** and **Provider Priority**. TMDB and TVDB are installed by default. Keep the providers you want checked, most preferred first. To add another provider, [install its plugin](/docs/plugins).
+4. Review **Metadata Language** and **Provider Priority**. Where providers have no text in that language, Silo uses the [fallback language](/docs/metadata#choose-a-fallback-language). TMDB and TVDB are installed by default. Keep the providers you want checked, most preferred first. To add another provider, [install its plugin](/docs/plugins).
 5. Save the library. Use its **Scan** action, then watch its scan status.
 
 When the scan finishes, open the library and play one title.
