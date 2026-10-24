@@ -10,11 +10,11 @@ An account is a sign-in for your server. Its profiles keep household members' hi
 
 If people sign in with an identity provider such as authentik or Active Directory, see [Set up single sign-on](/docs/single-sign-on). Their accounts can be created the first time they sign in.
 
-Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Settings > General** first, using an address the recipient can open. Without it, Silo can't create these links.
+Invitation and password reset links point to your server's **Silo public URL**. Set it in **Admin > Server > General** first, using an address the recipient can open. Without it, Silo can't create these links.
 
 ## Invite someone
 
-1. Open **Admin > Users > Invitations** and choose **Invite someone**.
+1. Open the **Invitations** tab on **Admin > Users** and choose **Invite someone**.
 2. Enter their email address. This will also be their sign-in username.
 3. Choose an **Access group** and check the library access. Leave **Role** set to **User**.
 4. Keep **Create their first profile** on if they need a ready-to-use profile.
@@ -24,7 +24,7 @@ The link works once and expires after seven days. The recipient chooses a passwo
 
 If the link expires, resend the invitation to create a new link. Revoking a pending invitation stops its link from working; it doesn't remove an account that has already accepted.
 
-Invitations create accounts with a Silo password, so they can't be sent or accepted while **Allow password sign-in** is off in **Admin > Settings > Sign-in**. People join by signing in with the [sign-in provider](/docs/single-sign-on) instead.
+Invitations create accounts with a Silo password, so they can't be sent or accepted while **Allow password sign-in** is off in **Admin > Sign-in & Security > Sign-in**. People join by signing in with the [sign-in provider](/docs/single-sign-on) instead.
 
 ## Create an account yourself
 
@@ -38,11 +38,11 @@ For a group of people with the same access, [configure an access group](/docs/ma
 
 ## Change access or reset a password
 
-Open the person's name in **Admin > Users**, then choose **Edit** to change their access. Leave the password blank to keep it unchanged.
+Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
 
-To suspend an account without deleting it, turn off **Enabled** under **Account status**, then save.
+To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
-The **Profiles** tab lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
+The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
 
 To see the web app as that person does, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect their account.
 
@@ -51,18 +51,18 @@ To see the web app as that person does, use [View as user](/docs/help-a-user#see
 For an enabled account that uses a local password:
 
 1. Open the person's name in **Admin > Users** and choose **Reset password**.
-2. Choose **Email reset link**, or **Create link to share** and then **Copy link** to send it privately.
+2. Choose **Email a reset link**, then **Email link**. To send the link yourself, choose **Create a link to share**, then **Create link**, and use **Copy link** to send it privately.
 3. Have the person open the link and choose a new password.
 
 Emailing the link needs [email set up](/docs/notification-delivery#set-up-email) and an email address on the account. A link works once and expires after 24 hours. Creating a new reset link replaces the previous one.
 
-To hand over a temporary password instead, choose **Edit**, enter a new password, and select **Require change at next sign-in** before saving. The person then signs in through the web app to replace it before using their other apps.
+To hand over a temporary password instead, choose **Reset password**, then **Set a temporary password**. Enter the password, keep **They must choose a new one at next sign-in** selected, and choose **Set password**. The person then signs in through the web app to replace it before using their other apps.
 
 Completing a reset link or setting a temporary password signs the account out on its devices. API keys remain active; [revoke those separately](/docs/api-keys#replace-a-key) if the account was compromised. For accounts connected to a [sign-in provider](/docs/single-sign-on), reset the password with that provider.
 
 ### Let people reset their own passwords
 
-Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** in **Admin > Settings > General** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
+Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** under **Silo passwords** in **Admin > Sign-in & Security > Sign-in** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
 
 People can request a link using their username or email address. These links expire after one hour. See [Forgot your password?](/docs/accounts#forgot-your-password) for the steps to share with them.
 
@@ -78,6 +78,14 @@ When the server uses [single sign-on](/docs/single-sign-on), open the person's n
 
 ## A lost device or unwanted playback
 
-Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback doesn't sign the account out. If an account is compromised, disable it while you arrange recovery with its owner.
+To sign out a lost device, open the person's name in **Admin > Users** and choose the **Sign-in** tab. **Signed-in sessions** lists the browsers and apps signed in to the account, with each one's device, last activity, and sign-in time. Choose **Sign out** on a row to end that session, or **Sign out everywhere** to end all of them. The password stays the same and the account stays enabled, so the person signs back in on the devices they still have.
 
-The admin **Devices** view holds saved preferences and device overrides, not sign-ins.
+A signed-out session loses access on its next request, though a video already playing may not stop right away. [Jellyfin-compatible apps](/docs/jellyfin-apps) appear in the list like any other session. **Sign out everywhere** also signs the account out of [Audiobookshelf-compatible apps](/docs/audiobookshelf), which the list doesn't show, and cancels TV sign-ins the account approved that the TV hasn't finished yet. API keys are separate; [revoke them](/docs/api-keys#replace-a-key) if the account was compromised.
+
+Only the server owner can sign out another admin or the owner. Any admin can sign out their own sessions.
+
+People can sign out their own sessions in **Settings > Signed-in sessions**; see [See where you're signed in](/docs/accounts#see-where-youre-signed-in).
+
+Use [active playback controls](/docs/active-playback) to stop a stream. Stopping playback doesn't sign the account out. If an account is compromised, disable it while you arrange recovery with the person it belongs to.
+
+**Admin > Users > Devices** holds saved preferences and device overrides, not sign-ins.

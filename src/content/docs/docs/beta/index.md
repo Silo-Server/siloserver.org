@@ -21,7 +21,7 @@ more.
 | Ebooks, comics, and manga | Web, Android phone and tablet | [Ebooks and comics](/docs/ebooks) |
 | Podcasts and music | Web admin library form | [Podcasts and music](/docs/podcasts-and-music) |
 | Watch Party | Web; iPhone, iPad, and Apple TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
-| Trakt, Simkl, and MDBList sync | Web | [Sync with Trakt, Simkl, or MDBList](/docs/watch-sync) |
+| Simkl and MDBList sync | Web | [Sync with Simkl or MDBList](/docs/watch-sync) |
 | Timeline previews | iPhone, iPad, Apple TV, native Mac app | [Timeline previews on Apple devices](/docs/timeline-previews) |
 | Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
 | Network Access (Tailscale) | Web admin | [Reach your server with Tailscale](/docs/tailscale) |

@@ -10,7 +10,7 @@ If someone has already invited you to their Silo server, [connect and start watc
 
 Use the [Docker Compose walkthrough](/docs/install) for a new single-host installation. It runs the web app, API, scanner, and transcoder together, with PostgreSQL and Redis beside them.
 
-The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. Native host builds and multi-host deployments are covered in the [server repository](https://github.com/Silo-Server/silo-server).
+The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
 
 ## What the host needs
 

@@ -21,8 +21,8 @@ silo.example.com {
 ```
 
 4. Validate and reload Caddy using the procedure for your installation.
-5. In **Admin > Settings > General**, set **Silo public URL** to `https://silo.example.com`, save, and follow any restart notice.
-6. Under **Admin > Settings > Security & Access**, review **Trusted proxies**. Trust only the proxy addresses that send requests to Silo.
+5. In **Admin > Server > General**, set **Silo public URL** to `https://silo.example.com`, save, and follow any restart notice.
+6. Under **Network** on the same page, review **Trusted proxies**. Trust only the proxy addresses that send requests to Silo.
 
 Caddy gets HTTPS certificates automatically for a hostname that is reachable from the internet. See its [reverse-proxy guide](https://caddyserver.com/docs/quick-starts/reverse-proxy) for installation details. The example assumes Caddy runs on the host: inside a Caddy container, `127.0.0.1` refers to that container.
 
