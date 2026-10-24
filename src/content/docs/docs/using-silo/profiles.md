@@ -70,8 +70,8 @@ Use the web app for that.
 
 1. On **Who's watching?**, select **Manage**, or **Add profile** to go
    straight to a new profile. If the primary profile has a PIN, enter it.
-2. Select **Add profile**, or the edit button on a profile to open
-   **Edit Profile**.
+2. Select **Add profile**, or select a profile to open **Edit Profile**. While
+   you manage profiles, each one shows a pencil.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
    select **Remove**.
