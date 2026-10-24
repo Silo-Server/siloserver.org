@@ -78,7 +78,7 @@ Your own recordings need no provider ID. For a published title, add its real ID 
 
 Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
 
-The NFO's values win over online providers, and those providers fill only what the NFO leaves empty. A list in the NFO, such as genres, studios, countries, tags, or actors, replaces the provider's list. Actors and crew count as separate lists. Providers add photos and IDs to the people your NFO lists, but don't add anyone it leaves out. A field you lock in **Edit Metadata** keeps your value over both.
+The NFO's values win over online providers, and those providers fill only what the NFO leaves empty. A list in the NFO, such as genres, studios, countries, keywords, or actors, replaces the provider's list. Actors and crew count as separate lists, so an NFO that lists only actors still gets directors and writers from the providers. Providers add photos and IDs to the people your NFO lists, but don't add anyone it leaves out. A field you lock in **Edit Metadata** keeps your value over both.
 
 NFOs don't set watched status, personal ratings, or collections.
 
