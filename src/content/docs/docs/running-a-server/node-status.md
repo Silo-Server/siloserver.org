@@ -22,7 +22,7 @@ The colored rail on the node's left edge, the dot in its header, and the label b
 
 Silo checks every node every 30 seconds. Use the refresh button in the node's header to check it right away. **Checked**, in the **Capacity** block, shows how long ago the last check ran; hover over it for the exact time.
 
-When a node stops answering, playback already running on it can't continue there. A new or restarted stream goes to a healthy node.
+When a node crashes or shuts down mid-stream, playback in the web app and the Silo apps moves to another node or to the main server on its own, usually within about 10 seconds, and carries on from the same position. Streams the main server delivers itself move without a visible pause. Streams through a proxy node can freeze for a moment while they move. If [**Routing**](/docs/transcode-nodes#route-playback-to-nodes) leaves no other machine for that playback, such as a route ending in "only" with one node of that type, playback stops and the viewer has to start it again.
 
 A disabled node is dimmed and Silo stops checking it, so its readings are from its last check.
 
