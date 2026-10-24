@@ -50,7 +50,7 @@ Silo announces itself on your network so the Silo apps on Apple and Android devi
 
 The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
 
-If people sign in with an HTTPS address, for example through a [reverse proxy](/docs/reverse-proxy), set **Local network address** under **Network** in **Admin > Settings > General** so their apps can still switch to the local address at home. Enter the Docker host's IP address on your network and the `PORT` value, for example `http://192.168.1.20:8090`, and save. The change applies without a restart. The Android apps find the local address from this setting. With host networking, the Apple apps also find it from the announcement.
+If people sign in with an HTTPS address, for example through a [reverse proxy](/docs/reverse-proxy), set **Local network address** under **Network** in **Admin > Server > General** so their apps can still switch to the local address at home. Enter the Docker host's IP address on your network and the `PORT` value, for example `http://192.168.1.20:8090`, and save. The change applies without a restart. The Android apps find the local address from this setting. With host networking, the Apple apps also find it from the announcement.
 
 To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Server > General**, save, and restart Silo. It's on by default.
 
