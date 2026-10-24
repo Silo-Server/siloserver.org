@@ -42,7 +42,7 @@ Descriptions a provider or a person already wrote in that language are kept. Tur
 2. Under **Translate library descriptions**, choose the **Language** and select **Translate**.
 3. Wait for the job to finish. Silo works through one title at a time, so a large library takes a while. Select **Stop** to cancel it.
 
-The job translates overviews and taglines, with season and episode overviews, that are missing in that language. Descriptions that already exist in that language are kept. If the model returns an error, the job stops. Run it again to pick up whatever is still missing. The panel appears only for a library that has been saved.
+The job translates overviews and taglines, with season and episode overviews, that are missing in that language. Descriptions that already exist in that language are kept. If a title can't be translated, Silo skips it, and if several fail in a row, the job stops. Run it again to pick up whatever is still missing. The panel appears only for a library that has been saved.
 
 You don't have to translate a library ahead of time. To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
 
