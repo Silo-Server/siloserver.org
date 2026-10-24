@@ -68,9 +68,6 @@ Use the web app for that.
 
 ### On Android phones, tablets, and TVs
 
-Any account can manage its profiles from the Android apps. If the primary
-profile has a PIN, enter it when the app asks.
-
 1. On the profile picker, select **Manage**, or **Add profile** to go straight
    to a new profile. If the primary profile has a PIN, enter it.
 2. Select **Add profile**, or the edit button on a profile to open
