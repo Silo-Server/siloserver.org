@@ -81,6 +81,16 @@ Error responses include a problem body with details. If the connection
 drops during a write, such as creating a credential, don't retry it
 automatically: it may already have succeeded.
 
+## Reconnect live updates
+
+Use backoff with jitter when an event connection fails or closes soon after subscribing. Allow only one pending retry, and cancel it when the app stops its background work or the signed-in identity changes. Every native v2 connection attempt needs a fresh event ticket; never reuse a ticket from a failed attempt.
+
+During shutdown, new event handshakes receive `503` with `Retry-After: 5` and `Cache-Control: no-store`. Honor the retry delay when your client can read it. Browser WebSocket failures hide the response status and headers, so they still need backoff.
+
+The prepared quota-enforcement path uses `429` for an account threshold and `503` for the process threshold, with the same headers. Startup selects [observation only](/docs/configuration#live-update-connections), so exceeding either threshold doesn't trigger those quota refusals. There is no runtime setting to turn enforcement on.
+
+Native v1/v2 and Jellyfin-compatible event connections share the account count on each API process. Switching credentials, profiles, API versions, or equivalent Jellyfin paths doesn't create another allowance. For handshake details and the retry policy, see the [realtime protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/realtime-api.md#client-socket-accounting-and-recovery) and [Jellyfin compatibility protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/jellycompat-api.md).
+
 ## If the reference doesn't load
 
 Check the server address and version. Behind a reverse proxy, ask the

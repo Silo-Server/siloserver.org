@@ -106,6 +106,14 @@ If the app reports that local password sign-in is turned off on this server,
 your Silo password no longer works there. See
 [If you don't use a Silo password](#if-you-dont-use-a-silo-password).
 
+## If live updates stop
+
+Let the app reconnect after a server restart. Avoid repeatedly closing and reopening it while the server is unavailable. If updates don't resume, install any available app update and reopen the app once. Each app chooses its own retry behavior. Silo doesn't impose a minimum app version for live-update connections.
+
+Jellyfin-compatible live-update connections share your account's [connection count](/docs/configuration#live-update-connections) with Silo's own event connections on each API process. Switching profiles or signing in again doesn't create a separate allowance. Startup observes thresholds without refusing connections for exceeding them, though new connections can be refused while the server shuts down.
+
+If browsing works but live updates still don't, ask the person who runs your server to check that the [reverse proxy passes WebSocket connections](/docs/reverse-proxy#test-away-from-home). Include the app's name and version when reporting the problem.
+
 ## What works
 
 Jellyfin-compatible apps are for movies and series. An app may use features
