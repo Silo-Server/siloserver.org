@@ -34,7 +34,7 @@ Open **More** and choose **Restore defaults…** to put back the rows Silo start
 
 Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
 
-To fix one profile's Home yourself, open **Admin > Users**, select the person, and use the profile's **Home sections** card, as in [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen). The card covers Home only, not library pages. **Reset to default** asks you to confirm, then puts that profile's Home back to the order and visibility set here and removes rows the profile added. Other profiles keep their changes.
+To fix one profile's rows yourself, open **Admin > Users**, select the person, choose **Preferences** and then the profile, and use its **Home sections** card, as in [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen). The card covers Home only, not library pages. **Reset to default** asks you to confirm, then puts that profile's Home back to the order and visibility set here and removes rows the profile added. Other profiles keep their changes.
 
 ## A row is missing or empty
 
