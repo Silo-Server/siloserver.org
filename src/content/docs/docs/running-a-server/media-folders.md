@@ -144,7 +144,7 @@ A folder named only with a number directly in a library folder, such as `tv/86/`
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle files beside the item they describe. Silo doesn't look for subtitles in a `Subs` folder. See [Local metadata](/docs/local-metadata) for what Silo reads, and [Subtitle file names](#subtitle-file-names) for how to mark a subtitle's language.
+Keep NFO files and posters beside the item they describe. Subtitle files can sit beside the video or in a `Subs` or `Subtitles` folder next to it. See [Local metadata](/docs/local-metadata) for what Silo reads, and [Subtitle file names](#subtitle-file-names) for how to mark a subtitle's language.
 
 Put extras in a folder inside the movie's or show's folder, or inside a season folder. Silo recognizes these folder names, in any letter case and with `.`, `_`, or `-` in place of spaces:
 
@@ -162,7 +162,7 @@ An extras folder name doesn't count at the top of a library, or in a folder that
 
 ## Subtitle file names
 
-Name each subtitle file after its video, then add words between the video's name and the extension to describe the track. Silo reads `.srt`, `.vtt`, `.ass`, `.ssa`, and `.sub` files. The words can come in any order, so `Movie Name (2024).en.sdh.srt` and `Movie Name (2024).sdh.en.srt` are the same track.
+Name each subtitle file after its video, then add words between the video's name and the extension to describe the track. Letter case doesn't matter, so `movie name (2024).EN.srt` belongs to `Movie Name (2024).mkv`. Silo reads `.srt`, `.vtt`, `.ass`, `.ssa`, and `.sub` files, but skips a VobSub `.sub` that has an `.idx` file beside it. The words can come in any order, so `Movie Name (2024).en.sdh.srt` and `Movie Name (2024).sdh.en.srt` are the same track.
 
 | Word in the name | What it sets |
 | --- | --- |
@@ -172,6 +172,14 @@ Name each subtitle file after its video, then add words between the video's name
 | `hi` | Hindi when no other word names a language, as in `Movie Name (2024).hi.srt`. With another language, as in `Movie Name (2024).en.hi.srt`, it marks the track as SDH |
 
 Silo skips words that aren't languages when it looks for the language, so `Movie Name (2024).ai.hr.srt` is Croatian. When two words name a language, Silo uses the first. A file with no language word, such as `Movie Name (2024).srt`, has no language set.
+
+### Subtitles in a Subs folder
+
+Silo also reads a `Subs` or `Subtitles` folder beside the video, in any letter case:
+
+- Files in it named after the video, such as `Subs/Movie Name (2024).en.srt`, work as they do beside the video.
+- In a folder inside it named after the video, every subtitle file belongs to that video, such as `Subs/Show Name S01E01/2_English.srt`. A track number and underscore at the start of the name are skipped. Silo reads the language and flags only when every word in the rest of the name is a language, `forced`, `sdh`, `cc`, or `hi`. Otherwise the track has no language set.
+- In a Movies library, a file named only for a language and flags, such as `Subs/English.srt` or `Subs/English.sdh.srt`, belongs to the movie when it's the only movie in its folder. Silo leaves these files out when the folder holds several versions or parts of a movie, or in a TV library.
 
 ## Leave files out of a scan
 
@@ -187,7 +195,7 @@ Silo doesn't read `.plexignore` itself. Lines starting with `#` are comments in 
 
 If you add an ignore file to a folder that was already scanned, the next scan treats its titles like deleted files: they disappear from the apps and are removed from the library later.
 
-Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`.
+Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`, when it looks for videos. It still reads the subtitles in `Subs` and `Subtitles` folders.
 
 ## If a title isn't identified
 
