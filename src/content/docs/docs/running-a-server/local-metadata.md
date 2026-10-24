@@ -110,6 +110,14 @@ Ratings other than IMDb and TMDB show only after you turn them on under **Rating
 
 An episode's `<uniqueid>` applies only to the episode it describes, so Silo skips it in an NFO that covers several episodes or gives numbers that don't match the file name.
 
+Silo reads NFO files saved as UTF-8, UTF-16 with a byte-order mark, Windows-1252, or ISO-8859-1. HTML entities such as `&eacute;` work, and a plain `&`, as in `Salt & Pepper`, doesn't need to be written as `&amp;`.
+
+Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
+
+With NFO Files first, its filled-in fields win and later providers fill the gaps. Genres come as a whole list from the first provider that has any.
+
+NFOs don't set watched status, personal ratings, or collections.
+
 ### Images named in an NFO
 
 Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for the slots that image files named as in [Add artwork](#add-artwork) leave empty:
@@ -126,14 +134,6 @@ Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for the slots th
 Each can be a path relative to the NFO, such as `.actors/Jane_Doe.jpg`, or a web address. A path must stay inside the title's folder. Silo copies a web address into its own image storage before any app shows it, and skips one that points to an address on your local network.
 
 An image the NFO names wins over the online providers' artwork. A person's photo is shared by every title they appear in, so an NFO photo is used only when the person has no photo yet.
-
-Silo reads NFO files saved as UTF-8, UTF-16 with a byte-order mark, Windows-1252, or ISO-8859-1. HTML entities such as `&eacute;` work, and a plain `&`, as in `Salt & Pepper`, doesn't need to be written as `&amp;`.
-
-Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
-
-With NFO Files first, its filled-in fields win and later providers fill the gaps. Genres come as a whole list from the first provider that has any.
-
-NFOs don't set watched status, personal ratings, or collections.
 
 ## Set up a series with no online match
 
