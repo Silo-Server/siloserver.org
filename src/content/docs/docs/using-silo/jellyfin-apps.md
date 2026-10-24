@@ -115,7 +115,41 @@ your Silo password no longer works there. See
 
 ## What works
 
-Jellyfin-compatible apps are for movies and series. An app may use features
-Silo doesn't provide. When reporting a problem, include the app's name and
+Jellyfin-compatible apps browse and play your movie and TV libraries. Your
+profile sees the same libraries and titles as in Silo's own apps, within the
+same rating limits. Progress, watched status, and favorites are shared with
+those apps, so you can stop a movie in one and resume it in another. The app
+plays the file as it is when the device can, and Silo converts it when the
+device can't.
+
+Silo has been checked with the Jellyfin web player on the server, Findroid on
+Android, and Jellyfin for Android TV. Other apps may work too, but some rely
+on features Silo doesn't provide.
+
+These aren't available in Jellyfin-compatible apps:
+
+- Music, podcasts, audiobooks, ebooks, and comics. For audiobooks, use an
+  [Audiobookshelf-compatible app](/docs/audiobookshelf).
+- Playlists, SyncPlay for watching together, the list of devices, and
+  controlling one app from another.
+- Deleting titles. Silo doesn't delete or change your media files.
+- Live TV, DVR recordings, and `.strm` files. Silo doesn't support them in
+  any app.
+
+Some things work differently from a Jellyfin server:
+
+- The app can't find Silo on your network by itself. Enter the
+  Jellyfin-compatible address yourself, as in [Add the server](#add-the-server).
+- The sign-in screen doesn't list any users. Choose to sign in manually, or
+  use Quick Connect.
+- Subtitles that are pictures, such as PGS and VobSub tracks from Blu-ray
+  and DVD rips, are drawn into the video when you turn them on, so Silo
+  converts the video instead of playing the file as it is.
+- Posters and backdrops load without signing in, as on a Jellyfin server.
+  Anyone who has a title's ID can view its artwork, including titles your
+  profile can't see. Titles, details, video, and subtitles still need a
+  sign-in and follow your profile's limits.
+
+When reporting a problem, include the app's name and
 version, what you were doing, and whether it works in Silo's web app. Leave
 out passwords and PINs.
