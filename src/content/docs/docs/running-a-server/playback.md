@@ -88,6 +88,17 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 **Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
 
+## Limit connection speed tests
+
+The Silo apps test each device's connection so that **Auto** can choose a quality that fits before playback starts. Both settings are under **Connection speed tests** on **Admin > Playback > Settings**:
+
+- **Automatic speed tests**, on by default, lets apps run a short test when the server has no current reading for a device on its network. Each automatic test downloads up to 100 MB. Turn it off to save bandwidth. Viewers can still run **Test speed** in their [settings](/docs/preferences#test-your-connection-speed), which downloads up to 1 GB.
+- **Keep a reading for** sets how long a reading lasts, from 1 to 30 days, 7 by default. Apps test again once their reading is older.
+
+Silo limits how many tests run at once and how much each account downloads in tests, and asks apps to try again later beyond that. Apps don't test on mobile data or metered networks, or while something plays.
+
+Speed tests take the same route as playback. If media goes through [proxy nodes](/docs/transcode-nodes), update them along with the main server: an older proxy node can't run speed tests.
+
 ## Generate chapter thumbnails
 
 Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
