@@ -46,11 +46,11 @@ The three Silo ports listen on every host interface. `PORT` answers HTTPS as wel
 
 ## Discovery on the local network
 
-Silo announces itself on your network so the Silo apps on Apple and Android devices can list it when someone adds a server, without typing its address, and so signed-in apps can [switch to the server's local address at home](/docs/reverse-proxy#other-addresses-clients-use). The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches Silo, such as Docker with host networking (`network_mode: host`).
+Silo announces itself on your network so the Silo apps on Apple and Android devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches Silo, such as Docker with host networking (`network_mode: host`).
 
 The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
 
-If people sign in with an HTTPS address, for example through a [reverse proxy](/docs/reverse-proxy), set **Local network address** under **Network** in **Admin > Server > General** so their apps can still switch to the local address at home. Enter the Docker host's IP address on your network and the `PORT` value, for example `http://192.168.1.20:8090`, and save. The change applies without a restart. The Android apps find the local address from this setting. With host networking, the Apple apps also find it from the announcement.
+If people sign in with an HTTPS address, for example through a reverse proxy, set **Local network address** under **Network** in **Admin > Server > General** so their apps can still [switch to the local address at home](/docs/reverse-proxy#other-addresses-clients-use). Enter the Docker host's IP address on your network and the `PORT` value, for example `http://192.168.1.20:8090`, and save. The change applies without a restart. The Android apps find the local address from this setting. With host networking, the Apple apps also find it from the announcement.
 
 To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Server > General**, save, and restart Silo. It's on by default.
 
