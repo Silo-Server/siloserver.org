@@ -68,8 +68,8 @@ Use the web app for that.
 
 ### On Android phones, tablets, and TVs
 
-1. On the profile picker, select **Manage**, or **Add profile** to go straight
-   to a new profile. If the primary profile has a PIN, enter it.
+1. On **Who's watching?**, select **Manage**, or **Add profile** to go
+   straight to a new profile. If the primary profile has a PIN, enter it.
 2. Select **Add profile**, or the edit button on a profile to open
    **Edit Profile**.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
