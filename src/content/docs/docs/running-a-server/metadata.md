@@ -10,7 +10,7 @@ Fix titles, descriptions, and artwork in the web app as a server administrator. 
 
 1. Open the item's details and its actions menu.
 2. Select **Match Item**.
-3. Search with the correct title and year. Use the provider filters or identifiers when you know the exact match.
+3. Search with the correct title and year. Use the provider filters or identifiers when you know the exact match. If the item is in more than one library and you didn't open it from one of them, choose a **Library** first. The search uses that library's metadata settings.
 4. Select the right result and choose **Apply Match**.
 5. Reopen the item and check the title, year, artwork, and files. For a series, also check seasons and episodes.
 
