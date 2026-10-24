@@ -52,6 +52,10 @@ as you go. Under **Order**, choose how it's sorted and, if you want a cap,
 A smart collection keeps itself up to date: titles added to your libraries
 later join it when they match. You can create it even if nothing matches yet.
 
+Silo limits how complex the rules can be. If it refuses a definition, remove
+some rules or shorten their values, then try again. This limits the work needed
+to evaluate the rules; it doesn't set a maximum number of titles in the collection.
+
 ### Follow a list
 
 For a synced list, choose under **The list it follows** where the list comes
@@ -110,6 +114,16 @@ and select **Add to my Home**.
 Drag a poster under **Your collections** to change the order. To delete a
 collection, open its action menu and select **Delete…**. It's removed for you
 and every profile you shared it with.
+
+## If a count is unavailable
+
+Open the collection even if its card says **Count unavailable**. Silo could not
+calculate its total; the label doesn't mean the collection is empty. Reload the
+page to try again.
+
+In the web app, your own collection still has its editor and **Delete…**
+action. If its rules or **Show only** filter are too complex, simplify them
+and select **Save**.
 
 ## Collections in the mobile apps
 
