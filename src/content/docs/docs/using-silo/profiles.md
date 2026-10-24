@@ -68,13 +68,10 @@ Use the web app for that.
 
 ### On Android phones, tablets, and TVs
 
-Only server administrators see profile management in the Android apps. Other
-household managers use the web app.
-
-1. On the profile picker, select **Manage Profiles** (**Manage** on Android
-   TV). If the primary profile has a PIN, enter it.
-2. Select **Add Profile**, or the edit button on a profile to open
-   **Edit Profile**.
+1. On **Who's watching?**, select **Manage**, or **Add profile** to go
+   straight to a new profile. If the primary profile has a PIN, enter it.
+2. Select **Add profile**, or select a profile to open **Edit Profile**. While
+   you manage profiles, each one shows a pencil.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
    select **Remove**.
@@ -89,10 +86,10 @@ household managers use the web app.
 ### Forgotten PIN
 
 Ask whoever manages the household's profiles to set a new PIN or remove it in
-the web app. Setting a new PIN or removing it also ends a lock after too many
-wrong PINs, so nobody has to wait out the five minutes. Don't delete the
-profile to get around the PIN: deleting it also removes its watch history and
-preferences.
+the web app or an Android app. Setting a new PIN or removing it also ends a
+lock after too many wrong PINs, so nobody has to wait out the five minutes.
+Don't delete the profile to get around the PIN: deleting it also removes its
+watch history and preferences.
 
 ## Set parental controls
 
