@@ -36,9 +36,9 @@ Silo adds video files with these extensions, in upper or lower case:
 
 Silo doesn't add video files with any other extension.
 
-Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. DVD `.vob` files, `.iso` disc images, and the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder are left out. A disc splits one movie into several files next to its menus and extras, so each piece would show up as its own title.
+Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. Silo doesn't support DVD `.vob` files, `.iso` disc images, or the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder, and doesn't add them to your library. A disc splits one movie into several files next to its menus and extras, so Silo would show each piece as its own title.
 
-RealMedia files (`.rm` and `.rmvb`) are left out too. Convert them to one of the formats above to add them.
+RealMedia files (`.rm` and `.rmvb`) aren't supported either. Convert them to one of the formats above to add them.
 
 ## Movies
 
