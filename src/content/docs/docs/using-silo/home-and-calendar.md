@@ -51,9 +51,9 @@ empty, the libraries you can see don't have any movies or series yet. You can
 still browse libraries and search.
 
 On Home, the recommendations row leaves out titles that the rows above it
-already show. In a small library, **Recently Added Movies** and **Recently
-Added TV** can hold every title, so Home may not show the recommendations row
-at all. The For You page still lists those titles.
+already show. In a small library, those rows can hold every title, so Home
+may not show the recommendations row at all. The For You page still lists
+those titles.
 
 ## Check upcoming releases
 
