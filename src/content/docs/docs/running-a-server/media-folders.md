@@ -94,7 +94,7 @@ Replace the sample numbers with the real ID for your title. Silo reads TMDB, TVD
 
 A movie can carry the ID in its file name instead, as in `Movie Name (2024)/Movie Name (2024) {tmdb-12345}.mkv`. A show needs the ID in the show folder's name; an ID in an episode's file name doesn't identify the show.
 
-If an [NFO file](/docs/local-metadata) beside the media has a `<uniqueid>`, Silo uses that ID instead of one in the folder or file name.
+If an [NFO file](/docs/local-metadata) beside the media names a provider ID, Silo uses that ID instead of one in the folder or file name.
 
 ## Also supported
 

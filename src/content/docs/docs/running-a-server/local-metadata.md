@@ -196,7 +196,7 @@ If Silo can't read an NFO, for example because of the file's permissions or a ne
 
 Silo waits to match a new item whose NFO it can't read, and tries again later. A permission problem doesn't clear on its own, so in that case Silo matches the item without its NFO. Fix the permissions, then refresh the item.
 
-When an NFO's `<uniqueid>` and a provider ID in the folder or file name, such as `{tmdb-12345}`, name different titles, Silo matches a new item to the NFO's title.
+When a provider ID in an NFO and one in the folder or file name, such as `{tmdb-12345}`, name different titles, Silo matches a new item to the NFO's title.
 
 Folder names and `S01E01`-style filenames decide the series structure; NFO episode numbers can't move a video to another season. Fix the [naming](/docs/media-folders#series) instead.
 
