@@ -41,7 +41,7 @@ Put images beside the media with these names. Each name can end in `.jpg`, `.jpe
 
 A movie or show can have up to 20 backgrounds. The first one found in the table is the main background. Numbered images come next: `fanart-1`, `fanart-2`, and so on (Kodi's `fanart1` works too), then `background-1` and up, `art-1` and up, and `backdrop1` and up. Silo stops looking for a numbered name after three missing numbers in a row. Images in an `extrafanart` folder in the title's folder come last, in name order. A `backdrops` folder holds theme videos, so Silo doesn't read images from it.
 
-Apps that connect to Silo as a Jellyfin server can show all of these images, including every background.
+[Jellyfin apps](/docs/jellyfin-apps) can show all of these images, including every background.
 
 Silo uses these images only when **NFO Files** is checked for the library, but an image works without an `.nfo` file. When a local image is present, Silo prefers it over images from every online provider, including for viewers who use another metadata language. Silo skips empty files, files over 25 MiB, and symbolic links.
 
