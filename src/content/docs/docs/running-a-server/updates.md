@@ -17,6 +17,7 @@ Update during a quiet period and tell users that playback will stop briefly.
 
    Keep that output. `latest` won't identify the old image once you've pulled a new one.
 3. Let active playback and downloads finish.
+4. If people sign in to Seerr with their Silo accounts and you haven't [relinked them](/docs/third-party-access#relink-users-after-the-user-id-change) yet, read that section first. Some setups need Seerr stopped before the update.
 
 ## Update the default Compose stack
 
