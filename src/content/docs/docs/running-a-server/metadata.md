@@ -38,7 +38,7 @@ Descriptions a provider or a person already wrote in that language are kept. Tur
 
 ### Translate library descriptions
 
-1. In **Admin > Libraries**, select the library's edit button and open **Metadata**.
+1. In **Admin > Libraries**, select the pencil on the library's row and open **Metadata**.
 2. Under **Translate library descriptions**, choose the **Language** and select **Translate**.
 3. Wait for the job to finish. Silo works through one title at a time, so a large library takes a while. Select **Stop** to cancel it.
 
