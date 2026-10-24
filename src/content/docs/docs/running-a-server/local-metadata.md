@@ -4,14 +4,15 @@ title: Use local NFO metadata
 description: Supply titles, descriptions, and artwork beside your media files.
 ---
 
-NFO files describe a movie or series from files you keep beside the media. Silo reads them through the built-in **NFO Files** provider in each library's metadata settings.
+NFO files describe a movie or series from files you keep beside the media. By default, Silo reads them and the images beside them in every library, before it asks TMDB, TVDB, or another online provider.
 
 ## Add local metadata
 
 1. Create the NFO file beside the item using the names below.
-2. In **Admin > Libraries**, edit the library and check **NFO Files** in **Provider Priority**. Put it first if local values should take precedence.
-3. Scan a new item. For an existing item, use **Refresh Metadata** and **Quick Refresh**.
-4. Look at the title and description. A locked field keeps its current value, so unlock it before refreshing if you want the NFO value.
+2. Scan a new item. For an existing item, use **Refresh Metadata** and **Quick Refresh**.
+3. Look at the title and description. A locked field keeps its current value, so unlock it before refreshing if you want the NFO value.
+
+To stop a library from reading NFO files and local images, open **Admin > Libraries**, edit the library, and turn off **Local metadata (NFO + artwork)** at the top of **Provider Priority** on its **Metadata** tab. The switch covers the whole library, including seasons and episodes, and online providers always come after it. Refresh the items that should go back to provider data.
 
 ## File names
 
@@ -35,7 +36,7 @@ Put images beside the media with these names. Each name can end in `.jpg`, `.jpe
 | Season poster | `poster`, `folder`, or `cover` inside the season folder, or `seasonNN-poster` in the show folder, such as `season01-poster.jpg`. Specials also accept `season-specials-poster`. |
 | Episode image | `<episode basename>-thumb`, then `<episode basename>`, beside the video |
 
-Silo uses these images only when **NFO Files** is checked for the library, but an image works without an `.nfo` file. When a local image is present, Silo prefers it over images from every online provider, including for viewers who use another metadata language. Silo skips empty files, files over 25 MiB, and symbolic links.
+Silo uses these images only while **Local metadata (NFO + artwork)** is on for the library, but an image works without an `.nfo` file. When a local image is present, Silo prefers it over images from every online provider, including for viewers who use another metadata language. Silo skips empty files, files over 25 MiB, and symbolic links.
 
 Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when the folder holds a single title. A `folder.jpg` shared by a folder of several movies applies to none of them. `<media basename>-poster.jpg` always applies to its own movie. A show doesn't use the `<media basename>` names, so an image named after an episode, such as `Show S01E01-poster.jpg`, never becomes the show's poster. When a show's episodes sit directly in the show folder, that folder's `poster.jpg` is the show's poster, not a season's. Name the season poster `season01-poster.jpg` there instead.
 
@@ -77,7 +78,7 @@ Your own recordings need no provider ID. For a published title, add its real ID 
 
 Silo ignores elements it doesn't read, so NFOs exported by Kodi, Jellyfin, or tinyMediaManager work as they are.
 
-With NFO Files first, its filled-in fields win and later providers fill the gaps. Genres come as a whole list from the first provider that has any.
+The NFO's values win over online providers, and those providers fill only what the NFO leaves empty. A list in the NFO, such as genres, studios, countries, keywords, or actors, replaces the provider's list. Actors and crew count as separate lists, so an NFO that lists only actors still gets directors and writers from the providers. Providers add photos and IDs to the people your NFO lists, but don't add anyone it leaves out. A field you lock in **Edit Metadata** keeps your value over both.
 
 NFOs don't set watched status, personal ratings, or collections.
 
@@ -134,7 +135,7 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
 ## When changes don't appear
 
-Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does.
+Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does. It keeps a match you chose with **Match Item**.
 
 A value you delete from an NFO stays until you refresh the item and an online provider fills it. An image you delete stays until you refresh the item. An NFO or image directly in a library's top folder, beside loose movie files, waits for the daily library scan.
 
@@ -144,6 +145,6 @@ Folder names and `S01E01`-style filenames decide the series structure; NFO episo
 
 An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next scan or refresh links the item to that provider. If you only want a movie or series off the unmatched list and don't need your own title, description, or artwork, [**Ignore**](/docs/metadata#ignore-an-unmatched-item) does that without an `.nfo`.
 
-If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one.
+If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one, unless you chose that match with **Match Item**. Until you edit the NFO or refresh the item yourself, scheduled refreshes keep the item's match and skip an NFO whose `<uniqueid>` names a different title.
 
-[**Match Item**](/docs/metadata#correct-a-wrong-match) ignores the NFO, so the title you choose there wins.
+Later scans and refreshes keep a title you choose with [**Match Item**](/docs/metadata#correct-a-wrong-match), even when the NFO's `<uniqueid>` names another title, and skip that NFO and its images for the item. To change the match, use **Match Item** again.
