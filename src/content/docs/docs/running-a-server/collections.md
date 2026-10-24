@@ -75,7 +75,7 @@ Open the collection's action menu and choose **Delete…**. If Home or library p
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
-If a collection is missing for a child profile, check that profile's **Maximum content rating**, **Maximum advisory age**, and **Restrict libraries** under [parental controls](/docs/profiles#set-parental-controls), and the libraries its account can use. A collection does not appear for a profile that can open none of its titles, in the web app, the apps, or Jellyfin clients. A collection with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
+If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
 
 ## If a synced list does not sync
 
