@@ -8,7 +8,7 @@ Your media files stay on mounted filesystems. Artwork and other generated files 
 
 ## Choose artwork storage
 
-Before the first library scan, open **Admin > Settings > Storage & Database** and set **Backend** in the **Storage** group:
+Before the first library scan, open **Admin > Server > Storage** and set **Backend** in the **Storage** group:
 
 - **Local disk** keeps files on the server at **Local storage path**. The default Compose stack mounts `/var/lib/silo/artwork` from your data directory.
 - **S3** uses the public storage bucket. Choose it when several hosts need the same artwork.
@@ -16,7 +16,7 @@ Before the first library scan, open **Admin > Settings > Storage & Database** an
 
 Save and follow the restart notice. For a single host, local disk is enough.
 
-**Keep provider artwork**, under **Artwork** in **Admin > Settings > Library & Metadata**, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
+**Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
 
 Silo records the location the first time it stores a file. From then on, a change goes through a [storage transition](#change-storage-later).
 
@@ -25,6 +25,8 @@ Silo records the location the first time it stores a file. From then on, a chang
 **Public storage** holds files clients download directly: cached artwork, uploaded posters, and branding images. "Public" describes how the files are used; the bucket does not need to be readable by everyone.
 
 **Private storage** holds files that are never public: profile avatars, diagnostic bundles, and catalog seed artifacts. Without a private bucket, a local-disk install keeps these on local disk. An install that stores artwork in S3 needs a private bucket for profile avatar uploads.
+
+**Admin > Server > Storage** shows **Public storage** and **Private storage** when **Backend** is **S3** or **Automatic**. With **Local disk** it hides them, and shows **Private storage** only if a private bucket is already saved. To add a private bucket to a local-disk install, set **Backend** to **Automatic**. Without a public bucket, Automatic keeps artwork on local disk and shows both sections.
 
 Silo records the private bucket's **Endpoint**, **Bucket**, and **Folder inside the bucket** when it starts, even if nothing is stored there yet. Changing them afterwards requires a [storage transition](#change-storage-later).
 
@@ -38,9 +40,9 @@ Silo works with any S3-compatible service, including AWS S3, Cloudflare R2, and 
 
 Then connect the bucket:
 
-1. Open **Admin > Settings > Storage & Database**.
+1. Open **Admin > Server > Storage** and set **Backend** to **S3** or **Automatic**.
 2. Under **Public storage** or **Private storage**, enter the **Endpoint**, **Bucket**, **Access Key**, and **Secret Key**. Use your provider's S3 API endpoint, not the address of its web console.
-3. Under **Advanced**, set **Region** if your provider checks it, as Garage does. When it's blank, Silo signs requests for `us-east-1`. Turn on **Put the bucket name in the URL path** if your provider needs it. **Folder inside the bucket** is optional.
+3. Set **Region** if your provider checks it, as Garage does. When it's blank, Silo signs requests for `us-east-1`. Turn on **Put the bucket name in the URL path** if your provider needs it. **Folder inside the bucket** is optional.
 4. For public storage, keep **How asset links are authorized** at **Signed links (recommended)** unless you have set up [another option](#choose-how-clients-download-files).
 5. Select **Check Connection**. It writes, reads, and deletes a test file, so a missing permission shows up here.
 6. Save and follow the restart notice.
@@ -48,10 +50,10 @@ Then connect the bucket:
 
 ### Choose how clients download files
 
-**How asset links are authorized**, under **Advanced** in **Public storage**, decides how clients get files from the public bucket:
+**How asset links are authorized**, in **Public storage**, decides how clients get files from the public bucket. Options other than **Signed links (recommended)** put their settings in an **Advanced** section below it:
 
 - **Signed links (recommended)** lets clients fetch a file without making the bucket public. It needs no other setup.
-- **Anyone with the link** needs the bucket, or a domain in front of it, to serve files without a signature. Enter that domain in **Address clients download from**, for example `https://cdn.example.com`. Anyone who has a file's address can download it.
+- **Anyone with the link** needs the bucket, or a domain in front of it, to serve files without a signature. Enter that domain in **Address clients download from**, under **Advanced**, for example `https://cdn.example.com`. Anyone who has a file's address can download it.
 - **Cloudflare signed token** is for an R2 bucket behind a custom domain, with a Cloudflare rule that checks each link. Silo signs the links and Cloudflare checks them. See [Cloudflare R2](#cloudflare-r2).
 
 ### Cloudflare R2
@@ -60,13 +62,13 @@ Connect an R2 bucket the same way for every link option:
 
 1. Set **Endpoint** to `https://<account_id>.r2.cloudflarestorage.com`.
 2. Enter the **Access Key** and **Secret Key** of an R2 API token with read and write access to the bucket.
-3. Under **Advanced**, turn on **Put the bucket name in the URL path**.
+3. Turn on **Put the bucket name in the URL path**.
 
 **Signed links (recommended)** works with these settings alone. To serve files from your own domain instead, connect a custom domain under the bucket's **Settings** > **Custom Domains** in the Cloudflare dashboard, then choose one of the options below.
 
 #### Serve files from a public custom domain
 
-Set **How asset links are authorized** to **Anyone with the link** and **Address clients download from** to your custom domain, for example `https://cdn.example.com`. Anyone who has a file's address can download it.
+Set **How asset links are authorized** to **Anyone with the link**, and under **Advanced** set **Address clients download from** to your custom domain, for example `https://cdn.example.com`. Anyone who has a file's address can download it.
 
 #### Check links with a Cloudflare signed token
 
@@ -82,7 +84,7 @@ This needs a Cloudflare Pro plan or higher, for the `is_timed_hmac_valid_v0()` r
 
    Replace `cdn.example.com` with your custom domain and `YOUR_SECRET` with the secret. `10800` must equal **Link lifetime** in Silo. `8` is the length of **Token query parameter** plus 2: `?verify=` is 8 characters.
 4. Set the action to **Block** and select **Deploy**.
-5. In Silo, set **How asset links are authorized** to **Cloudflare signed token**, **Address clients download from** to `https://cdn.example.com`, **Token Secret** to the same secret, **Token query parameter** to `verify`, and **Link lifetime** to `10800`.
+5. In Silo, set **How asset links are authorized** to **Cloudflare signed token**. Under **Advanced**, set **Address clients download from** to `https://cdn.example.com`, **Token Secret** to the same secret, **Token query parameter** to `verify`, and **Link lifetime** to `10800`.
 6. Save and follow the restart notice.
 7. Open an image in a client. Its address should look like `https://cdn.example.com/<object key>?verify=<unix time>-<signature>`.
 
@@ -102,7 +104,7 @@ Garage serves plain HTTP on both its S3 and website ports. For an `https://` add
 2. Create a key: `garage key create <key-name>`. Note the key ID and secret key it prints.
 3. Give the key access: `garage bucket allow --read --write --key <key-name> <bucket-name>`
 4. In Silo, enter Garage's S3 API address as the **Endpoint**, the bucket name, and the key ID and secret key as **Access Key** and **Secret Key**.
-5. Under **Advanced**, turn on **Put the bucket name in the URL path**.
+5. Turn on **Put the bucket name in the URL path**.
 6. Set **Region** to the `s3_region` value under `[s3_api]` in `garage.toml`. Garage's example configuration uses `garage`. If they don't match, Garage rejects Silo's requests and clients can't open signed links.
 7. Keep **How asset links are authorized** at **Signed links (recommended)**.
 
@@ -122,7 +124,7 @@ Set up a private bucket the same way.
 
 4. Route `assets.example.com` to port 3902 through a reverse proxy that keeps the `Host` header.
 5. In Silo, set **Endpoint** to Garage's S3 API address, for example `https://garage.example.com`, and **Bucket** to `assets.example.com`. Set **Region** and the key as in [Use signed links](#use-signed-links), and turn on **Put the bucket name in the URL path**.
-6. Set **How asset links are authorized** to **Anyone with the link** and **Address clients download from** to `https://assets.example.com`.
+6. Set **How asset links are authorized** to **Anyone with the link**, and under **Advanced** set **Address clients download from** to `https://assets.example.com`.
 7. Open an image in a client to check the route. `https://assets.example.com/` on its own returns `404`, which is expected.
 
 ## Change storage later
@@ -131,8 +133,8 @@ Use a storage transition to move from local disk to S3 (for example, before addi
 
 1. Make a [backup](/docs/backup-restore) first.
 2. For a new local path, mount it into the container before you start.
-3. Open **Admin > Settings > Storage & Database**. For a new bucket, enter its **Endpoint**, **Bucket**, and keys under **Public storage** or **Private storage**, and select **Check Connection**.
-4. Start the transition. Choosing a different **Backend** opens the transition dialog right away. After editing a location instead (the **Local storage path**, or a bucket's **Endpoint**, **Bucket**, or **Folder inside the bucket**), select **Review transition** in the save bar.
+3. Open **Admin > Server > Storage**. To move to S3, set **Backend** to **S3** first so **Public storage** and **Private storage** appear. For a new bucket, enter its **Endpoint**, **Bucket**, and keys under **Public storage** or **Private storage**, and select **Check Connection**.
+4. Start the transition. Choosing **Local disk**, or **Automatic** with no public bucket, to leave S3 opens the transition dialog right away. After choosing **S3** or editing a location (the **Local storage path**, or a bucket's **Endpoint**, **Bucket**, or **Folder inside the bucket**), select **Review transition** in the save bar.
 5. In the **Change artwork storage** dialog, check the **Target**. The dialog is called **Change private storage** when only private storage moves.
 6. Under **What should move?**, choose a policy (see below), then select **Queue transition**.
 7. Wait for the transition to finish. The page shows each step, such as **Copying storage objects** and **Verifying copied objects**. Select **Cancel transition** to stop it before the switch.
@@ -169,6 +171,6 @@ Keep both buckets until you have checked for files written while the settings di
 
 ## Space and persistence
 
-Keep the database, artwork, and plugin data on persistent storage. Leave room for transcodes and prepared downloads; they grow while people watch or download.
+Keep the database, artwork, and plugin data on persistent storage. Leave room for transcodes and prepared downloads; they grow while people watch or download. To cap the space prepared downloads take, set a [storage budget](/docs/download-storage#set-storage-budgets).
 
 Watch free space on the host and its mounted volumes. A full disk can stop one task before the whole server fails. Before adding users, set up [backups](/docs/backup-restore).

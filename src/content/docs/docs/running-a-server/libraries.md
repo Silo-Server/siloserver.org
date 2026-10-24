@@ -72,7 +72,7 @@ Set the type and title of a folder Silo can't classify on its own under **Ambigu
 
 ## Scan or refresh
 
-**Scan** finds new and changed files in the library folders. **Refresh Metadata** asks metadata providers again about items already in the library. Scan for a new file; refresh for an updated description or poster.
+**Scan** finds new and changed files in the library folders. **Refresh Metadata** asks metadata providers again about items already in the library. Scan for a new file or an edited [NFO file](/docs/local-metadata); refresh for an updated description or poster from an online provider.
 
 After the first scan, Silo watches library folders on local disks and scans a new or changed file within seconds, so you rarely need **Scan**. For a library on a network share, set up an [autoscan source](/docs/autoscan#autoscan-sources) after a normal scan succeeds. [Keep libraries up to date](/docs/autoscan) covers both.
 

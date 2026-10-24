@@ -89,6 +89,7 @@ export const sidebar = [
         "docs/backup-restore",
         "docs/updates",
         "docs/server-health",
+        "docs/download-storage",
         "docs/logging",
         "docs/monitoring",
         "docs/profiling",

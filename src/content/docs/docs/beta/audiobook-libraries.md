@@ -62,7 +62,7 @@ Audiobooks use the same `MEDIA_ROOT` mount as movies and series, so you don't ne
 
 ## Metadata enrichment
 
-The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Plugins**, then select it in the library's provider list. An accurate ASIN tag improves matching with providers that use it.
+The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Integrations > Plugins**, then select it in the library's provider list. An accurate ASIN tag improves matching with providers that use it.
 
 A provider match doesn't change chapter order. Fix that in the filenames or embedded chapters.
 

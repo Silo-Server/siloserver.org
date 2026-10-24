@@ -8,7 +8,7 @@ Use a separate key for each integration so you can remove one connection without
 
 ## Create a key in the admin interface
 
-1. Open **Admin > API Keys** and choose **Create Key**.
+1. Open **Admin > Sign-in & Security > API Keys** and choose **Create Key**.
 2. Enter a **Label** that identifies the integration, for example `Living room dashboard`.
 3. Select the **User** that should own it.
 4. Choose **Create**, then **Copy & Close**. Store the key right away; Silo can't show it again.
@@ -20,7 +20,7 @@ Only administrators create keys. The owning account can list and revoke its own 
 
 ## Replace a key
 
-Silo can't give an existing key a new secret. To replace one, create a new key, update the integration, and make sure it connects. Then choose **Revoke** on the old key in **Admin > API Keys**. If a key was exposed, revoke it immediately.
+Silo can't give an existing key a new secret. To replace one, create a new key, update the integration, and make sure it connects. Then choose **Revoke** on the old key in **Admin > Sign-in & Security > API Keys**. If a key was exposed, revoke it immediately.
 
 Revoking a key stops requests that use it. Browser and app sign-ins on the owning account stay signed in.
 

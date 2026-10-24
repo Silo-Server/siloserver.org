@@ -1,15 +1,15 @@
 ---
 slug: docs/watch-sync
 beta: true
-title: Sync with Trakt, Simkl, or MDBList (Beta)
-description: Connect a profile to Trakt, Simkl, MDBList, or an installed watch-provider plugin.
+title: Sync with Simkl or MDBList (Beta)
+description: Connect a profile to Simkl, MDBList, or an installed watch-provider plugin.
 ---
 
 :::caution[Beta]
 This feature is in Beta and may change or be removed in a future release.
 :::
 
-Connect a Silo profile to a Trakt, Simkl, or MDBList account. Silo can then
+Connect a Silo profile to a Simkl or MDBList account. Silo can then
 import watched history and resume points, send your watched changes, and
 report what you're playing. Watch-provider plugins can add other services.
 
@@ -18,16 +18,9 @@ every Silo app signed in to the same profile.
 
 ## Prepare the server
 
-An administrator enters Trakt and Simkl application credentials in
-**Admin > Settings > Watch Providers** before anyone can connect those
-services. MDBList needs no server setup: each person enters their own API key.
+An administrator enters Simkl application credentials in
+**Admin > Settings > Watch Providers** before anyone can connect Simkl. MDBList needs no server setup: each person enters their own API key.
 Providers added by a plugin may need their own configuration.
-
-To get Trakt credentials, create an API app on the
-[Trakt developer portal](https://developer.trakt.tv/). Trakt requires a
-verified GitHub account to create one. Silo signs in with a device code, so
-enter `urn:ietf:wg:oauth:2.0:oob` under **Redirect URIs**. Copy the app's
-client ID and client secret into Silo.
 
 If no provider is set up, the personal **Watch Providers** page says so.
 
@@ -43,10 +36,6 @@ If no provider is set up, the personal **Watch Providers** page says so.
 
 Each connection belongs to one profile. Other household members connect
 their own profiles.
-
-Free Trakt accounts can connect only a limited number of apps. If Trakt won't
-authorize Silo, remove an app you no longer use from your Trakt account's
-connected apps, then try again.
 
 ## Choose what syncs
 
