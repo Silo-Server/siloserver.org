@@ -38,7 +38,7 @@ The bitrate limit caps the stream's bitrate, not the speed of the network connec
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
-**Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and the limit must be at least 1. Accounts without a group, and administrator accounts, can have 5. To give one account its own limit, open its **Edit** dialog and turn on **Override** for **Max Profiles** under **Limits**. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
+**Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and the limit must be at least 1. Accounts without a group, and administrator accounts, can have 5. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Sign-in & role**, and set **Profiles allowed** to **Custom**. **Default** uses the group's limit again. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
