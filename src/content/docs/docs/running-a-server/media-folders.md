@@ -114,7 +114,7 @@ A file with several episodes links to its first episode. Editions and multipart 
 
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
 
-A folder directly in a library folder named `Series`, `Serie`, or `Seria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. `Series 2` and `Series 2 (2019)` in the same place still count as seasons, and inside a show folder `Series 5 Matt Smith` is season 5.
+A folder directly in a library folder named `Series`, `Serie`, `Série`, `Seria`, or `Séria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. It's still a season when only a year or release details follow the number (`Series 2 (2019)`, `Series 2 1080p`). It's also a season when its file names start with a different show's title, as in a library folder for one show that holds `Series 5 Matt Smith/Doctor Who S05E03.mkv`. Inside a show folder, `Series 5 Matt Smith` is season 5.
 
 ## Episode numbers without a season
 
