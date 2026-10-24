@@ -135,7 +135,7 @@ If a folder is sorted as the wrong type, fixing the NFO won't move it:
 
 ## When changes don't appear
 
-Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does.
+Silo applies an edited NFO, or a new image beside the media, the next time it scans that folder. With [real-time monitoring](/docs/autoscan#real-time-monitoring), that's within seconds of saving the file; otherwise the daily library scan picks it up. A field you locked keeps its value. If the NFO's `<uniqueid>` changed, Silo refreshes the item and links it to that title, as a refresh you start does. It keeps a match you chose with **Match Item**.
 
 A value you delete from an NFO stays until you refresh the item and an online provider fills it. An image you delete stays until you refresh the item. An NFO or image directly in a library's top folder, beside loose movie files, waits for the daily library scan.
 
@@ -145,6 +145,6 @@ Folder names and `S01E01`-style filenames decide the series structure; NFO episo
 
 An NFO with a title and no `<uniqueid>` gives the item that title without asking an online provider. If you add a `<uniqueid>` later, the next scan or refresh links the item to that provider. If you only want a movie or series off the unmatched list and don't need your own title, description, or artwork, [**Ignore**](/docs/metadata#ignore-an-unmatched-item) does that without an `.nfo`.
 
-If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one, unless you chose that match with **Match Item**. Scheduled refreshes keep the item's match and skip an NFO whose `<uniqueid>` names a different title.
+If an NFO had the wrong `<uniqueid>`, correct it and refresh the item. A refresh you start follows the NFO's ID, even when the item is already linked to another one, unless you chose that match with **Match Item**. Until you edit the NFO or refresh the item yourself, scheduled refreshes keep the item's match and skip an NFO whose `<uniqueid>` names a different title.
 
-Later refreshes keep a title you choose with [**Match Item**](/docs/metadata#correct-a-wrong-match), even when the NFO's `<uniqueid>` names another title, and skip that NFO and its images for the item. To change the match, use **Match Item** again.
+Later scans and refreshes keep a title you choose with [**Match Item**](/docs/metadata#correct-a-wrong-match), even when the NFO's `<uniqueid>` names another title, and skip that NFO and its images for the item. To change the match, use **Match Item** again.
