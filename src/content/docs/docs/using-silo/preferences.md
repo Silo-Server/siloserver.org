@@ -54,9 +54,9 @@ device.
 
 A setting changed on a device wins over your profile's value on that device,
 except **Show title art** while **Apply to all devices** is on. In the web
-app, **Use server default** under **Settings > Navigation & Cards** clears
-your own **Show title art** choice so it follows your server's default again.
-If a single
+app, **Use server default** appears under **Show title art** on **Settings >
+Title Pages** once you've chosen your own setting. It returns this browser to
+your server's default; other devices keep their own choice. If a single
 title plays differently from others, look at the audio and subtitle tracks
 chosen for it during playback before you change the whole profile.
 
