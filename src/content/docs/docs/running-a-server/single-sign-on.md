@@ -49,6 +49,8 @@ In the iPhone, iPad, Mac, and Android apps, signing in with the provider opens t
 
 People then sign in with their directory username and password in the usual sign-in form. An account that still has its own Silo password keeps signing in with that password until it's [connected to the directory](#choose-who-gets-an-account).
 
+Silo counts failed sign-ins for each directory username too. After 10 within 15 minutes, Silo [locks the name](/docs/configuration#failed-sign-ins-per-name) and stops sending its passwords to the directory for 15 minutes. If your directory locks an account after fewer wrong passwords, it can still lock the account first.
+
 ## Choose who gets an account
 
 With **Create accounts on first sign-in** on, which is the default, anyone the provider lets in gets a Silo account the first time they sign in. Their role follows **Admin groups** when you set it; everyone else becomes a regular user. Turn it off to let in only people whose Silo account is already connected to the provider.

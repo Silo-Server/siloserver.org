@@ -108,6 +108,26 @@ new password.
 If your account signs in through another provider, use that provider's
 recovery process.
 
+## After too many failed sign-ins
+
+After 10 failed sign-ins with the same username or email address within 15
+minutes, Silo locks that name for 15 minutes in every app. Until then,
+sign-in fails even with the right password. The web app shows
+`Too many failed sign-ins for this name. Try again later.`, and the Silo apps
+say there were too many attempts. Wait 15 minutes, then sign in again.
+
+While the name is locked:
+
+- Devices that are already signed in keep working.
+- A phone or browser that's already signed in can still sign in a TV by
+  [scanning its code](/docs/tv-sign-in#scan-the-tvs-code).
+- A [reset link](#forgot-your-password) still works and signs you in where
+  you use it. It also signs your other devices out, as usual.
+
+Even the person who runs your server can't end the lock early. If it keeps
+happening when you haven't been signing in, someone else may be trying your
+name; tell the person who runs your server.
+
 ## Lost or stolen device
 
 In the web app, open **Settings > Signed-in sessions** and choose **Sign out**

@@ -71,9 +71,11 @@ New lists land under **No heading** on each library's **Collections** tab, ready
 
 Open the collection's action menu and choose **Delete…**. If Home or library page rows show it, the dialog lists them, and a button such as **Delete it and its 2 rows** removes both. To keep a row, open it from the dialog and point it at another collection first.
 
-## If a collection looks empty
+## If a collection looks empty or is missing
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
+
+If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
 
 ## If a synced list does not sync
 

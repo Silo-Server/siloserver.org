@@ -30,9 +30,20 @@ To change several rows at once, open **More** and choose **Select rows**. You ca
 
 Open **More** and choose **Restore defaults…** to put back the rows Silo starts with on that page. Rows that show a collection are removed, but the collections stay. Turn on **Also reset every profile's Home**, or the same switch for a library page, to also clear what each profile hid, renamed, moved, or added there.
 
+## Set Next Up for every profile
+
+Below the rows, **Next Up defaults for every profile** sets two Home preferences for each profile that hasn't chosen its own:
+
+- **Next up episodes**: **With Continue Watching** keeps the next episode of each show someone is watching in **Continue Watching**. **Separate row** gives those episodes their own **Next Up** row.
+- **Show new episodes first** moves a show someone has caught up on to the front of **Continue Watching** and **Next Up** when a new episode or season arrives.
+
+Each control saves as soon as you change it. The defaults apply on Home and library pages, and **Show new episodes first** also orders **Next Up** in [Jellyfin-compatible apps](/docs/jellyfin-apps). Until you change them, profiles get **With Continue Watching** with **Show new episodes first** off.
+
 ## What profiles can change
 
-Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
+Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). They can also choose their own **Next up episodes** and **Show new episodes first**, and Silo uses those instead of the defaults above. If a change shows for one profile but not another, that profile has changed the row, its page's order, or one of those settings itself.
+
+To fix one profile's rows yourself, open **Admin > Users**, select the person, choose **Preferences** and then the profile, and use its **Home sections** card, as in [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen). The card covers Home only, not library pages. **Reset to default** asks you to confirm, then puts that profile's Home back to the order and visibility set here and removes rows the profile added. Other profiles keep their changes.
 
 ## A row is missing or empty
 

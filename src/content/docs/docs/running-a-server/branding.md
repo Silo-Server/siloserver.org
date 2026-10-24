@@ -1,7 +1,7 @@
 ---
 slug: docs/branding
 title: Customize your server's appearance
-description: Set your server's logos, accent color, poster badges, and login background for the web app and emails.
+description: Set your server's logos, accent color, poster badges, title art, and login background for the web app and emails.
 ---
 
 Name your server under **Admin > Server > General**, and use **Admin > Server > Appearance** to change how it looks in a browser and in the emails it sends. The Apple and Android apps keep their own name and icon.
@@ -29,6 +29,10 @@ Use artwork you have permission to publish, and make sure text and controls stay
 ### Adjust poster badges
 
 Under **Card overlays**, use **Show badges on poster art** and choose the **Badge style** and where each badge appears. These are defaults; people who have chosen their own badge style keep it. Save and look at a library.
+
+### Choose title art or plain titles
+
+Under **Title pages**, turn off **Show title art** to name each movie or show at the top of its page in plain text instead of its logo artwork. It applies to everyone who hasn't chosen their own, and anyone can still change it in their settings. Titles without logo artwork always show their name as text. Save and open a movie.
 
 ### Advanced changes
 

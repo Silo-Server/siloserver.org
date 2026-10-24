@@ -42,13 +42,15 @@ Change a host port in `.env` when it conflicts with another service. The contain
 | `PROXY_PORT` | 8083 | The commented `silo-proxy` example, once you turn it on |
 | `TRANSCODE_PORT` | 8082 | The commented `silo-transcode` example, once you turn it on |
 
-The three Silo ports listen on every host interface without TLS. The Jellyfin and Audiobookshelf listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
+The three Silo ports listen on every host interface. `PORT` answers HTTPS as well as plain HTTP. Its certificate is self-signed, so browsers don't trust it, but the Silo apps check that it belongs to your server before they [connect directly at home](#discovery-on-the-local-network). The Jellyfin and Audiobookshelf ports use plain HTTP only, and their listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
 ## Discovery on the local network
 
 Silo announces itself on your network so the Silo apps on Apple and Android devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches Silo, such as Docker with host networking (`network_mode: host`).
 
 The default stack uses Docker's bridge network, which doesn't pass multicast, so apps don't list the server and people enter its address instead. The default Compose file isn't set up for host networking.
+
+If people sign in with an HTTPS address, for example through a reverse proxy, set **Local network address** under **Network** in **Admin > Server > General** so their apps can still [switch to the local address at home](/docs/reverse-proxy#other-addresses-clients-use). Enter the Docker host's IP address on your network and the `PORT` value, for example `http://192.168.1.20:8090`, and save. The change applies without a restart. The Android apps find the local address from this setting. With host networking, the Apple apps also find it from the announcement.
 
 To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Server > General**, save, and restart Silo. It's on by default.
 

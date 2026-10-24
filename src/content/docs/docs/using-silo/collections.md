@@ -18,8 +18,10 @@ In the web app, **Collections** has three parts:
 - **Server collections**: collections the person who runs your server made for
   each library.
 
-A collection only shows the titles your profile can access. Sharing a
-collection with you doesn't give you access to a restricted library.
+A collection only shows the titles your profile can access, and the count on
+its card includes only those titles. A server collection whose titles are all
+hidden from your profile isn't listed for you. Sharing a collection with you
+doesn't give you access to a restricted library.
 
 ## Make a collection in the web app
 

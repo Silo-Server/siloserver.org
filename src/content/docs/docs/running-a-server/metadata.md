@@ -43,6 +43,16 @@ Editing a lockable field locks it, so providers leave it alone during a refresh.
 
 **Reset & Refresh** clears every lock and replaces your manual edits with provider data.
 
+## Choose a fallback language
+
+When a metadata provider has no title or description in a library's **Metadata Language**, Silo uses English by default before the title's original language. For example, when an anime has no Spanish text, a Spanish library shows the series and its episodes with English titles and descriptions.
+
+To use another language for every library, open **Admin > Libraries > Settings** and choose it in **Fallback metadata language** under **General**. Choose **Original language** to show the original language instead.
+
+While the fallback is on, Silo picks posters in this order: the library's language, the fallback language, English, a poster without text, then any other language.
+
+New items use the setting right away. Items already in a library change when you refresh them: choose **Refresh Metadata** from an item's actions menu and then **Quick Refresh**, or select the library's **Rescan Metadata** button in **Admin > Libraries** and then **Refresh All Metadata**.
+
 ## Translate a description
 
 This needs a text model and **Translate descriptions** turned on in [AI Services](/docs/ai-services).
@@ -51,13 +61,23 @@ This needs a text model and **Translate descriptions** turned on in [AI Services
 2. Choose the target **Language** and select **Translate**.
 3. Wait for the result and read the translation. For a series, the job also translates season and episode overviews.
 
-Turn on **Re-translate existing** only to replace an earlier translation. A provider's own translation can later replace the AI text.
+Descriptions a provider or a person already wrote in that language are kept. Turn on **Re-translate AI text** to refresh earlier AI translations as well. A provider's own translation can later replace the AI text.
 
-To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
+### Translate library descriptions
+
+1. In **Admin > Libraries**, select the pencil on the library's row and open **Metadata**.
+2. Under **Translate library descriptions**, choose the **Language** and select **Translate**.
+3. Wait for the job to finish. Silo works through one title at a time, so a large library takes a while. Select **Stop** to cancel it.
+
+The job translates overviews and taglines, with season and episode overviews, that are missing in that language. Descriptions that already exist in that language are kept. If a title can't be translated, Silo skips it, and if several fail in a row, the job stops. Run it again to pick up whatever is still missing. The panel appears only for a library that has been saved.
+
+You don't have to translate a library ahead of time. To translate while people browse, use **Description translation for viewers** in [AI Services](/docs/ai-services). It translates descriptions, not the app's interface.
 
 ## Choose artwork
 
-In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select a provider image, and choose **Apply**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
+In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select an image, and choose **Apply Poster**, **Apply Backdrop**, or **Apply Logo**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
+
+A badge on each image names where it comes from, such as **TMDB**. A movie or series also offers the artwork stored beside its files, marked **LOCAL** and listed first, so a title with no provider match can still use its own [artwork](/docs/local-metadata#add-artwork). When the images come from more than one source, buttons such as **All**, **LOCAL**, and **TMDB** appear under the image types. Select one to show only that source's images.
 
 If images don't appear, check [artwork storage](/docs/s3-storage).
 

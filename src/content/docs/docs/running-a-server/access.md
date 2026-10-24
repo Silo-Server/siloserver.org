@@ -13,7 +13,7 @@ Administrator accounts cannot belong to access groups. Group policies apply only
 1. Open **Admin > Users > Access Groups** and choose **New group**.
 2. Name the group, for example `Guests`, and create it.
 3. Open the group. Under **Libraries & playback**, choose the libraries and playback quality it can use.
-4. Review **Downloads & requests** and **Concurrent streams**. Under **Permissions**, choose which permissions member accounts may receive.
+4. Review **Downloads**, **Requests**, **Concurrent streams**, and **Profiles**. Under **Permissions**, choose which permissions member accounts may receive.
 5. Choose **Save changes**.
 
 Use **Default for new users** only if this should become the starting group for future accounts. Check its library access before making it the default.
@@ -37,6 +37,8 @@ Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a pre
 The bitrate limit caps the stream's bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it. If it can't, it tries another version that fits, and refuses playback only when neither works.
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
+
+**Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and you can set any whole number from 1 up. Accounts without a group, and administrator accounts, can have 5 unless you give them their own limit. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Sign-in & role**, and set **Profiles allowed** to **Custom**. **Default** uses the group's limit again. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
