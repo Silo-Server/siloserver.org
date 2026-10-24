@@ -27,6 +27,9 @@ default, which the person who runs your server can turn on.
 Only episodes newly added to your server count as new, not the episodes in a
 library you add or re-add, or an older file once it's matched to its show.
 
+To take a title off **Continue Watching** or **Next Up**,
+[remove it from the card's menu](/docs/watch-history#remove-a-title-from-continue-watching-or-next-up).
+
 For You picks titles from your profile's viewing history and ratings, so
 [rating what you watch](/docs/saved-titles) improves it. In the web app, you
 can also open **Settings > Personalize**, select **Open the picker**, and

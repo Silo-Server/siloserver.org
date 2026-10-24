@@ -38,6 +38,35 @@ phone. On a movie or episode page, it's in the **More** menu (⋮), after
 **Continue Watching**, and the next play starts from the beginning. Its watch
 history stays, and an item you'd already watched stays watched.
 
+## Remove a title from Continue Watching or Next Up
+
+Open the card's menu and choose **Remove from Continue Watching** or
+**Remove from Next Up**:
+
+- In the web app, point at the card and open its menu (⋮). On a
+  touchscreen, touch and hold the card instead.
+- On iPhone, iPad, and Android phones and tablets, touch and hold the card.
+- In the [native Mac app](/docs/native-macos), Control-click or right-click
+  the card.
+- On Apple TV and Android TV, focus the card, then press and hold Select.
+
+On a title you've started, the menu says **Remove from Continue Watching**.
+In the web app, it says **Remove from Continue Listening** for an audiobook
+and **Remove from Continue Reading** for an ebook. On the next episode of a
+show, it says **Remove from Next Up**, in the **Next Up** row or inside
+**Continue Watching**.
+
+Removing an episode takes its whole show off **Continue Watching** and
+**Next Up**, whichever row you used. The show comes back when you play any of
+its episodes again. Removing a movie, audiobook, or ebook takes off only that
+card, and it comes back the next time you play it. Your resume point and
+watched status stay as they are, and the change applies to your profile on
+every device.
+
+In the web app, a message confirms the removal. Select **Undo** in it to put
+the title back. The Apple and Android apps don't have an undo, so play the
+title again to bring it back.
+
 ## Change watched status
 
 On a phone or tablet, open the title and select
