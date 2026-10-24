@@ -42,7 +42,7 @@ Change a host port in `.env` when it conflicts with another service. The contain
 | `PROXY_PORT` | 8083 | The commented `silo-proxy` example, once you turn it on |
 | `TRANSCODE_PORT` | 8082 | The commented `silo-transcode` example, once you turn it on |
 
-The three Silo ports listen on every host interface. `PORT` answers HTTPS as well as plain HTTP. Its certificate is self-signed, so browsers don't trust it, but the Silo apps check it to [connect directly at home](#discovery-on-the-local-network). The Jellyfin and Audiobookshelf ports use plain HTTP only, and their listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
+The three Silo ports listen on every host interface. `PORT` answers HTTPS as well as plain HTTP. Its certificate is self-signed, so browsers don't trust it, but the Silo apps check that it belongs to your server before they [connect directly at home](#discovery-on-the-local-network). The Jellyfin and Audiobookshelf ports use plain HTTP only, and their listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
 ## Discovery on the local network
 
