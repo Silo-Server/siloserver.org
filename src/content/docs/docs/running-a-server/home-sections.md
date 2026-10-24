@@ -41,7 +41,7 @@ Each control saves as soon as you change it. The defaults apply on Home and libr
 
 ## What profiles can change
 
-Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). They can also choose their own **Next up episodes** and **Show new episodes first**, which win over the defaults above. If a change shows for one profile but not another, that profile has changed the row, its page's order, or one of those settings itself.
+Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). They can also choose their own **Next up episodes** and **Show new episodes first**, and Silo uses those instead of the defaults above. If a change shows for one profile but not another, that profile has changed the row, its page's order, or one of those settings itself.
 
 ## A row is missing or empty
 
