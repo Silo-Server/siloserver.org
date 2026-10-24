@@ -27,6 +27,8 @@ Home and library rows show descriptions in the viewer's language once a translat
 3. Turn on **Create subtitles from audio** and save.
 4. Try one short item in the web player. When the job finishes, select the new subtitle track and check its language and timing.
 
+With **Translate subtitles** off, or no text model set up, viewers can create subtitles from audio only in the spoken language. The players don't offer other languages.
+
 If the speech **Base URL** is blank, Silo sends audio to the text model's endpoint. Run **Test speech-to-text** to find out whether that endpoint accepts audio.
 
 ## Limit cost and server load
@@ -41,6 +43,10 @@ Keep the default batch and audio-request sizes unless the provider reports a req
 
 Generated subtitle tracks are saved on the server, and anyone who can play the item can select them. Manage saved files under [Subtitle Files](/docs/subtitle-providers#inspect-saved-tracks).
 
+When anyone asks again to translate the same subtitle track into the same language with the same model, Silo reuses the saved translation and doesn't send the request to the provider. To translate it again, delete the AI track under **Subtitle Files** first. Editing the subtitle file or replacing the video starts a new translation. Creating subtitles from audio always runs again.
+
 ## A test or job fails
 
 Check the model name, base URL, credential, and the provider's response. A full film can still fail after a passing connection test, for example when it reaches the provider's quota. Read generated subtitles before relying on them.
+
+When a viewer's job fails, the player shows the reason. If the provider reports a billing or spending limit, rejects the credentials, doesn't recognize the model, or refuses a request as too large, the message asks the viewer to contact a server administrator. A request that's too large names the setting to lower: **Subtitle lines per request** or **Audio per request**. Other reasons, such as a rate limit or an unavailable provider, tell the viewer to try again later. The provider's full response is in **Admin > Logs > Server Log**.

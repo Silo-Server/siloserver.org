@@ -60,7 +60,25 @@ Only upload a file you're happy for everyone on the server to use.
 Silo translates an existing subtitle track when it can and otherwise
 transcribes the audio.
 
+If your server has AI translation turned off, you can create subtitles from
+audio only in the language that's spoken. The web and Android apps say
+`Subtitles are written in the spoken language. AI translation is turned off on this server.`
+On iPhone, iPad, and Apple TV, the other languages can't be
+selected.
+
 The new track appears in the subtitle list when it's done, which can take a
-while. AI can mishear or mistranslate lines. There may be a limit on how much
-you can transcribe. If it fails, share the error message with the person who
-runs your server.
+while. On Android, AI tracks are labeled **AI Translation** or
+**AI Transcription**. AI can mishear or mistranslate lines. There may be a
+limit on how much you can transcribe.
+
+If you ask for a translation that already exists, from the same subtitle
+track into the same language, Silo doesn't make a new one. The saved track is
+already in the subtitle list, and the web player selects it for you. For a
+fresh translation, ask the person who runs your server to delete the AI track
+first.
+
+If a job fails, the message says why. When it asks you to contact a server
+administrator, a setting on the server needs fixing, so pass the message on
+to the person who runs your server. Most other messages say what you can do
+yourself, such as
+`The AI provider is unavailable right now. Try again later.`
