@@ -97,14 +97,14 @@ Some tools write XML with a link on the line after it. Silo reads the XML and ad
 | `<ratings>` with `<rating name="...">` and `<votes>` | movie, series, episode | ratings named `imdb`, `tmdb` or `themoviedb`, `tomatometerallcritics` or `rottentomatoes`, `tomatometerallaudience`, `metacritic`, `trakt`, `tvdb`, and `letterboxd`. Episodes keep only IMDb and TMDB. |
 | `<rating>` on its own | movie, series, episode | IMDb rating, when `<ratings>` has none |
 | `<criticrating>` | movie, series | Rotten Tomatoes critics score |
-| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; an `<order>` that isn't a number is ignored. `<type>`, such as `GuestStar`, sets the kind of credit, `<tmdbid>`, `<imdbid>`, and `<tvdbid>` identify the person, and `<thumb>` is their photo, as described below. |
+| `<actor>` with `<name>`, `<role>`, `<order>` | movie, series | cast; an `<order>` that isn't a number is ignored. `<type>`, such as `GuestStar`, sets the kind of credit; `<tmdbid>`, `<imdbid>`, and `<tvdbid>` identify the person; `<thumb>` is their photo, as in [Images named in an NFO](#images-named-in-an-nfo). |
 | `<director>`, `<credits>`, `<writer>` | movie, series | directors, writers. Values joined with ` / ` count separately. |
-| `<thumb>`, `<fanart>` | movie, series | poster, logo, and background, as described below |
+| `<thumb>`, `<fanart>` | movie, series | poster, logo, and background, as in [Images named in an NFO](#images-named-in-an-nfo) |
 | `<uniqueid type="tmdb">`, `type="imdb"`, `type="tvdb"` | movie, series | provider IDs used to identify the title. Other spellings such as `TheMovieDB` and `TheTVDB` work too, and a `<uniqueid>` with no type counts when it holds an IMDb ID. |
 | `<imdbid>`, `<imdb_id>`, `<tmdbid>`, `<tvdbid>`, `<id>`, and a series' `<episodeguide>` | movie, series | provider IDs, when `<uniqueid>` has none from that provider. `<id>` counts when it holds an IMDb ID or has a `TMDB`, `TVDB`, or `IMDB` attribute; a bare number in `<id>` is ignored. |
-| `<title>` or `<seasonname>`, and `<premiered>` or `<aired>`, in `<season>` | season | season name and air date |
+| `<title>` (or `<seasonname>`) and `<premiered>` (or `<aired>`) in `<season>` | season | season name and air date |
 | `<namedseason number="1">` in `<tvshow>` | season | season name, when the season's `season.nfo` gives none |
-| `<title>`, `<aired>`, `<premiered>`, or `<releasedate>`, `<uniqueid>`, and `<thumb>` in `<episodedetails>` | episode | episode title, air date, provider IDs, and episode image |
+| `<title>`, `<aired>` (or `<premiered>` or `<releasedate>`), `<uniqueid>`, and `<thumb>` in `<episodedetails>` | episode | episode title, air date, provider IDs, and episode image |
 
 Ratings other than IMDb and TMDB show only after you turn them on under **Ratings** in **Admin > Settings > Library & Metadata**.
 
