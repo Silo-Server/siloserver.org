@@ -126,7 +126,7 @@ While the name is locked:
 
 Even the person who runs your server can't end the lock early. If it keeps
 happening when you haven't been signing in, someone else may be trying your
-name; tell them.
+name; tell the person who runs your server.
 
 ## Lost or stolen device
 
