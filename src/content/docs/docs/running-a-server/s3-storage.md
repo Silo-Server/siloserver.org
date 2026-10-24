@@ -16,7 +16,7 @@ Before the first library scan, open **Admin > Server > Storage** and set **Backe
 
 Save and follow the restart notice. For a single host, local disk is enough.
 
-**Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
+**Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops into artwork storage, on local disk or in S3, including [images you keep beside your media files](/docs/local-metadata#add-artwork). When it's off, clients load artwork straight from the providers and Silo ignores local images. Artwork saved earlier switches back to the providers' images, except on titles whose artwork you chose in **Edit Metadata**. A title with only local artwork keeps it until a refresh finds a provider image.
 
 Silo records the location the first time it stores a file. From then on, a change goes through a [storage transition](#change-storage-later).
 
