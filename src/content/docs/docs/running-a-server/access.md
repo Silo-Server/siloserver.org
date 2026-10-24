@@ -30,6 +30,28 @@ An account can override its group. If a group change seems to have no effect, lo
 
 Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means Silo's built-in default: full access for an administrator, and the server's defaults for an account without a group.
 
+### Add or move several members at once
+
+A group's page has a **Members** section listing its accounts. Use it to add several people to the group, or to move some of its members to another group.
+
+To add people to the group:
+
+1. Open **Admin > Users > Access Groups** and open the group.
+2. Under **Members**, choose **Add users**. The list shows every regular account outside this group, with its current group or **No group** beside the name. Administrator accounts aren't listed. Search by username or email to find someone.
+3. Select the accounts and choose **Add selected**. The button shows how many you've selected, such as **Add 2 selected**.
+4. Check the confirmation, then choose **Move**.
+
+To move members to another group:
+
+1. Open the group they're in now.
+2. Under **Members**, select each person to move.
+3. Choose the destination in **Move to group...**, then choose **Move selected**. The button shows how many you've selected.
+4. Check the confirmation, then choose **Move**.
+
+The confirmation shows how many accounts will change and, for each group they're leaving, which inherited settings change, such as **Libraries** or **Request limit**. Settings set on a person's own account stay as they are. The new access applies right away, and nobody is signed out. Silo saves the change when you confirm, so you don't need to choose **Save changes**.
+
+Silo changes the accounts one at a time. If some fail, the others keep their new group, and a list under **Members** names each account that failed and why. For example, `This user's group changed. Reload and try again.` means someone changed that account's group while you were working. After a failed move, those members stay selected with the same destination, so choose **Move selected** again to retry. After a failed add, they're already selected the next time you open **Add users**.
+
 ## Choose limits that fit the task
 
 Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a preset, or **Custom** and enter a value such as `8` for 8 Mbps. This is a per-stream limit. Values below 1 Mbps trigger a low-quality warning.
