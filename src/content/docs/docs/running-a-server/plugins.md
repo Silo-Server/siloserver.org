@@ -18,7 +18,7 @@ Some providers also need to be selected in the library or feature settings, for 
 
 ## Choose sources you trust
 
-Each plugin's tile and page show where it came from:
+Each plugin's page, and its tile under **Installed**, show where it came from:
 
 - **Silo maintained**: published by the Silo project.
 - **Approved community**: reviewed by Silo maintainers, then maintained and supported by its author. Turn on **Include approved community plugins** to add these to the catalog.
