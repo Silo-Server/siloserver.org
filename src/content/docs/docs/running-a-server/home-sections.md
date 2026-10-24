@@ -32,7 +32,7 @@ Open **More** and choose **Restore defaults…** to put back the rows Silo start
 
 ## What profiles can change
 
-Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
+Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows) in the web app. In the mobile and TV apps, **Home Sections** hides and reorders Home rows for the profile. If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
 
 ## A row is missing or empty
 
