@@ -86,10 +86,10 @@ Use the web app for that.
 ### Forgotten PIN
 
 Ask whoever manages the household's profiles to set a new PIN or remove it in
-the web app. Setting a new PIN or removing it also ends a lock after too many
-wrong PINs, so nobody has to wait out the five minutes. Don't delete the
-profile to get around the PIN: deleting it also removes its watch history and
-preferences.
+the web app or an Android app. Setting a new PIN or removing it also ends a
+lock after too many wrong PINs, so nobody has to wait out the five minutes.
+Don't delete the profile to get around the PIN: deleting it also removes its
+watch history and preferences.
 
 ## Set parental controls
 
