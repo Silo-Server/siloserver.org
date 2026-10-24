@@ -45,6 +45,11 @@ except for `.sub` files.
 
 Only upload a file you're happy for everyone on the server to use.
 
+If the upload form isn't there, the person who runs your server has turned
+off subtitle uploads for your account. You can still search online if
+subtitle providers are set up; without them, **Add Subtitles** doesn't
+appear at all.
+
 ## Translate or transcribe with AI
 
 **Web and the Android apps:**
