@@ -20,10 +20,10 @@ every Silo app signed in to the same profile.
 
 Each provider is a plugin. Before anyone can connect a provider, an
 administrator installs its plugin from the **Catalog** tab in
-**Admin > Plugins**: **Simkl Watch Provider** or **MDBList Watch Provider**.
-See [Install and maintain plugins](/docs/plugins). The MDBList plugin needs no
-settings: each person enters their own API key. Other watch-provider plugins
-may need settings of their own.
+**Admin > Integrations > Plugins**: **Simkl Watch Provider** or
+**MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
+The MDBList plugin needs no settings: each person enters their own API key.
+Other watch-provider plugins may need settings of their own.
 
 To get a Simkl client ID, create an app in your Simkl account's
 [developer settings](https://simkl.com/settings/developer/) and choose the
