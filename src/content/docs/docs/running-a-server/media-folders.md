@@ -74,7 +74,7 @@ tv/
 
 Use `S01E01` for ordinary episodes and `S00E01` for specials. Text after the episode number, such as an episode title or release details, is fine.
 
-Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1`, `Temporada 1`, or `Saison 1`. The number can come first (`3.Staffel`) or be an ordinal (`1st Season`, `2nd Season`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
+Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1`, `Temporada 1`, or `Saison 1`. The number can come first, as a plain number or an ordinal (`3.Staffel`, `2nd Season`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
 
 Episodes can also sit directly in the show folder when each name has a code such as `S01E03`, for example `Show Name/Show Name S01E03.mkv`. A season pack folder such as `Show.Name.S01.COMPLETE` works inside the show's folder, and in a Series library also on its own as the show folder.
 
