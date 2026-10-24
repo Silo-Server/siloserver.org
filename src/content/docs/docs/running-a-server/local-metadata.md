@@ -120,7 +120,7 @@ NFOs don't set watched status, personal ratings, or collections.
 
 ### Images named in an NFO
 
-Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for the slots that image files named as in [Add artwork](#add-artwork) leave empty:
+Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for any image that no file named as in [Add artwork](#add-artwork) supplies:
 
 | Element | Image |
 | --- | --- |
@@ -131,9 +131,9 @@ Kodi and tinyMediaManager list artwork in the NFO. Silo uses it for the slots th
 | `<thumb>` in `<episodedetails>` | episode image |
 | `<thumb>` in `<actor>` | the person's photo |
 
-Each can be a path relative to the NFO, such as `.actors/Jane_Doe.jpg`, or a web address. A path must stay inside the title's folder. Silo copies a web address into its own image storage before any app shows it, and skips one that points to an address on your local network.
+Each can be a path relative to the NFO, such as `.actors/Jane_Doe.jpg`, or a web address. Silo ignores a path outside the title's folder. Silo copies a web address into its own image storage before any app shows it, and skips one that points to an address on your local network.
 
-An image the NFO names wins over the online providers' artwork. A person's photo is shared by every title they appear in, so an NFO photo is used only when the person has no photo yet.
+When the NFO names an image, Silo prefers it over images from every online provider. A person's photo is shared by every title they appear in, so Silo uses an NFO photo only for a person who has no photo yet.
 
 ## Set up a series with no online match
 
