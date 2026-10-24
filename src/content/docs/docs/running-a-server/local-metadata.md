@@ -4,7 +4,7 @@ title: Use local NFO metadata
 description: Supply titles, descriptions, and artwork beside your media files.
 ---
 
-NFO files describe a movie or series from files you keep beside the media. Silo reads them and the images beside them in every library, before it asks TMDB, TVDB, or another online provider.
+NFO files describe a movie or series from files you keep beside the media. By default, Silo reads them and the images beside them in every library, before it asks TMDB, TVDB, or another online provider.
 
 ## Add local metadata
 
@@ -12,7 +12,7 @@ NFO files describe a movie or series from files you keep beside the media. Silo 
 2. Scan a new item. For an existing item, use **Refresh Metadata** and **Quick Refresh**.
 3. Look at the title and description. A locked field keeps its current value, so unlock it before refreshing if you want the NFO value.
 
-To stop a library from reading NFO files and local images, open **Admin > Libraries**, edit the library, and turn off **Local metadata (NFO + artwork)** at the top of **Provider Priority**. The switch covers the whole library, including seasons and episodes, and online providers always come after it. Refresh the items that should go back to provider data.
+To stop a library from reading NFO files and local images, open **Admin > Libraries**, edit the library, and turn off **Local metadata (NFO + artwork)** at the top of **Provider Priority** on its **Metadata** tab. The switch covers the whole library, including seasons and episodes, and online providers always come after it. Refresh the items that should go back to provider data.
 
 ## File names
 
