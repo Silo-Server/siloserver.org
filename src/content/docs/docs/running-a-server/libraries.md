@@ -64,7 +64,7 @@ Set the type and title of a folder Silo can't classify on its own under **Ambigu
 
 1. Open **Admin > Libraries** and expand **Ambiguous Roots**, below the list of libraries.
 2. Choose the library. Each folder is listed under **Root** with the **Type** Silo guessed, its **Confidence**, and the number of **Files**. To find a folder, filter by path, title, or sample file.
-3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮).
+3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮). Split Versions searches in the library of the files you select. If they come from more than one library, choose a **Library** first.
 4. Set **Type** to **Movie** or **Series**. Fill in **Title** and **Year**, or a **TMDB ID**, **IMDb ID**, or **TVDB ID** if you know it. **Note** is for your own record of why.
 5. Select **Save Override**, then [scan](#scan-or-refresh) the library. Saving doesn't scan; the folder changes at the next scan, and later scans keep the override.
 
