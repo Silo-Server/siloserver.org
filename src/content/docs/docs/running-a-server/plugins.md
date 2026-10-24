@@ -10,7 +10,7 @@ Plugins add providers and integrations to your server, such as metadata, skip ma
 
 1. Open **Admin > Plugins** and choose the **Catalog** tab.
 2. Search for the plugin. Read its description, publisher, and version.
-3. Choose **Install**. For a community or external plugin, confirm with **Install plugin**. The plugin appears under **Installed**. If the install fails, the message says why, such as a download that didn't match the catalog's SHA-256 checksum or a plugin with no build for your server's platform. Trying again only helps when Silo couldn't reach the catalog or the download.
+3. Choose **Install**. For a community or external plugin, confirm with **Install plugin**. The plugin appears under **Installed**. If the install fails, the message says why, such as a download that didn't match the catalog's SHA-256 checksum or a plugin with no build for your server's platform. Try again only if the message says to; the other failures repeat until the plugin or its catalog changes.
 4. Open the plugin. If it shows **Finish setting up**, fill in the listed settings and save them.
 5. Try it in the feature that uses it: match one library item or run one scan source.
 
