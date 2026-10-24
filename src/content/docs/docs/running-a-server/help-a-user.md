@@ -14,14 +14,14 @@ Ask which server, account, profile, and device show the problem. A setting that 
    that device. Match the device name and profile to the report.
 3. Compare the affected value with the value it replaces before changing it.
 
-For a server-wide view, **Admin > Devices** can search by device, user, ID, or
+For a server-wide view, **Admin > Users > Devices** can search by device, user, ID, or
 profile. A device's **All Settings** tab lists every setting it uses and
 whether the value is set on the device, comes from the profile, or is the app
 default.
 
 ## Reset one override
 
-On **Admin > Devices**, use the setting's reset action and confirm **Reset this
+On **Admin > Users > Devices**, use the setting's reset action and confirm **Reset this
 override?**. On **Preferences**, select the trash button beside the setting and
 confirm. The inherited
 setting then applies again. Ask the user to reopen the affected screen.

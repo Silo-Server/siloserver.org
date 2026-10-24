@@ -8,7 +8,7 @@ Server collections belong to one or more libraries and appear for everyone who c
 
 ## Create a collection
 
-1. Open **Admin > Collections** and choose **New collection**.
+1. Open **Admin > Libraries > Collections** and choose **New collection**.
 2. Choose **Manual** to pick the titles, **Smart** to fill it from rules, or **Synced list** to follow a list from MDBList or TMDB.
 3. Enter a **Name** and choose the libraries it belongs to: under **Titles from** for a manual collection, in the **Rules** sentence for a smart collection, or under **Match into** for a synced list.
 4. Fill it in: titles for a manual collection, rules for a smart collection, or the list a synced list follows. For a smart collection, check **Live preview** for the titles that match.
@@ -28,7 +28,7 @@ To change a collection later, select it in the list, edit it, and choose **Save*
 
 A synced list reads a published list again on a schedule. Under **The list it follows**, choose:
 
-- **MDBList**: pick from **Popular picks** or paste any public MDBList link. With an MDBList API key under **Admin > Settings > Subtitles & Metadata**, you can also search MDBList.
+- **MDBList**: pick from **Popular picks** or paste any public MDBList link. With an MDBList API key under **Lists** on **Admin > Integrations > Providers**, you can also search MDBList.
 - **TMDB chart**: trending, popular, top rated, now playing, upcoming, airing today, or on the air, for movies, TV shows, or both. These work without setup, because Silo includes a TMDB key.
 - **TMDB list**: paste a public TMDB list's link, such as `https://www.themoviedb.org/list/310-my-movie-list`. TMDB has no list search, so find the list on themoviedb.org first.
 
@@ -40,7 +40,7 @@ Genre shelves and TMDB franchise collections come from [starter packs](#add-a-st
 
 ## Find and change collections
 
-**Admin > Collections** opens on **List**, which shows every collection. Choose a library at the top, search, or filter by **Type**. A row's switch shows or hides the collection on its libraries' **Collections** tabs. Select a row to edit the collection, or open its action menu to **Sync now**, add it to Home or a library page, or delete it.
+**Admin > Libraries > Collections** opens on **List**, which shows every collection. Choose a library at the top, search, or filter by **Type**. A row's switch shows or hides the collection on its libraries' **Collections** tabs. Select a row to edit the collection, or open its action menu to **Sync now**, add it to Home or a library page, or delete it.
 
 To change several at once, open **More**, choose **Select collections**, and tick up to 100. The bar at the bottom syncs the selected lists, or has **Show on tabs**, **Hide from tabs**, and **Delete…**. Syncing skips manual and smart collections.
 
@@ -58,7 +58,7 @@ Choose a library, then **Arrange**. Shelves are the headings on that library's *
 
 A starter pack adds a ready-made set of synced lists to your libraries, such as trending and top-rated lists or a shelf for each genre.
 
-1. Open **Admin > Collections**, then **More > Starter packs…**.
+1. Open **Admin > Libraries > Collections**, then **More > Starter packs…**.
 2. Choose a pack. **All Defaults** adds every pack.
 3. Under **Add to these libraries**, choose the libraries to fill. Each library gets only the lists that fit its type.
 4. Check **What will happen**. For each library it counts the lists that are new, already there, and not for that library.

@@ -39,7 +39,7 @@ export const apps: AppEntry[] = [
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=org.siloserver.silo" },
       { label: "APK downloads", href: "https://github.com/Silo-Server/silo-android/releases/latest" },
     ],
-    note: "No Google Play? Use the Downloader app with code 1051382 for phones and tablets, or 1636227 for Android TV.",
+    note: "No Google Play? Use the Downloader app with code 1141108 for phones and tablets, or 2249835 for Android TV.",
   },
   {
     id: "web",

@@ -124,7 +124,15 @@ Put files numbered only by episode in a season folder, or add the season to the 
 
 Episode numbers can have up to five digits.
 
-Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, the file may stay unlinked; rename it with season and episode. Day-first dates such as `24.04.2026` aren't read as air dates.
+Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, Silo picks one in this order:
+
+1. The episode whose title matches the text after the date. Case and punctuation don't matter.
+2. The episode in the file's season folder, such as `Season 2026` or `Specials`.
+3. If the name has no episode title, the ordinary episode rather than a same-day special. A generic title such as `Episode 12`, or the `Unknown` some renamers write, counts as no title.
+
+If that still leaves more than one episode, the file stays unlinked. For example, `Season 2026/Show Name - 2026-04-24.mkv` stays unlinked when two season 2026 episodes aired that day. Rename it with season and episode to link it.
+
+Day-first dates such as `24.04.2026` aren't read as air dates.
 
 ## Show folders
 
@@ -136,7 +144,7 @@ A folder named only with a number directly in a library folder, such as `tv/86/`
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle files beside the item they describe. Silo doesn't look for subtitles in a `Subs` folder. See [Local metadata](/docs/local-metadata) for what Silo reads.
+Keep NFO files and posters beside the item they describe. Subtitle files can sit beside the video or in a `Subs` or `Subtitles` folder next to it. See [Local metadata](/docs/local-metadata) for what Silo reads, and [Subtitle file names](#subtitle-file-names) for how to mark a subtitle's language.
 
 Put extras in a folder inside the movie's or show's folder, or inside a season folder. Silo recognizes these folder names, in any letter case and with `.`, `_`, or `-` in place of spaces:
 
@@ -148,7 +156,30 @@ Put extras in a folder inside the movie's or show's folder, or inside a season f
 
 An extra can also sit beside the movie file with a suffix, as in `Movie Name (2024)-trailer.mkv`. The suffixes are `-trailer`, `-teaser`, `-featurette`, `-clip`, `-behindthescenes`, `-bloopers`, `-deleted`, `-deletedscene`, `-interview`, `-scene`, `-short`, `-extra`, and `-other`. A `.` works in place of the `-`.
 
-Extras appear in the title's **Extras** section and are never offered as versions. An extras folder name at the top of a library, outside any title, doesn't count: Silo scans its files as ordinary titles. In a series, a file in `Extras` with a name like `S00E01` is a special, and `S01E01` goes to season 1.
+Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
+
+An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
+
+## Subtitle file names
+
+Name each subtitle file after its video, then add words between the video's name and the extension to describe the track. Letter case doesn't matter, so `movie name (2024).EN.srt` belongs to `Movie Name (2024).mkv`. Silo reads `.srt`, `.vtt`, `.ass`, `.ssa`, and `.sub` files, but skips a VobSub `.sub` that has an `.idx` file beside it. The words can come in any order, so `Movie Name (2024).en.sdh.srt` and `Movie Name (2024).sdh.en.srt` are the same track.
+
+| Word in the name | What it sets |
+| --- | --- |
+| A language code or English language name, such as `en`, `eng`, `pt-BR`, or `English` | The track's language |
+| `forced` | A forced subtitle, which covers only selected dialogue or on-screen text |
+| `sdh` or `cc` | Subtitles for the deaf and hard of hearing (SDH). In the web app, the item page lists these tracks as **HI** |
+| `hi` | Hindi when no other word names a language, as in `Movie Name (2024).hi.srt`. With another language, as in `Movie Name (2024).en.hi.srt`, it marks the track as SDH |
+
+Silo skips words that aren't languages when it looks for the language, so `Movie Name (2024).ai.hr.srt` is Croatian. When two words name a language, Silo uses the first. A file with no language word, such as `Movie Name (2024).srt`, has no language set.
+
+### Subtitles in a Subs folder
+
+Silo also reads a `Subs` or `Subtitles` folder beside the video, in any letter case:
+
+- Files in it named after the video, such as `Subs/Movie Name (2024).en.srt`, work as they do beside the video.
+- In a folder inside it named after the video, every subtitle file belongs to that video, such as `Subs/Show Name S01E01/2_English.srt`. A track number and underscore at the start of the name are skipped. Silo reads the language and flags only when every word in the rest of the name is a language, `forced`, `sdh`, `cc`, or `hi`. Otherwise the track has no language set.
+- In a Movies library, a file named only for a language and flags, such as `Subs/English.srt` or `Subs/English.sdh.srt`, belongs to the movie when it's the only movie in its folder. Silo leaves these files out when the folder holds several versions or parts of a movie, or in a TV library.
 
 ## Leave files out of a scan
 
@@ -164,7 +195,7 @@ Silo doesn't read `.plexignore` itself. Lines starting with `#` are comments in 
 
 If you add an ignore file to a folder that was already scanned, the next scan treats its titles like deleted files: they disappear from the apps and are removed from the library later.
 
-Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`.
+Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`, when it looks for videos. It still reads the subtitles in `Subs` and `Subtitles` folders.
 
 ## If a title isn't identified
 

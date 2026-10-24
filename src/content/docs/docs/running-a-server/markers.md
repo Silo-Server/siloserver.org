@@ -8,7 +8,7 @@ Markers tell the player where an intro, recap, credits, or preview starts and en
 
 ## Choose how markers are found
 
-1. Open **Admin > Settings > Library & Metadata** and find **Skip markers**.
+1. Open **Admin > Playback > Settings** and find **Skip markers**.
 2. Set **Marker source**:
    - **Online preferred + server detection** (the default) uses online markers and detects an intro or credits locally only when no online one is saved.
    - **Online providers only** or **Detect on this server** uses one method.
@@ -34,13 +34,15 @@ To skip detection for one library, turn off its switch in the library's **Advanc
 
 ## Manage marker providers
 
-1. Choose **Marker providers** next to **Skip markers**. It opens **Subtitles & Metadata**.
+1. Choose **Marker providers** next to **Skip markers**. It opens **Admin > Integrations > Providers**.
 2. Choose **Manage** on a provider.
 3. Use **Get markers from this provider** to turn lookups on or off.
-4. If several providers are on, set **Provider priority**. A lower number wins when two providers return a marker for the same section.
+4. If several providers are on, set **Provider priority** under **Advanced**. A lower number wins when two providers return a marker for the same section.
 5. Choose **Save**, then **Test connection**.
 
 Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
+
+Silo ignores provider credits that don't fall at the end of the file, such as credits placed on top of the intro, because the player opens Up Next where the credits start. An episode's credits must start in the last 7:30 of the file or its last 40%, whichever is shorter. A movie's must start in the last 15 minutes or the last 25%. They must also start after the intro ends and last at least 15 seconds, up to 7:30 for an episode or 15 minutes for a movie. If Silo already saved misplaced credits from a provider, it removes them the next time **Sync online markers** refreshes that file's markers. Manual markers stay as they are until you edit them.
 
 ## Detect markers again for one item
 
@@ -59,11 +61,11 @@ In the web app, an administrator or a user with **Marker editing** permission ca
 To let a user edit markers, open **Admin > Users**, open the user, choose **Access & limits**, then choose **Edit** under **Library access**. Turn on **Marker editing** and save. If the user's access group limits permissions, the group must allow **Marker editing** too. On an administrator account, only the primary profile can edit markers without this permission.
 
 1. Open the movie or episode's detail menu and choose **Edit Markers**.
-2. Enter start and end times for the segment, for example `1:30` and `2:45`. The end must be after the start.
+2. Enter start and end times for the segment, for example `1:30` and `2:45`. The end must be after the start. Credits must also fit the same [limits as provider credits](#manage-marker-providers), or Silo won't save them.
 3. Choose **Save**.
 4. Play that section of the same file and check where the skip button lands.
 
-To remove a marker, use the clear button beside its segment, then choose **Save**. Silo keeps that kind of marker off the file through later lookups, detection, and rescans, including after you replace the file under the same name. To add it back, enter its times and save again. Other marker kinds and other versions of the title keep their markers. **Recent changes** in the same dialog shows who changed what.
+To remove a marker, use the clear button beside its segment, then choose **Save**. Silo keeps that kind of marker off the file through later lookups, detection, and rescans, including after you replace the file under the same name. To add it back, enter its times and save again. Other marker kinds and other versions of the title keep their markers. **Recent changes** in the same dialog shows who changed what, and **Admin > Playback > Skip Markers** lists recent manual edits across the server.
 
 A saved change applies to everyone who plays that file. Players that are already open pick it up without a rescan.
 

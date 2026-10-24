@@ -42,8 +42,8 @@ third-party app, use [Silo's audiobook player](/docs/listen-to-audiobooks).
 
 ## Turn on the endpoint
 
-With an administrator account, open **Admin > Settings > Compatibility** and
-turn on **Allow Audiobookshelf apps to connect**. Save, then restart the
+With an administrator account, open **Admin > Integrations > Compatibility**
+and turn on **Allow Audiobookshelf apps to connect** under **Audiobookshelf**. Save, then restart the
 server if the page asks you to.
 
 The default Compose file publishes the endpoint on port `13378`, separate

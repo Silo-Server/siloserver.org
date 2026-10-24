@@ -10,7 +10,7 @@ Before using a hosted model, check its charges and data policy. Translation send
 
 ## Connect a text model
 
-1. Open **Admin > Settings > AI Services**.
+1. Open **Admin > Integrations > AI Services**.
 2. In the text model card, choose a preset or enter **Base URL**, **Model**, and **API key** for a compatible service.
 3. Choose **Test text model**. The test uses the values on screen, even before you save.
 4. Turn on **Translate subtitles**, **Translate descriptions**, or both.

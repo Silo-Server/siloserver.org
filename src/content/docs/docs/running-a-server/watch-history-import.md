@@ -4,7 +4,7 @@ title: Import history for other accounts
 description: Map people from Plex, Jellyfin, or Emby to existing Silo profiles and review an import.
 ---
 
-As an administrator, use **Admin > History Import** to copy several people's history from a Plex, Jellyfin, or Emby server in one place. Each person can instead [import their own history](/docs/import-watch-history) from **Settings > History Import**. To keep watched status updated after the move, each person sets up [Sync watched status from another server](/docs/watch-state-webhooks).
+As an administrator, use **Admin > Users > History Import** to copy several people's history from a Plex, Jellyfin, or Emby server in one place. Each person can instead [import their own history](/docs/import-watch-history) from **Settings > History Import**. To keep watched status updated after the move, each person sets up [Sync watched status from another server](/docs/watch-state-webhooks).
 
 Create the Silo accounts and profiles first. An import copies history only; it doesn't create accounts, copy permissions, or copy media files.
 
