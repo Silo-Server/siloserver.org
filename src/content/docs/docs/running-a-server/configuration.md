@@ -20,7 +20,7 @@ Set these in `.env` beside the Compose file:
 | `SECRET_KEY` | Key that encrypts stored credentials |
 | `POSTGRES_TUNE` | Automatic PostgreSQL tuning, `auto` by default |
 
-Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
+Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable, including the keys of [transcode nodes](/docs/transcode-nodes#maintain-a-node), which then need new ones. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
 
 Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The bundled stack also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
 
@@ -42,7 +42,7 @@ To use existing servers, write a Compose file or override that:
 - removes the `depends_on` entries for the bundled services
 - leaves out the bundled `postgres` and `redis` services
 - keeps the media, plugin, artwork, compatibility, transcode, and catalog seed mounts
-- uses the same `SECRET_KEY` for every Silo server and node
+- uses the same `SECRET_KEY` for every Silo server and proxy node
 
 For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it, because it goes into `DATABASE_URL` as written:
 
@@ -142,7 +142,7 @@ These `.env` values adjust automatic tuning:
 
 With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it has one, and the host's memory otherwise. The default budget leaves 25% of it for Silo, Redis, plugins, transcodes, and the operating system. If Silo runs in a container with no memory limit and can only see a figure above 128 GB, it skips tuning and logs `postgres auto-tuning disabled`. Set `POSTGRES_TUNE_MEMORY`, or mount `/proc/meminfo:/host/proc/meminfo:ro` on the `silo` service as the default Compose file does.
 
-Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Server > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
+Every Silo server and proxy node opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Server > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count proxy nodes. With proxy nodes, set it to at least that number times the number of Silo servers and proxy nodes, plus a few for admin sessions. Transcode nodes don't connect to PostgreSQL.
 
 Silo tunes with the same `DATABASE_URL` user it runs with. The bundled database user is a superuser, so tuning works there. On an external database, that user needs superuser rights, or on PostgreSQL 15 and later `ALTER SYSTEM` on each setting Silo tunes plus `EXECUTE` on `pg_reload_conf()`. Either lets anyone holding Silo's database credential change server-wide PostgreSQL settings. If you accept that, set `POSTGRES_TUNE_MEMORY` to the memory PostgreSQL may use on the database host, and `POSTGRES_TUNE_CPUS` to that host's CPU count.
 
@@ -157,7 +157,7 @@ Plan PostgreSQL major-version upgrades separately from Silo updates.
 | `proxy` | Remote streaming node |
 | `transcode` | Remote conversion worker |
 
-Separate nodes need the shared database, Redis, and encryption key. See [Transcode nodes](/docs/transcode-nodes).
+Proxy nodes need the shared database, Redis, and encryption key. Transcode nodes need only the main server's address and a key Silo issues for them. See [Transcode nodes](/docs/transcode-nodes).
 
 ## Rate limiting
 
