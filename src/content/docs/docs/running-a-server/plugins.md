@@ -42,9 +42,9 @@ Silo never checks an uploaded plugin for updates, so its page shows **Updated by
 
 ## Update or turn off a plugin
 
-**Check for updates** on the Plugins page looks for new versions. On a plugin's page, the **Updates** menu chooses **Update automatically**, **Ask before updating**, or **Don't check for updates**. The menu appears only for plugins Silo can check, so an **Unverified** plugin doesn't have it.
+**Check for updates** on the Plugins page looks for new versions. On a plugin's page, the **Updates** menu chooses **Update automatically**, **Ask before updating**, or **Don't check for updates**.
 
-If you turn off **Include approved community plugins** while a community plugin is installed, Silo stops checking that plugin for updates. Its tile and page show **Updates paused**, and its page has a notice with a link to turn community plugins back on. Its **Updates** setting applies again once you do.
+If you turn off **Include approved community plugins** with a community plugin installed, or choose **Disable** for an external plugin's repository under **Repositories**, Silo stops checking that plugin for updates. The plugin keeps running. Its tile and page show **Updates paused** instead of the menu, and its page has a notice linking to the **Catalog** tab. Turn the catalog or repository back on there, and the plugin's **Updates** setting applies again.
 
 To update by hand, open the **More actions** menu and choose **Update to** the new version. Read the release notes first if the plugin handles storage, credentials, or library changes.
 
