@@ -12,10 +12,24 @@ work once the person who runs your server has
 ## Choose what notifies you
 
 Under **New Episode Notifications**, turn on **Enable notifications** and
-choose which series to follow: those in your **Favorites**, **Watchlist**,
-**Continue Watching**, or **Next Up**. These choices apply to every delivery
-channel. You can also get a notification when a title you requested becomes
-available.
+**Next Up**. These choices apply to every delivery channel.
+
+A new episode notifies you when it's your next one in a series: the episode
+right after the one you finished most recently. A series starts notifying you
+once you finish one of its episodes; favoriting or watchlisting it doesn't
+change that. If several episodes arrive together, only the first one
+notifies you. A later episode that arrives before your next one doesn't. A
+series doesn't notify you while you're partway through one of its episodes,
+or after you've removed it from **Next Up** on Home.
+
+To check which series will notify you, select **See which series notify
+you** under **New Episode Notifications**. Select **Mute** (the crossed-out
+bell) next to a series to stop its notifications.
+
+You're also notified when a title you're waiting for arrives: one you
+requested, one you asked to be told about, or one you added to your
+watchlist before the server had it. If you both requested and watchlisted a
+title, you're notified once.
 
 ## Read the web inbox
 
@@ -78,7 +92,8 @@ to switch to the primary profile.
 ### Webhooks
 
 If **Webhooks** appears, select **Add webhook**, enter a name and HTTPS URL,
-choose events, then use **Test**. Keep the URL and signing secret private.
+choose which events it sends (**Next Up**, **Requests and watchlist**, or
+both), then use **Test**. Keep the URL and signing secret private.
 A webhook can send fewer events than your profile's choices, but not more.
 
 ## If notifications don't arrive
