@@ -45,6 +45,8 @@ Profiles can still hide, rename, or reorder these rows, and add their own, in [*
 
 To fix one profile's rows yourself, open **Admin > Users**, select the person, choose **Preferences** and then the profile, and use its **Home sections** card, as in [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen). The card covers Home only, not library pages. **Reset to default** asks you to confirm, then puts that profile's Home back to the order and visibility set here and removes rows the profile added. Other profiles keep their changes.
 
+In the mobile and TV apps, profiles can hide and reorder Home rows in [**Home Sections**](/docs/home-and-calendar#change-your-home-rows).
+
 ## A row is missing or empty
 
 Check that the row is on the page you're looking at and that its switch is on. Then check the collection or rules it uses, and the viewer's library access and profile restrictions.
