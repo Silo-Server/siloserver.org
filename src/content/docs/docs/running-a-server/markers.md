@@ -42,6 +42,8 @@ To skip detection for one library, turn off its switch in the library's **Advanc
 
 Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
 
+Silo ignores provider credits that don't fall at the end of the file, such as credits placed on top of the intro, because the player opens Up Next where the credits start. An episode's credits must start in the last 7:30 of the file or its last 40%, whichever is shorter. A movie's must start in the last 15 minutes or the last 25%. They must also start after the intro ends and last at least 15 seconds, up to 7:30 for an episode or 15 minutes for a movie. If Silo already saved misplaced credits from a provider, it removes them the next time **Sync online markers** refreshes that file's markers. Manual markers stay as they are until you edit them.
+
 ## Detect markers again for one item
 
 In the web app, an administrator can run local detection again for a single episode or movie, for example after replacing the file.
@@ -59,7 +61,7 @@ In the web app, an administrator or a user with **Marker editing** permission ca
 To let a user edit markers, open **Admin > Users**, open the user, choose **Access & limits**, then choose **Edit** under **Library access**. Turn on **Marker editing** and save. If the user's access group limits permissions, the group must allow **Marker editing** too. On an administrator account, only the primary profile can edit markers without this permission.
 
 1. Open the movie or episode's detail menu and choose **Edit Markers**.
-2. Enter start and end times for the segment, for example `1:30` and `2:45`. The end must be after the start.
+2. Enter start and end times for the segment, for example `1:30` and `2:45`. The end must be after the start. Credits must also fit the same [limits as provider credits](#manage-marker-providers), or Silo won't save them.
 3. Choose **Save**.
 4. Play that section of the same file and check where the skip button lands.
 
