@@ -34,7 +34,7 @@ To use another language, open **Admin > Libraries > Settings** and choose it in 
 
 While the fallback is on, posters follow the same order: the library's language, the fallback language, and English, then a poster without text before one in any other language.
 
-New items use the setting right away. Items already in a library change when you refresh them: choose **Refresh Metadata** on an item, or **Refresh Metadata** on the library and then **Refresh All Metadata**.
+New items use the setting right away. Items already in a library change when you refresh them: choose **Refresh Metadata** from an item's actions menu and then **Quick Refresh**, or select the library's **Rescan Metadata** button in **Admin > Libraries** and then **Refresh All Metadata**.
 
 ## Translate a description
 
