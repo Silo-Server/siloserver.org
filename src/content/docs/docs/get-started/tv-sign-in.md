@@ -29,12 +29,12 @@ the devices apart. Use one of the methods below instead.
 
 ## Scan the TV's code
 
-First connect the TV to your server. On Apple TV, if your server is listed
-under **No phone nearby?**, select it. Otherwise select **Enter server
-address**, type the address, including any port number, and select
-**Connect**. On Apple TV, **Advanced options** lets you set the protocol and
-port separately. If the TV asks **Connect without encryption?**, continue
-only if you trust the address and it's on your home network.
+First connect the TV to your server. If your server is listed under **No
+phone nearby?**, select it. Otherwise select **Enter server address**, type
+the address, including any port number, and select **Connect**. On Apple TV,
+**Advanced options** lets you set the protocol and port separately. If the TV
+asks **Connect without encryption?**, continue only if you trust the address
+and it's on your home network.
 
 The TV then shows a sign-in screen with a QR code.
 

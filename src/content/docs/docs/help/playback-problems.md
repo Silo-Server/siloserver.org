@@ -14,7 +14,8 @@ clear which change fixed the problem, or which details to report.
 2. If the title has more than one version, try another
    [version](/docs/watch-movies-and-series#choose-a-version-before-playback).
 3. Try the same title in another Silo app, such as the web app.
-4. Choose a lower **Quality** if playback buffers on a slow connection.
+4. Choose a lower **Quality** in the player if playback buffers on a slow
+   connection.
 
 If the web player says `This file can't be played`, the file itself is empty,
 corrupt, or cut short, and trying again won't help. On a series page, the web
@@ -27,8 +28,14 @@ whether the stream is being converted, and [server health](/docs/server-health)
 for errors at that time. Otherwise, share the details below with the person who
 runs it.
 
+If Silo converts a title your device should play as it is, check the
+viewer's [quality settings](/docs/preferences#set-playback-quality) first. A
+**Resolution** below the file's size or a **Maximum bitrate** below its
+bitrate makes Silo convert it, and so does **Cellular Quality** on mobile data
+or a metered network.
+
 If a title won't start and isn't marked **Damaged file**, check that Silo can
-still read it. Filter **Admin > Logs** by the `scanner` component for
+still read it. Filter **Admin > Logs > Server Log** by the `scanner` component for
 `ffprobe failed because the file could not be read`. Fix the file's permissions
 or its storage, such as a network mount that dropped, then
 [scan the library](/docs/manage-libraries#scan-or-refresh).

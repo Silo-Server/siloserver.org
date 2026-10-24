@@ -8,16 +8,15 @@ Silo notices new, changed, and removed files in three ways:
 
 - [Real-time monitoring](#real-time-monitoring) watches library folders on local disks and scans a changed file or folder within seconds. It's on by default and needs no setup.
 - [Autoscan sources](#autoscan-sources) cover storage Silo can't watch, such as network shares. Another service, such as Sonarr or Radarr, tells Silo what changed, or a plugin checks a service for changes.
-- The daily library scan catches anything the other two missed, including changes made while Silo was stopped. It's the **Queue Media Library Scans** task in **Admin > Scheduled Tasks** and runs at 02:00 by default.
+- The daily library scan catches anything the other two missed, including changes made while Silo was stopped. It's the **Queue Media Library Scans** task in **Admin > Server > Scheduled Tasks** and runs at 02:00 by default.
 
 ## Real-time monitoring
 
-Silo watches every folder in a library, including season and other subfolders, and scans only what changed. A file that's still being copied is scanned once the copy finishes. While a scan is running, a button such as **2 scans** appears at the top of **Admin > Libraries**. Click it to open the scan queue, where scans that monitoring started are tagged **File change**.
+Silo watches every folder in a library, including season and other subfolders, and scans only what changed. A file that's still being copied is scanned once the copy finishes. Editing an NFO file or adding an image beside a video counts as a change too, so the item picks up its [local metadata](/docs/local-metadata) without a refresh. While a scan is running, a button such as **2 scans** appears at the top of **Admin > Libraries**. Click it to open the scan queue, where scans that monitoring started are tagged **File change**.
 
-Two switches control it, and both are on by default:
+Monitoring is on by default. To turn it off for one library, open **Admin > Libraries**, edit the library, and turn off **Real-time monitoring** on its **Folders** tab.
 
-- **Real-time monitoring** under **Scanning** in **Admin > Settings > Library & Metadata** turns it on or off for the whole server. The change applies without a restart.
-- **Real-time monitoring** on a library's **Folders** tab turns it off for that library only. Open **Admin > Libraries** and edit the library to find it.
+If monitoring has been turned off for the whole server, that switch is greyed out and links to **Admin > Libraries > Settings**. Turn **Real-time monitoring** back on there under **Scanning**; the switch appears only while server-wide monitoring is off. The change applies without a restart.
 
 Libraries that aren't **Enabled** aren't monitored.
 
@@ -60,17 +59,17 @@ On TrueNAS SCALE, add a `SYSCTL` tunable for `fs.inotify.max_user_watches` under
 
 ## Autoscan sources
 
-Use an autoscan source for a library on storage Silo can't monitor. A source either receives webhooks from another service or checks a service for changes through a plugin. Set one up once your library scans and plays normally, then open **Admin > Libraries > Autoscan**.
+Use an autoscan source for a library on storage Silo can't monitor. A source either receives webhooks from another service or checks a service for changes through a plugin. Set one up once your library scans and plays normally, then open **Admin > Autoscan > Sources**.
 
 Sonarr and Radarr webhooks can stay on for libraries that are also monitored. When both report the same import, Silo merges them, so at most a folder gets scanned one extra time.
 
 ### Add a webhook source
 
-1. In **Sources**, choose **Add source** and select **Sonarr/Radarr Webhook**. It's built in and needs no plugin.
+1. Choose **Add source** and select **Sonarr/Radarr Webhook**. It's built in and needs no plugin.
 2. Follow **Match paths**. Map the paths the other service sends to the paths Silo sees inside its container.
 3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**.
-4. Turn on Autoscan in the page header.
-5. Add one item in the sending service, then open **Activity** and choose **Polls**. The delivery has a **Webhook** badge, resolves to the right library, and creates a scan.
+4. Turn on the **Autoscan** switch at the top of **Sources**.
+5. Add one item in the sending service, then open **Admin > Autoscan > Activity** and choose **Polls**. The delivery has a **Webhook** badge, resolves to the right library, and creates a scan.
 
 The sending service's **Test** button only checks that the URL works. The source's row shows the new delivery time, but test events don't appear in **Activity** and don't start a scan.
 
@@ -83,17 +82,17 @@ Each source shows which libraries it feeds and whether it's working. Turn a sour
 ### Add a polling source
 
 1. Install a scan-source [plugin](/docs/plugins). For Sonarr and Radarr, install **Sonarr & Radarr Autoscan** from the **Made by Silo** group on the **Catalog** tab.
-2. Under **Sources > Advanced**, add a saved connection if the source needs one. Enter the service URL and credential, or reuse a Requests integration.
-3. Choose **Test connection** and save.
-4. Choose **Add source**, select the plugin, and choose the server. Sonarr and Radarr sources need one. If the service sees different paths than Silo, add the path mappings now, and give the source a label if you like. The source is on as soon as you add it.
+2. If the source needs a saved connection, open **Admin > Autoscan > Settings** and choose **Add connection** under **Connections**. Enter the service URL and credential, or reuse a Requests integration.
+3. Choose **Test connection**, then **Add connection**.
+4. On **Admin > Autoscan > Sources**, choose **Add source**, select the plugin, and choose the server. Sonarr and Radarr sources need one. If the service sees different paths than Silo, add the path mappings now, and give the source a label if you like. The source is on as soon as you add it.
 5. To fill in mappings from the service instead, choose **Edit** on the source and open **Match paths**. Choose **Sync from server**, select the suggested mappings, choose **Add selected**, then choose **Save**.
-6. Turn on Autoscan if it's off, then choose **Run now**. The first check records a starting point and usually reports 0 changes. Imports after that appear in **Activity** on the next check.
+6. Turn on the **Autoscan** switch if it's off, then choose **Run now**. The first check records a starting point and usually reports 0 changes. Imports after that appear in **Admin > Autoscan > Activity** on the next check.
 
 Sonarr and Radarr polling sources don't report deletes; a webhook source or the daily library scan picks those up.
 
 Changing a source's server or settings, or the URL of the saved connection it uses, restarts its checks from now. Imports since its last check are picked up by the daily library scan instead.
 
-Sources check for changes at the **Default check interval (seconds)** under **Advanced**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** appears while Autoscan is on and a polling source is enabled. It checks every enabled polling source straight away, whatever its interval. If a check is already running, wait for it to finish and choose **Run now** again.
+Sources check for changes at the **Default check interval** under **Polling defaults** on **Admin > Autoscan > Settings**, 600 seconds unless you change it. A source's own interval can only make it check less often; a shorter one has no effect. **Run now** appears at the top of **Sources** while Autoscan is on and a polling source is enabled. It checks every enabled polling source straight away, whatever its interval. If a check is already running, wait for it to finish and choose **Run now** again.
 
 ### Match paths
 
@@ -117,11 +116,11 @@ If the status line says `Folders Silo can't read aren't monitored`, the rest of 
 
 ## Troubleshoot autoscan sources
 
-Start with **Activity**. In **Polls**, expand an event to see each path it received, the path after your rewrites, and what happened to it. An unresolved path means a path rewrite or library folder is wrong. **Scans** shows what each scan found, such as new or missing files. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
+Start with **Admin > Autoscan > Activity**. In **Polls**, expand an event to see each path it received, the path after your rewrites, and what happened to it. An unresolved path means a path rewrite or library folder is wrong. **Scans** shows what each scan found, such as new or missing files. If a polling source finds nothing, check its connection, that it is enabled, its plugin, and whether its interval has passed. If no webhook events arrive, check the sending service's destination and delivery log.
 
 **Activity** keeps 30 days of polls and webhook deliveries. The **Database Maintenance** task in **Admin > Scheduled Tasks** removes older ones every day, at 05:00 by default. An event whose scan is still queued or running stays until the scan ends. A scan in **Scans** stays listed after its event is removed, but it shows **Autoscan** instead of the source's name and has no poll status. To keep events for longer, change the stored setting `autoscan.events_retention_days` through the [admin API](/docs/api). It accepts 1 to 3650 days and has no control in the web app. The next maintenance run uses the new value.
 
-The **Debounce (seconds)** setting under **Advanced** skips repeat reports of an unchanged file that arrive within that many seconds. It never skips a changed or deleted file. After an event is handled, look in the library to see whether the file was scanned and matched.
+**Debounce** under **Polling defaults** on **Admin > Autoscan > Settings** skips repeat reports of an unchanged file that arrive within that many seconds. It never skips a changed or deleted file. After an event is handled, look in the library to see whether the file was scanned and matched.
 
 ## If old titles stay after a folder rename
 

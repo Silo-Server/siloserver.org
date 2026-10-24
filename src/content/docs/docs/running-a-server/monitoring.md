@@ -24,7 +24,7 @@ Don't scrape or publish the profiling port set by `SILO_DEBUG_LISTEN`. It's only
 
 ### Proxy and transcode nodes
 
-Proxy and transcode nodes serve `/metrics` on their own port, the one in the node's **URL** in **Admin > Nodes**. `SILO_METRICS_LISTEN` has no effect on them, and their `/metrics` has no authentication either. Clients stream from proxy nodes, so if clients reach a proxy node through a public hostname or a reverse proxy, block `/metrics` there. [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the node series and example alerts.
+Proxy and transcode nodes serve `/metrics` on their own port, the one in the node's **URL** in **Admin > Playback > Nodes**. `SILO_METRICS_LISTEN` has no effect on them, and their `/metrics` has no authentication either. Clients stream from proxy nodes, so if clients reach a proxy node through a public hostname or a reverse proxy, block `/metrics` there. [Read node status](/docs/node-status#node-metrics-in-prometheus) lists the node series and example alerts.
 
 ## Set up Prometheus and Grafana
 
@@ -56,11 +56,11 @@ Silo measures its own processes and the calls it makes. For the host's disks and
 
 | Alert | What to check |
 | --- | --- |
-| `SiloTargetUnavailable` | Prometheus can't reach a server or node. Check the node's state in **Admin > Nodes** and whether the process is running. |
+| `SiloTargetUnavailable` | Prometheus can't reach a server or node. Check the node's state in **Admin > Playback > Nodes** and whether the process is running. |
 | `SiloCPUThrottled` | The container is hitting its CPU limit. Check FFmpeg and other load on the host. A [CPU profile](/docs/profiling#choose-a-profile) shows where Silo spends the time. |
 | `SiloCgroupMemoryHigh`, `SiloCgroupOOM` | The container is near its memory limit, or the kernel killed a process. Two [heap profiles](/docs/profiling#choose-a-profile) taken some time apart show what grew. |
 | `SiloPostgresPoolSaturated` | Requests are waiting for a database connection, so the API is slow while CPU is idle. Check PostgreSQL's own load, then take a [goroutine profile](/docs/profiling#choose-a-profile). |
-| `SiloQueueAgeHigh` | A background job, such as a library scan, has waited a long time. Check the task in **Admin > Scheduled Tasks**. |
+| `SiloQueueAgeHigh` | A background job, such as a library scan, has waited a long time. Check the task in **Admin > Server > Scheduled Tasks**. |
 | `SiloQueueSamplingFailed` | Silo can't measure its job queues, so queue panels show gaps. A gap doesn't mean the queue is empty. |
 | `SiloResourceSampleStale` | Silo stopped reading CPU, memory, disk, or GPU use. Check for blocked `/proc` access, a missing GPU tool such as `nvidia-smi`, or a mount that stopped responding. |
 | `SiloOTLPExportFailure` | Traces aren't reaching your collector. Check the collector and the [OpenTelemetry settings](/docs/logging#opentelemetry-export). |
