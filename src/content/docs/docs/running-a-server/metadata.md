@@ -23,7 +23,7 @@ Ignore a movie or series that no metadata provider lists, such as a home video o
 1. Open **Admin > Libraries** and expand **Unmatched Items**, below the list of libraries. The section appears only while an item is awaiting a match or ignored.
 2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
 
-While an item is ignored, scans don't retry it or count it as unmatched, and it drops out of **Metadata Matcher**.
+While an item is ignored, scans don't retry it or count it as unmatched, and it drops out of **Metadata Matcher**. **Quick Refresh** finishes without changing it, and refreshing a season or episode of an ignored series fails.
 
 To see ignored items, switch the menu beside the search from **Awaiting a match** to **Ignored**. **Restore** puts an item back on the list, and Silo tries to match it again. **Match** works in both views, and a successful match ends the ignore.
 
