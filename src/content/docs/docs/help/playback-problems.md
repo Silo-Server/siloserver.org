@@ -14,8 +14,11 @@ clear which change fixed the problem, or which details to report.
 2. If the title has more than one version, try another
    [version](/docs/watch-movies-and-series#choose-a-version-before-playback).
 3. Try the same title in another Silo app, such as the web app.
-4. Choose a lower **Quality** in the player if playback buffers on a slow
-   connection.
+4. If playback keeps buffering on **Auto**, Silo lowers the quality for you
+   or asks first, depending on **Lower quality when buffering**. If it's set
+   to **Never**, or you picked a quality, choose a lower **Quality** in the
+   player. See
+   [If playback keeps buffering](/docs/watch-movies-and-series#if-playback-keeps-buffering).
 
 If the web player says `This file can't be played`, the file itself is empty,
 corrupt, or cut short, and trying again won't help. On a series page, the web
@@ -33,6 +36,13 @@ viewer's [quality settings](/docs/preferences#set-playback-quality) first. A
 **Resolution** below the file's size or a **Maximum bitrate** below its
 bitrate makes Silo convert it, and so does **Cellular Quality** on mobile data
 or a metered network.
+
+If titles start at a lower quality than your connection should allow, Silo
+may still be holding a limit from earlier buffering on this device and
+network. **Settings > Playback** shows it as a line such as "Limited to
+12 Mbps after buffering on Oct 17". Select **Reset** to clear it, then play
+the title again. See
+[Lower quality when buffering](/docs/preferences#lower-quality-when-buffering).
 
 If a title won't start and isn't marked **Damaged file**, check that Silo can
 still read it. Filter **Admin > Logs > Server Log** by the `scanner` component for

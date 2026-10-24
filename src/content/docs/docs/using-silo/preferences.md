@@ -67,6 +67,46 @@ has Data Saver on. To change it for one browser, open that browser in
 **Settings > Your Devices** and set **Cellular quality** and **Cellular
 maximum bitrate** under **Picture**.
 
+### Lower quality when buffering
+
+**Lower quality when buffering** sits with **Resolution** and **Maximum
+bitrate**. It decides what Silo does on **Auto** when playback keeps
+stopping to buffer:
+
+- **Automatically**, the default, lowers the quality at once and offers
+  **Restore quality**.
+- **Ask first** asks before lowering.
+- **Never** leaves the quality as it is.
+
+Silo always asks before lowering a quality you picked in the player. See
+[If playback keeps buffering](/docs/watch-movies-and-series#if-playback-keeps-buffering)
+for what appears while you watch.
+
+Once Silo lowers the quality, it plays **Auto** under that lower speed on
+this device and network for 24 hours after playback last buffered. A line
+such as "Limited to 12 Mbps after buffering on Oct 17" then appears under
+the setting. Select **Reset** to clear the limit; your measured connection
+speed stays. **Restore quality** in the player and a **Test speed** result
+faster than the limit also clear it. With **Never**, Silo ignores the limit
+and hides the line. **Maximum bitrate** still applies on top of the limit.
+
+### Test your connection speed
+
+The **Connection** group in **Settings > Playback** shows **Connection
+speed**, the latest speed measured for this device on this network. A line
+under it, such as "Auto plays videos up to 35 Mbps without converting them",
+gives the highest bitrate **Auto** plays as it is at that speed.
+
+Select **Test speed** to measure again. The test takes up to 10 seconds, and
+nothing can be playing while it runs. If the server is busy with other tests,
+Silo says how long to wait. The apps also run a short test on their own when
+the server has no recent speed for the device and network. A speed that
+starts with "Faster than" is the least the connection has managed, from a
+short test or from playback, rather than a full measurement.
+
+Speed tests don't run on mobile data or a metered network. There the group
+says that tests are skipped, and **Test speed** is hidden.
+
 ## Change one device
 
 1. Open **Settings > Your Devices** and choose the device. The one you're
