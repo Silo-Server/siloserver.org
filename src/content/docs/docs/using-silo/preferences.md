@@ -80,8 +80,8 @@ maximum bitrate** under **Picture**.
 3. Play something on that device to hear or see the result.
 
 A browser only lists the settings the web player uses. HDR, Dolby Vision,
-playback speed, and the sync offsets appear only for devices running the Silo
-apps.
+playback speed, and the audio sync offset appear only for devices running the
+Silo apps.
 
 In the mobile and TV apps, most settings on the **Playback** page apply to
 that device only. **Skip Back** and **Skip Forward** follow your profile to
