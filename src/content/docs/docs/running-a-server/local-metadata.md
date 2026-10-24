@@ -26,7 +26,7 @@ Names match in any letter case, so Silo also finds `Movie.NFO` and `TVSHOW.nfo`.
 
 The parts of a [multipart movie](/docs/media-folders#also-supported), such as `Movie-cd1.mkv` and `Movie-cd2.mkv`, can share one `Movie.nfo`. Silo reads it only when two or more parts are in the folder.
 
-`movie.nfo` and `tvshow.nfo` apply only when the folder holds a single title, as `poster.jpg` does. A `movie.nfo` in a folder of several movies applies to none of them.
+`movie.nfo` and `tvshow.nfo` apply only when the folder holds a single title, as `poster.jpg` does. A `movie.nfo` in a folder of several movies applies to none of them. Name each movie's NFO after its video file there instead.
 
 Silo skips NFO files over 4 MiB and symbolic links.
 
