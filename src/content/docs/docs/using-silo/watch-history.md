@@ -19,10 +19,11 @@ episode of each series you're watching. To give those episodes their own
 when a new episode or season arrives. See
 [how Home orders these rows](/docs/home-and-calendar#find-your-next-title).
 
-Until you choose, both settings follow the server default, which your
-server's admin can change. The page shows "Using the server default" under a
-setting you haven't chosen. After you choose, **Use server default** goes
-back to it.
+Until you change them, both settings follow your server's default, which
+the person who runs your server sets. Under a setting you haven't changed,
+the page shows the value it's using, for example "Using the server default
+(off)." Once you've changed one, select **Use server default** beside it to
+follow the default again.
 
 In the web app, selecting **Play** on a movie or episode you've started asks
 whether to **Resume at** your saved time or **Play from Beginning**.
