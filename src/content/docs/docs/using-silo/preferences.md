@@ -32,8 +32,8 @@ Silo has them. It doesn't change a movie's spoken audio; use
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
    from: **Changed here**, **From your profile**, or **App default**.
-   **Show title art** can also say **Server default**, which your server's
-   administrator sets. A
+   **Show title art** says **Server default** instead of **App default**,
+   because your server's administrator can change its default. A
    changed setting shows **Use your setting**; select it to go back to your
    profile's value. **Use profile settings** removes every change on the
    device.
