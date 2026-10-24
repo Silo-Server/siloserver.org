@@ -60,7 +60,7 @@ If the library's folder can't be reached during a refresh, such as a network sha
 
 After you replace an image, refresh the item.
 
-For a movie or series, the **Images** list in **Edit Metadata** also offers these images, marked **LOCAL**, even when **Local metadata (NFO + artwork)** is off for the library. The list follows the rules above, so files they skip don't appear. Apply one as you would a provider image, as described in [Choose artwork](/docs/metadata#choose-artwork).
+For a movie or series, the **Images** list in **Edit Metadata** also offers the local posters, backgrounds, and logos, marked **LOCAL**, even when **Local metadata (NFO + artwork)** is off for the library. The list follows the rules above, so files they skip don't appear. Apply one as you would a provider image, as described in [Choose artwork](/docs/metadata#choose-artwork).
 
 If **Could not load from LOCAL** appears above the images, Silo couldn't read some of the title's local images, for example because the title's folder is a symbolic link to a place outside the library's folders. Silo leaves them out of the list.
 
