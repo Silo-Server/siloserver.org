@@ -19,9 +19,9 @@ every Silo app signed in to the same profile.
 ## Prepare the server
 
 Each provider is a plugin. Before anyone can connect a provider, an
-administrator installs its plugin from the **Catalog** tab in
-**Admin > Integrations > Plugins**: **Simkl Watch Provider** or
-**MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
+administrator installs its plugin from the **Made by Silo** group on the
+**Catalog** tab in **Admin > Integrations > Plugins**: **Simkl Watch Provider**
+or **MDBList Watch Provider**. See [Install and maintain plugins](/docs/plugins).
 The MDBList plugin needs no settings: each person enters their own API key.
 Other watch-provider plugins may need settings of their own.
 
