@@ -101,7 +101,7 @@ Use these steps for a server that runs in [one container](/docs/omnibus). The co
 
 5. If you use S3 storage, back up the buckets as for the Compose stack.
 
-Do not copy the `postgres` directory while the container is running. To restore, start the recorded image with a copy of `silo` in an empty config directory and the original `SECRET_KEY`, then load the dump as in [Move from the Compose stack](/docs/omnibus#move-from-the-compose-stack).
+Do not copy the `postgres` directory while the container is running. To restore, start the recorded image with a copy of `silo` in an empty config directory and the original `SECRET_KEY`, wait for it to start, and [restore the dump](/docs/omnibus#restore-a-dump-into-the-container).
 
 ## Test a restore
 
