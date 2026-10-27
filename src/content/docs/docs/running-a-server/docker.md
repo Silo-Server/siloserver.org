@@ -44,6 +44,10 @@ Change a host port in `.env` when it conflicts with another service. The contain
 
 The three Silo ports listen on every host interface. `PORT` answers HTTPS as well as plain HTTP. Its certificate is self-signed, so browsers don't trust it, but the Silo apps check that it belongs to your server before they [connect directly at home](#discovery-on-the-local-network). The Jellyfin and Audiobookshelf ports use plain HTTP only, and their listeners are on from the first start. If you don't use those apps, turn off **Allow Jellyfin apps to connect** and **Allow Audiobookshelf apps to connect** in **Admin > Integrations > Compatibility**. See [third-party access](/docs/third-party-access). Before allowing access from outside your network, put Silo behind [HTTPS](/docs/reverse-proxy).
 
+`PORT`, `JF_PORT`, and `ABS_PORT` also set the ports Silo itself listens on: `8080`, `8096`, and `13378` when they're unset. The Compose file sets them to those values on the `silo` service, and inside the container those values take precedence over `.env`. If you run Silo another way, such as with `docker run --env-file .env`, the variables are the container side of each published port, for example `-p 13380:13380` for `ABS_PORT=13380`.
+
+If you've changed `ABS_PORT`, check that the `silo` service in your `docker-compose.yml` sets `ABS_PORT: "13378"` under `environment`, below `JF_PORT: "8096"`. Older copies of the file don't. Without that line, Silo listens on your `ABS_PORT` inside the container, where the published port doesn't reach it, so Audiobookshelf apps can't connect. Add the line, or download the current `docker-compose.yml`.
+
 ## Discovery on the local network
 
 Silo announces itself on your network so the Silo apps on Apple and Android devices can list it when someone adds a server, without typing its address. The announcement uses mDNS, which is multicast on UDP port 5353. It works only where multicast reaches Silo, such as Docker with host networking (`network_mode: host`).
@@ -82,6 +86,8 @@ Search uses PostgreSQL unless you switch it. To add Meilisearch:
 4. Select **Check Connection**, save, and restart Silo.
 5. Silo builds the search index in the background and tries again on its own if a build fails. Test a known title once it finishes.
 
+To connect Silo from `.env` instead of steps 3 and 4, see [Connect Meilisearch in `.env`](#connect-meilisearch-in-env).
+
 To see which engine is answering searches, open **Advanced** on the same page and look under **Search status**. **Answering searches** shows **Meilisearch**, **Meilisearch (keyword only)** while an older index serves keyword results until its replacement is ready, or **Postgres full-text** while Meilisearch can't answer, such as when it's unreachable or has no usable index. **Rebuild index** opens the task that rebuilds the index by hand.
 
 Some settings change the index format, such as **Match by meaning as well as words**. After you save and restart, Silo rebuilds the index on its own, and search keeps working from the older index or PostgreSQL until the new one is ready.
@@ -89,6 +95,22 @@ Some settings change the index format, such as **Match by meaning as well as wor
 Starting the container alone does not switch Silo's search engine. Port 7700 is published on the host's loopback address; keep it off the public internet.
 
 The Compose file pins the Meilisearch version, because Meilisearch cannot open data written by a different version. To upgrade, change `MEILISEARCH_IMAGE` and set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. You can also empty the `meilisearch` directory and let Silo rebuild the index.
+
+### Connect Meilisearch in `.env`
+
+To connect Meilisearch without the admin page, add these lines to `.env` with your `MEILI_MASTER_KEY` value as the key, then recreate the container with `docker compose --profile search up -d`:
+
+```dotenv
+SILO_SEARCH_PROVIDER=meilisearch
+SILO_MEILISEARCH_URL=http://meilisearch:7700
+SILO_MEILISEARCH_API_KEY=your-meili-master-key
+```
+
+`.env.example` has the same lines, commented out, under its Meilisearch settings. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value.
+
+If a value isn't valid, Silo stops at startup and logs an error that names the variable, such as `invalid SILO_SEARCH_PROVIDER: ...`. The engine must be `postgres` or `meilisearch`, and the URL needs `http://` or `https://` and a host.
+
+If you run more than one API server, give each one the same values, because each applies its own when it starts.
 
 ## Hardware transcoding on Linux
 
