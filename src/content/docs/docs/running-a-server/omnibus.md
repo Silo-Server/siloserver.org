@@ -122,13 +122,13 @@ Redis is optional for a single server. To use the bundled one, set `ENABLE_REDIS
 
 ## Turn on Meilisearch
 
-Search uses PostgreSQL unless you switch it. To use the bundled Meilisearch, set `ENABLE_MEILISEARCH=true` and recreate the container. Silo connects to it and builds the search index in the background, with no steps in **Admin > Server > Search**. To check that the index is ready, open **Advanced** on that page and look under **Search status**, as described in [Optional Meilisearch](/docs/docker#optional-meilisearch).
+Search uses PostgreSQL unless you switch it. To use the bundled Meilisearch, set `ENABLE_MEILISEARCH=true` and recreate the container. Silo connects to it and builds the search index in the background, with no steps in **Admin > Server > Search**. Meilisearch search needs Redis, so this also starts the bundled Redis unless `REDIS_URL` points to your own. To check that the index is ready, open **Advanced** on that page and look under **Search status**, as described in [Optional Meilisearch](/docs/docker#optional-meilisearch).
 
 While the bundled Meilisearch is on, the image sets `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY`. The fields they control in **Admin > Server > Search** are greyed out, with a note such as **Managed by SILO_SEARCH_PROVIDER.** If you set one of these variables yourself, the image uses your value.
 
 To turn it off, set `ENABLE_MEILISEARCH=false` and recreate the container. On that start, search switches back to PostgreSQL. From the start after that, you can choose the search engine in **Admin > Server > Search** again.
 
-To use your own Meilisearch server, leave `ENABLE_MEILISEARCH` off and connect it in **Admin > Server > Search**.
+To use your own Meilisearch server, leave `ENABLE_MEILISEARCH` off and connect it in **Admin > Server > Search**. Turn on Redis too, with `ENABLE_REDIS=true` or your own `REDIS_URL`: without it, Meilisearch search doesn't work.
 
 Meilisearch can't open data written by a different version. If it doesn't start after an update moves it to a new version, set `MEILI_UPGRADE_DB=true` for one start, then remove it. You can also empty `/config/meilisearch/data` and let Silo rebuild the index.
 
