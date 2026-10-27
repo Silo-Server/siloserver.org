@@ -10,11 +10,13 @@ If someone has already invited you to their Silo server, [connect and start watc
 
 Use the [Docker Compose walkthrough](/docs/install) for a new single-host installation. It runs the web app, API, scanner, and transcoder together, with PostgreSQL and Redis beside them.
 
+To run everything in a single container, such as on a NAS or from a container app catalog, use the [omnibus image](/docs/omnibus). It runs Silo and PostgreSQL together and can start Redis and Meilisearch too. It always runs one server, so use the Compose stack if you plan to add transcode nodes.
+
 The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
 
 ## What the host needs
 
-- Docker with Compose 2.24 or newer and permission to run containers.
+- Docker with Compose 2.24 or newer and permission to run containers. The omnibus image needs only Docker if you start it with `docker run`.
 - A mounted directory of media files that the container can read.
 - Persistent storage for PostgreSQL, artwork, and other server state.
 - Free temporary space for transcodes and prepared downloads.
