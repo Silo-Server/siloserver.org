@@ -118,7 +118,7 @@ The image doesn't support `MODE` values other than `integrated`. It logs a warni
 
 ## Turn on Redis
 
-Redis is optional for a single server. To use the bundled one, set `ENABLE_REDIS=true` and recreate the container. It listens only inside the container and saves its data to `/config/redis`. A `redis.conf` in `/config/redis` replaces all of the image's Redis settings.
+Redis is optional for a single server. To use the bundled one, set `ENABLE_REDIS=true` and recreate the container. It listens only inside the container and saves its data to `/config/redis`. A `redis.conf` in `/config/redis` replaces the image's persistence and logging settings, for example to set `maxmemory`. Redis always listens on `127.0.0.1:6379` without a password, because Silo connects there; the image ignores a different port or socket in the file, and Silo can't connect if the file sets `requirepass`.
 
 ## Turn on Meilisearch
 
