@@ -42,11 +42,10 @@ and Android TV, and Google Play installs the right version for each device.
 
 ### Without Google Play
 
-For a device without Google Play, download the app from
-[Silo Android releases](https://github.com/Silo-Server/silo-android/releases/latest).
-Under **Assets**, choose `silo-android-latest-universal-release.apk` for a
-phone or tablet, or `silo-android-tv-latest-universal-release.apk` for a TV,
-and ignore the other files. Open the file on the device to install it, and
+For a device without Google Play, download the app from the
+[latest Silo Android beta](https://github.com/Silo-Server/silo-android/releases/tag/beta-latest).
+Under **Assets**, choose `silo-android-latest-beta.apk` for a phone or tablet,
+or `silo-android-tv-latest-beta.apk` for a TV. Open the file on the device to install it, and
 allow installs from that source if Android asks. On a TV, copy the file over
 with your usual file-transfer or sideloading app first.
 
@@ -56,8 +55,8 @@ Downloader to install apps when asked.
 
 | App | Downloader code |
 | --- | --- |
-| Silo for Android phone or tablet | `1141108` |
-| Silo for Android TV | `2249835` |
+| Silo for Android phone or tablet | `2988950` |
+| Silo for Android TV | `6033910` |
 
 Download Silo only from the links on this page; other apps with similar names
 aren't part of this project.
