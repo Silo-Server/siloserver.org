@@ -37,9 +37,9 @@ export const apps: AppEntry[] = [
     links: [
       { label: "Join the beta", href: "https://play.google.com/apps/testing/org.siloserver.silo", primary: true },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=org.siloserver.silo" },
-      { label: "APK downloads", href: "https://github.com/Silo-Server/silo-android/releases/latest" },
+      { label: "APK downloads", href: "https://github.com/Silo-Server/silo-android/releases/tag/beta-latest" },
     ],
-    note: "No Google Play? Use the Downloader app with code 1141108 for phones and tablets, or 2249835 for Android TV.",
+    note: "No Google Play? Use the Downloader app with code 2988950 for phones and tablets, or 6033910 for Android TV.",
   },
   {
     id: "web",
