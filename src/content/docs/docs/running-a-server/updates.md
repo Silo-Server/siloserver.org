@@ -66,5 +66,6 @@ What to expect:
 
 - Plan one maintenance window for the whole setup. Don't run alpha and 1.0 servers or nodes at the same time.
 - Have the matching 1.0 app builds ready for your devices.
+- Transcode nodes start with different settings in 1.0: the main server's address and a key it issues, instead of the database, Redis, and `SECRET_KEY`. Stop them before you update, and start them again as in [Move transcode nodes to node keys](/docs/transcode-nodes#move-transcode-nodes-to-node-keys). Every main server, and every node that mounts the media, must see each media file with the same size and modification time.
 - Playback, download, callback, and integration URLs created by the alpha server stop working. Create new ones from the 1.0 server and update external services such as autoscan and webhook senders. Don't edit old URLs by hand.
 - Health checks keep their addresses, `/api/v1/health` and `/api/v1/ready`.
