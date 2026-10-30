@@ -58,6 +58,14 @@ With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#a
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
+## Update nodes for separate audio and Dolby Vision conversion
+
+Update transcode and proxy nodes along with the main server before relying on [Dolby Vision profile 7 conversion](/docs/playback#convert-dolby-vision-profile-7-to-profile-81) or separate audio streams. Older nodes can't run or deliver them.
+
+Each transcode node tests its own converter, as the main server does, and offers the conversion only while **Video transcoding** is on. Silo converts only when a machine that may remux under [**Routing**](#route-playback-to-nodes) passes the test, and sends that work only to nodes that passed. If no such machine passes, the title plays without conversion. Nodes running the Silo image already have the converter. A node built from its own image needs `dovi_tool` on its `PATH`.
+
+Streams with separate audio go only through proxy nodes that support them. Until your proxy nodes are updated, the main server sends those streams itself, unless the delivery route ends in "only", in which case playback fails.
+
 ## Store prepared downloads on a node
 
 A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
