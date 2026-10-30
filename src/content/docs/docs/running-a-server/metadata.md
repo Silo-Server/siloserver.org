@@ -41,7 +41,7 @@ Renaming or moving an ignored item's file brings it back to **Unmatched Items** 
 
 Editing a lockable field locks it, so providers leave it alone during a refresh. Unlock the field when you want providers to update it again.
 
-**Reset & Refresh** clears every lock and replaces your manual edits with provider data.
+To undo all your edits at once, select **Reset to Provider** and confirm with **Reset & Refresh**. This clears every lock and replaces your manual edits with provider data.
 
 ## Choose a fallback language
 
@@ -77,11 +77,28 @@ You don't have to translate a library ahead of time. To translate while people b
 
 In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select an image, and choose **Apply Poster**, **Apply Backdrop**, or **Apply Logo**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
 
+Applying an image locks the item's images, so refreshes keep your choice. For a season, the lock is on its series. The count of locked fields at the top of the movie's or series' **Edit Metadata**, such as **1 locked**, includes it.
+
 A badge on each image names where it comes from, such as **TMDB**. A movie or series also offers the artwork stored beside its files, marked **LOCAL** and listed first, so a title with no provider match can still use its own [artwork](/docs/local-metadata#add-artwork). When the images come from more than one source, buttons such as **All**, **LOCAL**, and **TMDB** appear under the image types. Select one to show only that source's images.
 
 To use your own image, choose the image type and select **Upload** at the right end of the row of image types. Pick a JPEG, PNG, or WebP file of up to 10 MiB. The upload takes effect immediately, as an applied image does, and refreshes keep it. It then appears in the list marked **LOCAL** and **Current**. Silo doesn't keep an upload after you apply another image in its place, so to go back to it, upload the file again. Silo stores uploads in its artwork storage, not in your media folders. Uploading works whether or not **Save provider artwork to storage** is on.
 
 If images don't appear, check [artwork storage](/docs/s3-storage).
+
+### Season backdrops
+
+A season's backdrop comes from a metadata provider that has backdrops for seasons, or from one you apply. The season page shows it in place of the series backdrop, and so do the Continue Watching and Next Up cards for the season's episodes.
+
+While the series' images aren't locked, a **Quick Refresh** of the series or of that season, or a new match from **Match Item**, replaces each season backdrop with the provider's. When no provider has one, Silo removes it and the season shows the series backdrop. A refresh that only fills in missing details leaves a stored season backdrop alone.
+
+### Remove a season backdrop
+
+Removing a season backdrop resets the whole series. There's no switch that unlocks only the images, so **Reset to Provider** unlocks every field on the series and runs a **Quick Refresh**. Your other manual edits to the series, such as a title or description you changed, are replaced with provider data too.
+
+1. Open **Edit Metadata** on the series, not on the season. Only a movie or series has **Reset to Provider**.
+2. Select **Reset to Provider**, then confirm with **Reset & Refresh**.
+
+Afterward the season shows its provider's backdrop if there is one, or the series backdrop. The same steps clear a season backdrop left over from a wrong match.
 
 ## Refresh metadata
 
