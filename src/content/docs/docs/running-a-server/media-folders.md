@@ -112,7 +112,11 @@ Silo reads these forms as well.
 | Editions | `{edition-Director's Cut}`, or words such as `Extended`, `Theatrical`, or `Director's Cut` in the name |
 | Multipart movies | `Movie Name (2024) cd1.mkv`, `disc2`, `part1`, `pt2` |
 
-A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
+A file named for several episodes, such as `S01E03-E05`, appears under each episode in its range, and each of those episodes plays the file. Finishing the file marks every episode in the range watched. If you stop partway, your place is saved on the first episode. A file covers at most 11 episodes: its first and the 10 after it.
+
+After you upgrade from a version that listed only the first episode, existing files like this stay that way until Silo scans the library again. The [daily library scan](/docs/autoscan) does that on its own. If you've turned it off, [scan the library](/docs/manage-libraries#scan-or-refresh).
+
+Editions and multipart files of one movie are grouped under the same title.
 
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
 
