@@ -6,6 +6,8 @@ description: Add proxy and transcode nodes on other machines and check that play
 
 A single Silo server already streams and converts video itself. Add nodes when you want part of that work on other machines. Every node runs the same Silo image in a different mode and shares the main server's PostgreSQL, Redis, and encryption key.
 
+A transcode node can also run as a [standalone worker](#run-a-standalone-transcode-worker), which needs only an HTTP or HTTPS connection to the main server and no media mounts or shared credentials.
+
 ## Choose a node type
 
 | Type | Does | Use it when |
@@ -47,6 +49,99 @@ Add the node in Silo, then start it.
 Silo checks a new node as soon as you save it, then every 30 seconds. A node you start after saving shows **Unhealthy** until the next check. Its state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
 
 Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
+
+## Run a standalone transcode worker
+
+A standalone worker is a transcode node without media mounts, PostgreSQL, Redis, or `SECRET_KEY`. It reads each file it converts from the main server over HTTPS, or HTTP on a trusted network, converts it on its own CPU or GPU, and keeps the output on a local disk. Use one when a machine can't mount your media or shouldn't hold the main server's credentials. Apps keep using the main server's addresses, so they need no setup.
+
+The worker proves who it is with a key it creates when you enroll it, so most of [Prepare the node](#prepare-the-node) doesn't apply. It needs:
+
+- An address the main server can reach, and a direct route to the main server's address. That's the **Silo public URL** unless you enroll the worker with another.
+- HTTPS both ways, with certificates valid for those exact addresses. Plain HTTP works only if you allow it when you enroll the worker. A worker enrolled for HTTPS never falls back to HTTP.
+- A local directory for temporary output, with free space.
+- For GPU encoding, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
+- A clock within 30 seconds of the main server's.
+
+Run the worker under an account used only for it. While the worker converts a file, FFmpeg's command line holds a local link to that file, which other accounts on the host that can list processes may see.
+
+### Enroll the worker
+
+1. In **Admin > Playback > Nodes**, select **Add Transcode**. Enter a **Name**, and as the **URL** the worker's address as the main server reaches it, such as `https://worker1.example.com` or `http://192.168.1.20:8097`. Use only the scheme, host, and port, with no path. Select **Save**.
+2. Find the new node's ID with `GET /api/v2/admin/nodes` in the [admin API](/docs/api).
+3. On the main server, create an enrollment ticket for that node and copy it out of the container:
+
+   ```sh
+   docker compose exec silo silo worker-enrollment --node-id 3 --out /tmp/worker-3.ticket
+   docker compose cp silo:/tmp/worker-3.ticket ./worker-3.ticket
+   ```
+
+   The ticket points the worker at the **Silo public URL**. Add `--core-url https://silo.example.com` to use another address, and `--allow-http` if either address uses HTTP. A ticket works once and expires after five minutes.
+4. Copy the ticket to the worker's host, for example to `/opt/silo-worker/worker-3.ticket`, and make it readable only by its owner with `chmod 600`. The worker refuses a ticket other accounts can read.
+5. On the worker's host, redeem the ticket:
+
+   ```sh
+   docker run --rm -v /opt/silo-worker:/var/lib/silo-worker \
+     ghcr.io/silo-server/silo-server:latest worker-enroll \
+     --ticket /var/lib/silo-worker/worker-3.ticket \
+     --binding /var/lib/silo-worker/binding.json
+   ```
+
+   This creates `binding.json`, which holds the worker's private key. Keep it readable only by the worker's account, and delete the used ticket. If enrollment fails, create a new ticket and try again.
+
+### Start the worker
+
+Run the worker with the binding file and a scratch directory. A Compose file on the worker's host can look like this:
+
+```yaml
+services:
+  silo-worker:
+    image: ghcr.io/silo-server/silo-server:latest
+    restart: unless-stopped
+    command: ["worker", "--binding", "/var/lib/silo-worker/binding.json", "--scratch", "/var/lib/silo-worker/scratch"]
+    environment:
+      PORT: "8097" # the port the image's health check uses
+    ports:
+      - "8097:8097"
+    volumes:
+      - /opt/silo-worker:/var/lib/silo-worker
+    # For GPU encoding:
+    # devices:
+    #   - /dev/dri:/dev/dri
+```
+
+Leave out the media library, `.env`, and any database, Redis, or storage credentials. The worker refuses to start if `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY`, or `JWT_SECRET` is set.
+
+Once it's running, Silo checks it like any other node, and it shows **Healthy** when the main server can reach it. Play something that needs conversion to test it.
+
+The worker's encoder, directory, and limits come from these options, not from the node's settings in Silo:
+
+| Option | Default | Sets |
+| --- | --- | --- |
+| `--binding` | None, required | The binding file from enrollment |
+| `--scratch` | None, required | The local directory for temporary output, as an absolute path |
+| `--listen` | `:8097` | The address and port the worker listens on |
+| `--hw-accel` | `auto` | The encoder, with the same choices as **Hardware Acceleration** |
+| `--hw-device` | None | The GPU render device, such as `/dev/dri/renderD128` |
+| `--ffmpeg`, `--ffprobe` | The image's own | Paths to other FFmpeg and FFprobe programs |
+| `--max-jobs` | `0`, no limit | How many conversions and file checks run at once |
+| `--max-source-readers` | `32` | How many files the worker reads from the main server at once, from 1 to 4096 |
+| `--max-inputs` | `128` | How many files the worker keeps open, from 1 to 65536 |
+
+Drain the worker in **Admin > Playback > Nodes** before you stop it. A drained worker takes no new work and keeps serving its current streams. Unlike other transcode nodes, it doesn't drain on its own when stopped, and streams on it end. It also stops its work when it loses contact with the main server. After a restart, playback resumes from the main server's copy of each session.
+
+### Reach the main server over HTTPS
+
+For a worker outside your local network, put the main server behind HTTPS, for example with a [reverse proxy](/docs/reverse-proxy). The proxy must pass the original `Host` header on to Silo. The worker signs each request for the address it enrolled with, so a proxy that changes `Host` to an internal name makes Silo reject the worker's requests with `401` errors. Caddy keeps the header by default.
+
+The worker doesn't follow redirects or use proxy settings such as `HTTPS_PROXY`, so the address must reach Silo directly. If your certificate comes from your own certificate authority, give the worker that authority's certificate, for example by mounting it into the container and setting `SSL_CERT_FILE` to its path.
+
+The worker's file reads cross this link, so a slow or distant connection slows its start-up and seeking.
+
+### Several Silo servers behind one address
+
+If a load balancer spreads requests across several Silo servers, set `SILO_WORKER_SOURCE_URL` on each to that server's own direct address, different from the shared one, and restart it. A worker's file reads must reach the server that handed out the file. Without this setting, only that server can answer them, and the others return a temporary error. While that server is down or restarting, the worker can't read the files it handed out.
+
+Each server sends at most 32 files to workers at once. To change that, set `SILO_WORKER_SOURCE_MAX_READERS`, from 1 to 4096. Ordinary playback, replacement streams, and the reads Silo makes to index a file all count toward it.
 
 ## Route playback to nodes
 
