@@ -46,7 +46,7 @@ The three Silo ports listen on every host interface. `PORT` answers HTTPS as wel
 
 `PORT`, `JF_PORT`, and `ABS_PORT` also set the ports Silo itself listens on: `8080`, `8096`, and `13378` when they're unset. The Compose file sets them to those values on the `silo` service, and inside the container those values take precedence over `.env`. If you run Silo another way, such as with `docker run --env-file .env`, the variables are the container side of each published port, for example `-p 13380:13380` for `ABS_PORT=13380`.
 
-If you've changed `ABS_PORT`, check that the `silo` service in your `docker-compose.yml` sets `ABS_PORT: "13378"` under `environment`, below `JF_PORT: "8096"`. Older copies of the file don't. Without that line, Silo listens on your `ABS_PORT` inside the container, where the published port doesn't reach it, so Audiobookshelf apps can't connect. Add the line, or download the current `docker-compose.yml`.
+If you've changed `ABS_PORT`, check that the `silo` service in your `docker-compose.yml` sets `ABS_PORT: "13378"` under `environment`, below `JF_PORT: "8096"`. Older copies of the file don't. Without that line, Silo listens on your `ABS_PORT` inside the container, where the published port doesn't reach it, so Audiobookshelf apps can't connect. Add the line to the `silo` service.
 
 ## Discovery on the local network
 
