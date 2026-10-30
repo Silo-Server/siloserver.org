@@ -92,10 +92,10 @@ ones the Google Play beta gets.
    when a new build is out.
 
 If Obtainium shows **Signing certificate mismatch**, another copy of Silo is
-already installed, from Google Play or from a different build. Uninstall that
-copy, including any copy in a work profile or Island, then tap **Install**
-again and choose **Install anyway**. Uninstalling signs that copy out and
-removes its downloads.
+already installed, from Google Play or from a different build. Tap **Don't
+install**, uninstall that copy, then tap **Install** again. Uninstalling signs
+that copy out and removes its downloads. If Android still won't install Silo,
+uninstall any copy in a work profile or Island too.
 
 ## Next step
 
