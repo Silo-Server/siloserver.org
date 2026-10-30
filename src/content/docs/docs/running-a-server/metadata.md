@@ -91,10 +91,12 @@ While the series' images aren't locked, a **Quick Refresh** of the series or of 
 
 ### Remove a season backdrop
 
+Removing a season backdrop resets the whole series. There's no switch that unlocks only the images, so **Reset to Provider** unlocks every field on the series and runs a **Quick Refresh**. Your other manual edits to the series, such as a title or description you changed, are replaced with provider data too.
+
 1. Open **Edit Metadata** on the series, not on the season. Only a movie or series has **Reset to Provider**.
 2. Select **Reset to Provider**, then confirm with **Reset & Refresh**.
 
-There's no switch that unlocks only the images. **Reset to Provider** unlocks every field on the series and runs a **Quick Refresh**, so your other manual edits to the series, such as a title or description you changed, are replaced with provider data too. Afterward the season shows its provider's backdrop if there is one, or the series backdrop. The same steps clear a season backdrop left over from a wrong match.
+Afterward the season shows its provider's backdrop if there is one, or the series backdrop. The same steps clear a season backdrop left over from a wrong match.
 
 ## Refresh metadata
 
