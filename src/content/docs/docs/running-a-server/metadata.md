@@ -87,7 +87,7 @@ If images don't appear, check [artwork storage](/docs/s3-storage).
 
 A season's backdrop comes from a metadata provider that has backdrops for seasons, or from one you apply. The season page shows it in place of the series backdrop, and so do the Continue Watching and Next Up cards for the season's episodes.
 
-While the series' images aren't locked, a **Quick Refresh** of the series, or a new match from **Match Item**, replaces each season backdrop with the provider's. When no provider has one, Silo removes it and the season shows the series backdrop. A refresh that only fills in missing details leaves a stored season backdrop alone.
+While the series' images aren't locked, a **Quick Refresh** of the series or of that season, or a new match from **Match Item**, replaces each season backdrop with the provider's. When no provider has one, Silo removes it and the season shows the series backdrop. A refresh that only fills in missing details leaves a stored season backdrop alone.
 
 ### Remove a season backdrop
 
