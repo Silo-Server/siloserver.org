@@ -96,6 +96,7 @@ export const sidebar = [
       ]),
       group("Deployment reference", [
         "docs/docker",
+        "docs/omnibus",
         "docs/configuration",
         "docs/s3-storage",
       ]),

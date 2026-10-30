@@ -67,6 +67,42 @@ docker compose exec -T postgres psql -U silo -d silo -c "SELECT value FROM serve
 
 If it shows `sqlite`, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. The default Compose file does not keep that directory. Mount it from the host and back it up with the dump.
 
+## Back up the omnibus image
+
+Use these steps for a server that runs in [one container](/docs/omnibus). The commands use the container name `silo`.
+
+1. Record the image you are running:
+
+   ```sh
+   docker inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' silo
+   ```
+
+   It prints a tag such as `build-N-omnibus`.
+
+2. Dump the database, then check that the dump can be read:
+
+   ```sh
+   BACKUP="silo-$(date +%F).dump"
+   docker exec -u silo silo pg_dump -h /run/postgresql -Fc silo > "$BACKUP"
+   docker exec -i -u silo silo pg_restore --list < "$BACKUP" > /dev/null && echo "dump OK"
+   ```
+
+   Silo can keep running during the dump.
+
+3. Copy your `docker run` command, or `docker-compose.omnibus.yml` and `.env`, to a restricted location. Either one contains `SECRET_KEY`.
+
+4. Copy these directories from the host directory mounted at `/config`:
+
+   | Directory | Back up? |
+   | --- | --- |
+   | `silo` | Yes. It holds artwork, plugins, and compatibility files, and per-user data on SQLite. |
+   | `postgres` | No, use the dump instead |
+   | `redis`, `meilisearch` | No. These hold cache or rebuildable data. |
+
+5. If you use S3 storage, back up the buckets as for the Compose stack.
+
+Do not copy the `postgres` directory while the container is running. To restore, start the recorded image with a copy of `silo` in an empty config directory and the original `SECRET_KEY`, wait for it to start, and [restore the dump](/docs/omnibus#restore-a-dump-into-the-container).
+
 ## Test a restore
 
 Restore to a separate host when you can, never over the live server.

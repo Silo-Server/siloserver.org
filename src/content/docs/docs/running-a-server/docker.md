@@ -4,7 +4,7 @@ title: Docker deployment reference
 description: Understand the default services, ports, mounts, and optional search service.
 ---
 
-For a new server, follow [Install Silo Server](/docs/install). This reference explains the default stack and where to make later changes.
+For a new server, follow [Install Silo Server](/docs/install). This reference explains the default stack and where to make later changes. To run Silo in a single container instead, see [Run Silo in one container](/docs/omnibus).
 
 ## Image and tags
 
