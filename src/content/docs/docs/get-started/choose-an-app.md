@@ -61,6 +61,40 @@ Downloader to install apps when asked.
 Download Silo only from the links on this page; other apps with similar names
 aren't part of this project.
 
+### Keep Silo updated with Obtainium
+
+[Obtainium](https://github.com/ImranR98/Obtainium) installs Silo from its
+GitHub releases and updates it when a new build comes out, so you don't have
+to download each APK yourself. These steps follow the beta builds, the same
+ones the Google Play beta gets.
+
+1. Install Obtainium from its
+   [releases page](https://github.com/ImranR98/Obtainium/releases). It's also
+   on F-Droid and IzzyOnDroid.
+2. Tap **Add app** and enter `https://github.com/Silo-Server/silo-android` in
+   **App source URL**.
+3. Under **Release selection**, turn on **Include prereleases**, then set
+   **Filter release titles by regex** to `^Silo Android`. This skips the
+   "Latest tester build" release, which repeats the newest build under another
+   name.
+4. Under **APK selection**, set **Filter links by regex** for your device.
+   Each release has a phone APK and a TV APK.
+
+   | Device | Filter links by regex |
+   | --- | --- |
+   | Phone or tablet | `^silo-android-\d.*\.apk$` |
+   | Android TV | `^silo-android-tv-\d.*\.apk$` |
+
+5. Tap **Add**, then **Install**, and allow Obtainium to install apps when
+   Android asks. Obtainium checks for updates in the background and tells you
+   when a new build is out.
+
+If Obtainium shows **Signing certificate mismatch**, another copy of Silo is
+already installed, from Google Play or from a different build. Tap **Don't
+install**, uninstall that copy, then tap **Install** again. Uninstalling signs
+that copy out and removes its downloads. If Android still won't install Silo,
+uninstall any copy in a work profile or Island too.
+
 ## Next step
 
 - On a computer, phone, or tablet: [Connect and start watching](/docs/connect-and-watch).
