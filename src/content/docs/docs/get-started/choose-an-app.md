@@ -73,8 +73,7 @@ ones the Google Play beta gets.
    [releases page](https://github.com/ImranR98/Obtainium/releases). It's also
    on F-Droid and IzzyOnDroid.
 2. Tap **Add app** and enter `https://github.com/Silo-Server/silo-android` in
-   **App source URL**. Enter it before anything else: changing the URL later
-   clears the options below it.
+   **App source URL**.
 3. Under **Release selection**, turn on **Include prereleases**, then set
    **Filter release titles by regex** to `^Silo Android`. This skips the
    "Latest tester build" release, which repeats the newest build under another
