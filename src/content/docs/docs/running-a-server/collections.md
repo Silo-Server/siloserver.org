@@ -22,8 +22,6 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
 - **Look**: a poster and a backdrop. Without a poster, a manual collection or synced list shows a collage of its titles.
 
-Rules work as they do there, except that rules about the viewer, such as **Watched**, are offered only in [personal smart collections](/docs/collections#collect-one-shows-watched-episodes). When the rules show **episodes**, **Show title** matches the episode's show and **Episode title** matches the episode.
-
 To change a collection later, select it in the list, edit it, and choose **Save**.
 
 ## Follow a list with a synced list

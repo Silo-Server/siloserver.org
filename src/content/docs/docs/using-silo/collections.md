@@ -45,22 +45,11 @@ For a smart collection, choose under **Rules** which kind of titles it shows
 and from which libraries. Select **Add rule**, then pick a field, a condition,
 and a value from your libraries. **Live preview** shows the titles that match
 as you go. Under **Order**, choose how it's sorted and, if you want a cap,
-**Max titles**.
+**Max titles**. When it shows **episodes**, **Title** becomes **Episode title**,
+and **Show title** matches each episode's show.
 
 A smart collection keeps itself up to date: titles added to your libraries
 later join it when they match. You can create it even if nothing matches yet.
-
-#### Collect one show's watched episodes
-
-Choose **episodes** under **Rules**, then combine these rules with **all**:
-
-- **Show title** **is** the show's name.
-- **Watched** **is** **Yes**.
-- **Episode title** **is not** an episode you want to leave out. Add another
-  rule for each title to exclude.
-
-Use **contains** instead of **is** to match part of a show title. Matching
-ignores letter case.
 
 ### Follow a list
 
