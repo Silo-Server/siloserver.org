@@ -22,7 +22,7 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
 - **Look**: a poster and a backdrop. Without a poster, a manual collection or synced list shows a collage of its titles.
 
-For episode rules, **Show title** matches the show and **Episode title** matches the episode. Rules about the viewer, such as **Watched**, are available in [personal smart collections](/docs/collections#watched-episodes-from-one-show).
+For episode rules, **Show title** matches the show and **Episode title** matches the episode. Rules about the viewer, such as **Watched**, are available in [personal smart collections](/docs/collections#collect-one-shows-watched-episodes).
 
 To change a collection later, select it in the list, edit it, and choose **Save**.
 

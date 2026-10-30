@@ -50,7 +50,7 @@ as you go. Under **Order**, choose how it's sorted and, if you want a cap,
 A smart collection keeps itself up to date: titles added to your libraries
 later join it when they match. You can create it even if nothing matches yet.
 
-#### Watched episodes from one show
+#### Collect one show's watched episodes
 
 Choose **episodes** under **Rules**, then combine these rules with **all**:
 
@@ -60,7 +60,7 @@ Choose **episodes** under **Rules**, then combine these rules with **all**:
   rule for each title to exclude.
 
 Use **contains** instead of **is** to match part of a show title. Matching
-ignores letter case. Check **Live preview** before saving.
+ignores letter case.
 
 ### Follow a list
 
