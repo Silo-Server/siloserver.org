@@ -79,6 +79,8 @@ In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the
 
 A badge on each image names where it comes from, such as **TMDB**. A movie or series also offers the artwork stored beside its files, marked **LOCAL** and listed first, so a title with no provider match can still use its own [artwork](/docs/local-metadata#add-artwork). When the images come from more than one source, buttons such as **All**, **LOCAL**, and **TMDB** appear under the image types. Select one to show only that source's images.
 
+To use your own image, choose the image type and select **Upload** at the right end of the row of image types. Pick a JPEG, PNG, or WebP file of up to 10 MiB. The upload takes effect immediately, as an applied image does, and refreshes keep it. It then appears in the list marked **LOCAL** and **Current**. Silo doesn't keep an upload after you apply another image in its place, so to go back to it, upload the file again. Silo stores uploads in its artwork storage, not in your media folders. Uploading works whether or not **Save provider artwork to storage** is on.
+
 If images don't appear, check [artwork storage](/docs/s3-storage).
 
 ## Refresh metadata
