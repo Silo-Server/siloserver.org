@@ -86,7 +86,7 @@ Search uses PostgreSQL unless you switch it. To add Meilisearch:
 4. Select **Check Connection**, save, and restart Silo.
 5. Silo builds the search index in the background and tries again on its own if a build fails. Test a known title once it finishes.
 
-To connect Silo from `.env` instead of steps 3 and 4, see [Connect Meilisearch in `.env`](#connect-meilisearch-in-env).
+To connect a Meilisearch server you run yourself from `.env`, see [Connect Meilisearch in `.env`](#connect-meilisearch-in-env).
 
 To see which engine is answering searches, open **Advanced** on the same page and look under **Search status**. **Answering searches** shows **Meilisearch**, **Meilisearch (keyword only)** while an older index serves keyword results until its replacement is ready, or **Postgres full-text** while Meilisearch can't answer, such as when it's unreachable or has no usable index. **Rebuild index** opens the task that rebuilds the index by hand.
 
@@ -98,15 +98,15 @@ The Compose file pins the Meilisearch version, because Meilisearch cannot open d
 
 ### Connect Meilisearch in `.env`
 
-To connect Meilisearch without the admin page, add these lines to `.env` with your `MEILI_MASTER_KEY` value as the key, then recreate the container with `docker compose --profile search up -d`:
+To connect a Meilisearch server you run yourself without the admin page, add these lines to `.env`, then recreate the container with `docker compose up -d`:
 
 ```dotenv
 SILO_SEARCH_PROVIDER=meilisearch
-SILO_MEILISEARCH_URL=http://meilisearch:7700
-SILO_MEILISEARCH_API_KEY=your-meili-master-key
+SILO_MEILISEARCH_URL=http://meilisearch.example:7700
+SILO_MEILISEARCH_API_KEY=your-meilisearch-key
 ```
 
-`.env.example` has the same lines, commented out, under its Meilisearch settings. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value.
+Use your server's address, and its master key or a key that can read and write the index. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value.
 
 If a value isn't valid, Silo stops at startup and logs an error that names the variable, such as `invalid SILO_SEARCH_PROVIDER: ...`. The engine must be `postgres` or `meilisearch`, and the URL needs `http://` or `https://` and a host.
 
