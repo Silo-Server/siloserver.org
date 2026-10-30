@@ -48,6 +48,18 @@ Try one known file and note the client, the time, and the audio and subtitle tra
 
 Make sure the server or node can read the file and has free space for transcodes. If only remote clients fail, check [external access](/docs/reverse-proxy). If only converted streams fail, check [transcoding](/docs/playback).
 
+## If remote playback is slow
+
+If viewers away from home get much less than their connection supports, check what Silo's [TCP tuning](/docs/configuration#tcp-tuning-for-remote-viewers) applied when it started. Open **Admin > Logs > Server Log**, set **Component** to `tcpcongestion`, and look at the entries from the last start:
+
+- `tcp congestion control: listener state` appears once for each port Silo serves viewers on. A warning means the kernel didn't give that port BBR.
+- `tcp buffer limits: kernel state` shows the kernel's send limit. It's always informational, even when the limit is low.
+- `tcp send buffer: listener state` appears once for each port and says whether Silo forced a larger send buffer. A warning means the limit is low and Silo couldn't raise it, usually because it doesn't have the [`NET_ADMIN` capability](/docs/docker#net_admin-capability).
+
+Each warning includes what to change, such as loading `tcp_bbr` on the host or raising `net.ipv4.tcp_wmem`. Set **Component** to `netadmin` to see the `net admin: capability state` entry. It says whether Silo had `NET_ADMIN` at startup, and warns if the helper didn't start or Silo couldn't confirm that it dropped the capability. None of these warnings stops Silo.
+
+If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo.
+
 ## Background work fails
 
 Open **Admin > Server > Scheduled Tasks** to find the task and **Admin > Logs > Server Log** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.

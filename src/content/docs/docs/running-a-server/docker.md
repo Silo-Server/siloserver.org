@@ -58,6 +58,48 @@ If people sign in with an HTTPS address, for example through a reverse proxy, se
 
 To stop announcing the server, turn off **Show on the local network** under **Network** in **Admin > Server > General**, save, and restart Silo. It's on by default.
 
+## NET_ADMIN capability
+
+Both Compose files in the server repository give the `silo` service the `NET_ADMIN` capability with this line:
+
+```yaml
+cap_add: [NET_ADMIN]
+```
+
+Silo uses it at startup for its [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers). It lets Silo use BBR congestion control even where the host doesn't allow `bbr`, and force a larger send buffer when the kernel's limit would slow remote viewers on long, fast links. A proxy node runs the same file and uses it the same way. A transcode node serves no viewers, so it drops the capability at startup without using it.
+
+Compose files from before the line was added don't have it. Silo runs without it, as described in [Run without NET_ADMIN](#run-without-net_admin).
+
+### How Silo limits its use
+
+Before Silo's own code runs, it starts a small helper that holds `NET_ADMIN`, then drops the capability from Silo itself. The helper accepts only those two changes to Silo's own connections, and it exits once Silo's ports are set up. Silo, FFmpeg, ffprobe, and plugins never keep `NET_ADMIN`, and programs Silo starts can't gain it back. In the single-container image, Silo runs as the `silo` account, and the image passes the capability across that switch. If the handover fails, Silo starts without it.
+
+If Silo can't confirm that it dropped the capability, or the helper doesn't start, Silo keeps running and logs a `net admin: capability state` warning with what to do.
+
+### What the capability allows
+
+Whatever holds `NET_ADMIN` can change the container's network interfaces, routes, and firewall rules, and reach more of the kernel's code, such as nf_tables. With `network_mode: host`, that means the host's own network. The helper's limits apply only to Silo. Root processes in the container, such as `docker exec` shells and the single-container image's supervisor, keep the capability for as long as the container runs.
+
+### Run without NET_ADMIN
+
+To remove the capability, delete the `cap_add: [NET_ADMIN]` line and recreate the container with `docker compose up -d`. Silo starts and serves as before:
+
+- BBR still works if the host has loaded the `tcp_bbr` module and allows `bbr` in `net.ipv4.tcp_allowed_congestion_control`. If it doesn't, Silo logs a warning with what to change.
+- Silo can't force a larger send buffer. If the kernel's limit is low, Silo logs a `tcp send buffer: listener state` warning on each start with how to raise it.
+
+Deleting the line removes the capability only if nothing else grants it. A container with `privileged: true` has it anyway, and so does Silo run as root without a container.
+
+To get the larger buffer without the capability, raise the kernel's send limit where Silo runs instead. On Docker's default bridge network, add this to the `silo` service:
+
+```yaml
+sysctls:
+  net.ipv4.tcp_wmem: "4096 16384 67108864"
+```
+
+If the runtime refuses this setting, the container doesn't start. Docker refuses it with `network_mode: host`, so set the same value on the host instead, for example in a file under `/etc/sysctl.d/`. With this limit, the kernel keeps sizing each connection's buffer itself, and Silo has nothing to force.
+
+Rootless Docker and Podman give the container `NET_ADMIN` only inside its own user namespace. That can't force send buffers or load kernel modules on the host.
+
 ## Data directories
 
 The media mount is read-only. Silo's writable directories live below `SILO_DATA_ROOT`, which defaults to `/opt/silo`:

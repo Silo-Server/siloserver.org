@@ -46,6 +46,8 @@ Migrations stop after 20 minutes by default. For a very large library, or when t
 
 Keep the backup until these checks pass.
 
+An update doesn't change your Compose file. If yours is older than the [`NET_ADMIN` capability](/docs/docker#net_admin-capability) line, Silo runs without it. If the kernel's send limit is low, Silo logs a `tcp send buffer: listener state` warning on each start, with how to fix it. The warning doesn't stop Silo. Before you add the line, read [what the capability allows](/docs/docker#what-the-capability-allows).
+
 ## If the update fails
 
 Stop and keep the logs. Switching back to the old image doesn't undo migrations, so don't alternate old and new images against the same database.

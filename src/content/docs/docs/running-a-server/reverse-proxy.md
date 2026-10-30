@@ -34,6 +34,8 @@ Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in,
 
 If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
 
+Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers) covers only connections that end at Silo. Behind Caddy, the viewer's connection ends at Caddy, so the tuning covers Caddy's connection to Silo, and the connection to the viewer uses the host's own TCP settings.
+
 ## Other addresses clients use
 
 Remote proxy nodes and S3 storage can hand clients their own addresses. Those must also be reachable and use HTTPS; the main proxy doesn't forward them.
