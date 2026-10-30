@@ -30,7 +30,7 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
-A value set in the environment can override the stored setting. For example, `SILO_TRUSTED_PROXIES` replaces the **Trusted proxies** setting on every start. Manage each value in one place.
+A value set in the environment can override the stored setting. For example, `SILO_TRUSTED_PROXIES` replaces the **Trusted proxies** setting on every start, and `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` replace the [search connection](/docs/docker#connect-meilisearch-in-env). A field set this way is greyed out on its admin page, with a note such as **Managed by SILO_TRUSTED_PROXIES.** Manage each value in one place.
 
 ## External PostgreSQL and Redis
 

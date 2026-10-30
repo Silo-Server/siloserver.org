@@ -47,9 +47,12 @@ and turn on **Allow Audiobookshelf apps to connect** under **Audiobookshelf**. S
 server if the page asks you to.
 
 The default Compose file publishes the endpoint on port `13378`, separate
-from Silo's web port. Give listeners an address for that port that they can
-reach. Keep it on your home network, or put it behind HTTPS before you allow
-access from outside.
+from Silo's web port. To use another port, set `ABS_PORT` in `.env`. With
+the default Compose file that changes only the host port; without it, such as
+with `docker run`, it's the port Silo itself listens on. See
+[Ports](/docs/docker#ports). Give listeners an address for that port that
+they can reach. Keep it on your home network, or put it behind HTTPS before
+you allow access from outside.
 
 ## Reverse proxy
 
