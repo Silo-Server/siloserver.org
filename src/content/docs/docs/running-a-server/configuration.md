@@ -183,6 +183,27 @@ Silo has no control to end a lock early; it ends after 15 minutes. Someone who k
 - A [password reset link](/docs/accounts#forgot-your-password) or an invitation still signs the person in.
 - A device that's already signed in can sign in another, such as a TV by [scanning its code](/docs/tv-sign-in#scan-the-tvs-code) or a Jellyfin-compatible app with [Quick Connect](/docs/jellyfin-apps#sign-in-with-quick-connect).
 
+## TCP tuning for remote viewers
+
+Silo tunes its connections so viewers away from home keep their speed on long or lossy links. It's on by default. To change it, set these in `.env`, then recreate the container with `docker compose up -d`. The main server and each node read them only when they start.
+
+| Variable | Default | Values |
+| --- | --- | --- |
+| `SILO_NET_TCP_CONGESTION` | `bbr` | `bbr` asks the kernel for BBR congestion control. `off` keeps the kernel's own choice. |
+| `SILO_NET_TCP_SEND_BUFFER` | `33554432` | A send buffer size in bytes, up to `1073741823`. `off` keeps the kernel's automatic sizing. |
+
+Silo forces the send buffer only when the kernel's send limit is too small for fast remote links and Silo has the [`NET_ADMIN` capability](/docs/docker#net_admin-capability). Otherwise the kernel keeps sizing each connection's buffer itself. A forced buffer is a fixed size: the kernel doubles the value, so each connection can use up to 64 MiB of memory at the default.
+
+Any other value, such as `false` or `0`, turns that setting off. Silo logs a `tuning knob: value adjusted` warning that names the variable.
+
+Whatever these are set to, Silo also caps the unsent data waiting on each connection at 128 KiB, which keeps memory down. This needs no capability and has no setting.
+
+The tuning covers the web app and API port, the Jellyfin and Audiobookshelf ports, and proxy nodes. Transcode nodes serve no viewers and keep their usual settings.
+
+BBR helps most on links that lose packets. On a busy shared connection it doesn't always share well with other downloads. Behind a router with large buffers it can get less than its share. Behind one that limits speed by dropping packets, it can leave little for other downloads. If that's a problem on your connection, set `SILO_NET_TCP_CONGESTION=off`.
+
+Silo can tune only connections that end at Silo. Behind a [reverse proxy](/docs/reverse-proxy), [network access](/docs/tailscale), rootless Docker or Podman, or Docker Desktop, the viewer's connection ends before Silo, so the tuning covers only the last hop to Silo. The viewer's own device can also limit their speed. To see what Silo applied, see [If remote playback is slow](/docs/server-health#if-remote-playback-is-slow).
+
 ## Logging
 
 See [Logs and monitoring](/docs/logging).
