@@ -63,13 +63,7 @@ The commands on other pages use `docker compose exec silo`. With `docker run`, u
 
 ## Run the services in separate containers
 
-The server repository's advanced Compose file, [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml), runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself, or to keep a server that was installed that way. Download it beside your `.env` and select it there:
-
-```dotenv
-COMPOSE_FILE=docker-compose.split.yml
-```
-
-It has these services, each with its own health status in `docker compose ps`:
+The server repository's advanced Compose file, [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml), runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself. A server installed before Silo moved to one container already runs this way; see [If your server runs PostgreSQL and Redis in their own containers](/docs/updates#if-your-server-runs-postgresql-and-redis-in-their-own-containers).
 
 | Service | Role |
 | --- | --- |
@@ -78,7 +72,40 @@ It has these services, each with its own health status in `docker compose ps`:
 | `redis` | Shared coordination and cache state |
 | `meilisearch` | Optional search service, started with `--profile search` |
 
-Set `POSTGRES_PASSWORD` in `.env` before the first start, for example to the output of `openssl rand -hex 24`; see [Environment configuration](/docs/configuration#environment-configuration). Silo runs as `PUID` and `PGID` here too.
+### Set up the advanced Compose file
+
+1. Follow steps 2 and 3 of [Install Silo Server](/docs/install), but in step 2 download the advanced file instead of creating `docker-compose.yml`:
+
+   ```sh
+   curl -fSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.split.yml -o docker-compose.split.yml
+   ```
+
+2. Generate a database password with `openssl rand -hex 24`, and add these lines to `.env`:
+
+   ```dotenv
+   COMPOSE_FILE=docker-compose.split.yml
+   POSTGRES_PASSWORD=replace-with-the-generated-password
+   ```
+
+   Set the password before the first start. PostgreSQL stores it when it creates the database, and changing `.env` afterwards doesn't change it. Some characters break Silo's connection, so keep to a value like this one; see [Environment configuration](/docs/configuration#environment-configuration).
+
+3. Run `docker compose up -d`, then `docker compose ps`. It lists `postgres`, `redis`, and `silo`, each with a health status.
+
+Then [finish setup in the browser](/docs/install#5-finish-setup-in-the-browser).
+
+### What's different from the single container
+
+Silo itself runs as it does in the single container: as `PUID` and `PGID`, on the same ports, with the same media mount and the same settings in `.env`. These parts work differently:
+
+- Pin the image with `SILO_IMAGE` instead of `SILO_OMNIBUS_IMAGE`. See [Image and tags](#image-and-tags).
+- PostgreSQL and Redis are published on the host's loopback address at `POSTGRES_PORT` and `REDIS_PORT`. See [Ports](#ports).
+- Silo's folders sit directly in `SILO_DATA_ROOT`, not under `config`. See [Data directories](#data-directories).
+- Meilisearch runs as its own service, and you connect it in the admin pages. See [Meilisearch in a separate container](#meilisearch-in-a-separate-container).
+- Using your own PostgreSQL or Redis takes an override file. See [External PostgreSQL and Redis](/docs/configuration#external-postgresql-and-redis).
+- `POSTGRES_SHM_SIZE` sets the `postgres` container's shared memory, 8gb by default. See [Shared memory for your own PostgreSQL container](/docs/configuration#shared-memory-for-your-own-postgresql-container).
+- When automatic tuning asks for a restart, run `docker compose restart postgres silo`. See [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
+- Backups dump the database from the `postgres` service, and SQLite per-user data needs its own mount. See [Back up a Compose install](/docs/backup-restore#back-up-a-compose-install). A test restore starts `postgres` alone first; see [Test a restore](/docs/backup-restore#test-a-restore).
+- `docker compose up -d --no-deps silo` updates Silo and leaves PostgreSQL and Redis running. See [Update with Docker Compose](/docs/updates#update-with-docker-compose).
 
 ## Ports
 
