@@ -63,7 +63,7 @@ The commands on other pages use `docker compose exec silo`. With `docker run`, u
 
 ## Run the services in separate containers
 
-The server repository's advanced Compose file, [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml), runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself. A server installed before Silo moved to one container already runs this way; see [If your server runs PostgreSQL and Redis in their own containers](/docs/updates#if-your-server-runs-postgresql-and-redis-in-their-own-containers).
+The server repository's advanced Compose file, [`docker-compose.advanced.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.advanced.yml), runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself. A server installed before Silo moved to one container already runs this way; see [If your server runs PostgreSQL and Redis in their own containers](/docs/updates#if-your-server-runs-postgresql-and-redis-in-their-own-containers).
 
 | Service | Role |
 | --- | --- |
@@ -77,13 +77,13 @@ The server repository's advanced Compose file, [`docker-compose.split.yml`](http
 1. Follow steps 2 and 3 of [Install Silo Server](/docs/install), but in step 2 download the advanced file instead of creating `docker-compose.yml`:
 
    ```sh
-   curl -fSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.split.yml -o docker-compose.split.yml
+   curl -fSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.advanced.yml -o docker-compose.advanced.yml
    ```
 
 2. Generate a database password with `openssl rand -hex 24`, and add these lines to `.env`:
 
    ```dotenv
-   COMPOSE_FILE=docker-compose.split.yml
+   COMPOSE_FILE=docker-compose.advanced.yml
    POSTGRES_PASSWORD=replace-with-the-generated-password
    ```
 

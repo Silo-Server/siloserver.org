@@ -77,10 +77,10 @@ Servers installed before Silo moved to one container run PostgreSQL, Redis, and 
 
 1. Set `PUID` and `PGID` in `.env` to an account that can read your media, such as the one that owns it. `id -u` and `id -g` print your own. Without them, Silo runs as uid `911`.
 2. If your Compose file sets `user:` on the `silo` service, remove it. The container has to start as root to switch to that account.
-3. Keep your Compose file. If you replace it with the repository's current files, for example with `git pull` in a clone, use [`docker-compose.split.yml`](/docs/docker#run-the-services-in-separate-containers): set `COMPOSE_FILE=docker-compose.split.yml` in `.env`, and carry over your own changes, such as GPU lines.
+3. Keep your Compose file. If you replace it with the repository's current files, for example with `git pull` in a clone, use [`docker-compose.advanced.yml`](/docs/docker#run-the-services-in-separate-containers): set `COMPOSE_FILE=docker-compose.advanced.yml` in `.env`, and carry over your own changes, such as GPU lines.
 
 :::caution
-Don't start the repository's `docker-compose.yml` on this server's data. It doesn't look for your existing install: Silo comes up on a new, empty database with first-run setup open to anyone who reaches the server, while your old `postgres` and `redis` containers keep running. If you already did, run `docker compose down`, select `docker-compose.split.yml` as above, and run `docker compose up -d`. Your data is still in the old directories. Move aside the `config` directory the new container created before you [move into one container](#move-into-one-container) later.
+Don't start the repository's `docker-compose.yml` on this server's data. It doesn't look for your existing install: Silo comes up on a new, empty database with first-run setup open to anyone who reaches the server, while your old `postgres` and `redis` containers keep running. If you already did, run `docker compose down`, select `docker-compose.advanced.yml` as above, and run `docker compose up -d`. Your data is still in the old directories. Move aside the `config` directory the new container created before you [move into one container](#move-into-one-container) later.
 :::
 
 After the update, check that your libraries still scan. A library whose folders the new account can't read stays as it was, and the log names the folder.
@@ -91,7 +91,7 @@ A command in the image moves a server with separate containers into the single c
 
 Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the server, then prepare the directory that holds your Compose file:
 
-1. Download the repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) and [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml) there, and carry over your own changes, such as GPU lines.
+1. Download the repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) and [`docker-compose.advanced.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.advanced.yml) there, and carry over your own changes, such as GPU lines.
 2. In `.env`, set `PUID` and `PGID` as described above. Remove any `DATABASE_URL`, `REDIS_URL`, `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` lines that point at the old containers. To keep using Meilisearch, set `ENABLE_MEILISEARCH=true`.
 3. If `.env` pins `SILO_IMAGE`, remove that line to follow `latest`, or set `SILO_OMNIBUS_IMAGE` to the image to run. For a build from before Silo moved to one container, that's its `build-N-aio` tag.
 4. Remove anything in `docker-compose.override.yml` that changes the `postgres`, `redis`, or `meilisearch` services. Compose rejects `docker-compose.yml` while the override still names them.
@@ -100,7 +100,7 @@ Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the s
 Remove `COMPOSE_FILE` from `.env` if you set it. Then stop the old containers and run the move, with your `SILO_DATA_ROOT` in place of `/opt/silo`:
 
 ```sh
-docker compose -f docker-compose.split.yml down
+docker compose -f docker-compose.advanced.yml down
 docker compose run --rm -v /opt/silo:/silo-data \
   --entrypoint /etc/silo-omnibus/migrate-compose-stack silo
 docker compose up -d
@@ -110,7 +110,7 @@ The command checks the install before it copies anything. If something is in the
 
 The first start rebuilds some database indexes, so it takes longer on a large library. Sign in with your usual account and check your libraries, artwork, watch progress, and playback.
 
-To go back, run `docker compose down`, set `COMPOSE_FILE=docker-compose.split.yml` again, and run `docker compose up -d`. The single container's copy is then out of date. To move again later, move the `config` directory aside first. Once the single container works, delete the old `postgres`, `redis`, `meilisearch`, `plugins`, `artwork`, and `compat` directories yourself.
+To go back, run `docker compose down`, set `COMPOSE_FILE=docker-compose.advanced.yml` again, and run `docker compose up -d`. The single container's copy is then out of date. To move again later, move the `config` directory aside first. Once the single container works, delete the old `postgres`, `redis`, `meilisearch`, `plugins`, `artwork`, and `compat` directories yourself.
 
 ## Moving from alpha to 1.0
 

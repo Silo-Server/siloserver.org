@@ -69,7 +69,7 @@ services:
 The database needs the pgvector extension; the bundled one is PostgreSQL 18. Check the merged files before starting:
 
 ```sh
-docker compose -f docker-compose.split.yml -f your-override.yml config --quiet
+docker compose -f docker-compose.advanced.yml -f your-override.yml config --quiet
 ```
 
 PostgreSQL is required. Redis is optional for a single `integrated` or `api` server and required once you add proxy or transcode nodes.
