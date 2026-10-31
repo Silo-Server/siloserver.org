@@ -15,14 +15,15 @@ Set these in `.env` beside the Compose file:
 | `MEDIA_ROOT` | Media directory on the Docker host |
 | `MEDIA_CONTAINER_ROOT` | Where that directory appears inside Silo |
 | `SILO_DATA_ROOT` | Host directory for Silo's data (see [Docker reference](/docs/docker#data-directories)) |
-| `SILO_IMAGE` | Server image tag or digest |
-| `POSTGRES_PASSWORD` | Password for the bundled database, used when it is first created |
+| `SILO_OMNIBUS_IMAGE` | Server image tag or digest; `SILO_IMAGE` with [separate containers](/docs/docker#run-the-services-in-separate-containers) |
+| `PUID`, `PGID` | The account Silo runs as; it needs read access to your media |
+| `POSTGRES_PASSWORD` | Password for the PostgreSQL container with separate containers, or for nodes with [node access](/docs/docker#nodes-and-stop-timeouts) |
 | `SECRET_KEY` | Key that encrypts stored credentials |
 | `POSTGRES_TUNE` | Automatic PostgreSQL tuning, `auto` by default |
 
-Changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
+With separate containers, changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
 
-Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The bundled stack also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
+Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The separate-containers file also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
 
 `docker compose config` prints the full configuration with passwords and keys filled in. Use `docker compose config --quiet` to check the files without printing them, and never paste the full output into a public report.
 
@@ -34,9 +35,16 @@ A value set in the environment can override the stored setting. For example, `SI
 
 ## External PostgreSQL and Redis
 
-The default Compose file runs both services locally. It sets `DATABASE_URL` and `REDIS_URL` for the `silo` service directly and waits for both bundled services to be healthy, so adding different values to `.env` changes nothing.
+To use your own PostgreSQL or Redis with the default Compose file, set `DATABASE_URL`, `REDIS_URL`, or both in `.env`, then recreate the container with `docker compose up -d`. The container doesn't start the bundled service you replace. Percent-encode any reserved characters in a password, because it goes into the URL as written:
 
-To use existing servers, write a Compose file or override that:
+```dotenv
+DATABASE_URL=postgres://silo:your-password@db.example.com:5432/silo?sslmode=require
+REDIS_URL=redis://cache.example.com:6379
+```
+
+Use the same `SECRET_KEY` for every Silo server and node. [Automatic tuning](#postgresql-tuning) stays off for a database of your own unless you set `POSTGRES_TUNE`.
+
+The [separate-containers file](/docs/docker#run-the-services-in-separate-containers) sets `DATABASE_URL` and `REDIS_URL` for the `silo` service directly and waits for both bundled services to be healthy, so adding different values to `.env` changes nothing there. To use existing servers with it, write a Compose file or override that:
 
 - sets the external `DATABASE_URL` and `REDIS_URL` on the `silo` service
 - removes the `depends_on` entries for the bundled services
@@ -44,7 +52,7 @@ To use existing servers, write a Compose file or override that:
 - keeps the media, plugin, artwork, compatibility, transcode, and catalog seed mounts
 - uses the same `SECRET_KEY` for every Silo server and node
 
-For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it, because it goes into `DATABASE_URL` as written:
+For example, this override replaces both bundled services and turns off automatic tuning. Set `EXTERNAL_DB_PASSWORD` in `.env`, and percent-encode any reserved characters in it:
 
 ```yaml
 services:
@@ -58,10 +66,10 @@ services:
       POSTGRES_TUNE: "off"
 ```
 
-The database needs the pgvector extension; the default stack uses PostgreSQL 18. Check the merged files before starting:
+The database needs the pgvector extension; the bundled one is PostgreSQL 18. Check the merged files before starting:
 
 ```sh
-docker compose -f docker-compose.yml -f your-override.yml config --quiet
+docker compose -f docker-compose.split.yml -f your-override.yml config --quiet
 ```
 
 PostgreSQL is required. Redis is optional for a single `integrated` or `api` server and required once you add proxy or transcode nodes.
@@ -97,7 +105,7 @@ Silo follows a new master after a failover without a restart. The **Connection U
 
 ### Shared memory for your own PostgreSQL container
 
-Size `/dev/shm` when you create your own PostgreSQL container. The bundled `postgres` service sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
+Size `/dev/shm` when you create your own PostgreSQL container. The `postgres` service in the separate-containers file sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), and PostgreSQL inside Silo's container doesn't use `/dev/shm`, but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
 
 ```yaml
 services:
@@ -117,11 +125,7 @@ PostgreSQL installed directly on a host or VM does not use Docker's `shm_size` s
 
 ## PostgreSQL tuning
 
-With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Some settings only take effect after PostgreSQL restarts. Silo names them in a `postgres restart required to finish applying auto-tuned settings` warning on every start, even after you've restarted, so one restart is enough. Restart both services together during a quiet period, because restarting PostgreSQL alone drops Silo's connections. It's easiest right after the first start, before you add libraries:
-
-```sh
-docker compose restart postgres silo
-```
+With `POSTGRES_TUNE=auto`, Silo tunes the database for its workload with `ALTER SYSTEM` at startup. Some settings only take effect after PostgreSQL restarts. Silo names them in a `postgres restart required to finish applying auto-tuned settings` warning on every start, even after you've restarted, so one restart is enough. Restart PostgreSQL and Silo together during a quiet period, because restarting PostgreSQL alone drops Silo's connections. It's easiest right after the first start, before you add libraries. `docker compose restart silo` restarts both in the single container; with separate containers, run `docker compose restart postgres silo`.
 
 Set `POSTGRES_TUNE=off` before starting Silo if you manage PostgreSQL settings yourself, and for an external database: automatic detection measures the Silo container, not the database host. Turning tuning off leaves settings already written to `postgresql.auto.conf` in place; reset them yourself if needed.
 
@@ -133,14 +137,14 @@ These `.env` values adjust automatic tuning:
 | --- | --- | --- |
 | `POSTGRES_TUNE_PROFILE` | `oltp` | Tuning profile. `oltp` is the only one. |
 | `POSTGRES_TUNE_MEMORY` | `auto` | Memory to tune for, such as `8GB`. Silo uses a value you set as it is. |
-| `POSTGRES_TUNE_MEMORY_BUDGET_PERCENT` | `75` | Share of detected memory given to PostgreSQL |
+| `POSTGRES_TUNE_MEMORY_BUDGET_PERCENT` | `75`, or `50` for the bundled PostgreSQL | Share of detected memory given to PostgreSQL |
 | `POSTGRES_TUNE_CPUS` | `auto` | CPU count used for worker settings |
 | `POSTGRES_TUNE_STORAGE` | `ssd` | `hdd`, `ssd`, `san`, or `nvme` |
 | `POSTGRES_TUNE_DB_SIZE` | `auto` | Database size compared with memory: `less_ram`, `mid_ram`, or `greater_ram` |
 | `POSTGRES_TUNE_CONNECTIONS` | `100` | PostgreSQL's `max_connections` |
-| `POSTGRES_SHM_SIZE` | `8gb` | `/dev/shm` size of the bundled `postgres` container |
+| `POSTGRES_SHM_SIZE` | `8gb` | `/dev/shm` size of the `postgres` container with separate containers |
 
-With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it has one, and the host's memory otherwise. The default budget leaves 25% of it for Silo, Redis, plugins, transcodes, and the operating system. If Silo runs in a container with no memory limit and can only see a figure above 128 GB, it skips tuning and logs `postgres auto-tuning disabled`. Set `POSTGRES_TUNE_MEMORY`, or mount `/proc/meminfo:/host/proc/meminfo:ro` on the `silo` service as the default Compose file does.
+With `POSTGRES_TUNE_MEMORY=auto`, Silo uses the container's memory limit if it has one, and the host's memory otherwise. The default budget leaves 25% of it for Silo, Redis, plugins, transcodes, and the operating system. The bundled PostgreSQL shares its container with Silo, so it gets 50% instead. If Silo runs in a container with no memory limit and can only see a figure above 128 GB, it skips tuning and logs `postgres auto-tuning disabled`. Set `POSTGRES_TUNE_MEMORY`, or mount `/proc/meminfo:/host/proc/meminfo:ro` on the `silo` service as the repository's Compose files do.
 
 Every Silo process (the main server and each proxy or transcode node) opens its own pool of up to **Maximum Postgres connections**, set under **Database** in **Admin > Server > General** (`20` by default). Silo raises `POSTGRES_TUNE_CONNECTIONS` to cover its own pool, but it doesn't count the nodes. With nodes, set it to at least that number times the number of Silo processes, plus a few for admin sessions.
 
