@@ -57,7 +57,7 @@ docker run -d --name silo \
   ghcr.io/silo-server/silo-server:latest
 ```
 
-Generate `SECRET_KEY` with `openssl rand -base64 48` and keep a copy separate from your backups. `--stop-timeout 120` gives Silo two minutes to finish requests and shut PostgreSQL down cleanly; Docker otherwise kills the container after 10 seconds. Without the transcode and download mounts, those files are lost each time the container is recreated.
+Generate `SECRET_KEY` with `openssl rand -base64 48` and store a copy apart from your backups. Silo can't start on its database without this exact key, and a lost key [can't be recovered](/docs/backup-restore#what-to-preserve). `--stop-timeout 120` gives Silo two minutes to finish requests and shut PostgreSQL down cleanly; Docker otherwise kills the container after 10 seconds. Without the transcode and download mounts, those files are lost each time the container is recreated.
 
 The commands on other pages use `docker compose exec silo`. With `docker run`, use `docker exec silo` instead.
 
