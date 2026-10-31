@@ -66,7 +66,7 @@ services:
     #   - /dev/dri:/dev/dri
 ```
 
-The `PORT`, `JF_PORT`, and `ABS_PORT` lines keep Silo's ports inside the container fixed, so a value in `.env` changes only the port on the host. If the host has an Intel or AMD GPU, you can uncomment the `devices` lines now and turn on acceleration later, as in [Set up transcoding](/docs/playback). The server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) is the same file with more options, commented out, for NVIDIA GPUs and [transcode nodes](/docs/transcode-nodes). You can download it instead. The [Docker reference](/docs/docker) explains each line.
+The `PORT`, `JF_PORT`, and `ABS_PORT` lines keep Silo's ports inside the container fixed, so a value in `.env` changes only the port on the host. If the host has an Intel or AMD GPU, you can uncomment the `devices` lines now and turn on acceleration later, as in [Set up transcoding](/docs/playback). If you use an NVIDIA GPU, add the NVIDIA lines from [Give the container access to your GPU](/docs/playback#give-the-container-access-to-your-gpu) instead, after installing the NVIDIA Container Toolkit. The server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) is the same file with more options, commented out, for GPUs and [transcode nodes](/docs/transcode-nodes). You can download it instead. The [Docker reference](/docs/docker) explains each line.
 
 ## 3. Fill in `.env`
 
