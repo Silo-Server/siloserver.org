@@ -128,3 +128,28 @@ library page. Changes save as you go.
 
 These changes apply only to you. They don't change the shared layout or
 anyone else's library access.
+
+In the mobile and TV apps, you can hide Home rows and change their order in
+**Home Sections**:
+
+| Client | Where to find it |
+| --- | --- |
+| iPhone, iPad, and Mac | **Settings > Interface**, under **Home** |
+| Apple TV | **Settings > General** |
+| Android phone and tablet | **Settings > Interface**, under **Home** |
+| Android TV | **Settings > General** |
+
+- Select a row's eye button to hide or show it. Hidden rows stay in the
+  list, so you can show them again later.
+- To move a row on iPhone or iPad, choose **Edit** and drag it. On a Mac,
+  drag it. On an Android phone or tablet, drag it by its handle.
+- On Apple TV and Android TV, choose **Edit** and use a row's arrow buttons to
+  move it. **Done Editing** puts the arrows away, and **Done** closes the
+  list.
+- On iPhone, iPad, and Mac, a row's context menu also has **Move Up** and
+  **Move Down**, and VoiceOver offers the same actions. TalkBack on an
+  Android phone offers **Move up** and **Move down**.
+
+Changes save as you go, to the same Home layout you edit in the web app, so
+they follow your profile to every device. To add or rename rows, or to change
+a library page's rows, use the web app.
