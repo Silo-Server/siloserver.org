@@ -100,13 +100,13 @@ Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the s
 Remove `COMPOSE_FILE` from `.env` if you set it. Then stop the old containers and run the move, with your `SILO_DATA_ROOT` in place of `/opt/silo`:
 
 ```sh
-docker compose -f docker-compose.advanced.yml down
+docker compose -f docker-compose.advanced.yml down &&
 docker compose run --rm -v /opt/silo:/silo-data \
-  --entrypoint /etc/silo-omnibus/migrate-compose-stack silo
+  --entrypoint /etc/silo-omnibus/migrate-compose-stack silo &&
 docker compose up -d
 ```
 
-The command checks the install before it copies anything. If something is in the way, such as a setting from step 2 or too little free space for a second copy of the database, it stops with a message that says what to change, and you can run it again. Running it again after a successful move reports that there is nothing to do.
+The command checks the install before it copies anything. If something is in the way, such as a setting from step 2 or too little free space for a second copy of the database, it stops with a message that says what to change, and Silo doesn't start. Fix it and run the commands again. Running it again after a successful move reports that there is nothing to do.
 
 The first start rebuilds some database indexes, so it takes longer on a large library. Sign in with your usual account and check your libraries, artwork, watch progress, and playback.
 

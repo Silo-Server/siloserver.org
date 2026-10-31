@@ -81,7 +81,7 @@ Restore to a separate host when you can, never over the live server.
 1. Copy `.env` with the original `SECRET_KEY` and your Compose files into a new directory, and copy the data directories you backed up.
 2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new data directory, and set `PORT`, `JF_PORT`, and `ABS_PORT`, plus `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` with separate containers, to ports the live server doesn't use. Also set `COMPOSE_PROJECT_NAME` to a new name, such as `silo-restore-test`, so Compose can't mistake the copy for the live server. Run every command from the new directory.
 3. Pin the image you recorded with the backup: `SILO_OMNIBUS_IMAGE`, or `SILO_IMAGE` with separate containers.
-4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these.
+4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these. Until the restore finishes, also keep other devices from reaching the copy's ports: it starts on an empty database with first-run setup open.
 5. Start the copy with `docker compose up -d` and wait until `docker compose ps` shows it `healthy`. It creates an empty database. Don't open it in a browser or finish setup.
 6. Load the dump, as in [Restore a dump into the container](#restore-a-dump-into-the-container). Silo applies any pending database migrations when it starts again.
 
