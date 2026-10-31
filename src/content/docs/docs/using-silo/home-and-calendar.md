@@ -61,10 +61,12 @@ those titles.
 
 ## Check upcoming releases
 
-Calendar lists movie releases, episode airings, and season premieres from
-your server's metadata, for your active [profile](/docs/profiles). A listed
-release may not be on your server yet. Open the title to see whether you can
-watch it.
+Calendar lists episode airings, season premieres, and movie releases from
+your server's metadata, for your active [profile](/docs/profiles). A movie
+appears on its first home release: the earliest day, in any country, that it
+can be streamed or bought digitally or comes out on disc. Calendar doesn't use
+cinema release dates. A listed release may not be on your server yet. Open the
+title to see whether you can watch it.
 
 ### Open Calendar
 
@@ -93,14 +95,15 @@ To add a title to **Following**, [favorite it or add it to your watchlist](/docs
 Every view respects your library access and profile rating limits.
 
 Badges mark a series premiere, a new season (**NEW SEASON**), or a season
-finale (**FINALE**).
+finale (**FINALE**). In the web app, a movie's badge shows whether its date is
+a digital release (**DIGITAL**) or a disc release (**PHYSICAL**).
 
 ### Dates and empty weeks
 
 When the metadata includes an air time and its timezone, Calendar converts it
 to your device or browser's timezone, so a release can land on a different
-day on devices in different timezones. Date-only releases keep their listed
-date everywhere.
+day on devices in different timezones. Date-only releases, including every
+movie, keep their listed date everywhere.
 
 If a week has nothing for the view you chose, Calendar says so and offers
 buttons for the other two views. Select one, change the week, or select
@@ -109,8 +112,11 @@ buttons for the other two views. Select one, change the week, or select
 has no trending data or none of the trending titles have a release that week.
 
 If a release you expect is missing from **All**, look at the active profile,
-library filter, and week. If its release date is missing or wrong, ask the
-person who runs your server to [refresh its metadata](/docs/metadata#refresh-metadata).
+library filter, and week. A movie isn't listed until its metadata has a digital
+or disc release date, even if it's already in cinemas. If a release date is
+missing or wrong, ask the person who runs your server to
+[update the TMDB plugin](/docs/plugins#update-or-turn-off-a-plugin) and
+[refresh the title's metadata](/docs/metadata#refresh-metadata).
 
 ## Change your home rows
 
