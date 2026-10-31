@@ -11,14 +11,18 @@ A Silo backup is the database, the encryption key, and the files the database po
 | Data | Why it matters |
 | --- | --- |
 | PostgreSQL | Catalog, accounts, profiles, settings, and watch state |
-| `SECRET_KEY` | Reads the encrypted credentials stored in the database |
+| `SECRET_KEY` | Silo can't start on the database without it, and it can't be recovered |
 | `.env`, Compose files, and overrides | Recreates the same paths, ports, and services |
 | Exact image version | Restores with the software that matches the backup |
 | Local artwork and S3 buckets | Uploaded images, downloaded subtitles, avatars, and cached artwork |
 | Plugin files | Installed plugins |
 | Original media | Silo's database does not contain your media files |
 
-Keep `SECRET_KEY` in a secure place, separate from the database backups. Without it, a restored server cannot use the stored integration and storage credentials.
+:::caution[Without the secret key, a backup can't be restored]
+Silo encrypts parts of its database with `SECRET_KEY`, including the key that keeps people signed in, and needs the same key every time it starts. Started with any other key, Silo stops with a `loading settings: decrypt setting ...` error. There's no supported way to recover from a lost key: the only way forward is a new, empty database, without your accounts, profiles, watch history, or settings.
+
+Keep a copy of `SECRET_KEY` in a safe place, such as a password manager, apart from your database backups. Anyone with both a dump and the key can read the credentials stored in it.
+:::
 
 ## Back up a Compose install
 

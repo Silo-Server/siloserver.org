@@ -87,10 +87,16 @@ PGID=1000
 TZ=Etc/UTC
 ```
 
-- `SECRET_KEY` encrypts the credentials Silo stores. Keep a secure copy separate from your database backups. Silo needs the same key to read stored credentials after a restart or restore.
+- `SECRET_KEY` encrypts what Silo stores in its database, such as API keys for other services, storage keys, and the key that keeps people signed in.
 - `MEDIA_ROOT` is the host directory containing your media. Silo sees it at `/mnt/media`, so `/srv/media/movies` on the host becomes `/mnt/media/movies` in Silo. The mount is read-only, so Silo cannot alter your media through it.
 - `SILO_DATA_ROOT` holds the database, artwork, and temporary transcodes. Use `/opt/silo` only if it is not already used by another installation, and choose a disk with space for all three in addition to your media.
 - `PUID` and `PGID` are the account Silo runs as. Use an account that can read your media; `id -u` and `id -g` print your own.
+
+:::caution[Save your secret key now]
+Store a copy of `SECRET_KEY` in a safe place, such as a password manager, and keep it apart from your database backups. Silo needs this exact key every time it starts on your database, including after a restore or a move to another host.
+
+If the key is lost or changed, Silo stops at startup with a `loading settings: decrypt setting ...` error, and there's no supported way to recover. Getting the server running again means starting over with a new, empty database: accounts, profiles, watch history, and settings are gone, libraries have to be added and scanned again, and everyone needs a new account to sign in to their apps. Your media files aren't affected.
+:::
 
 ## 4. Start Silo
 
@@ -136,8 +142,8 @@ invite other people with their own accounts later.
 
 ## Before relying on the server
 
-Set up [backups](/docs/backup-restore) and note your data paths and any
-external storage. Give each person their own account: your admin password
+Set up [backups](/docs/backup-restore), check that your copy of `SECRET_KEY`
+matches the one in `.env`, and note your data paths and any external storage. Give each person their own account: your admin password
 controls the server, not just what you can watch.
 
 ## What to set up next

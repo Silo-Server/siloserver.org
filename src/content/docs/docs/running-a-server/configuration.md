@@ -18,10 +18,10 @@ Set these in `.env` beside the Compose file:
 | `SILO_OMNIBUS_IMAGE` | Server image tag or digest; `SILO_IMAGE` with [separate containers](/docs/docker#run-the-services-in-separate-containers) |
 | `PUID`, `PGID` | The account Silo runs as; it needs read access to your media |
 | `POSTGRES_PASSWORD` | Password for the PostgreSQL container with separate containers, or for nodes with [node access](/docs/docker#nodes-and-stop-timeouts) |
-| `SECRET_KEY` | Key that encrypts stored credentials |
+| `SECRET_KEY` | Key that encrypts stored credentials. Keep a copy: Silo can't start without it. |
 | `POSTGRES_TUNE` | Automatic PostgreSQL tuning, `auto` by default |
 
-With separate containers, changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
+With separate containers, changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Never change `SECRET_KEY` on an existing server: Silo can't start on its database without the key it was set up with, and a lost key [can't be recovered](/docs/backup-restore#what-to-preserve). Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
 
 Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The advanced Compose file also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
 
