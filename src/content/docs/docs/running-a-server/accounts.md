@@ -40,6 +40,8 @@ For a group of people with the same access, [configure an access group](/docs/ma
 
 Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
 
+To change the access group for several people at once, use the group's **Members** section instead. See [Add or move several members at once](/docs/manage-access#add-or-move-several-members-at-once).
+
 To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
 The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
