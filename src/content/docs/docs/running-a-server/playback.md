@@ -83,6 +83,14 @@ After turning on **Allow HEVC encoding**, play something that needs conversion o
 
 With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo checks each node's HEVC support separately.
 
+## Convert Dolby Vision profile 7 to profile 8.1
+
+Leave **Video transcoding** on in **Admin > Playback > Settings** to let Silo convert Dolby Vision profile 7 video to profile 8.1 for apps that ask for it. A device that plays profile 8.1 then shows the title in Dolby Vision. There's no separate setting. The viewer's account must also allow video transcoding; see [Choose limits that fit the task](/docs/manage-access#choose-limits-that-fit-the-task).
+
+Silo doesn't re-encode the video. It copies the file's HDR10 base layer unchanged, converts the Dolby Vision metadata to profile 8.1, and drops the enhancement layer, the second video layer in a profile 7 file. The picture comes from the base layer alone, so it can differ from what a player that decodes both layers shows. The app gets the audio as a separate stream next to the converted video, so a title without an audio track isn't converted. Apps can ask for that separate audio stream with other copied video too.
+
+The Silo image includes the converter, `dovi_tool`, and Silo tests it before offering the conversion. If the test fails, or the device can't play profile 8.1, Silo plays the title as it would without conversion.
+
 ## Convert HDR for SDR screens
 
 When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Transcoding** on **Admin > Playback > Settings** allow it, and both are on by default:
