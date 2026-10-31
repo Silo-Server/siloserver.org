@@ -61,6 +61,8 @@ settings. You can't delete the primary profile or the profile you're using.
    **PIN (optional)**.
 3. For a child, turn on **Child Profile**. Choose a **Maximum content rating**
    and, if you like, turn on **Restrict libraries** and pick the libraries.
+   **Child Profile** also turns off **Allow requests**; turn it back on if the
+   child should be able to request titles.
 4. Select **Create Profile**.
 
 The Apple apps can't edit or delete a profile or change its PIN afterwards.
@@ -80,7 +82,9 @@ Use the web app for that.
    libraries** or select **Choose libraries** and check at least one library
    the profile can browse. These limits work on any profile. For a child, turn
    on **Child Profile** first: it fills in PG and **Choose libraries** for the
-   limits you haven't set yet. Turning it off clears both limits.
+   limits you haven't set yet, and turns off **Allow requests** unless you've
+   changed that switch. Turning it off clears both limits and turns
+   **Allow requests** back on.
 5. Select **Create Profile** or **Save Changes**.
 
 ### Forgotten PIN
@@ -94,22 +98,28 @@ watch history and preferences.
 ## Set parental controls
 
 The web app has every parental control. The Apple apps can set a content
-rating and library limit when creating a child profile. The Android apps can
-set them on any profile, when creating or editing it.
+rating and library limit when creating a child profile, and **Allow requests**
+when creating any profile. The Android apps can set all three on any profile,
+when creating or editing it.
 
 In the web app, from the primary profile, open **Settings > Profiles** and
 select **Edit** on the profile you want to restrict. The web app calls it a
 **Kids profile**; the mobile and TV apps call it a **Child Profile**.
 
 1. Under **Access**, turn on **Kids profile**. This fills in safer starting
-   settings; look over the rating and library choices before saving.
+   settings and turns off **Allow requests**; look over the rating, library,
+   and request choices before saving.
 2. Choose **Maximum content rating** and, for an extra limit,
    **Maximum advisory age**.
 3. With an advisory-age limit selected, decide whether to turn on
    **Hide titles without an advisory age**.
 4. Turn on **Restrict libraries** to choose which of the account's libraries
    this profile can browse. Select at least one library.
-5. Select **Save profile**. Switch to that profile and open a title you expect
+5. Leave **Allow requests** on if this profile should be able to
+   [request titles](/docs/requests) the library doesn't have. Turn it off to
+   keep the profile out of requests while the account's other profiles keep
+   them.
+6. Select **Save profile**. Switch to that profile and open a title you expect
    to see and one you expect to be hidden.
 
 | Control | What it does |
@@ -117,6 +127,7 @@ select **Edit** on the profile you want to restrict. The web app calls it a
 | **Maximum content rating** | Limits titles by their movie or TV certification. Silo compares recognized ratings across national systems using viewer ages and rating tiers. |
 | **Maximum advisory age** | Adds a limit from 1 to 21 using recommendations from an advisory service, such as Common Sense Media. A title with an advisory age above your limit is hidden. |
 | **Hide titles without an advisory age** | With an advisory-age limit set, also hides titles that have no advisory age. When off, those titles are limited by the content rating and library settings only. |
+| **Allow requests** | Lets the profile search for and request titles that aren't in the library. It's on by default. The content rating limits those titles by their US rating only, and the advisory-age limit doesn't apply to them. |
 
 When both rating limits are set, a title must pass both. For example, an
 advisory-age limit of 12 hides a title marked 13+ even if its content rating
