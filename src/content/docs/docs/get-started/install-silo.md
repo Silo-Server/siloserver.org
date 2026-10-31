@@ -26,14 +26,7 @@ This is the current prerelease setup. The `latest` image changes over time and i
 
 ## 1. Install Docker and Docker Compose
 
-Install [Docker Engine](https://docs.docker.com/engine/install/) and the [Compose plugin](https://docs.docker.com/compose/install/linux/), then check that Docker is running:
-
-```sh
-docker info
-docker compose version
-```
-
-Use Compose 2.24 or newer. Silo's image includes FFmpeg, PostgreSQL, and Redis, so the whole server runs in one container.
+Install [Docker Engine](https://docs.docker.com/engine/install/) and the [Compose plugin](https://docs.docker.com/compose/install/linux/). Use Compose 2.24 or newer; `docker compose version` shows yours. Silo's image includes FFmpeg, PostgreSQL, and Redis, so the whole server runs in one container.
 
 ## 2. Create the Compose file
 
