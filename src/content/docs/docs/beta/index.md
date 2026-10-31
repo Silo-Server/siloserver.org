@@ -22,7 +22,7 @@ more.
 | Podcasts and music | Web admin library form | [Podcasts and music](/docs/podcasts-and-music) |
 | Watch Party | Web; iPhone, iPad, and Apple TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
 | Simkl and MDBList sync | Web | [Sync with Simkl or MDBList](/docs/watch-sync) |
-| Timeline previews | iPhone, iPad, Apple TV, native Mac app | [Timeline previews on Apple devices](/docs/timeline-previews) |
+| Timeline previews | Web admin setting, then web, iPhone, iPad, Apple TV, native Mac app, Android phone and tablet, and Android TV | [Timeline previews](/docs/timeline-previews) |
 | Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
 | Network Access (Tailscale) | Web admin | [Reach your server with Tailscale](/docs/tailscale) |
 | Tailscale sign-in | Web, mobile, and TV | [Sign in with Tailscale](/docs/tailscale-sign-in) |
