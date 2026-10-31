@@ -23,7 +23,7 @@ Set these in `.env` beside the Compose file:
 
 With separate containers, changing `POSTGRES_PASSWORD` in an existing `.env` does not change the password PostgreSQL already stored. Changing `SECRET_KEY` makes existing encrypted credentials unreadable. Keep `MEDIA_CONTAINER_ROOT` as it is on an existing server: libraries store their folders as Silo sees them inside the container, so changing it after you add libraries points them at folders that no longer exist.
 
-Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The separate-containers file also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
+Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGRES_PASSWORD='pa$word'`. Compose otherwise treats `$word` as a variable and drops it. A single-quoted value can't contain a single quote or end with a backslash. The advanced Compose file also inserts the password into Silo's database URL without encoding it, so characters such as `#`, `%`, `/`, `?`, `\`, `|`, spaces, double quotes, and brackets break the connection. A value from `openssl rand -hex 24`, as in [Install Silo Server](/docs/install), avoids both problems.
 
 `docker compose config` prints the full configuration with passwords and keys filled in. Use `docker compose config --quiet` to check the files without printing them, and never paste the full output into a public report.
 
@@ -44,7 +44,7 @@ REDIS_URL=redis://cache.example.com:6379
 
 Use the same `SECRET_KEY` for every Silo server and node. [Automatic tuning](#postgresql-tuning) stays off for a database of your own unless you set `POSTGRES_TUNE`.
 
-The [separate-containers file](/docs/docker#run-the-services-in-separate-containers) sets `DATABASE_URL` and `REDIS_URL` for the `silo` service directly and waits for both bundled services to be healthy, so adding different values to `.env` changes nothing there. To use existing servers with it, write a Compose file or override that:
+The [advanced Compose file](/docs/docker#run-the-services-in-separate-containers) sets `DATABASE_URL` and `REDIS_URL` for the `silo` service directly and waits for both bundled services to be healthy, so adding different values to `.env` changes nothing there. To use existing servers with it, write a Compose file or override that:
 
 - sets the external `DATABASE_URL` and `REDIS_URL` on the `silo` service
 - removes the `depends_on` entries for the bundled services
@@ -105,7 +105,7 @@ Silo follows a new master after a failover without a restart. The **Connection U
 
 ### Shared memory for your own PostgreSQL container
 
-Size `/dev/shm` when you create your own PostgreSQL container. The `postgres` service in the separate-containers file sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), and PostgreSQL inside Silo's container doesn't use `/dev/shm`, but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
+Size `/dev/shm` when you create your own PostgreSQL container. The `postgres` service in the advanced Compose file sets `shm_size` from `POSTGRES_SHM_SIZE` (8gb by default), and PostgreSQL inside Silo's container doesn't use `/dev/shm`, but your container starts with Docker's 64 MB default, which can be too small for PostgreSQL's parallel queries. In Compose:
 
 ```yaml
 services:

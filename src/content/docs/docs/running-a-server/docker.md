@@ -16,7 +16,7 @@ The image is `ghcr.io/silo-server/silo-server`, built for Linux x86-64 and arm64
 | `build-N` | Ordered build number; a larger number is newer |
 | Full commit SHA | The exact source the build came from |
 
-To keep the server from moving with `latest`, set `SILO_OMNIBUS_IMAGE` in `.env` to the image with a `build-N` tag, commit tag, or digest, for example `SILO_OMNIBUS_IMAGE=ghcr.io/silo-server/silo-server:build-1850`. The [separate-containers file](#run-the-services-in-separate-containers) reads `SILO_IMAGE` instead. Run `docker compose images silo` to see what you are running.
+To keep the server from moving with `latest`, set `SILO_OMNIBUS_IMAGE` in `.env` to the image with a `build-N` tag, commit tag, or digest, for example `SILO_OMNIBUS_IMAGE=ghcr.io/silo-server/silo-server:build-1850`. The [advanced Compose file](#run-the-services-in-separate-containers) reads `SILO_IMAGE` instead. Run `docker compose images silo` to see what you are running.
 
 Builds published before PostgreSQL and Redis moved into this image used `build-N` for an image without them, and tagged this one `build-N-aio`. To go back to one of those builds, pin its `build-N-aio` tag.
 
@@ -63,7 +63,7 @@ The commands on other pages use `docker compose exec silo`. With `docker run`, u
 
 ## Run the services in separate containers
 
-The server repository's [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml) runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself, or to keep a server that was installed that way. Download it beside your `.env` and select it there:
+The server repository's advanced Compose file, [`docker-compose.split.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.split.yml), runs PostgreSQL, Redis, and optionally Meilisearch in containers of their own, with Silo in the same image as above and its bundled services off. Use it when you want to manage those services yourself, or to keep a server that was installed that way. Download it beside your `.env` and select it there:
 
 ```dotenv
 COMPOSE_FILE=docker-compose.split.yml

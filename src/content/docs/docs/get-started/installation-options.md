@@ -10,7 +10,7 @@ If someone has already invited you to their Silo server, [connect and start watc
 
 Use the [Docker Compose walkthrough](/docs/install) for a new single-host installation. Silo's image runs the web app, API, scanner, and transcoder in one container, with PostgreSQL and Redis inside it.
 
-On a NAS or in a container manager that doesn't use Compose, start the same image with [`docker run`](/docs/docker#run-with-docker-run). To keep PostgreSQL, Redis, and Meilisearch in containers of their own, use the [separate-containers Compose file](/docs/docker#run-the-services-in-separate-containers).
+On a NAS or in a container manager that doesn't use Compose, start the same image with [`docker run`](/docs/docker#run-with-docker-run). To keep PostgreSQL, Redis, and Meilisearch in containers of their own, use the [advanced Compose file](/docs/docker#run-the-services-in-separate-containers).
 
 The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
 
