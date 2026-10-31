@@ -61,12 +61,12 @@ services:
       - ${MEDIA_ROOT:?Set MEDIA_ROOT in .env}:${MEDIA_CONTAINER_ROOT:-/mnt/media}:ro
       - ${SILO_DATA_ROOT:-/opt/silo}/transcode:/tmp/silo-transcode
       - ${SILO_DATA_ROOT:-/opt/silo}/download-artifacts:/tmp/silo-download-artifacts
-    # Intel or AMD GPU for hardware transcoding: uncomment.
+    # Intel or AMD GPU: remove the "# " from the two lines below.
     # devices:
     #   - /dev/dri:/dev/dri
 ```
 
-The `PORT`, `JF_PORT`, and `ABS_PORT` lines keep Silo's ports inside the container fixed, so a value in `.env` changes only the port on the host. If the host has an Intel or AMD GPU, you can uncomment the `devices` lines now and turn on acceleration later, as in [Set up transcoding](/docs/playback). If you use an NVIDIA GPU, add the NVIDIA lines from [Give the container access to your GPU](/docs/playback#give-the-container-access-to-your-gpu) instead, after installing the NVIDIA Container Toolkit. The server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) is the same file with more options, commented out, for GPUs and [transcode nodes](/docs/transcode-nodes). You can download it instead. The [Docker reference](/docs/docker) explains each line.
+The `PORT`, `JF_PORT`, and `ABS_PORT` lines keep Silo's ports inside the container fixed, so a value in `.env` changes only the port on the host. If `ls /dev/dri` on the host lists a render device, such as `renderD128`, you can uncomment the `devices` lines now and turn on acceleration later, as in [Set up transcoding](/docs/playback). If you use an NVIDIA GPU, add the NVIDIA lines from [Give the container access to your GPU](/docs/playback#give-the-container-access-to-your-gpu) instead, after installing the NVIDIA Container Toolkit. The server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) is the same file with more options, commented out, for GPUs and [transcode nodes](/docs/transcode-nodes). You can download it instead. The [Docker reference](/docs/docker) explains each line.
 
 ## 3. Fill in `.env`
 
