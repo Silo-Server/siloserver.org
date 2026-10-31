@@ -8,14 +8,16 @@ If someone has already invited you to their Silo server, [connect and start watc
 
 ## Choose a starting point
 
-Use the [Docker Compose walkthrough](/docs/install) for a new single-host installation. It runs the web app, API, scanner, and transcoder together, with PostgreSQL and Redis beside them.
+Use the [Docker Compose walkthrough](/docs/install) for a new single-host installation. Silo's image runs the web app, API, scanner, and transcoder in one container, with PostgreSQL and Redis inside it.
+
+On a NAS or in a container manager that doesn't use Compose, start the same image with [`docker run`](/docs/docker#run-with-docker-run). To keep PostgreSQL, Redis, and Meilisearch in containers of their own, use the [advanced Compose file](/docs/docker#run-the-services-in-separate-containers).
 
 The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
 
 ## What the host needs
 
-- Docker with Compose 2.24 or newer and permission to run containers.
-- A mounted directory of media files that the container can read.
+- Docker and permission to run containers, with Compose 2.24 or newer if you use Compose.
+- A mounted directory of media files that the account Silo runs as (`PUID` and `PGID`) can read.
 - Persistent storage for PostgreSQL, artwork, and other server state.
 - Free temporary space for transcodes and prepared downloads.
 - Network access to your clients, and internet access for the default metadata plugins and any other providers you choose.
@@ -34,6 +36,6 @@ Choosing before the first library scan is simplest. Once Silo has stored files, 
 
 ## Existing or advanced installations
 
-Keep a working server on its existing data paths until you have a tested [backup](/docs/backup-restore). Read [Updates](/docs/updates) before changing versions.
+Keep a working server on its existing data paths until you have a tested [backup](/docs/backup-restore). Read [Updates](/docs/updates) before changing versions. A server that already runs PostgreSQL and Redis in containers of their own needs a few changes before its next update; see [If your server runs PostgreSQL and Redis in their own containers](/docs/updates#if-your-server-runs-postgresql-and-redis-in-their-own-containers).
 
 External PostgreSQL or Redis, separate [transcode nodes](/docs/transcode-nodes), and Meilisearch search can all be added later. You don't need any of them for your first playback test.

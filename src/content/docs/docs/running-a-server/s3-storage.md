@@ -10,7 +10,7 @@ Your media files stay on mounted filesystems. Artwork and other generated files 
 
 Before the first library scan, open **Admin > Server > Storage** and set **Backend** in the **Storage** group:
 
-- **Local disk** keeps files on the server at **Local storage path**. The default Compose stack mounts `/var/lib/silo/artwork` from your data directory.
+- **Local disk** keeps files on the server at **Local storage path**. With the default Compose file, `/var/lib/silo/artwork` is `config/silo/artwork` in your data directory.
 - **S3** uses the public storage bucket. Choose it when several hosts need the same artwork.
 - **Automatic** uses the public bucket when one is configured, and local disk otherwise.
 

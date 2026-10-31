@@ -95,16 +95,18 @@ A break-glass admin signs in with their Silo password in the web app:
 
 The Silo apps don't show the password form while password sign-in is off. To sign in on a TV, scan its code and approve it in the browser where you signed in.
 
-If no admin can sign in, turn password sign-in back on from the server's command line. With the standard Docker setup, run this in the folder with your `docker-compose.yml`:
+If no admin can sign in, turn password sign-in back on from the server's command line. With the standard Docker setup, run this in the folder with your `docker-compose.yml`. The first part loads the settings Silo runs with and runs the command as Silo's account:
 
 ```sh
-docker compose exec silo silo auth local-login enable
+docker compose exec silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo auth local-login enable
 ```
 
 Connecting a provider also turns off each connected account's own password. To turn it back on for one account, add its username or email. An account created through the provider never had a Silo password, so also add `-temporary-password`:
 
 ```sh
-docker compose exec silo silo auth local-login enable -user alex -temporary-password
+docker compose exec silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo auth local-login enable -user alex -temporary-password
 ```
 
 The command prints the temporary password once and signs the account out everywhere. The person must change the password at their next sign-in.

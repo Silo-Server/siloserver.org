@@ -20,7 +20,7 @@ A Silo backup is the database, the encryption key, and the files the database po
 
 Keep `SECRET_KEY` in a secure place, separate from the database backups. Without it, a restored server cannot use the stored integration and storage credentials.
 
-## Back up the default Compose stack
+## Back up a Compose install
 
 Run these from the directory that holds your Compose file.
 
@@ -34,11 +34,18 @@ Run these from the directory that holds your Compose file.
 
    ```sh
    BACKUP="silo-$(date +%F).dump"
+   docker compose exec -T -u silo silo pg_dump -h /run/postgresql -Fc silo > "$BACKUP"
+   docker compose exec -T -u silo silo pg_restore --list < "$BACKUP" > /dev/null && echo "dump OK"
+   ```
+
+   Silo can keep running during the dump. With [separate containers](/docs/docker#run-the-services-in-separate-containers), dump from the `postgres` service instead, and replace `silo` with your `POSTGRES_USER` and `POSTGRES_DB` values if you changed them:
+
+   ```sh
    docker compose exec -T postgres pg_dump -U silo -Fc silo > "$BACKUP"
    docker compose exec -T postgres pg_restore --list < "$BACKUP" > /dev/null && echo "dump OK"
    ```
 
-   Replace `silo` with your `POSTGRES_USER` and `POSTGRES_DB` values if you changed them. Silo can keep running during the dump.
+   If `DATABASE_URL` points Silo at a PostgreSQL server of your own, dump that server with its own tools.
 
 3. Copy `.env` and your Compose files, including any overrides, to a restricted location. `.env` contains `SECRET_KEY`.
 
@@ -46,39 +53,56 @@ Run these from the directory that holds your Compose file.
 
    | Directory | Back up? |
    | --- | --- |
-   | `artwork` | Yes. Uploaded posters and branding cannot be downloaded again. |
-   | `plugins` | Yes |
-   | `compat` | Yes |
+   | `config/silo`, or `artwork`, `plugins`, and `compat` with separate containers | Yes. Uploaded posters and branding cannot be downloaded again. |
    | `catalog-seeds` | Yes, if you put files there |
-   | `postgres` | No, use the dump instead |
-   | `redis`, `transcode`, `download-artifacts`, `meilisearch` | No. These hold temporary, cache, or rebuildable data. Silo prepares downloads again if devices are still waiting for them. |
+   | `config/postgres`, or `postgres` | No, use the dump instead |
+   | `config/redis`, `config/meilisearch`, `redis`, `meilisearch`, `transcode`, `download-artifacts` | No. These hold temporary, cache, or rebuildable data. Silo prepares downloads again if devices are still waiting for them. |
 
 5. If you use S3 storage, back up the public and private buckets with your provider's tools, at about the same time as the dump.
 
-Do not copy the `postgres` directory while the database is running: the copy may not start. If you need a file-level copy, run `docker compose stop postgres` first.
+Do not copy the PostgreSQL directory while the database is running: the copy may not start. If you need a file-level copy, run `docker compose stop silo` first, or `docker compose stop postgres` with separate containers.
 
 ### Per-user data on SQLite
 
-Silo keeps per-user data in PostgreSQL, where the dump covers it, unless the `userdb.backend` setting is `sqlite`. The admin pages have no control for this setting. To check it on the default stack:
+Silo keeps per-user data in PostgreSQL, where the dump covers it, unless the `userdb.backend` setting is `sqlite`. The admin pages have no control for this setting. To check it:
 
 ```sh
-docker compose exec -T postgres psql -U silo -d silo -c "SELECT value FROM server_settings WHERE key = 'userdb.backend'"
+docker compose exec -T -u silo silo psql -h /run/postgresql -d silo -c "SELECT value FROM server_settings WHERE key = 'userdb.backend'"
 ```
 
-If it shows `sqlite`, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. The default Compose file does not keep that directory. Mount it from the host and back it up with the dump.
+With separate containers, run `docker compose exec -T postgres psql -U silo -d silo -c` with the same query.
+
+If it shows `sqlite`, Silo also writes per-user data to `/var/lib/silo/userdb` inside the container. In the single container that's `config/silo/userdb`, which you already back up. With separate containers, the Compose file does not keep that directory. Mount it from the host and back it up with the dump.
 
 ## Test a restore
 
 Restore to a separate host when you can, never over the live server.
 
-1. Copy `.env` with the original `SECRET_KEY` and your Compose files into a new directory, and copy the data directories.
-2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new, empty data directory, and set `PORT`, `JF_PORT`, `ABS_PORT`, `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` to ports the live server doesn't use. Also set `COMPOSE_PROJECT_NAME` to a new name, such as `silo-restore-test`, so Compose can't mistake the copy for the live server. Run every command from the new directory.
-3. Set `SILO_IMAGE` to the image you recorded with the backup.
-4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these.
-5. Start only the database with `docker compose up -d postgres`, then load the dump into the empty database with `pg_restore`.
-6. Start Silo with `docker compose up -d`. It applies any pending database migrations as it starts.
+1. Copy `.env` with the original `SECRET_KEY` and your Compose files into a new directory, and copy the data directories you backed up.
+2. If the live server runs on the same host, edit the copied `.env` before running any Compose command. Set `SILO_DATA_ROOT` to the new data directory, and set `PORT`, `JF_PORT`, and `ABS_PORT`, plus `POSTGRES_PORT`, `REDIS_PORT`, and `MEILISEARCH_PORT` with separate containers, to ports the live server doesn't use. Also set `COMPOSE_PROJECT_NAME` to a new name, such as `silo-restore-test`, so Compose can't mistake the copy for the live server. Run every command from the new directory.
+3. Pin the image you recorded with the backup: `SILO_OMNIBUS_IMAGE`, or `SILO_IMAGE` with separate containers.
+4. Block the test copy's outgoing traffic to your notification services and webhook targets, and make sure it can't write to your production S3 buckets. The restored database holds the live server's credentials for all of these. Until the restore finishes, also keep other devices from reaching the copy's ports: it starts on an empty database with first-run setup open.
+5. Start the copy with `docker compose up -d` and wait until `docker compose ps` shows it `healthy`. It creates an empty database. Don't open it in a browser or finish setup.
+6. Load the dump, as in [Restore a dump into the container](#restore-a-dump-into-the-container). Silo applies any pending database migrations when it starts again.
+
+With separate containers, replace steps 5 and 6: start only the database with `docker compose up -d postgres`, load the dump into the empty database with `pg_restore`, then start Silo with `docker compose up -d`.
 
 Then sign in as an admin and as a normal account. Check profiles, libraries, artwork, watch progress, and one playback, and restart the copy once to make sure the state survives.
+
+### Restore a dump into the container
+
+These commands replace the container's database with the dump in `silo.dump`. They stop Silo inside the container first, so nothing writes to the database while it loads, and leave PostgreSQL running:
+
+```sh
+docker compose exec silo /command/s6-svc -d /run/service/svc-silo
+docker compose exec silo /command/s6-svwait -D /run/service/svc-silo
+docker compose exec -u silo silo dropdb -h /run/postgresql silo &&
+docker compose exec -u silo silo createdb -h /run/postgresql silo &&
+docker compose exec -T -u silo silo pg_restore -h /run/postgresql -d silo --no-owner --role=silo --exit-on-error < silo.dump &&
+docker compose restart silo
+```
+
+The restart starts Silo again on the restored data. `dropdb` deletes the container's database before the dump loads, so if `pg_restore` stops with an error, that database is incomplete and Silo stays stopped. The dump file is unchanged: fix the cause and run the commands again.
 
 ## Before an update
 
