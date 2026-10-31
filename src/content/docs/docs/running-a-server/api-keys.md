@@ -24,8 +24,10 @@ Silo can't give an existing key a new secret. To replace one, create a new key, 
 
 Revoking a key stops requests that use it. Browser and app sign-ins on the owning account stay signed in.
 
-**Edit rate limit** switches a key between the **Standard** and **Elevated** rate limits. It doesn't change what the key can access.
+## Change a key's rate limit
 
-All keys owned by an account share its [account allowance](/docs/configuration#rate-limiting) with that account's profiles, app sessions and devices. Creating another key or choosing **Elevated** does not increase that shared allowance.
+In **Admin > Sign-in & Security > API Keys**, choose **Edit rate limit** on a key to switch it between the **Standard** and **Elevated** rate limits. It doesn't change what the key can access.
+
+Each key also shares its owner's [account allowance](/docs/configuration#rate-limiting) with that account's profiles, sessions and devices. Choosing **Elevated** or creating another key doesn't raise that allowance.
 
 For the installed server's API viewer and developer entry points, see [Developers & integrations](/docs/developers).
