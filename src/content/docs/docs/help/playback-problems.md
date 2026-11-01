@@ -66,10 +66,13 @@ file, and **Direct Play** means the browser is playing the original.
 2. Update the browser. Chrome and Chromium use hardware decoding by default
    from version 143, and Firefox plays HEVC on Linux from version 137.
 3. Quit the browser completely, then start it again.
-4. Check that the browser now decodes HEVC. In a Chromium-based browser, open
-   `chrome://gpu` and look for HEVC Main 10 under **Video Acceleration
-   Information**. In Firefox, open `about:support` and check that HEVC shows
-   hardware decoding under **Codec Support**.
+4. Check that the browser can decode HEVC. In a Chromium-based browser, open
+   `chrome://gpu` and look for `Decode hevc main 10` under **Video
+   Acceleration Information**. In Firefox, open `about:support`, find HEVC
+   under **Codec Support Information**, and check that **Hardware Decoding**
+   says **Supported**. If that table is empty, play any video and check again.
+   If HEVC isn't listed, follow your Linux distribution's guide to hardware
+   video decoding in your browser.
 5. Start the title again and check **Play method** in **Playback info**.
 
 On a screen without HDR, Silo also converts HDR and Dolby Vision files to
