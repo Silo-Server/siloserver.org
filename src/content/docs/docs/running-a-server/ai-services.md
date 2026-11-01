@@ -35,16 +35,16 @@ A ChatGPT plan doesn't include speech-to-text, so transcription needs its own pr
 
 Instead of an API key, the text model can use a ChatGPT subscription. Translations then count toward that plan's usage limits, with no separate per-request charge.
 
-1. In the **Text model** card, set **Authentication** to **ChatGPT plan** and choose **Continue with ChatGPT**.
+1. Under **Models**, choose **Set up** on **Text model**, set **Provider** to **ChatGPT plan**, and choose **Continue with ChatGPT**.
 2. Choose **Open ChatGPT sign-in** and allow Silo to use your plan.
 3. After you approve, the ChatGPT tab moves to a local address and may show a "can't connect" error, which is expected. Copy the full URL from that tab's address bar.
-4. Back in Silo, paste it into **Browser URL** and choose **Connect ChatGPT**. If ten minutes have passed since step 1, close the dialog and start again.
+4. Back in Silo, paste it into **Browser URL** and choose **Connect ChatGPT**. If ten minutes have passed since step 1, start again with **Continue with ChatGPT**.
 
-Silo selects a model the account offers. Change **Model** if you want another one, then continue from the **Reasoning level** step in [Connect a text model](#connect-a-text-model).
+Under **Model**, choose one of the models the account offers, then continue from the **Reasoning level** step in [Connect a text model](#connect-a-text-model).
 
-To add another account, choose **Continue with ChatGPT** again, then pick the one Silo uses under **ChatGPT account**. **Reconnect** signs an account in again after its sign-in expires. **Disconnect** signs it out and revokes Silo's access in ChatGPT; if Silo reports that it disconnected only locally, open **Manage usage** and check that Silo's access is gone.
+To add another account, choose **Continue with ChatGPT** again, then pick the one Silo uses under **ChatGPT account**. To sign an account in again after its sign-in expires, use the **Reconnect** button that shows its email address. **Disconnect** signs the active account out and revokes Silo's access in ChatGPT. If Silo shows `Disconnected locally`, open **Manage usage** and check that Silo's access is gone.
 
-When an account reaches its plan's usage limit, Silo pauses translation and shows **ChatGPT plan usage is paused**. Check your usage with **Manage usage**, then choose **Test text model**; a successful test resumes translation. An account marked **plan sharing unavailable** is on a plan that does not let Silo use it, so choose another account or switch to an API key. While the active account is paused or needs sign-in, subtitle and description translation are unavailable, including for viewers. Transcription keeps working if speech-to-text is set up.
+When an account reaches its plan's usage limit, Silo pauses translation and shows **ChatGPT plan usage is paused**. Check your usage with **Manage usage**, then choose **Test text model**; a successful test resumes translation. An account marked **plan sharing unavailable** is on a plan that does not let Silo use it, so choose another account or set **Provider** to one with an API key. While the active account is paused or needs sign-in, subtitle and description translation are unavailable, including for viewers. Transcription keeps working if speech-to-text is set up.
 
 ## Choose a model and reasoning level
 
