@@ -52,7 +52,7 @@ Translation is a short task repeated many times: by default Silo sends a film's 
 
 Before you rely on a model, translate a few items into each language your viewers use and read them. Weaker models can drift into a closely related language, such as Danish in a Norwegian translation, or leave names in the Latin alphabet inside Arabic or Chinese text.
 
-**Reasoning level** sets how much the model thinks before it answers, and lists only the levels the selected model supports. Higher levels take longer and use more tokens, which hosted providers bill as output. For translation, start with **None** or **Low**, and raise it only if translations in your languages miss the meaning. **Provider default** lets the model decide, and some models then think on most requests, which makes each one slower.
+**Reasoning level** sets how much the model thinks before it answers. For models Silo recognizes, it lists only the levels that model supports. Higher levels take longer and use more tokens, which hosted providers bill as output. For translation, start with **None** or **Low**, and raise it only if translations in your languages miss the meaning. **Provider default** lets the model decide, and some models then think on most requests, which makes each one slower.
 
 A model you run on your own hardware costs nothing per request, but the open models that fit in 16 GB of graphics memory translate noticeably worse than low-cost hosted models. Many of them think by default; set **Reasoning level** to **None**, or a single request can run for minutes.
 
