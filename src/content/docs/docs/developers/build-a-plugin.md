@@ -33,7 +33,7 @@ of any plugin you didn't write before uploading it.
    binary built for your Mac won't run in a Linux container.
 2. Follow **Manual Install** in [Install plugins](/docs/plugins) and upload
    the binary.
-3. Open **Admin > Scheduled Tasks**, find **Hello Task**, and select
+3. Open **Admin > Server > Scheduled Tasks**, find **Hello Task**, and select
    **Run Now**. The example doesn't change any media; a completed run shows
    that Silo can call the plugin.
 

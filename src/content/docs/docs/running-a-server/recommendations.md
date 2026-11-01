@@ -4,13 +4,13 @@ title: Set up recommendations
 description: Configure the recommendation model and inspect the jobs that produce results.
 ---
 
-Recommendations suggest titles from your catalog and each profile's activity. They are optional and need PostgreSQL with pgvector and an OpenAI-compatible embedding endpoint. The rows that show them are set up in [Sections](/docs/home-sections).
+Recommendations suggest titles from your catalog and each profile's activity. They are optional and need PostgreSQL with pgvector and an OpenAI-compatible embedding endpoint. The rows that show them are set up in [Home Sections](/docs/home-sections).
 
 Recommendations have their own model settings, separate from the text and speech models in [AI Services](/docs/ai-services). Pick the embedding model carefully: Silo locks it after the first successful embedding.
 
 ## Configure the model
 
-1. Open **Admin > Recommendations**.
+1. Open **Admin > Integrations > Recommendations**.
 2. Under **Embedding Configuration**, choose a provider preset or enter **Base URL**, **Model**, and **Auth Token**. Edited fields save when you leave them; wait for the save result.
 3. Run the connection check. The endpoint must accept embedding requests; a chat-only endpoint won't work.
 4. Turn on **Enable Recommendations**, then restart the server when prompted.

@@ -20,7 +20,7 @@ sign-in requires plugin version 0.2.0 or later.
 
 ## Turn on Tailscale sign-in
 
-1. In the web app, open **Admin > Settings > Sign-in**.
+1. In the web app, open **Admin > Sign-in & Security > Sign-in**.
 2. Under **Network sign-in**, turn on **Sign in with Tailscale**. This
    section appears only while the Tailscale plugin is installed.
 3. Leave **Create accounts on first sign-in** on to give new people a Silo
@@ -35,8 +35,8 @@ password too. New accounts get the **User** role unless a
 
 ## Choose who can sign in
 
-Open the Tailscale plugin under **Admin > Plugins**, set **Who can sign in**,
-and select **Save config**.
+Open the Tailscale plugin under **Admin > Integrations > Plugins**, set
+**Who can sign in**, and select **Save config**.
 
 - **Anyone who can reach Silo over Tailscale**, the default, lets in everyone
   whose device reaches the server, including people you share it with.
@@ -100,7 +100,7 @@ tailnet don't need a share.
    also expand **Application-level options** and enter
    `siloserver.org/cap/silo` as the **App** and `{"role": "user"}` as the
    **Capability**.
-4. Send them the full server address from **Admin > Settings > Network
+4. Send them the full server address from **Admin > Server > Network
    Access**, for example `https://silo.example-tailnet.ts.net`. Tailscale
    reaches a shared machine only by its full name, so their apps won't find
    the server on their own and the short name won't work.
@@ -157,9 +157,11 @@ Revoke their share, or remove them from your tailnet, in the Tailscale admin
 console. Their devices can no longer reach the server. At its next access
 check, every 12 hours by default, Silo signs them out everywhere and stops
 accepting their Silo password, including at a public address and in
-Jellyfin-compatible apps. Change how often with **Re-check access every** on
-**Admin > Settings > Sign-in**. If **Who can sign in** requires a grant, you
-can remove their grant instead.
+Jellyfin-compatible apps. To change how often, set
+`auth.provider_recheck_interval` with `PUT /api/v2/admin/settings/{key}` in
+the [admin API](/docs/api); the web
+app has no control for it. If **Who can sign in** requires a grant, you can
+remove their grant instead.
 
 If you add them back, their password works again after the next check, or as
 soon as they sign in with **Continue as**. Admin accounts marked
@@ -198,7 +200,7 @@ If the button is there but sign-in fails, the message says why:
 
 | Message | What it means |
 | --- | --- |
-| **Open this server at its Tailscale address to sign in this way.** | The device reached Silo another way. Use the address from **Admin > Settings > Network Access**. |
+| **Open this server at its Tailscale address to sign in this way.** | The device reached Silo another way. Use the address from **Admin > Server > Network Access**. |
 | **Tailscale doesn't allow this device …** | The device is tagged or left out by your tailnet policy, or your OpenID Connect or LDAP provider refused the account. |
 | **You don't have an account on this server yet.** | **Create accounts on first sign-in** is off and the account isn't connected to Tailscale. [Connect it](#connect-tailscale-to-an-existing-account) or turn the setting on. |
 | **An account with your email already exists.** | The person already has an account. Sign in with the password and [connect the account](#connect-tailscale-to-an-existing-account). |

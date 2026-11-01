@@ -39,8 +39,8 @@ page.
 
 ## Install the plugin
 
-1. With an administrator account, open **Admin > Plugins** and select the
-   **Catalog** tab.
+1. With an administrator account, open **Admin > Integrations > Plugins**
+   and select the **Catalog** tab.
 2. Turn on **Include approved community plugins**.
 3. Find **Tailscale** under **Approved community** and select **Install**.
 4. Open the installed plugin, fill in its settings, and select **Save
@@ -58,7 +58,7 @@ public internet, use a [reverse proxy](/docs/reverse-proxy).
 
 ## Connect the server
 
-1. Open **Admin > Settings > Network Access**.
+1. Open **Admin > Server > Network Access**.
 2. Under **Tailscale**, select **Connect** on the row for your server.
 3. If the row shows **Waiting for authorization**, select **Open the
    authorization page**, sign in to Tailscale, and select **Connect**. With a
@@ -101,7 +101,7 @@ without a password, see [Sign in with Tailscale](/docs/tailscale-sign-in).
 - **Joined tailnet; HTTPS is not ready** means the server is waiting for its
   certificate. The plugin keeps retrying.
 - **Plugin not running** means the plugin is stopped. Start it from its page
-  under **Admin > Plugins**.
+  under **Admin > Integrations > Plugins**.
 
 For plugin problems, use the plugin's
 [GitHub issues](https://github.com/Silo-Community/silo-plugin-tailscale/issues).

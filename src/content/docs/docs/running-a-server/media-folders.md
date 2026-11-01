@@ -36,9 +36,9 @@ Silo adds video files with these extensions, in upper or lower case:
 
 Silo doesn't add video files with any other extension.
 
-Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. DVD `.vob` files, `.iso` disc images, and the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder are left out. A disc splits one movie into several files next to its menus and extras, so each piece would show up as its own title.
+Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. Silo doesn't support DVD `.vob` files, `.iso` disc images, or the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder, and doesn't add them to your library. A disc splits one movie into several files next to its menus and extras, so Silo would show each piece as its own title.
 
-RealMedia files (`.rm` and `.rmvb`) are left out too. Convert them to one of the formats above to add them.
+RealMedia files (`.rm` and `.rmvb`) aren't supported either. Convert them to one of the formats above to add them.
 
 ## Movies
 
@@ -52,7 +52,7 @@ movies/
     poster.jpg
 ```
 
-Silo uses `poster.jpg` only when **NFO Files** is checked for the library. See [artwork names](/docs/local-metadata#add-artwork).
+Silo uses `poster.jpg` only while **Local metadata (NFO + artwork)** is on for the library, which it is by default. See [artwork names](/docs/local-metadata#add-artwork).
 
 Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-style names like `Movie.Name.2024.1080p.BluRay.mkv`, names without a year like `Movie.Name.1080p.BluRay.x264-GROUP.mkv`, and a year in square brackets, as in `Movie Name [2024] 720p.mkv`. Silo removes resolution, source, and codec details from the search title. Brackets and dots that belong to the title, as in `[REC]` or `S.W.A.T.`, stay.
 
@@ -74,7 +74,7 @@ tv/
 
 Use `S01E01` for ordinary episodes and `S00E01` for specials. Text after the episode number, such as an episode title or release details, is fine.
 
-Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1` or `Temporada 1`. The number can come first (`3.Staffel`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
+Season folders can also be named `Season.01`, `Season_01`, `Season1`, or `S01`, or use another language's word for season, such as `Staffel 1`, `Temporada 1`, or `Saison 1`. The number can come first, as a plain number or an ordinal (`3.Staffel`, `2nd Season`), and text after it is fine (`Season 01 - Arc Name`). `Specials` or `Special` holds season 0.
 
 Episodes can also sit directly in the show folder when each name has a code such as `S01E03`, for example `Show Name/Show Name S01E03.mkv`. A season pack folder such as `Show.Name.S01.COMPLETE` works inside the show's folder, and in a Series library also on its own as the show folder.
 
@@ -94,6 +94,8 @@ Replace the sample numbers with the real ID for your title. Silo reads TMDB, TVD
 
 A movie can carry the ID in its file name instead, as in `Movie Name (2024)/Movie Name (2024) {tmdb-12345}.mkv`. A show needs the ID in the show folder's name; an ID in an episode's file name doesn't identify the show.
 
+If an [NFO file](/docs/local-metadata) beside the media names a provider ID, Silo uses that ID instead of one in the folder or file name.
+
 ## Also supported
 
 Silo reads these forms as well.
@@ -105,14 +107,20 @@ Silo reads these forms as well.
 | Release numbering after the episode | `Show Name - S01E01.001 - Pilot [Bluray-1080p].mkv` is `S01E01` |
 | Several episodes in one file | `S01E01-E03`, `S01E01-03`, `S01E01E02`, `1x01x02`, `2009x03-E15` |
 | Air dates | `Show Name - 2024-02-15.mkv`, `Show.Name.2024.02.15.mkv`; underscores and spaces also work as separators |
-| Season folder names | `Season 01`, `Season.01`, `Season_01`, `S01`, `Specials`, and `Staffel`, `Stagione`, `Sæson`, `Säsong`, `Temporada`, `Seizoen`, `Kausi`, `Sezon`, `Sezona`, `Sezóna`, `Sezonul`, `시즌`, `シーズン`, `сезон`, or `Series` with a number |
+| Season folder names | `Season 01`, `Season.01`, `Season_01`, `S01`, `1st Season`, `Specials`, and `Staffel`, `Stagione`, `Saison`, `Sæson`, `Säsong`, `Temporada`, `Seizoen`, `Kausi`, `Sezon`, `Sezona`, `Sezóna`, `Sezonul`, `Serie`, `Série`, `Seria`, `Séria`, `시즌`, `シーズン`, `сезон`, or `Series` with a number |
 | Provider IDs in other styles | `(tmdb-12345)`, `{tmdb=12345}`, `[tmdbid=12345]`, `[tmdbid-12345]`, `[imdbid-tt1234567]`, `[tvdbid=12345]`, `[tt1234567]`, or a folder name ending in an IMDb ID, as in `Movie Name tt1234567` |
 | Editions | `{edition-Director's Cut}`, or words such as `Extended`, `Theatrical`, or `Director's Cut` in the name |
 | Multipart movies | `Movie Name (2024) cd1.mkv`, `disc2`, `part1`, `pt2` |
 
-A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
+A file named for several episodes, such as `S01E03-E05`, appears under each episode in its range, and each of those episodes plays the file. Finishing the file marks every episode in the range watched. If you stop partway, your place is saved on the first episode. A file covers at most 11 episodes: its first and the 10 after it.
+
+After you upgrade from a version that listed only the first episode, existing files like this stay that way until Silo scans the library again. The [daily library scan](/docs/autoscan) does that on its own. If you've turned it off, [scan the library](/docs/manage-libraries#scan-or-refresh).
+
+Editions and multipart files of one movie are grouped under the same title.
 
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
+
+A folder directly in a library folder named `Series`, `Serie`, `Série`, `Seria`, or `Séria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. It's still a season when only a year or release details follow the number (`Series 2 (2019)`, `Series 2 1080p`). It's also a season when its file names start with a different show's title, as in a library folder for one show that holds `Series 5 Matt Smith/Doctor Who S05E03.mkv`. Inside a show folder, `Series 5 Matt Smith` is season 5.
 
 ## Episode numbers without a season
 
@@ -124,7 +132,15 @@ Put files numbered only by episode in a season folder, or add the season to the 
 
 Episode numbers can have up to five digits.
 
-Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, the file may stay unlinked; rename it with season and episode. Day-first dates such as `24.04.2026` aren't read as air dates.
+Files named by air date, such as `Show Name - 2026-04-24 - Episode Title.mkv`, link to the episode that aired that day. If several episodes aired that day, Silo picks one in this order:
+
+1. The episode whose title matches the text after the date. Case and punctuation don't matter.
+2. The episode in the file's season folder, such as `Season 2026` or `Specials`.
+3. If the name has no episode title, the ordinary episode rather than a same-day special. A generic title such as `Episode 12`, or the `Unknown` some renamers write, counts as no title.
+
+If that still leaves more than one episode, the file stays unlinked. For example, `Season 2026/Show Name - 2026-04-24.mkv` stays unlinked when two season 2026 episodes aired that day. Rename it with season and episode to link it.
+
+Day-first dates such as `24.04.2026` aren't read as air dates.
 
 ## Show folders
 
@@ -136,7 +152,7 @@ A folder named only with a number directly in a library folder, such as `tv/86/`
 
 ## Sidecars and extras
 
-Keep NFO files, posters, and subtitle files beside the item they describe. Silo doesn't look for subtitles in a `Subs` folder. See [Local metadata](/docs/local-metadata) for what Silo reads.
+Keep NFO files and posters beside the item they describe. Subtitle files can sit beside the video or in a `Subs` or `Subtitles` folder next to it. See [Local metadata](/docs/local-metadata) for what Silo reads, and [Subtitle file names](#subtitle-file-names) for how to mark a subtitle's language.
 
 Put extras in a folder inside the movie's or show's folder, or inside a season folder. Silo recognizes these folder names, in any letter case and with `.`, `_`, or `-` in place of spaces:
 
@@ -148,7 +164,30 @@ Put extras in a folder inside the movie's or show's folder, or inside a season f
 
 An extra can also sit beside the movie file with a suffix, as in `Movie Name (2024)-trailer.mkv`. The suffixes are `-trailer`, `-teaser`, `-featurette`, `-clip`, `-behindthescenes`, `-bloopers`, `-deleted`, `-deletedscene`, `-interview`, `-scene`, `-short`, `-extra`, and `-other`. A `.` works in place of the `-`.
 
-Extras appear in the title's **Extras** section and are never offered as versions. An extras folder name at the top of a library, outside any title, doesn't count: Silo scans its files as ordinary titles. In a series, a file in `Extras` with a name like `S00E01` is a special, and `S01E01` goes to season 1.
+Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
+
+An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
+
+## Subtitle file names
+
+Name each subtitle file after its video, then add words between the video's name and the extension to describe the track. Letter case doesn't matter, so `movie name (2024).EN.srt` belongs to `Movie Name (2024).mkv`. Silo reads `.srt`, `.vtt`, `.ass`, `.ssa`, and `.sub` files, but skips a VobSub `.sub` that has an `.idx` file beside it. The words can come in any order, so `Movie Name (2024).en.sdh.srt` and `Movie Name (2024).sdh.en.srt` are the same track.
+
+| Word in the name | What it sets |
+| --- | --- |
+| A language code or English language name, such as `en`, `eng`, `pt-BR`, or `English` | The track's language |
+| `forced` | A forced subtitle, which covers only selected dialogue or on-screen text |
+| `sdh` or `cc` | Subtitles for the deaf and hard of hearing (SDH). In the web app, the item page lists these tracks as **HI** |
+| `hi` | Hindi when no other word names a language, as in `Movie Name (2024).hi.srt`. With another language, as in `Movie Name (2024).en.hi.srt`, it marks the track as SDH |
+
+Silo skips words that aren't languages when it looks for the language, so `Movie Name (2024).ai.hr.srt` is Croatian. When two words name a language, Silo uses the first. A file with no language word, such as `Movie Name (2024).srt`, has no language set.
+
+### Subtitles in a Subs folder
+
+Silo also reads a `Subs` or `Subtitles` folder beside the video, in any letter case:
+
+- Files in it named after the video, such as `Subs/Movie Name (2024).en.srt`, work as they do beside the video.
+- In a folder inside it named after the video, every subtitle file belongs to that video, such as `Subs/Show Name S01E01/2_English.srt`. A track number and underscore at the start of the name are skipped. Silo reads the language and flags only when every word in the rest of the name is a language, `forced`, `sdh`, `cc`, or `hi`. Otherwise the track has no language set.
+- In a Movies library, a file named only for a language and flags, such as `Subs/English.srt` or `Subs/English.sdh.srt`, belongs to the movie when it's the only movie in its folder. Silo leaves these files out when the folder holds several versions or parts of a movie, or in a TV library.
 
 ## Leave files out of a scan
 
@@ -164,7 +203,7 @@ Silo doesn't read `.plexignore` itself. Lines starting with `#` are comments in 
 
 If you add an ignore file to a folder that was already scanned, the next scan treats its titles like deleted files: they disappear from the apps and are removed from the library later.
 
-Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`.
+Silo also skips these folders on its own in every library: `@eaDir`, `@Recycle`, `#recycle`, `.recyclebin`, `$RECYCLE.BIN`, `.trash`, `.deleted`, `.inbound`, and `.downloads`. In a Movies library it also skips `Sample`, `Samples`, `Subs`, and `Subtitles` folders, and sample files such as `Sample.mkv`, when it looks for videos. It still reads the subtitles in `Subs` and `Subtitles` folders.
 
 ## If a title isn't identified
 

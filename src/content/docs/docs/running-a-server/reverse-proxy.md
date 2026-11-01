@@ -21,8 +21,8 @@ silo.example.com {
 ```
 
 4. Validate and reload Caddy using the procedure for your installation.
-5. In **Admin > Settings > General**, set **Silo public URL** to `https://silo.example.com`, save, and follow any restart notice.
-6. Under **Admin > Settings > Security & Access**, review **Trusted proxies**. Trust only the proxy addresses that send requests to Silo.
+5. In **Admin > Server > General**, set **Silo public URL** to `https://silo.example.com`, save, and follow any restart notice.
+6. Under **Network** on the same page, review **Trusted proxies**. Trust only the proxy addresses that send requests to Silo.
 
 Caddy gets HTTPS certificates automatically for a hostname that is reachable from the internet. See its [reverse-proxy guide](https://caddyserver.com/docs/quick-starts/reverse-proxy) for installation details. The example assumes Caddy runs on the host: inside a Caddy container, `127.0.0.1` refers to that container.
 
@@ -34,10 +34,16 @@ Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in,
 
 If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
 
+Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers) covers only connections that end at Silo. Behind Caddy, the viewer's connection ends at Caddy, so the tuning covers Caddy's connection to Silo, and the connection to the viewer uses the host's own TCP settings.
+
 ## Other addresses clients use
 
 Remote proxy nodes and S3 storage can hand clients their own addresses. Those must also be reachable and use HTTPS; the main proxy doesn't forward them.
 
 Jellyfin-compatible and Audiobookshelf-compatible apps use their own ports (see [Docker ports](/docs/docker#ports)). Publish only the ones your users need, each on its own hostname, and follow [third-party access](/docs/third-party-access).
+
+At home, the Silo apps on Apple and Android devices switch to the server's local address on their own once someone is signed in. Browsing, artwork, and video then skip the proxy and go straight to Silo's [own port](/docs/docker#ports) on your network. While an app is connected this way, the server list under **Switch Server** shows **Connected on your local network** below the active server. This needs the address the app signed in with to be HTTPS at the root of its hostname, as set up above.
+
+The Apple apps learn the local address from Silo's [announcement on the local network](/docs/docker#discovery-on-the-local-network), or from **Local network address** under Docker's default bridge network, which blocks the announcement. The Android apps learn it from **Local network address**. The apps switch only on Wi-Fi or a wired network, never over mobile data. When the device changes networks or the local address stops answering, the app goes back to the HTTPS address until the local one answers again. Sign-in and subtitles always use the HTTPS address, so that address has to work from inside your home too. On Apple devices, the app may ask for local network access the first time.
 
 Remote access doesn't make TV discovery work across networks: a phone or tablet finds a TV only on the same LAN.

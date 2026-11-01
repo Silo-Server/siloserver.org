@@ -8,7 +8,7 @@ Configure a subtitle provider when viewers need to search for tracks that are mi
 
 ## Connect a provider
 
-1. Open **Admin > Settings > Subtitles & Metadata**.
+1. Open **Admin > Integrations > Providers**.
 2. Open a provider under **Subtitle providers**.
 3. Enter its required credentials. OpenSubtitles has username, password, and API-key fields; other providers may need only a key.
 4. Turn the provider on and choose **Save**. Read the result, including any warning that the saved settings have not been applied yet.
@@ -20,11 +20,11 @@ A working connection doesn't mean the provider has your language or release.
 
 Silo syncs subtitles to the video's audio, so a subtitle made for another release of the title plays in time. The corrected timing applies to everyone who plays the subtitle; viewers start a sync and see how it went in the [web subtitle menu](/docs/subtitles#fix-subtitles-that-are-out-of-sync). Anyone who can play a title can sync its subtitles or reset their timing. Demo servers refuse both.
 
-Sync is on by default. Its settings are under **Subtitle sync** in **Admin > Settings > Subtitles & Metadata**; choose **Save** after changing them.
+Sync is on by default. Its settings are under **Subtitle sync** on **Admin > Libraries > Settings**; choose **Save** after changing them.
 
 - **Sync subtitles automatically** syncs a downloaded or uploaded subtitle when it's added, and any other subtitle the first time it's played. Turn it off to sync only when someone chooses **Sync to audio** in the web player.
-- **Where to analyze audio** chooses the machine that reads the audio: **Local server**, **Prefer transcode nodes** (the default), or **Transcode nodes only**. Sync reads a few minutes of the file's audio, about 45 seconds of CPU time the first time a file is synced. Later subtitles for the same file reuse that work. **Prefer transcode nodes** falls back to the main server when no [transcode node](/docs/transcode-nodes) can take it; **Transcode nodes only** fails the sync instead. A node needs the media at the same path as the main server.
-- **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears when **Where to analyze audio** uses transcode nodes.
+- **Where to analyze audio**, under **Advanced**, chooses the machine that reads the audio: **Local server**, **Prefer transcode nodes** (the default), or **Transcode nodes only**. Sync reads a few minutes of the file's audio, about 45 seconds of CPU time the first time a file is synced. Later subtitles for the same file reuse that work. **Prefer transcode nodes** falls back to the main server when no [transcode node](/docs/transcode-nodes) can take it; **Transcode nodes only** fails the sync instead. A node needs the media at the same path as the main server.
+- **Concurrent syncs per transcode node** sets how many subtitles one node syncs at once. The default is 1. It appears under **Advanced** when **Where to analyze audio** uses transcode nodes.
 
 ### Subtitle files beside the media
 
@@ -39,7 +39,7 @@ Silo never edits subtitle files, including the ones in your media folders. It st
 
 ## Inspect saved tracks
 
-Open **Admin > Subtitle Files**. Filter by media, language, or provider to find a stored track. The list shows whether a person uploaded it or a provider supplied it.
+Open **Admin > Libraries > Subtitle Files**. Filter by media, language, or provider to find a stored track. The list shows whether a person uploaded it or a provider supplied it.
 
 Download a copy before you correct or delete a track. The download is the file as it was added, without any sync correction. Stored tracks are shared with everyone who can play the item, including profiles in other accounts, so deleting one removes it for all of them. Which track a viewer selects stays their own choice.
 

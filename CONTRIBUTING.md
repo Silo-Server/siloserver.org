@@ -12,6 +12,13 @@ site-wide redesign, navigation or information-architecture change, deployment
 change, or new product claim. Documentation corrections and narrow copy or
 accessibility fixes can go straight to a pull request.
 
+Don't open a docs issue for a new or changed feature until its implementation
+pull request is open in `silo-server`, `silo-apple`, `silo-android`, or
+whichever repository owns the change. Link that pull request from the docs
+issue. Until then, note the docs impact on the implementation issue. This
+rule doesn't apply to issues about docs that are wrong for behavior that has
+already shipped.
+
 Product behavior is defined by the implementation repositories. Verify factual
 claims against `silo-server`, `silo-apple`, or `silo-android` rather than treating
 existing marketing copy as the source of truth.

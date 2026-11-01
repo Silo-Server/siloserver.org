@@ -14,20 +14,36 @@ Ask which server, account, profile, and device show the problem. A setting that 
    that device. Match the device name and profile to the report.
 3. Compare the affected value with the value it replaces before changing it.
 
-For a server-wide view, **Admin > Devices** can search by device, user, ID, or
+For a server-wide view, **Admin > Users > Devices** can search by device, user, ID, or
 profile. A device's **All Settings** tab lists every setting it uses and
 whether the value is set on the device, comes from the profile, or is the app
 default.
 
 ## Reset one override
 
-On **Admin > Devices**, use the setting's reset action and confirm **Reset this
+On **Admin > Users > Devices**, use the setting's reset action and confirm **Reset this
 override?**. On **Preferences**, select the trash button beside the setting and
 confirm. The inherited
 setting then applies again. Ask the user to reopen the affected screen.
 
 These views also show raw values. Reset a wrong value rather than typing in a
 replacement, and leave unrelated settings alone.
+
+## Check a device's connection
+
+When someone reports buffering, choose their device on **Admin > Users >
+Devices**. Once the device has played something or tested its speed,
+**Connections** lists each network it used, such as **Local network** or
+**Remote connection**, with:
+
+- its latest speed test, or the speed it reached during playback
+- any limit Silo set after buffering, and the date it ends
+- how the latest playback went, such as "2 stalls · 14 seconds buffering ·
+  lowered automatically"
+
+**Clear limit** removes the limit, so **Auto** no longer plays under it on
+that network. The measured speed stays. Viewers can clear the limit
+themselves in [their settings](/docs/preferences#lower-quality-when-buffering).
 
 ## Fix a profile's home screen
 

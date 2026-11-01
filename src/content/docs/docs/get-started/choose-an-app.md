@@ -42,11 +42,10 @@ and Android TV, and Google Play installs the right version for each device.
 
 ### Without Google Play
 
-For a device without Google Play, download the app from
-[Silo Android releases](https://github.com/Silo-Server/silo-android/releases/latest).
-Under **Assets**, choose `silo-android-latest-universal-release.apk` for a
-phone or tablet, or `silo-android-tv-latest-universal-release.apk` for a TV,
-and ignore the other files. Open the file on the device to install it, and
+For a device without Google Play, download the app from the
+[latest Silo Android beta](https://github.com/Silo-Server/silo-android/releases/tag/beta-latest).
+Under **Assets**, choose `silo-android-latest-beta.apk` for a phone or tablet,
+or `silo-android-tv-latest-beta.apk` for a TV. Open the file on the device to install it, and
 allow installs from that source if Android asks. On a TV, copy the file over
 with your usual file-transfer or sideloading app first.
 
@@ -56,11 +55,45 @@ Downloader to install apps when asked.
 
 | App | Downloader code |
 | --- | --- |
-| Silo for Android phone or tablet | `1051382` |
-| Silo for Android TV | `1636227` |
+| Silo for Android phone or tablet | `2988950` |
+| Silo for Android TV | `6033910` |
 
 Download Silo only from the links on this page; other apps with similar names
 aren't part of this project.
+
+### Keep Silo updated with Obtainium
+
+[Obtainium](https://github.com/ImranR98/Obtainium) installs Silo from its
+GitHub releases and updates it when a new build comes out, so you don't have
+to download each APK yourself. These steps follow the beta builds, the same
+ones the Google Play beta gets.
+
+1. Install Obtainium from its
+   [releases page](https://github.com/ImranR98/Obtainium/releases). It's also
+   on F-Droid and IzzyOnDroid.
+2. Tap **Add app** and enter `https://github.com/Silo-Server/silo-android` in
+   **App source URL**.
+3. Under **Release selection**, turn on **Include prereleases**, then set
+   **Filter release titles by regex** to `^Silo Android`. This skips the
+   "Latest tester build" release, which repeats the newest build under another
+   name.
+4. Under **APK selection**, set **Filter links by regex** for your device.
+   Each release has a phone APK and a TV APK.
+
+   | Device | Filter links by regex |
+   | --- | --- |
+   | Phone or tablet | `^silo-android-\d.*\.apk$` |
+   | Android TV | `^silo-android-tv-\d.*\.apk$` |
+
+5. Tap **Add**, then **Install**, and allow Obtainium to install apps when
+   Android asks. Obtainium checks for updates in the background and tells you
+   when a new build is out.
+
+If Obtainium shows **Signing certificate mismatch**, another copy of Silo is
+already installed, from Google Play or from a different build. Tap **Don't
+install**, uninstall that copy, then tap **Install** again. Uninstalling signs
+that copy out and removes its downloads. If Android still won't install Silo,
+uninstall any copy in a work profile or Island too.
 
 ## Next step
 

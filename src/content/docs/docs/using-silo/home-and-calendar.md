@@ -13,17 +13,51 @@ profile, **For You** suggests titles, and **Calendar** lists upcoming releases.
 2. Open **For You** for suggestions. Select a title to read its details
    before playing or requesting it.
 
+By default, **Continue Watching** puts what you watched most recently first,
+whether it's a title you're partway through or the next episode of a show
+you're watching. To move a show you've caught up on to the front when a new
+episode or season reaches your server, open **Settings > Home Screen** in the
+web app and turn on **Show new episodes first**. Shows you haven't caught up
+on keep their place. A separate **Next Up** row, if you've chosen one, uses
+the same order, and so does **Next Up** in
+[Jellyfin-compatible apps](/docs/jellyfin-apps). The setting follows your
+profile to every device. Until you change it, it follows your server's
+default, which the person who runs your server can turn on.
+
+Only episodes newly added to your server count as new, not the episodes in a
+library you add or re-add, or an older file once it's matched to its show.
+
+To take a title off **Continue Watching** or **Next Up**,
+[remove it from the card's menu](/docs/watch-history#remove-a-title-from-continue-watching-or-next-up).
+
 For You picks titles from your profile's viewing history and ratings, so
 [rating what you watch](/docs/saved-titles) improves it. In the web app, you
 can also open **Settings > Personalize**, select **Open the picker**, and
-choose titles you love. They're saved to your favorites. Once there's enough
-to go on, the web page shows **Your Taste Profile** with your top genres and
-favorite directors.
+choose at least three titles you love. They're saved to your favorites. The
+picker shows only movies and series that have a poster, so to add a title
+that isn't there, [favorite it](/docs/saved-titles) from its page. Once
+there's enough to go on, the web page shows **Your Taste Profile** with your
+top genres and favorite directors.
 
-A new profile sees **Not enough data yet** until it has watched and rated a
-few titles. If For You stays empty, ask the person who runs your server; the
-[recommendation services](/docs/recommendations) may need setting up. You can
+| Client | Where to find For You |
+| --- | --- |
+| Web | Choose **For You** in the sidebar. On a small screen, open the navigation menu first. |
+| Mobile | Select **For You** in the bottom navigation. On an iPad in the wide layout, choose it in the sidebar instead. |
+| TV | Choose **For You** in the top navigation with your remote. |
+
+A new profile starts with rows every profile gets, such as **Highly Rated in
+Your Library** and **Recently Added**, plus **Popular on This Server** once
+people on more than one account have watched the same titles. Rows picked
+from your own history join them as you watch and rate. Those rows need the
+[recommendation services](/docs/recommendations). Until the person who runs
+your server sets them up, For You shows only the shared rows. If For You is
+empty, the libraries you can see don't have any movies or series yet. You can
 still browse libraries and search.
+
+On Home, the recommendations row leaves out titles that the rows above it
+already show. In a small library, those rows can hold every title, so Home
+may not show the recommendations row at all. The For You page still lists
+those titles.
 
 ## Check upcoming releases
 

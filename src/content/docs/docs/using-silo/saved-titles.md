@@ -59,8 +59,8 @@ Each poster says where the title stands, such as **Downloading 43%**,
 **Out Dec 18**, **Awaiting approval**, or **Not requested**. The status
 appears under the poster and as a **Request Status** badge in the poster's
 top-left corner. While the title downloads, the poster also shows a progress
-bar. To hide the badge, open **Settings > Card Overlays** and, under
-**Status & Awards**, turn off **Request Status**.
+bar. To hide the badge, open **Settings > Navigation & Cards** and, under
+**Badges**, open **Status & Awards** and turn off **Request Status**.
 
 If TMDB later lists the title twice or stops listing it, the status under the
 poster says **TMDB lists it twice** or **No longer listed on TMDB**. Select **Find it** to
