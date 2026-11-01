@@ -58,7 +58,8 @@ without hardware decoding, so Silo converts those files on the server.
 
 To check, start the title in the web app, open **Playback info** in the player,
 and look at **Play method**. **Transcode** means the server is converting the
-file, and **Direct Play** means the browser is playing the original.
+file. **Direct Play** or **Direct Streaming** means the browser is decoding the
+original video.
 
 1. Check that your graphics driver can decode HEVC. Run `vainfo`, from the
    `libva-utils` package, and look for `VAProfileHEVCMain10`. If it isn't
