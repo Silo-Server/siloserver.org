@@ -46,7 +46,7 @@ appears above the time while you drag.
 
 On Android TV, show the controls, move to the timeline, and hold left or
 right. The frame appears above the timeline while it moves. When the controls
-are hidden, holding left or right shows the frame below the seek speed.
+are hidden, holding left or right shows the frame above the seek speed.
 
 Without server previews, the web app shows the chapter image for that
 position, when it has one. The Apple apps cut frames from the video that is
