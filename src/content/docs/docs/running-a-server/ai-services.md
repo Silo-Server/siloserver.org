@@ -1,7 +1,7 @@
 ---
 slug: docs/ai-services
 title: Configure AI services
-description: Connect text and speech models or a ChatGPT plan, choose a model and reasoning level, set limits, and test one subtitle or description job.
+description: Connect AI providers or a ChatGPT plan, choose a model and reasoning level, set limits, and test one subtitle or description job.
 ---
 
 Silo uses a text model to translate subtitles and descriptions, and a speech-to-text model to create subtitles from audio. You can set up either one on its own. Each feature also has its own switch; once it is on, its actions appear in the apps that support it.
@@ -11,13 +11,12 @@ Before using a hosted model, check its charges and data policy. Translation send
 ## Connect a text model
 
 1. Open **Admin > Integrations > AI Services**.
-2. In the **Text model** card, choose how Silo connects under **Authentication**:
-   - **API key or local provider**: enter **Base URL**, **Model**, and **API key** for any service with an OpenAI-compatible chat endpoint. Leave **API key** empty for a model on your network that needs none.
-   - **ChatGPT plan**: sign in as described in [Use your ChatGPT plan](#use-your-chatgpt-plan).
-3. Choose a **Reasoning level**. See [Choose a model and reasoning level](#choose-a-model-and-reasoning-level).
-4. Choose **Test text model**. The test uses the values on screen, even before you save.
-5. Turn on **Translate subtitles**, **Translate descriptions**, or both.
-6. Save, then translate one short item before using it across a library.
+2. Under **Providers**, choose **Add provider**, pick the provider's type, and choose **Continue**. Enter its **API key**, or leave it empty for a model on your network that needs none, then choose **Add provider**. For **OpenAI-compatible**, also enter its **Base URL** and choose what it **Serves**.
+3. Under **Models**, choose **Set up** on **Text model**. Set **Provider** to that provider, or to **ChatGPT plan** as described in [Use your ChatGPT plan](#use-your-chatgpt-plan), and choose a **Model**.
+4. Under **Advanced**, choose a **Reasoning level**. See [Choose a model and reasoning level](#choose-a-model-and-reasoning-level).
+5. Choose **Test text model**. The test uses the values on screen, even before you save.
+6. Turn on **Translate subtitles**, **Translate descriptions**, or both.
+7. Save, then translate one short item before using it across a library.
 
 **Description translation for viewers** controls translation while people browse: **Off**, **Translate button on detail pages**, or **Automatic on view**. Besides detail pages, it covers the episode list on a season or series page and the **Featured** banner on Home and on a library's **Recommended** tab. With **Off**, browsing never starts a translation job, and you can still translate from the metadata editor or [for a whole library](/docs/metadata#translate-library-descriptions).
 
