@@ -75,10 +75,11 @@ file, and **Direct Play** means the browser is playing the original.
    video decoding in your browser.
 5. Start the title again and check **Play method** in **Playback info**.
 
-On a screen without HDR, Silo also converts HDR and Dolby Vision files to
-standard range on the server. To have the browser do that instead, open
-**Settings > Playback** and, under **This browser**, turn on **Decode in the
-browser (beta)**. It applies from the next video you start.
+On a screen without HDR, HDR and Dolby Vision files also need converting to
+standard range. **Decode in the browser (beta)**, under **This browser** in
+**Settings > Playback**, lets the browser do that instead of the server. It's
+on unless you've turned it off. If the browser can't do it, Silo still
+converts these files on the server.
 
 ## Picture problems on a TV
 
