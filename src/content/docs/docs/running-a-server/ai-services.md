@@ -24,12 +24,12 @@ Home and library rows show descriptions in the viewer's language once a translat
 
 ## Connect speech-to-text
 
-1. In the speech-to-text card, choose a preset or enter its **Base URL**, **Model**, and **API key**.
+1. Under **Models**, choose **Set up** on **Speech-to-text**. Set **Provider** to one that serves speech, adding it under **Providers** first if needed, and choose a **Model**.
 2. Choose **Test speech-to-text**. The endpoint must return timed segments, which Silo turns into subtitles.
 3. Turn on **Create subtitles from audio** and save.
 4. Try one short item in the web player. When the job finishes, select the new subtitle track and check its language and timing.
 
-If the speech **Base URL** is blank, Silo sends audio to the text model's endpoint. Run **Test speech-to-text** to find out whether that endpoint accepts audio. A ChatGPT plan does not include transcription, so with **ChatGPT plan** selected, a blank **Base URL** uses the one saved under **API key or local provider**.
+A ChatGPT plan doesn't include speech-to-text, so transcription needs its own provider even when translation uses the plan.
 
 ## Use your ChatGPT plan
 
