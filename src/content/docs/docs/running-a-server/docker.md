@@ -119,7 +119,7 @@ With PostgreSQL in its own container, Silo's container can run as an unprivilege
 
    Silo doesn't change their owners when it starts this way, and the account must also be able to read your media.
 
-2. In the `silo` service of `docker-compose.advanced.yml`, delete the `PUID`, `PGID`, and `cap_add: [NET_ADMIN]` lines and add:
+2. In the `silo` service of `docker-compose.advanced.yml`, delete the `PUID`, `PGID`, and `cap_add: [NET_ADMIN]` lines. Add these lines to the service itself, at the same indentation as `environment:`, not inside it:
 
    ```yaml
    entrypoint: ["silo"]
