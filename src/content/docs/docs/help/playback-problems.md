@@ -50,6 +50,38 @@ still read it. Filter **Admin > Logs > Server Log** by the `scanner` component f
 or its storage, such as a network mount that dropped, then
 [scan the library](/docs/manage-libraries#scan-or-refresh).
 
+## If the web app converts HEVC files on Linux
+
+Make sure your browser decodes HEVC with your graphics card. Most 4K, HDR,
+and Dolby Vision files use HEVC, and most browsers on Linux can't play it
+without hardware decoding, so Silo converts those files on the server.
+
+To check, start the title in the web app, open **Playback info** in the player,
+and look at **Play method**. **Transcode** means the server is converting the
+file. **Direct Play** or **Direct Streaming** means the browser is decoding the
+original video.
+
+1. Check that your graphics driver can decode HEVC. Run `vainfo`, from the
+   `libva-utils` package, and look for `VAProfileHEVCMain10`. If it isn't
+   listed, install the VA-API driver for your GPU.
+2. Update the browser. Chrome and Chromium use hardware decoding by default
+   from version 143, and Firefox plays HEVC on Linux from version 137.
+3. Quit the browser completely, then start it again.
+4. Check that the browser can decode HEVC. In a Chromium-based browser, open
+   `chrome://gpu` and look for `Decode hevc main 10` under **Video
+   Acceleration Information**. In Firefox, open `about:support`, find HEVC
+   under **Codec Support Information**, and check that **Hardware Decoding**
+   says **Supported**. If that table is empty, play any video and check again.
+   If HEVC isn't listed, follow your Linux distribution's guide to hardware
+   video decoding in your browser.
+5. Start the title again and check **Play method** in **Playback info**.
+
+On a screen without HDR, HDR and Dolby Vision files also need converting to
+standard range. **Decode in the browser (beta)**, under **This browser** in
+**Settings > Playback**, lets the browser do that instead of the server. It's
+on unless you've turned it off. If the browser can't do it, Silo still
+converts these files on the server.
+
 ## Picture problems on a TV
 
 Check the selected version before you press **Play**, and try another if one
