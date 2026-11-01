@@ -18,7 +18,9 @@ previews for the libraries an administrator turns them on for.
 1. Edit the library under **Admin > Libraries**.
 2. In its advanced settings, turn on **Generate seek previews** and save.
 3. Let background generation run. Silo processes files at low priority, so a
-   large library takes a while.
+   large library takes a while. The library's row on **Admin > Libraries**
+   shows a badge such as **Previews 84%** while it works, and
+   **Previews ready** when it's done.
 
 Silo stores the previews in [artwork storage](/docs/s3-storage#choose-artwork-storage).
 Turning the setting off deletes the library's previews. Until a file has
