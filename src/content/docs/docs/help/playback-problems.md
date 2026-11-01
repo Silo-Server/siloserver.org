@@ -52,9 +52,9 @@ or its storage, such as a network mount that dropped, then
 
 ## If the web app converts HEVC files on Linux
 
-Turn on hardware video decoding in your browser. Most 4K, HDR, and Dolby
-Vision files use HEVC, and most browsers on Linux can't play it until hardware
-decoding is on, so Silo converts those files on the server.
+Make sure your browser decodes HEVC with your graphics card. Most 4K, HDR,
+and Dolby Vision files use HEVC, and most browsers on Linux can't play it
+without hardware decoding, so Silo converts those files on the server.
 
 To check, start the title in the web app, open **Playback info** in the player,
 and look at **Play method**. **Transcode** means the server is converting the
@@ -63,21 +63,8 @@ file, and **Direct Play** means the browser is playing the original.
 1. Check that your graphics driver can decode HEVC. Run `vainfo`, from the
    `libva-utils` package, and look for `VAProfileHEVCMain10`. If it isn't
    listed, install the VA-API driver for your GPU.
-2. Turn on hardware decoding in the browser:
-   - In Chrome, Chromium, Brave, and other Chromium-based browsers, start the
-     browser with these flags:
-
-     ```
-     --enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiOnNvidiaGPUs,VaapiIgnoreDriverChecks
-     --ignore-gpu-blocklist
-     ```
-
-     If your browser's package reads a flags file, such as
-     `~/.config/chromium-flags.conf` on Arch Linux, put each flag on its own
-     line there. The browser uses only the last `--enable-features` flag it
-     gets, so if you already have one, add these features to it.
-   - In Firefox, open `about:config` and set `media.ffmpeg.vaapi.enabled` and
-     `media.hardware-video-decoding.force-enabled` to `true`.
+2. Update the browser. Chrome and Chromium use hardware decoding by default
+   from version 143, and Firefox plays HEVC on Linux from version 137.
 3. Quit the browser completely, then start it again.
 4. Check that the browser now decodes HEVC. In a Chromium-based browser, open
    `chrome://gpu` and look for HEVC Main 10 under **Video Acceleration
