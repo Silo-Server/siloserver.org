@@ -153,7 +153,3 @@ Some things work differently from a Jellyfin server:
 When reporting a problem, include the app's name and
 version, what you were doing, and whether it works in Silo's web app. Leave
 out passwords and PINs.
-
-If you uploaded a picture for your profile, the app shows it. Preset avatars
-don't carry over, so with one of those the app shows its own default picture.
-After you upload a new picture, some apps take up to an hour to show it.
