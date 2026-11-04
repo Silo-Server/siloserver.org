@@ -18,7 +18,6 @@ Update during a quiet period and tell users that playback will stop briefly.
    Keep that output. `latest` won't identify the old image once you've pulled a new one.
 3. Let active playback and downloads finish.
 4. If `docker compose ps` lists `postgres` and `redis` beside `silo`, read [If your server runs PostgreSQL and Redis in their own containers](#if-your-server-runs-postgresql-and-redis-in-their-own-containers) first.
-5. If people sign in to Seerr with their Silo accounts and you haven't [relinked them](/docs/third-party-access#relink-users-after-the-user-id-change) yet, read that section first. Some setups need Seerr stopped before the update.
 
 ## Update with Docker Compose
 

@@ -38,28 +38,6 @@ Seerr (formerly Jellyseerr) connects to Silo as a Jellyfin server, but its setup
 
 Seerr shows a user's uploaded Silo profile picture. With a preset avatar, it shows its own default picture instead. It also falls back to that picture once the user has no active Jellyfin sign-in: after a password reset or **Sign out everywhere**, or 30 days after their last Seerr sign-in if they don't use a Jellyfin app. Signing in again brings the picture back.
 
-### Relink users after the user ID change
-
-Silo sends Jellyfin user IDs without dashes, as Jellyfin does, but earlier versions included them. Seerr matches returning users by that ID, so people who signed in to Seerr before the change no longer match their account. Seerr refuses their sign-in, or creates a second account if **Enable New Jellyfin Sign-In** is on.
-
-Run this fix once. If **Enable New Jellyfin Sign-In** is on, stop Seerr before you update Silo so no one gets a second account. Jellyfin apps don't need this step. Both statements below work on Seerr's SQLite and PostgreSQL databases.
-
-1. Stop Seerr and back up its database.
-2. If Seerr ran after the update, find the second accounts it created:
-
-   ```sql
-   SELECT "id", "email", "jellyfinUsername" FROM "user" WHERE "jellyfinUserId" IN (SELECT REPLACE("jellyfinUserId", '-', '') FROM "user" WHERE "jellyfinUserId" LIKE '%-%');
-   ```
-
-   Each row is a duplicate account. Start Seerr, delete those accounts on its **Users** page, and stop Seerr again. Deleting an account also deletes its requests, so tell those people to request the titles again.
-3. Remove the dashes from the saved user IDs and avatar addresses:
-
-   ```sql
-   UPDATE "user" SET "jellyfinUserId" = REPLACE("jellyfinUserId", '-', ''), "avatar" = REPLACE("avatar", "jellyfinUserId", REPLACE("jellyfinUserId", '-', '')) WHERE "jellyfinUserId" LIKE '%-%';
-   ```
-
-4. Start Seerr.
-
 ## Legacy Autoscan
 
 An external Autoscan service connects through the Jellyfin port. New setups should use Silo's built-in [Autoscan sources](/docs/autoscan) instead.
