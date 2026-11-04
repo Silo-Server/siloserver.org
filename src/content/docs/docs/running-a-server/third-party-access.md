@@ -36,8 +36,6 @@ Apps differ in which Jellyfin features they use, so note the app and server vers
 
 Seerr (formerly Jellyseerr) connects to Silo as a Jellyfin server, but its setup can't finish with a Silo account, because Silo doesn't report any account as a Jellyfin administrator. If your Seerr already connects to Silo, people sign in to it with their Silo accounts, the same way they [sign in to Jellyfin apps with a profile](/docs/jellyfin-apps#sign-in-with-your-profile).
 
-Seerr shows a user's uploaded Silo profile picture. With a preset avatar, it shows its own default picture instead. It also falls back to that picture once the user has no active Jellyfin sign-in: after a password reset or **Sign out everywhere**, or 30 days after their last Seerr sign-in if they don't use a Jellyfin app. Signing in again brings the picture back.
-
 ## Legacy Autoscan
 
 An external Autoscan service connects through the Jellyfin port. New setups should use Silo's built-in [Autoscan sources](/docs/autoscan) instead.
