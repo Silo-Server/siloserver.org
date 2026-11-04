@@ -11,7 +11,7 @@ Sections are the rows people browse on Home and above each library's grid. Use *
 1. Open **Admin > Libraries > Home Sections** and choose the page: **Home** or a library.
 2. Choose **Add row**.
 3. Pick a kind of row from the tabs, or search for one, for example `trending` or `Christmas`. Under **Collections & rules**, **A collection** shows a collection and **Titles matching rules** builds a row from rules.
-4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
+4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**. A hero banner also has **Show in the apps**, which is on by default.
 5. Choose **Add row**. New rows go to the bottom of the page.
 
 On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. The add button then counts the pages, for example **Add to 3 pages**. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
@@ -22,7 +22,9 @@ To show a collection as a row, you can also start from the collection: see **Row
 
 Drag a row to move it. Changes save right away. The switch on each row turns it on or off for everyone, and a row that's off keeps its settings.
 
-A row's action menu has **Edit row…**, **Use as hero banner**, **Move to top**, **Move to bottom**, and **Delete row…**. The web app shows the hero banner as a banner; the apps show it as a regular row.
+A row's action menu has **Edit row…**, **Use as hero banner**, **Move to top**, **Move to bottom**, and **Delete row…**. On Home, the web app and the [native Mac app](/docs/native-macos) show the hero banner as a banner at the top of the page. The other apps show it as a regular row.
+
+To show the hero banner only on the web, choose **Edit row…**, open **More options**, and turn off **Show in the apps** under **Hero banner**. The apps then don't get the row at all, and the rows list tags it **Hero banner · Web only**, or **Web-only hero** on a phone. Library pages have the same switch for their hero row. When the row stops being the hero banner, **Show in the apps** turns back on and the apps show it as a regular row again. That happens when you turn **Hero banner** off, use another row as the hero banner, or add a [starter pack](/docs/manage-collections#add-a-starter-pack) with **Also use the pack's hero banners** on.
 
 To change several rows at once, open **More** and choose **Select rows**. You can then turn them on or off, or delete them together.
 
