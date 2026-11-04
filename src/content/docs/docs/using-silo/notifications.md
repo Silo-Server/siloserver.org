@@ -41,6 +41,11 @@ permission prompt. Other browsers and devices you've subscribed are listed in
 the same section, where you can remove them. Browser notifications are
 separate from the mobile app's notifications.
 
+A new episode sends a browser notification only if you had no other
+new-episode notification for that show in the past 12 hours. When a whole
+season arrives at once, you get one alert for its first new episode, and the
+rest still reach your inbox, email, and webhooks.
+
 ### Phone and tablet notifications
 
 After you sign in and choose a profile, allow notifications when the Silo app
@@ -48,7 +53,8 @@ or your device asks. If you declined earlier, turn them on in your device's
 notification settings for Silo. When you tap an alert, the app needs to reach
 the server to open it.
 
-Your event choices still come from the web settings above.
+Your event choices still come from the web settings above, and alerts have
+the same 12-hour limit per show as browser notifications.
 
 ### Email
 
@@ -94,5 +100,6 @@ A webhook can send fewer events than your profile's choices, but not more.
 If your browser says notifications aren't supported, make sure you're using
 the HTTPS address before trying another browser.
 
-A first library scan won't alert you about every old episode. The server
-limits alerts for stale events and large batches.
+A first library scan won't alert you about every old episode. If several
+episodes of a show arrive within 12 hours of each other, only the first one
+alerts your phone or browser. Look for the rest in the web inbox.

@@ -6,8 +6,6 @@ description: Set up email, browser or mobile push, and server-owned announcement
 
 Open **Admin > Integrations > Notifications** to choose how your server sends notifications. Each channel under **Delivery channels** has its own switch; select a channel's name to show its setup. People choose what they hear about and their personal channels in [their notification settings](/docs/notification-inbox).
 
-Two switches run the pipeline for new content: **Notice new content** records new items during scans, and **Work out who wants it** matches them against everyone's preferences. Both are on by default and sit under **Advanced** in **Processing**. Keep them on for new-content notifications. If either is off, a notice at the top of the page says so.
-
 ## Set up email
 
 1. Open **Admin > Integrations > Email** and turn on **Send email from this server**. This switch covers every email Silo sends, including invitations and password resets.
@@ -50,6 +48,8 @@ Server channels post every selected event, whatever each viewer's own preference
 
 ## Missing or delayed notifications
 
-The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together, caps messages per show, and drops items older than **Max content age**. These settings are under **Advanced** in **Processing**. Check them before treating a delay as a failure.
+The first library scan adds existing media without notifying anyone about it. After that, Silo sends a notification for each new episode as soon as a scan records it. If a notification can't go out within 72 hours of that scan, for example because the server stopped, Silo drops it.
 
-When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. **Retention** only controls how long inbox and sent-history records are kept.
+Phone and browser push is limited per show. A profile gets a push for a new episode only if it had no other new-episode notification for that show in the past 12 hours. When a whole season arrives at once, only its first new episode is pushed. Every episode still appears in the inbox and goes to email and webhooks.
+
+When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. Silo deletes read notifications from the inbox 90 days after they're read, and unread ones 180 days after they arrive.
