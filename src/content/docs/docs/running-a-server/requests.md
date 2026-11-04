@@ -15,7 +15,7 @@ Requests let people ask for movies or series that your server doesn't have. Appr
 5. Choose **Save**.
 6. Ask one user to submit a request, and look for it in **Admin > Requests > Queue**.
 
-These are server-wide defaults. An [access group](/docs/manage-access) can set its own approval rule and limit, and its members can't request at all if **Allow media requests** is off for the group. To change the approval rule or limit for one account, open **Admin > Users**, select the account, open **Access & limits**, and choose **Edit** in the **Requests** section. To stop just that account from requesting, set **Can request media** to **Custom** and choose **No**. When someone can't request a title, check the account's **Can request media**, its access group, and the request limit.
+These are server-wide defaults. An [access group](/docs/manage-access) can set its own approval rule and limit, and its members can't request at all if **Allow media requests** is off for the group. To change the approval rule or limit for one account, open **Admin > Users**, select the account, open **Access & limits**, and choose **Edit** in the **Requests** section. To stop just that account from requesting, set **Can request media** to **Custom** and choose **No**. When someone can't request a title, check the account's **Can request media**, its access group, the request limit, and the profile's [**Allow requests**](/docs/profiles#set-parental-controls) switch, which the household's primary profile can turn off for one profile.
 
 ## Review a request
 

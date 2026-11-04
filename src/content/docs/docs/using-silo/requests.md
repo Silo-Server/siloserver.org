@@ -9,6 +9,13 @@ If a movie or series isn't on the server, you can ask for it with a request.
 account is allowed to use them. The person who runs the server sets this up in
 [Manage requests](/docs/manage-requests).
 
+A profile can also have requests turned off with
+[**Allow requests**](/docs/profiles#set-parental-controls), for example a
+child's profile. That profile can't search for, watchlist, or request titles
+outside the library. Silo keeps the requests it made earlier. In the web app,
+**Requests** stays in the sidebar while the profile has some, so it can still
+see and cancel them.
+
 ## Make a request
 
 1. Open **Requests**. In the web app it's in the sidebar. In the phone and
