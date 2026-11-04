@@ -44,9 +44,10 @@ Request limits and approval work the same as for the request button. When the
 title arrives, you're notified as for any request you made.
 
 To keep watchlist titles without requesting them, open **Settings > Requests**
-in the web app and turn off **Request titles I add to my watchlist**. If the
-page says that adding a title doesn't request it on this server, the person
-who runs the server has turned watchlist requests off.
+in the web app and turn off **Request titles I add to my watchlist**. You're
+still notified when the title arrives. If the page says that adding a title
+doesn't request it on this server, the person who runs the server has turned
+watchlist requests off.
 
 Removing a title from your watchlist cancels the request the watchlist made,
 as long as the request hasn't been sent to a download server yet.
