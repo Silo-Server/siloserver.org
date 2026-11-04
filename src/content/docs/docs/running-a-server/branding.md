@@ -30,6 +30,8 @@ Use artwork you have permission to publish, and make sure text and controls stay
 
 Under **Card overlays**, use **Show badges on poster art** and choose the **Badge style** and where each badge appears. These are defaults; people who have chosen their own badge style keep it. Save and look at a library.
 
+**Availability**, under **Status & Awards**, is off by default. When it's on, each series and season poster shows how much of it is in the library. See [Show availability on series posters](/docs/find-something#show-availability-on-series-posters) for what it counts.
+
 ### Choose title art or plain titles
 
 Under **Title pages**, turn off **Show title art** to name each movie or show at the top of its page in plain text instead of its logo artwork. It applies to everyone who hasn't chosen their own, and anyone can still change it in their settings. Titles without logo artwork always show their name as text. Save and open a movie.
