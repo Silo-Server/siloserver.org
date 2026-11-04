@@ -27,13 +27,21 @@ Early database and migration messages can appear only in the container logs, bec
 
 ## Review the audit log
 
-The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Changes an administrator makes to accounts and access groups also show what changed under **Action / changes** and which account or group under **Target**. Other requests show **HTTP request**.
+The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Account and permission changes also show what changed under **Action / changes** and what it applied to under **Target**, such as an account, an API key, or a profile:
+
+- an administrator editing accounts and access groups, starting and ending **View as user**, and transferring ownership
+- password reset links, completed resets, and password changes
+- signing out one session, or every session with **Sign out everywhere**
+- API keys created, changed, or deleted
+- household profiles created, edited, or deleted
+
+Other requests show **HTTP request**.
 
 - Narrow the list by action, such as `user.updated` or `access_group.updated`, by actor account ID, or by target type and ID.
 - Choose **Browse log history** to page through older entries with **Older** and **Newer**.
 - If the live list disconnects, choose **Reconnect**, then check history for anything that arrived in between.
 
-Changed fields show their old and new values, and permission changes list the permissions before and after. A password change shows only that the password changed.
+Changed fields show their old and new values, and permission changes list the permissions before and after. An API key shows its label, rate tier, and scopes. A password change shows only that the password changed, and a profile PIN only whether it was set, changed, or cleared. The audit log never shows or stores a password, PIN, reset link, or API key.
 
 If an administrator acted as another account, **Actor** shows both, for example `#1 (as #7)`, where #1 is the administrator. Filtering by actor finds the administrator, not the account they acted as. The filters are kept in the page address, so a shared link shows the account IDs you filtered by.
 
