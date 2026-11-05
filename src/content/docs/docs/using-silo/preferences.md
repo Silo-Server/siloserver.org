@@ -136,8 +136,9 @@ on a combined badge. Both are off by default:
 - **Resolution + HDR (combined)** shows one badge such as `4K DV` in place of
   **Resolution** and **HDR / Dolby Vision**. Audio keeps its own badge.
 - **Resolution + HDR + Audio (combined)** shows one badge such as
-  `4K DV DTS-HD` in the web app, in place of **Resolution**, **HDR / Dolby
-  Vision**, **Audio Codec**, and **Resolution + HDR (combined)**. A file
+  `4K DV DTS-HD` in the web app and the iPhone, iPad, Apple TV, and Mac apps,
+  in place of **Resolution**, **HDR / Dolby Vision**, **Audio Codec**, and
+  **Resolution + HDR (combined)**. A file
   without HDR shows only its resolution and audio, such as `4K DTS-HD`.
 
 While a combined badge is on, the badges it replaces stay hidden, and their
