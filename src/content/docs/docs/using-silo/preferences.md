@@ -24,8 +24,11 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Home Screen:** which rows appear on Home and in what order.
 - **Title Pages:** title art, theme music, spoilers, and advisory ages on
   movie and show pages.
-- **Navigation & Cards** and **Accessibility:** how the web app looks. These
-  don't change the native apps.
+- **Navigation & Cards:** poster size, shortcuts and badges on posters, and
+  the links in your menu. The mobile and TV apps show your
+  [badges](#choose-badges-on-posters) too.
+- **Accessibility:** how the web app looks. It doesn't change the native
+  apps.
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
