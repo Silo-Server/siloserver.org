@@ -67,7 +67,7 @@ Sonarr and Radarr webhooks can stay on for libraries that are also monitored. Wh
 
 1. Choose **Add source** and select **Sonarr/Radarr Webhook**. It's built in and needs no plugin.
 2. Follow **Match paths**. Map the paths the other service sends to the paths Silo sees inside its container.
-3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**.
+3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**. If you delete whole series or movies there, also tick **On Series Delete** or **On Movie Delete**. A title deleted with its files then leaves your library, usually within a minute of Sonarr or Radarr removing its folder.
 4. Turn on the **Autoscan** switch at the top of **Sources**.
 5. Add one item in the sending service, then open **Admin > Autoscan > Activity** and choose **Polls**. The delivery has a **Webhook** badge, resolves to the right library, and creates a scan.
 
