@@ -216,7 +216,7 @@ Silo can tune only connections that end at Silo. Behind a [reverse proxy](/docs/
 
 Leave the live-update thresholds at their defaults unless you need different values for observation. Silo starts in observation mode: it counts connections and records when a threshold would refuse one, while still accepting connections beyond it. These thresholds don't enforce a connection limit or protect the server from too many sockets.
 
-To change a threshold, set it in the environment of the Silo API process and restart that process. With Docker, add it to `environment` on the `silo` service in a Compose override; adding it to `.env` alone doesn't pass it to the container.
+To change a threshold, set it in the environment of the Silo API process and restart that process. With Docker, set it in `.env`, then recreate the container with `docker compose up -d`.
 
 | Variable | Default | Observation threshold |
 | --- | --- | --- |
