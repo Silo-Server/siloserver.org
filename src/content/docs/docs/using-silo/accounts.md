@@ -39,8 +39,10 @@ you are.
 
 [Jellyfin-compatible apps](/docs/jellyfin-apps) appear in the list too, and
 signing one out ends only that app.
-[Audiobookshelf-compatible apps](/docs/audiobookshelf) don't appear; a reset
-link signs them out (see [Forgot your password?](#forgot-your-password)).
+[Audiobookshelf-compatible apps](/docs/audiobookshelf) don't appear. To sign
+them out, [change your password](#change-your-password) with **Sign out of
+other devices** ticked, or use a reset link (see
+[Forgot your password?](#forgot-your-password)).
 API keys aren't sessions.
 
 ## Switch to another server
@@ -56,14 +58,19 @@ Only the [primary profile](/docs/profiles) can change the account password.
 
 1. In the web app, switch to the primary profile.
 2. Open **Settings > Account**.
-3. Enter your current password and the new one twice, then select
-   **Change password**.
+3. Enter your current password and the new one twice.
+4. To sign out everywhere else at the same time, tick **Sign out of other
+   devices**. Leave it unticked to keep your other devices signed in.
+5. Select **Change password**.
 
 If **Local password changes are unavailable** appears, your account signs in
 through another provider; change the password there.
 
-Changing the password here keeps your other devices signed in. To sign every
-device out, use a reset link instead (below).
+Ticking **Sign out of other devices** signs out every other browser and app on
+your account, including [Jellyfin-compatible apps](/docs/jellyfin-apps) and
+[Audiobookshelf-compatible apps](/docs/audiobookshelf), and they sign in again
+with the new password. The browser you're using stays signed in, and
+[API keys](/docs/api-keys) keep working.
 
 If you were given a temporary password, sign in through the web app first and
 choose a new password when asked. Then use it in your other apps.
@@ -135,10 +142,15 @@ on the lost device's row (see
 [See where you're signed in](#see-where-youre-signed-in)). Your other devices
 stay signed in, and the password stays the same.
 
-To sign out every device and change the password, request a reset link with
-**Forgot password?** (see above) and choose a new password. A private browser
-window works if you're signed in on that computer. Every device, including the
+To sign out every other device and change the password, tick **Sign out of
+other devices** when you [change your password](#change-your-password). The
+browser you're using stays signed in, and every other device, including the
 lost one, is signed out.
+
+If you can't sign in, or don't know the current password, request a reset link
+with **Forgot password?** (see above) and choose a new password. A private
+browser window works if you're signed in on that computer. Every device,
+including the lost one, is signed out.
 
 Your server administrator can also sign the device out, or sign your account
 out everywhere, from your account in **Admin > Users**. After a reset or
