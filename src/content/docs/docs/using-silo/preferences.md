@@ -24,8 +24,11 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Home Screen:** which rows appear on Home and in what order.
 - **Title Pages:** title art, theme music, spoilers, and advisory ages on
   movie and show pages.
-- **Navigation & Cards** and **Accessibility:** how the web app looks. These
-  don't change the native apps.
+- **Navigation & Cards:** poster size, shortcuts and badges on posters, and
+  the links in your menu. The mobile and TV apps show your
+  [badges](#choose-badges-on-posters) too.
+- **Accessibility:** how the web app looks. It doesn't change the native
+  apps.
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
@@ -106,6 +109,42 @@ short test or from playback, rather than a full measurement.
 
 Speed tests don't run on mobile data or a metered network. There the group
 says that tests are skipped, and **Test speed** is hidden.
+
+## Choose badges on posters
+
+Badges are the small labels on posters, such as `4K` or a rating. To choose
+them, open **Settings > Navigation & Cards** and go to **Badges**:
+
+1. Turn on **Show badges on posters**, and pick a look under **Style**.
+2. Open a group such as **Media Info** or **Ratings & Certifications**, and
+   turn on the badges you want.
+3. To move or recolor a badge that's on, select **Adjust** beside it and
+   choose a **Position** and **Color**.
+
+The preview beside the settings, or above them in a narrow window, updates as
+you go. Badges belong to your profile, so the mobile and TV apps show them
+too. Until you change anything, you see your server's defaults; **Reset
+badges** takes you back to them.
+
+### Combine resolution, HDR, and audio in one badge
+
+**Resolution**, **HDR / Dolby Vision**, and **Audio Codec** under **Media
+Info** are on by default, so a 4K Dolby Vision movie with DTS-HD audio gets
+three badges: `4K`, `DV HDR10`, and `DTS-HD`. To use less of the poster, turn
+on a combined badge. Both are off by default:
+
+- **Resolution + HDR (combined)** shows one badge such as `4K DV` in place of
+  **Resolution** and **HDR / Dolby Vision**. Audio keeps its own badge.
+- **Resolution + HDR + Audio (combined)** shows one badge such as
+  `4K DV DTS-HD` in the web app, the iPhone, iPad, Apple TV, and Mac apps, and
+  the Android phone, tablet, and TV apps, in place of **Resolution**, **HDR / Dolby Vision**, **Audio Codec**, and
+  **Resolution + HDR (combined)**. A file
+  without HDR shows only its resolution and audio, such as `4K DTS-HD`.
+
+While a combined badge is on, the badges it replaces stay hidden, and their
+rows say so, for example "Hidden while the combined Resolution + HDR + Audio
+badge is on." They keep their own setting, so turning the combined badge off
+brings them back.
 
 ## Change one device
 
