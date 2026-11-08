@@ -68,8 +68,15 @@ can add options of its own, which appear in the same list.
 
 Select **Sync now** to sync straight away. The connection card shows when
 it last imported and exported, how many items transferred, and any error.
-Titles that aren't in your Silo libraries, or that the provider can't match,
-don't transfer.
+A title you watched that isn't in your Silo libraries yet is marked watched on
+the first sync after it's added. Titles the provider can't match don't
+transfer.
+
+From Simkl, a show on your completed list counts as finished. Silo marks the
+episodes in your libraries that had aired by the time you finished it, and
+marks episodes added later as they arrive. Specials stay unwatched, because
+Simkl doesn't count them. A finished anime movie imports too. A finished anime
+season that Simkl lists without its episodes doesn't.
 
 If the provider stops accepting your sign-in, for example after you revoke
 Silo's access in your provider account, the card shows the error on every
