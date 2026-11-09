@@ -330,7 +330,7 @@ export const faq = [
   },
   {
     q: "What's the release status?",
-    a: "Silo is in prerelease on its way to 1.0. The server is updated often. The Apple app is on the App Store, with a TestFlight beta for faster updates, and the Android app is in beta on Google Play.",
+    a: "Silo is in prerelease on its way to 1.0. The server is updated often. The Apple app is on the App Store, and the Android app is in beta on Google Play.",
   },
   {
     q: "Is Silo free?",
