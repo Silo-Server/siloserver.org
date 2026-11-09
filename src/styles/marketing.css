@@ -1462,12 +1462,14 @@ html:not(.js) .rotator__word:not(:first-child) {
   padding: 0 16px;
   font-size: 14px;
 }
-.dl-app__alt {
-  margin: 14px 0 0;
-  font-size: 14px;
+.dl-app__note {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
   color: var(--fg-mute);
 }
-.dl-app__alt a {
+.dl-app__note a {
   display: block;
   width: fit-content;
   margin-top: 4px;
@@ -1477,15 +1479,8 @@ html:not(.js) .rotator__word:not(:first-child) {
   text-underline-offset: 3px;
   transition: text-decoration-color 0.2s;
 }
-.dl-app__alt a:hover {
+.dl-app__note a:hover {
   text-decoration-color: currentColor;
-}
-.dl-app__note {
-  margin: 18px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-size: 13px;
-  color: var(--fg-mute);
 }
 .dl-app--web .dl-app__body {
   margin-bottom: auto;
