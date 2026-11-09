@@ -40,6 +40,11 @@ const icons: Record<string, string> = {
               ))}
             </div>
           )}
+          {app.altLink && (
+            <p class="dl-app__alt">
+              {app.altLink.lead} <a href={app.altLink.href} rel="noopener">{app.altLink.label}</a>
+            </p>
+          )}
           {app.note && <p class="dl-app__note">{app.note}</p>}
         </article>
       ))

@@ -15,6 +15,8 @@ export interface AppEntry {
   status: string;
   body: string;
   links: StoreLink[];
+  /** A secondary option shown as a text link under the buttons. */
+  altLink?: { lead: string; label: string; href: string };
   note?: string;
 }
 
@@ -24,11 +26,13 @@ export const apps: AppEntry[] = [
     devices: "Apple TV · iPhone · iPad",
     name: "Silo for Apple devices",
     status: "On the App Store",
-    body: "One app for Apple TV, iPhone, and iPad. Install Silo Media Player from the App Store on each device. The TestFlight beta gets new features and fixes sooner, before they reach the App Store.",
-    links: [
-      { label: "App Store", href: "https://apps.apple.com/us/app/silo-media-player/id6784878771", primary: true },
-      { label: "Join the TestFlight", href: "https://testflight.apple.com/join/XZy8cu5q" },
-    ],
+    body: "One app for Apple TV, iPhone, and iPad. Install Silo Media Player from the App Store on each device.",
+    links: [{ label: "App Store", href: "https://apps.apple.com/us/app/silo-media-player/id6784878771", primary: true }],
+    altLink: {
+      lead: "Want new features and fixes sooner?",
+      label: "Join the TestFlight beta",
+      href: "https://testflight.apple.com/join/XZy8cu5q",
+    },
     note: "Macs with Apple silicon can run the iPhone and iPad app. A native Mac app is also in beta.",
   },
   {
