@@ -29,7 +29,7 @@ export const apps: AppEntry[] = [
     body: "One app for Apple TV, iPhone, and iPad. Install Silo Media Player from the App Store on each device.",
     links: [{ label: "App Store", href: "https://apps.apple.com/us/app/silo-media-player/id6784878771", primary: true }],
     altLink: {
-      lead: "Want new features and fixes sooner?",
+      lead: "Want to test the latest before release?",
       label: "Join the TestFlight beta",
       href: "https://testflight.apple.com/join/XZy8cu5q",
     },
