@@ -40,7 +40,12 @@ const icons: Record<string, string> = {
               ))}
             </div>
           )}
-          {app.note && <p class="dl-app__note">{app.note}</p>}
+          {app.note && (
+            <p class="dl-app__note">
+              {app.note}
+              {app.noteLink && <a href={app.noteLink.href} rel="noopener">{app.noteLink.label}</a>}
+            </p>
+          )}
         </article>
       ))
     }
