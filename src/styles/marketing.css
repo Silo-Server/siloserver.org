@@ -1468,6 +1468,9 @@ html:not(.js) .rotator__word:not(:first-child) {
   color: var(--fg-mute);
 }
 .dl-app__alt a {
+  display: block;
+  width: fit-content;
+  margin-top: 4px;
   color: var(--fg);
   text-decoration: underline;
   text-decoration-color: rgba(255, 255, 255, 0.35);
