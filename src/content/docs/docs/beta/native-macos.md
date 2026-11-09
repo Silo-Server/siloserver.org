@@ -2,7 +2,7 @@
 slug: docs/native-macos
 beta: true
 title: Native macOS app (Beta)
-description: Build the native Mac app from source and use its video player.
+description: Install the native Mac app from TestFlight and use its video player.
 ---
 
 :::caution[Beta]
@@ -10,17 +10,22 @@ This feature is in Beta and may change or be removed in a future release.
 :::
 
 SiloMac is a native Mac app with a desktop sidebar and its own video player.
-It isn't published: there's no download, and you build it yourself from the
-source code.
+It needs macOS 26 or later.
 
-For a ready-made option on a Mac, use the iPhone/iPad app on a Mac with
-Apple silicon, or open your server in a browser.
+## Install the app
 
-## Build the app
+SiloMac is in the [Silo TestFlight beta](/docs/choose-an-app#testflight-beta),
+not on the App Store. Install Apple's TestFlight app on your Mac, open the
+[Silo TestFlight invitation](https://testflight.apple.com/join/XZy8cu5q),
+accept it, then select **Install**.
 
-SiloMac needs macOS 26 or later. To build it you need Xcode 26 or later and
-XcodeGen. The [Silo Apple repository](https://github.com/Silo-Server/silo-apple#build)
-has the build steps and a **SiloMac** Xcode scheme.
+On a Mac without macOS 26, open your server in a browser instead.
+
+### Build from source
+
+To build SiloMac yourself you need Xcode 26 or later and XcodeGen. The
+[Silo Apple repository](https://github.com/Silo-Server/silo-apple#build) has
+the build steps and a **SiloMac** Xcode scheme.
 
 ## Watch a movie or episode
 
