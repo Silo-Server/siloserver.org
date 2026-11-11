@@ -22,6 +22,23 @@ the original file from the web app](#save-a-file-on-a-computer).
    first, so the transfer can take longer to start.
 4. Play the title from **Downloads** for a moment before you leave home.
 
+## Download a season or all episodes
+
+On iPhone and iPad, you can save a whole season or every episode of a show in
+one go.
+
+1. Open the show and pick the season you want.
+2. Tap **Download** next to **Watchlist**.
+3. Under **One Time**, choose the season, such as **Season 2**, or **All
+   Episodes**.
+4. Pick a **Quality** if you don't want your default, then tap **Download**.
+
+Each episode follows the **Version** shown on the show's page. If the page
+shows a 1080p SDR version, for example, each episode gets its own version
+closest to that one. Episodes already on your device keep the file they have,
+so downloading the season again with another version adds only the episodes
+you don't have yet.
+
 ## Choose a quality
 
 **Original** saves the file as it is on the server. If your device can't play
@@ -38,7 +55,11 @@ If the list shows only **Original**, your account can't create converted
 downloads or the server doesn't convert video. A 4K title can be saved at a
 smaller quality only when the server [allows 4K
 transcoding](/docs/playback#allow-4k-and-hevc-output); otherwise, choose
-**Original**. Series and season downloads always use **Original**.
+**Original**.
+
+When you download a season or **All Episodes**, the quality you pick applies
+to every episode. Episodes the server can't convert to that quality are
+skipped.
 
 ## Watch and manage downloads
 
