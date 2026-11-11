@@ -133,7 +133,7 @@ import Default from '@astrojs/starlight/components/Search.astro';
 
     const update = async (query: string, run: number) => {
       const [engine, counts] = await Promise.all([loadPagefind(), loadWordCounts()]);
-      const { plan, results } = await searchDocs(engine.search, query, counts);
+      const { plan, results, complete } = await searchDocs(engine.search, query, counts);
       if (run !== generation) return;
 
       const notes: HTMLElement[] = [];
@@ -153,9 +153,7 @@ import Default from '@astrojs/starlight/components/Search.astro';
         help = helpNote('Try fewer or more general words, or ');
       } else {
         const count = `${results.length} ${results.length === 1 ? 'page' : 'pages'}`;
-        // Results are ranked by score, so when the best one lacks some of the
-        // words, none has all of them.
-        const partial = results[0].missing.length > 0;
+        const partial = !complete;
         message = el(
           'p',
           'pagefind-ui__message',

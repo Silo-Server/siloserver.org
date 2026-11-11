@@ -120,6 +120,22 @@ test("searchDocs counts words left out of the search as missing", async () => {
   ]);
 });
 
+test("searchDocs reports a complete match even when a partial one ranks first", async () => {
+  // "strong" matches two words well; "full" matches all three weakly.
+  const scores = { watch: { strong: 10, full: 1 }, outside: { strong: 10, full: 1 }, home: { full: 1 } };
+  const search = async (term) => ({
+    results: Object.entries(scores[term] ?? {}).map(([id, score]) => ({ id, score })),
+  });
+  const words = { watch: 1, outside: 1, home: 1 };
+  const { results, complete } = await searchDocs(search, "watch outside home", words);
+  assert.deepEqual(results.map(({ result, missing }) => [result.id, missing]), [
+    ["strong", ["home"]],
+    ["full", []],
+  ]);
+  assert.equal(complete, true);
+  assert.equal((await searchDocs(search, "watch zebra", words)).complete, false, "a left-out word is missing everywhere");
+});
+
 test("searchDocs leaves out pages far weaker than the best match", async () => {
   const weak = async (term) => ({
     results: term === "watch" ? [{ id: "a", score: 10 }] : [{ id: "a", score: 10 }, { id: "z", score: 1 }],

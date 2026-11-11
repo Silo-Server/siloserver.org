@@ -209,12 +209,14 @@ const WEAK_MATCH = 0.25;
  * Run a query against Pagefind, one word at a time, and rank the pages with
  * rankPages. `search` is Pagefind's `search`. Each result is Pagefind's result
  * for the page's strongest word, so its excerpt and sections show that word.
- * Returns { plan, results: [{ result, missing }] }; `missing` includes words
- * left out of the search.
+ * Returns { plan, results: [{ result, missing }], complete }: `missing`
+ * includes words left out of the search, and `complete` says whether any
+ * result has every word. A partial match can outrank a complete one, so the
+ * first result alone doesn't tell.
  */
 export async function searchDocs(search, query, counts) {
   const plan = planQuery(query, counts);
-  if (!plan.terms.length) return { plan, results: [] };
+  if (!plan.terms.length) return { plan, results: [], complete: false };
   const matches = await Promise.all(plan.terms.map(async (term) => (await search(term)).results));
   const ranked = rankPages(plan.terms, matches);
   // Pages far below the best one only mention a common word in passing.
@@ -225,5 +227,5 @@ export async function searchDocs(search, query, counts) {
       result: matches[strongest].find((result) => result.id === id),
       missing: [...missing, ...plan.unknown],
     }));
-  return { plan, results };
+  return { plan, results, complete: results.some(({ missing }) => !missing.length) };
 }
