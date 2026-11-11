@@ -1,6 +1,7 @@
 ---
 import Default from '@astrojs/starlight/components/MarkdownContent.astro';
 import { docsRelease } from '../../data/docs-release.mjs';
+import HeadingLinkCopy from './HeadingLinkCopy.astro';
 
 const { requires } = Astro.locals.starlightRoute.entry.data;
 const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android app' };
@@ -16,6 +17,7 @@ const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android ap
   </p>}
   <slot />
 </Default>
+<HeadingLinkCopy />
 
 <style>
   .docs-baseline { font-size: 0.875rem; margin-bottom: 1.5rem; }
