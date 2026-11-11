@@ -1,5 +1,7 @@
 ---
 slug: docs/server-health
+keywords: ["server won't start", "not starting", "slow server", "high CPU", "high memory", "scan stuck", "crash"]
+questions: ["Why does docker compose ps show Silo as unhealthy?", "How do I tell if Silo is up and ready?", "Why are streams slow for friends watching remotely?", "Why does the ready check say degraded?"]
 title: Check server health
 description: Find whether a problem comes from startup, storage, scanning, or playback.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/native-macos
+keywords: ["desktop app", "MacBook", "iMac", "macOS Tahoe", "hotkeys", "keybindings"]
+questions: ["Is there a Silo app for Mac?", "How do I install the Mac app from TestFlight?", "What keyboard shortcuts work in the Mac player?", "Which macOS version does the Mac app need?"]
 beta: true
 title: Native macOS app (Beta)
 description: Install the native Mac app from TestFlight and use its video player.

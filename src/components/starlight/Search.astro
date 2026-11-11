@@ -1,0 +1,324 @@
+---
+// Starlight's search dialog with friendlier matching. Pagefind alone returns
+// only pages containing every query word, so "how do I watch outside my
+// house" finds nothing. This keeps Pagefind's search box and index but builds
+// the result list itself (src/scripts/search-words.mjs): it drops filler
+// words, corrects misspellings, sets aside words no page uses, and ranks pages
+// by how well they match each word, so a page can rank without every word.
+import Default from '@astrojs/starlight/components/Search.astro';
+---
+
+<Default {...Astro.props} />
+
+<script>
+  import { searchDocs } from '../../scripts/search-words.mjs';
+
+  type SubResult = { title: string; url: string; excerpt: string; locations: number[] };
+  type PageData = { url: string; excerpt: string; meta: { title?: string; summary?: string }; sub_results?: SubResult[] };
+  type PagefindResult = { id: string; score: number; data: () => Promise<PageData> };
+  type Pagefind = { search: (term: string) => Promise<{ results: PagefindResult[] }> };
+
+  const PAGE_SIZE = 6;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+  // The module Pagefind's UI already loaded, so both share one index.
+  let pagefind: Promise<Pagefind> | undefined;
+  const loadPagefind = () => (pagefind ??= import(/* @vite-ignore */ `${base}/pagefind/pagefind.js`));
+  let wordCounts: Promise<Record<string, number>> | undefined;
+  const loadWordCounts = () =>
+    (wordCounts ??= fetch(`${base}/search-words.json`)
+      .then((response) => (response.ok ? response.json() : {}))
+      .catch(() => ({})));
+
+  // Pagefind links to the built file (`/page.html`) and to the title as `#_top`.
+  const tidyURL = (url: string) => url.replace(/#_top$/, '').replace(/\.html(?=[?#]|$)/, '');
+
+  const el = <K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  };
+
+  const link = (title: string, url: string) => {
+    const paragraph = el('p', 'pagefind-ui__result-title');
+    const anchor = el('a', 'pagefind-ui__result-link', title);
+    anchor.href = url;
+    paragraph.append(anchor);
+    return paragraph;
+  };
+
+  const excerpt = (html: string) => {
+    const paragraph = el('p', 'pagefind-ui__result-excerpt');
+    // Pagefind escapes page text; the only markup is <mark> around matches.
+    paragraph.innerHTML = html;
+    return paragraph;
+  };
+
+  // One page, laid out like Pagefind's own results: the page, then up to
+  // three of its sections with the most matches for the page's strongest word.
+  const renderResult = async (result: PagefindResult, missing: string[]) => {
+    const data = await result.data();
+    const page = tidyURL(data.url);
+    const sections = data.sub_results ?? [];
+    const top = sections.find((section) => tidyURL(section.url) === page);
+    const others = sections.filter((section) => section !== top);
+    const best = new Set(
+      [...others].sort((a, b) => b.locations.length - a.locations.length).slice(0, 3),
+    );
+
+    const item = el('li', 'pagefind-ui__result');
+    const inner = el('div', 'pagefind-ui__result-inner');
+    inner.append(link(data.meta.title ?? page, page));
+    // The top of the page starts with its hidden search keywords, so show the
+    // page summary there rather than an excerpt of keywords.
+    if (data.meta.summary && (top || !best.size)) inner.append(el('p', 'pagefind-ui__result-excerpt', data.meta.summary));
+    else if (top || !best.size) inner.append(excerpt(top?.excerpt ?? data.excerpt));
+    for (const section of others.filter((section) => best.has(section))) {
+      const nested = el('div', 'pagefind-ui__result-nested');
+      nested.append(link(section.title, tidyURL(section.url)), excerpt(section.excerpt));
+      inner.append(nested);
+    }
+    if (missing.length) inner.append(el('p', 'silo-search-missing', `Missing: ${missing.join(', ')}`));
+    item.append(inner);
+    return item;
+  };
+
+  const root = document.getElementById('starlight__search');
+  if (root && !import.meta.env.DEV) {
+    // The count and notes are announced to screen readers; the list isn't.
+    const status = el('div', 'silo-search-status');
+    status.setAttribute('role', 'status');
+    const list = el('ol', 'pagefind-ui__results');
+    const more = el('button', 'pagefind-ui__button', 'Load more results');
+    more.type = 'button';
+    more.hidden = true;
+    const area = el('div', 'silo-search-results');
+    area.append(status, list, more);
+
+    // Every input and reset starts a new generation; work from an older one
+    // stops before it changes the page.
+    let generation = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let loadMore: (() => Promise<void>) | undefined;
+
+    const reset = () => {
+      generation++;
+      clearTimeout(timer);
+      loadMore = undefined;
+      root.classList.remove('silo-search-active');
+      area.removeAttribute('aria-busy');
+      status.replaceChildren();
+      list.replaceChildren();
+      more.hidden = true;
+    };
+
+    // When this script fails, show Pagefind's own results instead of ours.
+    const fallBack = (run: number) => {
+      if (run !== generation) return;
+      reset();
+    };
+
+    const note = (...content: (string | Node)[]) => {
+      const paragraph = el('p', 'silo-search-note');
+      paragraph.append(...content);
+      return paragraph;
+    };
+
+    const helpNote = (lead: string) => {
+      const helpLink = el('a', '', 'Find help');
+      helpLink.href = `${base}/docs/help`;
+      return note(lead, helpLink, '.');
+    };
+
+    const update = async (query: string, run: number) => {
+      const [engine, counts] = await Promise.all([loadPagefind(), loadWordCounts()]);
+      const { plan, results } = await searchDocs(engine.search, query, counts);
+      if (run !== generation) return;
+
+      const notes: HTMLElement[] = [];
+      if (plan.corrections.length) {
+        const typed = plan.corrections.map(([from]) => `“${from}”`).join(', ');
+        notes.push(note('Showing results for ', el('strong', '', plan.terms.join(' ')), ` instead of ${typed}.`));
+      }
+      if (plan.unknown.length) {
+        const left = plan.unknown.map((word) => `“${word}”`).join(', ');
+        notes.push(note(`Left out ${left}, which these docs don't seem to use.`));
+      }
+
+      let message: HTMLElement;
+      let help: HTMLElement | undefined;
+      if (!results.length) {
+        message = el('p', 'pagefind-ui__message', `No results for “${query}”.`);
+        help = helpNote('Try fewer or more general words, or ');
+      } else {
+        const count = `${results.length} ${results.length === 1 ? 'page' : 'pages'}`;
+        // Results are ranked by score, so when the best one lacks some of the
+        // words, none has all of them.
+        const partial = results[0].missing.length > 0;
+        message = el(
+          'p',
+          'pagefind-ui__message',
+          partial ? `No page matches all of your words. ${count} match some of them.` : `${count} for “${plan.terms.join(' ')}”`,
+        );
+        if (partial) help = helpNote('If none of these fit, ');
+      }
+
+      // Render a page of results at a time, as Pagefind does.
+      let shown = 0;
+      const showMore = async () => {
+        const batch = results.slice(shown, shown + PAGE_SIZE);
+        const items = await Promise.all(batch.map(({ result, missing }) => renderResult(result, missing)));
+        if (run !== generation) return;
+        // The first batch replaces the previous query's results in one step.
+        if (shown) list.append(...items);
+        else list.replaceChildren(...items);
+        shown += batch.length;
+        more.hidden = shown >= results.length;
+        return items[0];
+      };
+      await showMore();
+      if (run !== generation) return;
+      status.replaceChildren(...notes, message, ...(help ? [help] : []));
+      loadMore = async () => {
+        const focused = document.activeElement === more;
+        more.disabled = true;
+        try {
+          const item = await showMore();
+          // The button may now be hidden; keep focus in the list.
+          if (focused && item) item.querySelector('a')?.focus();
+        } catch {
+          if (run === generation) status.append(note('Couldn’t load more results. Try again.'));
+        } finally {
+          more.disabled = false;
+        }
+      };
+      area.removeAttribute('aria-busy');
+    };
+
+    more.addEventListener('click', () => loadMore?.());
+
+    root.addEventListener('input', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement) || !target.matches('.pagefind-ui__search-input')) return;
+      const query = target.value.trim();
+      if (!query) return reset();
+      if (!area.isConnected) root.append(area);
+      const run = ++generation;
+      clearTimeout(timer);
+      loadMore = undefined;
+      // Hide Pagefind's own list straight away rather than showing both, and
+      // mark ours as out of date until the new results replace it.
+      root.classList.add('silo-search-active');
+      area.setAttribute('aria-busy', 'true');
+      more.hidden = true;
+      // Match Pagefind's own delay.
+      timer = setTimeout(() => update(query, run).catch(() => fallBack(run)), 300);
+    });
+
+    // Pagefind's Clear button and Escape empty the box without an input
+    // event, and the dialog can close with a query still in it.
+    root.addEventListener('click', (event) => {
+      if ((event.target as Element).closest?.('.pagefind-ui__search-clear')) reset();
+    });
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') reset();
+    });
+    root.closest('dialog')?.addEventListener('close', () => {
+      if (!root.querySelector<HTMLInputElement>('.pagefind-ui__search-input')?.value.trim()) reset();
+    });
+  }
+</script>
+
+<style is:global>
+  /* Pagefind's result styles are scoped to its own markup; these repeat the
+     ones Starlight's search theme builds on. */
+  #starlight__search.silo-search-active .pagefind-ui__drawer {
+    display: none;
+  }
+  #starlight__search .silo-search-results[aria-busy='true'] .pagefind-ui__results {
+    opacity: 0.5;
+  }
+  #starlight__search .silo-search-results {
+    margin-top: calc(20px * var(--pagefind-ui-scale));
+  }
+  #starlight__search .silo-search-results .pagefind-ui__results {
+    padding: 0;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__message {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: calc(20px * var(--pagefind-ui-scale)) 0;
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    font-weight: 700;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result {
+    display: flex;
+    list-style-type: none;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-title {
+    margin: 0;
+    font-size: calc(21px * var(--pagefind-ui-scale));
+    font-weight: 700;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-link {
+    color: var(--pagefind-ui-text);
+    text-decoration: none;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-nested .pagefind-ui__result-link {
+    font-size: 0.9em;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-excerpt {
+    margin: 0;
+    padding: 0 var(--sl-search-result-pad-inline-end) var(--sl-search-result-pad-block)
+      var(--sl-search-result-pad-inline-start);
+    background-color: var(--sl-color-black);
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    font-weight: 400;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-nested .pagefind-ui__result-title {
+    padding: 0;
+    font-size: inherit;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__result-nested .pagefind-ui__result-excerpt {
+    padding: 0;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__button {
+    width: 100%;
+    height: calc(48px * var(--pagefind-ui-scale));
+    margin-top: calc(40px * var(--pagefind-ui-scale));
+    padding: 0 calc(12px * var(--pagefind-ui-scale));
+    border: var(--pagefind-ui-border-width) solid var(--pagefind-ui-border);
+    border-radius: var(--pagefind-ui-border-radius);
+    background: var(--pagefind-ui-background);
+    color: var(--pagefind-ui-primary);
+    font-size: calc(16px * var(--pagefind-ui-scale));
+    font-weight: 700;
+    cursor: pointer;
+  }
+  #starlight__search .silo-search-results .pagefind-ui__button[hidden] {
+    display: none;
+  }
+  #starlight__search .silo-search-note {
+    margin: 0 0 0.5rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+  }
+  #starlight__search .silo-search-note a {
+    color: var(--sl-color-text-accent);
+  }
+  #starlight__search .silo-search-missing {
+    margin: 0;
+    padding: 0 var(--sl-search-result-pad-inline-end) var(--sl-search-result-pad-block)
+      var(--sl-search-result-pad-inline-start);
+    background-color: var(--sl-color-black);
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+  }
+</style>

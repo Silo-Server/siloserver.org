@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-movies-and-series
+keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening"]
+questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?"]
 title: Watch movies and series
 description: Start or resume playback, choose a version and tracks, and move through an episode.
 ---

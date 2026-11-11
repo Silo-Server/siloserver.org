@@ -3,12 +3,22 @@ import Default from '@astrojs/starlight/components/MarkdownContent.astro';
 import { docsRelease } from '../../data/docs-release.mjs';
 import HeadingLinkCopy from './HeadingLinkCopy.astro';
 
-const { requires } = Astro.locals.starlightRoute.entry.data;
+const { requires, keywords, questions, description } = Astro.locals.starlightRoute.entry.data;
 const labels = { server: 'Silo Server', apple: 'Apple app', android: 'Android app' };
+// Search text that isn't in the page body: the summary (shown only in link
+// previews), and the page's search keywords and questions. Indexed as
+// weighted body text, which ranks well above Pagefind metadata, and placed
+// before the first heading so a match links to the top of the page. Because
+// that text would otherwise appear in result excerpts, the search dialog
+// shows the summary (stored as metadata) for the top of the page instead.
+const searchText = [description?.replace(/\.$/, ''), keywords?.join(', ')].filter(Boolean).join('. ');
 ---
 
 <Default>
-  <p class="docs-baseline">{docsRelease.channel === 'prerelease'
+  {searchText && <div hidden data-pagefind-weight="10">{searchText}</div>}
+  {questions?.length ? <div hidden data-pagefind-weight="1">{questions.join(' ')}</div> : null}
+  {description && <div hidden data-pagefind-meta={`summary:${description}`}></div>}
+  <p class="docs-baseline" data-pagefind-ignore>{docsRelease.channel === 'prerelease'
     ? 'Silo is in active development before 1.0. These guides are updated frequently.'
     : `Documentation for Silo Server ${docsRelease.release}.`}</p>
   {requires && <p class="docs-requirements">

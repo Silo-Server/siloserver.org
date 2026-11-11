@@ -1,5 +1,7 @@
 ---
 slug: docs/install
+keywords: ["setup", "getting started", "docker compose", "first install", "new server"]
+questions: ["How do I set up my own media server?", "What do I put in the .env file?", "Why won't Silo start after I lost my secret key?", "Why does the container say unhealthy on first start?"]
 title: Install Silo Server
 description: Start a new server with Docker Compose, add a library, and check playback.
 ---

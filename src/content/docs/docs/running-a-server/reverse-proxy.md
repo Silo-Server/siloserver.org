@@ -1,5 +1,7 @@
 ---
 slug: docs/reverse-proxy
+keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik"]
+questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/configuration
+keywords: ["env vars", "environment variables", "external database", "connection string", "account lockout", "brute force protection", "throttling"]
+questions: ["Which settings go in the .env file?", "Can I use my own existing Postgres or Redis?", "Why do I get 429 too many requests errors?", "How long am I locked out after wrong passwords?"]
 title: Server configuration and dependencies
 description: Know which settings belong in Docker and which belong in the admin app.
 ---

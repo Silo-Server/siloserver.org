@@ -1,5 +1,7 @@
 ---
 slug: docs/single-sign-on
+keywords: ["SSO", "OIDC", "Authentik", "Authelia", "Keycloak", "LDAP", "Active Directory"]
+questions: ["Can people log in with their company account?", "How do I disable normal Silo passwords?", "I turned off passwords and got locked out, how do I get in?", "Why does SSO create a second account for existing users?"]
 title: Set up single sign-on
 description: Let people sign in with your OpenID Connect provider or LDAP directory, and decide whether Silo passwords still work.
 ---

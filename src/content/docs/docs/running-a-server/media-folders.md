@@ -1,5 +1,7 @@
 ---
 slug: docs/media-folders
+keywords: ["file naming", "folder structure", "naming convention", "not showing up", "missing episodes", "TV shows"]
+questions: ["How should I name my TV show episodes?", "Why is my movie matched to the wrong film?", "How do I name subtitle files so they're picked up?", "How do I hide a folder from my library?"]
 title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---

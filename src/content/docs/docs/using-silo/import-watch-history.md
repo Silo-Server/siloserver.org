@@ -1,5 +1,7 @@
 ---
 slug: docs/import-watch-history
+keywords: ["migrate from Plex", "switch from Plex", "move from Jellyfin", "watched history", "transfer watch history"]
+questions: ["Can I keep my watched shows when switching to Silo?", "Why are some titles unmatched after importing?", "Will my Jellyfin favorites and resume points carry over?"]
 title: Import your history from Plex, Jellyfin, or Emby
 description: Bring your own Plex, Jellyfin, or Emby viewing history into a Silo profile.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/preferences
+keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV"]
+questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?"]
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---

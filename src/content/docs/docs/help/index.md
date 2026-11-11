@@ -1,5 +1,7 @@
 ---
 slug: docs/help
+keywords: ["troubleshooting", "not working", "support", "can't log in", "TV not found", "missing movie", "FAQ", "connection failed"]
+questions: ["Where do I get help with Silo?", "My app can't connect to the server, what now?", "Why can't I find a movie that should be in my library?", "Why doesn't my phone see my TV?"]
 title: Find help
 description: Check common connection, sign-in, library, and playback problems.
 ---

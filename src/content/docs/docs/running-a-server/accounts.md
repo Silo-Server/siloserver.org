@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-accounts
+keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password"]
+questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?"]
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---

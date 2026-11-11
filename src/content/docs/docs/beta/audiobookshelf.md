@@ -1,5 +1,7 @@
 ---
 slug: docs/audiobookshelf
+keywords: ["ABS", "ABS app", "audiobook app", "external audiobook app", "audiobook app won't connect", "can't sign in to audiobook app"]
+questions: ["Can I use my Audiobookshelf app with Silo?", "Why does my audiobook app fail to log in?", "How do I pick a different profile in a listening app?", "Which port do audiobook apps connect to?"]
 beta: true
 title: Audiobookshelf-compatible apps (Beta)
 description: Connect a dedicated listening app to Silo's audiobook endpoint.

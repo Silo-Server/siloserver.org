@@ -1,5 +1,7 @@
 ---
 slug: docs/missing-subtitles
+keywords: ["download subtitles", "no subtitles", "subtitles missing", "SRT", "OpenSubtitles"]
+questions: ["There are no subtitles in my language, how do I get them?", "How do I add my own subtitle file?", "Can Silo translate subtitles into another language?", "Why can't I search for subtitles online?"]
 title: Find or add missing subtitles
 description: Search online for subtitles, upload a subtitle file, or create subtitles with AI.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/help-a-user
+keywords: ["impersonate", "impersonation", "log in as user", "support a family member", "troubleshoot a user", "per-device settings", "see their screen", "see what they see", "use their account"]
+questions: ["How do I see exactly what a family member sees?", "Why is a setting different on just one TV?", "Someone's video keeps buffering, how do I check their connection?", "How do I fix someone's home screen rows for them?"]
 title: Help a user and view their account
 description: Inspect settings and device overrides, or use View as user to investigate an account problem.
 ---

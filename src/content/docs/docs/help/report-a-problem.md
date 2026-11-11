@@ -1,5 +1,7 @@
 ---
 slug: docs/report-a-problem
+keywords: ["file a bug", "submit a bug", "crash", "docker logs", "support ticket", "CVE", "security disclosure", "contact developers"]
+questions: ["How do I file a bug report for Silo?", "Where do I report an issue with the Android app?", "How do I get logs from my Docker server?", "How do I report a security vulnerability privately?"]
 title: Report a problem
 description: Share the steps, versions, and evidence needed to investigate a Silo problem.
 ---

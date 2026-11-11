@@ -1,5 +1,7 @@
 ---
 slug: docs/collections
+keywords: ["playlist", "smart playlist", "custom list", "group movies together", "auto-updating list", "share with family", "share with kids"]
+questions: ["How do I group a bunch of movies together?", "Can a collection add new movies on its own?", "Why does my trending list only show a few movies?", "How do I share my collection with my kids' profiles?"]
 title: Browse and organize collections
 description: Open collections, make your own, and share them with the other profiles on your account.
 ---

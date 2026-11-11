@@ -1,5 +1,7 @@
 ---
 slug: docs/tv-sign-in
+keywords: ["log in on TV", "TV code", "Apple TV sign in", "Android TV sign in", "QR code"]
+questions: ["How do I log in on the TV without typing my password?", "Where do I enter the code shown on my TV?", "What do I do if the TV code expired?", "Why doesn't my phone offer to set up the TV?"]
 title: Sign in on your TV
 description: Use a nearby signed-in phone, a browser code, or your password to set up Silo on a TV.
 ---

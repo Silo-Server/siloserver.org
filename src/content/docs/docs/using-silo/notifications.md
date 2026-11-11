@@ -1,5 +1,7 @@
 ---
 slug: docs/notification-inbox
+keywords: ["push notifications", "web push", "not getting notified", "new episode alert", "stop emails", "Discord DM", "remind me", "notify me"]
+questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?"]
 title: Manage your notifications
 description: Choose which events reach you and check browser, mobile, email, or Discord delivery.
 ---

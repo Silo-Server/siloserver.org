@@ -1,5 +1,7 @@
 ---
 slug: docs/profiles
+keywords: ["kids profile", "child profile", "parental controls", "PIN lock", "family members"]
+questions: ["How do I stop my kids watching R-rated movies?", "What do I do if I forgot my profile PIN?", "How do I make the app ask who's watching every time?", "Why can't I add a new profile?"]
 title: Profiles, PINs, and shared devices
 description: Set parental controls, protect profiles with PINs, and choose how a shared device opens Silo.
 ---

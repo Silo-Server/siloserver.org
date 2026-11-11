@@ -1,5 +1,7 @@
 ---
 slug: docs/catalog-seeds
+keywords: ["migrate", "move to a new server", "new hardware", "transfer library", "library export", "clone library", "path mapping", "copy metadata"]
+questions: ["How do I move my library to a new Silo server?", "Can I copy library records from one server to another?", "Media folders have different paths on the new server, what now?"]
 beta: true
 title: Catalog import and export (Beta)
 description: Transfer catalog records between Silo installations with catalog seeds.

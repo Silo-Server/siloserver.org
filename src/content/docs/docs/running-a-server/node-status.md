@@ -1,5 +1,7 @@
 ---
 slug: docs/node-status
+keywords: ["node offline", "node down", "GPU utilization", "Quick Sync", "software encoding", "hwaccel", "worker health", "failover"]
+questions: ["Why does my node say unhealthy?", "Is my node's GPU actually being used?", "What does the amber Drift marker mean?", "When is it safe to shut down a transcode node?"]
 title: Read node status
 description: Understand the state, acceleration, load, and capacity readings in Admin > Playback > Nodes, and the metrics each node exports.
 ---

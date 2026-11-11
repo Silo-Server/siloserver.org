@@ -1,5 +1,7 @@
 ---
 slug: docs/podcasts-and-music
+keywords: ["songs", "music player", "music streaming", "podcast player"]
+questions: ["Can Silo play my music collection?", "Can I subscribe to podcasts in Silo?", "Why is there no music library option?"]
 beta: true
 title: Podcasts and music (Beta)
 description: What Silo does with podcast and music files today.

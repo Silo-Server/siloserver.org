@@ -1,5 +1,7 @@
 ---
 slug: docs/privacy
+keywords: ["phone home", "tracking", "data collection", "outbound connections", "external requests", "personal data"]
+questions: ["Does Silo send my data anywhere?", "Does Silo collect usage analytics or telemetry?", "What does my server share with TMDB?", "Where do crash reports from the app go?"]
 title: Understand where information goes
 description: See which outside services a Silo server contacts, what it sends, and where diagnostic reports go.
 ---

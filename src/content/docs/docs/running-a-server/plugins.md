@@ -1,5 +1,7 @@
 ---
 slug: docs/plugins
+keywords: ["add-ons", "addons", "extensions", "plugin store", "sideload", "manual plugin install", "third-party plugins", "auto-update plugins"]
+questions: ["How do I add extra metadata providers?", "Is it safe to install community plugins?", "How do I install a plugin file I downloaded?", "How do I stop a plugin updating itself?"]
 title: Install and maintain plugins
 description: Find a provider, configure it, and check that it works before relying on it.
 ---

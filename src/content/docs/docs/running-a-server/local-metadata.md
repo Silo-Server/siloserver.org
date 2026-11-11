@@ -1,5 +1,7 @@
 ---
 slug: docs/local-metadata
+keywords: ["sidecar files", "XML metadata", "custom posters", "custom artwork", "TMM", "home movies", "manual metadata", "offline metadata", "sports events"]
+questions: ["How do I use my own posters for home videos?", "Can Silo read my Kodi .nfo files?", "Why aren't my NFO edits showing up?", "How do I add a series that isn't on TMDB?"]
 title: Use local NFO metadata
 description: Supply titles, descriptions, and artwork beside your media files.
 ---

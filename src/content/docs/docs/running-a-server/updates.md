@@ -1,5 +1,7 @@
 ---
 slug: docs/updates
+keywords: ["upgrade", "new version", "update Silo", "latest version", "pull image"]
+questions: ["How do I roll back after a bad upgrade?", "Why is Silo stuck unhealthy after updating?", "How do I switch from separate postgres containers to one?", "Why won't Meilisearch start after updating?"]
 title: Update Silo safely
 description: Back up, pull the new image, and check the server after an update.
 ---

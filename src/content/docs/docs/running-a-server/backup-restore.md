@@ -1,5 +1,7 @@
 ---
 slug: docs/backup-restore
+keywords: ["backup", "restore", "database dump"]
+questions: ["I lost my secret key, can I recover my data?", "What should I save before updating?", "How do I copy the database while Silo is running?"]
 title: Plan and test your backups
 description: Back up the database, encryption key, and files a Silo server needs, and test a restore.
 ---

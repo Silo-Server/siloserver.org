@@ -1,5 +1,7 @@
 ---
 slug: docs/markers
+keywords: ["skip intro", "skip credits", "intro detection", "wrong intro time"]
+questions: ["Why does skip intro appear at the wrong spot?", "Why is there no skip credits button on movies?", "How do I stop marker detection hogging the CPU?", "Can a regular user fix skip times?"]
 title: Find and correct skip markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---

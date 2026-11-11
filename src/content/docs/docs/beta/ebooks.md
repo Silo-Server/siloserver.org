@@ -1,5 +1,7 @@
 ---
 slug: docs/ebooks
+keywords: ["e-book", "e-reader", "read a book", "Kindle", "graphic novels", "comic book reader", "manga reader"]
+questions: ["Can I read ebooks or comics in Silo?", "Does Silo open EPUB, PDF, or CBZ files?", "Why can't I read books on my iPhone?", "How do I add a folder of ebooks to my server?"]
 beta: true
 title: Ebooks and comics (Beta)
 description: Read ebooks, comics, and manga in the web app or on Android phones and tablets, and see which formats each reader opens.

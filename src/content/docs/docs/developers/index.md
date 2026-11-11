@@ -1,5 +1,7 @@
 ---
 slug: docs/developers
+keywords: ["source code", "open source", "GitHub repo", "contribute code", "developer docs"]
+questions: ["Where do I start building an integration?", "Where is the source code for Silo?", "Which GitHub repo has the Android app code?"]
 title: Build with Silo
 description: Start an API integration, build a plugin, or find the code repository for your change.
 ---

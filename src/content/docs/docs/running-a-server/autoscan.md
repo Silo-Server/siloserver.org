@@ -1,5 +1,7 @@
 ---
 slug: docs/autoscan
+keywords: ["new files not showing", "new episodes not showing up", "new movies not showing up", "library not updating", "auto refresh", "scan library", "Sonarr", "Radarr", "network share", "NFS", "SMB"]
+questions: ["Why do new downloads only show up the next day?", "How do I make Sonarr tell Silo about new episodes?", "What does watch limit reached mean?", "Why is an old show still listed after renaming its folder?"]
 title: Keep libraries up to date
 description: Let Silo watch library folders on local disks, connect autoscan sources for network shares, and check that changed files reach the library.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/home-and-calendar
+keywords: ["front page", "main screen", "release schedule", "air date", "coming soon", "what to watch next", "rearrange rows", "personalized picks"]
+questions: ["When does the next episode of my show come out?", "Why are my recommendations empty?", "How do I hide rows on my home screen?", "How do I make new episodes show up first in Continue Watching?"]
 title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
