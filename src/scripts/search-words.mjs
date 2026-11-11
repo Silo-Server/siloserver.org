@@ -23,16 +23,18 @@ const cut = (word, ending, replacement = "") => {
 /**
  * A rough stem, so forms of one word compare equal: "see" and "sees",
  * "setting" and "settings", "upgrade" and "upgrading", "reset" and
- * "resetting", "movie" and "movies". Pagefind stems its index, so a form the
- * docs never use can still match; the word list has to treat it as a real
- * word too. It stays close to Pagefind's stemmer so different words keep
- * different stems ("move" and "movie").
+ * "resetting", "movie" and "movies", "study" and "studies". Pagefind stems
+ * its index, so a form the docs never use can still match; the word list has
+ * to treat it as a real word too. It stays close to Pagefind's stemmer so
+ * different words keep different stems ("move" and "movie").
  */
 export function stem(word) {
   if (word.length < 4) return word;
   let root = cut(word, /ies$/, "i");
   root = cut(root, /(?<!s)s$/);
   root = cut(root, /(?:ing|ed)$/);
+  // "study" matches "studies" and "studying"; "play" keeps its y.
+  root = root.replace(/([^aeiou])y$/, "$1i");
   root = cut(root, /e$/);
   return cut(root, /([^aeiou])\1$/, "$1");
 }

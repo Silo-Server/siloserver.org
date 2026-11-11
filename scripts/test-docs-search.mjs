@@ -67,6 +67,10 @@ test("stem gives forms of one word the same root", () => {
     ["configure", "configuring"],
     ["cache", "caching"],
     ["hog", "hogging"],
+    ["study", "studies"],
+    ["study", "studying"],
+    ["reply", "replied"],
+    ["play", "playing"],
   ];
   for (const [a, b] of pairs) assert.equal(stem(a), stem(b), `${a} and ${b}`);
   assert.equal(stem("moving"), stem("move"));
