@@ -1,5 +1,7 @@
 ---
 slug: docs/timeline-previews
+keywords: ["trickplay", "preview thumbnails", "scrubbing", "scrub bar", "seek bar thumbnails"]
+questions: ["How do I see thumbnails when scrubbing through a video?", "Why don't I see a picture when I drag the progress bar?", "How do I turn on preview images for skipping ahead?"]
 beta: true
 title: Timeline previews (Beta)
 description: Preview a position while seeking, in the web app and on Apple and Android devices.

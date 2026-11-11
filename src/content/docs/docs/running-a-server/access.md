@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-access
+keywords: ["permissions", "user groups", "restrict libraries", "hide library", "parental restrictions"]
+questions: ["How do I let guests see only some libraries?", "How do I limit how many people stream at once?", "Why did changing someone's group do nothing?", "How do I cap download speed for my users?"]
 title: Set access and limits
 description: Give people the right libraries and permissions without editing every account separately.
 ---

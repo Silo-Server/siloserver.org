@@ -1,5 +1,7 @@
 ---
 slug: docs/choose-an-app
+keywords: ["download app", "iPhone app", "Android app", "Apple TV app", "Google TV", "TestFlight", "APK"]
+questions: ["My friend invited me to their server, what do I download?", "How do I get Silo on my Apple TV?", "How do I install it on Android without the Play Store?", "Why does Android say signing certificate mismatch?"]
 title: Choose an app
 description: Pick a Silo app for your screen, then connect to your server.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/docker
+keywords: ["docker run", "container", "ports", "Unraid", "Portainer", "image tag"]
+questions: ["How do I keep Silo on one version instead of latest?", "How do I change the port if it's already taken?", "Why don't the apps find my server automatically?", "Why won't the container start after a Postgres upgrade?"]
 title: Docker deployment reference
 description: Understand Silo's image, ports, mounts, and optional search service, and other ways to run it.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/build-a-plugin
+keywords: ["plugin development", "develop a plugin", "Golang", "cross-compile", "GOOS", "GOARCH", "exec format error", "submit a plugin"]
+questions: ["How do I write my own Silo plugin?", "How do I test a plugin safely?", "Why won't my plugin binary run on the server?", "How do I get my plugin into the community catalog?"]
 title: Build your first plugin
 description: Start from a small SDK example, inspect its manifest, and test it on a disposable server.
 ---

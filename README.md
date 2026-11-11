@@ -118,6 +118,35 @@ only in the Beta sidebar group. Their flat URLs do not change when they graduate
 The build validates slugs, navigation coverage, Beta placement, version fields,
 the shared baseline, links, and the retained published redirects.
 
+### Search
+
+Docs search uses Pagefind's index with a custom results list
+(`src/components/starlight/Search.astro`). The list drops filler words,
+corrects misspellings against the words the docs use, and ranks pages by how
+well they match each word, so a page can rank without containing every word.
+
+Two optional frontmatter fields add search text that readers don't see. Search
+indexes them with the page description.
+
+- `keywords`: words readers search for that the page doesn't use itself, such
+  as product names, symptoms, and everyday wording
+  (`keywords: ["GPU", "NVIDIA", "Quick Sync"]`).
+- `questions`: two to four short questions the page answers, in a reader's
+  own words (`questions: ["What should I save before updating?"]`).
+
+Add only what the page actually covers: a keyword or question must not suggest
+support the page doesn't describe. When you change what a page covers, update
+both fields. Prefer specific terms; a broad one pulls searches away from better
+pages.
+
+The build runs the queries in `scripts/search-queries.json` against the built
+search and fails when one doesn't find its expected page in the top three
+results. Run it alone with `bun run test:search` after `bun run build`. Add a
+query when you fix a search that didn't work. A query that doesn't work yet
+can carry `"knownMiss": "<why>"`; the check lists it without failing. When it
+starts passing, the check fails until you remove `knownMiss`, so the fix stays
+protected.
+
 See [the manual review](docs/review-manual-integration.md) for source revisions,
 executed checks, and procedures still awaiting hands-on validation. The
 [feature map](docs/manual-feature-coverage.md) links the 35 milestone features

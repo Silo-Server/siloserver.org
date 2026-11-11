@@ -1,5 +1,7 @@
 ---
 slug: docs/monitoring
+keywords: ["observability", "server stats", "performance graphs", "time series", "alerting rules", "out of memory", "uptime monitoring"]
+questions: ["How do I get Silo stats into Grafana?", "Is there a metrics endpoint Prometheus can scrape?", "Why does /metrics return 404?", "What should I check when a Silo alert goes off?"]
 title: Monitor Silo with Prometheus
 description: Scrape Silo's metrics on a private network, load the example alerts and dashboard, and know what to check when an alert fires.
 ---

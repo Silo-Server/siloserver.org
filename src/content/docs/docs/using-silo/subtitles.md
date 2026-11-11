@@ -1,5 +1,7 @@
 ---
 slug: docs/subtitles
+keywords: ["captions", "CC", "subtitle size", "subtitle delay", "subtitles out of sync"]
+questions: ["How do I turn subtitles on while watching?", "How do I make the subtitle text larger?", "Why do subtitles show up before people speak?", "What does it mean when a subtitle doesn't match the video?"]
 title: Choose and adjust subtitles
 description: Pick a subtitle track, change how subtitles look, or fix subtitles that are out of sync.
 ---

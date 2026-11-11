@@ -1,5 +1,7 @@
 ---
 slug: docs/beta
+keywords: ["experimental", "early access", "preview features", "unreleased features"]
+questions: ["What's still experimental in Silo?", "Which apps have the newer features?", "I saw a feature that isn't in the main guides, where is it?"]
 beta: true
 title: Beta features
 description: Look up a feature you saw in Silo that isn't part of the 1.0 release, and see which apps have it.

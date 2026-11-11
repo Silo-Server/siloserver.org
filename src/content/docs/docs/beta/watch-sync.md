@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-sync
+keywords: ["tracking service", "track what I watch", "watched status sync", "two-way sync", "external watchlist", "rate movies"]
+questions: ["How do I sync my watch history with Simkl?", "Can Silo update my MDBList watchlist?", "Why does my Simkl connection keep showing an error?", "Can Silo report what I'm watching to Simkl?"]
 beta: true
 title: Sync with Simkl or MDBList (Beta)
 description: Connect a profile to Simkl, MDBList, or an installed watch-provider plugin.

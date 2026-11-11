@@ -1,5 +1,7 @@
 ---
 slug: docs/home-sections
+keywords: ["homepage", "front page", "carousel", "featured banner", "spotlight", "hubs", "home layout", "rearrange rows"]
+questions: ["How do I change the rows on the main page?", "How do I add a trending row for everyone?", "Why is the critically acclaimed row empty?", "Can next episodes get their own row?"]
 title: Curate the home screen
 description: Add and arrange the rows everyone sees on Home and library pages.
 ---

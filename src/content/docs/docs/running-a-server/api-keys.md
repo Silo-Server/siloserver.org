@@ -1,5 +1,7 @@
 ---
 slug: docs/api-keys
+keywords: ["API token", "access token", "rotate key", "regenerate key", "remove key", "integration credentials"]
+questions: ["Where do I get a key so another app can connect?", "Can I see an API key again after creating it?", "I leaked a key, how do I cancel it?", "How do I raise the request limit for one integration?"]
 title: Manage API keys
 description: Create an API key for an integration, and replace or revoke it.
 ---

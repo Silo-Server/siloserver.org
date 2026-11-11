@@ -1,5 +1,7 @@
 ---
 slug: docs/requirements
+keywords: ["hardware requirements", "system requirements", "do I need a GPU", "NAS", "Unraid", "Synology", "TrueNAS"]
+questions: ["Do I need a graphics card to run this?", "Can I run it on my NAS without Compose?", "Will the server run on a Windows or Mac computer?", "Should artwork be stored locally or in S3?"]
 title: Requirements and installation options
 description: Choose a server, storage, and deployment before installing Silo.
 ---

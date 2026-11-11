@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-requests
+keywords: ["approve requests", "Seerr", "Overseerr", "Jellyseerr", "Radarr", "Sonarr"]
+questions: ["How do I let users ask for new movies?", "Why can't someone ask for a show?", "Can I approve requests in the mobile app?", "Why is a request still pending after I added the movie?"]
 title: Manage media requests
 description: Turn requests on, choose approval rules, and follow a request until its media is available.
 ---

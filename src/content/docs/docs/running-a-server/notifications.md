@@ -1,5 +1,7 @@
 ---
 slug: docs/notification-delivery
+keywords: ["SMTP", "email not sending", "outgoing mail", "new episode alerts", "new movie alerts", "phone notifications", "notifications not working"]
+questions: ["How do I get Silo to send emails?", "Why aren't push notifications working in my browser?", "How do I post new movies to a Discord channel?", "Why didn't anyone get told about new episodes?"]
 title: Configure notification delivery
 description: Set up email, browser or mobile push, and server-owned announcement channels.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/metadata
+keywords: ["wrong poster", "wrong movie", "wrong show", "mismatched", "fix match", "incorrect title", "artwork", "cover art"]
+questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?"]
 title: Fix metadata and choose artwork
 description: Correct a match, edit a description, and keep intentional changes.
 ---

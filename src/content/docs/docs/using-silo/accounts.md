@@ -1,5 +1,7 @@
 ---
 slug: docs/accounts
+keywords: ["forgot password", "reset password", "log out", "logged out", "signed-in devices", "change server"]
+questions: ["My phone was stolen, how do I log it out?", "How do I kick a device I don't recognize off my account?", "Why can't I log in even with the right password?", "Why didn't I get a password reset email?"]
 title: Accounts and signed-in devices
 description: Change your password, see where you're signed in, sign out, and get help with a lost device.
 ---

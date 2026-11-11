@@ -1,5 +1,7 @@
 ---
 slug: docs/tailscale
+keywords: ["VPN", "remote access", "no port forwarding", "outside my house"]
+questions: ["How do I put my server on my Tailscale network?", "Do I need to install Tailscale on the server machine?", "Why does my server say HTTPS is not ready?", "Why doesn't the app find my server automatically?"]
 beta: true
 title: Reach your server with Tailscale (Beta)
 description: Put your Silo server on your Tailscale network so your devices can reach it without port forwarding.

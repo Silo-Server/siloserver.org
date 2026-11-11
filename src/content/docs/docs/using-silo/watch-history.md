@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-history
+keywords: ["mark as seen", "already seen", "clear history", "lost my place", "jumps back", "sync between devices", "hide from continue watching"]
+questions: ["How do I mark an episode as watched?", "How do I get rid of something stuck in Continue Watching?", "Why does my spot in a movie keep jumping back?", "How do I pick up on my phone where I stopped on the TV?"]
 title: Watched status and resume progress
 description: Resume a title, correct watched status, or continue on another device.
 ---

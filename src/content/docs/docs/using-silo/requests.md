@@ -1,5 +1,7 @@
 ---
 slug: docs/requests
+keywords: ["request a movie", "ask for a movie", "missing movie", "Seerr", "Overseerr", "Jellyseerr"]
+questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?"]
 title: Request a movie or series
 description: Request a missing title and follow its progress.
 ---

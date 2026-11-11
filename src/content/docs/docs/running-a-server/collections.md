@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-collections
+keywords: ["box set", "boxset", "dynamic collection", "auto-updating list", "holiday movies", "group movies together", "genre collections"]
+questions: ["How do I make a holiday movie shelf for everyone?", "Can I follow an MDBList list in my library?", "Why does my synced list show fewer movies than the original?", "Why can't one profile see a collection?"]
 title: Create server collections
 description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---

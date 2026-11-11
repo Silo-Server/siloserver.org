@@ -1,5 +1,6 @@
 ---
 slug: docs
+questions: ["Where do I start with Silo?", "Someone invited me to their server, what do I need?", "How do I set up my own media server?", "Does Silo do more than movies and TV shows?"]
 title: Start using Silo
 description: Join a server, watch your first title, or set up a server of your own.
 ---

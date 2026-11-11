@@ -1,5 +1,7 @@
 ---
 slug: docs/jellyfin-apps
+keywords: ["Infuse", "Swiftfin", "Findroid", "third-party app", "Jellyfin client"]
+questions: ["Where do I enter the Quick Connect code?", "How do I pick my profile in a third-party app?", "Why does my Jellyfin app say my password is wrong?", "Why can't the app find my server on the network?"]
 title: Connect a Jellyfin-compatible app
 description: Sign in to a Jellyfin-compatible app with Quick Connect or your Silo account and profile.
 ---

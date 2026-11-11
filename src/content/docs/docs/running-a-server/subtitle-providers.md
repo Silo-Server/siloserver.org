@@ -1,5 +1,7 @@
 ---
 slug: docs/subtitle-providers
+keywords: ["subs", "download subtitles", "subtitle delay", "subtitle offset", "subtitles late", "subtitles early", "SubRip", "no subtitles found"]
+questions: ["How do I connect OpenSubtitles?", "How do I make subtitles line up with the audio automatically?", "Why can't I find any subtitles for a movie?", "Does Silo change my subtitle files?"]
 title: Set up subtitle providers
 description: Connect subtitle search providers, sync subtitles to the audio, and manage tracks stored on your server.
 ---

@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import { sidebar } from "./src/data/sidebar.mjs";
+import { searchRanking } from "./src/data/search-ranking.mjs";
 import previewBanner from "./scripts/preview-banner.mjs";
 import previewChanges from "./scripts/preview-changes.mjs";
 import { existsSync, statSync } from "node:fs";
@@ -66,6 +67,7 @@ export default defineConfig({
         { tag: "meta", attrs: { property: "og:image:alt", content: "Silo" } },
       ],
       lastUpdated: true,
+      pagefind: { ranking: searchRanking },
       customCss: ["./src/styles/docs.css"],
       editLink: {
         baseUrl: "https://github.com/Silo-Server/siloserver.org/edit/main/",
@@ -77,6 +79,7 @@ export default defineConfig({
       components: {
         Head: "./src/components/starlight/Head.astro",
         MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
+        Search: "./src/components/starlight/Search.astro",
         Sidebar: "./src/components/starlight/Sidebar.astro",
         SiteTitle: "./src/components/starlight/SiteTitle.astro",
         SocialIcons: "./src/components/starlight/SocialIcons.astro",

@@ -1,5 +1,7 @@
 ---
 slug: docs/connect-and-watch
+keywords: ["join a server", "accept invite", "first time", "how to watch", "log in"]
+questions: ["I got an invite link, what do I do now?", "Why does my invite say invitation unavailable?", "What's my username after accepting an invite?", "Why is everything empty after I log in?"]
 title: Connect and start watching
 description: Accept an invitation, sign in, choose a profile, and play your first title.
 ---
