@@ -1,0 +1,118 @@
+---
+// Clicking the link icon next to a docs heading still jumps to the section,
+// and also copies that section's address so it can be pasted straight into
+// chat or an issue. A short toast confirms the copy.
+---
+
+<script>
+  const TOAST_MS = 2000;
+  const FADE_MS = 200; // A little longer than the CSS transition.
+
+  // A polite live region, so screen readers announce the copy without moving
+  // focus off the heading link. It is added empty when the page loads: many
+  // screen readers stay silent when a live region appears already filled.
+  const toast = document.createElement('div');
+  toast.className = 'docs-toast';
+  toast.setAttribute('role', 'status');
+  document.body.append(toast);
+  let hideTimer: number | undefined;
+
+  function showToast(message: string): void {
+    window.clearTimeout(hideTimer);
+    // Clear first so a second copy with the same text is announced again.
+    toast.textContent = '';
+    requestAnimationFrame(() => {
+      toast.textContent = message;
+      toast.dataset.visible = 'true';
+      hideTimer = window.setTimeout(() => {
+        delete toast.dataset.visible;
+        // Empty it after the fade-out, so the old message isn't read later.
+        hideTimer = window.setTimeout(() => (toast.textContent = ''), FADE_MS);
+      }, TOAST_MS);
+    });
+  }
+
+  // The Clipboard API exists only in secure contexts. The dev server is often
+  // opened over plain HTTP on the tailnet, so copy from a hidden text field
+  // there. Where the API exists but refuses, report the failure instead.
+  async function copyText(text: string): Promise<boolean> {
+    if (navigator.clipboard) {
+      return navigator.clipboard.writeText(text).then(() => true, () => false);
+    }
+    const focused = document.activeElement;
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.append(field);
+    field.select();
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      field.remove();
+      // Selecting the field moved focus; give it back.
+      if (focused instanceof HTMLElement && focused !== document.body) focused.focus({ preventScroll: true });
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    // Leave modified clicks (new tab, new window) to the browser.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element).closest?.<HTMLAnchorElement>('.sl-markdown-content a.sl-anchor-link');
+    const hash = link?.getAttribute('href');
+    if (!link || !hash?.startsWith('#')) return;
+
+    // Let the browser follow the link as usual; only add the copy. Build the
+    // address from the path, not `location.href`, so a `.html` path, an old
+    // hash, or a query such as a preview's `?change=` stays out of the link.
+    const url = location.origin + location.pathname.replace(/\.html$/, '') + hash;
+    void copyText(url).then((copied) => {
+      showToast(copied ? 'Link copied to clipboard' : 'Couldn’t copy the link');
+    });
+  });
+</script>
+
+<style is:global>
+  .docs-toast {
+    position: fixed;
+    /* Above the docs changes box in previews (z-index 9999). */
+    z-index: 10000;
+    inset-inline: 0;
+    bottom: 1.5rem;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    margin-inline: auto;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.625rem;
+    padding: 0.625rem 1rem;
+    background-color: var(--docs-panel);
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    box-shadow: 0 0.75rem 1.5rem rgb(0 0 0 / 0.35);
+    pointer-events: none;
+    opacity: 0;
+    translate: 0 0.5rem;
+    transition:
+      opacity 0.15s ease-out,
+      translate 0.15s ease-out;
+  }
+  :root[data-theme='light'] .docs-toast {
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0.75rem 1.5rem rgb(11 14 20 / 0.12);
+  }
+  .docs-toast[data-visible] {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .docs-toast {
+      transition: none;
+      translate: 0 0;
+    }
+  }
+</style>
