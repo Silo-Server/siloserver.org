@@ -69,6 +69,12 @@ test("stem gives forms of one word the same root", () => {
     ["hog", "hogging"],
   ];
   for (const [a, b] of pairs) assert.equal(stem(a), stem(b), `${a} and ${b}`);
+  assert.equal(stem("moving"), stem("move"));
+  assert.notEqual(stem("move"), stem("movie"), "different words keep different stems");
+});
+
+test("planQuery keeps different words that share letters", () => {
+  assert.deepEqual(planQuery("move my movie", { move: 1, movie: 1 }).terms, ["move", "movie"]);
 });
 
 test("isDocsWord accepts other forms of a docs word and unfinished words", () => {
