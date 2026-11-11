@@ -7,6 +7,7 @@
       "dependencies": {
         "@astrojs/starlight": "^0.39.2",
         "astro": "^6.0.0",
+        "porter2": "2.0.0",
       },
       "devDependencies": {
         "@actions/github": "6.0.0",
@@ -721,6 +722,8 @@
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
     "picomatch": ["picomatch@4.0.4", "", {}, "sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A=="],
+
+    "porter2": ["porter2@2.0.0", "", {}, "sha512-xPP5MpmapEh5sekPO/6TynotcXfIuLjPwPMybnew68QE2Wmf9+OJ7xuyRZy6VIthS8uh2PQIyq0wOeYgkmA8dA=="],
 
     "postcss": ["postcss@8.5.15", "", { "dependencies": { "nanoid": "^3.3.12", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A=="],
 

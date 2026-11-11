@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.39.2",
-    "astro": "^6.0.0"
+    "astro": "^6.0.0",
+    "porter2": "2.0.0"
   },
   "devDependencies": {
     "@actions/github": "6.0.0",

@@ -1,6 +1,7 @@
 // Shared by the docs search dialog and the word list it loads
 // (src/pages/search-words.json.ts). Pure functions, so they're unit-tested
 // in scripts/test-docs-search.mjs.
+import { stem as porter2 } from "porter2";
 
 // Words that say little about what someone is looking for: they appear on
 // most pages, so searching them only adds noise. Queries written as sentences
@@ -14,32 +15,13 @@ export const fillerWords = new Set(
   your`.split(/\s+/),
 );
 
-// Remove an ending only when at least three letters are left.
-const cut = (word, ending, replacement = "") => {
-  const shorter = word.replace(ending, replacement);
-  return shorter.length >= 3 ? shorter : word;
-};
-
 /**
- * A rough stem, so forms of one word compare equal: "see" and "sees",
- * "setting" and "settings", "upgrade" and "upgrading", "reset" and
- * "resetting", "movie" and "movies", "study" and "studies". Pagefind stems
- * its index, so a form the docs never use can still match; the word list has
- * to treat it as a real word too. It stays close to Pagefind's stemmer so
- * different words keep different stems ("move" and "movie").
+ * Pagefind's stem for a word: Porter2, the Snowball English stemmer Pagefind
+ * uses for its index. Forms that share a stem ("restore", "restoring") match
+ * the same pages, so the word list treats a form the docs never use as a real
+ * word, and a query counts such forms once.
  */
-export function stem(word) {
-  // No early return for short words: `cut` never leaves fewer than three
-  // letters, and "try" must still match "trying".
-  let root = cut(word, /ies$/, "i");
-  // Not "-ss", "-us", or "-is": "access", "status", and "analysis" are singular.
-  root = cut(root, /(?<![siu])s$/);
-  root = cut(root, /(?:ing|ed)$/);
-  // "study" matches "studies" and "studying"; "play" keeps its y.
-  root = root.replace(/([^aeiou])y$/, "$1i");
-  root = cut(root, /e$/);
-  return cut(root, /([^aeiou])\1$/, "$1");
-}
+export const stem = (word) => porter2(word);
 
 /** Lowercase words of three or more letters or digits, apostrophes removed. */
 export function searchWords(text) {

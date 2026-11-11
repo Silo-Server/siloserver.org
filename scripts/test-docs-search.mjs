@@ -56,7 +56,7 @@ test("planQuery drops pronouns and conversational words and counts word forms on
   assert.deepEqual(planQuery("she says her tv needs to see what he sees", { see: 1, sees: 1 }).terms, ["tv", "see"]);
 });
 
-test("stem gives forms of one word the same root and keeps different words apart", () => {
+test("stem matches Pagefind's: forms of one word share a root, different words don't", () => {
   const families = [
     ["see", "sees"],
     ["setting", "settings"],
