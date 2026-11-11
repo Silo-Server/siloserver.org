@@ -29,9 +29,11 @@ const cut = (word, ending, replacement = "") => {
  * different words keep different stems ("move" and "movie").
  */
 export function stem(word) {
-  if (word.length < 4) return word;
+  // No early return for short words: `cut` never leaves fewer than three
+  // letters, and "try" must still match "trying".
   let root = cut(word, /ies$/, "i");
-  root = cut(root, /(?<!s)s$/);
+  // Not "-ss", "-us", or "-is": "access", "status", and "analysis" are singular.
+  root = cut(root, /(?<![siu])s$/);
   root = cut(root, /(?:ing|ed)$/);
   // "study" matches "studies" and "studying"; "play" keeps its y.
   root = root.replace(/([^aeiou])y$/, "$1i");

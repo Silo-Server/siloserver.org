@@ -56,25 +56,35 @@ test("planQuery drops pronouns and conversational words and counts word forms on
   assert.deepEqual(planQuery("she says her tv needs to see what he sees", { see: 1, sees: 1 }).terms, ["tv", "see"]);
 });
 
-test("stem gives forms of one word the same root", () => {
-  const pairs = [
+test("stem gives forms of one word the same root and keeps different words apart", () => {
+  const families = [
     ["see", "sees"],
     ["setting", "settings"],
     ["movie", "movies"],
-    ["upgrade", "upgrading"],
+    ["move", "moving"],
+    ["upgrade", "upgrading", "upgraded"],
     ["restore", "restoring"],
     ["reset", "resetting"],
     ["configure", "configuring"],
     ["cache", "caching"],
     ["hog", "hogging"],
-    ["study", "studies"],
-    ["study", "studying"],
-    ["reply", "replied"],
-    ["play", "playing"],
+    ["study", "studies", "studying"],
+    ["try", "tries", "tried", "trying"],
+    ["copy", "copies", "copied"],
+    ["play", "plays", "played", "playing"],
+    ["stop", "stopped", "stopping"],
+    ["watch", "watches", "watched"],
+    ["library", "libraries"],
+    ["access", "accessing"],
+    ["status", "statuses"],
   ];
-  for (const [a, b] of pairs) assert.equal(stem(a), stem(b), `${a} and ${b}`);
-  assert.equal(stem("moving"), stem("move"));
-  assert.notEqual(stem("move"), stem("movie"), "different words keep different stems");
+  for (const family of families) {
+    assert.equal(new Set(family.map(stem)).size, 1, family.join(", "));
+  }
+  for (const [a, b] of [["move", "movie"], ["user", "use"], ["play", "plan"], ["cast", "case"]]) {
+    assert.notEqual(stem(a), stem(b), `${a} and ${b}`);
+  }
+  for (const word of ["see", "hog", "tvs", "use"]) assert.equal(stem(word), word, `${word} stays whole`);
 });
 
 test("planQuery keeps different words that share letters", () => {
