@@ -29,7 +29,7 @@ Each plugin's page, and its tile under **Installed**, show where it came from:
 
 Repositories and files add code from other publishers, so review who publishes it first.
 
-Catalog installs are checked against the catalog's checksum, and plugins published by Silo must also pass a [release signature](#release-signature) check. Both confirm where a download came from; neither tells you what the plugin does.
+Catalog installs are checked against the catalog's checksum, which confirms the download matches the catalog entry. Plugins published by Silo must also pass a [release signature](#release-signature) check, which confirms who built them. Neither check tells you what the plugin does.
 
 ## Release signature
 
