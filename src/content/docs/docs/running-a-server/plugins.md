@@ -44,7 +44,7 @@ Silo installs or updates a plugin published by Silo only when its signature show
 
 Plugins from other publishers are checked when their releases are signed, and Silo installs them either way.
 
-To check a signature, your server downloads trust data from `tuf-repo-cdn.sigstore.dev`. If it can't reach that address, installing or updating a Silo plugin fails with `Silo couldn't load the Sigstore trust data it needs to check this plugin's release signature.` Allow the address in your firewall, then try again.
+To check a signature, your server downloads trust data from `tuf-repo-cdn.sigstore.dev`. If it can't reach that address, installing or updating a Silo plugin fails with `Silo couldn't load the Sigstore trust data it needs to check this plugin's release signature. Check that this server can reach tuf-repo-cdn.sigstore.dev, then try again.` Allow the address in your firewall first.
 
 To check a downloaded Silo plugin file yourself, follow the release section of `CONTRIBUTING.md` in that plugin's repository.
 
