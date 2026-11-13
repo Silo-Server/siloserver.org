@@ -149,5 +149,6 @@
   {"query": "roll back a bad update", "expect": ["docs/updates"]},
   {"query": "playbak problems", "expect": ["docs/playback-problems"]},
   {"query": "subtitles appear before people speak", "expect": ["docs/subtitles"]},
-  {"query": "image caching", "expect": ["docs/s3-storage"]}
+  {"query": "image caching", "expect": ["docs/s3-storage"]},
+  {"query": "how do I set up theme music", "expect": ["docs/media-folders"]}
 ]

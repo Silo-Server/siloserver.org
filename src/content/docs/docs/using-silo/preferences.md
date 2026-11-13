@@ -24,7 +24,7 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Language & Subtitles:** spoken and metadata languages, when subtitles
   appear, and how they look.
 - **Home Screen:** which rows appear on Home and in what order.
-- **Title Pages:** title art, theme music, spoilers, and advisory ages on
+- **Title Pages:** title art, [theme music](/docs/media-folders#theme-music), spoilers, and advisory ages on
   movie and show pages.
 - **Navigation & Cards** and **Accessibility:** how the web app looks. These
   don't change the native apps.

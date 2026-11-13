@@ -1,7 +1,7 @@
 ---
 slug: docs/media-folders
-keywords: ["file naming", "folder structure", "naming convention", "not showing up", "missing episodes", "TV shows"]
-questions: ["How should I name my TV show episodes?", "Why is my movie matched to the wrong film?", "How do I name subtitle files so they're picked up?", "How do I hide a folder from my library?"]
+keywords: ["file naming", "folder structure", "naming convention", "not showing up", "missing episodes", "TV shows", "theme song", "theme.mp3"]
+questions: ["How should I name my TV show episodes?", "Why is my movie matched to the wrong film?", "How do I name subtitle files so they're picked up?", "How do I hide a folder from my library?", "Where do I put theme music files?"]
 title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---
@@ -169,6 +169,30 @@ An extra can also sit beside the movie file with a suffix, as in `Movie Name (20
 Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
 
 An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
+
+## Theme music
+
+Put a theme song beside a movie or show, and the apps play it while that title's page is open. Name the file `theme`, as in `theme.mp3`, or put one or more audio files in a `theme-music` folder:
+
+| Title | Where the theme goes |
+| --- | --- |
+| Movie | The movie's folder |
+| Show | The show folder |
+| Season | The season folder. A season without its own theme plays the show's. |
+
+The file can end in `.mp3`, `.m4a`, `.m4b`, `.flac`, `.ogg`, `.opus`, `.wav`, or `.aac`, and names match in any letter case. Jellyfin and Emby use the same names, so their theme files work as they are. Silo doesn't play theme videos.
+
+A theme in a folder that holds more than one movie or show applies to none of them, as `poster.jpg` does. Give each title its own folder. Silo skips empty files, files that contain video, and symbolic links, and [ignore files](#leave-files-out-of-a-scan) apply to themes too.
+
+Silo finds a new theme at the next library scan, or within seconds with [real-time monitoring](/docs/autoscan#real-time-monitoring).
+
+Theme music is off until each person turns it on:
+
+- In the web app, turn on **Theme music** in **Settings > Title Pages**.
+- On iPhone, iPad, and Mac, turn on **Play Theme Music** in **Settings > Interface**. On Apple TV, it's under **Theme Music** in **Settings > General**. Either way it changes only that device.
+- On Android phones and tablets, turn on **Theme Music** in **Settings > Interface**. On Android TV, it's in **Settings > General**.
+
+**Loop theme music** repeats the theme until you leave the page.
 
 ## Subtitle file names
 
