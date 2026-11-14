@@ -89,7 +89,7 @@ During shutdown, new event handshakes receive `503` with `Retry-After: 5` and `C
 
 The prepared quota-enforcement path uses `429` for an account threshold and `503` for the process threshold, with the same headers. Startup selects [observation only](/docs/configuration#live-update-connections), so exceeding either threshold doesn't trigger those quota refusals. There is no runtime setting to turn enforcement on.
 
-Native v1/v2 and Jellyfin-compatible event connections share the account count on each API process. Switching credentials, profiles, API versions, or equivalent Jellyfin paths doesn't create another allowance. For handshake details and the retry policy, see the [realtime protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/realtime-api.md#client-socket-accounting-and-recovery) and [Jellyfin compatibility protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/jellycompat-api.md).
+Native and Jellyfin-compatible event connections share the account count on each API process. Switching credentials, profiles, or equivalent Jellyfin paths doesn't create another allowance. For handshake details and the retry policy, see the [realtime protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/realtime-api.md#client-socket-accounting-and-recovery) and [Jellyfin compatibility protocol](https://github.com/Silo-Server/silo-server/blob/main/docs/jellycompat-api.md).
 
 ## If the reference doesn't load
 

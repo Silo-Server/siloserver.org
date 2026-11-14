@@ -223,7 +223,7 @@ To change a threshold, set it in the environment of the Silo API process and res
 | `SILO_EVENTS_MAX_SOCKETS_PER_ACCOUNT` | `64` | Connections per login account on each API process |
 | `SILO_EVENTS_MAX_SOCKETS_PER_PROCESS` | `2048` | Connections across all accounts on one API process |
 
-Counts include connections being established and those already open. All profiles, devices, and credentials on an account share its count. Native v1/v2 event connections and Jellyfin-compatible connections share the same count, including alternate Jellyfin URL forms and connections used only for `KeepAlive`.
+Counts include connections being established and those already open. All profiles, devices, and credentials on an account share its count. Native event connections and Jellyfin-compatible connections share the same count, including alternate Jellyfin URL forms and connections used only for `KeepAlive`.
 
 Each API process counts independently, including processes on the same host. There is no cluster-wide account quota. The HTTP rate-limit setting **Where counters are kept** above doesn't change this.
 
