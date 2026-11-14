@@ -13,10 +13,9 @@ account is allowed to use them. The person who runs the server sets this up in
 
 ## Make a request
 
-1. Open **Requests**. In the web app it's in the sidebar. In the phone and
-   tablet apps, open your profile menu and choose **Requests**. In the TV
-   apps, choose **Requests** in the top menu. Search results also offer
-   titles you can request.
+1. Open **Requests**. In the web app it's in the sidebar. In the phone,
+   tablet, and TV apps, open your profile menu and choose **Requests**.
+   Search results also offer titles you can request.
 2. Search for the title. Open the result with the right year and type.
 3. Select **Request movie** or **Request series** (**Request** in the Apple
    and Android apps).
