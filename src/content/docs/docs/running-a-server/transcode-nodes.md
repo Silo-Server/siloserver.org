@@ -1,12 +1,12 @@
 ---
 slug: docs/transcode-nodes
-keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding"]
-questions: ["How do I use a second computer's GPU for converting?", "Can another machine handle streaming to take load off my server?", "Why isn't my extra machine getting any transcodes?", "How do I update a node without stopping playback?"]
+keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding", "node key", "GPU box", "no shared storage"]
+questions: ["How do I use a second computer's GPU for converting?", "Can another machine handle streaming to take load off my server?", "Why isn't my extra machine getting any transcodes?", "How do I update a node without stopping playback?", "Does a transcode node need my database password?", "Can a node convert video without mounting my library?"]
 title: Add and check transcode nodes
 description: Add proxy and transcode nodes on other machines and check that playback uses them.
 ---
 
-A single Silo server already streams and converts video itself. Add nodes when you want part of that work on other machines. Every node runs the same Silo image in a different mode and shares the main server's PostgreSQL, Redis, and encryption key.
+A single Silo server already streams and converts video itself. Add nodes when you want part of that work on other machines. Every node runs the same Silo image in a different mode. A transcode node needs only the main server's address and a key you issue for it. A proxy node shares the main server's PostgreSQL, Redis, and encryption key.
 
 ## Choose a node type
 
@@ -19,20 +19,38 @@ Transcode nodes only talk to the main server and proxy nodes, so they need no pu
 
 ## Prepare the node
 
-On the node's host, use the server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) with the node's settings in `.env`; the node section of the repository's `.env.example` lists them. In these modes the container starts none of its bundled services. A node needs:
+On the node's host, use the server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) with the node's settings in `.env`; the node section of the repository's `.env.example` lists them. In these modes the container starts none of its bundled services.
 
-- `MODE=transcode` or `MODE=proxy`.
-- `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address. Silo matches the running node to its entry by these values. The container won't start a node without `NODE_URL`.
+Set `PORT` in the node's `.env` to the port it's published on, such as `8082`. Every node also needs a clock that stays within 30 seconds of the main server and the other nodes, for example kept in sync with NTP. A node whose clock is further off has its requests refused and refuses the ones sent to it, so work sent to it fails.
+
+### Transcode node settings
+
+A transcode node connects to no database and holds none of the main server's secrets. It needs:
+
+- `MODE=transcode`.
+- `SILO_CORE_URL`, an address where the node can reach the main server, such as `http://192.168.1.10:8090`. A LAN address, a VPN address such as a Tailscale one, or your public URL all work. If you run several API servers, use their load-balanced address.
+- `SILO_NODE_KEY`, the key you issue for this node when you [add it](#add-the-node).
+- The media mounted at the same container path the main server uses, such as `/mnt/media`. A node whose **Source access** is **Through the API servers** doesn't need it; see [Choose a node's source access](#choose-a-nodes-source-access).
+- A writable transcode directory with free space.
+- For GPU encoding, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
+- `SILO_STOP_GRACE_PERIOD=11m`, so it can [drain](#maintain-a-node) before Docker stops it.
+
+The node takes everything else from the main server, including its FFmpeg path and transcode directory. The repository's `docker-compose.yml` still asks for `SECRET_KEY` and `MEDIA_ROOT`. A transcode node doesn't use the key, so any value works there, and a node that reads through the API servers can point `MEDIA_ROOT` at an empty folder. If `DATABASE_URL`, `REDIS_URL`, `NODE_URL`, or `NODE_NAME` are still in its `.env`, the node ignores them.
+
+The node calls the main server at `SILO_CORE_URL`, and the main server and proxy nodes call the node at its **URL**, so your network has to allow both directions. If `SILO_CORE_URL` goes through a reverse proxy, the proxy must pass requests under `/api/internal/nodes/` to Silo unchanged. The node takes its FFmpeg path and directories from the main server's answers, so use a network you trust or an `https://` address. With a plain `http://` address on another machine, the node logs a warning when it starts.
+
+### Proxy node settings
+
+A proxy node needs:
+
+- `MODE=proxy`.
+- `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address with its `PORT`. Silo matches the running node to its entry by these values. The container won't start a proxy node without `NODE_URL`.
 - The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis. Use the same Redis [database number](/docs/configuration#external-postgresql-and-redis) as the main server. Behind [Redis Sentinel](/docs/configuration#redis-sentinel), use the main server's Sentinel URL, and let the node reach every Sentinel and Redis server.
-- Enough PostgreSQL connections for every node. Each node opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
+- Enough PostgreSQL connections for every proxy node. Each one opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
-- A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space.
-- For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
-- A clock that stays within 30 seconds of the main server and the other nodes, for example kept in sync with NTP. A node whose clock is further off refuses requests from the main server and proxy nodes, so work sent to it fails.
+- A plugin directory (`SILO_PLUGIN_CACHE_DIR`).
 
-Set `PORT` in the node's `.env` to the port it's published on, such as `8082`, and use that port in `NODE_URL`. For a transcode node, also set `SILO_STOP_GRACE_PERIOD=11m` so it can [drain](#maintain-a-node) before Docker stops it.
-
-On the main server, PostgreSQL and Redis aren't reachable from other machines until you turn on [node access](/docs/docker#nodes-and-stop-timeouts). With [separate containers](/docs/docker#run-the-services-in-separate-containers), they're published only on the main host's loopback address until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network.
+On the main server, PostgreSQL and Redis aren't reachable from other machines until you turn on [node access](/docs/docker#nodes-and-stop-timeouts). With [separate containers](/docs/docker#run-the-services-in-separate-containers), they're published only on the main host's loopback address until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network. Only proxy nodes use those ports.
 
 Local artwork on the main server isn't shared with other hosts automatically. For several hosts, consider [S3 artwork storage](/docs/s3-storage).
 
@@ -41,16 +59,33 @@ Local artwork on the main server isn't shared with other hosts automatically. Fo
 Add the node in Silo, then start it.
 
 1. Open **Admin > Playback > Nodes** and select **Add Transcode** or **Add Proxy**.
-2. Enter a **Name** that matches the node's `NODE_NAME`.
-3. Enter the **URL** the main server uses to reach the node, matching its `NODE_URL`. A private address is fine.
+2. Enter a **Name**. For a proxy node, it must match the node's `NODE_NAME`.
+3. Enter the **URL** the main server uses to reach the node. For a proxy node, it must match the node's `NODE_URL`. A private address is fine.
 4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
-5. If the node shares a host or local network with other nodes, give them all the same **Group**, such as `rack-1`. Silo then keeps their streams inside the group; see [Groups](/docs/node-status#groups).
-6. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
-7. Start the node with its Compose file.
+5. For a transcode node, choose its [**Source access**](#choose-a-nodes-source-access). Keep **Library mount on the node** if the node mounts your media.
+6. If the node shares a host or local network with other nodes, give them all the same **Group**, such as `rack-1`. Silo then keeps their streams inside the group; see [Groups](/docs/node-status#groups).
+7. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
+8. For a transcode node, Silo offers its key as soon as you save. Select **Issue key**. In the dialog that opens, fill in **Server address for the node** if it's empty, then copy the two lines under **Node settings** into the node's `.env`. Silo shows the key only this once, so copy it before you select **I saved the key**.
+9. Start the node with its Compose file.
 
-Silo checks a new node as soon as you save it, then every 30 seconds. A node you start after saving shows **Unhealthy** until the next check. Its state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
+A transcode node takes no work until it has a key. If you chose **Not now**, the node shows **No key: this node takes no work until a key is issued** under its address, with **Issue key** beside it. Once it has one, it shows **Key issued**.
+
+Silo checks a new node as soon as you save it, then every 30 seconds. A node you start after saving shows **Unhealthy** until the next check. Its state changes to **Healthy** once Silo can reach it, and for a transcode node, once the node is running with its key. A transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
 
 Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
+
+## Choose a node's source access
+
+**Source access**, in a transcode node's add and edit forms, sets how the node reads your media:
+
+- **Library mount on the node** is the default. The node reads each file from its own mount, at the same container path the main server uses.
+- **Through the API servers** needs no mount. The node reads each file from the main server over the network, at the address in `SILO_CORE_URL`.
+
+Choose **Through the API servers** for a machine that can't mount your library, such as a GPU machine at another site. Everything the node reads then passes through the main server, so the main server needs the bandwidth for it. A change applies to the work the node starts after you save; streams already running keep reading the way they started.
+
+With **Library mount on the node**, the node must see each file exactly as the main server does: the same path, size, and modification time. If its mount shows a different file, the node refuses that job, and Silo converts it on the main server if **Routing** allows that.
+
+A node set to **Through the API servers** can't burn in some text subtitles, such as those inside an MP4 file. Silo converts that playback on a node with a mount or on the main server instead.
 
 ## Route playback to nodes
 
@@ -77,7 +112,9 @@ If **Prepared file directory** is set in **Admin > Downloads > Settings**, a nod
 
 ## If work does not reach the node
 
-Check that the node is enabled, **Healthy**, below its limit, and can read the file at the same path. A node can show **Healthy** and still refuse work when its clock is more than 30 seconds off, so check that its clock agrees with the main server's. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
+Check that the node is enabled, **Healthy**, and below its limit. A transcode node also needs its key: check that it shows **Key issued**. With **Library mount on the node**, check that it can read the file at the same path. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
+
+A transcode node that stays **Unhealthy** after it starts usually can't sign in to the main server. Check that the node can reach the address in `SILO_CORE_URL`, that `SILO_NODE_KEY` is the key you issued last, and that its clock is within 30 seconds of the main server's. A proxy node can show **Healthy** and still refuse work when its clock is that far off.
 
 A transcode node whose transcode directory is 95% full is skipped while another node has room. If every transcode node is that full, Silo uses one anyway, and streams on it can fail once the disk fills. Silo never skips a node whose disk use it can't read.
 
@@ -100,10 +137,12 @@ Proxy nodes don't drain. Turn a proxy node's switch off to stop new work while i
 
 After changing a node's driver or devices, use its re-probe button. Silo refuses it while the node is transcoding, so drain the node first and resume it once the re-probe finishes. See [Set up transcoding](/docs/playback#after-a-driver-or-device-change).
 
-To change a transcode node's encoder, select the pencil in the node's header, set **Hardware Acceleration** or **GPU Devices**, and select **Save**. New transcodes on the node use the change within a minute, and running sessions keep their old settings.
+To change a transcode node's encoder, select the pencil in the node's header, set **Hardware Acceleration** or **GPU Devices**, and select **Save**. New transcodes on the node use the change within about 30 seconds, and running sessions keep their old settings.
+
+To replace a transcode node's key, drain the node first, then select **Rotate key** under its address. The old key stops working at once, so streams still on the node fail, and the node takes no work until you put the new key in its `.env` as `SILO_NODE_KEY` and restart it.
 
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
-Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes.
+Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes, and issue each transcode node its key before you start it again.
 
 A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
