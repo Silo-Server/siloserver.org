@@ -50,7 +50,7 @@ A proxy node needs:
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
 - A plugin directory (`SILO_PLUGIN_CACHE_DIR`).
 
-On the main server, PostgreSQL and Redis aren't reachable from other machines until you turn on [node access](/docs/docker#nodes-and-stop-timeouts). With [separate containers](/docs/docker#run-the-services-in-separate-containers), they're published only on the main host's loopback address until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network. Only proxy nodes use those ports.
+On the main server, PostgreSQL and Redis aren't reachable from other machines until you turn on [node access](/docs/docker#nodes-and-stop-timeouts). With [separate containers](/docs/docker#run-the-services-in-separate-containers), they're published only on the main host's loopback address until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network. Only proxy nodes connect to PostgreSQL and Redis.
 
 Local artwork on the main server isn't shared with other hosts automatically. For several hosts, consider [S3 artwork storage](/docs/s3-storage).
 
@@ -143,6 +143,6 @@ To replace a transcode node's key, drain the node first, then select **Rotate ke
 
 To make a node re-read its configuration straight away, use force reload in the [admin API](/docs/api): `POST /api/v2/admin/nodes/{id}/force-reload` for one node, or `POST /api/v2/admin/nodes/force-reload` for every enabled node. There is no button for it. On a transcode node it also ends every live playback session.
 
-Update all nodes together with the main server when the release notes say so. If you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests. During the [1.0 update](/docs/updates#moving-from-alpha-to-10), don't mix alpha and 1.0 nodes, and issue each transcode node its key before you start it again.
+Update all nodes together with the main server when the release notes say so. The [1.0 update](/docs/updates#moving-from-alpha-to-10) is one of those: don't mix alpha and 1.0 nodes. Stop the transcode nodes first, and start them again only once the main server and proxy nodes run 1.0 and you've issued each transcode node its key. For other updates, if you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests.
 
 A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
