@@ -96,7 +96,7 @@ Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the s
 2. In `.env`, set `PUID` and `PGID` as described above. Remove any `DATABASE_URL`, `REDIS_URL`, `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` lines that point at the old containers. To keep using Meilisearch, set `ENABLE_MEILISEARCH=true`.
 3. If `.env` pins `SILO_IMAGE`, remove that line to follow `latest`, or set `SILO_OMNIBUS_IMAGE` to the image to run. For a build from before Silo moved to one container, that's its `build-N-aio` tag.
 4. Remove anything in `docker-compose.override.yml` that changes the `postgres`, `redis`, or `meilisearch` services. Compose rejects `docker-compose.yml` while the override still names them.
-5. If you use proxy nodes, turn on [node access](/docs/docker#nodes-and-stop-timeouts) in `.env` and uncomment its port lines.
+5. If you use proxy nodes, turn on [node access](/docs/docker#nodes-and-stop-timeouts) in `.env` and uncomment its port lines. Transcode nodes need it too if the build you're moving to is from before they were given keys.
 
 Remove `COMPOSE_FILE` from `.env` if you set it. Then stop the old containers and run the move, with your `SILO_DATA_ROOT` in place of `/opt/silo`:
 
