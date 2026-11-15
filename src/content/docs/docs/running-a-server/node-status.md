@@ -28,6 +28,8 @@ When a node crashes or shuts down mid-stream, playback in the web app and the Si
 
 A disabled node is dimmed and Silo stops checking it, so its readings are from its last check.
 
+Under a transcode node's address, **Key issued** means you've issued the node its key, and **Rotate key** beside it [replaces the key](/docs/transcode-nodes#maintain-a-node). **No key: this node takes no work until a key is issued** means the node can't start work yet; select **Issue key** beside it. A node with a key still shows **Unhealthy** until it's running with that key.
+
 A draining transcode node also has a line under its address that counts the work left, such as **Draining · 2 transcodes left**. Once nothing is left, a node you drained shows **Drained · safe to stop**, and a node that's stopping shows **Drained · no work left** just before it exits. A node you drained shows **Draining · not answering** while it's **Unhealthy**, such as while it's stopped, and **Drain requested** while its switch is off. Turning the switch back on doesn't resume it.
 
 A node's state only says whether Silo can reach it and whether it's draining. A node whose GPU stopped working still shows **Healthy**. Check its **Acceleration** block, and see [After a driver or device change](/docs/playback#after-a-driver-or-device-change).
