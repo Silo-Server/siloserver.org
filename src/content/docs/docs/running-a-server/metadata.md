@@ -22,7 +22,7 @@ If one folder holds unrelated titles, fix the [folder layout](/docs/media-folder
 
 ## Ignore an unmatched item
 
-Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has.
+Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has. A movie with no poster still gets [a frame from its video](/docs/local-metadata#if-a-movie-has-no-poster) as one.
 
 1. Open **Admin > Libraries** and expand **Unmatched Items**, below the list of libraries. The section appears only while an item is awaiting a match or ignored.
 2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
