@@ -1,7 +1,7 @@
 ---
 slug: docs/requests
-keywords: ["request a movie", "ask for a movie", "missing movie", "Seerr", "Overseerr", "Jellyseerr"]
-questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?"]
+keywords: ["request a movie", "ask for a movie", "missing movie", "Seerr", "Overseerr", "Jellyseerr", "delete a request", "request failed"]
+questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?", "How do I get rid of a request that failed?"]
 title: Request a movie or series
 description: Request a missing title and follow its progress.
 ---
@@ -67,9 +67,28 @@ The Apple apps group these into five labels:
 | **Pending** | Waiting for approval. You can cancel it from **My Requests** with **Cancel Request**. |
 | **On the way** | Approved, queued, or downloading. |
 | **In library** | Ready to watch. |
-| **Needs attention** | Declined or failed, with the reason when there is one. |
+| **Needs attention** | Declined or failed, with the reason when there is one. You can remove a failed request if none of it arrived. |
 | **Unavailable** | Can't be requested right now, or the request was cancelled. |
 
 When a request is complete, the title shows up in the library. You can also
 get an alert when it arrives through your
 [notification preferences](/docs/notification-inbox).
+
+### Remove a failed request
+
+If a request failed and none of it arrived, you can remove it and request
+the title again. In the Apple apps, a failed request shows **Needs
+attention**.
+
+- In the web app, select **Remove request** next to it under **Yours**.
+- In the phone and tablet apps, select **See all** next to **Your requests**
+  to open **My Requests**. Press and hold the request and choose **Remove
+  Request**.
+- In the TV apps, press and hold the request's card on the Requests page and
+  choose **Remove Request** (**Remove request** on Android TV).
+
+Confirm with **Remove request**. Silo deletes the request and its error.
+
+If part of the request arrived before it failed, for example the HD copy but
+not the 4K one, you can't remove it. It stays so the person who runs the
+server can retry it.
