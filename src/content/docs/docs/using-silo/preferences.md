@@ -1,7 +1,7 @@
 ---
 slug: docs/preferences
-keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV"]
-questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?"]
+keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV", "interface language", "menu language", "wrong translation"]
+questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?", "How do I switch the menus to Spanish?", "Can I fix a bad translation in the app?"]
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---
@@ -27,11 +27,62 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Title Pages:** title art, theme music, spoilers, and advisory ages on
   movie and show pages.
 - **Navigation & Cards** and **Accessibility:** how the web app looks. These
-  don't change the native apps.
+  don't change the native apps, except **App language** on
+  **Accessibility**, which [follows your profile](#change-the-app-language).
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
 **Spoken language** for that.
+
+## Change the app language
+
+**App language** sets the language of Silo's menus, buttons, and messages.
+It belongs to your profile, so a language you pick follows you to every
+device. The default, **Match device**, uses your phone's, TV's, or browser's
+language when Silo has it, and English when it doesn't.
+
+| App | Where |
+| --- | --- |
+| Web app | **Settings > Accessibility > App language** |
+| iPhone, iPad, Apple TV, and Mac | **Settings > General > App Language** |
+| Android phones and tablets | **Settings > Interface > App language** |
+| Android TV | **Settings > General > App language** |
+
+Every app offers the same 21 languages besides English: Arabic, Chinese
+(Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish,
+French, German, Italian, Japanese, Korean, Norwegian Bokmål, Polish,
+Portuguese (Brazil), Russian, Spanish, Swedish, Turkish, and Ukrainian. The
+list shows each one in its own language, such as **Deutsch** or **日本語**.
+
+With **Match device**, a device set to Norwegian gets Norwegian Bokmål. A
+device set to Chinese for Taiwan, Hong Kong, or Macau gets Traditional
+Chinese. Nynorsk gets Norwegian Bokmål on Apple devices and English in the
+other apps.
+
+To use a different language on one device only, choose it for Silo in the
+device's own settings. iPhone, iPad, Mac, and Android phones and tablets
+running Android 13 or later have this setting; Apple TV and Android TV
+don't. If you later pick a language inside Silo, it's saved for your profile
+again and replaces the device's choice.
+
+If your profile's language isn't in an app yet, that app uses the device's
+language instead. Before you sign in, the web app's sign-in page has its own
+language menu in the top corner.
+
+App language doesn't change titles, descriptions, audio, or subtitles. Those
+follow **Metadata language**, **Spoken language**, and your subtitle
+settings.
+
+### Help translate Silo
+
+Most of Silo's translations were written by AI, and nobody who speaks the
+language has checked them yet, so some wording may be wrong or awkward. To
+fix a phrase, edit your language in the
+[silo-translations](https://github.com/Silo-Server/silo-translations)
+repository on GitHub and open a pull request. Its
+[contribution guide](https://github.com/Silo-Server/silo-translations/blob/main/CONTRIBUTING.md)
+shows where each phrase appears in the apps and the rules a change must
+follow. A merged fix reaches the apps in their next update.
 
 ## Set playback quality
 
