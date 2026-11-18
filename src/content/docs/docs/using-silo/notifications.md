@@ -14,13 +14,17 @@ work once the person who runs your server has
 Under **New Episode Notifications**, turn on **Enable notifications** and
 **Next Up**. These choices apply to every delivery channel.
 
-A new episode notifies you when it's your next one in a series: the episode
-right after the one you finished most recently. A series starts notifying you
-once you finish one of its episodes; favoriting or watchlisting it doesn't
-change that. If several episodes arrive together, only the first one
-notifies you. A later episode that arrives before your next one doesn't. A
-series doesn't notify you while you're partway through one of its episodes,
-or after you've removed it from **Next Up** on Home.
+Once you've finished an episode of a series, a new episode notifies you when
+it's your next one: the first episode you haven't watched after the one you
+finished most recently. Episodes that a
+[history import](/docs/import-watch-history) or
+[watch sync](/docs/watch-sync) marked watched count as finished. Favoriting or
+watchlisting a series doesn't make it notify you.
+
+If several episodes arrive together, only your next one notifies you. A later
+episode that arrives before your next one doesn't. If you stop partway through
+an episode, the series doesn't notify you until you finish an episode.
+Removing the series from **Next Up** on Home also stops its notifications.
 
 To check which series will notify you, select **See which series notify
 you** under **New Episode Notifications**. Select **Mute** (the crossed-out
