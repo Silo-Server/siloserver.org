@@ -20,6 +20,8 @@ On a library page, **Add to these library pages** also adds the row to other lib
 
 To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create server collections](/docs/manage-collections#create-a-collection).
 
+**Trending worldwide** shows what's trending on TMDB, but only titles already in your libraries. Use **Period** to choose **Today** or **This week**, and **Show** to choose **Both**, **Movies**, or **TV shows**. **Both** is the default. A **Movies** or **TV shows** row picks from the same trending list as a **Both** row, so it can show fewer titles than a [TMDB chart](/docs/manage-collections#follow-a-list-with-a-synced-list) synced list set to movies or TV shows.
+
 ## Change the order or turn a row off
 
 Drag a row to move it. Changes save right away. The switch on each row turns it on or off for everyone, and a row that's off keeps its settings.
