@@ -1,7 +1,7 @@
 ---
 slug: docs/saved-titles
 keywords: ["watch later", "my list", "wishlist", "to-watch list", "plan to watch", "like a movie", "saved movies"]
-questions: ["How do I save a movie to watch later?", "How do I give a movie a star rating?", "Can I add a movie the server doesn't have to my list?"]
+questions: ["How do I save a movie to watch later?", "How do I give a movie a star rating?", "Can I add a movie the server doesn't have to my list?", "Will I get an alert when a movie on my watchlist arrives?"]
 title: Watchlist, favorites, and ratings
 description: Save titles for later and record what you think of them.
 ---
