@@ -102,7 +102,14 @@ docker compose exec -u silo silo psql -h /run/postgresql -d postgres -c 'DROP DA
 
 The command also clears Silo's Redis data, so nothing cached from the old database is served. `--keep-redis` skips that.
 
-If a restore stops partway, for example because the host restarted, run `silo backup restore --recover <time>` with the time the command printed. Run it the same way as the restore: as the same user, from the same folder, against the same database. With Compose, that's the same `docker compose exec` line with `--recover <time>` in place of `--from`. It finishes the restore or puts everything back. It doesn't clear Redis: if it finished the restore, run `FLUSHDB` on the Redis database Silo uses before you start Silo, as the command says.
+If a restore stops partway, for example because the host restarted, run `silo backup restore --recover <time>` with the time the command printed. Run it the same way as the restore: as the same user, from the same folder, against the same database. `--recover` takes no other options, so with Compose, replace `--from` and the backup's path with it:
+
+```sh
+docker compose exec -w /config/silo silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo backup restore --recover <time>
+```
+
+It finishes the restore or puts everything back. It doesn't clear Redis: if it finished the restore, run `FLUSHDB` on the Redis database Silo uses before you start Silo, as the command says.
 
 ### What happens after a full restore
 
