@@ -60,7 +60,7 @@ If viewers away from home get much less than their connection supports, check wh
 
 Each warning includes what to change, such as loading `tcp_bbr` on the host or raising `net.ipv4.tcp_wmem`. Set **Component** to `netadmin` to see the `net admin: capability state` entry. It says whether Silo had `NET_ADMIN` at startup, and warns if the helper didn't start or Silo couldn't confirm that it dropped the capability. None of these warnings stops Silo.
 
-If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo.
+If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo. If that proxy serves HTTP/3, see [If remote playback is slow over HTTP/3](/docs/reverse-proxy#if-remote-playback-is-slow-over-http3).
 
 ## Background work fails
 
