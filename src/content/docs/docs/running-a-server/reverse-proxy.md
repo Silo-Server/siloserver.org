@@ -1,7 +1,7 @@
 ---
 slug: docs/reverse-proxy
-keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik"]
-questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?"]
+keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik", "HTTP/3", "QUIC", "UDP 443"]
+questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
 ---
@@ -37,6 +37,21 @@ Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in,
 If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
 
 Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers) covers only connections that end at Silo. Behind Caddy, the viewer's connection ends at Caddy, so the tuning covers Caddy's connection to Silo, and the connection to the viewer uses the host's own TCP settings.
+
+### If remote playback is slow over HTTP/3
+
+If viewers away from home buffer while other sites load quickly for them, check whether your proxy serves HTTP/3. On a connection that loses a few packets, HTTP/3 can play much slower than TCP, and **Test speed** in Silo's settings shows the same low speed. Caddy serves HTTP/3 whenever UDP port 443 reaches it, for example when the port forward or a Docker port mapping includes UDP. If you forward only TCP, as in the steps above, browsers can't reach Caddy over HTTP/3.
+
+To keep Silo on TCP, add `header Alt-Svc clear` to Silo's site in your Caddyfile, then reload Caddy:
+
+```text
+silo.example.com {
+    header Alt-Svc clear
+    reverse_proxy 127.0.0.1:8090
+}
+```
+
+Browsers then use TCP for that hostname, while other sites on the same Caddy keep HTTP/3. nginx serves HTTP/3 only where you've turned it on, and it can slow down the same way.
 
 ## Other addresses clients use
 

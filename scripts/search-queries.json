@@ -85,6 +85,7 @@
   {"query": "meilisearch", "expect": ["docs/docker"]},
   {"query": "inotify", "expect": ["docs/autoscan"]},
   {"query": "caddy", "expect": ["docs/reverse-proxy"]},
+  {"query": "http3 buffering away from home", "expect": ["docs/reverse-proxy"]},
   {"query": "prometheus", "expect": ["docs/monitoring"]},
   {"query": "quick connect", "expect": ["docs/jellyfin-apps"]},
   {"query": "nfo", "expect": ["docs/local-metadata"]},
