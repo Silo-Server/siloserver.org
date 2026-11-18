@@ -20,7 +20,7 @@ Every example below does all of this. Check the same points on any other proxy.
 - Pass `Range` requests and send video on as it arrives, without saving it to disk first.
 - Don't compress or rewrite responses. Silo compresses its own pages and API responses, and the web app needs the `ETag` header Silo sends to save some admin forms.
 - Don't limit upload size. Silo sets its own limit for each kind of upload.
-- Serve HTTP/2, and leave HTTP/3 off. On a connection that loses packets, a proxy's HTTP/3 can be [much slower than TCP](/docs/reverse-proxy#if-remote-playback-is-slow-over-http3).
+- Leave HTTP/3 off. On a connection that loses packets, a proxy's HTTP/3 can be [much slower than TCP](/docs/reverse-proxy#if-remote-playback-is-slow-over-http3).
 
 ## Caddy
 
@@ -59,7 +59,6 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    http2 on;
     server_name silo.example.com;
 
     ssl_certificate     /etc/letsencrypt/live/silo.example.com/fullchain.pem;
@@ -86,7 +85,7 @@ server {
 
 nginx sends none of the forwarding or WebSocket headers unless you set them, so keep every `proxy_set_header` line. `client_max_body_size 0` removes nginx's 1 MB upload limit, which otherwise refuses larger uploads, such as artwork, with `413`. `proxy_buffering off` stops nginx saving video to temporary files when a viewer's connection is slower than Silo.
 
-On nginx older than 1.25.1, remove `http2 on;` and write `listen 443 ssl http2;` instead. If people reach nginx on a port other than 443, use `$http_host` in place of `$host` so the port stays in the `Host` header.
+If people reach nginx on a port other than 443, use `$http_host` in place of `$host` so the port stays in the `Host` header.
 
 ## Traefik
 
@@ -120,7 +119,7 @@ Add the header and routing lines to the frontend that answers on port 443, then 
 ```text
 frontend https
     bind :80
-    bind :443 ssl crt /etc/haproxy/certs/silo.example.com.pem alpn h2,http/1.1
+    bind :443 ssl crt /etc/haproxy/certs/silo.example.com.pem
     http-request redirect scheme https unless { ssl_fc }
     http-request set-header X-Forwarded-For %[src]
     http-request set-header X-Forwarded-Proto https
