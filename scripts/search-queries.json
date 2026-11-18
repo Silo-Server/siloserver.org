@@ -155,6 +155,7 @@
   {"query": "export my watch history", "expect": ["docs/your-data"]},
   {"query": "keep backups in S3", "expect": ["docs/backups"]},
   {"query": "get back a deleted library", "expect": ["docs/restore"]},
+  {"query": "cant open pull request for docs", "expect": ["docs/improve-the-docs"]},
   {"query": "change app language", "expect": ["docs/preferences"]},
   {"query": "menus in spanish", "expect": ["docs/preferences"]},
   {"query": "help translate silo", "expect": ["docs/preferences"]}

@@ -69,14 +69,12 @@ export default defineConfig({
       lastUpdated: true,
       pagefind: { ranking: searchRanking },
       customCss: ["./src/styles/docs.css"],
-      editLink: {
-        baseUrl: "https://github.com/Silo-Server/siloserver.org/edit/main/",
-      },
       plugins: [
         // Fails the build on broken internal links or anchors in docs pages.
         starlightLinksValidator({ errorOnRelativeLinks: false }),
       ],
       components: {
+        EditLink: "./src/components/starlight/EditLink.astro",
         Head: "./src/components/starlight/Head.astro",
         MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
         Search: "./src/components/starlight/Search.astro",
