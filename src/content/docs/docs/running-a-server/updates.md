@@ -42,7 +42,7 @@ docker pull ghcr.io/silo-server/silo-server:latest
 docker stop silo && docker rm silo
 ```
 
-Silo applies database migrations as it starts, before it answers requests, and [backs up the database](#the-backup-before-an-update) first. A large migration can take a while. `docker compose ps` shows Silo as `starting` for the first 20 minutes, and as `unhealthy` after that until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and the next start can wait while PostgreSQL still holds the abandoned run's locks.
+Silo applies database migrations as it starts, before it answers requests, and [backs up the database](#the-backup-before-an-update) first. A large migration can take a while. `docker compose ps` can show Silo as `starting` for up to 20 minutes, then `unhealthy`, until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and the next start can wait while PostgreSQL still holds the abandoned run's locks.
 
 Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit. A table rewrite also needs free space on the database disk for a second copy of each rewritten table and its indexes, so check it before updating.
 

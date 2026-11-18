@@ -6,7 +6,7 @@ title: Back up by hand and test a restore
 description: Keep the encryption key and files Silo's own backups leave out, copy the database yourself, and test a restore on another host.
 ---
 
-Silo [backs up its database and uploaded files](/docs/backups) every night. Those backups leave out `SECRET_KEY`, `.env`, your Compose files, and your media, and a copy kept on the server's own disk is lost with that disk. This page covers what to keep yourself, how to copy the database by hand, and how to test a restore on another host.
+Silo's [nightly backups](/docs/backups) leave out `SECRET_KEY`, `.env`, your Compose files, and your media, and a backup kept on the server's own disk is lost with that disk. Keep those yourself, along with a copy of the backups, somewhere other than the server.
 
 ## What to preserve
 
@@ -19,8 +19,6 @@ Silo [backs up its database and uploaded files](/docs/backups) every night. Thos
 | Local artwork and S3 buckets | Uploaded images, downloaded subtitles, avatars, and cached artwork |
 | Plugin files | Installed plugins |
 | Original media | Silo's database does not contain your media files |
-
-Silo's own backups cover PostgreSQL and the files people uploaded. Keep the rest yourself, and keep a copy off the server.
 
 :::caution[Without the secret key, a backup can't be restored]
 Silo encrypts parts of its database with `SECRET_KEY`, including the key that keeps people signed in, and needs the same key every time it starts. Started with any other key, Silo stops with a `loading settings: decrypt setting ...` error. There's no supported way to recover from a lost key: the only way forward is a new, empty database, without your accounts, profiles, watch history, or settings.
@@ -111,6 +109,28 @@ docker compose restart silo
 ```
 
 The restart starts Silo again on the restored data. `dropdb` deletes the container's database before the dump loads, so if `pg_restore` stops with an error, that database is incomplete and Silo stays stopped. The dump file is unchanged: fix the cause and run the commands again.
+
+### Test a built-in backup
+
+**Complete** on **Admin > Server > Backups** means a backup can be read, not that it restores. To test one of Silo's own backups, restore it into an empty scratch database:
+
+```sh
+silo backup verify --from <backup> --scratch <database URL>
+```
+
+`<backup>` is the backup's folder, or the bucket address **Admin > Server > Backups** shows. Connect as a PostgreSQL role that isn't a superuser and owns only that database. The command loads the backup and checks it against what the backup recorded, without changing anything else. Running `silo backup` with no arguments lists every option.
+
+### Restore a built-in backup into a separate database
+
+To look at a backup without touching the live server, restore it into a new, empty database and an empty folder or bucket prefix:
+
+```sh
+silo backup restore --from <backup> --into <database URL> --blobs-into <folder or s3:// address>
+```
+
+`--database-only` skips the files instead. Leave the password out of the database URL, because other accounts on the host can read a running command's arguments. Set `PGPASSWORD` instead.
+
+The copy keeps the original server's identity, and its nightly backups stay on. The command clears its backup destination, so the copy backs up to its own storage. Before you start Silo on it, point `DATABASE_URL` and the artwork storage at the new database and folder, not the original server's, or its backups could delete the original server's copies.
 
 ## Before an update
 

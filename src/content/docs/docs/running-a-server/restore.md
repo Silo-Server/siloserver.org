@@ -30,7 +30,8 @@ Merging keeps whichever progress is newer and never deletes what's already here.
 
 ### What a partial restore never changes
 
-- Access: a restore never gives an account or profile more access than this server gives it now. Where the backup's settings would widen access, the server keeps its stricter values.
+- Accounts and profiles that are already here. They keep their password, role, access, and PIN; only missing profiles and the chosen data are added. Restoring an administrator account that isn't here creates an administrator, and the review says so.
+- Access settings that are stricter here. Where the backup's settings would widen access, the server keeps its current values.
 - Settings that belong to this server, such as its address, storage, and backup settings.
 - Libraries whose folders this server can't open. Make the folders available first.
 - Plugins that aren't installed here. A restore never installs a plugin from a backup. Install it from a [plugin catalog](/docs/plugins), then restore it again to get its settings.
@@ -45,13 +46,13 @@ From such a backup, Silo leaves off whatever would contact outside services or r
 - settings that connect to outside services, and plugin settings, aren't restored
 - new libraries come back with AI metadata translation, seek previews, intro detection, chapter thumbnails, and box sets turned off
 - restored collections have no sync schedule
-- seasonal home sections come back turned off
+- home sections come back turned off
 
-The review lists each one. Turn them on afterwards once you've checked them.
+The review lists each one. Turn them on afterwards once you've checked them; home sections are turned on in the page editor.
 
 ## Restore from another server
 
-To bring parts of another Silo server into this one, move its restore set across.
+A backup's `restore-set.tar` file holds the parts the web app can restore. To bring parts of another Silo server into this one, move that file across.
 
 1. On the other server, open **Admin > Server > Backups**, select **Download** next to a backup, and save `restore-set.tar`. If that backup is in a bucket, select **Download the restore set (decrypted)** instead.
 2. On this server, select **Upload a backup** at the top of **Admin > Server > Backups**, then **Choose a file**.
@@ -70,7 +71,7 @@ If checking an upload stops, for example because the server restarted, select **
 ## Restore the whole server
 
 :::caution[A full restore replaces the database]
-Everything changed since the backup is lost, and every account goes back to how it was in the backup, including passwords, roles, and permissions. Before it changes anything, the command lists the accounts that differ. Afterwards, review the admin accounts and reset the password of anyone who changed theirs since the backup.
+Everything changed since the backup is replaced, and every account goes back to how it was in the backup, including passwords, roles, and permissions. Before it changes anything, the command lists the accounts that differ. Afterwards, review the admin accounts and reset the password of anyone who changed theirs since the backup.
 :::
 
 The **Replace the whole server** section of **Admin > Server > Backups** shows the command for the backup you select in the list, or for the newest one, with a button to copy it.
@@ -101,47 +102,27 @@ docker compose exec -u silo silo psql -h /run/postgresql -d postgres -c 'DROP DA
 
 The command also clears Silo's Redis data, so nothing cached from the old database is served. `--keep-redis` skips that.
 
-If a restore stops partway, for example because the host restarted, run `silo backup restore --recover <time>` with the time the command printed. Run it as the same user, from the same folder, against the same database. It finishes the restore or puts everything back.
+If a restore stops partway, for example because the host restarted, run `silo backup restore --recover <time>` with the time the command printed. Run it the same way as the restore: as the same user, from the same folder, against the same database. With Compose, that's the same `docker compose exec` line with `--recover <time>` in place of `--from`. It finishes the restore or puts everything back. It doesn't clear Redis: if it finished the restore, run `FLUSHDB` on the Redis database Silo uses before you start Silo, as the command says.
 
 ### What happens after a full restore
 
 - Every app and browser has to sign in again. Sign-ins aren't part of a backup, so a sign-in you ended after the backup stays ended.
 - Connections to outside services, such as the email server, metadata and subtitle providers, sign-in providers, and notification channels, keep this server's current addresses and credentials. A service this server has no settings for comes back turned off until you enter its credentials.
-- API keys and pending invitations stay as they are on this server, so a key you revoked since the backup stays revoked.
+- API keys and pending invitations come from this server, not the backup, so a key you revoked since the backup stays revoked. Keys and invitations of an account the backup doesn't have, or that had more authority in the backup, are dropped, and the command lists them.
 - Accounts, sign-in providers, plugins, and libraries that are turned off on this server stay off.
 - Things deleted since the backup come back turned off: libraries, plugins, autoscan and history import sources, request integrations, subtitle providers, marker sharing, notifications, and access group permissions. Turn them on again once you've checked them. Accounts are the exception: they come back as the backup has them.
 - Scans, imports, storage moves, and other jobs that were running when the backup was taken don't start again. They show as interrupted by the restore. Start them again if you still want them.
 
 ### If the backup came from another server or key
 
-A backup in a bucket can only be restored with the `SECRET_KEY` it was taken with.
+An encrypted backup, which is every backup from a bucket, needs the `SECRET_KEY` it was taken with, even after you download its files.
 
-A backup on disk taken with another `SECRET_KEY` needs `--accept-lost-credentials`. Settings encrypted with the other key, such as storage, plugin, or email server credentials, are cleared, and the command lists them so you can enter them again.
-
-Restoring onto a new install, or restoring another server's backup, brings back no API keys, invitations, or links to external sign-in accounts. Set those up again.
-
-### Restore into a separate database
-
-To look at a backup without touching the live server, restore it into a new, empty database and an empty folder or bucket prefix:
-
-```sh
-silo backup restore --from <backup> --into <database URL> --blobs-into <folder or s3:// address>
-```
-
-`--database-only` skips the files instead. Leave the password out of the database URL, because other accounts on the host can read a running command's arguments. Set `PGPASSWORD` instead. The copy keeps the original server's identity, so it starts with its backup settings cleared. Set **Where backups are kept** before you turn backups on there, or it could delete the original server's copies.
-
-### Test a restore
-
-**Complete** means a backup can be read, not that it restores. To test one, restore it into an empty scratch database:
-
-```sh
-silo backup verify --from <backup> --scratch <database URL>
-```
-
-Connect as a PostgreSQL role that isn't a superuser and owns only that database. The command loads the backup and checks it against what the backup recorded, without changing anything else. Running `silo backup` with no arguments lists every option.
+A backup from another server, including the old server when you restore onto a new install, needs `--accept-lost-credentials`, even with the same `SECRET_KEY`. So does an unencrypted backup taken with another `SECRET_KEY`. Settings encrypted with a key this server doesn't have, such as storage, plugin, or email server credentials, are cleared, and the command lists them so you can enter them again. The restored server has no API keys, invitations, or links to external sign-in accounts. Set those up again.
 
 ## Move to a new server
 
+These steps are for a server that keeps artwork on its own disk, the standard setup. If the old server uses [S3 storage](/docs/s3-storage), the new install must use the same buckets, or the restore stops with `the backup records another storage location than this deployment uses`.
+
 1. On the new machine, install Silo with the same `SECRET_KEY` and the same media paths as the old server, and start it. Don't finish setup in the browser.
 2. Copy a backup's folder from the old server, or the files from its **Download**, into `config/silo` on the new server, owned by the `PUID` account.
-3. Follow [Restore the whole server](#restore-the-whole-server), with `--from` set to that folder inside the container, such as `/config/silo/<backup>/`.
+3. Follow [Restore the whole server](#restore-the-whole-server), with `--from` set to that folder inside the container, such as `/config/silo/<backup>/`, and add `--accept-lost-credentials`. The new install counts as another server.

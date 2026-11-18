@@ -30,11 +30,13 @@ These settings are on the same page:
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| **Nightly backups** | On | Turning it off stops new backups, including the one Silo takes [before an update](/docs/updates#the-backup-before-an-update). Saved copies stay. |
+| **Nightly backups** | On | Turning it off stops nightly backups and the one Silo takes [before an update](/docs/updates#the-backup-before-an-update). **Back up now** and the backup before a partial restore still work. Saved copies stay. |
 | **Start time** | 04:00 | In the server's time zone |
 | **Copies to keep** | 7 | From 1 to 60. Nightly and manual copies count toward it. |
 | **Intro detection data** | Off | Makes each copy larger. Without it, Silo analyzes a season again when its next episode arrives. |
 | **Downloaded subtitles** | On | Saves fetching them again from subtitle sites, which limit downloads per day. Subtitles people uploaded are always backed up. |
+
+Select **Save** in the bar at the bottom of the page to apply changes.
 
 Silo deletes the oldest copy only after a new one succeeds, and it never deletes the newest copy that finished without warnings, even if that keeps one more than **Copies to keep**.
 
@@ -55,7 +57,7 @@ Under **Where backups are kept**, choose one:
 
 If Silo keeps artwork in S3 and has no private bucket, the first option shows that the server has no private storage for backups. Add a private bucket in **Storage settings**, or set up a bucket for backups.
 
-When you change where backups go, copies at the old place stay there. The list then shows only the current place's backups.
+Switching between these two options also takes **Save**. When you change where backups go, copies at the old place stay there. The list then shows only the current place's backups.
 
 With more than one API server, every server must reach the same storage: the same shared folder for **On this server**, or the same bucket.
 
@@ -91,7 +93,7 @@ If `SECRET_KEY` changes, backups to the bucket pause and the page says **Backups
 
 | Status | Meaning |
 | --- | --- |
-| **Complete** | The backup finished and Silo checked that its database copy can be read. That isn't a restore test; see [Test a restore](/docs/restore#test-a-restore). |
+| **Complete** | The backup finished and Silo checked that its database copy can be read. That isn't a restore test; see [Test a built-in backup](/docs/backup-restore#test-a-built-in-backup). |
 | **Complete with warnings** | The backup is usable, but some files were missing when it copied them, or some accounts weren't included in its [restore set](/docs/restore#restore-parts-of-a-backup). **Show details** lists them and why. A full restore still includes those accounts. |
 | **In progress** | The backup is running. |
 | **Incomplete** | The backup didn't finish, or some of its files are gone. Don't rely on it. |
