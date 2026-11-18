@@ -40,9 +40,9 @@ Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote
 
 ### If remote playback is slow over HTTP/3
 
-If viewers away from home buffer while other sites load quickly for them, check whether your proxy serves HTTP/3. On a connection that loses a few packets, HTTP/3 can play much slower than TCP, and **Test speed** in Silo's settings shows the same low speed. Caddy serves HTTP/3 whenever UDP port 443 reaches it, for example when the port forward or a Docker port mapping includes UDP. If you forward only TCP, as in the steps above, browsers can't reach Caddy over HTTP/3.
+If viewers away from home buffer while other sites load quickly for them, Caddy may be serving Silo over HTTP/3. Caddy turns HTTP/3 on by default and uses it whenever UDP port 443 reaches it, for example when the port forward or a Docker port mapping includes UDP. With only TCP forwarded, as in the steps above, this doesn't happen. On a connection that loses a few packets, Caddy's HTTP/3 can be much slower than TCP, and [**Test speed**](/docs/preferences#test-your-connection-speed) in **Settings > Playback** is slow too.
 
-To keep Silo on TCP, add `header Alt-Svc clear` to Silo's site in your Caddyfile, then reload Caddy:
+To stop offering HTTP/3 for Silo, add `header Alt-Svc clear` to Silo's site in your Caddyfile, then validate and reload Caddy:
 
 ```text
 silo.example.com {
@@ -51,7 +51,9 @@ silo.example.com {
 }
 ```
 
-Browsers then use TCP for that hostname, while other sites on the same Caddy keep HTTP/3. nginx serves HTTP/3 only where you've turned it on, and it can slow down the same way.
+Other sites on the same Caddy keep HTTP/3. Browsers stop using HTTP/3 for Silo once they've seen the change, but one that's still connected over HTTP/3 can keep that connection for a while. Restart the browser before you test playback away from home again.
+
+nginx serves HTTP/3 only where you've set it up, and its HTTP/3 can slow down the same way.
 
 ## Other addresses clients use
 
