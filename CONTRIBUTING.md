@@ -7,10 +7,15 @@ website-specific workflow.
 
 ## Before you start
 
-Open an [issue](https://github.com/Silo-Server/siloserver.org/issues) before a
-site-wide redesign, navigation or information-architecture change, deployment
-change, or new product claim. Documentation corrections and narrow copy or
-accessibility fixes can go straight to a pull request.
+Only collaborators can open pull requests in this repository. Everyone else
+suggests changes in an [issue](https://github.com/Silo-Server/siloserver.org/issues).
+For a docs change, select **Suggest a change** at the bottom of the docs page.
+It opens the **Suggest a docs change** issue form with the page filled in.
+
+Collaborators open an issue before a site-wide redesign, navigation or
+information-architecture change, deployment change, or new product claim.
+Documentation corrections and narrow copy or accessibility fixes can go
+straight to a pull request.
 
 Don't open a docs issue for a new or changed feature until its implementation
 pull request is open in `silo-server`, `silo-apple`, `silo-android`, or
@@ -39,7 +44,7 @@ bun run dev
 The manual lives in `src/content/docs/docs/`, grouped into folders by
 audience. The sidebar is defined in `src/data/sidebar.mjs`. The public
 [Improve these docs](https://siloserver.org/docs/improve-the-docs) page
-covers browser edits and writing tips for readers.
+tells readers how to suggest a change in an issue, with writing tips.
 
 ### URLs and redirects
 

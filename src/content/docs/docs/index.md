@@ -35,7 +35,7 @@ extra playback hardware, and integrations can come later.
 ## Get help or contribute
 
 [Find help](/docs/help) for connection and playback problems. You can also
-[correct these instructions](/docs/improve-the-docs) or
+[suggest a change to these instructions](/docs/improve-the-docs) or
 [build an integration](/docs/developers).
 
 ## Project status
