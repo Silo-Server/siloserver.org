@@ -43,14 +43,17 @@ permission prompt. Other browsers and devices you've subscribed are listed in
 the same section, where you can remove them. Browser notifications are
 separate from the mobile app's notifications.
 
-A browser stops getting notifications once you're no longer signed in there:
-you signed out, the sign-in expired, you changed your password and signed out
-other devices, or the person who runs your server signed you out. Sign in on
-that browser again with the same account and profile, and they come back on
-their own, with no new permission prompt. If they don't, select **Enable**
-again. Someone else who signs in on that browser doesn't get notifications
-until they select **Enable**. If you don't sign in there again, the browser
-leaves the list on your other devices, usually within a day.
+A browser stops getting notifications when you're no longer signed in there:
+you sign out, your sign-in expires, you change your password and sign out
+other devices, or the person who runs your server signs you out.
+
+Sign in on that browser again with the same account and profile. Notifications
+come back on their own, with no new permission prompt. If they don't, select
+**Enable** again.
+
+Someone else who signs in on that browser doesn't get notifications until they
+select **Enable**. If you don't sign in there again, the browser leaves the
+list on your other devices, usually within a day.
 
 ### Phone and tablet notifications
 
