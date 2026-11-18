@@ -1,12 +1,12 @@
 ---
 slug: docs/backup-restore
-keywords: ["backup", "restore", "database dump"]
+keywords: ["database dump", "pg_dump", "manual backup", "lost secret key"]
 questions: ["I lost my secret key, can I recover my data?", "What should I save before updating?", "How do I copy the database while Silo is running?"]
-title: Plan and test your backups
-description: Back up the database, encryption key, and files a Silo server needs, and test a restore.
+title: Back up by hand and test a restore
+description: Keep the encryption key and files Silo's own backups leave out, copy the database yourself, and test a restore on another host.
 ---
 
-A Silo backup is the database, the encryption key, and the files the database points to. Test a restore on another host before you rely on it.
+Silo [backs up its database and uploaded files](/docs/backups) every night. Those backups leave out `SECRET_KEY`, `.env`, your Compose files, and your media, and a copy kept on the server's own disk is lost with that disk. This page covers what to keep yourself, how to copy the database by hand, and how to test a restore on another host.
 
 ## What to preserve
 
@@ -19,6 +19,8 @@ A Silo backup is the database, the encryption key, and the files the database po
 | Local artwork and S3 buckets | Uploaded images, downloaded subtitles, avatars, and cached artwork |
 | Plugin files | Installed plugins |
 | Original media | Silo's database does not contain your media files |
+
+Silo's own backups cover PostgreSQL and the files people uploaded. Keep the rest yourself, and keep a copy off the server.
 
 :::caution[Without the secret key, a backup can't be restored]
 Silo encrypts parts of its database with `SECRET_KEY`, including the key that keeps people signed in, and needs the same key every time it starts. Started with any other key, Silo stops with a `loading settings: decrypt setting ...` error. There's no supported way to recover from a lost key: the only way forward is a new, empty database, without your accounts, profiles, watch history, or settings.
@@ -112,4 +114,4 @@ The restart starts Silo again on the restored data. `dropdb` deletes the contain
 
 ## Before an update
 
-A database migration can't be undone by switching back to the old image. Take a fresh backup before every update and follow the [update guide](/docs/updates).
+A database migration can't be undone by switching back to the old image. Silo [backs up the database](/docs/updates#the-backup-before-an-update) before it migrates, but that copy stays wherever your backups are kept and holds only the database. Take your own backup before every update and follow the [update guide](/docs/updates).
