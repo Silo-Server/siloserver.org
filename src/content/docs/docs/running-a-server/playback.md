@@ -1,7 +1,7 @@
 ---
 slug: docs/playback
 keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping", "FEL", "DV7"]
-questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Will my TV show Dolby Vision for Blu-ray rips?"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -87,11 +87,11 @@ With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo che
 
 ## Convert Dolby Vision profile 7 to profile 8.1
 
-Most UHD Blu-ray rips use Dolby Vision profile 7. Many TVs and streaming devices can't play profile 7 but can play profile 8.1. For those devices, Silo repackages the file and converts its Dolby Vision metadata to profile 8.1 as it streams, so the TV still shows Dolby Vision. There's no setting to turn on.
+Silo can stream a Dolby Vision profile 7 file, common among UHD Blu-ray rips, as profile 8.1 to an app and device that play profile 8.1 but not profile 7. It repackages the file and converts the Dolby Vision metadata as it streams, so the TV still shows Dolby Vision. There's no setting to turn on.
 
 Silo doesn't re-encode the video, so the conversion uses little CPU and works with **Video transcoding** off. It keeps the HDR10 base layer and drops the enhancement layer, the second video layer in a profile 7 file. A file with a full enhancement layer loses the extra picture detail that layer adds.
 
-If the app can convert profile 7 itself, as the Silo apps for Apple and Android devices can, it plays the original file and converts it on the device instead. If the device can't play profile 8.1, or the conversion fails, Silo removes the Dolby Vision metadata and plays the HDR10 base layer.
+If the app can play the original file and convert profile 7 itself, Silo sends the original file instead. The Silo apps for Apple and Android devices can do this on supported devices. When profile 8.1 isn't an option, Silo can still play the HDR10 base layer, without Dolby Vision, on a device that supports HDR10. [Jellyfin-compatible apps](/docs/jellyfin-apps) don't get the profile 8.1 conversion.
 
 ## Convert HDR for SDR screens
 
