@@ -27,8 +27,8 @@ an episode, the series doesn't notify you until you finish an episode.
 Removing the series from **Next Up** on Home also stops its notifications.
 
 To check which series will notify you, select **See which series notify
-you** under **New Episode Notifications**. Select **Mute** (the crossed-out
-bell) next to a series to stop its notifications.
+you** under **New Episode Notifications**. Turn off the switch next to a
+series to stop its new-episode notifications.
 
 You're also notified when a title you're waiting for arrives: one you
 requested, one you asked to be told about, or one you added to your
