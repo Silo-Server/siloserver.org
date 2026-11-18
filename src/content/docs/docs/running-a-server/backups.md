@@ -3,10 +3,10 @@ slug: docs/backups
 keywords: ["automatic backups", "nightly backup", "backup schedule", "retention", "S3 backup", "offsite backup", "key check"]
 questions: ["How often does Silo back itself up?", "Where are my backups stored?", "Can I send backups to an S3 bucket?", "Why does a backup say complete with warnings?"]
 title: Back up your server
-description: Silo backs up its database and uploaded files every night. Choose where the copies go, how many to keep, and take one now.
+description: Silo backs up its database and uploaded files every night. Choose where they go, how many to keep, and take one now.
 ---
 
-Every night at 04:00, Silo backs up its database and the files people uploaded, and keeps the 7 newest copies. Open **Admin > Server > Backups** to see the copies, take one now, or change the schedule and where copies are kept.
+Every night at 04:00, Silo backs up its database and the files people uploaded, and keeps the 7 newest. Open **Admin > Server > Backups** to see them, take one now, or change the schedule and where copies are kept.
 
 A backup holds what Silo can't get back on its own:
 
@@ -20,7 +20,7 @@ To get data back from a backup, see [Restore from a backup](/docs/restore).
 
 ## Take a backup now
 
-Select **Back up now** at the top of **Admin > Server > Backups**. The backup keeps running if you leave the page, and it appears under **Saved backups** when it finishes. A manual copy counts toward **Copies to keep**, like a nightly one.
+Select **Back up now** at the top of **Admin > Server > Backups**. The backup keeps running if you leave the page, and it appears under **Saved backups** when it finishes. A manual backup counts toward **Copies to keep**, like a nightly one.
 
 If the button can't start a backup, the reason shows under it, such as **This server has no storage for backups.** or **The backup destination can't be reached.**
 
@@ -32,18 +32,18 @@ These settings are on the same page:
 | --- | --- | --- |
 | **Nightly backups** | On | Turning it off stops nightly backups and the one Silo takes [before an update](/docs/updates#the-backup-before-an-update). **Back up now** and the backup before a partial restore still work. Saved copies stay. |
 | **Start time** | 04:00 | In the server's time zone |
-| **Copies to keep** | 7 | From 1 to 60. Nightly and manual copies count toward it. |
-| **Intro detection data** | Off | Makes each copy larger. Without it, Silo analyzes a season again when its next episode arrives. |
+| **Copies to keep** | 7 | From 1 to 60. Nightly and manual backups count toward it. |
+| **Intro detection data** | Off | Makes each backup larger. Without it, Silo analyzes a season again when its next episode arrives. |
 | **Downloaded subtitles** | On | Saves fetching them again from subtitle sites, which limit downloads per day. Subtitles people uploaded are always backed up. |
 
 Select **Save** in the bar at the bottom of the page to apply changes.
 
-Silo deletes the oldest copy only after a new one succeeds, and it never deletes the newest copy that finished without warnings, even if that keeps one more than **Copies to keep**.
+Silo deletes the oldest backup only after a new one succeeds, and it never deletes the newest one that finished without warnings, even if that keeps one more than **Copies to keep**.
 
-Silo also keeps two kinds of copies outside that count:
+Silo also keeps two kinds of backups outside that count:
 
 - **Taken before a restore**: kept for 7 days.
-- **Taken before an upgrade**: the 2 newest are kept, and a copy stays until its update has finished. These hold the database only. See [Update Silo safely](/docs/updates#the-backup-before-an-update).
+- **Taken before an upgrade**: the 2 newest are kept, and each stays until its update has finished. These hold the database only. See [Update Silo safely](/docs/updates#the-backup-before-an-update).
 
 If you run more than one API server, one of them takes each night's backup and the others skip that night.
 
@@ -51,13 +51,13 @@ If you run more than one API server, one of them takes each night's backup and t
 
 Under **Where backups are kept**, choose one:
 
-- **On this server** keeps backups in Silo's data folder, on the same disk as the database. That covers a bad update or a mistake, not a failed disk. With the standard Compose setup, the copies are in `config/silo/artwork/backups` under `SILO_DATA_ROOT`. Each backup needs free space of 1.5 times the previous backup plus 1 GB.
+- **On this server** keeps backups in Silo's data folder, on the same disk as the database. That covers a bad update or a mistake, not a failed disk. With the standard Compose setup, they're in `config/silo/artwork/backups` under `SILO_DATA_ROOT`. Each backup needs free space of 1.5 times the previous backup plus 1 GB.
 - **In the private bucket** replaces **On this server** when Silo has a [private S3 bucket](/docs/s3-storage). Backups go to that bucket, encrypted with your `SECRET_KEY`.
 - **In an S3 bucket** keeps backups off this server, in a bucket used only for backups, encrypted with your `SECRET_KEY`. See [Keep backups in an S3 bucket](#keep-backups-in-an-s3-bucket).
 
 If Silo keeps artwork in S3 and has no private bucket, the first option shows that the server has no private storage for backups. Add a private bucket in **Storage settings**, or set up a bucket for backups.
 
-Switching between these two options also takes **Save**. When you change where backups go, copies at the old place stay there. The list then shows only the current place's backups.
+Switching between these two options also takes **Save**. When you change where backups go, the ones at the old place stay there. The list then shows only the current place's backups.
 
 With more than one API server, every server must reach the same storage: the same shared folder for **On this server**, or the same bucket.
 
@@ -89,7 +89,7 @@ If `SECRET_KEY` changes, backups to the bucket pause and the page says **Backups
 
 ## Read a backup's status
 
-**Saved backups** lists each copy with when it was **Taken**, its **Status**, **Size**, and **Silo version**. Select **Show details** for more.
+**Saved backups** lists each backup with when it was **Taken**, its **Status**, **Size**, and **Silo version**. Select **Show details** for more.
 
 | Status | Meaning |
 | --- | --- |

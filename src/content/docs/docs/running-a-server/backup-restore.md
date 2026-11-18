@@ -3,10 +3,10 @@ slug: docs/backup-restore
 keywords: ["database dump", "pg_dump", "manual backup", "lost secret key"]
 questions: ["I lost my secret key, can I recover my data?", "What should I save before updating?", "How do I copy the database while Silo is running?"]
 title: Back up by hand and test a restore
-description: Keep the encryption key and files Silo's own backups leave out, copy the database yourself, and test a restore on another host.
+description: Keep the encryption key and files Silo's own backups leave out, dump the database yourself, and test a restore on another host.
 ---
 
-Silo's [nightly backups](/docs/backups) leave out `SECRET_KEY`, `.env`, your Compose files, and your media, and a backup kept on the server's own disk is lost with that disk. Keep those yourself, along with a copy of the backups, somewhere other than the server.
+Silo's [nightly backups](/docs/backups) leave out `SECRET_KEY`, `.env`, your Compose files, and your media, and a backup kept on the server's own disk is lost with that disk. Keep those yourself, along with the backups, somewhere other than the server.
 
 ## What to preserve
 
@@ -130,8 +130,10 @@ silo backup restore --from <backup> --into <database URL> --blobs-into <folder o
 
 `--database-only` skips the files instead. Leave the password out of the database URL, because other accounts on the host can read a running command's arguments. Set `PGPASSWORD` instead.
 
-The copy keeps the original server's identity, and its nightly backups stay on. The command clears its backup destination, so the copy backs up to its own storage. Before you start Silo on it, point `DATABASE_URL` and the artwork storage at the new database and folder, not the original server's, or its backups could delete the original server's copies. On the same host as the live server, also give it its own `COMPOSE_PROJECT_NAME`, `SILO_DATA_ROOT`, and ports, as in step 2 of [Test a restore](#test-a-restore). The command removes the copy's notification destinations and API keys, and clears and turns off its connections to outside services, unless it prints that it skipped that step because the backup is from an older version of Silo. In that case, block the copy's outgoing traffic before you start it, as in step 4 of [Test a restore](#test-a-restore), then turn those connections off in its admin pages. Start Silo on the copy only after the command succeeds. If it fails, empty that database and the folder or bucket prefix, then run the command again.
+The restored database keeps the original server's identity, and its nightly backups stay on. The command clears its backup destination, so a server started on it backs up to its own storage. Before you start Silo on it, point `DATABASE_URL` and the artwork storage at the new database and folder, not the original server's, or its backups could delete the original server's copies. On the same host as the live server, also give it its own `COMPOSE_PROJECT_NAME`, `SILO_DATA_ROOT`, and ports, as in step 2 of [Test a restore](#test-a-restore).
+
+The command removes the restored database's notification destinations and API keys, and clears and turns off its connections to outside services, unless it prints that it skipped that step because the backup is from an older version of Silo. In that case, block outgoing traffic from the new server before you start it, as in step 4 of [Test a restore](#test-a-restore), then turn those connections off in its admin pages. Start Silo on it only after the command succeeds. If it fails, empty that database and the folder or bucket prefix, then run the command again.
 
 ## Before an update
 
-A database migration can't be undone by switching back to the old image. Silo [backs up the database](/docs/updates#the-backup-before-an-update) before it migrates, but that copy stays wherever your backups are kept and holds only the database. Take your own backup before every update and follow the [update guide](/docs/updates).
+A database migration can't be undone by switching back to the old image. Silo [backs up the database](/docs/updates#the-backup-before-an-update) before it migrates, but that backup stays wherever your backups are kept and holds only the database. Take your own backup before every update and follow the [update guide](/docs/updates).
