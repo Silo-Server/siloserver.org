@@ -1,7 +1,7 @@
 ---
 slug: docs/markers
 keywords: ["skip intro", "skip credits", "intro detection", "wrong intro time"]
-questions: ["Why does skip intro appear at the wrong spot?", "Why is there no skip credits button on movies?", "How do I stop marker detection hogging the CPU?", "Can a regular user fix skip times?"]
+questions: ["Why does skip intro appear at the wrong spot?", "Why is there no skip credits button on movies?", "How do I stop marker detection hogging the CPU?", "Can a regular user fix skip times?", "Can I limit how long marker detection runs each night?"]
 title: Find and correct skip markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---
@@ -31,6 +31,8 @@ Silo first looks for a chapter in the file named for the intro or credits, such 
 Finding credits involves scanning each video near the end, which is a heavy task for the CPU. With [**Hardware acceleration**](/docs/playback#choose-and-test-acceleration) set up, Silo can do that work on the GPU instead.
 
 **Detection workers** sets how many seasons or movies are analyzed at once. It defaults to 1; raise it to finish a large library sooner if your storage and CPU have room.
+
+The **Detect markers on this server** task runs detection across your libraries every day at 03:30 by default. On a large library, the first runs can take many hours. To keep them inside a quiet period, open the task in **Admin > Server > Scheduled Tasks**, choose **Edit Schedule**, and enter a **Max runtime** in minutes on its trigger. A scheduled run then stops when that time is up. It keeps the markers it already found, and the next run picks up where it left off. The field is empty by default, which means no limit. Runs you start with **Run now** never have a limit.
 
 To skip detection for one library, turn off its switch in the library's **Advanced** settings: **Detect intro and credits markers** for series and mixed libraries, or **Detect credits markers (best effort)** for movie libraries. Movie libraries you add start with it off.
 
