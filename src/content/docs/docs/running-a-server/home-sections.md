@@ -16,7 +16,7 @@ Sections are the rows people browse on Home and above each library's grid. Use *
 4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
 5. Choose **Add row**. New rows go to the bottom of the page.
 
-Silo's own row names, such as **Continue Watching** or **Recently Added in Movies**, show in each viewer's [app language](/docs/preferences#change-the-app-language). A name you type in **Row name** shows to everyone as you typed it.
+The rows Silo starts with, such as **Continue Watching** or **Recently Added in Movies**, show their names in each viewer's [app language](/docs/preferences#change-the-app-language) until you rename them. A row you add shows its **Row name** as you saved it.
 
 On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. The add button then counts the pages, for example **Add to 3 pages**. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
 
