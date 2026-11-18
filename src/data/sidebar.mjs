@@ -36,6 +36,7 @@ export const sidebar = [
         "docs/profiles",
         "docs/preferences",
         "docs/notification-inbox",
+        "docs/your-data",
       ]),
       group("Watch history", [
         "docs/watch-history",
