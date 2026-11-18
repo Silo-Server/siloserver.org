@@ -1,15 +1,14 @@
 ---
 slug: docs/improve-the-docs
-keywords: ["typo", "wrong docs", "outdated guide", "contribute to docs", "edit on GitHub", "pull request", "GitHub issue", "wiki"]
-questions: ["How do I report a mistake in the documentation?", "Can I suggest changes to a guide?", "Why can't I open a pull request for the docs?"]
+keywords: ["typo", "wrong docs", "outdated guide", "contribute to docs", "edit on GitHub", "PR creation is restricted", "wiki"]
+questions: ["How do I report a mistake in the documentation?", "How do I request a new guide?", "Why can't I open a pull request for the docs?"]
 title: Improve these docs
 description: Report a wrong step, a gap, or a confusing guide in the Silo manual.
 ---
 
 If a guide has a wrong label, a missing step, or an instruction that
-confused you, open an issue on GitHub that describes the change. Only the
-maintainers can open pull requests in the docs repository, so they edit the
-page from your issue.
+confused you, open an issue on GitHub that describes the change. Only
+collaborators on the docs repository can open pull requests.
 
 ## Suggest a change to a page
 
@@ -17,8 +16,8 @@ You need a GitHub account.
 
 1. Select **Suggest a change** at the bottom of the guide. GitHub opens a new
    issue with the page's title and address filled in.
-2. Under **What's wrong or confusing**, quote the step or sentence and say
-   what happened when you followed it.
+2. Under **What's wrong or confusing**, describe what's wrong or missing. If
+   a step didn't work, quote it and say what happened.
 3. Under **Suggested wording**, write how you'd put it, if you know.
 4. If Silo behaved differently from the guide, fill in **App and server
    versions**: the app, such as iPhone or Android TV, with its version, and

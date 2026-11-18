@@ -18,7 +18,7 @@ body:
     id: problem
     attributes:
       label: What's wrong or confusing
-      description: Quote the step or sentence, and say what happened when you followed it.
+      description: Describe what's wrong or missing. If a step didn't work, quote it and say what happened.
     validations:
       required: true
   - type: textarea
