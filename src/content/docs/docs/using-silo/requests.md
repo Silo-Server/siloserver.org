@@ -67,7 +67,7 @@ The Apple apps group these into five labels:
 | **Pending** | Waiting for approval. You can cancel it from **My Requests** with **Cancel Request**. |
 | **On the way** | Approved, queued, or downloading. |
 | **In library** | Ready to watch. |
-| **Needs attention** | Declined or failed, with the reason when there is one. You can remove a failed request if none of it arrived. |
+| **Needs attention** | Declined or failed, with the reason when there is one. You can [remove a failed request](#remove-a-failed-request) if none of it arrived. |
 | **Unavailable** | Can't be requested right now, or the request was cancelled. |
 
 When a request is complete, the title shows up in the library. You can also
@@ -76,9 +76,8 @@ get an alert when it arrives through your
 
 ### Remove a failed request
 
-If a request failed and none of it arrived, you can remove it and request
-the title again. In the Apple apps, a failed request shows **Needs
-attention**.
+You can remove your failed request if none of it arrived, then request the
+title again.
 
 - In the web app, select **Remove request** next to it under **Yours**.
 - In the phone and tablet apps, select **See all** next to **Your requests**
@@ -87,7 +86,7 @@ attention**.
 - In the TV apps, press and hold the request's card on the Requests page and
   choose **Remove Request** (**Remove request** on Android TV).
 
-Confirm with **Remove request**. Silo deletes the request and its error.
+Confirm with **Remove request**.
 
 If part of the request arrived before it failed, for example the HD copy but
 not the 4K one, you can't remove it. It stays so the person who runs the
