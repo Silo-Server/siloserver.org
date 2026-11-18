@@ -38,8 +38,9 @@ Silo has them. It doesn't change a movie's spoken audio; use
 
 **App language** sets the language of Silo's menus, buttons, and messages.
 It belongs to your profile, so a language you pick follows you to every
-device. The default, **Match device**, uses your phone's, TV's, or browser's
-language when Silo has it, and English when it doesn't.
+device. The default, **Match device**, uses the first language in your
+phone's, TV's, or browser's language list that Silo has, or English if Silo
+has none of them.
 
 | App | Where |
 | --- | --- |
@@ -48,26 +49,26 @@ language when Silo has it, and English when it doesn't.
 | Android phones and tablets | **Settings > Interface > App language** |
 | Android TV | **Settings > General > App language** |
 
+Before you sign in, the web app's sign-in page has its own language menu in
+the top corner.
+
 Every app offers the same 21 languages besides English: Arabic, Chinese
 (Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish,
 French, German, Italian, Japanese, Korean, Norwegian Bokmål, Polish,
 Portuguese (Brazil), Russian, Spanish, Swedish, Turkish, and Ukrainian. The
 list shows each one in its own language, such as **Deutsch** or **日本語**.
 
-With **Match device**, a device set to Norwegian gets Norwegian Bokmål. A
-device set to Chinese for Taiwan, Hong Kong, or Macau gets Traditional
-Chinese. Nynorsk gets Norwegian Bokmål on Apple devices and English in the
-other apps.
+**Match device** reads Norwegian as Norwegian Bokmål, and Chinese for
+Taiwan, Hong Kong, or Macau as Traditional Chinese. Apple devices also read
+Nynorsk as Norwegian Bokmål; the other apps skip it and try your next
+language.
 
-To use a different language on one device only, choose it for Silo in the
-device's own settings. iPhone, iPad, Mac, and Android phones and tablets
-running Android 13 or later have this setting; Apple TV and Android TV
-don't. If you later pick a language inside Silo, it's saved for your profile
-again and replaces the device's choice.
-
-If your profile's language isn't in an app yet, that app uses the device's
-language instead. Before you sign in, the web app's sign-in page has its own
-language menu in the top corner.
+To use a different language on one device, choose it for Silo in the
+device's own settings. It applies to the profile you're using, on that
+device only. iPhone, iPad, Mac, and Android phones and tablets running
+Android 13 or later have this setting; Apple TV and Android TV don't. If you
+later pick a language inside Silo, it's saved for your profile and clears
+this device's choice. Other devices keep their own.
 
 App language doesn't change titles, descriptions, audio, or subtitles. Those
 follow **Metadata language**, **Spoken language**, and your subtitle
@@ -75,14 +76,13 @@ settings.
 
 ### Help translate Silo
 
-Most of Silo's translations were written by AI, and nobody who speaks the
-language has checked them yet, so some wording may be wrong or awkward. To
-fix a phrase, edit your language in the
-[silo-translations](https://github.com/Silo-Server/silo-translations)
-repository on GitHub and open a pull request. Its
+Most of Silo's translations were written by AI and haven't been checked by
+people who speak the language, so some wording may be wrong or awkward. To
+fix a phrase, follow the
 [contribution guide](https://github.com/Silo-Server/silo-translations/blob/main/CONTRIBUTING.md)
-shows where each phrase appears in the apps and the rules a change must
-follow. A merged fix reaches the apps in their next update.
+and open a pull request in the
+[silo-translations](https://github.com/Silo-Server/silo-translations)
+repository on GitHub. A merged fix shows up in a later app update.
 
 ## Set playback quality
 
