@@ -33,6 +33,8 @@ Builds published before PostgreSQL and Redis moved into this image used `build-N
 
 `docker compose ps` shows one `silo` service with a health status. For what Silo's health and readiness checks mean, see [Check server health](/docs/server-health).
 
+After an update with database changes, Silo backs up the database and migrates it before its health check answers. The image's health check allows 20 minutes for that before it reports `unhealthy`. See [The backup before an update](/docs/updates#the-backup-before-an-update).
+
 Set `PUID` and `PGID` to an account that can read your media. The Compose files default both to `1000`; with `docker run` they default to `911`. If that account can't read the media, the log says `uid 1000 cannot read /mnt/media/...` with the folder it couldn't open. `PUID` can't be 999, 998, or 997: the container stops with `PUID 999 is already used by the postgres account in this image; choose another uid`. The container has to start as root to switch to these accounts, so a `user:` setting in Compose, or a user set in a container manager, stops it.
 
 On the host, leave the owners of the `postgres`, `redis`, and `meilisearch` directories under `config` as they are. When you change `PUID` or `PGID`, the next start gives `config/silo` to the new account, which can take a while if it holds a lot of local artwork.

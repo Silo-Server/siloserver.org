@@ -36,6 +36,7 @@ export const sidebar = [
         "docs/profiles",
         "docs/preferences",
         "docs/notification-inbox",
+        "docs/your-data",
       ]),
       group("Watch history", [
         "docs/watch-history",
@@ -85,8 +86,12 @@ export const sidebar = [
         "docs/notification-delivery",
         "docs/import-household-watch-history",
       ]),
-      group("Maintain and recover", [
+      group("Back up and restore", [
+        "docs/backups",
+        "docs/restore",
         "docs/backup-restore",
+      ]),
+      group("Maintain and recover", [
         "docs/updates",
         "docs/server-health",
         "docs/download-storage",
