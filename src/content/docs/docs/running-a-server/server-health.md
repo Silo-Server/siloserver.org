@@ -66,6 +66,8 @@ If the entries show no warnings, check whether a reverse proxy or other hop sits
 
 Open **Admin > Server > Scheduled Tasks** to find the task and **Admin > Logs > Server Log** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.
 
+A run marked **cancelled** with `Stopped after reaching the max runtime of` in its **Execution history** didn't fail: it reached the **Max runtime** set on the task's schedule. If the task never gets through its work, raise or clear the limit with **Edit Schedule**.
+
 ## Disk space
 
 Watch free space for the database and artwork as well as transcodes. A full disk can break one task before the whole server stops responding.
