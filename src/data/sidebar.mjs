@@ -86,6 +86,8 @@ export const sidebar = [
         "docs/import-household-watch-history",
       ]),
       group("Maintain and recover", [
+        "docs/backups",
+        "docs/restore",
         "docs/backup-restore",
         "docs/updates",
         "docs/server-health",
