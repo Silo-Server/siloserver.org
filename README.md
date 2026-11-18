@@ -400,6 +400,9 @@ what's permitted — including referential use like "compatible with Silo."
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Site-wide
-design, navigation, deployment, and product-claim changes should start as an
-issue.
+Only collaborators can open pull requests here. To suggest a docs change, open
+an issue with **Suggest a change** at the bottom of the docs page, as
+[Improve these docs](https://siloserver.org/docs/improve-the-docs) describes.
+Collaborators read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull
+request. Site-wide design, navigation, deployment, and product-claim changes
+should start as an issue.
