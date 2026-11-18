@@ -52,6 +52,6 @@ Server channels post every selected event, whatever each viewer's own preference
 
 ## Missing or delayed notifications
 
-The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together, caps messages per show, and drops items older than **Max content age**. These settings are under **Advanced** in **Processing**. Check them before treating a delay as a failure.
+The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together and drops items older than **Max content age**. These settings are under **Advanced** in **Processing**. Check them before treating a delay as a failure.
 
 When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. **Retention** only controls how long inbox and sent-history records are kept.

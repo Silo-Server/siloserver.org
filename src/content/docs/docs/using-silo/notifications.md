@@ -1,7 +1,7 @@
 ---
 slug: docs/notification-inbox
-keywords: ["push notifications", "web push", "not getting notified", "new episode alert", "stop emails", "Discord DM", "remind me", "notify me"]
-questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?", "Why did browser notifications stop after I signed out?"]
+keywords: ["push notifications", "web push", "not getting notified", "new episode alert", "stop emails", "Discord DM", "remind me", "notify me", "mute a series"]
+questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?", "Why did browser notifications stop after I signed out?", "Why did I get one alert when a whole season arrived?"]
 title: Manage your notifications
 description: Choose which events reach you and check browser, mobile, email, or Discord delivery.
 ---
@@ -14,10 +14,30 @@ work once the person who runs your server has
 ## Choose what notifies you
 
 Under **New Episode Notifications**, turn on **Enable notifications** and
-choose which series to follow: those in your **Favorites**, **Watchlist**,
-**Continue Watching**, or **Next Up**. These choices apply to every delivery
-channel. You can also get a notification when a title you requested becomes
-available.
+**Next Up**. These choices apply to every delivery channel.
+
+Once you've finished an episode of a series, a new episode notifies you when
+it's your next one: the first episode you haven't watched after the one you
+finished most recently. Episodes that a
+[history import](/docs/import-watch-history) or
+[watch sync](/docs/watch-sync) marked watched count as finished. Favoriting or
+watchlisting a series doesn't make it notify you.
+
+If several episodes arrive together, only your next one notifies you. A later
+episode that arrives before your next one doesn't. If you stop partway through
+an episode, the series doesn't notify you until you finish an episode.
+Removing the series from **Next Up** on Home also stops its notifications.
+
+To check which series will notify you, select **See which series notify
+you** under **New Episode Notifications**. Turn off the switch next to a
+series to stop its new-episode notifications.
+
+You're also notified when a title you're waiting for arrives: one you
+requested, one you
+[asked to be told about](/docs/requests#get-notified-about-someone-elses-request),
+or one you added to your watchlist before the server had it. These alerts
+need **Enable notifications** but not **Next Up**. If you both requested and
+watchlisted a title, you're notified once.
 
 ## Read the web inbox
 
@@ -92,7 +112,8 @@ to switch to the primary profile.
 ### Webhooks
 
 If **Webhooks** appears, select **Add webhook**, enter a name and HTTPS URL,
-choose events, then use **Test**. Keep the URL and signing secret private.
+choose which events it sends (**Next Up**, **Requests and watchlist**, or
+both), then use **Test**. Keep the URL and signing secret private.
 A webhook can send fewer events than your profile's choices, but not more.
 
 ## If notifications don't arrive
