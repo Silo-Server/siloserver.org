@@ -31,9 +31,11 @@ you** under **New Episode Notifications**. Turn off the switch next to a
 series to stop its new-episode notifications.
 
 You're also notified when a title you're waiting for arrives: one you
-requested, one you asked to be told about, or one you added to your
-watchlist before the server had it. If you both requested and watchlisted a
-title, you're notified once.
+requested, one you
+[asked to be told about](/docs/requests#get-notified-about-someone-elses-request),
+or one you added to your watchlist before the server had it. These alerts
+need **Enable notifications** but not **Next Up**. If you both requested and
+watchlisted a title, you're notified once.
 
 ## Read the web inbox
 
