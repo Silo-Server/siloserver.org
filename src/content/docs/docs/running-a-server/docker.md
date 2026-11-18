@@ -189,7 +189,7 @@ The media mount is read-only. Silo's writable directories live below `SILO_DATA_
 | `config/postgres` | PostgreSQL files |
 | `config/redis` | Redis persistence |
 | `config/meilisearch` | Optional search index |
-| `transcode` | Temporary transcode output, mounted at `/tmp/silo-transcode` in the container |
+| `transcode` | Temporary transcode output and cached subtitle tracks, mounted at `/tmp/silo-transcode` in the container. If group or other users can write to it, Silo stops [caching subtitles](/docs/playback-problems#subtitle-problems). |
 | `download-artifacts` | Downloads the main server [prepared](/docs/download-storage) for devices, mounted at `/tmp/silo-download-artifacts` in the container |
 | `catalog-seeds` | Catalog seed inputs, mounted read-only by the repository's Compose file |
 

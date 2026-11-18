@@ -118,6 +118,17 @@ choose **Sync to audio** under **Timing**, or change the delay. Subtitles
 inside the video file and `.sub` files can only use the delay. See
 [Fix subtitles that are out of sync](/docs/subtitles#fix-subtitles-that-are-out-of-sync).
 
+If subtitles inside the video file take a long time to appear every time you
+choose them, and you run the server, search **Admin > Logs > Server Log** for
+`subtitle cache disabled: cache dir refused`. The entry names the folder and
+the reason. Silo keeps a copy of these tracks in a `subtitle-cache` folder
+inside its transcode directory. It uses the copy only when both folders belong
+to the account Silo runs as and no other user or group can write to them.
+Otherwise Silo reads the track out of the video again on every request, which
+can be slow for a large file on network storage. The usual cause is `chmod -R 777` on Silo's data folder. Remove that
+write access on the host, for example with `chmod -R go-w /opt/silo/transcode`.
+Silo picks up the change on the next request.
+
 ## What to include in a report
 
 - The title and the version you chose.
