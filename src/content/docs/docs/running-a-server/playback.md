@@ -1,7 +1,7 @@
 ---
 slug: docs/playback
-keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping"]
-questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?"]
+keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping", "FEL", "DV7"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Will my TV show Dolby Vision for Blu-ray rips?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -84,6 +84,14 @@ Both settings are under **Transcoding** on **Admin > Playback > Settings**. On a
 After turning on **Allow HEVC encoding**, play something that needs conversion on a device that plays HEVC, and check the session in **Admin > Activity**. **SW** means the CPU is encoding: a GPU that converts to H.264 can't always encode HEVC, and Silo then encodes HEVC on the CPU. A GPU that tone-maps HDR video keeps doing that part. If the CPU load is too much, turn the setting off. The change applies to playback that starts after you save; streams already playing keep their codec.
 
 With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo checks each node's HEVC support separately.
+
+## Convert Dolby Vision profile 7 to profile 8.1
+
+Most UHD Blu-ray rips use Dolby Vision profile 7. Many TVs and streaming devices can't play profile 7 but can play profile 8.1. For those devices, Silo repackages the file and converts its Dolby Vision metadata to profile 8.1 as it streams, so the TV still shows Dolby Vision. There's no setting to turn on.
+
+Silo doesn't re-encode the video, so the conversion uses little CPU and works with **Video transcoding** off. It keeps the HDR10 base layer and drops the enhancement layer, the second video layer in a profile 7 file. A file with a full enhancement layer loses the extra picture detail that layer adds.
+
+If the app can convert profile 7 itself, as the Silo apps for Apple and Android devices can, it plays the original file and converts it on the device instead. If the device can't play profile 8.1, or the conversion fails, Silo removes the Dolby Vision metadata and plays the HDR10 base layer.
 
 ## Convert HDR for SDR screens
 
