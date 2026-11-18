@@ -2,6 +2,8 @@
 // Replaces Starlight's "Edit page" link. Only collaborators can open pull
 // requests here, so readers suggest changes in an issue instead. The link
 // opens the docs issue form with the page's title and address filled in.
+// Pages with `editUrl: false`, such as Starlight's 404 page, get no link, as
+// with Starlight's own.
 import { Icon } from '@astrojs/starlight/components';
 
 const { entry } = Astro.locals.starlightRoute;
@@ -12,10 +14,14 @@ issueUrl.searchParams.set('title', `Docs: ${entry.data.title}`);
 issueUrl.searchParams.set('page', pageUrl);
 ---
 
-<a href={issueUrl.href} class="sl-flex print:hidden">
-  <Icon name="comment-alt" size="1.2em" />
-  Suggest a change
-</a>
+{
+  entry.data.editUrl !== false && (
+    <a href={issueUrl.href} class="sl-flex print:hidden">
+      <Icon name="comment-alt" size="1.2em" />
+      Suggest a change
+    </a>
+  )
+}
 
 <style>
   @layer starlight.core {
