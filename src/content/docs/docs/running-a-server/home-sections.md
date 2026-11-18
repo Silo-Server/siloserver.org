@@ -16,9 +16,13 @@ Sections are the rows people browse on Home and above each library's grid. Use *
 4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
 5. Choose **Add row**. New rows go to the bottom of the page.
 
+The rows Silo starts with, such as **Continue Watching** or **Recently Added in Movies**, show their names in each viewer's [app language](/docs/preferences#change-the-app-language) until you rename them. A row you add shows its **Row name** as you saved it.
+
 On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. The add button then counts the pages, for example **Add to 3 pages**. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
 
 To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create server collections](/docs/manage-collections#create-a-collection).
+
+**Trending worldwide** shows what's trending on TMDB, but only titles already in your libraries. Use **Period** to choose **Today** or **This week**, and **Show** to choose **Both**, **Movies**, or **TV shows**. **Both** is the default. A **Movies** or **TV shows** row picks from the same trending list as a **Both** row, so it can show fewer titles than a [TMDB chart](/docs/manage-collections#follow-a-list-with-a-synced-list) synced list set to movies or TV shows.
 
 ## Change the order or turn a row off
 

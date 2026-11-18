@@ -126,7 +126,14 @@ Start with **Admin > Autoscan > Activity**. In **Polls**, expand an event to see
 
 ## If old titles stay after a folder rename
 
-When you rename, move, or delete a whole folder, its old entries stay in the library until the next full library scan removes them. Until then, **Admin > Libraries** shows **Partial scan** for the library. A renamed or moved folder's titles still appear at the new location right away. To clean up sooner, choose **Scan** on the library.
+If a renamed, moved, or deleted folder's old titles are still listed, choose **Scan** on the library to remove them.
+
+When real-time monitoring or an autoscan source reports the change, the scan that follows updates the library on its own. A deleted folder's titles leave the library, and a renamed or moved folder's titles appear at the new location. A renamed audiobook folder keeps the book's listening progress, collections, and metadata edits if the new folder is scanned within 24 hours and the book's tags include its author, narrator, and year. A book without those tags comes back as a new book.
+
+Old titles stay until the next full library scan when:
+
+- Nothing reported the change, for example in a library on a network share with no autoscan source. Sonarr and Radarr polling sources don't report deletes either.
+- The folder is in an ebook or comic library. **Admin > Libraries** shows **Partial scan** for the library until that scan runs.
 
 ## Legacy external Autoscan
 

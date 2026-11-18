@@ -58,6 +58,8 @@ including picture, sound, and subtitle problems on a TV.
 | An offline item will not play | [Downloads](/docs/downloads) |
 | Progress or watched status looks wrong | [Watch history and resume](/docs/watch-history) |
 | A setting changes on another device | [Profile preferences and device overrides](/docs/preferences) |
+| The app is in the wrong language | [Change the app language](/docs/preferences#change-the-app-language) |
+| A translation in the app is wrong | [Help translate Silo](/docs/preferences#help-translate-silo) |
 | Notifications do not arrive | [Notifications](/docs/notification-inbox) |
 | A library does not notice new files | [Keep libraries up to date](/docs/autoscan) |
 | The server fails to start | [Server health](/docs/server-health) and [startup logs](/docs/report-a-problem#logs) |

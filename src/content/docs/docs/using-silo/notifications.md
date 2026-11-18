@@ -1,7 +1,7 @@
 ---
 slug: docs/notification-inbox
 keywords: ["push notifications", "web push", "not getting notified", "new episode alert", "stop emails", "Discord DM", "remind me", "notify me"]
-questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?"]
+questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?", "Why did browser notifications stop after I signed out?"]
 title: Manage your notifications
 description: Choose which events reach you and check browser, mobile, email, or Discord delivery.
 ---
@@ -42,6 +42,18 @@ In **Browser Notifications**, select **Enable** and accept the browser's
 permission prompt. Other browsers and devices you've subscribed are listed in
 the same section, where you can remove them. Browser notifications are
 separate from the mobile app's notifications.
+
+A browser stops getting notifications when you're no longer signed in there:
+you sign out, your sign-in expires, you change your password and sign out
+other devices, or the person who runs your server signs you out.
+
+Sign in on that browser again with the same account and profile. Notifications
+come back on their own, with no new permission prompt. If they don't, select
+**Enable** again.
+
+Someone else who signs in on that browser doesn't get notifications until they
+select **Enable**. If you don't sign in there again, the browser leaves the
+list on your other devices, usually within a day.
 
 ### Phone and tablet notifications
 
@@ -90,7 +102,11 @@ A webhook can send fewer events than your profile's choices, but not more.
    you, the problem is delivery or device permission.
 3. Make sure your email address is verified, or that the browser or your phone
    or tablet allows notifications from Silo.
-4. If it still fails, tell the person who runs your server so they can check
+4. If browser notifications stopped, for example after you signed out or
+   left Silo unopened there for a while, sign in on that browser again with
+   the same account and profile. If **Enable** then appears under
+   **Browser Notifications**, select it.
+5. If it still fails, tell the person who runs your server so they can check
    for failed deliveries.
 
 If your browser says notifications aren't supported, make sure you're using

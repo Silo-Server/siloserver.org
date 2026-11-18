@@ -54,7 +54,9 @@ A movie or show can have up to 20 backgrounds. The first name from the table tha
 
 [Jellyfin apps](/docs/jellyfin-apps) can show all of these images, including every background.
 
-Silo uses these images only while **Local metadata (NFO + artwork)** is on for the library, but an image works without an `.nfo` file. When a local image is present, Silo prefers it over images from every online provider, including for viewers who use another metadata language. Silo skips empty files, files over 25 MiB, and symbolic links.
+Silo uses these images only while **Local metadata (NFO + artwork)** is on for the library, but an image works without an `.nfo` file. When a local image is present, Silo prefers it over images from every online provider, including for viewers who use another metadata language. Silo skips empty files, files over 25 MiB, and images that are themselves symbolic links.
+
+A title's folder can be a symbolic link to a folder outside the library, as download managers and cloud mounts often set up. Silo reads the images in it when that folder also holds a video of the title that Silo scanned. For a series, an episode in the folder or in a season folder inside it counts, so season posters, episode images, and photos in `.actors` load too. A video that is itself a symbolic link to a place outside the title's folder doesn't count. If an older version of Silo skipped these images, Silo tries them again on its own after you update, so you don't need to refresh each title.
 
 Names without a basename, such as `poster.jpg` or `folder.jpg`, apply only when the folder holds a single title. A `folder.jpg` shared by a folder of several movies applies to none of them. `<media basename>-poster.jpg` always applies to its own movie. A show doesn't use the `<media basename>` names, so an image named after an episode, such as `Show S01E01-poster.jpg`, never becomes the show's poster. When a show's episodes sit directly in the show folder, that folder's `poster.jpg` is the show's poster, not a season's. Name the season poster `season01-poster.jpg` there instead.
 
@@ -66,7 +68,7 @@ After you replace an image, refresh the item.
 
 For a movie or series, the **Images** list in **Edit Metadata** also offers the local posters, backgrounds, and logos, marked **LOCAL**, even when **Local metadata (NFO + artwork)** is off for the library. The list follows the rules above, so files they skip don't appear. Apply one as you would a provider image, as described in [Choose artwork](/docs/metadata#choose-artwork). An image you upload also appears in the list, marked **LOCAL**, while the item uses it. Silo keeps uploads in its artwork storage and doesn't write them beside your media files.
 
-If **Could not load from LOCAL** appears above the images, Silo couldn't read some of the title's local images, for example because the title's folder is a symbolic link to a place outside the library's folders. Silo leaves them out of the list.
+If **Could not load from LOCAL** appears above the images, Silo couldn't read some of the title's local images, for example because the file's permissions don't let Silo read it, or the title's folder links outside the library and holds no video of the title. Silo leaves them out of the list. The list checks each image the same way Silo does when it copies artwork after a scan, so the title doesn't get those images either.
 
 ## A small movie example
 
