@@ -1,7 +1,7 @@
 ---
 slug: docs/jellyfin-apps
 keywords: ["Infuse", "Swiftfin", "Findroid", "third-party app", "Jellyfin client"]
-questions: ["Where do I enter the Quick Connect code?", "How do I pick my profile in a third-party app?", "Why does my Jellyfin app say my password is wrong?", "Why can't the app find my server on the network?"]
+questions: ["Where do I enter the Quick Connect code?", "How do I pick my profile in a third-party app?", "Why does my Jellyfin app say my password is wrong?", "Why can't the app find my server on the network?", "Why does Findroid stay at 00:00?"]
 title: Connect a Jellyfin-compatible app
 description: Sign in to a Jellyfin-compatible app with Quick Connect or your Silo account and profile.
 ---
@@ -128,6 +128,11 @@ Silo has been checked with the Jellyfin web player on the server, Findroid on
 Android, and Jellyfin for Android TV. Other apps may work too, but some rely
 on features Silo doesn't provide.
 
+Findroid opens videos and downloads without signing in. It can play a file
+as it is or download it only after the person who runs your server turns on
+[**Play without sign-in from the same address**](/docs/third-party-access#let-apps-play-without-sign-in-from-the-same-address).
+Until then, its player stays at 00:00 and shows no error.
+
 These aren't available in Jellyfin-compatible apps:
 
 - Music, podcasts, audiobooks, ebooks, and comics. For audiobooks, use an
@@ -150,7 +155,10 @@ Some things work differently from a Jellyfin server:
 - Posters and backdrops load without signing in, as on a Jellyfin server.
   Anyone who has a title's ID can view its artwork, including titles your
   profile can't see. Titles, details, video, and subtitles still need a
-  sign-in and follow your profile's limits.
+  sign-in and follow your profile's limits. The one exception is the
+  Findroid setting above, which lets an app play a video without signing in
+  when an app signed in from the same network address recently asked to
+  play it.
 
 When reporting a problem, include the app's name and
 version, what you were doing, and whether it works in Silo's web app. Leave
