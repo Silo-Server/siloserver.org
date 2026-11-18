@@ -1,5 +1,7 @@
 ---
 slug: docs/transcode-nodes
+keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding"]
+questions: ["How do I use a second computer's GPU for converting?", "Can another machine handle streaming to take load off my server?", "Why isn't my extra machine getting any transcodes?", "How do I update a node without stopping playback?"]
 title: Add and check transcode nodes
 description: Add proxy and transcode nodes on other machines and check that playback uses them.
 ---
@@ -17,10 +19,10 @@ Transcode nodes only talk to the main server and proxy nodes, so they need no pu
 
 ## Prepare the node
 
-The server repository's [Compose file](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) includes commented `silo-proxy` and `silo-transcode` examples. Use them as a starting point on the node's host. A node needs:
+On the node's host, use the server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) with the node's settings in `.env`; the node section of the repository's `.env.example` lists them. In these modes the container starts none of its bundled services. A node needs:
 
 - `MODE=transcode` or `MODE=proxy`.
-- `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address. Silo matches the running node to its entry by these values.
+- `NODE_NAME`, the same name you give the node in Silo, and `NODE_URL`, the node's own address. Silo matches the running node to its entry by these values. The container won't start a node without `NODE_URL`.
 - The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis. Use the same Redis [database number](/docs/configuration#external-postgresql-and-redis) as the main server. Behind [Redis Sentinel](/docs/configuration#redis-sentinel), use the main server's Sentinel URL, and let the node reach every Sentinel and Redis server.
 - Enough PostgreSQL connections for every node. Each node opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
@@ -28,7 +30,9 @@ The server repository's [Compose file](https://github.com/Silo-Server/silo-serve
 - For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
 - A clock that stays within 30 seconds of the main server and the other nodes, for example kept in sync with NTP. A node whose clock is further off refuses requests from the main server and proxy nodes, so work sent to it fails.
 
-The examples publish the node on port 8082 (transcode) or 8083 (proxy). The default Compose file publishes PostgreSQL and Redis only on the main host's loopback address, so a node on another machine can't reach them until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network.
+Set `PORT` in the node's `.env` to the port it's published on, such as `8082`, and use that port in `NODE_URL`. For a transcode node, also set `SILO_STOP_GRACE_PERIOD=11m` so it can [drain](#maintain-a-node) before Docker stops it.
+
+On the main server, PostgreSQL and Redis aren't reachable from other machines until you turn on [node access](/docs/docker#nodes-and-stop-timeouts). With [separate containers](/docs/docker#run-the-services-in-separate-containers), they're published only on the main host's loopback address until you change that. Keep PostgreSQL, Redis, and node ports on a trusted network.
 
 Local artwork on the main server isn't shared with other hosts automatically. For several hosts, consider [S3 artwork storage](/docs/s3-storage).
 
@@ -44,7 +48,7 @@ Add the node in Silo, then start it.
 6. Optionally set **Max Transcodes** or **Max Streams** (and **Max Egress Bandwidth (Mbps)** for a proxy), then select **Save**.
 7. Start the node with its Compose file.
 
-Silo checks every node every 30 seconds. The node's state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
+Silo checks a new node as soon as you save it, then every 30 seconds. A node you start after saving shows **Unhealthy** until the next check. Its state changes to **Healthy** once Silo can reach it, and a transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
 
 Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
 
@@ -90,7 +94,7 @@ To stop or upgrade a transcode node without cutting playback, drain it first:
 
 The [admin API](/docs/api) has the same actions: `POST /api/v2/admin/nodes/{id}/drain` and `POST /api/v2/admin/nodes/{id}/resume`.
 
-You can also stop a transcode node directly, and it drains on its own. It takes no new work and keeps serving its streams until they end or `SILO_NODE_DRAIN_TIMEOUT` passes, then stops and ends any streams still on it. The timeout is `10m` by default. Set it on the node as a duration such as `15m` or a number of seconds, or set it to `0` to turn the drain off. A second stop signal stops the node at once. Docker kills a container 10 seconds after asking it to stop, so set the node's `stop_grace_period` to the timeout plus a minute, as in [Distributed and external services](/docs/docker#distributed-and-external-services).
+You can also stop a transcode node directly, and it drains on its own. It takes no new work and keeps serving its streams until they end or `SILO_NODE_DRAIN_TIMEOUT` passes, then stops, and streams still on it move to another machine, as when a node [crashes](/docs/node-status#node-state). The timeout is `10m` by default. Set it on the node as a duration such as `15m` or a number of seconds, or set it to `0` to turn the drain off. A second stop signal stops the node at once. Docker kills a container 10 seconds after asking it to stop, so set the node's `SILO_STOP_GRACE_PERIOD` to the timeout plus a minute, as in [Nodes and stop timeouts](/docs/docker#nodes-and-stop-timeouts).
 
 Proxy nodes don't drain. Turn a proxy node's switch off to stop new work while its current streams finish.
 

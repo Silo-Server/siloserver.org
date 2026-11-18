@@ -1,5 +1,7 @@
 ---
 slug: docs/preferences
+keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV", "interface language", "menu language", "wrong translation"]
+questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?", "How do I switch the menus to Spanish?", "Can I fix a bad translation in the app?"]
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---
@@ -25,11 +27,62 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Title Pages:** title art, theme music, spoilers, and advisory ages on
   movie and show pages.
 - **Navigation & Cards** and **Accessibility:** how the web app looks. These
-  don't change the native apps.
+  don't change the native apps, except **App language** on
+  **Accessibility**, which [follows your profile](#change-the-app-language).
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
 **Spoken language** for that.
+
+## Change the app language
+
+**App language** sets the language of Silo's menus, buttons, and messages.
+It belongs to your profile, so a language you pick follows you to every
+device. The default, **Match device**, uses the first language in your
+phone's, TV's, or browser's language list that Silo has, or English if Silo
+has none of them.
+
+| App | Where |
+| --- | --- |
+| Web app | **Settings > Accessibility > App language** |
+| iPhone, iPad, Apple TV, and Mac | **Settings > General > App Language** |
+| Android phones and tablets | **Settings > Interface > App language** |
+| Android TV | **Settings > General > App language** |
+
+Before you sign in, the web app's sign-in page has its own language menu in
+the top corner.
+
+Every app offers the same 21 languages besides English: Arabic, Chinese
+(Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish,
+French, German, Italian, Japanese, Korean, Norwegian Bokmål, Polish,
+Portuguese (Brazil), Russian, Spanish, Swedish, Turkish, and Ukrainian. The
+list shows each one in its own language, such as **Deutsch** or **日本語**.
+
+**Match device** reads Norwegian as Norwegian Bokmål, and Chinese for
+Taiwan, Hong Kong, or Macau as Traditional Chinese. Apple devices also read
+Nynorsk as Norwegian Bokmål; the other apps skip it and try your next
+language.
+
+To use a different language on one device, choose it for Silo in the
+device's own settings. It applies to the profile you're using, on that
+device only. iPhone, iPad, Mac, and Android phones and tablets running
+Android 13 or later have this setting; Apple TV and Android TV don't. If you
+later pick a language inside Silo, it's saved for your profile and clears
+this device's choice. Other devices keep their own.
+
+App language doesn't change titles, descriptions, audio, or subtitles. Those
+follow **Metadata language**, **Spoken language**, and your subtitle
+settings.
+
+### Help translate Silo
+
+Most of Silo's translations were written by AI and haven't been checked by
+people who speak the language, so some wording may be wrong or awkward. To
+fix a phrase, follow the
+[contribution guide](https://github.com/Silo-Server/silo-translations/blob/main/CONTRIBUTING.md)
+and open a pull request in the
+[silo-translations](https://github.com/Silo-Server/silo-translations)
+repository on GitHub. A merged fix shows up in a later app update.
 
 ## Set playback quality
 
@@ -67,13 +120,55 @@ has Data Saver on. To change it for one browser, open that browser in
 **Settings > Your Devices** and set **Cellular quality** and **Cellular
 maximum bitrate** under **Picture**.
 
+### Lower quality when buffering
+
+**Lower quality when buffering** sits with **Resolution** and **Maximum
+bitrate**. It decides what Silo does on **Auto** when playback keeps
+stopping to buffer:
+
+- **Automatically**, the default, lowers the quality at once and offers
+  **Restore quality**.
+- **Ask first** asks before lowering.
+- **Never** leaves the quality as it is.
+
+Silo always asks before lowering a quality you picked in the player. See
+[If playback keeps buffering](/docs/watch-movies-and-series#if-playback-keeps-buffering)
+for what appears while you watch.
+
+Once Silo lowers the quality, it plays **Auto** under that lower speed on
+this device and network for 24 hours after playback last buffered. A line
+such as "Limited to 12 Mbps after buffering on Oct 17" then appears under
+the setting. Select **Reset** to clear the limit; your measured connection
+speed stays. **Restore quality** in the player and a **Test speed** result
+faster than the limit also clear it. With **Never**, Silo ignores the limit
+and hides the line. **Maximum bitrate** still applies on top of the limit.
+
+### Test your connection speed
+
+The **Connection** group in **Settings > Playback** shows **Connection
+speed**, the latest speed measured for this device on this network. A line
+under it, such as "Auto plays videos up to 35 Mbps without converting them",
+gives the highest bitrate **Auto** plays as it is at that speed.
+
+Select **Test speed** to measure again. The test takes up to 10 seconds, and
+nothing can be playing while it runs. If the server is busy with other tests,
+Silo says how long to wait. The apps also run a short test on their own when
+the server has no recent speed for the device and network. A speed that
+starts with "Faster than" is the least the connection has managed, from a
+short test or from playback, rather than a full measurement.
+
+Speed tests don't run on mobile data or a metered network. There the group
+says that tests are skipped, and **Test speed** is hidden.
+
 ## Change one device
 
 1. Open **Settings > Your Devices** and choose the device. The one you're
    using says **This device**.
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
-   from: **Changed here**, **From your profile**, or **App default**. A
+   from: **Changed here**, **From your profile**, or **App default**.
+   **Show title art** says **Server default** instead of **App default**,
+   because your server's administrator can change its default. A
    changed setting shows **Use your setting**; select it to go back to your
    profile's value. **Use profile settings** removes every change on the
    device.
@@ -93,7 +188,10 @@ Profile Settings** at the bottom of the page removes every change on the
 device.
 
 A setting changed on a device wins over your profile's value on that device,
-except **Show title art** while **Apply to all devices** is on. If a single
+except **Show title art** while **Apply to all devices** is on. In the web
+app, **Use server default** appears under **Show title art** on **Settings >
+Title Pages** once you've chosen your own setting. It returns this browser to
+your server's default; other devices keep their own choice. If a single
 title plays differently from others, look at the audio and subtitle tracks
 chosen for it during playback before you change the whole profile.
 

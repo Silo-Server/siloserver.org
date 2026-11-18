@@ -1,5 +1,7 @@
 ---
 slug: docs/improve-the-docs
+keywords: ["typo", "wrong docs", "outdated guide", "contribute to docs", "edit on GitHub", "style guide", "wiki"]
+questions: ["How do I fix a mistake in the documentation?", "Can I suggest changes to a guide?", "Do I need to build the site to edit a page?"]
 title: Improve these docs
 description: Fix a wrong step, fill a gap, or clarify a guide in the Silo manual.
 ---

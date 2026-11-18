@@ -1,5 +1,7 @@
 ---
 slug: docs/downloads
+keywords: ["offline", "airplane", "save to phone", "watch without internet"]
+questions: ["Can I take movies with me on a trip with no Wi-Fi?", "Why is Original the only quality I can pick?", "Why don't I see a download button?", "How do I delete downloaded episodes from my phone?"]
 title: Download for offline use
 description: Save movies and episodes on a phone or tablet to watch without a connection.
 ---

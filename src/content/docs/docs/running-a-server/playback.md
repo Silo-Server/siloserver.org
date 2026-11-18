@@ -1,5 +1,7 @@
 ---
 slug: docs/playback
+keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -10,22 +12,30 @@ Transcoding converts media when a client cannot play the original file or needs 
 
 These steps are for the default Linux Docker installation. Install the host driver first. For NVIDIA, also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
 
-For Intel or AMD devices exposed through `/dev/dri`, download the VA-API overlay beside your Compose file. The checks stop the download if a file with that name already exists, so a customized overlay is kept:
+For Intel or AMD devices exposed through `/dev/dri`, add these lines to the `silo` service in your Compose file. The repository's Compose files have them commented out, so you can uncomment them instead:
 
-```sh
-test ! -e docker-compose.vaapi.yml && test ! -L docker-compose.vaapi.yml &&
-  curl -fSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.vaapi.yml -o docker-compose.vaapi.yml
+```yaml
+    devices:
+      - /dev/dri:/dev/dri
 ```
 
-Then add it in `.env`:
+For NVIDIA, add or uncomment these instead. `video` gives FFmpeg the NVIDIA encoding libraries; without it, FFmpeg sees the GPU but encodes on the CPU:
 
-```dotenv
-COMPOSE_FILE=docker-compose.yml:docker-compose.vaapi.yml
+```yaml
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${NVIDIA_GPU_COUNT:-1}
+              capabilities: [gpu, compute, utility, video]
 ```
 
-For NVIDIA, use the same checks and download URL with `docker-compose.nvidia.yml` instead, and list that file. Use only the overlay that matches the host. The NVIDIA overlay gives Silo one GPU. To give it more, also set `NVIDIA_GPU_COUNT` in `.env`, for example `NVIDIA_GPU_COUNT=2`.
+Use only the lines that match the host. They give Silo one NVIDIA GPU. To give it more, set `NVIDIA_GPU_COUNT` in `.env`, for example `NVIDIA_GPU_COUNT=2`. With `docker run`, pass an Intel or AMD device with `--device /dev/dri:/dev/dri`.
 
-If you already set `COMPOSE_FILE`, add the GPU overlay to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
+Silo runs as the `PUID` account, and the container adds that account to the groups that own the devices you pass in. A device owned by group `0` (root) is skipped, so Silo can't open it. Unprivileged LXC containers show passed-through devices that way unless the host gives them a group, such as `gid=` on the `devN` entry in Proxmox.
+
+Older setups add the GPU with a separate overlay file, such as `docker-compose.vaapi.yml`, listed in `COMPOSE_FILE`. Those keep working. The server repository no longer has them, so if you switch to its current Compose file, use the lines above and remove the overlay from `COMPOSE_FILE`.
 
 During a quiet period, check and apply the configuration. Recreating Silo interrupts active playback.
 
@@ -87,6 +97,17 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 ## Limit how far ahead Silo converts
 
 **Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
+
+## Limit connection speed tests
+
+The Silo apps test each device's connection so that **Auto** can choose a quality that fits before playback starts. Both settings are under **Connection speed tests** on **Admin > Playback > Settings**:
+
+- **Automatic speed tests**, on by default, lets apps run a short test when the server has no current reading for a device on its network. Each automatic test downloads up to 100 MB. Turn it off to save bandwidth. Viewers can still run **Test speed** in their [settings](/docs/preferences#test-your-connection-speed), which downloads up to 1 GB.
+- **Keep a reading for** sets how long a reading lasts, from 1 to 30 days, 7 by default. Apps test again once their reading is older.
+
+Silo limits how many tests run at once and how much each account downloads in tests, and asks apps to try again later beyond that. Apps don't test on mobile data or metered networks, or while something plays.
+
+Speed tests take the same route as playback. If media goes through [proxy nodes](/docs/transcode-nodes), update them along with the main server: an older proxy node can't run speed tests.
 
 ## Generate chapter thumbnails
 

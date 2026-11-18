@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-history
+keywords: ["mark as seen", "already seen", "clear history", "lost my place", "jumps back", "sync between devices", "hide from continue watching"]
+questions: ["How do I mark an episode as watched?", "How do I get rid of something stuck in Continue Watching?", "Why does my spot in a movie keep jumping back?", "How do I pick up on my phone where I stopped on the TV?"]
 title: Watched status and resume progress
 description: Resume a title, correct watched status, or continue on another device.
 ---
@@ -19,6 +21,12 @@ episode of each series you're watching. To give those episodes their own
 when a new episode or season arrives. See
 [how Home orders these rows](/docs/home-and-calendar#find-your-next-title).
 
+Until you change them, both settings follow your server's default, which
+the person who runs your server sets. Under a setting you haven't changed,
+the page shows the value it's using, for example "Using the server default
+(off)." Once you've changed one, select **Use server default** beside it to
+follow the default again.
+
 In the web app, selecting **Play** on a movie or episode you've started asks
 whether to **Resume at** your saved time or **Play from Beginning**.
 **Play from Beginning** is also in the title's **More** menu (⋮). Replaying
@@ -31,6 +39,32 @@ phone. On a movie or episode page, it's in the **More** menu (⋮), after
 **Play from Beginning**. The item leaves
 **Continue Watching**, and the next play starts from the beginning. Its watch
 history stays, and an item you'd already watched stays watched.
+
+## Remove a title from Continue Watching or Next Up
+
+Open the card's menu and choose **Remove from Continue Watching** or
+**Remove from Next Up**:
+
+- In the web app, point at the card and open its menu (⋮). On a
+  touchscreen, touch and hold the card instead.
+- On iPhone, iPad, and Android phones and tablets, touch and hold the card.
+- In the [native Mac app](/docs/native-macos), Control-click or right-click
+  the card.
+- On Apple TV and Android TV, focus the card, then press and hold Select.
+
+On a title you've started, the menu says **Remove from Continue Watching**.
+On the next episode of a show, it says **Remove from Next Up**, in the
+**Next Up** row or inside **Continue Watching**.
+
+Removing an episode takes its whole show off **Continue Watching** and
+**Next Up**, whichever row you used. The show comes back when you play any of
+its episodes again. Removing a movie takes off only that card, and it comes
+back the next time you play it. Your resume point and watched status stay as
+they are, and the change applies to your profile on every device.
+
+In the web app, a message confirms the removal. Select **Undo** in it to put
+the title back. The Apple and Android apps don't have an undo, so play the
+title again to bring it back.
 
 ## Change watched status
 

@@ -1,5 +1,7 @@
 ---
 slug: docs/help
+keywords: ["troubleshooting", "not working", "support", "can't log in", "TV not found", "missing movie", "FAQ", "connection failed"]
+questions: ["Where do I get help with Silo?", "My app can't connect to the server, what now?", "Why can't I find a movie that should be in my library?", "Why doesn't my phone see my TV?"]
 title: Find help
 description: Check common connection, sign-in, library, and playback problems.
 ---
@@ -56,6 +58,8 @@ including picture, sound, and subtitle problems on a TV.
 | An offline item will not play | [Downloads](/docs/downloads) |
 | Progress or watched status looks wrong | [Watch history and resume](/docs/watch-history) |
 | A setting changes on another device | [Profile preferences and device overrides](/docs/preferences) |
+| The app is in the wrong language | [Change the app language](/docs/preferences#change-the-app-language) |
+| A translation in the app is wrong | [Help translate Silo](/docs/preferences#help-translate-silo) |
 | Notifications do not arrive | [Notifications](/docs/notification-inbox) |
 | A library does not notice new files | [Keep libraries up to date](/docs/autoscan) |
 | The server fails to start | [Server health](/docs/server-health) and [startup logs](/docs/report-a-problem#logs) |

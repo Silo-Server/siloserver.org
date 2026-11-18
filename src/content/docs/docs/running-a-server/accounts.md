@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-accounts
+keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password"]
+questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?"]
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---
@@ -43,6 +45,8 @@ Open the person's name in **Admin > Users** and choose **Access & limits**. The 
 To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
 The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
+
+To fix the rows one profile sees on Home, see [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen).
 
 To see the web app as that person does, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect their account.
 

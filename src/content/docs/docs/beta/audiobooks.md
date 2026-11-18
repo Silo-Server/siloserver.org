@@ -1,5 +1,7 @@
 ---
 slug: docs/listen-to-audiobooks
+keywords: ["audio book", "listen to a book", "audiobook player", "play faster", "fall asleep", "continue listening", "listen without internet"]
+questions: ["How do I listen to an audiobook on my phone?", "Can I set a sleep timer while listening to a book?", "Why can't I see audiobooks on my iPhone?", "Can I download audiobooks to listen offline?"]
 beta: true
 title: Audiobooks (Beta)
 description: Start a book, choose chapters, and adjust speed or a sleep timer.

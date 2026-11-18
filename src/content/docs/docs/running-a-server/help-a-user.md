@@ -1,5 +1,7 @@
 ---
 slug: docs/help-a-user
+keywords: ["impersonate", "impersonation", "log in as user", "support a family member", "troubleshoot a user", "per-device settings", "see their screen", "see what they see", "use their account"]
+questions: ["How do I see exactly what a family member sees?", "Why is a setting different on just one TV?", "Someone's video keeps buffering, how do I check their connection?", "How do I fix someone's home screen rows for them?"]
 title: Help a user and view their account
 description: Inspect settings and device overrides, or use View as user to investigate an account problem.
 ---
@@ -28,6 +30,22 @@ setting then applies again. Ask the user to reopen the affected screen.
 
 These views also show raw values. Reset a wrong value rather than typing in a
 replacement, and leave unrelated settings alone.
+
+## Check a device's connection
+
+When someone reports buffering, choose their device on **Admin > Users >
+Devices**. Once the device has played something or tested its speed,
+**Connections** lists each network it used, such as **Local network** or
+**Remote connection**, with:
+
+- its latest speed test, or the speed it reached during playback
+- any limit Silo set after buffering, and the date it ends
+- how the latest playback went, such as "2 stalls · 14 seconds buffering ·
+  lowered automatically"
+
+**Clear limit** removes the limit, so **Auto** no longer plays under it on
+that network. The measured speed stays. Viewers can clear the limit
+themselves in [their settings](/docs/preferences#lower-quality-when-buffering).
 
 ## Fix a profile's home screen
 

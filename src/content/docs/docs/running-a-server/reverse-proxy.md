@@ -1,5 +1,7 @@
 ---
 slug: docs/reverse-proxy
+keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik", "HTTP/3", "QUIC", "UDP 443"]
+questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
 ---
@@ -34,10 +36,33 @@ Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in,
 
 If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
 
+Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers) covers only connections that end at Silo. Behind Caddy, the viewer's connection ends at Caddy, so the tuning covers Caddy's connection to Silo, and the connection to the viewer uses the host's own TCP settings.
+
+### If remote playback is slow over HTTP/3
+
+If viewers away from home buffer while other sites load quickly for them, Caddy may be serving Silo over HTTP/3. Caddy turns HTTP/3 on by default and uses it whenever UDP port 443 reaches it, for example when the port forward or a Docker port mapping includes UDP. With only TCP forwarded, as in the steps above, this doesn't happen. On a connection that loses a few packets, Caddy's HTTP/3 can be much slower than TCP, and [**Test speed**](/docs/preferences#test-your-connection-speed) in **Settings > Playback** is slow too.
+
+To stop offering HTTP/3 for Silo, add `header Alt-Svc clear` to Silo's site in your Caddyfile, then validate and reload Caddy:
+
+```text
+silo.example.com {
+    header Alt-Svc clear
+    reverse_proxy 127.0.0.1:8090
+}
+```
+
+Other sites on the same Caddy keep HTTP/3. Browsers stop using HTTP/3 for Silo once they've seen the change, but one that's still connected over HTTP/3 can keep that connection for a while. Restart the browser before you test playback away from home again.
+
+nginx serves HTTP/3 only where you've set it up, and its HTTP/3 can slow down the same way.
+
 ## Other addresses clients use
 
 Remote proxy nodes and S3 storage can hand clients their own addresses. Those must also be reachable and use HTTPS; the main proxy doesn't forward them.
 
 Jellyfin-compatible and Audiobookshelf-compatible apps use their own ports (see [Docker ports](/docs/docker#ports)). Publish only the ones your users need, each on its own hostname, and follow [third-party access](/docs/third-party-access).
+
+At home, the Silo apps on Apple and Android devices switch to the server's local address on their own once someone is signed in. Browsing, artwork, and video then skip the proxy and go straight to Silo's [own port](/docs/docker#ports) on your network. While an app is connected this way, the server list under **Switch Server** shows **Connected on your local network** below the active server. This needs the address the app signed in with to be HTTPS at the root of its hostname, as set up above.
+
+The Apple apps learn the local address from Silo's [announcement on the local network](/docs/docker#discovery-on-the-local-network), or from **Local network address** under Docker's default bridge network, which blocks the announcement. The Android apps learn it from **Local network address**. The apps switch only on Wi-Fi or a wired network, never over mobile data. When the device changes networks or the local address stops answering, the app goes back to the HTTPS address until the local one answers again. Sign-in and subtitles always use the HTTPS address, so that address has to work from inside your home too. On Apple devices, the app may ask for local network access the first time.
 
 Remote access doesn't make TV discovery work across networks: a phone or tablet finds a TV only on the same LAN.

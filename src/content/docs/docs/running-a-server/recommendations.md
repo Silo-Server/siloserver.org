@@ -1,5 +1,7 @@
 ---
 slug: docs/recommendations
+keywords: ["because you watched", "recommended for you", "AI recommendations", "machine learning", "collaborative filtering", "taste"]
+questions: ["How do I turn on personalized movie suggestions?", "Can I switch embedding models after setup?", "Why are suggestions so generic for a new profile?", "Why did my suggestion jobs fail?"]
 title: Set up recommendations
 description: Configure the recommendation model and inspect the jobs that produce results.
 ---

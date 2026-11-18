@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-movies-and-series
+keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening"]
+questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?"]
 title: Watch movies and series
 description: Start or resume playback, choose a version and tracks, and move through an episode.
 ---
@@ -60,11 +62,29 @@ the options panel (**Info and options** on Apple TV). It has tabs for
 **Video**, **Audio**, **Subtitles**, and **Chapters** when the file has
 them.
 
-**Quality** lists **Auto** and lower qualities for the title. Choose a lower
-one if playback keeps stopping on a slow connection. Choose **Auto** to let
-Silo pick again, which plays the original file when your device and
+**Quality** lists **Auto** and lower qualities for the title. Choose **Auto**
+to let Silo pick, which plays the original file when your device and
 connection can. Your choice applies to what you're watching and doesn't
 change your [quality settings](/docs/preferences#set-playback-quality).
+
+## If playback keeps buffering
+
+On **Auto**, Silo lowers the quality when playback keeps stopping to buffer.
+**Quality lowered to stop buffering** then appears with **Restore quality**
+for 15 seconds. If you picked a quality yourself, or set Silo to ask, it
+asks first: **Playback keeps buffering** offers **Lower quality** and **Keep
+quality**.
+If the title has nothing lower to play, Silo shows **Can't lower quality for
+this video**.
+
+After lowering, Silo remembers the slower speed for this device and network
+for 24 hours, so the next title starts at the lower quality too. While that limit holds a title
+down, the **Quality** menu shows **Auto · limited after buffering**.
+**Restore quality** goes back to the quality you had and clears the limit.
+To clear it later, or to have Silo ask before lowering, see
+[Lower quality when buffering](/docs/preferences#lower-quality-when-buffering).
+
+Silo doesn't lower the quality on its own during a Watch Party.
 
 ## Chapters, intros, and the next episode
 

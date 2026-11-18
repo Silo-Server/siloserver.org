@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-libraries
+keywords: ["TV shows", "add media", "empty library", "no media found", "rescan", "VIDEO_TS", "BDMV", "movie shows as episode"]
+questions: ["How do I add my movies folder?", "Why is my library empty after scanning?", "Can I put movies and shows in one library?", "Can Silo play ISO files or DVD folders?"]
 title: Add and manage libraries
 description: Choose a library type, add media folders, and check their scans.
 ---
@@ -11,7 +13,7 @@ A library is a set of media folders with its own metadata settings. Manage libra
 1. [Prepare your folders](/docs/media-folders). In Docker, find the path inside the container, for example `/mnt/media/movies`.
 2. Open **Admin > Libraries** and select **Add Library**.
 3. Enter a name and choose **Movies**, **Series**, or **Mixed**. Add the folder under **Folders**. You can add more than one folder for the same type.
-4. Review **Metadata Language** and **Provider Priority**. TMDB and TVDB are installed by default. Keep the providers you want checked, most preferred first. To add another provider, [install its plugin](/docs/plugins).
+4. Review **Metadata Language** and **Provider Priority**. Where providers have no text in that language, Silo uses the [fallback language](/docs/metadata#choose-a-fallback-language). [Local metadata](/docs/local-metadata) is on by default and always comes first. TMDB and TVDB are installed by default. Keep the providers you want checked, most preferred first. To add another provider, [install its plugin](/docs/plugins).
 5. Save the library. Use its **Scan** action, then watch its scan status.
 
 When the scan finishes, open the library and play one title.
@@ -64,7 +66,7 @@ Set the type and title of a folder Silo can't classify on its own under **Ambigu
 
 1. Open **Admin > Libraries** and expand **Ambiguous Roots**, below the list of libraries.
 2. Choose the library. Each folder is listed under **Root** with the **Type** Silo guessed, its **Confidence**, and the number of **Files**. To find a folder, filter by path, title, or sample file.
-3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮).
+3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮). In **Split Versions**, the title search uses the library of the files you select. If they're in more than one library, choose a **Library** first.
 4. Set **Type** to **Movie** or **Series**. Fill in **Title** and **Year**, or a **TMDB ID**, **IMDb ID**, or **TVDB ID** if you know it. **Note** is for your own record of why.
 5. Select **Save Override**, then [scan](#scan-or-refresh) the library. Saving doesn't scan; the folder changes at the next scan, and later scans keep the override.
 
