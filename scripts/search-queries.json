@@ -74,6 +74,8 @@
   {"query": "no sound from my receiver", "expect": ["docs/playback-problems"]},
   {"query": "hdr looks washed out", "expect": ["docs/playback-problems", "docs/playback"]},
   {"query": "keeps buffering", "expect": ["docs/watch-movies-and-series", "docs/playback-problems", "docs/preferences"]},
+  {"query": "are you still watching", "expect": ["docs/watch-movies-and-series"]},
+  {"query": "stop autoplay after a few episodes", "expect": ["docs/watch-movies-and-series"]},
   {"query": "email notifications", "expect": ["docs/notification-delivery", "docs/notification-inbox"]},
   {"query": "login with google", "expect": ["docs/single-sign-on", "docs/accounts"]},
   {"query": "server wont start", "expect": ["docs/server-health"]},
