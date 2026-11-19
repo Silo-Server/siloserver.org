@@ -7,8 +7,9 @@ description: Report a wrong step, a gap, or a confusing guide in the Silo manual
 ---
 
 If a guide has a wrong label, a missing step, or an instruction that
-confused you, open an issue on GitHub that describes the change. Only
-collaborators on the docs repository can open pull requests.
+confused you, open an issue on GitHub that describes the change. The docs
+repository doesn't take pull requests from contributors; maintainers make
+the change from your issue.
 
 ## Suggest a change to a page
 

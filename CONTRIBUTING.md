@@ -7,15 +7,12 @@ website-specific workflow.
 
 ## Before you start
 
-Only collaborators can open pull requests in this repository. Everyone else
-suggests changes in an [issue](https://github.com/Silo-Server/siloserver.org/issues).
-For a docs change, select **Suggest a change** at the bottom of the docs page.
-It opens the **Suggest a docs change** issue form with the page filled in.
-
-Collaborators open an issue before a site-wide redesign, navigation or
-information-architecture change, deployment change, or new product claim.
-Documentation corrections and narrow copy or accessibility fixes can go
-straight to a pull request.
+Contributors don't open pull requests in this repository, including for typo
+and docs fixes. Suggest every change in an
+[issue](https://github.com/Silo-Server/siloserver.org/issues), and maintainers
+make it. For a docs change, select **Suggest a change** at the bottom of the
+docs page. It opens the **Suggest a docs change** issue form with the page
+filled in.
 
 Don't open a docs issue for a new or changed feature until its implementation
 pull request is open in `silo-server`, `silo-apple`, `silo-android`, or
@@ -27,6 +24,9 @@ already shipped.
 Product behavior is defined by the implementation repositories. Verify factual
 claims against `silo-server`, `silo-apple`, or `silo-android` rather than treating
 existing marketing copy as the source of truth.
+
+The rest of this guide is for maintainers, who make changes from those issues
+and open the pull requests.
 
 ## Development setup
 
