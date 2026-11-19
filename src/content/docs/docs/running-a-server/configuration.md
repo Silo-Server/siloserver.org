@@ -138,9 +138,9 @@ These `.env` values adjust automatic tuning:
 | Variable | Default | What it sets |
 | --- | --- | --- |
 | `POSTGRES_TUNE_PROFILE` | `oltp` | Tuning profile. `oltp` is the only one. |
-| `POSTGRES_TUNE_MEMORY` | `auto` | Memory to tune for, such as `8GB`. A quarter goes to PostgreSQL's `shared_buffers` cache, at most 2GB with `auto`. Silo uses a size you set as it is, so set one to give the cache more: `32GB` gives 8GB. |
+| `POSTGRES_TUNE_MEMORY` | `auto` | Memory to tune for, such as `8GB`. A quarter of it goes to PostgreSQL's `shared_buffers`, at most 2GB with `auto`. Set a size to give it more: Silo uses it as it is, so `32GB` gives 8GB. |
 | `POSTGRES_TUNE_MEMORY_BUDGET_PERCENT` | `75`, or `50` for the bundled PostgreSQL | Share of detected memory given to PostgreSQL |
-| `POSTGRES_TUNE_CPUS` | `auto` | CPU count used for worker settings. `auto` counts at most 16, because a container with no CPU limit sees every core of its host. Silo uses a number you set as it is. |
+| `POSTGRES_TUNE_CPUS` | `auto` | CPU count used for worker settings. With `auto`, Silo counts at most 16 of the CPUs it detects. Silo uses a number you set as it is, even above 16. |
 | `POSTGRES_TUNE_STORAGE` | `ssd` | `hdd`, `ssd`, `san`, or `nvme` |
 | `POSTGRES_TUNE_DB_SIZE` | `auto` | Database size compared with memory: `less_ram`, `mid_ram`, or `greater_ram` |
 | `POSTGRES_TUNE_CONNECTIONS` | `100` | PostgreSQL's `max_connections` |
