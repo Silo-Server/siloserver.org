@@ -20,9 +20,9 @@ account is allowed to use them. The person who runs the server sets this up in
 2. Search for the title. Open the result with the right year and type.
 3. Select **Request movie** or **Request series** (**Request** in the Apple
    and Android apps). In the web app, the server can let you choose settings
-   such as the quality profile or folder. They appear in a dialog before the
-   request is sent, or below the seasons for a series. Each one starts on the
-   server's own setting, so change only the ones you want.
+   such as the quality profile or folder. They appear in a dialog, or below
+   the season list when you pick a series' seasons. Check the preselected
+   settings, change any you want, and send the request.
 4. Follow its progress under **Yours** in the web app, or in the **Your
    requests** row on the Requests page in the other apps.
 
