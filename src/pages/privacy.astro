@@ -267,16 +267,27 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     </li>
     <li>
       <strong>Notifications</strong> — to show playback controls, download
-      progress, and enabled remote notifications; and
+      progress, and enabled remote notifications;
     </li>
     <li>
       <strong>TV channel/EPG access on Android TV</strong> — to publish library
-      rows and channels to the Android TV home screen.
+      rows and channels to the Android TV home screen; and
+    </li>
+    <li>
+      <strong>Microphone on Android TV</strong> — for voice search on Android
+      11 and later, when Google's voice search handles voice input. Silo asks
+      the first time you use the on-screen microphone on the Search screen.
+      The device's speech recognition service, usually Google's, listens and
+      returns the recognized text, which Silo uses as your search. Silo does
+      not record, store, or send the audio. On other Android TV devices, Silo
+      does not ask for the microphone; the device's voice search app listens
+      instead.
     </li>
   </ul>
   <p>
     The apps do not request location, contacts, camera, or microphone access
-    for diagnostics.
+    for diagnostics. Silo asks for microphone access only for voice search on
+    Android TV, as described above.
   </p>
 
   <h2>9. External providers and app stores</h2>
@@ -288,7 +299,9 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     also operate the platform push services described above. TMDB, DiceBear,
     and Google/YouTube receive the direct resource requests described in
     Section 4 under their own policies; Silo does not describe them as acting
-    solely on Silo's instructions.
+    solely on Silo's instructions. On Android TV, the device's speech
+    recognition service, usually Google's, processes voice search audio under
+    its provider's policy, as described in Section 8.
   </p>
 
   <h2>10. Children</h2>
