@@ -25,6 +25,9 @@ Product behavior is defined by the implementation repositories. Verify factual
 claims against `silo-server`, `silo-apple`, or `silo-android` rather than treating
 existing marketing copy as the source of truth.
 
+The rest of this guide is for maintainers, who make changes from those issues
+and open the pull requests.
+
 ## Development setup
 
 Use Bun for parity with CI; Node.js 20 or newer also works for local Astro
