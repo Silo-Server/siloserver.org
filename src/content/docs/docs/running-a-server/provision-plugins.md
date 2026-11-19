@@ -111,7 +111,7 @@ spec:
 
 Mount the declaration and its secrets only here. After updating the ConfigMap or Secret, keep the other replicas running and run `kubectl rollout restart deployment/silo-api-provisioning`.
 
-If another instance holds the writer lock at startup, the provisioning pod reports a refusal. Read its status on that pod. Stop the other writer. If its node died, wait for PostgreSQL to release its session lock. Then restart the provisioning pod.
+If another instance holds the writer lock at startup, the provisioning pod reports a refusal. Check the refusal with `kubectl logs deployment/silo-api-provisioning`. Stop the other writer. If its node died, wait for PostgreSQL to release its session lock. Then restart the provisioning pod.
 
 ## Generate the file with NixOS
 
