@@ -97,7 +97,8 @@ spec:
               mountPath: /run/silo-provisioning
               readOnly: true
             - name: oidc-secret
-              mountPath: /run/secrets
+              mountPath: /run/secrets/oidc_client_secret
+              subPath: oidc_client_secret
               readOnly: true
       volumes:
         - name: plugin-declaration
