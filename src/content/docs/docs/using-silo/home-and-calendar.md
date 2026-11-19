@@ -56,13 +56,12 @@ your server sets them up, For You shows only the shared rows. If For You is
 empty, the libraries you can see don't have any movies or series yet. You can
 still browse libraries and search.
 
-When a new profile first opens Home in the web app, Silo shows **Pick what
-you love**. Select at least three titles and choose **Done**, and For You
-opens with rows picked from them, such as **For You** and **Because you
-enjoy**. If you choose **Skip**, the **Personalize your home** banner on Home
-offers the picker again. After you watch or rate something on any device,
-Silo updates your rows in the background. They change the next time For You
-loads, or when you pull down to refresh it on a phone or tablet.
+In the web app, a profile with no favorites sees **Pick what you love** the
+first time it opens Home. Choose **Done** to open For You, or **Skip** to go
+to Home. Until you favorite a title, the **Personalize your home** banner on
+Home opens the picker again. After you watch or rate something on any device,
+Silo updates your personal rows in the background. Reload For You to see
+them, or pull down to refresh it on a phone or tablet.
 
 On Home, the recommendations row leaves out titles that the rows above it
 already show. In a small library, those rows can hold every title, so Home

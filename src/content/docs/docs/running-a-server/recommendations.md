@@ -1,9 +1,9 @@
 ---
 slug: docs/recommendations
-keywords: ["because you watched", "recommended for you", "AI recommendations", "machine learning", "collaborative filtering", "taste", "embeddings", "pgvector"]
+keywords: ["because you watched", "recommended for you", "AI recommendations", "machine learning", "collaborative filtering", "taste"]
 questions: ["How do I turn on personalized movie suggestions?", "Can I switch embedding models after setup?", "Why are suggestions so generic for a new profile?", "Why did my suggestion jobs fail?"]
 title: Set up recommendations
-description: Choose the embedding provider and model, then run and inspect the jobs that produce results.
+description: Connect an embedding provider, run the jobs that produce recommendations, and switch embedding models.
 ---
 
 Recommendations suggest titles from your catalog and each profile's activity. They are optional and need PostgreSQL with pgvector and an embedding model from a provider connected in [AI Services](/docs/ai-services). The rows that show them are set up in [Home Sections](/docs/home-sections).
@@ -13,20 +13,20 @@ Pick the embedding model carefully: Silo locks it after the first successful emb
 ## Configure the model
 
 1. Open **Admin > Integrations > Recommendations**.
-2. Under **Embedding Model**, choose the **Embedding provider**. The list shows the providers connected in AI Services; choose **Connect a provider...** to add one here. A provider marked **(no embedding models)** can't be chosen, and a ChatGPT plan doesn't include embedding models.
+2. Under **Embedding Model**, choose the **Embedding provider**, or choose **Connect a provider...** to add one. A ChatGPT plan doesn't include embedding models.
 3. Enter the **Model**, or pick one of the provider's suggestions. The field saves when you leave it; wait for the save result.
 4. Choose **Check Connection**. It must report the model's dimensions; a chat-only model won't work.
-5. Under **General**, turn on **Enable Recommendations**. Restart the server when the page asks. Changes on this page take effect only after a restart.
+5. Under **General**, turn on **Enable Recommendations**, then restart the server. Silo applies the recommendation settings only after a restart.
 
 A hosted embedding model receives catalog text from Silo, so review the provider's charges and data policy first. Leave the advanced ranking settings at their defaults until you have results to judge.
 
-With **Enable Recommendations** off, **For You** still shows rows every profile gets, such as **Highly Rated in Your Library** and **Recently Added**, and Home leaves out **Recommended for You**.
+With **Enable Recommendations** off, no profile gets personal rows. **For You** still shows rows every profile gets, such as **Highly Rated in Your Library** and **Recently Added**. On Home, the **Recommended for You** shelf shows shared picks under their own row name, or is left out when there are none.
 
 ## Generate and inspect results
 
 In **Job status**, run **Embeddings** first. After it finishes, run **Taste Profiles**, **Co-Watch Matrix**, and **Recommendations** in that order, checking each for errors.
 
-Open the app with a profile that has some watch history or ratings. A profile with no history sees only rows every profile gets, such as **Popular on This Server** and **Highly Rated in Your Library**. Its own rows, such as **For You** and **Because you enjoy**, appear once it watches, rates, or favorites titles, or picks a few on [Pick what you love](/docs/home-and-calendar#find-your-next-title) in the web app. After that, Silo updates a profile's rows in the background whenever it watches or rates something on any device, without waiting for the scheduled jobs. Every row respects the profile's library access and rating limit.
+Open **For You** with a profile that has watched, liked, or favorited a few titles. A new profile sees only rows every profile gets, such as **Popular on This Server** and **Highly Rated in Your Library**, until Silo learns what it likes; in the web app, [Pick what you love](/docs/home-and-calendar#find-your-next-title) gives it a start. Silo then updates a profile's personal rows in the background after it watches or rates something on any device, without waiting for the scheduled jobs. Every row respects the profile's library access and rating limit.
 
 If a job fails, check the provider in AI Services, the model, and the job's error.
 
@@ -36,8 +36,9 @@ The **Schedule** section sets when jobs run again. Change it after a manual run 
 
 The **Embedding Lock** card shows the model Silo is locked to. To move to a different model:
 
-1. Choose **Reset embeddings** and confirm. This deletes every embedding and personal recommendation row and clears taste profiles. Personal rows stay unavailable until the embeddings are rebuilt.
-2. Choose the new **Model**, then restart the server.
-3. Run **Embeddings** again. Taste profiles rebuild as their titles are embedded.
+1. Choose an **Embedding provider** that serves the new model, and enter the new **Model**.
+2. Restart the server.
+3. Choose **Reset embeddings** and confirm. This deletes every embedding and personal recommendation row and clears taste profiles. Personal recommendations and semantic search stay unavailable until the embeddings are rebuilt. If an embedding job is running, Silo refuses the reset until it finishes.
+4. Run **Embeddings** again. Taste profiles rebuild as their titles are embedded.
 
-Another provider serving the same model needs no reset; choose it under **Embedding provider** and restart. Don't reset to get around a temporary outage: a reset throws away every embedding, and the **Embeddings** job then has to embed your whole catalog again.
+To keep your embeddings, switch only the provider: choose another **Embedding provider** that serves the same model with the same dimensions, choose **Check Connection**, and restart once it passes. If the provider is only down for a while, wait for it to come back rather than resetting.
