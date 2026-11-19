@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-requests
-keywords: ["approve requests", "Seerr", "Overseerr", "Jellyseerr", "Radarr", "Sonarr"]
-questions: ["How do I let users ask for new movies?", "Why can't someone ask for a show?", "Can I approve requests in the mobile app?", "Why is a request still pending after I added the movie?"]
+keywords: ["approve requests", "Seerr", "Overseerr", "Jellyseerr", "Radarr", "Sonarr", "quality profile", "root folder"]
+questions: ["How do I let users ask for new movies?", "Why can't someone ask for a show?", "Can I approve requests in the mobile app?", "Why is a request still pending after I added the movie?", "Can users pick the quality profile for their request?"]
 title: Manage media requests
 description: Turn requests on, choose approval rules, and follow a request until its media is available.
 ---
@@ -24,8 +24,10 @@ These are server-wide defaults. An [access group](/docs/manage-access) can set i
 Review requests in the web app. The phone, tablet, and TV apps don't have approval controls, even for admins.
 
 1. Open **Admin > Requests > Queue**. **Needs approval** lists requests waiting for a decision.
-2. Choose **Approve**, or **Decline**. When you decline, you can add a reason for the requester.
+2. Choose **Approve**, or **Decline**. When you decline, you can add a reason for the requester. If the request's server leaves settings to you or to the requester, **Approve** first opens a dialog with them. It starts on what the requester picked, and you can change any of it.
 3. After adding the media, scan the library. Within a few minutes of Silo matching the new item, the request shows as available, and Silo notifies the requester and everyone who asked to be notified.
+
+No dialog opens when you approve several selected requests at once, or when a request is approved automatically. The requester's picks still apply, and anything left to you keeps the server's saved setting. The queue shows what was picked for each request, with a column for each setting.
 
 If it stays unfulfilled, compare the library match with the requested movie, series, or season. A title with a similar name may be a different item.
 
@@ -38,6 +40,8 @@ While it's on, adding such a title to a watchlist requests it for that person, o
 ## Connect an acquisition service
 
 External services are optional. Install the service's [plugin](/docs/plugins) first. In **Admin > Requests > Settings**, under **Servers**, choose **Add server**, pick the plugin under **Server type**, and enter the service's **URL** and **API key**. Some plugins don't need one or both; the form marks those fields optional. Choose the destination and quality options, then save.
+
+Some plugins can leave settings such as the quality profile or folder to the person who requests or to the admin who approves. For each one, the form asks who chooses it. Leave it to the admin to use your saved setting, or hand it to the requester or to the admin on approval. Requesters see these choices in the web app only when Silo can tell which server a title goes to: the only server for that type, or the one your routing rules send it to. If you hand a setting to the requester, everyone who can request sees the server's choices for it, including folder paths. The plugin's own documentation lists which settings it offers.
 
 Test with one approved request, and look for it in both Silo and the external service.
 

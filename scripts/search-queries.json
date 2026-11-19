@@ -36,6 +36,7 @@
   {"query": "skip intro button is wrong", "expect": ["docs/markers"]},
   {"query": "ask for a movie that is missing", "expect": ["docs/requests"]},
   {"query": "delete a failed request", "expect": ["docs/requests"]},
+  {"query": "choose quality profile when requesting", "expect": ["docs/requests", "docs/manage-requests"]},
   {"query": "limit how many people watch at once", "expect": ["docs/manage-access"]},
   {"query": "watch a film together remotely", "expect": ["docs/watch-together"]},
   {"query": "get alerted when new episodes arrive", "expect": ["docs/notification-inbox", "docs/notification-delivery"]},
