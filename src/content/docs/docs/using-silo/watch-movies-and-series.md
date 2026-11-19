@@ -29,10 +29,25 @@ you start.
 
 ## Choose a version before playback
 
-Some titles have more than one file, such as a 4K and an HD copy, or a
-director's cut. The title's page then shows **Version** to pick the file,
-and **Edition** to pick the cut when there's more than one. On Apple TV,
-open **Versions**. On iPhone and iPad, **Auto** lets Silo choose.
+Some titles have more than one file, such as a 4K and an HD copy, or more
+than one cut, such as a director's cut. The title's page then shows
+**Edition** to pick the cut and **Version** to pick the file.
+
+**Edition** appears when the title has more than one cut. It opens on the cut
+you watched last. If you haven't played the title, it opens on the standard
+cut, or on the theatrical cut if there's no standard one.
+
+**Version** lists the chosen cut's files when it has more than one. On
+**Auto**, the default, Silo plays the best file that fits your
+[**Resolution** setting](/docs/preferences#set-playback-quality). With
+**1080p**, for example, it plays a 1080p file rather than a 4K one. If every
+file is larger, it plays the one closest to that size. On mobile data, Auto
+follows your [mobile data quality](/docs/preferences#quality-on-mobile-data)
+instead. Auto never switches to another cut, and choosing an edition sets
+**Version** back to **Auto**.
+
+**Play** and **Download** use the file the page shows. **Continue Watching**
+resumes the file you last played, even if the page now shows a different one.
 
 Audio tracks, subtitles, and running time can differ between versions. After
 switching to a different cut, check where playback resumes.
