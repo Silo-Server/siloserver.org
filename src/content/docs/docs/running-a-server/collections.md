@@ -22,7 +22,7 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 - **Shelf**: the heading the collection sits under on the library's **Collections** tab. Choose **Arrange** to move it.
 - **Show on the Collections tab**: turn it off to hide the collection from the tab. A hidden collection cannot be added as a row.
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
-- **Look**: a poster and a backdrop. Without a poster, a manual collection or synced list shows a collage of its titles.
+- **Look**: a poster and a backdrop. Without a poster of its own, a collection shows a collage of its first four titles that have one. For a smart collection, those are its first matches in the collection's order. Each profile's collage includes only titles that profile can open. A poster you add replaces the collage for everyone, and **Use the collage** in the poster's menu brings it back. A new or edited smart collection's collage can take a moment to appear, and titles that match later reach it within about 15 minutes.
 
 To change a collection later, select it in the list, edit it, and choose **Save**.
 
