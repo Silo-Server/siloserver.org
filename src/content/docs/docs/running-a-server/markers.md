@@ -39,12 +39,12 @@ To skip detection for one library, turn off its switch in the library's **Advanc
 ## Manage marker providers
 
 1. Choose **Marker providers** next to **Skip markers**. It opens **Admin > Integrations > Providers**.
-2. Choose **Manage** on a provider.
+2. Choose **Manage** on a provider, or **Set up** if it shows **Needs setup**. TheIntroDB shows **Needs setup** until you save its API key, but it looks up markers without one.
 3. Use **Get markers from this provider** to turn lookups on or off.
-4. If several providers are on, set **Provider priority** under **Advanced**. A lower number wins when two providers return a marker for the same section.
-5. Choose **Save**, then **Test connection**.
+4. If several providers are on, set **Provider priority** under **Advanced**. When two providers return a marker for the same section, Silo uses the one with higher confidence. If they're equally confident, the lower number wins.
+5. Choose **Save**.
 
-Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
+Providers come from plugins. To share the intros and credits your server detects with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page. Once the key is saved, the provider's panel shows **Test connection**, which checks the account that sharing uses.
 
 Silo ignores provider credits that don't fall at the end of the file, such as credits placed on top of the intro, because the player opens Up Next where the credits start. An episode's credits must start in the last 7:30 of the file or its last 40%, whichever is shorter. A movie's must start in the last 15 minutes or the last 25%. They must also start after the intro ends and last at least 15 seconds, up to 7:30 for an episode or 15 minutes for a movie. If Silo already saved misplaced credits from a provider, it removes them the next time **Sync online markers** refreshes that file's markers. Manual markers stay as they are until you edit them.
 
