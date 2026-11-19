@@ -253,7 +253,7 @@ SILO_MEILISEARCH_URL=http://meilisearch.example:7700
 SILO_MEILISEARCH_API_KEY=your-meilisearch-key
 ```
 
-Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. Meilisearch search also needs Redis, which the Compose files turn on. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value.
+Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value. Redis is optional for Meilisearch on one server. With it, people can keep paging through search results after Silo restarts. The image starts its bundled Redis for these settings even with `ENABLE_REDIS=false`, unless `REDIS_URL` names your own.
 
 If a value isn't valid, Silo stops at startup and logs an error that names the variable, such as `invalid SILO_SEARCH_PROVIDER: ...`. The engine must be `postgres` or `meilisearch`, and the URL needs `http://` or `https://` and a host.
 
