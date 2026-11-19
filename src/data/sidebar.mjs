@@ -73,6 +73,7 @@ export const sidebar = [
       ]),
       group("Playback and providers", [
         "docs/plugins",
+        "docs/provision-plugins",
         "docs/playback",
         "docs/transcode-nodes",
         "docs/node-status",

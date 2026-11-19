@@ -120,6 +120,15 @@ It finishes the restore or puts everything back. It doesn't clear Redis: if it f
 - Things deleted since the backup come back turned off: libraries, plugins, autoscan and history import sources, request integrations, subtitle providers, marker sharing, notifications, and access group permissions. Turn them on again once you've checked them. Accounts are the exception: they come back as the backup has them.
 - Scans, imports, storage moves, and other jobs that were running when the backup was taken don't start again. They show as interrupted by the restore. Start them again if you still want them.
 
+### Resume plugin provisioning after a restore
+
+If the restore prints a plugin provisioning hold ID, Silo can start and the local Owner can still sign in. The hold pauses deployment changes that could reinstall a withheld plugin, turn external sign-in back on, or let a provider create accounts again.
+
+1. Review the [plugin declaration](/docs/provision-plugins) on the destination. Check the plugin versions, the sign-in bindings, and who can get an account or become an administrator. Edit any setting you want to keep restricted.
+2. From a local shell with access to the restored `DATABASE_URL`, run `silo plugins restore-hold` to read the current ID. With the standard Compose setup, use the same container and command prefix as for the restore, with `silo plugins restore-hold` at the end.
+3. Run `silo plugins acknowledge-restore <hold-id>` with that ID. If another restore has replaced the hold, Silo rejects the old ID. Review the new restore before acknowledging it.
+4. Restart the designated provisioning instance to apply the reviewed declaration.
+
 ### If the backup came from another server or key
 
 An encrypted backup, which is every backup from a bucket, needs the `SECRET_KEY` it was taken with, even after you download its files.
