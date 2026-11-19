@@ -1,7 +1,7 @@
 ---
 slug: docs/requests
 keywords: ["request a movie", "ask for a movie", "missing movie", "Seerr", "Overseerr", "Jellyseerr", "delete a request", "request failed"]
-questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?", "How do I get rid of a request that failed?"]
+questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?", "How do I get rid of a request that failed?", "Can I pick the quality when I ask for a movie?"]
 title: Request a movie or series
 description: Request a missing title and follow its progress.
 ---
@@ -19,7 +19,10 @@ account is allowed to use them. The person who runs the server sets this up in
    titles you can request.
 2. Search for the title. Open the result with the right year and type.
 3. Select **Request movie** or **Request series** (**Request** in the Apple
-   and Android apps).
+   and Android apps). In the web app, the server can let you choose settings
+   such as the quality profile or folder. They appear in a dialog before the
+   request is sent, or below the seasons for a series. Each one starts on the
+   server's own setting, so change only the ones you want.
 4. Follow its progress under **Yours** in the web app, or in the **Your
    requests** row on the Requests page in the other apps.
 
