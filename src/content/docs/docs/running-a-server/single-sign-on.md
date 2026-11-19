@@ -29,7 +29,7 @@ Set the **Silo public URL** in **Admin > Server > General** first. The provider 
 2. Under **Client**, enter the **Issuer URL**, **Client ID**, and **Client secret** from the provider. Enter the issuer exactly as the provider shows it, including any trailing slash; authentik's has one.
 3. Under **Sign-in request**, turn on **Request the groups scope** if your provider needs it to send groups. The field's description lists which ones do. To let Silo [re-check people](#re-check-access-at-the-provider), turn on **Request offline access** too.
 4. Under **Access rules**, enter **Allowed groups** to limit who can sign in, and **Admin groups** for people who should be Silo admins. Enter one group per line. Leave **Admin groups** empty to manage roles in Silo instead. Below them, choose whether to keep **Create accounts on first sign-in** on (see [Choose who gets an account](#choose-who-gets-an-account)), then save.
-5. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them. If you've changed anything under **Client**, **Sign-in request**, or **Advanced** since you last saved, type the **Client secret** again first, or the test runs without it.
+5. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them. If any setting under **Client**, **Sign-in request**, or **Advanced** differs from what you saved, type the **Client secret** again first. Otherwise the test runs without it, and your provider may reject the client credentials.
 6. Under **Login button**, enter the **Provider name** people know, such as `authentik` or `Company SSO`. The preview shows the button as **Sign in with** and that name. Save.
 7. Select **Turn on**. The provider's card shows **On**.
 
@@ -45,7 +45,7 @@ In the iPhone, iPad, Mac, and Android apps, signing in with the provider opens t
 2. Enter the **Directory URLs** (`ldap://` or `ldaps://`, one per line). Enter a **Service account DN** and **Service account password** for the account Silo searches the directory with, or leave them blank to search anonymously.
 3. Under **Users**, enter the **User base DN**: the part of the directory to search for people. Leave the other user settings blank unless your directory differs from the type you chose.
 4. Under **Groups and access**, enter **Allowed groups** and **Admin groups**, one per line. Each field's description says when a group needs its full DN. Below them, choose whether to keep **Create accounts on first sign-in** on, then save.
-5. Under **Test the connection**, select **Test connection**. If you've changed anything under **Directory connection** since you last saved, type the **Service account password** again first, or the test runs without it. To check one person's groups and the role they'd get, enter them as **Test username** under **Users** first. The test doesn't need their password.
+5. Under **Test the connection**, select **Test connection**. If you use a service account and any setting under **Directory connection** differs from what you saved, type the **Service account password** again first. Otherwise the **Settings are complete** check fails. To check one person's groups and the role they'd get, enter their username as **Test username** under **Users** first. The test doesn't need their password.
 6. Under **Login button**, enter a **Directory name** such as `Company directory`, then save.
 7. Select **Turn on**.
 
