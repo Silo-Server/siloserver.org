@@ -1,7 +1,7 @@
 ---
 slug: docs/saved-titles
 keywords: ["watch later", "my list", "wishlist", "to-watch list", "plan to watch", "like a movie", "saved movies"]
-questions: ["How do I save a movie to watch later?", "How do I give a movie a star rating?", "Can I add a movie the server doesn't have to my list?", "Will I get an alert when a movie on my watchlist arrives?"]
+questions: ["How do I save a movie to watch later?", "How do I give a movie a star rating?", "Can I add a movie the server doesn't have to my list?", "Will I get an alert when a movie on my watchlist arrives?", "Can I give a movie half a star?"]
 title: Watchlist, favorites, and ratings
 description: Save titles for later and record what you think of them.
 ---
@@ -24,10 +24,11 @@ In the web app:
 2. Select the heart to add it to your favorites. Select it again to remove it.
 3. To use the watchlist, open the **More** menu (⋮) and choose
    **Add to Watchlist** or **Remove from Watchlist**.
-4. Select a star rating.
+4. Select a star to rate the title. For a rating such as 3.5 stars, press on
+   the stars, drag sideways, and let go on the half you want.
 
-On a narrow screen, series, season, and episode pages move the heart and
-stars into the **More** menu as **Add to favorites** and **Your rating**.
+On a narrow screen, a series page moves the heart and stars into the
+**More** menu as **Add to favorites** and **Your rating**.
 
 Open **Favorites** or **Watchlist** from the main menu to see what you've
 saved. If a change fails to save, check your connection and try again.
