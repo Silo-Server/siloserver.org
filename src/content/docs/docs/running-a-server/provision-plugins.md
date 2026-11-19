@@ -6,11 +6,11 @@ title: Provision plugins from deployment configuration
 description: Install signed plugins, configure them from secret files, and set up OpenID Connect in Compose, Kubernetes, or NixOS.
 ---
 
-Put plugin settings in a deployment file when you want the same official plugins and settings on a fresh server or after a redeploy. Upgrade every API and proxy instance to a release that supports plugin provisioning before you mount the file.
+Use a deployment file to install and configure official plugins on a fresh server or redeploy. Upgrade all API and proxy instances before mounting the file.
 
 ## Prepare the declaration
 
-Set `SILO_PLUGINS_FILE` to a YAML or JSON file, or set `SILO_PLUGINS` to the JSON document itself. Choose one variable. Silo reads it when the API starts. An API instance with neither variable uses the settings already in the database. Proxy and transcode processes ignore both variables.
+At API startup, supply one declaration. Set `SILO_PLUGINS_FILE` to a YAML or JSON file path, or put JSON in `SILO_PLUGINS`. Empty variables count as unset. With both unset, the API reads the stored configuration. Proxy and transcode processes ignore both variables.
 
 This example pins version `0.1.2` of the official OpenID Connect plugin. Replace the issuer, client ID and groups with your identity provider's settings. The `media` group can sign in and create accounts on first sign-in. Members of `media-admins` can get administrator access, so check that group's membership before you deploy. [Set up single sign-on](/docs/single-sign-on) explains how Silo uses these settings.
 
@@ -44,7 +44,7 @@ plugins:
 
 The catalog defaults to `silo`. Omit `version` to install the current release and follow the installation's update policy. An exact version keeps Silo from updating that plugin until you change the pin.
 
-For each secret, use a single `fromFile` reference to a file the Silo process can read, or a `fromEnv` reference to an environment variable containing the secret. Silo removes one final line ending from a secret file and preserves the contents of an environment variable as supplied. The declaration and the combined referenced secrets each have a 1 MiB limit. Keep secret contents in your secret store.
+Reference each secret with `fromFile` or `fromEnv`. Silo strips one final line ending from a secret file and preserves environment variable contents exactly. The declaration and the combined secrets each have a 1 MiB limit.
 
 ## Mount the file with Compose
 
@@ -76,7 +76,7 @@ kubectl create configmap silo-plugin-declaration --from-file=plugins.yaml
 kubectl create secret generic silo-oidc --from-file=oidc_client_secret=./secrets/oidc_client_secret
 ```
 
-Create a separate Deployment for the API instance that submits the declaration. Start from your regular API Deployment so it has the same database, Redis, secret key, storage, and API settings. Give it the name `silo-api-provisioning` and a selector unique to that Deployment. Add these fields to its spec:
+Set the same `SILO_PUBLIC_URL` on every API replica to protect the registered redirect URL. Copy your regular API Deployment to `silo-api-provisioning` to share its database, Redis, secret key, storage, and API settings. Give it a unique selector and add the following fields.
 
 ```yaml
 spec:
@@ -109,7 +109,9 @@ spec:
             secretName: silo-oidc
 ```
 
-Mount the declaration and its secrets only in this Deployment. Keep the other API replicas running while Kubernetes replaces the provisioning replica. After updating the ConfigMap or Secret, run `kubectl rollout restart deployment/silo-api-provisioning`. If a second instance has already claimed provisioning authority, stop it before restarting the designated instance.
+Mount the declaration and its secrets only here. After updating the ConfigMap or Secret, keep the other replicas running and run `kubectl rollout restart deployment/silo-api-provisioning`.
+
+If another instance holds the writer lock at startup, the provisioning pod reports a refusal. Read its status on that pod. Stop the other writer. If its node died, wait for PostgreSQL to release its session lock. Then restart the provisioning pod.
 
 ## Generate the file with NixOS
 

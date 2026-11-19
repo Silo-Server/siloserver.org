@@ -124,10 +124,10 @@ It finishes the restore or puts everything back. It doesn't clear Redis: if it f
 
 If the restore prints a plugin provisioning hold ID, Silo can start and the local Owner can still sign in. The hold pauses deployment changes that could reinstall a withheld plugin, turn external sign-in back on, or let a provider create accounts again.
 
-1. Review the [plugin declaration](/docs/provision-plugins) on the destination. Check the plugin versions, the sign-in bindings, and who can get an account or become an administrator. Edit any setting you want to keep restricted.
+1. Review the [plugin declaration](/docs/provision-plugins) on the destination. Check the plugin versions, the sign-in bindings, and who can get an account or become an administrator. Edit any setting you want to keep restricted. Stop the provisioning instance. With Compose, [stop the Silo service inside the container](#restore-the-whole-server) so you can run the recovery command there.
 2. From a local shell with access to the restored `DATABASE_URL`, run `silo plugins restore-hold` to read the current ID. With the standard Compose setup, use the same container and command prefix as for the restore, with `silo plugins restore-hold` at the end.
 3. Run `silo plugins acknowledge-restore <hold-id>` with that ID. If another restore has replaced the hold, Silo rejects the old ID. Review the new restore before acknowledging it.
-4. Restart the designated provisioning instance to apply the reviewed declaration.
+4. Start the designated provisioning instance with the reviewed declaration. Check its status in **Admin > Integrations > Plugins**.
 
 ### If the backup came from another server or key
 
