@@ -1,7 +1,7 @@
 ---
 slug: docs/watch-movies-and-series
-keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening"]
-questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?"]
+keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening", "fell asleep"]
+questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?", "Why didn't the next episode start by itself?"]
 title: Watch movies and series
 description: Start or resume playback, choose a version and tracks, and move through an episode.
 ---
@@ -96,6 +96,13 @@ title, episode, and times.
 In **Settings > Playback**, choose whether to skip intros, credits, and
 recaps automatically and whether to play the next episode.
 
+Use **Still watching prompt** in the same settings to choose how many
+episodes can start on their own in a row (3 by default), or to turn the limit
+off. After that many, the next-up screen waits for you to choose **Play Now**,
+so episodes don't keep playing after you've stopped watching. Pausing,
+seeking, or starting an episode yourself starts the count again. Each device
+keeps its own setting.
+
 ## Shuffle a library, series, or collection
 
 Shuffle plays random movies and episodes from a library, a series, a season,
@@ -122,7 +129,9 @@ and what you're shuffling:
 - **Stop shuffling** ends the shuffle and returns you to the page where you
   started it.
 
-If auto-play is on, the next pick starts on its own after a countdown. Select
+If auto-play is on, the next pick starts on its own after a countdown. Picks
+count toward the [**Still watching prompt**](#chapters-intros-and-the-next-episode)
+limit, so after that many the screen waits for **Play Now**. Select
 **Auto-play is on** on that screen to turn it off, or change it in
 **Settings > Playback**. During a shuffle, the player has no next episode
 control.
