@@ -24,7 +24,8 @@ In the web app:
 2. Select the heart to add it to your favorites. Select it again to remove it.
 3. To use the watchlist, open the **More** menu (⋮) and choose
    **Add to Watchlist** or **Remove from Watchlist**.
-4. Select a star rating.
+4. Select a star to rate the title. For half a star, press on the stars,
+   drag sideways, and let go on the half you want.
 
 On a narrow screen, series, season, and episode pages move the heart and
 stars into the **More** menu as **Add to favorites** and **Your rating**.
