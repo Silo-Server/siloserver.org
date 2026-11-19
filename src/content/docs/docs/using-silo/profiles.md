@@ -80,7 +80,8 @@ Use the web app for that.
 4. Choose a **Maximum rating**: the profile can watch titles at that rating
    and below, or any rating with **Any**. Under **Libraries**, keep **All
    libraries** or select **Choose libraries** and check at least one library
-   the profile can browse. These limits work on any profile. For a child, turn
+   the profile can browse. The primary profile must keep **All libraries**.
+   For a child, turn
    on **Child Profile** first: it fills in PG and **Choose libraries** for the
    limits you haven't set yet. Turning it off clears both limits.
 5. Select **Create Profile** or **Save Changes**.
@@ -97,7 +98,8 @@ watch history and preferences.
 
 The web app has every parental control. The Apple apps can set a content
 rating and library limit when creating a child profile. The Android apps can
-set them on any profile, when creating or editing it.
+set them on any profile, when creating or editing it, except a library limit
+on the primary profile.
 
 In the web app, from the primary profile, open **Settings > Profiles** and
 select **Edit** on the profile you want to restrict. The web app calls it a
@@ -110,9 +112,18 @@ select **Edit** on the profile you want to restrict. The web app calls it a
 3. With an advisory-age limit selected, decide whether to turn on
    **Hide titles without an advisory age**.
 4. Turn on **Restrict libraries** to choose which of the account's libraries
-   this profile can browse. Select at least one library.
+   this profile can browse. Select at least one library. The list includes
+   libraries hidden on the primary profile. The primary profile doesn't have
+   this switch: it can use every library the account can. To keep a library
+   out of its view, open **Settings > Libraries** on the primary profile and
+   turn off **Visible in navigation** for that library.
 5. Select **Save profile**. Switch to that profile and open a title you expect
    to see and one you expect to be hidden.
+
+Older versions of Silo let the primary profile have a library limit. Updating
+the server removes it. To keep those libraries out of the primary profile's
+view, turn off **Visible in navigation** for them in its
+**Settings > Libraries**.
 
 | Control | What it does |
 | --- | --- |
