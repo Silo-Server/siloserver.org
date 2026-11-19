@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-collections
 keywords: ["box set", "boxset", "dynamic collection", "auto-updating list", "holiday movies", "group movies together", "genre collections"]
-questions: ["How do I make a holiday movie shelf for everyone?", "Can I follow an MDBList list in my library?", "Why does my synced list show fewer movies than the original?", "Why can't one profile see a collection?"]
+questions: ["How do I make a holiday movie shelf for everyone?", "Can I follow an MDBList list in my library?", "Why does my synced list show fewer movies than the original?", "Why can't one profile see a collection?", "Why is a collection's poster a grid of other posters?"]
 title: Create server collections
 description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---
@@ -22,7 +22,7 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 - **Shelf**: the heading the collection sits under on the library's **Collections** tab. Choose **Arrange** to move it.
 - **Show on the Collections tab**: turn it off to hide the collection from the tab. A hidden collection cannot be added as a row.
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
-- **Look**: a poster and a backdrop. Without a poster of its own, a collection shows a collage of its first four titles that have one. For a smart collection, those are its first matches in the collection's order. Each profile's collage includes only titles that profile can open. A poster you add replaces the collage for everyone, and **Use the collage** in the poster's menu brings it back. A new or edited smart collection's collage can take a moment to appear, and titles that match later reach it within about 15 minutes.
+- **Look**: a poster and a backdrop. Without a poster of its own, a collection shows a collage of up to four posters from its first titles, or from a smart collection's first matches in the collection's order. Each profile's collage uses only titles that profile can open. A poster you add replaces the collage for everyone. To bring the collage back, open the pencil button on the poster, choose **Use the collage**, then **Save**. A new or edited smart collection's collage can take a moment to appear, and it can take about 15 minutes to catch up with titles that match later.
 
 To change a collection later, select it in the list, edit it, and choose **Save**.
 
