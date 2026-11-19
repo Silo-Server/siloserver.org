@@ -64,7 +64,7 @@ can add options of its own, which appear in the same list.
 | **Sync favorites** / **Sync watchlist** | Imports the provider's list and sends items you add in Silo. |
 | **Sync favorite removals** / **Sync watchlist removals** | Removes items on the provider when you remove them in Silo. |
 | **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
-| **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
+| **Import ratings** / **Send ratings** | Imports the provider's ratings, or sends yours. Each half star in Silo is one point out of 10, so ratings keep their value both ways: a 7/10 is 3.5 stars. |
 | **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
 | **Log rewatches** | Simkl only, off by default. Records another play of a title you already watched as a rewatch on Simkl, which otherwise ignores it. Applies to plays sent with **Send watched changes** and to finished playback reported by **Scrobble playback**. Needs a Simkl PRO or VIP account. Simkl counts two plays of the same title less than two days apart as one. |
 
