@@ -63,12 +63,12 @@ If you run more than one API server, each one applies the bandwidth limits on it
 ## Check household restrictions
 
 Account access determines which libraries the household can use. The primary
-profile sees all of them. Profile restrictions narrow that access for the other
-profiles; they cannot grant access to libraries the account cannot use.
+profile can use all of them, and **Restrict libraries** can narrow that for the
+other profiles. Profile restrictions cannot grant access to libraries the
+account cannot use.
 
 The household's primary profile can configure **Maximum content rating**,
-**Maximum advisory age**, and, on the other profiles, **Restrict libraries** in
-the web profile editor.
+**Maximum advisory age**, and **Restrict libraries** in the web profile editor.
 See [Set parental controls](/docs/profiles#set-parental-controls) for the steps.
 When both rating limits are set, titles must pass both.
 
