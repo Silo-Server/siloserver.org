@@ -124,6 +124,23 @@ A season folder named only with a number, such as `01`, works inside a show fold
 
 A folder directly in a library folder named `Series`, `Serie`, `Série`, `Seria`, or `Séria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. It's still a season when only a year or release details follow the number (`Series 2 (2019)`, `Series 2 1080p`). It's also a season when its file names start with a different show's title, as in a library folder for one show that holds `Series 5 Matt Smith/Doctor Who S05E03.mkv`. Inside a show folder, `Series 5 Matt Smith` is season 5.
 
+### Other names for the same edition
+
+Silo treats different names for one cut as a single edition. A 4K file tagged `{edition-Extended Cut}` and a 1080p file tagged `{edition-Extended}` appear as one extended edition with two versions, so **Version** can switch between them. These names group together, in any letter case:
+
+| Edition | Names |
+| --- | --- |
+| Theatrical | `Theatrical`, `Theatrical Cut`, `Theatrical Edition`, `Theatrical Version`, `Theatrical Release` |
+| Extended | `Extended`, `Extended Cut`, `Extended Edition`, `Extended Version` |
+| Unrated | `Unrated`, `Unrated Cut`, `Unrated Edition`, `Unrated Version` |
+| Uncut | `Uncut`, `Uncut Edition`, `Uncut Version` |
+| Uncensored | `Uncensored`, `Uncensored Edition`, `Uncensored Version` |
+| Director's Cut | `Director's Cut`, `Directors Cut`, `Director Cut` |
+| Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
+| Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
+
+Silo groups them only when every copy of that cut is a single file and their running times are within five seconds of each other. If one copy is a multipart movie, or its running time differs by more, each name stays a separate edition. A file with no edition name is never grouped with a named cut. For any other cut, such as `{edition-Final Cut}`, use the same name on every copy.
+
 ## Episode numbers without a season
 
 Put files numbered only by episode in a season folder, or add the season to the name. Without either, Silo has to work out the season:
