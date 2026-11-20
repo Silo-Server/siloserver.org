@@ -37,7 +37,7 @@ Many of these settings can come from the server's environment instead, which sui
 
 ## Server settings from the environment
 
-Set these variables to configure the main server from your Compose file or Kubernetes manifest instead of the admin pages. With Compose, add them to `.env` and recreate the container with `docker compose up -d`. Silo reads them each time it starts. Proxy and transcode nodes don't read them.
+Set these variables to configure the main server from your Compose file or Kubernetes manifest instead of the admin pages. With Compose, add them to `.env` and recreate the container with `docker compose up -d`. The Compose files in the server repository pass `.env` to the `silo` service with `env_file`. If you use your own Compose file, add that, or list each variable under `environment`. Silo reads them each time it starts. Proxy and transcode nodes don't read them.
 
 `.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. To install and configure plugins the same way, see [Provision plugins from deployment configuration](/docs/provision-plugins).
 
