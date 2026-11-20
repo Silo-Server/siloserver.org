@@ -62,6 +62,33 @@ With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#a
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
+## Set a node's settings in its environment
+
+You can set a node's settings in its `.env` instead of in **Admin > Playback > Nodes**. That keeps them with the node's Compose file, and the owner of a transcode node keeps control of them even when someone else runs the main server. The node reads these variables when it starts:
+
+| Setting | Proxy node | Transcode node |
+| --- | --- | --- |
+| **Name**, **URL** | | `SILO_NODE_NAME`, `SILO_NODE_URL` |
+| **Public URL** | `SILO_NODE_PUBLIC_URL` | |
+| **Group** | `SILO_NODE_GROUP` | `SILO_NODE_GROUP` |
+| **Max Streams**, **Max Transcodes** | `SILO_NODE_MAX_STREAMS` | `SILO_NODE_MAX_TRANSCODES` |
+| **Max Egress Bandwidth (Mbps)** | `SILO_NODE_MAX_BANDWIDTH_KBPS`, in kilobits per second, so `100000` for 100 Mbps | |
+| **Source access** | | `SILO_NODE_SOURCE_ACCESS`: `local` for **Library mount on the node**, `core` for **Through the API servers** |
+| **Hardware Acceleration**, **GPU Devices** | | `SILO_NODE_HW_ACCEL`, `SILO_NODE_HW_DEVICE` |
+| **Prepared file directory**, **Storage budget** | | `SILO_NODE_DOWNLOAD_ARTIFACT_DIR`, and `SILO_NODE_DOWNLOAD_ARTIFACT_MAX_BYTES` in bytes |
+
+For the limits and the storage budget, `0` means none. The node section of the repository's `.env.example` has an example value for each. Leave a variable out, or empty, to keep editing that setting in Silo. If a value isn't valid, the node stops at startup and its log names the variable.
+
+A setting the node sets is greyed out in the node editor, with **Set by this node’s environment. Change it there and restart the node.** below it. Silo refuses changes to it from anywhere else too, such as **Edit location** in **Admin > Downloads > Prepared Files** or the [admin API](/docs/api). To change it, edit the node's `.env` and restart the node. To edit it in Silo again, remove the variable and restart the node; the setting keeps its last value.
+
+You still [add a transcode node](#add-the-node) in Silo yourself, and it sends its settings to the main server each time it starts. The node holds to its own limit, acceleration, devices, source access, and prepared-download directory and budget, whatever its entry in Silo says. With `SILO_NODE_MAX_TRANSCODES` set, it turns down new work past that number, and Silo runs the work on another node or the main server if **Routing** allows that. Remuxes, prepared downloads, and seek previews count toward the number along with transcodes. The node also sends its settings again every minute, so an entry changed some other way, such as in the database, goes back to them within a minute. Only the main server uses **Name**, **URL**, and **Group**, so the node can't hold to those itself; the resend is what puts them back.
+
+A transcode node ignores `NODE_NAME` and `NODE_URL`, so only the `SILO_NODE_` spellings count there. Don't copy `SILO_NODE_NAME` or `SILO_NODE_URL` from a proxy node's `.env`, because a transcode node takes them as its own name and address.
+
+A proxy node accepts `SILO_NODE_NAME` and `SILO_NODE_URL` in place of `NODE_NAME` and `NODE_URL`, which still work. A proxy that sets any of the variables in the table needs an entry in Silo, or it refuses to start and logs the reason. To have a proxy with no entry add its own, named `SILO_NODE_NAME` at `SILO_NODE_URL`, set `SILO_NODE_REGISTER=true`. Leave that off if you added the proxy under another **URL**, such as its public hostname, or Silo can add a second entry for it.
+
+If the main server hasn't been updated yet, a node that sets these starts anyway and applies them once the main server is updated.
+
 ## Store prepared downloads on a node
 
 A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
