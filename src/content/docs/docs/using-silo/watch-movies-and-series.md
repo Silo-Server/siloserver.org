@@ -94,12 +94,12 @@ If the title has nothing lower to play, Silo shows **Can't lower quality for
 this video**.
 
 After lowering, Silo remembers the slower speed for this device and network
-for 24 hours, so the next title starts at the lower quality too. It doesn't
-if this connection reached more than 10 times the lowered speed in a speed
-test or during playback in the last 7 days. A drop that large more likely
-came from the server, such as a disk waking up, so only the title that was
-buffering plays lower. While that limit holds a title down, the **Quality**
-menu shows **Auto · limited after buffering**.
+for 24 hours, so the next title starts at the lower quality too. If this
+connection reached more than 10 times the lowered speed in a speed test or
+during playback in the last 7 days, Silo lowers only the title that was
+buffering. A drop that large probably came from somewhere other than the
+network, such as a disk on the server waking up. While that limit holds a
+title down, the **Quality** menu shows **Auto · limited after buffering**.
 **Restore quality** goes back to the quality you had and clears the limit.
 To clear it later, or to have Silo ask before lowering, see
 [Lower quality when buffering](/docs/preferences#lower-quality-when-buffering).

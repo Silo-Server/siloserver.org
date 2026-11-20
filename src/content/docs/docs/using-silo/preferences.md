@@ -138,11 +138,12 @@ for what appears while you watch.
 Once Silo lowers the quality, it plays **Auto** under that lower speed on
 this device and network for 24 hours after playback last buffered. A line
 such as "Limited to 12 Mbps after buffering on Oct 17" then appears under
-the setting. Silo doesn't set a new limit if this device reached more than
-10 times the lowered speed on this network, in a speed test or during
+the setting. Silo doesn't set or extend the limit if this device reached more
+than 10 times the lowered speed on this network, in a speed test or during
 playback, in the last 7 days. Then only the title that was buffering plays
-lower. Over [Tailscale](/docs/tailscale), Silo always sets it, because that
-connection follows the device from one network to another. Select **Reset**
+lower. Through the [Tailscale plugin](/docs/tailscale), Silo always sets the
+limit, because that connection follows the device from one network to
+another. Select **Reset**
 to clear the limit; your measured connection speed stays. **Restore
 quality** in the player and a **Test speed** result faster than the limit
 also clear it. With **Never**, Silo ignores the limit
