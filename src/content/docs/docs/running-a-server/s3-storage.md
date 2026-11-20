@@ -16,7 +16,7 @@ Before the first library scan, open **Admin > Server > Storage** and set **Backe
 - **S3** uses the public storage bucket. Choose it when several hosts need the same artwork.
 - **Automatic** uses the public bucket when one is configured, and local disk otherwise.
 
-Save and follow the restart notice. For a single host, local disk is enough.
+Save and follow the restart notice. For a single host, local disk is enough. You can also set storage from the [server's environment](/docs/configuration#server-settings-from-the-environment).
 
 **Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops into artwork storage, on local disk or in S3, including [images you keep beside your media files](/docs/local-metadata#add-artwork). When it's off, clients load artwork straight from the providers and Silo ignores local images. Artwork saved earlier switches back to the providers' images, except on titles whose artwork you chose in **Edit Metadata**. A title with only local artwork keeps it until a refresh finds a provider image.
 
@@ -132,6 +132,8 @@ Set up a private bucket the same way.
 ## Change storage later
 
 Use a storage transition to move from local disk to S3 (for example, before adding a second host), switch buckets or providers, move to a new local path, go back from S3 to local disk, or add or remove a private bucket. Silo checks the new location, copies what you choose, switches the settings, and restarts.
+
+If you set storage with `SILO_ARTWORK_*` or `SILO_S3_*` [variables](/docs/configuration#storage-from-the-environment), remove them from every API server's environment first, and recreate the containers. Silo refuses to start a transition while any of them is set.
 
 1. Make a [backup](/docs/backup-restore) first.
 2. For a new local path, mount it into the container before you start.

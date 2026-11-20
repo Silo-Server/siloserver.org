@@ -12,6 +12,8 @@ Two switches run the pipeline for new content: **Notice new content** records ne
 
 ## Set up email
 
+You can set the fields in steps 1 and 2 from the [server's environment](/docs/configuration#server-settings-from-the-environment) instead, with the `SILO_SMTP_*` variables. Those fields are then greyed out, so open **Admin > Integrations > Email** and start at **Send test** in step 3.
+
 1. Open **Admin > Integrations > Email** and turn on **Send email from this server**. This switch covers every email Silo sends, including invitations and password resets.
 2. Enter the **From address**, **From name**, **Mail server address**, **Port**, **Encryption**, and the sign-in details from your mail provider.
 3. Save. Enter a recipient next to **Send test**, send a test email, and look for it in the inbox and spam folder.
