@@ -1,6 +1,6 @@
 ---
 slug: docs/watch-movies-and-series
-keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening", "autoplay limit", "Up Next"]
+keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening", "autoplay limit"]
 questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?", "Why didn't the next episode start by itself?", "How do I stop the next episode screen from popping up?"]
 title: Watch movies and series
 description: Start or resume playback, choose a version and tracks, and move through an episode.
@@ -113,15 +113,15 @@ In **Settings > Playback**, choose whether to skip intros, credits, and
 recaps automatically and whether to play the next episode.
 
 **Show Next Up** in the same settings chooses when the next-up screen opens:
-**At end**, or anywhere from **10 seconds before end** to **2 minutes before
-end**. The default is **30 seconds before end**. **Skip Credits** still
-appears when the credits start, and if the credits run to the end, skipping
-them opens the next-up screen.
+**At end**, or 10 seconds, 30 seconds, 1 minute, or 2 minutes before the end.
+The default is **30 seconds before end**. **Skip Credits** still appears when
+the credits start, and skipping credits that run to the end counts as
+reaching the end of the episode.
 
-Choose **Off** to stop the next-up screen from opening. The next episode then
-never starts on its own, even with auto-play on, and the player closes when
-the episode ends. A [shuffle](#shuffle-a-library-series-or-collection) still
-moves on to its next pick.
+Choose **Off** to stop the next-up screen from opening on its own. The next
+episode then never starts by itself, even with auto-play on, and the player
+closes when the episode ends. **Off** doesn't apply to a
+[shuffle](#shuffle-a-library-series-or-collection).
 
 Use **Still watching prompt** in the same settings to choose how many
 episodes can start on their own in a row, or to turn the limit off. The
