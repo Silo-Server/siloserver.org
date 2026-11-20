@@ -42,3 +42,14 @@ External services are optional. Install the service's [plugin](/docs/plugins) fi
 Test with one approved request, and look for it in both Silo and the external service.
 
 Configure [notifications](/docs/notification-delivery) if users should receive delivery updates.
+
+## Add recommendation rows to Discover
+
+**Admin > Requests > Discover Page** sets the rows everyone sees on the Requests page's **Discover** tab. A **Recommendations** row shows each viewer titles that aren't in your library yet, picked from what they watch. It stays empty until [Discover recommendations](/docs/recommendations#recommend-titles-you-dont-have-on-discover) are turned on.
+
+If you've never changed the page, it already starts with **Recommended movies for you** and **Recommended series for you**. Otherwise, add them:
+
+1. Open **Admin > Requests > Discover Page** and choose **Add row**.
+2. Under **Bring back**, choose **Recommended movies for you** or **Recommended series for you**.
+3. Choose **Add row**. New rows go to the bottom of Discover, so drag the row up by its handle if you want it near the top.
+4. Repeat for the other row.
