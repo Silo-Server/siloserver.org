@@ -86,6 +86,8 @@
   {"query": "ai subtitles", "expect": ["docs/missing-subtitles", "docs/ai-services"]},
   {"query": "obtainium", "expect": ["docs/choose-an-app"]},
   {"query": "meilisearch", "expect": ["docs/docker"]},
+  {"query": "search cant find movies by part of actor name", "expect": ["docs/docker"]},
+  {"query": "meilisearch memory", "expect": ["docs/docker"]},
   {"query": "inotify", "expect": ["docs/autoscan"]},
   {"query": "caddy", "expect": ["docs/reverse-proxy"]},
   {"query": "http3 buffering away from home", "expect": ["docs/reverse-proxy"]},
