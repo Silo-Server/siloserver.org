@@ -8,6 +8,8 @@ description: Find a provider, configure it, and check that it works before relyi
 
 Plugins add providers and integrations to your server, such as metadata, skip markers, requests, scan sources, and sign-in. Silo installs the official TMDB, TVDB, and TheIntroDB plugins when it starts, as long as it can reach the plugin catalog. They need no configuration, so movie and series metadata and skip markers work on a new server. Install other plugins when you want an extra provider or integration.
 
+To install and configure official plugins when the API starts, [provision them from your deployment](/docs/provision-plugins).
+
 ## Install from the catalog
 
 1. Open **Admin > Integrations > Plugins** and choose the **Catalog** tab.
