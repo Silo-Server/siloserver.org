@@ -26,7 +26,7 @@ On the node's host, use the server repository's [`docker-compose.yml`](https://g
 - The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis. Use the same Redis [database number](/docs/configuration#external-postgresql-and-redis) as the main server. Behind [Redis Sentinel](/docs/configuration#redis-sentinel), use the main server's Sentinel URL, and let the node reach every Sentinel and Redis server.
 - Enough PostgreSQL connections for every node. Each node opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
-- A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space.
+- A plugin directory (`SILO_PLUGIN_CACHE_DIR`). A transcode node also needs the artwork directory and a writable transcode directory with plenty of free space. A proxy node caches subtitle tracks in its own transcode directory, so if you mount one there, keep group and other users from writing to it, as on the [main server](/docs/docker#data-directories).
 - For GPU encoding on a transcode node, its own driver and device access, set up as in [Set up transcoding](/docs/playback).
 - A clock that stays within 30 seconds of the main server and the other nodes, for example kept in sync with NTP. A node whose clock is further off refuses requests from the main server and proxy nodes, so work sent to it fails.
 
