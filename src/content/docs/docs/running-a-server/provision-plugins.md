@@ -75,8 +75,8 @@ ai_providers:
 - Set `type` to `openai`, `gemini`, `openrouter`, `groq`, `ollama`, `whisper`, or `custom` for an OpenAI-compatible endpoint. Without `name` or `base_url`, Silo uses the type's own, as when you add the provider in the admin pages. A `custom` provider needs a `base_url`.
 - Give `api_key` as `fromFile` or `fromEnv`, like a plugin secret. The document can't hold the key itself. The `openai`, `gemini`, `openrouter`, and `groq` types need a key.
 - A `custom` provider needs `capabilities`: one or more of `chat`, `embeddings`, and `speech`. The other types serve a fixed set, so Silo doesn't start if you give one `capabilities`.
-- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start and the error names both. Give the declared provider a `name` of its own, or declare the existing provider's id, which the error names, to take that one over.
-- If an id matches a provider that's already connected, the declaration replaces it whole, key included, so a declaration without `api_key` leaves it without one. It can't change the provider's type: Silo doesn't start, and asks you to declare the new type under a new id.
+- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start and the error names both. Give the declared provider a `name` of its own, or, when the existing provider has the same type, declare its id, which the error names, to take it over.
+- If an id matches a provider that's already connected, the declaration replaces it whole, key included, so a declaration without `api_key` leaves it without one. It can't change the provider's type: Silo doesn't start, and asks you to declare the new type under a new id with a name of its own, since the old provider stays connected under its name.
 
 If an entry is wrong, Silo doesn't start and logs the variable and the entry, such as `SILO_CONFIG_FILE: ai_providers.local-embed: choose at least one thing the provider serves`.
 
