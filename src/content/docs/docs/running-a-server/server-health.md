@@ -70,7 +70,7 @@ A run marked **cancelled** with `Stopped after reaching the max runtime of` in i
 
 ## Disk space
 
-Watch free space for the database and artwork as well as transcodes. A full disk can break one task before the whole server stops responding.
+Watch free space for the database and artwork as well as transcodes. A full disk can break one task before the whole server stops responding. With artwork on local disk, Silo [stops saving new files before that disk fills](/docs/s3-storage#if-local-storage-is-almost-full).
 
 ## If Silo is slow or uses too much memory
 

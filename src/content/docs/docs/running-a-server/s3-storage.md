@@ -1,7 +1,7 @@
 ---
 slug: docs/s3-storage
 keywords: ["object storage", "cloud storage", "image cache", "poster cache", "presigned URLs", "migrate artwork", "metadata images", "bucket permissions"]
-questions: ["Can my movie files live in an S3 bucket?", "Where are posters saved on my server?", "How do I move artwork to Cloudflare R2 or a new disk?", "What does private storage identity mismatch mean?"]
+questions: ["Can my movie files live in an S3 bucket?", "Where are posters saved on my server?", "How do I move artwork to Cloudflare R2 or a new disk?", "What does private storage identity mismatch mean?", "Why did Silo stop saving posters when my disk got full?"]
 title: Storage, artwork, and capacity
 description: Choose local or S3 artwork storage, change it later, and know which data must persist.
 ---
@@ -176,3 +176,9 @@ Keep both buckets until you have checked for files written while the settings di
 Keep the database, artwork, and plugin data on persistent storage. Leave room for transcodes and prepared downloads; they grow while people watch or download. To cap the space prepared downloads take, set a [storage budget](/docs/download-storage#set-storage-budgets).
 
 Watch free space on the host and its mounted volumes. A full disk can stop one task before the whole server fails. Before adding users, set up [backups](/docs/backup-restore).
+
+### If local storage is almost full
+
+When artwork is on local disk, Silo keeps some space free on the disk that holds the **Local storage path**: 2 GiB, or a tenth of the disk if that's smaller. Once a new file would cut into that space, Silo stops saving artwork, seek previews, chapter images, and the other files it keeps there, so the database and the rest of the server keep working. Backups kept **On this server** and storage transitions to a local path stop at the same point. There's no setting for this space.
+
+If new artwork or previews stop appearing, filter **Admin > Logs > Server Log** by the `blobstore` component and look for a warning that starts `local storage is almost full`. Then free space on that disk. Deleting through Silo still works, so you can remove old [backups](/docs/backups#download-or-delete-a-backup) there. Once there's room, Silo saves the missing artwork, previews, and chapter images on its own.
