@@ -133,7 +133,7 @@ Set up a private bucket the same way.
 
 Use a storage transition to move from local disk to S3 (for example, before adding a second host), switch buckets or providers, move to a new local path, go back from S3 to local disk, or add or remove a private bucket. Silo checks the new location, copies what you choose, switches the settings, and restarts.
 
-If you set storage with `SILO_ARTWORK_*` or `SILO_S3_*` [variables](/docs/configuration#storage-from-the-environment), remove them from every API server's environment and restart each one first. Silo refuses to start a transition while any of them is set.
+If you set storage with `SILO_ARTWORK_*` or `SILO_S3_*` [variables](/docs/configuration#storage-from-the-environment), remove them from every API server's environment first, and recreate the containers. Silo refuses to start a transition while any of them is set.
 
 1. Make a [backup](/docs/backup-restore) first.
 2. For a new local path, mount it into the container before you start.
