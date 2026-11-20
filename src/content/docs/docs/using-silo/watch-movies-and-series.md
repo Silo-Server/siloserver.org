@@ -43,8 +43,18 @@ quality settings.
 **1080p**, for example, it picks a 1080p file rather than a 4K one. If every
 file's resolution is higher, it picks the lowest. On mobile data, Auto
 follows your [mobile data quality](/docs/preferences#quality-on-mobile-data)
-instead. Auto never switches to another cut, and choosing an edition sets
-**Version** back to **Auto**.
+instead.
+
+If your connection can't keep up with that file, when you start or while you
+watch, Auto can switch to a smaller file of the same cut, such as an HD copy
+of a 4K movie. Silo tries this before it lowers the quality, when your device
+can play that file without converting the video and the player's **Quality**
+is on **Auto**. Copies with
+[different names for the same cut](/docs/media-folders#other-names-for-the-same-edition)
+count as one cut, but Auto never switches to a different cut. Choosing an
+edition sets **Version** back to **Auto**. Choosing a file in **Version**
+keeps playback on that file, and Silo lowers the quality instead when it has
+to.
 
 **Play** and **Download** start with the file the page shows. The
 **Continue Watching** row on Home resumes the file you last played, even if
