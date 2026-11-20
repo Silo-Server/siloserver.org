@@ -1,7 +1,7 @@
 ---
 slug: docs/reverse-proxy
 keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik", "HTTP/3", "QUIC", "UDP 443"]
-questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?"]
+questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?", "How do I stop the web player stalling on a slow connection?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
 ---
@@ -55,9 +55,41 @@ Other sites on the same Caddy keep HTTP/3. Browsers stop using HTTP/3 for Silo o
 
 nginx serves HTTP/3 only where you've set it up, and its HTTP/3 can slow down the same way.
 
+### Speed up web playback away from home
+
+Give the web app a second address that serves Silo over HTTP/1.1 only. Through it, the web app reads a file over several connections at once. On a long or lossy link, one connection often stalls while the link still has room, and several together keep the video coming. The main address can't do this: Caddy serves it over HTTP/2, where the browser sends every request over one connection.
+
+It helps only with files the web app decodes itself with [**Decode in the browser (beta)**](/docs/playback-problems#if-the-web-app-converts-hevc-files-on-linux), such as files with Dolby TrueHD or DTS audio. Files the browser plays on its own, converted video, and the Silo apps on other devices still use one connection.
+
+1. Point a second hostname, for example `media.example.com`, at your public address, and forward inbound TCP port 8443 to Caddy.
+2. Add the media site to your Caddyfile, replacing the hostname. The block in braces holds global options and goes at the top of the file. If your Caddyfile already starts with one, add the `servers` lines to it.
+
+```text
+{
+    servers :8443 {
+        protocols h1
+    }
+}
+
+media.example.com:8443 {
+    reverse_proxy 127.0.0.1:8090
+}
+```
+
+Caddy applies `protocols` to everything on a port, not to one site, so the media address needs a port of its own. It gets a certificate the same way as the main address.
+
+3. Validate and reload Caddy.
+4. Set `server.web_media_url` to the media address with `PUT /api/v2/admin/settings/server.web_media_url` in the [admin API](/docs/api), sending `{"value": "https://media.example.com:8443"}`. The setting has no control in the web app. It applies from the next video, without a restart.
+
+Silo accepts only an `https` address with no path, and refuses other values with an error such as `server.web_media_url must use https`. To turn the media address off, set the value to `""`.
+
+If the media address refuses a request or stops answering, the web app keeps playing through the main address over one connection. Viewers who reach Silo through [Network access (Beta)](/docs/tailscale) always use the main address.
+
+If your proxy already serves Silo over HTTP/1.1 only, you don't need a media address: the web app reads over several connections on the main address. It does the same for files a [proxy node](/docs/transcode-nodes) sends.
+
 ## Other addresses clients use
 
-Remote proxy nodes and S3 storage can hand clients their own addresses. Those must also be reachable and use HTTPS; the main proxy doesn't forward them.
+Remote proxy nodes, S3 storage, and the [media address](#speed-up-web-playback-away-from-home) give clients addresses of their own. Those must also be reachable and use HTTPS; Silo's site on the main address doesn't cover them.
 
 Jellyfin-compatible and Audiobookshelf-compatible apps use their own ports (see [Docker ports](/docs/docker#ports)). Publish only the ones your users need, each on its own hostname, and follow [third-party access](/docs/third-party-access).
 
