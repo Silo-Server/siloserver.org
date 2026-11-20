@@ -35,7 +35,7 @@ A ChatGPT plan doesn't include speech-to-text, so transcription needs its own pr
 
 ## Connect providers from your deployment
 
-To connect providers from a Compose file, Kubernetes manifest, or NixOS configuration instead, list them under `ai_providers` in the [deployment document](/docs/provision-plugins#connect-ai-providers). A provider the document declares opens read-only under **Providers**, with a note such as **Set by SILO_CONFIG_FILE in the server's environment.** It has no **Save** or **Remove**, and **Test** still works. To change or remove it, edit the document and restart Silo. Under **Models**, choose it for the **Text model** or **Speech-to-text** as you would any other provider.
+To connect providers from a Compose file, Kubernetes manifest, or NixOS configuration instead, list them under `ai_providers` in the [deployment document](/docs/provision-plugins#connect-ai-providers). Under **Providers**, **Manage** on a declared provider shows its settings read-only, with a note such as **Set by SILO_CONFIG_FILE in the server’s environment.** It has no **Save** or **Remove**, and **Test** still works. Under **Models**, choose it for the **Text model** or **Speech-to-text** as you would any other provider. To change it, or [hand it back to administrators](/docs/provision-plugins#change-settings-or-hand-control-back-to-an-administrator), edit the document and restart Silo.
 
 ## Use your ChatGPT plan
 

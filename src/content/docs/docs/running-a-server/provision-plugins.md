@@ -1,6 +1,6 @@
 ---
 slug: docs/provision-plugins
-keywords: ["GitOps", "declarative plugin setup", "SILO_CONFIG_FILE", "SILO_CONFIG", "SILO_PLUGINS", "SILO_PLUGINS_FILE", "Authelia", "OpenAI API key", "Ollama"]
+keywords: ["GitOps", "declarative plugin setup", "config as code", "infrastructure as code", "Authelia"]
 questions: ["How do I install plugins from Docker Compose?", "Can I configure OIDC before Silo starts?", "Can I add an AI provider without the admin pages?", "Why is plugin provisioning held after a restore?"]
 title: Configure Silo from a deployment document
 description: Install signed plugins, connect AI providers, and set up OpenID Connect from one document and secret files in Compose, Kubernetes, or NixOS.
@@ -12,7 +12,11 @@ Use a deployment document to install and configure official plugins and connect 
 
 At API startup, supply one document. Set `SILO_CONFIG_FILE` to a YAML or JSON file path, or put JSON in `SILO_CONFIG`. The older names, `SILO_PLUGINS_FILE` and `SILO_PLUGINS`, still work and read the same document. Set only one of the four: if two are set, Silo doesn't start. Empty variables count as unset. With all four unset, the API reads the stored configuration. Proxy and transcode processes ignore these variables.
 
-The document has a `plugins` section for official plugins and an `ai_providers` section for [AI providers](#connect-ai-providers). Both are optional. If you leave a section out, Silo keeps what it would set up as it is.
+The document has a `plugins` section for official plugins and an `ai_providers` section for [AI providers](#connect-ai-providers). Both are optional. Leave a section out and Silo leaves those plugins or providers as they are.
+
+For AI providers alone, skip to [Connect AI providers](#connect-ai-providers).
+
+### Example: the OpenID Connect plugin
 
 This example pins version `0.1.2` of the official OpenID Connect plugin. Replace the issuer, client ID and groups with your identity provider's settings. The `media` group can sign in and create accounts on first sign-in. Members of `media-admins` can get administrator access, so check that group's membership before you deploy. [Set up single sign-on](/docs/single-sign-on) explains how Silo uses these settings.
 
@@ -46,11 +50,13 @@ plugins:
 
 The catalog defaults to `silo`. Omit `version` to install the current release and follow the installation's update policy. An exact version keeps Silo from updating that plugin until you change the pin.
 
-Reference each secret with `fromFile` or `fromEnv`. Silo strips one final line ending from a secret file and preserves environment variable contents exactly. The declaration and the combined secrets each have a 1 MiB limit.
+Reference each secret with `fromFile` or `fromEnv`. Silo strips one final line ending from a secret file and preserves environment variable contents exactly. The document can be up to 1 MiB, and the secrets it references, plugin secrets and AI provider keys together, share another 1 MiB.
 
 ## Connect AI providers
 
-Add an `ai_providers` section to connect the providers that [AI services](/docs/ai-services) and [recommendations](/docs/recommendations) use. Key each provider by an id you choose: up to 64 lowercase letters, digits, and hyphens. Recommendations refer to a provider by this id.
+Add an `ai_providers` section to connect the providers that [AI services](/docs/ai-services) and [recommendations](/docs/recommendations) use. Key each provider by an id you choose: 1 to 64 lowercase letters, digits, and hyphens, starting with a letter or digit. To use a provider for recommendations, set `SILO_RECOMMENDATIONS_PROVIDER` to its id ([Set up recommendations](/docs/recommendations#configure-the-model)).
+
+For AI providers alone, save this example as `deployment.yaml`. To add them to a document you already use, copy the `ai_providers` section under its `apiVersion: 1`.
 
 ```yaml
 apiVersion: 1
@@ -62,25 +68,25 @@ ai_providers:
   local-embed:
     type: custom
     name: Local embeddings
-    base_url: http://ollama:11434/v1
+    base_url: https://llm.example.net/v1
     capabilities: [embeddings]
 ```
 
 - Set `type` to `openai`, `gemini`, `openrouter`, `groq`, `ollama`, `whisper`, or `custom` for an OpenAI-compatible endpoint. Without `name` or `base_url`, Silo uses the type's own, as when you add the provider in the admin pages. A `custom` provider needs a `base_url`.
 - Give `api_key` as `fromFile` or `fromEnv`, like a plugin secret. The document can't hold the key itself. The `openai`, `gemini`, `openrouter`, and `groq` types need a key.
-- `capabilities` lists what a `custom` provider serves: `chat`, `embeddings`, `speech`, or more than one. The other types serve a fixed set, so Silo doesn't start if you give one `capabilities`.
-- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start and the error names both. Give the declared provider a `name` of its own.
-- If an id matches a provider that's already connected, the declared one replaces it, key included.
+- A `custom` provider needs `capabilities`: one or more of `chat`, `embeddings`, and `speech`. The other types serve a fixed set, so Silo doesn't start if you give one `capabilities`.
+- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start and the error names both. Give the declared provider a `name` of its own, or declare the existing provider's id, which the error names, to take that one over.
+- If an id matches a provider that's already connected, the declaration replaces it whole, key included, so a declaration without `api_key` leaves it without one. It can't change the provider's type: Silo doesn't start, and asks you to declare the new type under a new id.
 
 If an entry is wrong, Silo doesn't start and logs the variable and the entry, such as `SILO_CONFIG_FILE: ai_providers.local-embed: choose at least one thing the provider serves`.
 
-On **Admin > Integrations > AI Services**, a declared provider opens read-only, with a note such as **Set by SILO_CONFIG_FILE in the server's environment.** It has no **Save** or **Remove**, and **Test** still works. Choose it under **Models** as you would any other provider. To have recommendations use it, see [Set up recommendations](/docs/recommendations#configure-the-model).
+A declared provider shows read-only on **Admin > Integrations > AI Services**; see [Connect providers from your deployment](/docs/ai-services#connect-providers-from-your-deployment).
 
 Each API server that reads the document saves its providers when it starts, and the last one to start wins, so give every API server that reads it the same document.
 
 ## Mount the file with Compose
 
-Add this to the `silo` service in your Compose configuration. Create `./secrets/oidc_client_secret` outside version control and give the user that runs Silo permission to read it. Add a secret for each AI provider key the same way.
+Add this to the `silo` service in your Compose configuration. Create `./secrets/oidc_client_secret` and `./secrets/openai_key` outside version control and give the user that runs Silo permission to read them. Leave out the secrets your document doesn't reference.
 
 ```yaml
 services:
@@ -92,9 +98,12 @@ services:
       - ./deployment.yaml:/run/silo-config/deployment.yaml:ro
     secrets:
       - oidc_client_secret
+      - openai_key
 secrets:
   oidc_client_secret:
     file: ./secrets/oidc_client_secret
+  openai_key:
+    file: ./secrets/openai_key
 ```
 
 Run `docker compose up -d --force-recreate --no-deps silo` after adding the mounts or changing the files.
@@ -106,6 +115,7 @@ Create these resources in the namespace that runs Silo. Keep the secret file out
 ```sh
 kubectl create configmap silo-deployment --from-file=deployment.yaml
 kubectl create secret generic silo-oidc --from-file=oidc_client_secret=./secrets/oidc_client_secret
+kubectl create secret generic silo-openai --from-file=openai_key=./secrets/openai_key
 ```
 
 Set the same `SILO_PUBLIC_URL` on every API replica to protect the registered redirect URL. Copy your regular API Deployment to `silo-api-provisioning` to share its database, Redis, secret key, storage, and API settings. Give it a unique selector and add the following fields.
@@ -132,6 +142,10 @@ spec:
               mountPath: /run/secrets/oidc_client_secret
               subPath: oidc_client_secret
               readOnly: true
+            - name: openai-secret
+              mountPath: /run/secrets/openai_key
+              subPath: openai_key
+              readOnly: true
       volumes:
         - name: deployment-document
           configMap:
@@ -139,6 +153,9 @@ spec:
         - name: oidc-secret
           secret:
             secretName: silo-oidc
+        - name: openai-secret
+          secret:
+            secretName: silo-openai
 ```
 
 Mount the document and its secrets only here. After updating the ConfigMap or Secret, keep the other replicas running and run `kubectl rollout restart deployment/silo-api-provisioning`.
@@ -187,6 +204,8 @@ in {
 }
 ```
 
+For an AI provider key, add an `ai_providers` entry the same way, with `api_key.fromFile = "/run/credentials/silo.service/openai_key";`, and a `LoadCredential` line for `openai_key`.
+
 Apply the configuration with your usual NixOS deployment command. After rotating the secret, run `systemctl restart silo.service`.
 
 ## Change settings or hand control back to an administrator
@@ -194,7 +213,7 @@ Apply the configuration with your usual NixOS deployment command. After rotating
 - Change a setting or rotate a secret, then restart the instance that reads the declaration. To roll back, redeploy the previous document and, if you rotated a credential, restore the matching secret if the provider still accepts it.
 - The declaration owns each config field or sign-in option it names. An administrator can edit the other fields and turn off an installation. To turn off the declared sign-in binding, set `auth_binding.enabled: false`.
 - Remove a field or plugin from the document to release its ownership and keep its last saved value. To release every plugin, set `plugins: {}`. Leaving the `plugins` section out releases nothing. Once a secret's ownership is released, an administrator can clear it in the plugin settings.
-- Remove a provider from `ai_providers` to release it. It stays connected, and an administrator can edit or remove it again. To release every provider, set `ai_providers: {}`. Leaving the section out releases nothing.
+- Remove a provider from `ai_providers` to release it. It stays connected, and an administrator can edit it again, or remove it once no job uses it. To release every provider, set `ai_providers: {}`. Leaving the section out, or removing the document, releases nothing: the providers stay read-only until a document releases them.
 
 ## If a declaration is pending or held
 
