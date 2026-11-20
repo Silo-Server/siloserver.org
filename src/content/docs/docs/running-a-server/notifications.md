@@ -19,6 +19,8 @@ Two switches run the pipeline for new content: **Notice new content** records ne
 5. Turn on **Let people pick an email per episode** to offer an email for each episode instead of only the daily summary. The **Daily summary hour** is under **Advanced** in the channel.
 6. Save.
 
+You can set the fields from steps 1 and 2 in the [server's environment](/docs/configuration#server-settings-from-the-environment) instead, with the `SILO_SMTP_*` variables.
+
 Emails link back to Silo through the **Silo public URL** in **Admin > Server > General**. Use an address recipients can open, not a Docker-only hostname.
 
 ## Browser push
