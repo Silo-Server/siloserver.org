@@ -1,7 +1,7 @@
 ---
 slug: docs/configuration
-keywords: ["env vars", "environment variables", "external database", "connection string", "account lockout", "brute force protection", "throttling"]
-questions: ["Which settings go in the .env file?", "Can I use my own existing Postgres or Redis?", "Why do I get 429 too many requests errors?", "How long am I locked out after wrong passwords?"]
+keywords: ["env vars", "environment variables", "external database", "connection string", "account lockout", "brute force protection", "throttling", "Kubernetes", "read-only setting"]
+questions: ["Which settings go in the .env file?", "Can I use my own existing Postgres or Redis?", "Why do I get 429 too many requests errors?", "How long am I locked out after wrong passwords?", "Why can't I edit a setting in the admin pages?", "Can I set the public URL and SMTP in Docker Compose?"]
 title: Server configuration and dependencies
 description: Know which settings belong in Docker and which belong in the admin app.
 ---
@@ -33,7 +33,70 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
-A value set in the environment can override the stored setting. For example, `SILO_TRUSTED_PROXIES` replaces the **Trusted proxies** setting on every start, and `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` replace the [search connection](/docs/docker#connect-meilisearch-in-env). A field set this way is greyed out on its admin page, with a note such as **Managed by SILO_TRUSTED_PROXIES.** Manage each value in one place.
+Many of these settings can come from the server's environment instead, which suits a Compose file or Kubernetes manifest. See [Server settings from the environment](#server-settings-from-the-environment).
+
+## Server settings from the environment
+
+Set these variables to configure the main server without finishing the setup in the admin pages. With Compose, add them to `.env` and recreate the container with `docker compose up -d`. Silo reads them each time it starts, and `.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. Proxy and transcode nodes don't read them. To install and configure plugins the same way, see [Provision plugins from deployment configuration](/docs/provision-plugins).
+
+While a variable is set, its field is greyed out on its admin page and in the setup wizard, with a note such as **Set by SILO_PUBLIC_URL in the server's environment.** To change the setting, change the variable and recreate the container. A blank value counts as unset: it doesn't clear the setting or grey out the field.
+
+Silo checks each value as the admin page would. If one isn't valid, Silo doesn't start and logs an error that names the variable, such as:
+
+```text
+invalid SILO_DB_MAX_CONNECTIONS: database.max_connections must be an integer between 1 and 10000
+```
+
+Silo saves most of these values as the server's setting, which every API server sharing the database uses. Give every API server the same values: each one saves its own when it starts, so the last one to start wins. If you remove one of these variables, the setting keeps its last value and you can edit it on its admin page again.
+
+Three variables apply only to the server that reads them, and Silo never saves them: `SILO_DB_MAX_CONNECTIONS`, `SILO_SCANNER_WORKERS`, and `SILO_MATCHER_WORKERS`. Use them to size each API server on its own. Removing one returns that server to the value on the admin page.
+
+Switches take `true` or `false`.
+
+| Variable | Setting |
+| --- | --- |
+| `SILO_SERVER_NAME` | **Server name** on **Admin > Server > General** |
+| `SILO_PUBLIC_URL` | **Silo public URL** on **Admin > Server > General** |
+| `SILO_LOCAL_URL` | **Local network address** on **Admin > Server > General** |
+| `SILO_LAN_DISCOVERY` | **Show on the local network** on **Admin > Server > General** |
+| `SILO_TRUSTED_PROXIES` | **Trusted proxies** on **Admin > Server > General**, as a comma-separated list |
+| `SILO_DB_MAX_CONNECTIONS` | **Maximum Postgres connections** on **Admin > Server > General**, for this server only |
+| `SILO_LOG_LEVEL` | **Log level** on **Admin > Logs > Settings**: `debug`, `info`, `warn`, or `error` |
+| `SILO_LOG_FORMAT` | Container log format, `text` or `json`. It has no field in the admin pages. |
+| `SILO_SIGNUP_ENABLED` | **Public signups** on **Admin > Sign-in & Security > Sign-in** |
+| `SILO_JELLYFIN_ENABLED` | **Allow Jellyfin apps to connect** on **Admin > Integrations > Compatibility** |
+| `SILO_JELLYFIN_PUBLIC_URL` | **Address Jellyfin apps should use** on **Admin > Integrations > Compatibility** |
+| `SILO_JELLYFIN_SERVER_NAME` | **Name shown to Jellyfin apps** on **Admin > Integrations > Compatibility** |
+| `SILO_AUDIOBOOKSHELF_ENABLED` | **Allow Audiobookshelf apps to connect** on **Admin > Integrations > Compatibility** |
+| `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, `SILO_MEILISEARCH_API_KEY` | **Search engine**, **Meilisearch URL**, and **Meilisearch API key** on **Admin > Server > Search**. See [Connect Meilisearch in `.env`](/docs/docker#connect-meilisearch-in-env). |
+| `SILO_SMTP_ENABLED` | **Send email from this server** on **Admin > Integrations > Email** |
+| `SILO_SMTP_HOST`, `SILO_SMTP_PORT` | **Mail server address** and **Port** on **Admin > Integrations > Email** |
+| `SILO_SMTP_SECURITY` | **Encryption** on **Admin > Integrations > Email**: `starttls`, `tls`, or `none` |
+| `SILO_SMTP_USER`, `SILO_SMTP_PASSWORD` | **Username** and **Password** on **Admin > Integrations > Email** |
+| `SILO_SMTP_FROM_ADDRESS`, `SILO_SMTP_FROM_NAME` | **From address** and **From name** on **Admin > Integrations > Email** |
+| `SILO_TRANSCODE_ENABLED` | **Video transcoding** on **Admin > Playback > Settings** |
+| `SILO_HW_ACCEL` | **Hardware acceleration** on **Admin > Playback > Settings**: `auto`, `qsv`, `vaapi`, `nvenc`, `videotoolbox`, or `none` |
+| `SILO_HW_DEVICE` | The devices chosen under **GPU devices** on **Admin > Playback > Settings**, such as `/dev/dri/renderD128`, or a comma-separated list |
+| `SILO_TRANSCODE_DIR` | **Transcode directory** on **Admin > Playback > Settings** |
+| `SILO_FFMPEG_PATH` | **FFmpeg path** on **Admin > Playback > Settings** |
+| `SILO_DOWNLOAD_ARTIFACT_DIR` | **Prepared file directory** on **Admin > Downloads > Settings** |
+| `SILO_SCANNER_WORKERS`, `SILO_MATCHER_WORKERS` | **Scanner workers** and **Matcher workers** on **Admin > Libraries > Settings**, for this server only |
+| `SILO_TMDB_API_KEY` | Your own TMDB API key, used in place of the one Silo includes. It has no field in the admin pages. |
+| `SILO_ARTWORK_STORAGE` | **Backend** on **Admin > Server > Storage**: `auto`, `local`, or `s3` |
+| `SILO_ARTWORK_PATH` | **Local storage path** on **Admin > Server > Storage** |
+| `SILO_S3_PUBLIC_ENDPOINT`, `SILO_S3_PUBLIC_REGION`, `SILO_S3_PUBLIC_BUCKET`, `SILO_S3_PUBLIC_KEY_PREFIX`, `SILO_S3_PUBLIC_PATH_STYLE`, `SILO_S3_PUBLIC_ACCESS_KEY`, `SILO_S3_PUBLIC_SECRET_KEY` | **Endpoint**, **Region**, **Bucket**, **Folder inside the bucket**, **Put the bucket name in the URL path**, **Access Key**, and **Secret Key** under **Public storage** on **Admin > Server > Storage** |
+| `SILO_S3_PUBLIC_URL_AUTH` | **How asset links are authorized**: `presigned`, `public`, or `cloudflare_token` |
+| `SILO_S3_PUBLIC_READ_ENDPOINT` | **Address clients download from** |
+| `SILO_S3_PUBLIC_TOKEN_SECRET`, `SILO_S3_PUBLIC_TOKEN_PARAM`, `SILO_S3_PUBLIC_TOKEN_TTL` | **Token Secret**, **Token query parameter**, and **Link lifetime** in seconds, for **Cloudflare signed token** |
+| `SILO_S3_PRIVATE_ENDPOINT`, `SILO_S3_PRIVATE_REGION`, `SILO_S3_PRIVATE_BUCKET`, `SILO_S3_PRIVATE_KEY_PREFIX`, `SILO_S3_PRIVATE_PATH_STYLE`, `SILO_S3_PRIVATE_ACCESS_KEY`, `SILO_S3_PRIVATE_SECRET_KEY` | The same fields under **Private storage** |
+
+### Storage from the environment
+
+Once Silo has stored files, the storage variables (`SILO_ARTWORK_*` and `SILO_S3_*`) must name the storage it already uses. If they point somewhere else, Silo doesn't start and names them in the error. While any of them is set, Silo also refuses to start a storage transition. To move storage:
+
+1. Remove the storage variables from every API server's environment, and restart each one.
+2. Run a [storage transition](/docs/s3-storage#change-storage-later).
+3. To keep setting storage from the environment, set the variables to the new location and restart again.
 
 ## External PostgreSQL and Redis
 
