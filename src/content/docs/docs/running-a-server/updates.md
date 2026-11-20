@@ -73,6 +73,8 @@ Keep the backup until these checks pass.
 
 If an update moves the bundled Meilisearch to a new version and it doesn't start, set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. A move to a new PostgreSQL major version needs a dump and restore; see [Bundled PostgreSQL](/docs/docker#bundled-postgresql).
 
+With Meilisearch, an update can change what Silo stores in the search index. The first start after such an update rebuilds the index once in the background, and search uses PostgreSQL until the rebuild finishes. To see which engine is answering, use [Search status](/docs/docker#check-search).
+
 An update doesn't change your Compose file. If yours is older than the [`NET_ADMIN` capability](/docs/docker#net_admin-capability) line, Silo runs without it. If the kernel's send limit is low, Silo logs a `tcp send buffer: listener state` warning on each start, with how to fix it. The warning doesn't stop Silo. Before you add the line, read [what the capability allows](/docs/docker#what-the-capability-allows).
 
 ## If the update fails
