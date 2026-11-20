@@ -60,6 +60,23 @@ Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-styl
 
 Inside a folder that names the movie, the file name can be anything, such as a disc rip's `title00.mkv`. A folder names the movie when it has a year (`Movie Name (2024)`), a [provider ID](#provider-ids), or a release name with a year (`Movie.Name.2024.1080p.BluRay`). In any other folder, `title00.mkv` becomes a title called "title00".
 
+## Other names for the same edition
+
+Put the cut's name in an `{edition-...}` tag in the file or folder name, such as `Movie Name (2024) {edition-Extended Cut}.mkv`. Silo groups the names in each row below into one edition, in any letter case. A 4K copy tagged `{edition-Extended Cut}` and a 1080p copy tagged `{edition-Extended}` then appear as one edition, and **Version** on the title's page chooses between them.
+
+| Edition | Names |
+| --- | --- |
+| Theatrical | `Theatrical`, `Theatrical Cut`, `Theatrical Edition`, `Theatrical Version`, `Theatrical Release` |
+| Extended | `Extended`, `Extended Cut`, `Extended Edition`, `Extended Version` |
+| Unrated | `Unrated`, `Unrated Cut`, `Unrated Edition`, `Unrated Version` |
+| Uncut | `Uncut`, `Uncut Edition`, `Uncut Version` |
+| Uncensored | `Uncensored`, `Uncensored Edition`, `Uncensored Version` |
+| Director's Cut | `Director's Cut`, `Directors Cut`, `Director Cut` |
+| Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
+| Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
+
+Silo groups them only when every copy of that cut is a single file rather than a multipart movie, Silo has read each copy's running time, and those times are within five seconds of each other. Otherwise each name stays a separate edition. A file with no edition name is never grouped with a named cut. Give each different cut its own name, and for a cut not in this list, such as `{edition-Final Cut}`, use the same name on every copy.
+
 ## Series
 
 Give every show its own folder, with a folder per season:
