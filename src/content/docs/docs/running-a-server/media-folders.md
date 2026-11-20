@@ -60,6 +60,23 @@ Loose files such as `movies/Movie Name (2024).mkv` also work, as do release-styl
 
 Inside a folder that names the movie, the file name can be anything, such as a disc rip's `title00.mkv`. A folder names the movie when it has a year (`Movie Name (2024)`), a [provider ID](#provider-ids), or a release name with a year (`Movie.Name.2024.1080p.BluRay`). In any other folder, `title00.mkv` becomes a title called "title00".
 
+## Other names for the same edition
+
+Put the cut's name in an `{edition-...}` tag in the file or folder name, such as `Movie Name (2024) {edition-Extended Cut}.mkv`. Silo groups the names in each row below into one edition, in any letter case. A 4K copy tagged `{edition-Extended Cut}` and a 1080p copy tagged `{edition-Extended}` then appear as one edition, and **Version** on the title's page chooses between them.
+
+| Edition | Names |
+| --- | --- |
+| Theatrical | `Theatrical`, `Theatrical Cut`, `Theatrical Edition`, `Theatrical Version`, `Theatrical Release` |
+| Extended | `Extended`, `Extended Cut`, `Extended Edition`, `Extended Version` |
+| Unrated | `Unrated`, `Unrated Cut`, `Unrated Edition`, `Unrated Version` |
+| Uncut | `Uncut`, `Uncut Edition`, `Uncut Version` |
+| Uncensored | `Uncensored`, `Uncensored Edition`, `Uncensored Version` |
+| Director's Cut | `Director's Cut`, `Directors Cut`, `Director Cut` |
+| Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
+| Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
+
+Silo groups them only when every copy of that cut is a single file rather than a multipart movie, Silo has read each copy's running time, and those times are within five seconds of each other. Otherwise each name stays a separate edition. A file with no edition name is never grouped with a named cut. Give each different cut its own name, and for a cut not in this list, such as `{edition-Final Cut}`, use the same name on every copy.
+
 ## Series
 
 Give every show its own folder, with a folder per season:
@@ -123,23 +140,6 @@ Editions and multipart files of one movie are grouped under the same title.
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
 
 A folder directly in a library folder named `Series`, `Serie`, `Série`, `Seria`, or `Séria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. It's still a season when only a year or release details follow the number (`Series 2 (2019)`, `Series 2 1080p`). It's also a season when its file names start with a different show's title, as in a library folder for one show that holds `Series 5 Matt Smith/Doctor Who S05E03.mkv`. Inside a show folder, `Series 5 Matt Smith` is season 5.
-
-### Other names for the same edition
-
-Silo treats different names for one cut as a single edition. A 4K file tagged `{edition-Extended Cut}` and a 1080p file tagged `{edition-Extended}` appear as one extended edition with two versions, so **Version** can switch between them. These names group together, in any letter case:
-
-| Edition | Names |
-| --- | --- |
-| Theatrical | `Theatrical`, `Theatrical Cut`, `Theatrical Edition`, `Theatrical Version`, `Theatrical Release` |
-| Extended | `Extended`, `Extended Cut`, `Extended Edition`, `Extended Version` |
-| Unrated | `Unrated`, `Unrated Cut`, `Unrated Edition`, `Unrated Version` |
-| Uncut | `Uncut`, `Uncut Edition`, `Uncut Version` |
-| Uncensored | `Uncensored`, `Uncensored Edition`, `Uncensored Version` |
-| Director's Cut | `Director's Cut`, `Directors Cut`, `Director Cut` |
-| Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
-| Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
-
-Silo groups them only when every copy of that cut is a single file and their running times are within five seconds of each other. If one copy is a multipart movie, or its running time differs by more, each name stays a separate edition. A file with no edition name is never grouped with a named cut. For any other cut, such as `{edition-Final Cut}`, use the same name on every copy.
 
 ## Episode numbers without a season
 
