@@ -54,6 +54,20 @@ watchlist requests off.
 Removing a title from your watchlist cancels the request the watchlist made,
 as long as the request hasn't been sent to a download server yet.
 
+## Recommended titles on Discover
+
+In the web app, the **Discover** tab on the Requests page can show
+**Recommended movies for you** and **Recommended series for you**. They show
+titles the library doesn't have yet, picked for your profile from what you
+watch and rate. A card can say why, for example "Similar to Heat". Request a
+title from its page as usual.
+
+The rows appear once the person who runs the server turns on
+[Discover recommendations](/docs/recommendations#recommend-titles-you-dont-have-on-discover)
+and Silo has learned what your profile likes from what you watch, rate, and
+favorite. They change as you watch and rate more, and follow your profile's
+rating limit.
+
 ## Request statuses
 
 In the web app and the Android apps, a request moves through **Pending**

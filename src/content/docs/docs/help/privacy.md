@@ -29,7 +29,8 @@ policies.
 | [Subtitle providers](/docs/subtitle-providers): OpenSubtitles, SubDL, SubSource | When someone searches for or downloads a subtitle | Title, IMDb ID, languages, and season and episode. OpenSubtitles also gets a hash of the video file, and SubDL gets its file name | No. Each provider needs to be turned on and given credentials |
 | [AI text model](/docs/ai-services) | When subtitle or description translation runs | Subtitle text, or descriptions and taglines | No |
 | AI speech-to-text model | When Silo creates subtitles from audio | The audio track, in chunks | No |
-| Embedding model for recommendations | During scheduled recommendation jobs | Catalog text | No |
+| TMDB, for [Discover recommendations](/docs/recommendations#recommend-titles-you-dont-have-on-discover) | When the Discover recommendations job runs | TMDB IDs of library titles and of titles to recommend, and filters such as language and release date | No |
+| Embedding model for recommendations | When recommendation jobs run | Catalog text. With Discover recommendations on, also the same text for titles your server doesn't have | No |
 | Silo Push Relay (`push.siloserver.org`) | When a notification needs to reach a phone or tablet that allowed notifications | A content-free wake-up: the device's push token and delivery IDs, with no titles, message text, or server address | Yes on new servers. See [mobile push](/docs/notification-delivery#mobile-push) |
 | The browser's push service | When a browser that allowed notifications needs one | The encrypted notification, including its title and text | Yes |
 | Email (SMTP), Discord, and webhooks | When a [notification](/docs/notification-delivery) or email is sent through that channel | The notification or email content | No. Each needs setup |

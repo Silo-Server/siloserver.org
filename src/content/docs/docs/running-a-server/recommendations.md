@@ -1,9 +1,9 @@
 ---
 slug: docs/recommendations
 keywords: ["because you watched", "recommended for you", "AI recommendations", "machine learning", "collaborative filtering", "taste"]
-questions: ["How do I turn on personalized movie suggestions?", "Can I switch embedding models after setup?", "Why are suggestions so generic for a new profile?", "Why did my suggestion jobs fail?"]
+questions: ["How do I turn on personalized movie suggestions?", "Can I switch embedding models after setup?", "Why are suggestions so generic for a new profile?", "Why did my suggestion jobs fail?", "Can Silo suggest movies we don't own yet?"]
 title: Set up recommendations
-description: Connect an embedding provider, run the jobs that produce recommendations, and switch embedding models.
+description: Connect an embedding provider, run the jobs that produce recommendations, recommend titles you don't have on Discover, and switch embedding models.
 ---
 
 Recommendations suggest titles from your catalog and each profile's activity. They are optional and need PostgreSQL with pgvector and an embedding model from a provider connected in [AI Services](/docs/ai-services). The rows that show them are set up in [Home Sections](/docs/home-sections).
@@ -32,13 +32,25 @@ If a job fails, check the provider in AI Services, the model, and the job's erro
 
 The **Schedule** section sets when jobs run again. Change it after a manual run works.
 
+## Recommend titles you don't have on Discover
+
+Discover recommendations add **Recommended movies for you** and **Recommended series for you** to the Requests page's **Discover** tab. Each profile gets its own titles that aren't in your library yet, picked from what it watches. They need recommendations working as above, with **Embeddings** run at least once, and [requests](/docs/manage-requests) turned on.
+
+1. In **Admin > Integrations > Recommendations**, under **Discover Recommendations**, turn on **Enable Discover Recommendations**. It applies without a restart.
+2. Leave **Maximum Titles to Recommend From** at 5000 to start, or enter a number from 500 to 50000. It's how many titles you don't have that Silo keeps to pick from. Silo looks up each one on TMDB and embeds it with your embedding provider, so a higher number takes longer, uses more storage, and can cost more with a hosted provider. The field saves when you leave it, without a restart.
+3. In **Job status**, choose **Run** on the **Discover Recommendations** card. The run builds rows for the profiles that have watched or rated enough. The card then shows how many titles Silo has to recommend from and how many rows it built.
+
+After that, the job runs on the **Discover Recommendations Cron** schedule under **Schedule**, daily at 06:00 by default. A change to the schedule takes effect after a restart. Between runs, Silo updates a profile's rows after it watches or rates something, using the titles it already has to pick from. A new profile has no rows until Silo knows what it likes.
+
+If you've changed your Discover page in **Admin > Requests > Discover Page**, the rows aren't added for you. [Add them there](/docs/manage-requests#add-recommendation-rows-to-discover). Turning **Enable Discover Recommendations** off hides the rows from viewers.
+
 ## Change the embedding model
 
 The **Embedding Lock** card shows the model Silo is locked to. To move to a different model:
 
 1. Choose an **Embedding provider** that serves the new model, and enter the new **Model**.
 2. Restart the server.
-3. Choose **Reset embeddings** and confirm. This deletes every embedding and personal recommendation row and clears taste profiles. Personal recommendations and semantic search stay unavailable until the embeddings are rebuilt. If an embedding job is running, Silo refuses the reset until it finishes.
-4. Run **Embeddings** again. Taste profiles rebuild as their titles are embedded.
+3. Choose **Reset embeddings** and confirm. This deletes every embedding and personal recommendation row, including the Discover rows, and clears taste profiles. Personal recommendations and semantic search stay unavailable until the embeddings are rebuilt. If a recommendation job is running, Silo refuses the reset until it finishes.
+4. Run **Embeddings** again. Taste profiles rebuild as their titles are embedded. If you use Discover recommendations, run **Discover Recommendations** after that to rebuild their rows.
 
 To keep your embeddings, switch only the provider: choose another **Embedding provider** that serves the same model with the same dimensions, choose **Check Connection**, and restart once it passes. If the provider is only down for a while, wait for it to come back rather than resetting.
