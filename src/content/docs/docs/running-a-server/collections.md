@@ -8,6 +8,8 @@ description: Build a server collection by hand, from rules, or from a list, arra
 
 Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab, for example a set of short films or a seasonal selection. You can also show one as a row on Home or a library page.
 
+In the web app, manual collections and synced lists can also appear on the pages of the movies and series they hold. See [Collections on movie and series pages](#collections-on-movie-and-series-pages).
+
 ## Create a collection
 
 1. Open **Admin > Libraries > Collections** and choose **New collection**.
@@ -20,7 +22,7 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 
 - **Libraries**: **Change** takes you to where you pick them. If unticking a library would drop titles from a manual collection that are only in that library, the editor names them before you save.
 - **Shelf**: the heading the collection sits under on the library's **Collections** tab. Choose **Arrange** to move it.
-- **Show on the Collections tab**: turn it off to hide the collection from the tab. A hidden collection cannot be added as a row.
+- **Show on the Collections tab**: turn it off to hide the collection from the tab and from movie and series pages. A hidden collection cannot be added as a row.
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
 - **Look**: a poster and a backdrop. Without a poster of its own, a collection shows a collage of up to four posters from its first titles, or from a smart collection's first matches in the collection's order. Each profile's collage uses only titles that profile can open. A poster you add replaces the collage for everyone. To bring the collage back, open the pencil button on the poster, choose **Use the collage**, then **Save**. A new or edited smart collection's collage can take a moment to appear, and it can take about 15 minutes to catch up with titles that match later.
 
@@ -56,6 +58,17 @@ Choose a library, then **Arrange**. Shelves are the headings on that library's *
 - **No heading** holds collections that are not on a shelf.
 - **My collections** is where each viewer's own collections appear when they turn on **Show on the Collections tab**. You can rename or move it, and its contents are different for each viewer.
 
+## Collections on movie and series pages
+
+In the web app, the page of a movie or series lists the collections that hold it and that the profile can see, with the same parental controls and library access as the **Collections** tab:
+
+- When one collection holds the title, the page lists up to six of that collection's other titles under the collection's name. **Explore all** opens the collection.
+- When several collections hold it, an **Also in** row has a card for each. The page uses this row too when the only collection holding the title has no other titles to show.
+
+Manual collections and synced lists count, and so do the viewer's personal collections, including ones other profiles on the account share with them. Another profile's shared collection appears only on titles that profile can see too. Smart collections don't count.
+
+A server collection appears only with **Show on the Collections tab** turned on. When a movie's page already has a row for its franchise, a server synced list that follows the same TMDB collection is left out, so the franchise doesn't appear twice.
+
 ## Add a starter pack
 
 A starter pack adds a ready-made set of synced lists to your libraries, such as trending and top-rated lists or a shelf for each genre.
@@ -77,7 +90,7 @@ Open the collection's action menu and choose **Delete…**. If Home or library p
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
-If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
+If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. The same checks, and **Show on the Collections tab**, decide which collections a movie or series page lists in the web app. A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
 
 ## If a synced list does not sync
 
