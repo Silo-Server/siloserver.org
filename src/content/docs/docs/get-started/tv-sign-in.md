@@ -44,7 +44,7 @@ The TV then shows a sign-in screen with a QR code.
 2. Sign in to the server if asked, with your password or the
    **Sign in with** button.
 3. Check that the code on the page matches the TV, then select
-   **Sign in TV**.
+   **Approve sign-in**.
 4. On the TV, choose a profile.
 
 You can also open the server's `/activate` page in any browser and type the
