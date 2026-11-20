@@ -1,7 +1,7 @@
 ---
 slug: docs/docker
 keywords: ["docker run", "container", "ports", "Unraid", "Portainer", "image tag"]
-questions: ["How do I keep Silo on one version instead of latest?", "How do I change the port if it's already taken?", "Why don't the apps find my server automatically?", "Why won't the container start after a Postgres upgrade?"]
+questions: ["How do I keep Silo on one version instead of latest?", "How do I change the port if it's already taken?", "Why don't the apps find my server automatically?", "Why won't the container start after a Postgres upgrade?", "Why doesn't search find an actor from part of their name?"]
 title: Docker deployment reference
 description: Understand Silo's image, ports, mounts, and optional search service, and other ways to run it.
 ---
@@ -223,7 +223,17 @@ Search uses PostgreSQL unless you switch it. To use the Meilisearch in the conta
 
 While it's on, the fields it fills in on **Admin > Server > Search** are greyed out, with a note such as **Managed by SILO_SEARCH_PROVIDER.** To turn it off, remove the line or set it to `false`, and recreate the container. Search goes back to PostgreSQL on that start. From the start after that, you can choose the engine on that page again.
 
+The bundled Meilisearch indexes with up to a quarter of the container's memory, and at least 512 MiB. Silo measures that memory as [automatic tuning](/docs/configuration#postgresql-tuning) does. To set a different limit, add `MEILI_MAX_INDEXING_MEMORY` to `.env` in bytes or as a size such as `4Gb`, then recreate the container. Meilisearch's [configuration reference](https://www.meilisearch.com/docs/resources/self_hosting/configuration/reference) describes the value.
+
 Meilisearch can't open data written by a different version. If it doesn't start after an update moves it to a new version, set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. You can also empty `config/meilisearch/data` and let Silo rebuild the index.
+
+### What Meilisearch search matches
+
+With Meilisearch, search matches titles, cast and crew, studios, networks, genres, keywords, and the release year. It skips words in a description or tagline, which PostgreSQL search does match. Turn on **Match by meaning as well as words** to also find titles from a description, such as `movie about a shark`.
+
+- Titles match while you're still typing a word, and allow small typos. Cast and crew match only whole words: `hanks` and `tom hanks` find Tom Hanks's movies, but `tom han` doesn't, and a misspelled name may find nothing.
+- When some titles match the search closely, Silo leaves out weaker matches: `scrubs` finds Scrubs, but not Scrublands.
+- Titles with the same name are listed most popular first. Add the year, such as `dune 2021`, to put that release first.
 
 ### Meilisearch in a separate container
 
