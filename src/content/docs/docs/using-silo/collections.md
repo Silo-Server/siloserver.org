@@ -100,6 +100,15 @@ Tick a collection to add the title; ticking saves right away. Only your own
 manual collections are listed. To start a new one, enter a name under **New
 manual collection** and select **Create and add**.
 
+## Collections on movie and series pages
+
+In the web app, a movie or series page shows the collections that hold it:
+your own, ones shared with you, and server collections. When only one
+collection holds it, the page shows up to six of its other titles under its
+name, and **Explore all** opens it. When several do, an **Also in** row shows a
+card for each. Smart collections don't appear there. A collection shared with
+you appears only on titles the profile that shared it can access too.
+
 ## Show a collection on your Home
 
 On **Collections**, open a collection's action menu and select **Add to my
