@@ -47,7 +47,7 @@ Configure [notifications](/docs/notification-delivery) if users should receive d
 
 **Admin > Requests > Discover Page** sets the rows everyone sees on the Requests page's **Discover** tab. A **Recommendations** row shows each viewer titles that aren't in your library yet, picked from what they watch. It stays empty until [Discover recommendations](/docs/recommendations#recommend-titles-you-dont-have-on-discover) are turned on.
 
-If you've never changed the page, it already starts with **Recommended movies for you** and **Recommended series for you**. Otherwise, add them:
+If you've never changed the page, it already starts with **Recommended movies for you** and **Recommended series for you**. If you have, check the list: turn on a recommendation row that's there but switched off, and add any that's missing:
 
 1. Open **Admin > Requests > Discover Page** and choose **Add row**.
 2. Under **Bring back**, choose **Recommended movies for you** or **Recommended series for you**.
