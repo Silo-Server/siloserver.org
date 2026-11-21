@@ -1,7 +1,7 @@
 ---
 slug: docs/branding
 keywords: ["white label", "rebrand", "custom theme", "theme color", "background image", "server title", "rename server", "clearlogo"]
-questions: ["How do I put my own logo on the sign-in page?", "Can I change the name shown in the browser tab?", "How do I change the button color of the web app?", "Can I show plain movie names instead of logo images?"]
+questions: ["How do I put my own logo on the sign-in page?", "Can I change the name shown in the browser tab?", "How do I change the button color of the web app?", "Can I show plain movie names instead of logo images?", "Why is text lighter than the accent color I picked?"]
 title: Customize your server's appearance
 description: Set your server's logos, accent color, poster badges, title art, and login background for the web app and emails.
 ---
@@ -23,10 +23,10 @@ Everything in this section is on **Admin > Server > Appearance**.
 ### Change the logos and colors
 
 1. Under **Logos and icons**, upload a **Logo (wordmark)**, **Logo (icon)**, **Favicon**, or **Login background**. Silo saves uploads in [artwork storage](/docs/s3-storage), on local disk or in S3. The **Logo (wordmark)** also appears at the top of every email the server sends, such as invitations and password resets. Without one, emails show the Silo wordmark.
-2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar. Emails use it for their main button, such as the one in an invitation. Text in the accent color, such as links and the current page in the sidebar, uses a lighter shade when your exact color would be hard to read on the dark background, and a paler one when **High contrast** is on. Buttons, outlines, and the sidebar's selection bar keep the exact color.
+2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar. Emails use it for their main button, such as the one in an invitation. Text in the accent color, such as links and the current page in the admin and settings sidebars, may use a lighter shade so it stays readable on the dark background. Buttons and the bar beside the current page keep your exact color. For people who choose **High Contrast** under [**Settings > Accessibility**](/docs/preferences#change-a-profile-preference-in-the-web-app), accent text can be lighter still.
 3. Save, then look at a normal page and the signed-out sign-in page. To see the logo in an email, [send a test email](/docs/notification-delivery#set-up-email).
 
-Use artwork you have permission to publish, and check that your logos and login background stay readable.
+Use artwork you have permission to publish, and check that your logos stand out and the sign-in page stays readable over your login background.
 
 ### Adjust poster badges
 
