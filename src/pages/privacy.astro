@@ -267,11 +267,22 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     </li>
     <li>
       <strong>Notifications</strong> — to show playback controls, download
-      progress, and enabled remote notifications; and
+      progress, and enabled remote notifications;
     </li>
     <li>
       <strong>TV channel/EPG access on Android TV</strong> — to publish library
-      rows and channels to the Android TV home screen.
+      rows and channels to the Android TV home screen; and
+    </li>
+    <li>
+      <strong>Microphone on Android TV</strong> — for voice search on Android
+      11 and later, when Google's voice search app handles voice input and a
+      speech recognition service is available. Silo asks when you select the
+      microphone on the Search screen and have not granted access yet. The
+      device's speech recognition service records and processes the audio for
+      Silo and returns the recognized text, which Silo uses as your search.
+      Silo does not record, store, or send the audio itself. On other Android
+      TV devices, Silo hands voice search to the device's voice search app, if
+      it has one, without asking for microphone access.
     </li>
   </ul>
   <p>
@@ -289,6 +300,13 @@ const CONTACT_EMAIL = "feedback@siloserver.org";
     and Google/YouTube receive the direct resource requests described in
     Section 4 under their own policies; Silo does not describe them as acting
     solely on Silo's instructions.
+  </p>
+  <p>
+    On Android TV, the device's speech recognition service or voice search app
+    processes voice search audio under its provider's own policy (see Section
+    8). When that provider is Google,
+    <a href="https://policies.google.com/privacy">Google's privacy policy</a>
+    applies.
   </p>
 
   <h2>10. Children</h2>

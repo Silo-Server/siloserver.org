@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-together
+keywords: ["SyncPlay", "Watch Together", "group watch", "movie night", "watch with friends", "long distance", "synced playback", "co-watching"]
+questions: ["How do I watch a movie with friends at the same time?", "How do I join a room with a code?", "Why can't I find Watch Party on my iPhone?", "Does Watch Party work on Android?"]
 beta: true
 title: Watch Party (Beta)
 description: Watch a movie or episode together with other people on your Silo server.

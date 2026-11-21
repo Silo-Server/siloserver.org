@@ -1,5 +1,7 @@
 ---
 slug: docs/updates
+keywords: ["upgrade", "new version", "update Silo", "latest version", "pull image"]
+questions: ["How do I roll back after a bad upgrade?", "Why is Silo stuck unhealthy after updating?", "How do I switch from separate postgres containers to one?", "Why won't Meilisearch start after updating?"]
 title: Update Silo safely
 description: Back up, pull the new image, and check the server after an update.
 ---
@@ -40,9 +42,25 @@ docker pull ghcr.io/silo-server/silo-server:latest
 docker stop silo && docker rm silo
 ```
 
-Silo applies database migrations as it starts, before it answers requests. A large migration can take a while, and `docker compose ps` can show Silo as `unhealthy` until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and the next start can wait while PostgreSQL still holds the abandoned run's locks.
+Silo applies database migrations as it starts, before it answers requests, and [backs up the database](#the-backup-before-an-update) first. A large migration can take a while. `docker compose ps` can show Silo as `starting` for up to 20 minutes, then `unhealthy`, until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and the next start can wait while PostgreSQL still holds the abandoned run's locks.
 
 Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit. A table rewrite also needs free space on the database disk for a second copy of each rewritten table and its indexes, so check it before updating.
+
+## The backup before an update
+
+When a new version has database migrations to apply, Silo backs up the database first, unless [**Nightly backups**](/docs/backups#change-the-schedule-and-whats-included) is off. The copy goes where your other backups go and shows as **Taken before an upgrade** in **Admin > Server > Backups**. Silo keeps it until the update has finished, and keeps the 2 newest.
+
+It holds the database only, not uploaded files, so it can't be opened for restoring parts. Use it to [restore the whole server](/docs/restore#restore-the-whole-server) if the update goes wrong. It doesn't replace your own copy of `.env`, `SECRET_KEY`, and the data directories from [Before you update](#before-you-update).
+
+The backup adds to the time Silo takes to start. If it fails, Silo doesn't migrate or start, and the log gives the reason. To start once without it, set `SILO_SKIP_BACKUP_BEFORE_MIGRATE=true` in `.env`, recreate the container, and remove the line after that start. If the migrations fail and Silo starts again, it reuses the same backup for up to 6 hours instead of taking another each time.
+
+Silo skips the backup, and logs the reason, on a new install, when per-user data is in SQLite, when it has nowhere to keep backups, and when backups go to a bucket whose [`SECRET_KEY` you haven't confirmed](/docs/backups#keep-a-copy-of-secret_key).
+
+### With more than one API server
+
+One API server backs up the database and migrates it while the others wait, for up to `SILO_MIGRATION_WAIT`, 60 minutes by default. While a server waits, backs up, or migrates, its health and readiness checks don't answer. The image's health check allows 20 minutes before it reports the container `unhealthy`.
+
+If you run Silo on Kubernetes, give API pods a startup probe on `/api/v1/ready` whose budget, `failureThreshold` times `periodSeconds`, covers `SILO_MIGRATION_WAIT` plus the backup and the migrations. Otherwise liveness checks can restart a pod that's waiting for another pod's update. For the backup's share, check how long **Back Up Server** last took in **Admin > Server > Scheduled Tasks**.
 
 ## After the update
 
@@ -54,6 +72,8 @@ Migrations stop after 20 minutes by default. For a very large library, or when t
 Keep the backup until these checks pass.
 
 If an update moves the bundled Meilisearch to a new version and it doesn't start, set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. A move to a new PostgreSQL major version needs a dump and restore; see [Bundled PostgreSQL](/docs/docker#bundled-postgresql).
+
+If an update changes what Silo stores in the Meilisearch index, Silo rebuilds the index once in the background after it starts. PostgreSQL answers searches until the new index is ready. To see which engine is answering, use [Search status](/docs/docker#check-search).
 
 An update doesn't change your Compose file. If yours is older than the [`NET_ADMIN` capability](/docs/docker#net_admin-capability) line, Silo runs without it. If the kernel's send limit is low, Silo logs a `tcp send buffer: listener state` warning on each start, with how to fix it. The warning doesn't stop Silo. Before you add the line, read [what the capability allows](/docs/docker#what-the-capability-allows).
 
@@ -68,7 +88,7 @@ docker compose exec silo /command/s6-envdir /run/s6/container_environment \
   /command/s6-setuidgid silo silo --migrate-status
 ```
 
-The reliable way back is to restore the pre-update backup with the old image, as in [Test a restore](/docs/backup-restore#test-a-restore). For a build from before PostgreSQL and Redis moved into the image, pin its `build-N-aio` tag. That loses every change made after the backup. [Ask for help](/docs/report-a-problem) before changing the database by hand.
+The reliable way back is to restore the pre-update backup with the old image, as in [Test a restore](/docs/backup-restore#test-a-restore). Silo's own **Taken before an upgrade** copy also works: while the new image is still running, [restore it in full](/docs/restore#restore-the-whole-server), but instead of restarting Silo afterwards, pin the old image in `.env` and run `docker compose up -d`. For a build from before PostgreSQL and Redis moved into the image, pin its `build-N-aio` tag. That loses every change made after the backup. [Ask for help](/docs/report-a-problem) before changing the database by hand.
 
 ## If your server runs PostgreSQL and Redis in their own containers
 

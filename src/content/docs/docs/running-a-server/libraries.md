@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-libraries
+keywords: ["TV shows", "add media", "empty library", "no media found", "rescan", "VIDEO_TS", "BDMV", "movie shows as episode"]
+questions: ["How do I add my movies folder?", "Why is my library empty after scanning?", "Can I put movies and shows in one library?", "Can Silo play ISO files or DVD folders?"]
 title: Add and manage libraries
 description: Choose a library type, add media folders, and check their scans.
 ---

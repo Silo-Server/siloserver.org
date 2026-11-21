@@ -1,5 +1,7 @@
 ---
 slug: docs/media-folders
+keywords: ["file naming", "folder structure", "naming convention", "not showing up", "missing episodes", "TV shows"]
+questions: ["How should I name my TV show episodes?", "Why is my movie matched to the wrong film?", "How do I name subtitle files so they're picked up?", "How do I hide a folder from my library?"]
 title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---
@@ -35,6 +37,8 @@ Silo adds video files with these extensions, in upper or lower case:
 | Ogg | `.ogv`, `.ogm` |
 
 Silo doesn't add video files with any other extension.
+
+In a movie or TV library, Silo also leaves out a file that has one of these extensions but no video, such as a soundtrack saved as `.mkv`. Filter **Admin > Logs > Server Log** by the `scanner` component to see which files a scan left out. If one of these files is already in your library, the next scan treats its title like a deleted file: it disappears from the apps and is removed from the library later. Silo checks the file again whenever it changes, so replacing it with a version that has video brings it back on the next scan.
 
 Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. Silo doesn't support DVD `.vob` files, `.iso` disc images, or the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder, and doesn't add them to your library. A disc splits one movie into several files next to its menus and extras, so Silo would show each piece as its own title.
 

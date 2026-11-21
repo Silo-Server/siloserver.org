@@ -1,5 +1,7 @@
 ---
 slug: docs/playback-problems
+keywords: ["won't play", "movie won't play", "video won't play", "not playing", "video won't load", "buffering", "stuttering", "choppy", "freezes", "black screen", "no sound", "audio out of sync", "playback error"]
+questions: ["Why is my video quality stuck low?", "Why does it say this file can't be played?", "Why is the server converting 4K movies in my Linux browser?", "Why isn't Atmos coming through my receiver?"]
 title: Fix playback problems
 description: Narrow down a title that won't play, or picture, sound, or subtitle problems on a TV or receiver.
 ---

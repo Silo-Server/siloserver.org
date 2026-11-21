@@ -1,5 +1,7 @@
 ---
 slug: docs/developers
+keywords: ["source code", "open source", "GitHub repo", "contribute code", "developer docs"]
+questions: ["Where do I start building an integration?", "Where is the source code for Silo?", "Which GitHub repo has the Android app code?"]
 title: Build with Silo
 description: Start an API integration, build a plugin, or find the code repository for your change.
 ---
@@ -26,5 +28,5 @@ To connect an existing player instead, see
 
 Each repository's README and contribution guide has its build and test
 steps. A plugin's code lives in its own repository, separate from the
-catalogs. To correct a guide without building anything, see
+catalogs. To suggest a change to a guide without building anything, see
 [Improve these docs](/docs/improve-the-docs).

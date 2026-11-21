@@ -1,5 +1,7 @@
 ---
 slug: docs/tv-remote
+keywords: ["cast to TV", "send to TV", "control the TV", "phone as remote", "second screen", "TV not showing up", "living room TV"]
+questions: ["Can I use my phone to control what's on the TV?", "How do I send a movie from my phone to the TV?", "Why doesn't my TV show up in the list on my phone?"]
 title: Play on your TV from your phone or tablet
 description: Use your phone or tablet as a remote for Silo on a nearby TV.
 ---

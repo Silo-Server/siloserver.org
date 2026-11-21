@@ -1,5 +1,7 @@
 ---
 slug: docs/audiobook-libraries
+keywords: ["m4b", "audio book", "audiobook folder structure", "id3 tags", "wrong author", "chapters out of order", "add audiobooks"]
+questions: ["How should I organize my audiobook files and folders?", "Why does my audiobook show the wrong author or title?", "Why are my audiobook chapters out of order?", "Can I import my Audible books?"]
 beta: true
 title: Set up an audiobook library (Beta)
 description: Arrange audiobook files, check their tags, and add them to Silo.
