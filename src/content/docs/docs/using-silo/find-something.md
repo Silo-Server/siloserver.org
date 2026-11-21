@@ -39,7 +39,8 @@ results.
 ## Search and explore people
 
 Open **Search** and enter a title or a person's name. Cast and crew who match
-appear under **People**. When several results share a title, pick by year.
+appear under **People**. When several results share a title, pick by year, or
+add the year to your search, such as `dune 2021`.
 
 On a movie or series page, select a cast or crew member to open their
 **Filmography**. Choose **Movies** or **Series** to narrow it.

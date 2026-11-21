@@ -1,6 +1,6 @@
 ---
 slug: docs/reverse-proxy
-keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "nginx", "Traefik", "HTTP/3", "QUIC", "UDP 443"]
+keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "HTTP/3", "QUIC", "UDP 443"]
 questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
@@ -24,9 +24,11 @@ silo.example.com {
 
 4. Validate and reload Caddy using the procedure for your installation.
 5. In **Admin > Server > General**, set **Silo public URL** to `https://silo.example.com`, save, and follow any restart notice.
-6. Under **Network** on the same page, review **Trusted proxies**. Trust only the proxy addresses that send requests to Silo.
+6. Under **Network** on the same page, review [**Trusted proxies**](/docs/proxy-examples#tell-silo-which-proxies-to-trust). Trust only the proxy addresses that send requests to Silo.
 
 Caddy gets HTTPS certificates automatically for a hostname that is reachable from the internet. See its [reverse-proxy guide](https://caddyserver.com/docs/quick-starts/reverse-proxy) for installation details. The example assumes Caddy runs on the host: inside a Caddy container, `127.0.0.1` refers to that container.
+
+If you run nginx, Traefik, or HAProxy instead, use its site from [Reverse proxy examples](/docs/proxy-examples) in step 3.
 
 Use a dedicated hostname at its root. A subpath such as `example.com/silo` needs extra routing this example doesn't cover.
 
@@ -34,7 +36,7 @@ Use a dedicated hostname at its root. A subpath such as `example.com/silo` needs
 
 Turn Wi-Fi off on a phone or tablet, then open the HTTPS address. Check sign-in, artwork, playback, seeking, and subtitles.
 
-If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections.
+If pages load but seeking or live updates fail, check that your proxy passes range requests and WebSocket connections. [What Silo needs from a proxy](/docs/proxy-examples#what-silo-needs-from-a-proxy) lists the rest.
 
 Silo's [TCP tuning for remote viewers](/docs/configuration#tcp-tuning-for-remote-viewers) covers only connections that end at Silo. Behind Caddy, the viewer's connection ends at Caddy, so the tuning covers Caddy's connection to Silo, and the connection to the viewer uses the host's own TCP settings.
 

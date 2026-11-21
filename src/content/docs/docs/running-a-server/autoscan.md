@@ -1,7 +1,7 @@
 ---
 slug: docs/autoscan
 keywords: ["new files not showing", "new episodes not showing up", "new movies not showing up", "library not updating", "auto refresh", "scan library", "Sonarr", "Radarr", "network share", "NFS", "SMB"]
-questions: ["Why do new downloads only show up the next day?", "How do I make Sonarr tell Silo about new episodes?", "What does watch limit reached mean?", "Why is an old show still listed after renaming its folder?"]
+questions: ["Why do new downloads only show up the next day?", "Why don't new episodes show up?", "How do I make Sonarr tell Silo about new episodes?", "What does watch limit reached mean?", "Why is an old show still listed after renaming its folder?"]
 title: Keep libraries up to date
 description: Let Silo watch library folders on local disks, connect autoscan sources for network shares, and check that changed files reach the library.
 ---
@@ -69,7 +69,7 @@ Sonarr and Radarr webhooks can stay on for libraries that are also monitored. Wh
 
 1. Choose **Add source** and select **Sonarr/Radarr Webhook**. It's built in and needs no plugin.
 2. Follow **Match paths**. Map the paths the other service sends to the paths Silo sees inside its container.
-3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**.
+3. Choose **Create and continue**. Copy the webhook URL from **Connect it** and follow the displayed instructions in the sending service. In Sonarr or Radarr, tick **On File Import**, **On File Upgrade**, **On Rename**, and **On Episode File Delete** or **On Movie File Delete**. If you delete whole series or movies there, also tick **On Series Delete** or **On Movie Delete**. A title deleted with its files then leaves your library, usually within a minute of Sonarr or Radarr removing its folder.
 4. Turn on the **Autoscan** switch at the top of **Sources**.
 5. Add one item in the sending service, then open **Admin > Autoscan > Activity** and choose **Polls**. The delivery has a **Webhook** badge, resolves to the right library, and creates a scan.
 
