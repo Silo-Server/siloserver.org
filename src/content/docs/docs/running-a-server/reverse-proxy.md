@@ -59,12 +59,13 @@ nginx serves HTTP/3 only where you've set it up, and its HTTP/3 can slow down th
 
 ### Speed up web playback away from home
 
-Give the web app a second address that serves Silo over HTTP/1.1 only. Through it, the web app reads a file over several connections at once, which keeps the video coming on a long or lossy link where one connection stalls. The main address can't do this: Caddy serves it over HTTP/2 or HTTP/3, where the browser sends every request over one connection.
+Give the web app a second address that serves Silo over HTTP/1.1 only. Through it, the web app reads a file over several connections at once, which keeps video moving on a long or lossy link where one connection stalls. The main address can't do this: Caddy serves it over HTTP/2 or HTTP/3, where the browser sends every request over one connection.
 
-This helps only when the web app decodes the file itself with [**Decode in the browser (beta)**](/docs/playback-problems#if-the-web-app-converts-hevc-files-on-linux), for example a file with Dolby TrueHD or DTS audio. To check a title, open **Playback info** while it plays: the **Player** row shows **Browser decoder**. Other playback, and the Silo apps on other devices, don't use the media address.
+This helps only when the web app decodes the file itself with [**Decode in the browser (beta)**](/docs/playback-problems#if-the-web-app-converts-hevc-files-on-linux), for example a file with Dolby TrueHD or DTS audio. Open **Playback info** while a title plays to check: the **Player** row shows **Browser decoder**. Silo apps on other devices and viewers on [Network access (Beta)](/docs/tailscale) don't use the media address.
 
-1. Point a second hostname, for example `media.example.com`, at your public address, and forward inbound TCP port 8443 to Caddy.
-2. Add the media site to your Caddyfile, replacing the hostname. The block in braces holds global options and goes at the top of the file. If your Caddyfile already starts with one, add the `servers` lines to it.
+1. Point a second hostname, for example `media.example.com`, at your public address.
+2. Forward inbound TCP port 8443 to Caddy.
+3. Add the media site to your Caddyfile, replacing the hostname. Put the global options block in braces at the top of the file, or add the `servers` lines to an existing one:
 
    ```text
    {
@@ -78,15 +79,13 @@ This helps only when the web app decodes the file itself with [**Decode in the b
    }
    ```
 
-   Caddy applies `protocols` to everything on a port, not to one site, so the media address needs a port of its own. Caddy gets its certificate through ports 80 and 443, as for the main address.
+   Caddy applies `protocols` to a whole port, not to one site, so the media address needs its own port. It gets the certificate through ports 80 and 443, like the main address.
 
-3. Validate and reload Caddy.
-4. Using an administrator's [API key](/docs/api), send `PUT /api/v2/admin/settings/server.web_media_url` with the header `If-Match: *` and the body `{"value": "https://media.example.com:8443"}`. The setting has no control in the web app. It applies from the next video, without a restart.
-5. Away from home, play a title that shows **Browser decoder**. In your browser's developer tools, check on the **Network** tab that video requests go to `media.example.com:8443`. Playback alone doesn't prove it works, because the web app falls back to the main address.
+4. Validate and reload Caddy.
+5. Using an administrator's [API key](/docs/api), send `PUT /api/v2/admin/settings/server.web_media_url` with the header `If-Match: *` and the body `{"value": "https://media.example.com:8443"}`. It applies from the next video, without a restart.
+6. Away from home, play a title that shows **Browser decoder** and check on your browser's **Network** tab that video requests go to `media.example.com:8443`. Playback alone doesn't prove it works: if the media address refuses a request or stops answering, the web app falls back to the main address over one connection.
 
-The value is `https://`, a hostname, and an optional port, with nothing after them. Silo refuses other values with an error such as `server.web_media_url must use https`. The setting is empty, and off, by default. To turn it off again, send `{"value": ""}`.
-
-If the media address refuses a request or stops answering, the web app keeps playing through the main address over one connection. Viewers who reach Silo through [Network access (Beta)](/docs/tailscale) don't use the media address.
+The value must be `https://`, a hostname, and an optional port, with no path. Silo refuses other values with an error such as `server.web_media_url must use https`. To turn the setting off again, send `{"value": ""}`.
 
 If your proxy already serves Silo over HTTP/1.1 only, you don't need a media address: the web app reads over several connections on the main address. It can do the same for files a [proxy node](/docs/transcode-nodes) sends.
 
