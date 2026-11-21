@@ -1,10 +1,14 @@
 ---
 slug: docs/plugins
+keywords: ["add-ons", "addons", "extensions", "plugin store", "sideload", "manual plugin install", "third-party plugins", "auto-update plugins"]
+questions: ["How do I add extra metadata providers?", "Is it safe to install community plugins?", "How do I install a plugin file I downloaded?", "How do I stop a plugin updating itself?"]
 title: Install and maintain plugins
 description: Find a provider, configure it, and check that it works before relying on it.
 ---
 
 Plugins add providers and integrations to your server, such as metadata, skip markers, requests, scan sources, and sign-in. Silo installs the official TMDB, TVDB, and TheIntroDB plugins when it starts, as long as it can reach the plugin catalog. They need no configuration, so movie and series metadata and skip markers work on a new server. Install other plugins when you want an extra provider or integration.
+
+To install and configure official plugins when the API starts, [provision them from your deployment](/docs/provision-plugins).
 
 ## Install from the catalog
 

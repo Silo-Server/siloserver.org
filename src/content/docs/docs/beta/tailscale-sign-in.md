@@ -1,5 +1,7 @@
 ---
 slug: docs/tailscale-sign-in
+keywords: ["log in without password", "one-click sign-in", "Tailscale ACL", "Tailscale identity", "invite friends"]
+questions: ["Can family log in without a password over Tailscale?", "How do I share my server with friends using Tailscale?", "Why doesn't the Continue as button show up?", "How do I cut off someone I shared my server with?"]
 beta: true
 title: Sign in with Tailscale (Beta)
 description: Let people on your tailnet sign in without a password, and share your server with family and friends through Tailscale.

@@ -1,5 +1,7 @@
 ---
 slug: docs/tv-sign-in
+keywords: ["log in on TV", "TV code", "Apple TV sign in", "Android TV sign in", "QR code"]
+questions: ["How do I log in on the TV without typing my password?", "Where do I enter the code shown on my TV?", "What do I do if the TV code expired?", "Why doesn't my phone offer to set up the TV?"]
 title: Sign in on your TV
 description: Use a nearby signed-in phone, a browser code, or your password to set up Silo on a TV.
 ---
@@ -42,7 +44,7 @@ The TV then shows a sign-in screen with a QR code.
 2. Sign in to the server if asked, with your password or the
    **Sign in with** button.
 3. Check that the code on the page matches the TV, then select
-   **Sign in TV**.
+   **Approve sign-in**.
 4. On the TV, choose a profile.
 
 You can also open the server's `/activate` page in any browser and type the

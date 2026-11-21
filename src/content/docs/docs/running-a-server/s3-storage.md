@@ -1,5 +1,7 @@
 ---
 slug: docs/s3-storage
+keywords: ["object storage", "cloud storage", "image cache", "poster cache", "presigned URLs", "migrate artwork", "metadata images", "bucket permissions"]
+questions: ["Can my movie files live in an S3 bucket?", "Where are posters saved on my server?", "How do I move artwork to Cloudflare R2 or a new disk?", "What does private storage identity mismatch mean?"]
 title: Storage, artwork, and capacity
 description: Choose local or S3 artwork storage, change it later, and know which data must persist.
 ---

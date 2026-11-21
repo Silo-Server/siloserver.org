@@ -1,5 +1,7 @@
 ---
 slug: docs/api
+keywords: ["REST API", "Swagger", "API docs", "bearer token", "access token", "curl", "unauthorized", "forbidden", "rate limited", "API client"]
+questions: ["Where is the API documentation for my server?", "How do I make my first request with an API key?", "Why does the API return 401 or 403?", "How do I download the OpenAPI spec to generate a client?"]
 title: Use the API
 description: Open your server's API reference, download its OpenAPI document, and make a first read-only request.
 ---

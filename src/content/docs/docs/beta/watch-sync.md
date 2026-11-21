@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-sync
+keywords: ["tracking service", "track what I watch", "watched status sync", "two-way sync", "external watchlist", "rate movies"]
+questions: ["How do I sync my watch history with Simkl?", "Can Silo update my MDBList watchlist?", "Why does my Simkl connection keep showing an error?", "Can Silo report what I'm watching to Simkl?"]
 beta: true
 title: Sync with Simkl or MDBList (Beta)
 description: Connect a profile to Simkl, MDBList, or an installed watch-provider plugin.
@@ -62,7 +64,8 @@ can add options of its own, which appear in the same list.
 | **Sync favorites** / **Sync watchlist** | Imports the provider's list and sends items you add in Silo. |
 | **Sync favorite removals** / **Sync watchlist removals** | Removes items on the provider when you remove them in Silo. |
 | **Mirror watchlist order** | Sorts your Silo watchlist in the provider's order. Items not on the provider's list stay at the bottom. |
-| **Import ratings** / **Send ratings** | Converts between the provider's 10-point ratings and Silo's stars. |
+| **Import ratings** | Brings in the provider's ratings. A 7/10 shows as 3.5 stars in Silo. |
+| **Send ratings** | Sends your ratings to the provider and clears ones you remove. Silo sends 3.5 stars as 7/10. |
 | **Scrobble playback** | Reports starts, pauses, resumes, and stops while you watch. |
 | **Log rewatches** | Simkl only, off by default. Records another play of a title you already watched as a rewatch on Simkl, which otherwise ignores it. Applies to plays sent with **Send watched changes** and to finished playback reported by **Scrobble playback**. Needs a Simkl PRO or VIP account. Simkl counts two plays of the same title less than two days apart as one. |
 

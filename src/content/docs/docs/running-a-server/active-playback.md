@@ -1,5 +1,7 @@
 ---
 slug: docs/active-playback
+keywords: ["who is watching", "now playing", "kick someone off", "stop someone's stream", "end a stream", "dashboard"]
+questions: ["How can I see what people are watching right now?", "How do I stop a stream someone else is playing?", "Can I send a message to someone's screen?", "How do I tell if a stream is transcoding?"]
 title: Monitor and control active playback
 description: Inspect a stream, send a supported playback command, or end a session.
 ---
