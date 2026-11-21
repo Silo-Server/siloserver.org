@@ -16,7 +16,7 @@ Before the first library scan, open **Admin > Server > Storage** and set **Backe
 - **S3** uses the public storage bucket. Choose it when several hosts need the same artwork.
 - **Automatic** uses the public bucket when one is configured, and local disk otherwise.
 
-Save and follow the restart notice. For a single host, local disk is enough. You can also set storage from the [server's environment](/docs/configuration#server-settings-from-the-environment).
+Save and follow the restart notice. For a single host, local disk is enough. You can also set storage from the [server's environment](/docs/configuration#storage-from-the-environment).
 
 **Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops into artwork storage, on local disk or in S3, including [images you keep beside your media files](/docs/local-metadata#add-artwork). When it's off, clients load artwork straight from the providers and Silo ignores local images. Artwork saved earlier switches back to the providers' images, except on titles whose artwork you chose in **Edit Metadata**. A title with only local artwork keeps it until a refresh finds a provider image.
 

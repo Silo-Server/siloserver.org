@@ -33,11 +33,13 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
-Many of these settings can come from the server's environment instead, which suits a Compose file or Kubernetes manifest. See [Server settings from the environment](#server-settings-from-the-environment).
+You can also set many of these from the server's environment, for example in a Compose file or Kubernetes manifest. See [Server settings from the environment](#server-settings-from-the-environment).
 
 ## Server settings from the environment
 
-Set these variables to configure the main server from your Compose file or Kubernetes manifest instead of the admin pages. With Compose, add them to `.env`. The Compose files in the server repository pass `.env` to the `silo` service with `env_file`. In a Compose file of your own, add `env_file: .env` to the `silo` service, or list each variable under its `environment`, such as `SILO_PUBLIC_URL: ${SILO_PUBLIC_URL}`. Then recreate the container with `docker compose up -d`. Silo reads them each time it starts. Proxy and transcode nodes don't read them.
+Set these variables on the main server to configure it from your Compose file or Kubernetes manifest instead of the admin pages. With Compose, add them to `.env` and recreate the container with `docker compose up -d`.
+
+The repository's Compose files pass `.env` to the `silo` service with `env_file`. In a Compose file of your own, add `env_file: .env` to the `silo` service or list each variable under `environment`, such as `SILO_PUBLIC_URL: ${SILO_PUBLIC_URL}`. Silo reads these variables each time it starts, and proxy and transcode nodes don't read them.
 
 `.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. To install and configure plugins the same way, see [Provision plugins from deployment configuration](/docs/provision-plugins).
 
@@ -49,7 +51,7 @@ Silo checks each value as the admin page would. If one isn't valid, Silo doesn't
 invalid SILO_DB_MAX_CONNECTIONS: database.max_connections must be an integer between 1 and 10000
 ```
 
-Silo saves most of these values as the server's setting, which every API server sharing the database uses. Give every API server the same values: each one saves its own when it starts, so the last one to start wins. If you remove one of these variables, the setting keeps its last value, and you can edit it again if it has an admin field.
+Silo saves most of these values in the database, so every API server sharing it uses them. Give every API server the same values: each one saves its own when it starts, so the last one to start wins. If you remove a variable, its last value stays saved, and you can edit it again if it has an admin field.
 
 `SILO_DB_MAX_CONNECTIONS`, `SILO_SCANNER_WORKERS`, and `SILO_MATCHER_WORKERS` apply only to the server that reads them, and Silo never saves them. Use them to size each API server on its own. Removing one returns that server to the value on the admin page.
 
@@ -106,7 +108,9 @@ These variables set the fields on **Admin > Server > Storage**. `SILO_ARTWORK_ST
 
 [Choose how clients download files](/docs/s3-storage#choose-how-clients-download-files) says which link settings go together.
 
-Silo records where artwork is stored the first time it stores a file, and records a private bucket when it starts. After that, the storage variables must name the recorded location. If they'd move it, Silo doesn't start and names them in the error. While any of them is set, Silo also refuses to start a storage transition. To move storage:
+Silo records where artwork is stored the first time it stores a file, and records a private bucket when it starts. After that, the storage variables must name the recorded location; if they'd move it, Silo doesn't start and names them in the error.
+
+Silo refuses to start a storage transition while any storage variable is set. To move storage:
 
 1. Remove the storage variables from every API server's environment. With Compose, recreate each container with `docker compose up -d`.
 2. Run a [storage transition](/docs/s3-storage#change-storage-later).
