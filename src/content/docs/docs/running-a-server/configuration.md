@@ -1,7 +1,7 @@
 ---
 slug: docs/configuration
-keywords: ["env vars", "environment variables", "external database", "connection string", "account lockout", "brute force protection", "throttling", "read-only setting"]
-questions: ["Which settings go in the .env file?", "Can I use my own existing Postgres or Redis?", "Why do I get 429 too many requests errors?", "How long am I locked out after wrong passwords?", "Why can't I edit a setting in the admin pages?", "How do I set my server's web address in Compose?"]
+keywords: ["env vars", "environment variables", "external database", "connection string", "account lockout", "brute force protection", "throttling", "read-only setting", "locked setting"]
+questions: ["Which settings go in the .env file?", "Can I use my own existing Postgres or Redis?", "Why do I get 429 too many requests errors?", "How long am I locked out after wrong passwords?", "Why can't I edit a setting in the admin pages?", "How do I set my server's public address in Compose?"]
 title: Server configuration and dependencies
 description: Know which settings belong in Docker and which belong in the admin app.
 ---
@@ -33,13 +33,13 @@ Put `POSTGRES_PASSWORD` in single quotes if it contains `$`, for example `POSTGR
 
 Sign in as an admin and open **Admin** at the bottom of the sidebar. Each settings page sits in the admin sidebar under the topic it configures, such as **Admin > Server > General**. Change one group at a time, save, and follow any restart notice. Some values apply live; others need a restart.
 
-You can also set many of these from the server's environment, for example in a Compose file or Kubernetes manifest. See [Server settings from the environment](#server-settings-from-the-environment).
+You can also set many of these from the server's environment instead of the admin pages.
 
 ## Server settings from the environment
 
-Set these variables on the main server to configure it from your Compose file or Kubernetes manifest instead of the admin pages. With Compose, add them to `.env` and recreate the container with `docker compose up -d`.
+Set these variables on each API server to configure Silo from its environment instead of the admin pages. Silo reads them each time it starts. Proxy and transcode nodes don't read them.
 
-The repository's Compose files pass `.env` to the `silo` service with `env_file`. In a Compose file of your own, add `env_file: .env` to the `silo` service or list each variable under `environment`, such as `SILO_PUBLIC_URL: ${SILO_PUBLIC_URL}`. Silo reads these variables each time it starts, and proxy and transcode nodes don't read them.
+With Compose, add them to `.env` and recreate the container with `docker compose up -d`. The repository's Compose files pass `.env` to the `silo` service with `env_file`. In a Compose file of your own, add `env_file: .env` to the `silo` service or list each variable under `environment`, such as `SILO_PUBLIC_URL: ${SILO_PUBLIC_URL}`.
 
 `.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. To install and configure plugins the same way, see [Provision plugins from deployment configuration](/docs/provision-plugins).
 
@@ -55,7 +55,7 @@ Silo saves most of these values in the database, so every API server sharing it 
 
 `SILO_DB_MAX_CONNECTIONS`, `SILO_SCANNER_WORKERS`, and `SILO_MATCHER_WORKERS` apply only to the server that reads them, and Silo never saves them. Use them to size each API server on its own. Removing one returns that server to the value on the admin page.
 
-Switches take `true` or `false`.
+Each variable sets the setting beside it. Switches take `true` or `false`.
 
 | Variable | Setting |
 | --- | --- |
@@ -70,8 +70,8 @@ Switches take `true` or `false`.
 | `SILO_SIGNUP_ENABLED` | **Public signups** on **Admin > Sign-in & Security > Sign-in** |
 | `SILO_JELLYFIN_ENABLED` | **Allow Jellyfin apps to connect** on **Admin > Integrations > Compatibility** |
 | `SILO_JELLYFIN_PUBLIC_URL` | **Address Jellyfin apps should use** on **Admin > Integrations > Compatibility** |
-| `SILO_JELLYFIN_SERVER_NAME` | **Name shown to Jellyfin apps**, under **Advanced** in the Jellyfin group of **Admin > Integrations > Compatibility** |
-| `SILO_AUDIOBOOKSHELF_ENABLED` | **Allow Audiobookshelf apps to connect** on **Admin > Integrations > Compatibility** |
+| `SILO_JELLYFIN_SERVER_NAME` | **Name shown to Jellyfin apps**, under **Advanced** in the **Jellyfin** group of **Admin > Integrations > Compatibility** |
+| `SILO_AUDIOBOOKSHELF_ENABLED` | **Allow Audiobookshelf apps to connect** on **Admin > Integrations > Compatibility**. See [Audiobookshelf-compatible apps (Beta)](/docs/audiobookshelf#turn-on-the-endpoint). |
 | `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, `SILO_MEILISEARCH_API_KEY` | **Search engine**, **Meilisearch URL**, and **Meilisearch API key** on **Admin > Server > Search**. See [Connect Meilisearch in `.env`](/docs/docker#connect-meilisearch-in-env). |
 | `SILO_SMTP_ENABLED` | **Send email from this server** on **Admin > Integrations > Email** |
 | `SILO_SMTP_HOST`, `SILO_SMTP_PORT` | **Mail server address** and **Port** on **Admin > Integrations > Email** |
@@ -80,7 +80,7 @@ Switches take `true` or `false`.
 | `SILO_SMTP_FROM_ADDRESS`, `SILO_SMTP_FROM_NAME` | **From address** and **From name** on **Admin > Integrations > Email** |
 | `SILO_TRANSCODE_ENABLED` | **Video transcoding** on **Admin > Playback > Settings** |
 | `SILO_HW_ACCEL` | **Hardware acceleration** on **Admin > Playback > Settings**: `auto`, `qsv`, `vaapi`, `nvenc`, `videotoolbox`, or `none` |
-| `SILO_HW_DEVICE` | A device path such as `/dev/dri/renderD128`, or a comma-separated list. When the page offers a choice, it's **GPU devices** under **Advanced** on **Admin > Playback > Settings**. |
+| `SILO_HW_DEVICE` | A render device path such as `/dev/dri/renderD128` (or a comma-separated list) for Quick Sync and VA-API, or one CUDA index or GPU UUID for NVENC. For detected render devices, it's **GPU devices** under **Advanced** on **Admin > Playback > Settings**. |
 | `SILO_TRANSCODE_DIR` | **Transcode directory** on **Admin > Playback > Settings** |
 | `SILO_FFMPEG_PATH` | **FFmpeg path**, under **Advanced** on **Admin > Playback > Settings** |
 | `SILO_DOWNLOAD_ARTIFACT_DIR` | **Prepared file directory** on **Admin > Downloads > Settings** |
@@ -108,7 +108,7 @@ These variables set the fields on **Admin > Server > Storage**. `SILO_ARTWORK_ST
 
 [Choose how clients download files](/docs/s3-storage#choose-how-clients-download-files) says which link settings go together.
 
-Silo records where artwork is stored the first time it stores a file, and records a private bucket when it starts. After that, the storage variables must name the recorded location; if they'd move it, Silo doesn't start and names them in the error.
+Silo records where artwork is stored the first time it saves a file, and records a private bucket when it starts. After that, the storage variables must name the recorded location. If they name a different one, Silo doesn't start, and the error names the variables. Set them back to the recorded location, or remove them and move storage as below.
 
 Silo refuses to start a storage transition while any storage variable is set. To move storage:
 
