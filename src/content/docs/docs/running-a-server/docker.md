@@ -35,7 +35,7 @@ Builds published before PostgreSQL and Redis moved into this image used `build-N
 
 After an update with database changes, Silo backs up the database and migrates it before its health check answers. The image's health check allows 20 minutes for that before it reports `unhealthy`. See [The backup before an update](/docs/updates#the-backup-before-an-update).
 
-Set `PUID` and `PGID` to an account that can read your media. The Compose files default both to `1000`; with `docker run` they default to `911`. If that account can't read the media, the log says `uid 1000 cannot read /mnt/media/...` with the folder it couldn't open. `PUID` can't be 999, 998, or 997: the container stops with `PUID 999 is already used by the postgres account in this image; choose another uid`. The container has to start as root to switch to these accounts, so a `user:` setting in Compose, or a user set in a container manager, stops it.
+Set `PUID` and `PGID` to an account that can read your media. The Compose files default both to `1000`; with `docker run` they default to `911`. If that account can't read the media, the log says `uid 1000 cannot read /mnt/media/...` with the folder it couldn't open. `PUID` can't be 999, 998, or 997: the container stops with `PUID 999 is already used by the postgres account in this image; choose another uid`. The container starts as root to switch to these accounts, so a `user:` setting in Compose, or a user set in a container manager, stops it with a message saying to start `silo` directly. That works only with your own PostgreSQL; see [Run Silo without root](#run-silo-without-root).
 
 On the host, leave the owners of the `postgres`, `redis`, and `meilisearch` directories under `config` as they are. When you change `PUID` or `PGID`, the next start gives `config/silo` to the new account, which can take a while if it holds a lot of local artwork.
 
@@ -110,6 +110,31 @@ Silo itself runs as it does in the single container: as `PUID` and `PGID`, on th
 - When automatic tuning asks for a restart, run `docker compose restart postgres silo`. See [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - Backups dump the database from the `postgres` service, and SQLite per-user data needs its own mount. See [Back up a Compose install](/docs/backup-restore#back-up-a-compose-install). A test restore starts `postgres` alone first; see [Test a restore](/docs/backup-restore#test-a-restore).
 - `docker compose up -d --no-deps silo` updates Silo and leaves PostgreSQL and Redis running. See [Update with Docker Compose](/docs/updates#update-with-docker-compose).
+
+### Run Silo without root
+
+With PostgreSQL in its own container, Silo's container can run as an unprivileged account and never use root.
+
+1. Create Silo's folders in `SILO_DATA_ROOT` and give them to the account that will run Silo, for example:
+
+   ```sh
+   sudo install -d -o 1000 -g 1000 /opt/silo/plugins /opt/silo/artwork /opt/silo/compat /opt/silo/transcode /opt/silo/download-artifacts
+   ```
+
+   Silo doesn't change their owners when it starts this way, and the account must also be able to read your media.
+
+2. In the `silo` service of `docker-compose.advanced.yml`, delete the `PUID`, `PGID`, and `cap_add: [NET_ADMIN]` lines. Add these lines to the service itself, at the same indentation as `environment:`, not inside it:
+
+   ```yaml
+   entrypoint: ["silo"]
+   user: "1000:1000"
+   cap_drop: [ALL]
+   security_opt: [no-new-privileges:true]
+   ```
+
+3. Run `docker compose up -d`.
+
+Silo then starts directly as that account, without the image's setup steps that need root. Those steps also add Silo to the groups that own GPU devices, so for [hardware transcoding](#hardware-transcoding-on-linux), list those groups under `group_add` in the service. Without `NET_ADMIN`, Silo works as described in [Run without NET_ADMIN](#run-without-net_admin). If Silo stops, Docker's restart policy starts it again.
 
 ## Ports
 
@@ -297,9 +322,9 @@ The LXC's load average is correct only when lxcfs runs with load average support
 
 ## Nodes and stop timeouts
 
-[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml` with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `NODE_URL` in its `.env`, and the container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
+[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml`: a transcode node with `MODE`, `SILO_CORE_URL`, and `SILO_NODE_KEY` in its `.env`, a proxy node with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `NODE_URL`. The container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
 
-For nodes on other hosts to reach the main server's bundled PostgreSQL and Redis, set these in the main server's `.env`, then uncomment the two node-access port lines in its `docker-compose.yml` and run `docker compose up -d`:
+Proxy nodes connect to the main server's PostgreSQL and Redis; transcode nodes don't. For proxy nodes on other hosts to reach the bundled PostgreSQL and Redis, set these in the main server's `.env`, then uncomment the two node-access port lines in its `docker-compose.yml` and run `docker compose up -d`:
 
 ```dotenv
 ENABLE_NODE_ACCESS=true
@@ -308,7 +333,7 @@ POSTGRES_PASSWORD=
 REDIS_PASSWORD=
 ```
 
-Set `NODE_ACCESS_HOST` to the main server's address on your network, and generate each password with `openssl rand -hex 24`. Nodes sign in as `silo` with those passwords. Neither connection is encrypted, so publish the ports only on a network you trust.
+Set `NODE_ACCESS_HOST` to the main server's address on your network, and generate each password with `openssl rand -hex 24`. Proxy nodes sign in as `silo` with those passwords. Neither connection is encrypted, so publish the ports only on a network you trust.
 
 Docker asks a container to stop and kills it 10 seconds later unless the service sets a longer `stop_grace_period`. The Compose files set one, so Silo can stop without cutting requests or streams:
 

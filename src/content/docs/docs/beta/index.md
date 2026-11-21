@@ -22,7 +22,7 @@ more.
 | Audiobookshelf-compatible apps | Web admin setting, then third-party listening apps | [Audiobookshelf-compatible apps](/docs/audiobookshelf) |
 | Ebooks, comics, and manga | Web, Android phone and tablet | [Ebooks and comics](/docs/ebooks) |
 | Podcasts and music | Web admin library form | [Podcasts and music](/docs/podcasts-and-music) |
-| Watch Party | Web; iPhone, iPad, and Apple TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
+| Watch Party | Web; iPhone, iPad, Apple TV, Android phone and tablet, and Android TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
 | Simkl and MDBList sync | Web | [Sync with Simkl or MDBList](/docs/watch-sync) |
 | Timeline previews | Web admin setting, then web, iPhone, iPad, Apple TV, native Mac app, Android phone and tablet, and Android TV | [Timeline previews](/docs/timeline-previews) |
 | Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
