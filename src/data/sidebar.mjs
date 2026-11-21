@@ -51,6 +51,7 @@ export const sidebar = [
     items: [
       page("docs/install"),
       page("docs/requirements"),
+      page("docs/mac"),
       group("Build your library", [
         "docs/media-folders",
         "docs/manage-libraries",
