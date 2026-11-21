@@ -44,7 +44,7 @@ The node calls the main server at `SILO_CORE_URL`, and the main server and proxy
 A proxy node needs:
 
 - `MODE=proxy`.
-- `SILO_NODE_NAME`, the same name you give the node in Silo, and `SILO_NODE_URL`, the node's own address with its `PORT` (`NODE_NAME` and `NODE_URL` still work). Silo matches the running node to its entry by these values. The container won't start a proxy node without `SILO_NODE_URL` or `NODE_URL`.
+- `SILO_NODE_URL`, the node's own address with its `PORT` (`NODE_URL` still works). The container won't start a proxy node without it. Optionally set `SILO_NODE_NAME` (`NODE_NAME` still works) so Silo can match the proxy by name if its **URL** in Silo differs.
 - The same `SECRET_KEY` as the main server, and `DATABASE_URL` and `REDIS_URL` pointing at the shared PostgreSQL and Redis. Use the same Redis [database number](/docs/configuration#external-postgresql-and-redis) as the main server. Behind [Redis Sentinel](/docs/configuration#redis-sentinel), use the main server's Sentinel URL, and let the node reach every Sentinel and Redis server.
 - Enough PostgreSQL connections for every proxy node. Each one opens up to 20 database connections of its own, but the main server only sizes PostgreSQL's connection limit for itself. In the main server's `.env`, raise `POSTGRES_TUNE_CONNECTIONS` as described in [PostgreSQL tuning](/docs/configuration#postgresql-tuning).
 - The media mounted at the same container path the main server uses, such as `/mnt/media`.
@@ -56,11 +56,11 @@ Local artwork on the main server isn't shared with other hosts automatically. Fo
 
 ## Add the node
 
-Add the node in Silo, then start it. You can also [set a node's settings in its environment](#set-a-nodes-settings-in-its-environment), and have a proxy node add its own entry with `SILO_NODE_REGISTER=true`.
+Add the node in Silo, then start it. A proxy node can instead add its own entry when it starts; see [Set a node's settings in its environment](#set-a-nodes-settings-in-its-environment).
 
 1. Open **Admin > Playback > Nodes** and select **Add Transcode** or **Add Proxy**.
-2. Enter a **Name**. For a proxy node, it must match the node's `SILO_NODE_NAME` (or `NODE_NAME`).
-3. Enter the **URL** the main server uses to reach the node. For a proxy node, it must match the node's `SILO_NODE_URL` (or `NODE_URL`). A private address is fine.
+2. Enter a **Name**. For a proxy node whose **URL** in Silo differs from `SILO_NODE_URL`, give it a unique name matching `SILO_NODE_NAME` (or `NODE_NAME`).
+3. Enter the **URL** the main server uses to reach the node. For a proxy node, Silo matches it by `SILO_NODE_URL` (or `NODE_URL`) first, then by name. A private address is fine.
 4. For a proxy node, enter a **Public URL** if clients should use a different address, such as a public hostname in front of the node. Leave it empty to give clients the **URL**, which then must be reachable from clients.
 5. For a transcode node, choose its [**Source access**](#choose-a-nodes-source-access). Keep **Library mount on the node** if the node mounts your media.
 6. If the node shares a host or local network with other nodes, give them all the same **Group**, such as `rack-1`. Silo then keeps their streams inside the group; see [Groups](/docs/node-status#groups).
@@ -97,9 +97,24 @@ With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#a
 
 A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
 
+## Store prepared downloads on a node
+
+A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
+
+1. Open **Admin > Downloads > Prepared Files**. On the node's card, select **Edit location**.
+2. Enter the path inside the node's container in **Prepared file directory**.
+3. Under **Storage budget**, keep **Default** to use **Default storage budget per location**, choose **Custom** and enter a size in GB, or choose **None** to rely on the disk ceiling only.
+4. Select **Save**. If you changed the directory, restart the node; it uses the new directory once it restarts.
+
+If the node sets its directory or budget in `.env`, edit it there and run `docker compose up -d` instead; see [Set a node's settings in its environment](#set-a-nodes-settings-in-its-environment).
+
+Changing the directory doesn't move files. Files that devices are still waiting for are prepared again in the new directory, and cached files are dropped. Old files stay in the old directory until you delete them.
+
+If **Prepared file directory** is set in **Admin > Downloads > Settings**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
+
 ## Set a node's settings in its environment
 
-Set a node's settings in its `.env` instead of in **Admin > Playback > Nodes** to keep them with its Compose file, or to let a transcode node's owner keep control of its limits when someone else runs the main server. The node reads these variables when it starts:
+To keep a node's settings with its Compose file, set them in the node's `.env` instead of in **Admin > Playback > Nodes**. This also lets a transcode node's owner keep control of its limits when someone else runs the main server. The node reads these variables when it starts:
 
 | Setting | Proxy node | Transcode node |
 | --- | --- | --- |
@@ -112,30 +127,23 @@ Set a node's settings in its `.env` instead of in **Admin > Playback > Nodes** t
 | **Hardware Acceleration**, **GPU Devices** | | `SILO_NODE_HW_ACCEL`, `SILO_NODE_HW_DEVICE` |
 | **Prepared file directory**, **Storage budget** | | `SILO_NODE_DOWNLOAD_ARTIFACT_DIR`, `SILO_NODE_DOWNLOAD_ARTIFACT_MAX_BYTES` (bytes) |
 
-For the stream, transcode, and bandwidth limits, `0` means unlimited. For the storage budget, `0` means no budget, matching **None**. Leave a variable out or empty to keep editing that setting in Silo; if a value isn't valid, the node stops at startup and logs the variable name. The node section of the repository's [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example) has an example for each.
+On a proxy node, `SILO_NODE_NAME` and `SILO_NODE_URL` match the node to its entry instead of locking those fields; see [Proxy node settings](#proxy-node-settings). Don't copy them from a proxy node's `.env` to a transcode node, because a transcode node takes them as its own name and address.
 
-In **Admin > Playback > Nodes**, any setting the node sets is greyed out with **Set by this node's environment. Change it there and restart the node.** below it. Silo also refuses edits to it from **Admin > Downloads > Prepared Files** (**Edit location**) and the [admin API](/docs/api).
+Leave a variable out or empty to keep editing that setting in Silo. For the stream, transcode, and bandwidth limits, `0` means unlimited; for the storage budget, `0` means no budget, matching **None**. The node section of the repository's [`.env.example`](https://github.com/Silo-Server/silo-server/blob/main/.env.example) has an example for each.
+
+If a value isn't valid, the node stops at startup and logs the variable's name.
+
+In **Admin > Playback > Nodes**, open the node's edit form to see which fields it manages. Each one is greyed out with **Set by this node's environment. Change it there and restart the node.** below it. Silo also refuses API edits to those fields, including changes submitted through **Edit location** on the **Storage** tab of **Admin > Downloads > Prepared Files**.
 
 To change an environment setting, edit the node's `.env` and run `docker compose up -d` on the node's host. `docker compose restart` keeps the old values. To edit the setting in Silo again, remove the variable and run `docker compose up -d`; the setting keeps its last value.
 
-For a transcode node, you still [add the node](#add-the-node) and issue its key in Silo first. The node enforces its own limit, acceleration, devices, source access, and prepared-download directory and budget, regardless of what its entry in Silo says. With `SILO_NODE_MAX_TRANSCODES` set, it refuses new work past that number, counting remuxes, prepared downloads, and seek previews along with transcodes, and Silo sends that work elsewhere if **Routing** allows. Don't copy `SILO_NODE_NAME` or `SILO_NODE_URL` from a proxy node's `.env`, because a transcode node takes them as its own name and address.
+A transcode node still needs an entry and key on the main server; see [Add the node](#add-the-node). The node holds to its own **Max Transcodes**, **Hardware Acceleration**, **GPU Devices**, **Source access**, **Prepared file directory**, and **Storage budget**, whatever its entry in Silo says.
 
-A proxy node that sets any variable in the table needs an entry in Silo matching its URL or name, or it refuses to start. To have a proxy with no entry add its own at its URL, set `SILO_NODE_REGISTER=true`. Leave that off if you already added the proxy under another **URL**, such as its public hostname, or Silo can add a second entry for it.
+With `SILO_NODE_MAX_TRANSCODES` set, the node refuses new work past that number, counting remuxes, prepared downloads, and seek previews along with transcodes. Silo sends refused work elsewhere if **Routing** allows.
 
-If the main server hasn't been updated yet, a node with these variables starts anyway and applies them once the main server updates.
+A proxy node that sets any variable in the table needs an entry in Silo matching its URL or name, or it refuses to start. To have a proxy with no entry add its own at its URL, set `SILO_NODE_REGISTER=true`. Leave that off if the proxy's entry in Silo uses a different **URL** (such as its public hostname) and doesn't match by **Name**, or Silo can add a second entry for it.
 
-## Store prepared downloads on a node
-
-A transcode node keeps the [downloads it prepares](/docs/download-storage) in `download-artifacts` inside its transcode directory, unless you give it another directory. That puts them on the same disk as live transcodes, so they count toward the 95% at which Silo [skips the node](#if-work-does-not-reach-the-node) for new streams. To keep prepared downloads apart, mount a separate volume on the node and point it there:
-
-1. Open **Admin > Downloads > Prepared Files**. On the node's card, select **Edit location**.
-2. Enter the path inside the node's container in **Prepared file directory**.
-3. Under **Storage budget**, keep **Default** to use **Default storage budget per location**, choose **Custom** and enter a size in GB, or choose **None** to rely on the disk ceiling only.
-4. Select **Save**. If you changed the directory, restart the node; it uses the new directory once it restarts.
-
-Changing the directory doesn't move files. Files that devices are still waiting for are prepared again in the new directory, and cached files are dropped. Old files stay in the old directory until you delete them.
-
-If **Prepared file directory** is set in **Admin > Downloads > Settings**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
+Update the main server before updating proxy nodes; a proxy that starts while the main server is migrating starts without its environment settings and applies them once the migration finishes. A transcode node can update first, enforces its own settings as soon as it starts, and syncs them once the main server updates.
 
 ## If work does not reach the node
 
