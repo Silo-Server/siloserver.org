@@ -19,7 +19,7 @@ Transcode nodes only talk to the main server and proxy nodes, so they need no pu
 
 ## Prepare the node
 
-If your server runs in Docker Desktop on a Mac, set up the node on that Mac as in [Convert video with the Mac's hardware](/docs/mac#convert-video-with-the-macs-hardware) instead of the steps below.
+To convert video on the same Apple Silicon Mac that runs your server in Docker Desktop, follow [Convert video with the Mac's hardware](/docs/mac#convert-video-with-the-macs-hardware) instead. For a node on another machine, follow the steps below.
 
 On the node's host, use the server repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) with the node's settings in `.env`; the node section of the repository's `.env.example` lists them. In these modes the container starts none of its bundled services.
 
