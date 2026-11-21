@@ -64,7 +64,7 @@ Inside a folder that names the movie, the file name can be anything, such as a d
 
 ## Other names for the same edition
 
-Put the cut's name in an `{edition-...}` tag in the file or folder name, such as `Movie Name (2024) {edition-Extended Cut}.mkv`. Silo groups the names in each row below into one edition, in any letter case. A 4K copy tagged `{edition-Extended Cut}` and a 1080p copy tagged `{edition-Extended}` then appear as one edition, and **Version** on the title's page chooses between them.
+Put a cut's name in an `{edition-...}` tag in the file or folder name, such as `Movie Name (2024) {edition-Extended Cut}.mkv`. Silo groups the names in each row into one edition, in any letter case. A 4K copy tagged `{edition-Extended Cut}` and a 1080p copy tagged `{edition-Extended}` then appear as one edition, and **Version** on the title's page chooses between them.
 
 | Edition | Names |
 | --- | --- |
@@ -77,7 +77,9 @@ Put the cut's name in an `{edition-...}` tag in the file or folder name, such as
 | Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
 | Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
 
-Silo groups them only when every copy of that cut is a single file rather than a multipart movie, Silo has read each copy's running time, and those times are within five seconds of each other. Otherwise each name stays a separate edition. A file with no edition name is never grouped with a named cut. Give each different cut its own name, and for a cut not in this list, such as `{edition-Final Cut}`, use the same name on every copy.
+Silo groups these names only when every copy of that cut is a single file (not a multipart movie), Silo has read each copy's running time, and those times are within five seconds of each other.
+
+A file with no edition name stays separate from named cuts, including `Theatrical`; tag it if it belongs with one. Give each different cut its own name, and for a cut outside this table, such as `{edition-Final Cut}`, use the same name on every copy.
 
 ## Series
 

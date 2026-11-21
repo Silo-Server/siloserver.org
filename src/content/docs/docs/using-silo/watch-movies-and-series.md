@@ -46,11 +46,11 @@ follows your [mobile data quality](/docs/preferences#quality-on-mobile-data)
 instead. Auto never switches to another cut, and choosing an edition sets
 **Version** back to **Auto**.
 
-If your connection can't keep up and the player's **Quality** is also on
-**Auto**, Auto first looks for a copy of the same cut that needs less
-bandwidth and plays without converting the video, such as an HD copy of a 4K
-movie. This can happen when you start or while you watch. Copies with
-[different names for the same cut](/docs/media-folders#other-names-for-the-same-edition)
+When both **Version** and the player's **Quality** are on **Auto** and your
+connection can't keep up, Silo first looks for a lower-bandwidth copy of the
+same cut that can play without converting the video, such as an HD copy of a
+4K movie. This can happen when playback starts or while you watch, and files
+with [other names for the same edition](/docs/media-folders#other-names-for-the-same-edition)
 count as the same cut. If you choose a specific file in **Version**, Silo
 keeps playing that file and can lower its quality instead.
 
