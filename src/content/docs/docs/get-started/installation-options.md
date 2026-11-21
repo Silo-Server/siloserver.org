@@ -14,7 +14,7 @@ Use the [Docker Compose walkthrough](/docs/install) for a new single-host instal
 
 On a NAS or in a container manager that doesn't use Compose, start the same image with [`docker run`](/docs/docker#run-with-docker-run). To keep PostgreSQL, Redis, and Meilisearch in containers of their own, use the [advanced Compose file](/docs/docker#run-the-services-in-separate-containers).
 
-The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
+The published Linux container targets x86-64 and arm64, and the walkthrough covers a Linux host. Docker on macOS or Windows adds file-sharing and networking differences, and the Linux GPU instructions do not apply there unchanged. [Run Silo Server on a Mac](/docs/mac) covers the changes for a Mac, including how to convert video with its hardware. To spread Silo across several hosts, see [Transcode nodes](/docs/transcode-nodes) and [Server configuration](/docs/configuration). Native host builds are covered in the server's [development guide](https://github.com/Silo-Server/silo-server/blob/main/DEVELOPMENT.md).
 
 ## What the host needs
 
