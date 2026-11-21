@@ -8,7 +8,7 @@ description: Start a new server with Docker Compose, add a library, and check pl
 
 Set up a new server, add a small movie or series library, and play your first
 item in the browser. This walkthrough uses Docker Compose on Linux. On a Mac,
-follow it with the changes in [Run Silo Server on a Mac](/docs/mac).
+make the changes in [Run Silo Server on a Mac](/docs/mac) as you go.
 
 ## What you need
 
