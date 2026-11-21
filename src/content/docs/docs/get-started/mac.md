@@ -71,7 +71,7 @@ If the node isn't ready within a minute, the installer puts back what was there 
 
 In **Admin > Playback > Nodes**, the node shows **Healthy**, and its **Acceleration** block shows **VIDEOTOOLBOX**. Silo checks nodes every 30 seconds; use the refresh button in the node's header to check it now. Its **Load** block shows **No resource sample**, because nodes report their CPU and memory use only on Linux.
 
-With **Hardware acceleration** on **Auto**, its default in **Admin > Playback > Settings**, the node finds VideoToolbox by itself. If **Acceleration** shows something else, such as **SW**, select the pencil in the node's header, set **Hardware Acceleration** to **VideoToolbox**, and select **Save**.
+With **Hardware acceleration** on **Auto**, its default in **Admin > Playback > Settings**, the node finds VideoToolbox by itself. If you set that to another option for your other machines, the Mac node uses that option too, and **Acceleration** shows it. Select the pencil in the node's header, set **Hardware Acceleration** to **VideoToolbox**, and select **Save**. New conversions use VideoToolbox within a minute; select the re-probe button, just before the pencil, to update **Acceleration** now.
 
 The default [**Routing preset**](/docs/transcode-nodes#route-playback-to-nodes), **Silo Defaults**, sends conversions to the node and uses the server only when the node can't take a stream. To test it, play a video and choose a lower quality that makes Silo convert it, then check the node's **Capacity** block for the job.
 
