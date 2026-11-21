@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-accounts
 keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password"]
-questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?"]
+questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?", "Does changing a username rename the main profile too?"]
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---
@@ -40,7 +40,7 @@ For a group of people with the same access, [configure an access group](/docs/ma
 
 ## Change access or reset a password
 
-Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
+Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. Changing the **Username** also renames the account's [primary profile](/docs/profiles) to match, as long as that profile still has the old username as its name and no other profile on the account already has the new one. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
 
 To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
