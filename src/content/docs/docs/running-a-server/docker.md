@@ -1,7 +1,7 @@
 ---
 slug: docs/docker
 keywords: ["docker run", "container", "ports", "Unraid", "Portainer", "image tag"]
-questions: ["How do I keep Silo on one version instead of latest?", "How do I change the port if it's already taken?", "Why don't the apps find my server automatically?", "Why won't the container start after a Postgres upgrade?"]
+questions: ["How do I keep Silo on one version instead of latest?", "How do I change the port if it's already taken?", "Why don't the apps find my server automatically?", "Why won't the container start after a Postgres upgrade?", "Why does part of an actor's name miss their movies in search?"]
 title: Docker deployment reference
 description: Understand Silo's image, ports, mounts, and optional search service, and other ways to run it.
 ---
@@ -32,6 +32,8 @@ Builds published before PostgreSQL and Redis moved into this image used `build-N
 | Meilisearch, if you [turn it on](#optional-meilisearch) | uid 997 | `/config/meilisearch` |
 
 `docker compose ps` shows one `silo` service with a health status. For what Silo's health and readiness checks mean, see [Check server health](/docs/server-health).
+
+After an update with database changes, Silo backs up the database and migrates it before its health check answers. The image's health check allows 20 minutes for that before it reports `unhealthy`. See [The backup before an update](/docs/updates#the-backup-before-an-update).
 
 Set `PUID` and `PGID` to an account that can read your media. The Compose files default both to `1000`; with `docker run` they default to `911`. If that account can't read the media, the log says `uid 1000 cannot read /mnt/media/...` with the folder it couldn't open. `PUID` can't be 999, 998, or 997: the container stops with `PUID 999 is already used by the postgres account in this image; choose another uid`. The container has to start as root to switch to these accounts, so a `user:` setting in Compose, or a user set in a container manager, stops it.
 
@@ -221,7 +223,17 @@ Search uses PostgreSQL unless you switch it. To use the Meilisearch in the conta
 
 While it's on, the fields it fills in on **Admin > Server > Search** are greyed out, with a note such as **Managed by SILO_SEARCH_PROVIDER.** To turn it off, remove the line or set it to `false`, and recreate the container. Search goes back to PostgreSQL on that start. From the start after that, you can choose the engine on that page again.
 
+Silo limits the memory the bundled Meilisearch uses for indexing to a quarter of the container's memory limit, or of the host's memory if the container has no limit, and to at least 512 MiB. If Silo can't detect the memory, it logs a warning and Meilisearch uses its own default of two thirds. To set a different limit, add `MEILI_MAX_INDEXING_MEMORY` to `.env` in bytes or as a size such as `4Gb`, then recreate the container. Meilisearch's [configuration reference](https://www.meilisearch.com/docs/resources/self_hosting/configuration/reference) describes the value.
+
 Meilisearch can't open data written by a different version. If it doesn't start after an update moves it to a new version, set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. You can also empty `config/meilisearch/data` and let Silo rebuild the index.
+
+### What Meilisearch search matches
+
+With Meilisearch, search matches titles, cast and crew, studios, networks, and the release year, and for most searches also genres and keywords. Unlike PostgreSQL search, it doesn't match words in a description. To find titles from a description, such as `movie about a shark`, set up [embeddings](/docs/recommendations#configure-the-model), then turn on **Match by meaning as well as words** on **Admin > Server > Search**.
+
+- Titles match while you're still typing a word, and allow small typos. To find a person's movies and series, type whole words of their name: `hanks` and `tom hanks` find Tom Hanks's movies, but `tom han` lists him only under **People**. Typos in a name aren't corrected.
+- When some titles match your words closely, Silo leaves out weaker word matches. With Scrubs in your library, `scrubs` can leave out Scrublands.
+- When results match equally well, the more popular title comes first. Add the year, such as `dune 2021`, to find that release.
 
 ### Meilisearch in a separate container
 
@@ -251,7 +263,7 @@ SILO_MEILISEARCH_URL=http://meilisearch.example:7700
 SILO_MEILISEARCH_API_KEY=your-meilisearch-key
 ```
 
-Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. Meilisearch search also needs Redis, which the Compose files turn on. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value.
+Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value. Redis is optional for Meilisearch on one server. With it, people can keep paging through search results after Silo restarts. The image starts its bundled Redis for these settings even with `ENABLE_REDIS=false`, unless `REDIS_URL` names your own.
 
 If a value isn't valid, Silo stops at startup and logs an error that names the variable, such as `invalid SILO_SEARCH_PROVIDER: ...`. The engine must be `postgres` or `meilisearch`, and the URL needs `http://` or `https://` and a host.
 

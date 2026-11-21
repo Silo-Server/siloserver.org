@@ -58,13 +58,16 @@ Set download limits in **Admin > Downloads > Settings**. They apply to downloads
 
 If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
 
+**Downloads at once per user** counts the downloads Silo is still [preparing a copy](/docs/download-storage) for, which it does when someone picks a smaller quality or a file their device can't play. A download at original quality doesn't count, and neither does one whose copy is ready or one an app is already transferring. To limit how fast downloads run, set the bandwidth limits.
+
 **Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
 ## Check household restrictions
 
-Account access determines which libraries the household can use. Profile
-restrictions narrow that access for one person; they cannot grant access to
-libraries the account cannot use.
+Account access determines which libraries the household can use. The primary
+profile can use all of them, and **Restrict libraries** can narrow that for the
+other profiles. Profile restrictions cannot grant access to libraries the
+account cannot use.
 
 The household's primary profile can configure **Maximum content rating**,
 **Maximum advisory age**, and **Restrict libraries** in the web profile editor.
