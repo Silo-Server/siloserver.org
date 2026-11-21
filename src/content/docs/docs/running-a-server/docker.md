@@ -322,7 +322,7 @@ The LXC's load average is correct only when lxcfs runs with load average support
 
 ## Nodes and stop timeouts
 
-[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml`: a transcode node with `MODE`, `SILO_CORE_URL`, and `SILO_NODE_KEY` in its `.env`, a proxy node with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `NODE_URL`. The container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
+[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml`: a transcode node with `MODE`, `SILO_CORE_URL`, and `SILO_NODE_KEY` in its `.env`, a proxy node with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `SILO_NODE_URL`. The container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
 
 Proxy nodes connect to the main server's PostgreSQL and Redis; transcode nodes don't. For proxy nodes on other hosts to reach the bundled PostgreSQL and Redis, set these in the main server's `.env`, then uncomment the two node-access port lines in its `docker-compose.yml` and run `docker compose up -d`:
 
