@@ -246,7 +246,7 @@ Keep `data-old` until the server works.
 
 Search uses PostgreSQL unless you switch it. To use the Meilisearch in the container, set `ENABLE_MEILISEARCH=true` in `.env` and recreate the container with `docker compose up -d`. Silo connects to it and builds the search index in the background, with no steps in **Admin > Server > Search**. Test a known title once the index is ready.
 
-While it's on, the fields it fills in on **Admin > Server > Search** are greyed out, with a note such as **Managed by SILO_SEARCH_PROVIDER.** To turn it off, remove the line or set it to `false`, and recreate the container. Search goes back to PostgreSQL on that start. From the start after that, you can choose the engine on that page again.
+While it's on, the fields it fills in on **Admin > Server > Search** are greyed out, with a note such as **Set by SILO_SEARCH_PROVIDER in the server's environment.** To turn it off, remove the line or set it to `false`, and recreate the container. Search goes back to PostgreSQL on that start. From the start after that, you can choose the engine on that page again.
 
 Silo limits the memory the bundled Meilisearch uses for indexing to a quarter of the container's memory limit, or of the host's memory if the container has no limit, and to at least 512 MiB. If Silo can't detect the memory, it logs a warning and Meilisearch uses its own default of two thirds. To set a different limit, add `MEILI_MAX_INDEXING_MEMORY` to `.env` in bytes or as a size such as `4Gb`, then recreate the container. Meilisearch's [configuration reference](https://www.meilisearch.com/docs/resources/self_hosting/configuration/reference) describes the value.
 
@@ -288,7 +288,7 @@ SILO_MEILISEARCH_URL=http://meilisearch.example:7700
 SILO_MEILISEARCH_API_KEY=your-meilisearch-key
 ```
 
-Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Managed by SILO_MEILISEARCH_URL.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value. Redis is optional for Meilisearch on one server. With it, people can keep paging through search results after Silo restarts. The image starts its bundled Redis for these settings even with `ENABLE_REDIS=false`, unless `REDIS_URL` names your own.
+Leave `ENABLE_MEILISEARCH` off. Use your server's address, and its master key or a key that can read and write the index. `.env.example` has the same lines, commented out. Silo applies them every time it starts. **Admin > Server > Search** shows the engine and URL in use, and each field set this way is greyed out, with a note such as **Set by SILO_MEILISEARCH_URL in the server's environment.** To change a field on that page again, remove its line from `.env` and recreate the container. The field keeps the last value. Redis is optional for Meilisearch on one server. With it, people can keep paging through search results after Silo restarts. The image starts its bundled Redis for these settings even with `ENABLE_REDIS=false`, unless `REDIS_URL` names your own.
 
 If a value isn't valid, Silo stops at startup and logs an error that names the variable, such as `invalid SILO_SEARCH_PROVIDER: ...`. The engine must be `postgres` or `meilisearch`, and the URL needs `http://` or `https://` and a host.
 
