@@ -28,6 +28,24 @@ Silo stores the previews in [artwork storage](/docs/s3-storage#choose-artwork-st
 Turning the setting off deletes the library's previews. Until a file has
 previews, each app falls back as described below.
 
+## Make previews faster
+
+These settings are in **Admin > Settings > Playback**, under **Preview images**.
+
+1. Under **Advanced**, raise **Seek preview workers**, the number of files
+   each server makes previews for at once. The default is 1. Previews run at
+   low priority, so playback comes first.
+2. If you have a [transcode node](/docs/transcode-nodes), set **Generate seek
+   previews on** to **Transcode nodes when available** or **Transcode nodes
+   only**. With the first, the main server makes the previews itself when no
+   node is free.
+3. Under **Advanced**, set **Seek previews per transcode node**, the number of
+   files one node makes previews for at once, counted across every server.
+   It takes 1 to 64, and the default is 1. A node gets only as many files as
+   the servers send it, so keep **Seek preview workers** at least this high.
+   Each preview a node makes counts toward its **Max Transcodes**, so leave
+   room there for playback.
+
 ## Preview a position
 
 In the web app, hover over or drag the playback timeline. The preview shows
