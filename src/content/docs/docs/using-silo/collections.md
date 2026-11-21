@@ -102,16 +102,17 @@ manual collection** and select **Create and add**.
 
 ## Collections on movie and series pages
 
-In the web app, a movie or series page lists the collections that hold it:
-your own, ones shared with you, and server collections.
+In the web app, a movie or series page lists the collections your profile can
+see that hold it: your own, ones shared with you, and
+[server collections](/docs/manage-collections#collections-on-movie-and-series-pages).
 
-- When one collection holds the title, the page lists up to six of its other
-  titles under its name, and **Explore all** opens it.
-- When several collections hold it, or the only one has no other titles to
-  show, an **Also in** row has a card for each.
+- When one collection appears, the page lists up to six of its other titles
+  under the collection's name, and **Explore all** opens it.
+- When more than one appears, or the only one has no other titles to show, an
+  **Also in** row shows a card for each.
 
 Smart collections don't appear there. A collection shared with you appears
-only on titles the profile that shared it can access too.
+only on titles that both you and the profile that shared it can access.
 
 ## Show a collection on your Home
 
