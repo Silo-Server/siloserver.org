@@ -114,7 +114,7 @@ Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the s
 2. In `.env`, set `PUID` and `PGID` as described above. Remove any `DATABASE_URL`, `REDIS_URL`, `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` lines that point at the old containers. To keep using Meilisearch, set `ENABLE_MEILISEARCH=true`.
 3. If `.env` pins `SILO_IMAGE`, remove that line to follow `latest`, or set `SILO_OMNIBUS_IMAGE` to the image to run. For a build from before Silo moved to one container, that's its `build-N-aio` tag.
 4. Remove anything in `docker-compose.override.yml` that changes the `postgres`, `redis`, or `meilisearch` services. Compose rejects `docker-compose.yml` while the override still names them.
-5. If you use transcode or proxy nodes, turn on [node access](/docs/docker#nodes-and-stop-timeouts) in `.env` and uncomment its port lines.
+5. If you use proxy nodes, turn on [node access](/docs/docker#nodes-and-stop-timeouts) in `.env` and uncomment its port lines. Transcode nodes need it too if the build you're moving to is from before they were given keys.
 
 Remove `COMPOSE_FILE` from `.env` if you set it. Then stop the old containers and run the move, with your `SILO_DATA_ROOT` in place of `/opt/silo`:
 
@@ -138,6 +138,7 @@ Existing alpha servers will update in two steps: first to a final bridge release
 What to expect:
 
 - Plan one maintenance window for the whole setup. Don't run alpha and 1.0 servers or nodes at the same time.
+- Transcode nodes no longer connect to PostgreSQL or Redis. Stop them first. Once the main server and proxy nodes run 1.0, issue each transcode node a key in **Admin > Playback > Nodes** and start it with `SILO_CORE_URL` and `SILO_NODE_KEY`, as in [Add and check transcode nodes](/docs/transcode-nodes#transcode-node-settings). Until a transcode node has its key, it's **Unhealthy** and gets no work.
 - Have the matching 1.0 app builds ready for your devices.
 - Playback, download, callback, and integration URLs created by the alpha server stop working. Create new ones from the 1.0 server and update external services such as autoscan and webhook senders. Don't edit old URLs by hand.
 - Health checks keep their addresses, `/api/v1/health` and `/api/v1/ready`.

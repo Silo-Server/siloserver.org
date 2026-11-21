@@ -297,9 +297,9 @@ The LXC's load average is correct only when lxcfs runs with load average support
 
 ## Nodes and stop timeouts
 
-[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml` with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `NODE_URL` in its `.env`, and the container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
+[Proxy and transcode nodes](/docs/transcode-nodes) run the same image. A node's host uses the repository's `docker-compose.yml`: a transcode node with `MODE`, `SILO_CORE_URL`, and `SILO_NODE_KEY` in its `.env`, a proxy node with `MODE`, `DATABASE_URL`, `REDIS_URL`, and `NODE_URL`. The container then starts none of its bundled services. The node section of the repository's `.env.example` lists the values.
 
-For nodes on other hosts to reach the main server's bundled PostgreSQL and Redis, set these in the main server's `.env`, then uncomment the two node-access port lines in its `docker-compose.yml` and run `docker compose up -d`:
+Proxy nodes connect to the main server's PostgreSQL and Redis; transcode nodes don't. For proxy nodes on other hosts to reach the bundled PostgreSQL and Redis, set these in the main server's `.env`, then uncomment the two node-access port lines in its `docker-compose.yml` and run `docker compose up -d`:
 
 ```dotenv
 ENABLE_NODE_ACCESS=true
@@ -308,7 +308,7 @@ POSTGRES_PASSWORD=
 REDIS_PASSWORD=
 ```
 
-Set `NODE_ACCESS_HOST` to the main server's address on your network, and generate each password with `openssl rand -hex 24`. Nodes sign in as `silo` with those passwords. Neither connection is encrypted, so publish the ports only on a network you trust.
+Set `NODE_ACCESS_HOST` to the main server's address on your network, and generate each password with `openssl rand -hex 24`. Proxy nodes sign in as `silo` with those passwords. Neither connection is encrypted, so publish the ports only on a network you trust.
 
 Docker asks a container to stop and kills it 10 seconds later unless the service sets a longer `stop_grace_period`. The Compose files set one, so Silo can stop without cutting requests or streams:
 
