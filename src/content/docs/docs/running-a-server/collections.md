@@ -8,7 +8,7 @@ description: Build a server collection by hand, from rules, or from a list, arra
 
 Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab, for example a set of short films or a seasonal selection. You can also show one as a row on Home or a library page.
 
-In the web app, manual collections and synced lists can also appear on the pages of the movies and series they hold. See [Collections on movie and series pages](#collections-on-movie-and-series-pages).
+In the web app, manual collections and synced lists can also appear on [movie and series pages](#collections-on-movie-and-series-pages).
 
 ## Create a collection
 
@@ -60,14 +60,14 @@ Choose a library, then **Arrange**. Shelves are the headings on that library's *
 
 ## Collections on movie and series pages
 
-In the web app, the page of a movie or series lists the collections that hold it and that the profile can see, with the same parental controls and library access as the **Collections** tab:
+In the web app, a movie or series page lists the collections that hold it, using the same parental controls and library access as the **Collections** tab:
 
-- When one collection holds the title, the page lists up to six of that collection's other titles under the collection's name. **Explore all** opens the collection.
-- When several collections hold it, an **Also in** row has a card for each. The page uses this row too when the only collection holding the title has no other titles to show.
+- When one collection holds the title, the page lists up to six of its other titles under the collection's name, and **Explore all** opens it.
+- When several collections hold it, or the only one has no other titles to show, an **Also in** row has a card for each.
 
-Manual collections and synced lists count, and so do the viewer's personal collections, including ones other profiles on the account share with them. Another profile's shared collection appears only on titles that profile can see too. Smart collections don't count.
+Manual collections and synced lists count, and so do the viewer's personal collections, including ones other profiles on the account share with them. Another profile's shared collection appears only on titles that profile can see too. Smart collections do not count.
 
-A server collection appears only with **Show on the Collections tab** turned on. When a movie's page already has a row for its franchise, a server synced list that follows the same TMDB collection is left out, so the franchise doesn't appear twice.
+A server collection appears only with **Show on the Collections tab** turned on. When a movie's page already has a row for its franchise, a server synced list that follows the same TMDB collection is left out, so the franchise does not appear twice.
 
 ## Add a starter pack
 
@@ -90,7 +90,9 @@ Open the collection's action menu and choose **Delete…**. If Home or library p
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
 
-If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. The same checks, and **Show on the Collections tab**, decide which collections a movie or series page lists in the web app. A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
+If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. The same checks, and **Show on the Collections tab**, decide which collections a movie or series page lists in the web app.
+
+A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
 
 ## If a synced list does not sync
 
