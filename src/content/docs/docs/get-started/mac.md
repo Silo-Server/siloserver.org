@@ -61,7 +61,7 @@ docker compose cp silo:/usr/share/silo/nodes/silo-darwin-arm64 ./silo
 ./silo node install --server http://localhost:8090
 ```
 
-`--server` is the address the Mac reaches Silo at: port `8090` from the install guide, or the `PORT` in your `.env`. When the installer asks for `Node key from Admin > Nodes:`, paste the key. You can pass it with `--key` instead.
+`--server` is the address the Mac reaches Silo at: port `8090` from the install guide, or the `PORT` in your `.env`. When the installer asks for the node key, paste it and press Return; the key doesn't appear as you paste it. You can pass it with `--key` instead.
 
 The installer sets up the node for your macOS account, waits until it's running, and prints the path of its log, `~/Library/Logs/Silo/node.log`. The node runs while you're logged in to the Mac and starts again each time you log in. A Mac that sleeps stops converting, so set it not to sleep, for example with **Prevent automatic sleeping when the display is off** in **System Settings > Energy**.
 
