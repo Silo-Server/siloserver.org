@@ -1,6 +1,6 @@
 ---
 slug: docs/reverse-proxy
-keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "HTTP/3", "QUIC", "UDP 443", "HTTP/1.1"]
+keywords: ["remote access", "watch away from home", "outside my house", "access from anywhere", "port forwarding", "domain name", "SSL certificate", "HTTP/3", "QUIC", "UDP 443"]
 questions: ["How do I put Silo on my own domain with HTTPS?", "How do I set up Caddy in front of Silo?", "Why does seeking break when I use my domain?", "Does the app switch to the local address at home?", "Why does streaming crawl through Caddy away from home?", "Why does video buffer in my browser away from home?"]
 title: Connect securely outside your home
 description: Put Silo behind HTTPS and test it from a remote client.
@@ -66,7 +66,7 @@ This helps only with files the web app decodes itself, such as a file with Dolby
 The Silo apps on Apple and Android devices don't use the media address, and neither do viewers on [Network access (Beta)](/docs/tailscale).
 
 1. Point a second hostname, for example `media.example.com`, at your public address.
-2. Forward inbound TCP port 8443 to Caddy. Caddy still gets the certificate for the media hostname through ports 80 and 443.
+2. Forward inbound TCP port 8443 to Caddy. Caddy still gets the certificate for the media hostname through port 80 or 443.
 3. Add the media site to your Caddyfile, replacing the hostname. Put the global options block in braces at the top of the file, or add the `servers` lines to an existing one:
 
    ```text
@@ -84,10 +84,10 @@ The Silo apps on Apple and Android devices don't use the media address, and neit
    Caddy applies `protocols` to a whole port, not to one site, so the media address needs its own port.
 
 4. Validate and reload Caddy.
-5. Using an unscoped [API key](/docs/api-keys#create-a-key-in-the-admin-interface) owned by an administrator, send `PUT /api/v2/admin/settings/server.web_media_url` with `Authorization: Bearer <key>`, `If-Match: *`, and the body `{"value": "https://media.example.com:8443"}`. The value must be `https://`, a hostname, and an optional port, with no path; Silo refuses anything else with an error such as `server.web_media_url must use https`. It applies from the next video, without a restart. You can also set `SILO_WEB_MEDIA_URL` in `.env` and recreate the container; while it's set, Silo refuses changes through the API.
-6. Away from home, open your browser's **Network** tab and play a title that shows **Browser decoder**. After the first few seconds, look for `206` video requests to `media.example.com:8443` over HTTP/1.1; a few requests still go to your main address. Playback alone doesn't prove it works: if the media address refuses a request or stops answering, the web app falls back to the main address over one connection.
+5. Using an unscoped [API key](/docs/api-keys#create-a-key-in-the-admin-interface) owned by an administrator, send `PUT /api/v2/admin/settings/server.web_media_url` with `Authorization: Bearer <key>`, `Content-Type: application/json`, `If-Match: *`, and the body `{"value": "https://media.example.com:8443"}`. The value must be `https://`, a hostname, and an optional port, with no path; Silo refuses anything else with an error such as `server.web_media_url must use https`. It applies from the next video, without a restart.
+6. Away from home, open your browser's **Network** tab and play a title that shows **Browser decoder**. Seek ahead to an unbuffered part of the video, then look for `206` video requests to `media.example.com:8443` over HTTP/1.1; a few requests still go to your main address. Playback alone doesn't prove it works: if the media address refuses a request or stops answering, the web app falls back to the main address over one connection.
 
-To turn the setting off again, remove `SILO_WEB_MEDIA_URL` from `.env` and recreate the container if you set it there, then send `{"value": ""}` through the API.
+You can also set `SILO_WEB_MEDIA_URL` in `.env` and recreate the container; while it's set, Silo refuses changes through the API. To turn the setting off, send `{"value": ""}` through the API. If you set `SILO_WEB_MEDIA_URL` in `.env`, first remove it and recreate the container: Silo keeps the value it stored and refuses API changes while the variable is set.
 
 If your proxy already serves Silo over HTTP/1.1 only, as the nginx site in [Reverse proxy examples](/docs/proxy-examples) does, you don't need a media address: the web app reads over several connections on the main address. Files a [proxy node](/docs/transcode-nodes) sends don't use the media address; the web app reads them from the node itself, over several connections when the node answers over HTTP/1.1.
 
