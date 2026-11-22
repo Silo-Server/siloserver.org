@@ -68,7 +68,13 @@ title again to bring it back.
 
 ## Change watched status
 
-On a phone or tablet, open the title and select
+Silo marks a movie or episode watched on its own when you play past 90% of it
+(the person who runs your server can change that), or when you reach its end
+credits, if Silo knows where they start (see [skip markers](/docs/markers)).
+The title then leaves **Continue Watching**, and the next episode of a series
+comes up instead.
+
+To change it yourself on a phone or tablet, open the title and select
 **Watched**.
 
 In the web app, the button's label shows what it will change, for example

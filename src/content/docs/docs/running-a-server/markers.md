@@ -6,7 +6,7 @@ title: Find and correct skip markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---
 
-Markers tell the player where an intro, recap, credits, or preview starts and ends, so it can offer a skip button. Markers work without setup. Silo installs the TheIntroDB plugin when it starts (if it can reach the plugin catalog), looks markers up there, and detects intros and credits on the server when no online marker of that kind exists.
+Markers tell the player where an intro, recap, credits, or preview starts and ends, so it can offer a skip button. A credits marker also marks the title watched once playback reaches it, even before the **Mark watched at** percentage in **Admin > Playback > Settings**. Markers work without setup. Silo installs the TheIntroDB plugin when it starts (if it can reach the plugin catalog), looks markers up there, and detects intros and credits on the server when no online marker of that kind exists.
 
 ## Choose how markers are found
 
