@@ -98,13 +98,15 @@ the account's sign-in email.
 Your server may only offer the daily digest. Child profiles can't receive
 email notifications.
 
-To stop notification emails, open **Unsubscribe** at the bottom of a Silo
-email, then select **Unsubscribe** on the confirmation page. Opening the page
-leaves your preferences unchanged. You don't need to sign in to confirm.
+To stop a profile's notification emails, open **Unsubscribe** at the bottom
+of one of them, then select **Unsubscribe** on the confirmation page. Opening
+the page leaves your preferences unchanged. You don't need to sign in to
+confirm. If your mail app shows its own unsubscribe button next to the
+sender, it can stop the emails straight away, without the confirmation page.
 
 To receive emails again, turn on **Email this profile's notifications** in
-**Settings > Notifications**. It comes back as **Daily digest**, so choose
-your frequency again if you used another one.
+**Settings > Notifications**. Email comes back on as **Daily digest**, so
+choose your frequency again if you used another one.
 
 ### Discord direct messages
 
