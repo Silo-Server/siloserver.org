@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-access
 keywords: ["permissions", "user groups", "restrict libraries", "hide library", "parental restrictions"]
-questions: ["How do I let guests see only some libraries?", "How do I limit how many people stream at once?", "Why did changing someone's group do nothing?", "How do I cap download speed for my users?"]
+questions: ["How do I let guests see only some libraries?", "How do I limit how many people stream at once?", "Why did changing someone's group do nothing?", "How do I cap download speed for my users?", "How do I stop guests from playing 4K?"]
 title: Set access and limits
 description: Give people the right libraries and permissions without editing every account separately.
 ---
@@ -38,7 +38,9 @@ Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a pre
 
 The bitrate limit caps the stream's bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it. If it can't, it tries another version that fits, and refuses playback only when neither works.
 
-**Maximum playback quality** sets the largest version a person can play. **Standard** hides 4K and higher versions, **4K** allows 4K and lower, and **Any** allows every resolution. Set it on the group, or as **Max quality** on one account. An account's value replaces the group's, even when it allows more. A profile can set its own, which applies only when it's stricter. When every version of an episode is above the limit, that person doesn't see the episode in season lists, Next Up, Continue Watching, or Recently Added, in the Silo apps or in Jellyfin-compatible apps. It appears once a version within the limit is added to a library they can use, and Next Up waits for it rather than skipping to a later episode. If you keep 4K and 1080p copies in separate libraries, giving other accounts **Standard** means a new episode shows up for them when its 1080p copy arrives.
+**Maximum playback quality** sets the largest version a person can play. **Standard** hides 4K and higher versions, **4K** allows 4K and lower, and **Any** allows every resolution. Set it on the group. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Playback & streaming**, set **Max quality** to **Custom**, and choose **1080p**, **4K**, or **Any**. That replaces the group's limit, even when it allows more. A profile's own **Maximum playback quality**, set in the [profile editor](/docs/profiles#set-parental-controls), applies only when it's stricter.
+
+When every version of an episode is above the limit, the Silo apps leave the episode out of that person's season lists, Next Up, Continue Watching, and Recently Added. Jellyfin-compatible apps leave it out of season lists and Next Up. It appears once a version within the limit is added to a library they can use, and Next Up waits for it rather than skipping to a later episode. If you keep 4K and 1080p copies in separate libraries, giving other accounts **Standard** means a new episode shows up for them when its 1080p copy arrives.
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
