@@ -75,4 +75,4 @@ A saved change applies to everyone who plays that file. Players that are already
 
 A manual marker takes priority over online and detected markers, so later lookups and detection don't replace it. Only another manual edit does.
 
-Chapter and marker previews use the library’s **Generate chapter thumbnails** switch. See [preview setup](/docs/playback#generate-chapter-thumbnails).
+To show an image for each marker on the web player's seek bar, turn on [**Generate chapter thumbnails**](/docs/playback#generate-chapter-thumbnails) for the library.
