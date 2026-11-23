@@ -119,18 +119,17 @@ Speed tests take the same route as playback. If media goes through [proxy nodes]
 
 ## Generate chapter thumbnails
 
-**Generate chapter thumbnails** makes a preview image for each chapter in a file and for each [skip marker](/docs/markers), so a file without chapters can still get marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
+**Generate chapter thumbnails** makes an image for each chapter and each [skip marker](/docs/markers) in a file. The web player shows them in its **Chapters** menu and on the seek bar. A chapter image is taken a few seconds into the chapter and a marker image at the marker's start, so a file without chapters still gets marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
 1. Edit the library under **Admin > Libraries**.
-2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each library has its own switch.
-3. Let background generation run. Silo also queues a title's previews when someone opens or plays it, and checks for missing previews every six hours.
-4. Open a title with chapters or skip markers in the web player. Open **Chapters** to check the chapter images; on narrow screens, **Chapters** is under **More player options**. Hover over the seek bar inside a chapter or marker to check its image. If the library also makes [seek previews](/docs/timeline-previews), the seek bar shows those instead once they're ready.
+2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each video library has its own switch, and it stays unavailable until artwork storage is set up.
+3. Let background generation run. Silo also queues a title's images when someone plays it, and checks for missing images every six hours. If online markers are set to **Fetch when needed** in [marker settings](/docs/markers#choose-how-markers-are-found), their images start only after someone plays the title.
+4. Play a title with chapters or skip markers in the web player. If it has chapters, open **Chapters** to see their images. On a touch screen or in a narrow window, **Chapters** is under **More player options**.
+5. Hover over or drag along the seek bar to see the image for the chapter or marker there. If the library also makes [seek previews](/docs/timeline-previews), the seek bar shows those once they've loaded.
 
-A chapter image is taken a few seconds into the chapter, and a marker image at the marker's start.
+Turning the switch off stops Silo making new images for that library. Unlike seek previews, it doesn't delete the images already made, so the player keeps showing them.
 
-Turning the switch off stops new previews for that library. It doesn't delete the ones Silo already made, so they can still appear.
-
-With [**Hardware acceleration**](#choose-and-test-acceleration) set up, Silo can extract the images on the GPU. To make them on a [transcode node](/docs/transcode-nodes) instead, set **Generate chapter thumbnails on** under **Preview images** on **Admin > Playback > Settings**. The node options appear once a transcode node is connected.
+With [**Hardware acceleration**](#choose-and-test-acceleration) set up, Silo can extract the images on the GPU. To make them on a [transcode node](/docs/transcode-nodes) instead, set **Generate chapter thumbnails on** under **Preview images** on **Admin > Playback > Settings**. Until an enabled, healthy transcode node is connected, that setting sits under **Advanced** and its node options are unavailable.
 
 ### If previews don't appear
 
