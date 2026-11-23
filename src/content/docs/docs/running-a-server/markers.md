@@ -16,7 +16,7 @@ Markers tell the player where an intro, recap, credits, or preview starts and en
    - **Online providers only** or **Detect on this server** uses one method.
    - **Off** stops finding markers.
 3. With local detection on, choose what it finds with **Detect intros** and **Detect credits**. Both are on by default. Credits detection uses more CPU than intro detection. Turning one off keeps the markers it already found.
-4. With online markers on, choose whether to **Save online markers** with **Save to library** (the default) or **Fetch when needed**. **Fetch when needed** doesn't save online markers to your library, so online credits offer a skip button but don't mark the title watched. Credits detected on the server or entered by hand do.
+4. With online markers on, choose whether to **Save online markers** with **Save to library** (the default) or **Fetch when needed**. **Fetch when needed** doesn't save newly fetched online markers to your library, so their credits offer a skip button but don't mark the title watched. Credits already saved, detected on the server, or entered by hand still do.
 5. Leave **Find markers on playback** on to look for missing markers when someone starts playing an item. With local detection, this uses server CPU.
 6. Save, then use **Run now** on the marker tasks below the settings, such as **Sync online markers**, to process existing media.
 
