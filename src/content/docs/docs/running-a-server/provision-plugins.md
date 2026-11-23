@@ -109,7 +109,7 @@ Run `docker compose up -d --force-recreate --no-deps silo` after adding the moun
 
 ## Mount the file on one Kubernetes API replica
 
-Create these resources in the namespace that runs Silo. Keep the secret file outside version control.
+Create these resources in the namespace that runs Silo. Keep the secret files outside version control, and leave out the Secrets, mounts, and volumes your document doesn't reference.
 
 ```sh
 kubectl create configmap silo-deployment --from-file=deployment.yaml
@@ -203,7 +203,14 @@ in {
 }
 ```
 
-For an AI provider key, add an `ai_providers` entry the same way, with `api_key.fromFile = "/run/credentials/silo.service/openai_key";`, and a `LoadCredential` line for `openai_key`.
+For an AI provider, have your secret manager write its key to `/run/secrets/silo-openai-key`, add `"openai_key:/run/secrets/silo-openai-key"` to `LoadCredential`, and add the provider next to `plugins`:
+
+```nix
+    ai_providers."openai-main" = {
+      type = "openai";
+      api_key.fromFile = "/run/credentials/silo.service/openai_key";
+    };
+```
 
 Apply the configuration with your usual NixOS deployment command. After rotating the secret, run `systemctl restart silo.service`.
 
