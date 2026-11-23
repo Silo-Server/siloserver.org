@@ -30,7 +30,7 @@ previews, each app falls back as described below.
 
 ## Make previews faster
 
-These settings are in **Admin > Settings > Playback**, under **Preview images**.
+These settings are in **Admin > Playback > Settings**, under **Preview images**.
 
 1. Under **Advanced**, raise **Seek preview workers**, the number of files
    each server makes previews for at once. The default is 1. Previews run at
