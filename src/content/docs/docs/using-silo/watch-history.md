@@ -66,15 +66,18 @@ In the web app, a message confirms the removal. Select **Undo** in it to put
 the title back. The Apple and Android apps don't have an undo, so play the
 title again to bring it back.
 
-## Change watched status
+## Automatic watched status
 
 Silo marks a movie or episode watched on its own when you play past 90% of
 it. The person who runs your server can change the 90%. If the version you're
 playing has a [credits marker](/docs/markers), reaching the end credits counts
 too. A watched title leaves **Continue Watching**. For a series, the next
-episode takes its place, or appears in **Next Up** if you use that row.
+episode takes its place if there is one, or appears in **Next Up** if you use
+that row.
 
-To change it yourself on a phone or tablet, open the title and select
+## Change watched status
+
+On a phone or tablet, open the title and select
 **Watched**.
 
 In the web app, the button's label shows what it will change, for example
