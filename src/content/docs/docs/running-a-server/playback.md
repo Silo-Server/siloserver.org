@@ -1,7 +1,7 @@
 ---
 slug: docs/playback
 keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping", "FEL", "DV7"]
-questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Why is there no picture when I hover over a skip marker?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
