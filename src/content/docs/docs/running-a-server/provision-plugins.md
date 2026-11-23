@@ -14,8 +14,6 @@ At API startup, supply one document. Set `SILO_CONFIG_FILE` to a YAML or JSON fi
 
 The document has a `plugins` section for official plugins and an `ai_providers` section for [AI providers](#connect-ai-providers). Both are optional. Leave a section out and Silo leaves those plugins or providers as they are.
 
-For AI providers alone, skip to [Connect AI providers](#connect-ai-providers).
-
 ### Example: the OpenID Connect plugin
 
 This example pins version `0.1.2` of the official OpenID Connect plugin. Replace the issuer, client ID and groups with your identity provider's settings. The `media` group can sign in and create accounts on first sign-in. Members of `media-admins` can get administrator access, so check that group's membership before you deploy. [Set up single sign-on](/docs/single-sign-on) explains how Silo uses these settings.
@@ -59,6 +57,7 @@ Add an `ai_providers` section to connect the providers that [AI services](/docs/
 For AI providers alone, save this example as `deployment.yaml`. To add them to a document you already use, copy the `ai_providers` section under its `apiVersion: 1`.
 
 ```yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Silo-Server/silo-server/main/contracts/plugins/provisioning/v1/schema.json
 apiVersion: 1
 ai_providers:
   openai-main:
@@ -75,14 +74,14 @@ ai_providers:
 - Set `type` to `openai`, `gemini`, `openrouter`, `groq`, `ollama`, `whisper`, or `custom` for an OpenAI-compatible endpoint. Without `name` or `base_url`, Silo uses the type's own, as when you add the provider in the admin pages. A `custom` provider needs a `base_url`.
 - Give `api_key` as `fromFile` or `fromEnv`, like a plugin secret. The document can't hold the key itself. The `openai`, `gemini`, `openrouter`, and `groq` types need a key.
 - A `custom` provider needs `capabilities`: one or more of `chat`, `embeddings`, and `speech`. The other types serve a fixed set, so Silo doesn't start if you give one `capabilities`.
-- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start and the error names both. Give the declared provider a `name` of its own, or, when the existing provider has the same type, declare its id, which the error names, to take it over.
-- If an id matches a provider that's already connected, the declaration replaces it whole, key included, so a declaration without `api_key` leaves it without one. It can't change the provider's type: Silo doesn't start, and asks you to declare the new type under a new id with a name of its own, since the old provider stays connected under its name.
+- Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start, and the error names that provider and its id. Give your provider a `name` of its own. If the existing provider has the same type, you can instead use its id as your key, and the document takes it over.
+- If an id matches a provider that's already connected, the document replaces it whole, key included, so an entry without `api_key` leaves it without one. The document can't change the provider's type: Silo doesn't start, because the old provider stays connected under its name. Declare the new type under a new id, with a name of its own.
 
 If an entry is wrong, Silo doesn't start and logs the variable and the entry, such as `SILO_CONFIG_FILE: ai_providers.local-embed: choose at least one thing the provider serves`.
 
 A declared provider shows read-only on **Admin > Integrations > AI Services**; see [Connect providers from your deployment](/docs/ai-services#connect-providers-from-your-deployment).
 
-Each API server that reads the document saves its providers when it starts, and the last one to start wins, so give every API server that reads it the same document.
+If more than one API server reads the document, give them all the same one: each saves its providers when it starts, and the last to start wins.
 
 ## Mount the file with Compose
 
