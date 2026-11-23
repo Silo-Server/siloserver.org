@@ -1,5 +1,7 @@
 ---
 slug: docs/ai-services
+keywords: ["LLM", "AI subtitles", "auto-generate subtitles", "captions from audio", "machine translation", "GPT", "translation cost"]
+questions: ["Can Silo translate subtitles into another language?", "How do I make subtitles for a video that has none?", "Can I use my ChatGPT subscription instead of an API key?", "Why does translation say usage is paused?"]
 title: Configure AI services
 description: Connect AI providers or a ChatGPT plan, choose a model and reasoning level, set limits, and test one subtitle or description job.
 ---

@@ -1,5 +1,7 @@
 ---
 slug: docs/download-storage
+keywords: ["disk full", "out of disk space", "download cache", "offline copies", "stolen phone", "remote wipe", "delete downloads", "converted downloads"]
+questions: ["Offline downloads are filling my server disk, how do I clear them?", "How do I remove downloads from a lost phone?", "Why do prepared downloads disappear after updating the container?", "Can I limit how much space downloads take on the server?"]
 title: Manage download storage
 description: See how much space prepared downloads take on the server and transcode nodes, free it, and revoke downloads on a device.
 ---

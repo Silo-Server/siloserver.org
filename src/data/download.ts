@@ -15,7 +15,9 @@ export interface AppEntry {
   status: string;
   body: string;
   links: StoreLink[];
+  /** Footer note; `noteLink` goes on its own line after the text. */
   note?: string;
+  noteLink?: { label: string; href: string };
 }
 
 export const apps: AppEntry[] = [
@@ -23,10 +25,11 @@ export const apps: AppEntry[] = [
     id: "apple",
     devices: "Apple TV · iPhone · iPad",
     name: "Silo for Apple devices",
-    status: "Beta on TestFlight",
-    body: "One app for Apple TV, iPhone, and iPad. Accept the invitation on your iPhone or iPad, then install Silo from TestFlight on your Apple TV with the same Apple Account.",
-    links: [{ label: "Join the TestFlight", href: "https://testflight.apple.com/join/XZy8cu5q", primary: true }],
-    note: "Macs with Apple silicon can run the iPhone and iPad app. A native Mac app is also in beta.",
+    status: "On the App Store",
+    body: "One app for Apple TV, iPhone, and iPad. Install Silo Media Player from the App Store on each device.",
+    links: [{ label: "App Store", href: "https://apps.apple.com/us/app/silo-media-player/id6784878771", primary: true }],
+    note: "Want to test the latest before release? The TestFlight beta also has the native Mac app.",
+    noteLink: { label: "Join the TestFlight beta", href: "https://testflight.apple.com/join/XZy8cu5q" },
   },
   {
     id: "android",

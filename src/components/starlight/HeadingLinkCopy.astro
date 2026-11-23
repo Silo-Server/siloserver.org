@@ -1,0 +1,186 @@
+---
+// Clicking the link icon next to a docs heading still jumps to the section,
+// and also copies that section's address so it can be pasted straight into
+// chat or an issue. A checkmark and "Link copied to clipboard" appear next to
+// the icon for a moment to confirm it.
+---
+
+<script>
+  const SHOW_MS = 2000;
+  const FADE_MS = 200; // A little longer than the CSS transition.
+  const GUTTER = 16; // Keep the label this far inside the content column.
+  const CHECK =
+    '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentcolor" d="M9.86 18a1 1 0 0 1-.73-.32l-4.86-5.17a1 1 0 1 1 1.46-1.37l4.12 4.39 8.41-9.2a1 1 0 1 1 1.48 1.34l-9.14 10a1 1 0 0 1-.73.33Z"/></svg>';
+
+  // The label next to the icon is decorative to assistive technology; this
+  // polite live region announces the copy instead, without moving focus off
+  // the link. It is added empty when the page loads, because many screen
+  // readers stay silent when a live region appears already filled.
+  const status = document.createElement('div');
+  status.className = 'sr-only';
+  status.setAttribute('role', 'status');
+  document.body.append(status);
+
+  let current: { label: HTMLElement; link: HTMLElement } | undefined;
+  let hideTimer: number | undefined;
+
+  function announce(message: string): void {
+    // Clear first so a second copy with the same text is announced again.
+    status.textContent = '';
+    requestAnimationFrame(() => (status.textContent = message));
+  }
+
+  function removeLabel(): void {
+    if (!current) return;
+    current.label.remove();
+    delete current.link.dataset.copied;
+    current = undefined;
+  }
+
+  function showLabel(link: HTMLElement, copied: boolean): void {
+    window.clearTimeout(hideTimer);
+    removeLabel();
+
+    const label = document.createElement('span');
+    label.className = 'docs-link-copied';
+    label.dataset.state = copied ? 'copied' : 'failed';
+    label.setAttribute('aria-hidden', 'true');
+    label.innerHTML = copied ? CHECK : '';
+    label.append(copied ? 'Link copied to clipboard' : 'Couldn’t copy the link');
+    // Inside the link, so it is positioned against the icon. It takes no
+    // clicks and is left out of the link's accessible name.
+    link.append(label);
+    link.dataset.copied = '';
+    current = { label, link };
+
+    // Beside the icon by default. Where that runs past the content column,
+    // as at the end of a long heading on a phone, show it below the icon,
+    // nudged sideways if needed so it stays inside the column.
+    const column = link.closest('.sl-markdown-content')?.getBoundingClientRect();
+    if (column) {
+      const box = label.getBoundingClientRect();
+      if (box.left < column.left + GUTTER || box.right > column.right - GUTTER) {
+        label.dataset.placement = 'below';
+        const below = label.getBoundingClientRect();
+        const shift = Math.max(column.left - below.left, 0) || Math.min(column.right - below.right, 0);
+        label.style.setProperty('--docs-link-copied-shift', `${shift}px`);
+      }
+    }
+
+    requestAnimationFrame(() => (label.dataset.visible = ''));
+    hideTimer = window.setTimeout(() => {
+      delete label.dataset.visible;
+      hideTimer = window.setTimeout(removeLabel, FADE_MS);
+    }, SHOW_MS);
+  }
+
+  // The Clipboard API exists only in secure contexts. The dev server is often
+  // opened over plain HTTP on the tailnet, so copy from a hidden text field
+  // there. Where the API exists but refuses, report the failure instead.
+  async function copyText(text: string): Promise<boolean> {
+    if (navigator.clipboard) {
+      return navigator.clipboard.writeText(text).then(() => true, () => false);
+    }
+    const focused = document.activeElement;
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.append(field);
+    field.select();
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      field.remove();
+      // Selecting the field moved focus; give it back.
+      if (focused instanceof HTMLElement && focused !== document.body) focused.focus({ preventScroll: true });
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    // Leave modified clicks (new tab, new window) to the browser.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element).closest?.<HTMLAnchorElement>('.sl-markdown-content a.sl-anchor-link');
+    const hash = link?.getAttribute('href');
+    if (!link || !hash?.startsWith('#')) return;
+
+    // Let the browser follow the link as usual; only add the copy. Build the
+    // address from the path, not `location.href`, so a `.html` path, an old
+    // hash, or a query such as a preview's `?change=` stays out of the link.
+    const url = location.origin + location.pathname.replace(/\.html$/, '') + hash;
+    void copyText(url).then((copied) => {
+      showLabel(link, copied);
+      announce(copied ? 'Link copied to clipboard' : 'Couldn’t copy the link');
+    });
+  });
+</script>
+
+<style is:global>
+  /* Keep the icon showing while its label does, even once the pointer leaves
+     the heading (Starlight shows it only on hover or focus). */
+  .sl-markdown-content .sl-anchor-link[data-copied] {
+    opacity: 1;
+  }
+
+  .docs-link-copied {
+    position: absolute;
+    z-index: 2;
+    inset-inline-start: calc(100% + 0.5rem);
+    top: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--docs-panel);
+    color: var(--sl-color-white);
+    font-family: var(--sl-font);
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.2;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    /* Placement is measured in this state, so beside the icon it only fades. */
+    translate: 0 -50%;
+    transition:
+      opacity 0.15s ease-out,
+      translate 0.15s ease-out;
+  }
+  :root[data-theme='light'] .docs-link-copied {
+    background-color: var(--sl-color-bg-nav);
+  }
+  .docs-link-copied[data-visible] {
+    opacity: 1;
+  }
+  .docs-link-copied svg {
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    color: var(--sl-color-green);
+  }
+  .docs-link-copied[data-state='failed'] {
+    color: var(--sl-color-gray-2);
+  }
+
+  .docs-link-copied[data-placement='below'] {
+    inset-inline: auto 0;
+    top: calc(100% + 0.375rem);
+    translate: var(--docs-link-copied-shift, 0px) -0.25rem;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.25);
+  }
+  .docs-link-copied[data-placement='below'][data-visible] {
+    translate: var(--docs-link-copied-shift, 0px) 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .docs-link-copied {
+      transition: none;
+    }
+  }
+</style>

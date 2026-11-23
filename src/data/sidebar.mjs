@@ -36,6 +36,7 @@ export const sidebar = [
         "docs/profiles",
         "docs/preferences",
         "docs/notification-inbox",
+        "docs/your-data",
       ]),
       group("Watch history", [
         "docs/watch-history",
@@ -72,6 +73,7 @@ export const sidebar = [
       ]),
       group("Playback and providers", [
         "docs/plugins",
+        "docs/provision-plugins",
         "docs/playback",
         "docs/transcode-nodes",
         "docs/node-status",
@@ -85,8 +87,12 @@ export const sidebar = [
         "docs/notification-delivery",
         "docs/import-household-watch-history",
       ]),
-      group("Maintain and recover", [
+      group("Back up and restore", [
+        "docs/backups",
+        "docs/restore",
         "docs/backup-restore",
+      ]),
+      group("Maintain and recover", [
         "docs/updates",
         "docs/server-health",
         "docs/download-storage",
@@ -96,6 +102,7 @@ export const sidebar = [
       ]),
       group("Deployment reference", [
         "docs/docker",
+        "docs/proxy-examples",
         "docs/configuration",
         "docs/s3-storage",
       ]),

@@ -1,5 +1,7 @@
 ---
 slug: docs/listen-to-audiobooks
+keywords: ["audio book", "listen to a book", "audiobook player", "play faster", "fall asleep", "continue listening", "listen without internet"]
+questions: ["How do I listen to an audiobook on my phone?", "Can I set a sleep timer while listening to a book?", "Why can't I see audiobooks on my iPhone?", "Can I download audiobooks to listen offline?"]
 beta: true
 title: Audiobooks (Beta)
 description: Start a book, choose chapters, and adjust speed or a sleep timer.
@@ -68,6 +70,10 @@ Pause on the first device and let it reach the server, then open the same
 book with the same profile on the other device. If both devices play at
 once, each can overwrite the other's progress.
 
+On an Android phone or tablet, listening to a downloaded book counts even
+when you're offline: your place reaches the server the next time the device
+can connect.
+
 For a dedicated listening app, see [Audiobookshelf-compatible apps](/docs/audiobookshelf).
 Administrators can [set up an audiobook library](/docs/audiobook-libraries).
 
@@ -83,3 +89,9 @@ Administrators can [set up an audiobook library](/docs/audiobook-libraries).
 On an Android phone or tablet, wait for **Downloaded**, then open the book
 from **Downloads**. To test it before you travel, turn off Wi-Fi and mobile
 data and play a later chapter.
+
+Offline, the book picks up where you last listened on that device. Once the
+device can reach your server again, it sends your place, so **Continue
+Listening** and your other devices resume from there. This works for a book
+stored as one file. For a book split into several files, a downloaded part
+plays offline, but your place in the book isn't saved.

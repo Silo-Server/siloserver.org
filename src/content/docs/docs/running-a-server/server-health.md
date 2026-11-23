@@ -1,5 +1,7 @@
 ---
 slug: docs/server-health
+keywords: ["server won't start", "not starting", "slow server", "high CPU", "high memory", "scan stuck", "crash"]
+questions: ["Why does docker compose ps show Silo as unhealthy?", "How do I tell if Silo is up and ready?", "Why are streams slow for friends watching remotely?", "Why does the ready check say degraded?"]
 title: Check server health
 description: Find whether a problem comes from startup, storage, scanning, or playback.
 ---
@@ -58,11 +60,13 @@ If viewers away from home get much less than their connection supports, check wh
 
 Each warning includes what to change, such as loading `tcp_bbr` on the host or raising `net.ipv4.tcp_wmem`. Set **Component** to `netadmin` to see the `net admin: capability state` entry. It says whether Silo had `NET_ADMIN` at startup, and warns if the helper didn't start or Silo couldn't confirm that it dropped the capability. None of these warnings stops Silo.
 
-If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo.
+If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo. If that proxy serves HTTP/3, see [If remote playback is slow over HTTP/3](/docs/reverse-proxy#if-remote-playback-is-slow-over-http3).
 
 ## Background work fails
 
 Open **Admin > Server > Scheduled Tasks** to find the task and **Admin > Logs > Server Log** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.
+
+A run marked **cancelled** with `Stopped after reaching the max runtime of` in its **Execution history** didn't fail: it reached the **Max runtime** set on the task's schedule. If the task never gets through its work, raise or clear the limit with **Edit Schedule**.
 
 ## Disk space
 
