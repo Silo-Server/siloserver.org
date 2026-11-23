@@ -46,6 +46,11 @@ couldn't be refreshed, select **Refresh status** and look under
 **Import history** before starting another run. Closing or reloading the page
 doesn't cancel an import that's already running.
 
+Your account can run one import at a time, including imports into its other
+profiles. Starting another while one is queued or running shows "an import
+is already queued or running for this account; wait for it to finish before
+starting another".
+
 To import for other people in your household, the server administrator can
 use [household history import](/docs/import-household-watch-history).
 For your progress and watched status in Silo, see

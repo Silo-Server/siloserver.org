@@ -102,6 +102,7 @@ export const sidebar = [
       ]),
       group("Deployment reference", [
         "docs/docker",
+        "docs/proxy-examples",
         "docs/configuration",
         "docs/s3-storage",
       ]),

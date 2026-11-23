@@ -89,7 +89,11 @@
   {"query": "search cant find movies by part of actor name", "expect": ["docs/docker"]},
   {"query": "meilisearch memory", "expect": ["docs/docker"]},
   {"query": "inotify", "expect": ["docs/autoscan"]},
-  {"query": "caddy", "expect": ["docs/reverse-proxy"]},
+  {"query": "caddy", "expect": ["docs/reverse-proxy", "docs/proxy-examples"]},
+  {"query": "nginx", "expect": ["docs/proxy-examples"]},
+  {"query": "traefik", "expect": ["docs/proxy-examples"]},
+  {"query": "haproxy", "expect": ["docs/proxy-examples"]},
+  {"query": "413 request entity too large", "expect": ["docs/proxy-examples"]},
   {"query": "http3 buffering away from home", "expect": ["docs/reverse-proxy"]},
   {"query": "prometheus", "expect": ["docs/monitoring"]},
   {"query": "quick connect", "expect": ["docs/jellyfin-apps"]},
@@ -162,5 +166,6 @@
   {"query": "cant open pull request for docs", "expect": ["docs/improve-the-docs"]},
   {"query": "change app language", "expect": ["docs/preferences"]},
   {"query": "menus in spanish", "expect": ["docs/preferences"]},
-  {"query": "help translate silo", "expect": ["docs/preferences"]}
+  {"query": "help translate silo", "expect": ["docs/preferences"]},
+  {"query": "how do I set up theme music", "expect": ["docs/media-folders"]}
 ]

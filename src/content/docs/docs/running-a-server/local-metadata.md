@@ -1,7 +1,7 @@
 ---
 slug: docs/local-metadata
 keywords: ["sidecar files", "XML metadata", "custom posters", "custom artwork", "TMM", "home movies", "manual metadata", "offline metadata", "sports events"]
-questions: ["How do I use my own posters for home videos?", "Can Silo read my Kodi .nfo files?", "Why aren't my NFO edits showing up?", "How do I add a series that isn't on TMDB?"]
+questions: ["How do I use my own posters for home videos?", "Can Silo read my Kodi .nfo files?", "Why aren't my NFO edits showing up?", "How do I add a series that isn't on TMDB?", "Why is my home video's poster a still from the video?"]
 title: Use local NFO metadata
 description: Supply titles, descriptions, and artwork beside your media files.
 ---
@@ -69,6 +69,16 @@ After you replace an image, refresh the item.
 For a movie or series, the **Images** list in **Edit Metadata** also offers the local posters, backgrounds, and logos, marked **LOCAL**, even when **Local metadata (NFO + artwork)** is off for the library. The list follows the rules above, so files they skip don't appear. Apply one as you would a provider image, as described in [Choose artwork](/docs/metadata#choose-artwork). An image you upload also appears in the list, marked **LOCAL**, while the item uses it. Silo keeps uploads in its artwork storage and doesn't write them beside your media files.
 
 If **Could not load from LOCAL** appears above the images, Silo couldn't read some of the title's local images, for example because the file's permissions don't let Silo read it, or the title's folder links outside the library and holds no video of the title. Silo leaves them out of the list. The list checks each image the same way Silo does when it copies artwork after a scan, so the title doesn't get those images either.
+
+### If a movie has no poster
+
+When a movie has no poster file beside it and no online provider has a poster for it, as with most home videos, Silo takes a frame from the video and crops it to a portrait poster. The frame appears within about 15 minutes of the scan that added the movie, or later when many movies need one. It happens on its own, and no setting turns it off.
+
+Any other poster replaces the frame: a poster file you add beside the video, a provider's poster once the movie is matched, or an image you apply or upload in **Edit Metadata**. Once you apply or upload another image, you can't go back to the frame.
+
+Frames don't depend on **Save provider artwork to storage**. With it off, or with **Local metadata (NFO + artwork)** off for the library, Silo ignores poster files beside your media, so a movie with a poster file but no provider poster shows a frame.
+
+Only movies get a frame, and only as their poster. For a series, season, or episode with no image, or a movie with no background, add an image file with a name from the table above.
 
 ## A small movie example
 
