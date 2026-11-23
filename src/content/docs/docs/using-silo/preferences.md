@@ -127,9 +127,10 @@ playback, the app switches to the matching limit, unless you picked a fixed
 quality in the player.
 
 The web app uses the cellular settings when the browser reports a cellular
-connection, and applies the same 2 Mbps cap when Data Saver is on. To change
-it for one browser, open that browser in **Settings > Your Devices** and set
-**Cellular quality** and **Cellular maximum bitrate** under **Picture**.
+connection or has Data Saver on. With Data Saver, it also caps playback at
+2 Mbps. To change them for one browser, open that browser in **Settings >
+Your Devices** and set **Cellular quality** and **Cellular maximum bitrate**
+under **Picture**.
 
 ### Lower quality when buffering
 
