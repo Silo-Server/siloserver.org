@@ -68,11 +68,12 @@ title again to bring it back.
 
 ## Change watched status
 
-Silo marks a movie or episode watched on its own when you play past 90% of it,
-or when you reach its end credits, if the version you're playing has a
-[credits marker](/docs/markers). The person who runs your server can change
-the 90%. The title then leaves **Continue Watching**. For a series, the next
-episode takes its place, or appears in **Next Up** if you use that row.
+Silo marks a movie or episode watched on its own when you play past 90% of
+it. If the version you're playing has a [credits marker](/docs/markers),
+reaching the end credits counts too, even before 90%. The person who runs
+your server can change the 90%. The title then leaves **Continue Watching**.
+For a series, the next episode takes its place, or appears in **Next Up** if
+you use that row.
 
 To change it yourself on a phone or tablet, open the title and select
 **Watched**.
