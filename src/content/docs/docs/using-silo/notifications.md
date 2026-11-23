@@ -104,9 +104,11 @@ the page leaves your preferences unchanged. You don't need to sign in to
 confirm. If your mail app shows its own unsubscribe button next to the
 sender, it can stop the emails straight away, without the confirmation page.
 
-To receive emails again, turn on **Email this profile's notifications** in
-**Settings > Notifications**. Email comes back on as **Daily digest**, so
-choose your frequency again if you used another one.
+To turn email off or back on yourself, switch to that profile and use
+**Email this profile's notifications** in **Settings > Notifications**. Do
+this if an email has no **Unsubscribe** link or the page says **Link
+invalid**. Email turns back on as **Daily digest**, so change **Frequency**
+if you used another option.
 
 ### Discord direct messages
 
