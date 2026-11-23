@@ -26,7 +26,7 @@ Everything in this section is on **Admin > Server > Appearance**.
 2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar. Emails use it for their main button, such as the one in an invitation.
 3. Save, then look at a normal page and the signed-out sign-in page. To see the logo in an email, [send a test email](/docs/notification-delivery#set-up-email).
 
-If your accent is too dark to read as text, Silo draws accent-colored text, such as links and the current page in the admin and settings sidebars, in a lighter shade. Buttons and the bar beside the current page keep your exact color. For anyone who turns on **High Contrast** under [**Settings > Accessibility**](/docs/preferences#change-a-profile-preference-in-the-web-app), accent text can be lighter still.
+If your accent is too dark to read as text, Silo draws accent-colored text, such as links and the current page in the admin and settings sidebars, in a lighter shade. Buttons and the bar beside the current page keep your exact color. For anyone who turns on **High Contrast** under [**Settings > Accessibility**](/docs/preferences#change-a-profile-preference-in-the-web-app), accent text can be lighter still, and focus outlines are white instead of your accent.
 
 Use artwork you have permission to publish, and check that your logos stand out and the sign-in page stays readable over your login background.
 
