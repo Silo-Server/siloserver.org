@@ -113,10 +113,10 @@ Choosing a quality in the player doesn't change these settings. See
 On iPhone, iPad, and Android phones and tablets, **Cellular Quality** in
 **Settings > Playback** replaces both settings while you're on mobile data or
 a network the device treats as metered, such as a phone hotspot or a Wi-Fi
-network marked as metered on Android. It's one list, from
-**Auto, up to 10 Mbps** and **Auto, no limit** down to **480p**. The default,
-**Auto, up to 10 Mbps**, plays the original file up to 10 Mbps and uses a
-smaller copy or converts larger files to fit.
+network marked as metered on Android. It's one list, from two **Auto**
+choices down to **480p**. The default, **Auto, up to 10 Mbps**, plays the
+original file up to 10 Mbps and converts larger files to fit.
+**Auto, no limit** drops that cap.
 
 When Low Data Mode is on in iOS or iPadOS, or Data Saver is on in Android,
 Silo caps playback at 2 Mbps on top of **Cellular Quality**. Any stricter
