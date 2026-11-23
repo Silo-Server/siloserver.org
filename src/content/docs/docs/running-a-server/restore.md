@@ -33,7 +33,7 @@ Merging keeps whichever progress is newer and never deletes what's already here.
 - Accounts and profiles that are already here. They keep their password, role, access, and PIN; only missing profiles and the chosen data are added. Restoring an administrator account that isn't here creates an administrator, and the review says so.
 - Access settings that are stricter here. Where the backup's settings would widen access, the server keeps its current values.
 - Settings that belong to this server, such as its address, storage, and backup settings.
-- Settings set by an [environment variable](/docs/configuration#admin-managed-settings) on this server, such as `SILO_SERVER_NAME`. They keep this server's values, and the review marks them **(kept: environment)**. When a variable sets part of a connection to an outside service, the whole connection stays as it is: with any `SILO_SMTP_*` variable set, every mail setting keeps this server's value.
+- Settings set by an [environment variable](/docs/configuration#server-settings-from-the-environment) on this server, such as `SILO_SERVER_NAME`. They keep this server's values, and when you open their settings page under **Settings**, each one shows **(kept: environment)**. When a variable sets part of a connection to an outside service, the whole connection stays as it is: with any `SILO_SMTP_*` variable set, every mail setting keeps this server's value.
 - Libraries whose folders this server can't open. Make the folders available first.
 - Plugins that aren't installed here. A restore never installs a plugin from a backup. Install it from a [plugin catalog](/docs/plugins), then restore it again to get its settings.
 - Settings encrypted with another `SECRET_KEY`, including plugin settings.
