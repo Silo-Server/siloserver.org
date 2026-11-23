@@ -119,24 +119,21 @@ Speed tests take the same route as playback. If media goes through [proxy nodes]
 
 ## Generate chapter thumbnails
 
-For Movies and Series libraries, **Generate chapter thumbnails** controls previews at file chapters and skip-marker positions. Markers can have previews even when the file has no chapters. Silo stores preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
+**Generate chapter thumbnails** makes a preview image for each chapter in a file and for each [skip marker](/docs/markers), so a file without chapters can still get marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
 1. Edit the library under **Admin > Libraries**.
-2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Set this separately for each library.
-3. Choose a movie or episode with embedded chapters or [skip markers](/docs/markers). Generation needs access to the media file and writable artwork storage.
-4. Open or play the title to queue missing previews, then allow background generation to finish. Silo also checks for missing previews every six hours.
-5. In the web player, open **Chapters** to check the chapter images. Move the pointer over a chapter or marker position on the seek bar to check its preview. On narrow screens, **Chapters** is under **More player options**.
+2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each library has its own switch.
+3. Let background generation run. Silo also queues a title's previews when someone opens or plays it, and checks for missing previews every six hours.
+4. Open a title with chapters or skip markers in the web player. Open **Chapters** to check the chapter images; on narrow screens, **Chapters** is under **More player options**. Hover over the seek bar inside a chapter or marker to check its image. If the library also makes [seek previews](/docs/timeline-previews), the seek bar shows those instead once they're ready.
 
-A chapter image comes from near the start of that chapter; a marker image comes from the start of that marker. These images identify those points rather than every instant of the video.
+A chapter image is taken a few seconds into the chapter, and a marker image at the marker's start.
 
-Turn the library switch off to stop generating previews for that library. Images already generated can still appear; turning the switch off does not delete them. Chapter navigation and skip buttons remain available without images.
+Turning the switch off stops new previews for that library. It doesn't delete the ones Silo already made, so they can still appear.
 
-Thumbnail extraction follows the server's **Hardware acceleration** setting. Under **Preview images** on **Admin > Playback > Settings**, **Generate chapter thumbnails on** chooses local extraction or [transcode nodes](/docs/transcode-nodes), when nodes are available. A working hardware backend is required to use the GPU; choosing hardware acceleration alone does not prove an extraction used it.
-
-See [Watch movies and series](/docs/watch-movies-and-series#chapters-intros-and-the-next-episode) for client controls and the 1.0 preview limits.
+With [**Hardware acceleration**](#choose-and-test-acceleration) set up, Silo can extract the images on the GPU. To make them on a [transcode node](/docs/transcode-nodes) instead, set **Generate chapter thumbnails on** under **Preview images** on **Admin > Playback > Settings**. The node options appear once a transcode node is connected.
 
 ### If previews don't appear
 
 Check that the file has chapters or skip markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**. Both settings are under **Advanced** in **Preview images** on **Admin > Playback > Settings**. **Software HDR tone mapping** is separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
-Previews can be absent while generation is pending or after an extraction, worker, or storage failure. The web player keeps chapter navigation, skip controls, and playback usable without an image. Silo retries failed previews on its own, so a file that failed once can fill in later. To investigate, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.
+Chapter menus, skip buttons, and playback work while previews are missing. Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.
