@@ -103,7 +103,8 @@ email, then select **Unsubscribe** on the confirmation page. Opening the page
 leaves your preferences unchanged. You don't need to sign in to confirm.
 
 To receive emails again, turn on **Email this profile's notifications** in
-**Settings > Notifications**.
+**Settings > Notifications**. It comes back as **Daily digest**, so choose
+your frequency again if you used another one.
 
 ### Discord direct messages
 
