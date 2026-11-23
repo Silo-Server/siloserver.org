@@ -33,18 +33,20 @@ previews, each app falls back as described below.
 These settings are in **Admin > Playback > Settings**, under **Preview images**.
 
 1. Under **Advanced**, raise **Seek preview workers**, the number of files
-   each server makes previews for at once. The default is 1. Previews run at
-   low priority, so playback comes first.
+   Silo makes previews for at once. The default is 1.
 2. If you have a [transcode node](/docs/transcode-nodes), set **Generate seek
    previews on** to **Transcode nodes when available** or **Transcode nodes
-   only**. With the first, the main server makes the previews itself when no
-   node is free.
+   only**. With **Transcode nodes when available**, Silo makes the previews
+   itself when no node is free. With **Transcode nodes only**, files wait for
+   a node. If both options are unavailable and **No connected transcode node
+   supports seek previews** appears, the node is older than the main server or
+   isn't [**Healthy**](/docs/node-status).
 3. Under **Advanced**, set **Seek previews per transcode node**, the number of
-   files one node makes previews for at once, counted across every server.
-   It takes 1 to 64, and the default is 1. A node gets only as many files as
-   the servers send it, so keep **Seek preview workers** at least this high.
-   Each preview a node makes counts toward its **Max Transcodes**, so leave
-   room there for playback.
+   files one node makes previews for at once. It appears once step 2 is set,
+   takes 1 to 64, and defaults to 1. A node gets only the files Silo sends it,
+   so keep **Seek preview workers** at least this high. Each preview a node
+   makes counts toward its **Max Transcodes**, so leave room there for
+   playback.
 
 ## Preview a position
 
