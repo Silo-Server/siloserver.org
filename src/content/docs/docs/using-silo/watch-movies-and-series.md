@@ -119,12 +119,12 @@ the wrong part, send a [problem report](/docs/report-a-problem) with the
 title, episode, and times.
 
 In the web player, the **Chapters** menu can show an image for each
-chapter. Hover over the seek bar to see the image for the chapter or skip
-marker there. A marker has its own image, which can differ from the
-chapter's. Once a video has [timeline previews](/docs/timeline-previews),
-the seek bar shows those instead. Your administrator turns
-[chapter and marker images](/docs/playback#generate-chapter-thumbnails) on
-for each library; without them, chapters and skip buttons work the same.
+chapter. Hover over or drag along the seek bar to see the image at that
+point; inside a skip marker, it shows the marker's image. Once a video has
+[timeline previews](/docs/timeline-previews), the seek bar shows those
+instead. Your administrator turns
+[these images](/docs/playback#generate-chapter-thumbnails) on for each
+library. Without them, you can still jump to chapters and skip.
 
 In **Settings > Playback**, choose whether to skip intros, credits, and
 recaps automatically and whether to play the next episode.
