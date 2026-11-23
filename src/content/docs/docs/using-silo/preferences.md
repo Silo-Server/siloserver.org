@@ -118,11 +118,13 @@ choices down to **480p**. The default, **Auto, up to 10 Mbps**, plays the
 original file up to 10 Mbps and converts larger files to fit.
 **Auto, no limit** drops that cap.
 
-When Low Data Mode is on in iOS or iPadOS, or Data Saver is on in Android,
-Silo caps playback at 2 Mbps on top of **Cellular Quality**. Any stricter
-limit you chose, such as **480p**, stays in place. If your connection, Low
-Data Mode, or Data Saver changes during playback, the app switches to the
-matching limit.
+On iPhone and iPad, Low Data Mode switches playback to **Cellular Quality**
+on any network, Wi-Fi included, and caps it at 2 Mbps. On Android, Data Saver
+adds the same cap on mobile data and metered networks, unless you've let Silo
+ignore Data Saver. Any stricter limit you chose, such as **480p**, stays in
+place. If your connection, Low Data Mode, or Data Saver changes during
+playback, the app switches to the matching limit, unless you picked a fixed
+quality in the player.
 
 The web app uses the cellular settings when the browser reports a cellular
 connection, and applies the same 2 Mbps cap when Data Saver is on. To change
