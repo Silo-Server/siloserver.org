@@ -1,5 +1,7 @@
 ---
 slug: docs/audiobook-libraries
+keywords: ["m4b", "audio book", "audiobook folder structure", "id3 tags", "wrong author", "chapters out of order", "add audiobooks"]
+questions: ["How should I organize my audiobook files and folders?", "Why does my audiobook show the wrong author or title?", "Why are my audiobook chapters out of order?", "Can I import my Audible books?"]
 beta: true
 title: Set up an audiobook library (Beta)
 description: Arrange audiobook files, check their tags, and add them to Silo.
@@ -62,7 +64,7 @@ Audiobooks use the same `MEDIA_ROOT` mount as movies and series, so you don't ne
 
 ## Metadata enrichment
 
-The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Plugins**, then select it in the library's provider list. An accurate ASIN tag improves matching with providers that use it.
+The first-party audiobook metadata plugin can add covers and book details. Install and configure it under **Admin > Integrations > Plugins**, then select it in the library's provider list. An accurate ASIN tag improves matching with providers that use it.
 
 A provider match doesn't change chapter order. Fix that in the filenames or embedded chapters.
 

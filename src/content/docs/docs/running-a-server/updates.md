@@ -1,5 +1,7 @@
 ---
 slug: docs/updates
+keywords: ["upgrade", "new version", "update Silo", "latest version", "pull image"]
+questions: ["How do I roll back after a bad upgrade?", "Why is Silo stuck unhealthy after updating?", "How do I switch from separate postgres containers to one?", "Why won't Meilisearch start after updating?"]
 title: Update Silo safely
 description: Back up, pull the new image, and check the server after an update.
 ---
@@ -9,7 +11,7 @@ Update during a quiet period and tell users that playback will stop briefly.
 ## Before you update
 
 1. Read the release notes for the version you are moving to, including anything about remote nodes and plugins.
-2. [Back up](/docs/backup-restore#back-up-the-default-compose-stack) the database, `.env`, and data directories, and record the image you are running:
+2. [Back up](/docs/backup-restore#back-up-a-compose-install) the database, `.env`, and data directories, and record the image you are running:
 
    ```sh
    docker compose images silo
@@ -17,10 +19,11 @@ Update during a quiet period and tell users that playback will stop briefly.
 
    Keep that output. `latest` won't identify the old image once you've pulled a new one.
 3. Let active playback and downloads finish.
+4. If `docker compose ps` lists `postgres` and `redis` beside `silo`, read [If your server runs PostgreSQL and Redis in their own containers](#if-your-server-runs-postgresql-and-redis-in-their-own-containers) first.
 
-## Update the default Compose stack
+## Update with Docker Compose
 
-Published images are tagged `latest`, `build-N`, and a short commit SHA (see [image tags](/docs/docker#image-and-tags)). If you pinned `SILO_IMAGE` in `.env`, change it to the new tag first. Keep your existing `.env`; don't replace it with the latest example.
+Published images are tagged `latest`, `build-N`, and the full commit SHA (see [image tags](/docs/docker#image-and-tags)). If you pinned the image in `.env` with `SILO_OMNIBUS_IMAGE`, or `SILO_IMAGE` with separate containers, change it to the new tag first. Keep your existing `.env`; don't replace it with the latest example.
 
 From the directory that holds your Compose file:
 
@@ -30,11 +33,34 @@ docker compose up -d --no-deps silo
 docker compose logs -f silo
 ```
 
-`--no-deps` replaces only the Silo container and leaves PostgreSQL and Redis running.
+Recreating the container restarts the PostgreSQL and Redis inside it along with Silo. With [separate containers](/docs/docker#run-the-services-in-separate-containers), `--no-deps` replaces only the Silo container and leaves PostgreSQL and Redis running.
 
-Silo applies database migrations as it starts, before it answers requests. A large migration can take a while, and `docker compose ps` can show Silo as `unhealthy` until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run.
+With `docker run`, pull the new image, then remove the container and start it again with the same command:
 
-Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit.
+```sh
+docker pull ghcr.io/silo-server/silo-server:latest
+docker stop silo && docker rm silo
+```
+
+Silo applies database migrations as it starts, before it answers requests, and [backs up the database](#the-backup-before-an-update) first. A large migration can take a while. `docker compose ps` can show Silo as `starting` for up to 20 minutes, then `unhealthy`, until it finishes. Watch the logs and don't restart the container during a migration: that abandons the run, and the next start can wait while PostgreSQL still holds the abandoned run's locks.
+
+Migrations stop after 20 minutes by default. For a very large library, or when the release notes say a migration rewrites large tables, set a longer limit in `.env` before updating, for example `SILO_MIGRATE_TIMEOUT=60m`. `0` removes the limit. A table rewrite also needs free space on the database disk for a second copy of each rewritten table and its indexes, so check it before updating.
+
+## The backup before an update
+
+When a new version has database migrations to apply, Silo backs up the database first, unless [**Nightly backups**](/docs/backups#change-the-schedule-and-whats-included) is off. The copy goes where your other backups go and shows as **Taken before an upgrade** in **Admin > Server > Backups**. Silo keeps it until the update has finished, and keeps the 2 newest.
+
+It holds the database only, not uploaded files, so it can't be opened for restoring parts. Use it to [restore the whole server](/docs/restore#restore-the-whole-server) if the update goes wrong. It doesn't replace your own copy of `.env`, `SECRET_KEY`, and the data directories from [Before you update](#before-you-update).
+
+The backup adds to the time Silo takes to start. If it fails, Silo doesn't migrate or start, and the log gives the reason. To start once without it, set `SILO_SKIP_BACKUP_BEFORE_MIGRATE=true` in `.env`, recreate the container, and remove the line after that start. If the migrations fail and Silo starts again, it reuses the same backup for up to 6 hours instead of taking another each time.
+
+Silo skips the backup, and logs the reason, on a new install, when per-user data is in SQLite, when it has nowhere to keep backups, and when backups go to a bucket whose [`SECRET_KEY` you haven't confirmed](/docs/backups#keep-a-copy-of-secret_key).
+
+### With more than one API server
+
+One API server backs up the database and migrates it while the others wait, for up to `SILO_MIGRATION_WAIT`, 60 minutes by default. While a server waits, backs up, or migrates, its health and readiness checks don't answer. The image's health check allows 20 minutes before it reports the container `unhealthy`.
+
+If you run Silo on Kubernetes, give API pods a startup probe on `/api/v1/ready` whose budget, `failureThreshold` times `periodSeconds`, covers `SILO_MIGRATION_WAIT` plus the backup and the migrations. Otherwise liveness checks can restart a pod that's waiting for another pod's update. For the backup's share, check how long **Back Up Server** last took in **Admin > Server > Scheduled Tasks**.
 
 ## After the update
 
@@ -45,6 +71,12 @@ Migrations stop after 20 minutes by default. For a very large library, or when t
 
 Keep the backup until these checks pass.
 
+If an update moves the bundled Meilisearch to a new version and it doesn't start, set `MEILI_UPGRADE_DB=true` in `.env` for one start, then remove it. A move to a new PostgreSQL major version needs a dump and restore; see [Bundled PostgreSQL](/docs/docker#bundled-postgresql).
+
+If an update changes what Silo stores in the Meilisearch index, Silo rebuilds the index once in the background after it starts. PostgreSQL answers searches until the new index is ready. To see which engine is answering, use [Search status](/docs/docker#check-search).
+
+An update doesn't change your Compose file. If yours is older than the [`NET_ADMIN` capability](/docs/docker#net_admin-capability) line, Silo runs without it. If the kernel's send limit is low, Silo logs a `tcp send buffer: listener state` warning on each start, with how to fix it. The warning doesn't stop Silo. Before you add the line, read [what the capability allows](/docs/docker#what-the-capability-allows).
+
 ## If the update fails
 
 Stop and keep the logs. Switching back to the old image doesn't undo migrations, so don't alternate old and new images against the same database.
@@ -52,10 +84,52 @@ Stop and keep the logs. Switching back to the old image doesn't undo migrations,
 To see which migrations ran:
 
 ```sh
-docker compose run --rm silo --migrate-status
+docker compose exec silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo --migrate-status
 ```
 
-The reliable way back is to restore the pre-update backup with the old image, as in [Test a restore](/docs/backup-restore#test-a-restore). That loses every change made after the backup. [Ask for help](/docs/report-a-problem) before changing the database by hand.
+The reliable way back is to restore the pre-update backup with the old image, as in [Test a restore](/docs/backup-restore#test-a-restore). Silo's own **Taken before an upgrade** copy also works: while the new image is still running, [restore it in full](/docs/restore#restore-the-whole-server), but instead of restarting Silo afterwards, pin the old image in `.env` and run `docker compose up -d`. For a build from before PostgreSQL and Redis moved into the image, pin its `build-N-aio` tag. That loses every change made after the backup. [Ask for help](/docs/report-a-problem) before changing the database by hand.
+
+## If your server runs PostgreSQL and Redis in their own containers
+
+Servers installed before Silo moved to one container run PostgreSQL, Redis, and optionally Meilisearch in containers of their own. Silo's image now bundles those services, and with your Compose file it leaves them off and keeps using your containers and data. It does change two things for Silo itself: it runs as the account `PUID` and `PGID` name instead of root, and on its first start it gives the `plugins`, `artwork`, `compat`, `transcode`, and `download-artifacts` directories to that account. Before your next update:
+
+1. Set `PUID` and `PGID` in `.env` to an account that can read your media, such as the one that owns it. `id -u` and `id -g` print your own. Without them, Silo runs as uid `911`.
+2. If your Compose file sets `user:` on the `silo` service, remove it. The container has to start as root to switch to that account.
+3. Keep your Compose file. If you replace it with the repository's current files, for example with `git pull` in a clone, use [`docker-compose.advanced.yml`](/docs/docker#run-the-services-in-separate-containers): set `COMPOSE_FILE=docker-compose.advanced.yml` in `.env`, and carry over your own changes, such as GPU lines.
+
+:::caution
+Don't start the repository's `docker-compose.yml` on this server's data. It doesn't look for your existing install: Silo comes up on a new, empty database with first-run setup open to anyone who reaches the server, while your old `postgres` and `redis` containers keep running. If you already did, run `docker compose down`, select `docker-compose.advanced.yml` as above, and run `docker compose up -d`. Your data is still in the old directories. Move aside the `config` directory the new container created before you [move into one container](#move-into-one-container) later.
+:::
+
+After the update, check that your libraries still scan. A library whose folders the new account can't read stays as it was, and the log names the folder.
+
+### Move into one container
+
+A command in the image moves a server with separate containers into the single container. It copies the database, links Silo's directories into `config/silo`, and leaves the old directories as they were, so the old Compose file still starts on them. Redis and Meilisearch data stay behind: Silo doesn't need Redis's data, and it builds a new search index.
+
+Before you move, [back up](/docs/backup-restore#back-up-a-compose-install) the server, then prepare the directory that holds your Compose file:
+
+1. Download the repository's [`docker-compose.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.yml) and [`docker-compose.advanced.yml`](https://github.com/Silo-Server/silo-server/blob/main/docker-compose.advanced.yml) there, and carry over your own changes, such as GPU lines.
+2. In `.env`, set `PUID` and `PGID` as described above. Remove any `DATABASE_URL`, `REDIS_URL`, `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, and `SILO_MEILISEARCH_API_KEY` lines that point at the old containers. To keep using Meilisearch, set `ENABLE_MEILISEARCH=true`.
+3. If `.env` pins `SILO_IMAGE`, remove that line to follow `latest`, or set `SILO_OMNIBUS_IMAGE` to the image to run. For a build from before Silo moved to one container, that's its `build-N-aio` tag.
+4. Remove anything in `docker-compose.override.yml` that changes the `postgres`, `redis`, or `meilisearch` services. Compose rejects `docker-compose.yml` while the override still names them.
+5. If you use proxy nodes, turn on [node access](/docs/docker#nodes-and-stop-timeouts) in `.env` and uncomment its port lines. Transcode nodes need it too if the build you're moving to is from before they were given keys.
+
+Remove `COMPOSE_FILE` from `.env` if you set it. Then stop the old containers and run the move, with your `SILO_DATA_ROOT` in place of `/opt/silo`:
+
+```sh
+docker compose -f docker-compose.advanced.yml down &&
+docker compose run --rm -v /opt/silo:/silo-data \
+  --entrypoint /etc/silo-omnibus/migrate-compose-stack silo &&
+docker compose up -d
+```
+
+The command checks the install before it copies anything. If something is in the way, such as a setting from step 2 or too little free space for a second copy of the database, it stops with a message that says what to change, and Silo doesn't start. Fix it and run the commands again. Running it again after a successful move reports that there is nothing to do.
+
+The first start rebuilds some database indexes, so it takes longer on a large library. Sign in with your usual account and check your libraries, artwork, watch progress, and playback.
+
+To go back, run `docker compose down`, set `COMPOSE_FILE=docker-compose.advanced.yml` again, and run `docker compose up -d`. The single container's copy is then out of date. To move again later, move the `config` directory aside first. Once the single container works, delete the old `postgres`, `redis`, `meilisearch`, `plugins`, `artwork`, and `compat` directories yourself.
 
 ## Moving from alpha to 1.0
 
@@ -64,6 +138,7 @@ Existing alpha servers will update in two steps: first to a final bridge release
 What to expect:
 
 - Plan one maintenance window for the whole setup. Don't run alpha and 1.0 servers or nodes at the same time.
+- Transcode nodes no longer connect to PostgreSQL or Redis. Stop them first. Once the main server and proxy nodes run 1.0, issue each transcode node a key in **Admin > Playback > Nodes** and start it with `SILO_CORE_URL` and `SILO_NODE_KEY`, as in [Add and check transcode nodes](/docs/transcode-nodes#transcode-node-settings). Until a transcode node has its key, it's **Unhealthy** and gets no work.
 - Have the matching 1.0 app builds ready for your devices.
 - Playback, download, callback, and integration URLs created by the alpha server stop working. Create new ones from the 1.0 server and update external services such as autoscan and webhook senders. Don't edit old URLs by hand.
 - Health checks keep their addresses, `/api/v1/health` and `/api/v1/ready`.

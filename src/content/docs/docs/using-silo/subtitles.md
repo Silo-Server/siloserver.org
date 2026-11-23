@@ -1,5 +1,7 @@
 ---
 slug: docs/subtitles
+keywords: ["captions", "CC", "subtitle size", "subtitle delay", "subtitles out of sync", "subtitles ahead of the actors"]
+questions: ["How do I turn subtitles on while watching?", "How do I make the subtitle text larger?", "Why do subtitles show up before people speak?", "What does it mean when a subtitle doesn't match the video?"]
 title: Choose and adjust subtitles
 description: Pick a subtitle track, change how subtitles look, or fix subtitles that are out of sync.
 ---
@@ -17,13 +19,19 @@ While a title is playing, open the subtitle list and choose a track:
 Choose **Off** to hide subtitles. The same language can appear more than
 once when the title has several subtitle tracks in that language.
 
+When Silo converts the video for your device, the mobile and TV apps get a
+text subtitle from inside the video file along with the video, so it appears
+as soon as playback starts. Turning on a subtitle from inside the file, or
+switching to another one, restarts the video at the same spot, which takes a
+moment.
+
 If the language you want isn't there,
 [find, upload, or generate subtitles](/docs/missing-subtitles).
 
 ## Set your usual language and look
 
-Open **Settings** and go to **Subtitles**. Every Silo app has this section.
-There you can choose:
+In the web app, open **Settings > Language & Subtitles**. The mobile and TV
+apps have a **Subtitles** page under **Settings**. There you can choose:
 
 - your subtitle language
 - when subtitles appear (the behavior setting)

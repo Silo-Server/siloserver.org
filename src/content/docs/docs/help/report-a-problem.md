@@ -1,5 +1,7 @@
 ---
 slug: docs/report-a-problem
+keywords: ["file a bug", "submit a bug", "crash", "docker logs", "support ticket", "CVE", "security disclosure", "contact developers"]
+questions: ["How do I file a bug report for Silo?", "Where do I report an issue with the Android app?", "How do I get logs from my Docker server?", "How do I report a security vulnerability privately?"]
 title: Report a problem
 description: Share the steps, versions, and evidence needed to investigate a Silo problem.
 ---
@@ -68,7 +70,7 @@ If you turned on the `search` profile, add `meilisearch` to the second
 command. Startup errors show up here even when Silo's admin log screen is
 empty. Include the image version and any restart or health errors.
 
-For a problem after startup, open **Admin > Logs**. A request ID, playback
+For a problem after startup, open **Admin > Logs > Server Log**. A request ID, playback
 session ID, or node name helps the administrator find the matching event.
 See [server logs](/docs/logging) for filtering and retention.
 
@@ -92,6 +94,6 @@ your computer. For Docker, include the host-to-container path mapping.
 
 For [Autoscan](/docs/autoscan), include the source type, the reported file
 path, the path after rewrites, the Silo library root, and the error from
-**Activity**. For the legacy external Autoscan target, add its protocol and
+**Admin > Autoscan > Activity**. For the legacy external Autoscan target, add its protocol and
 configuration. Replace private folder names the same way everywhere, so the
 paths still line up.

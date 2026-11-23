@@ -1,5 +1,7 @@
 ---
 slug: docs/preferences
+keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV", "interface language", "menu language", "wrong translation"]
+questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?", "How do I switch the menus to Spanish?", "Can I fix a bad translation in the app?"]
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---
@@ -13,25 +15,199 @@ pages under **Settings**. The pages below are in the web app.
 
 ## Change a profile preference in the web app
 
-Open **Settings** from your profile menu, then choose a page:
+Open **Settings** from your profile menu. The settings pages replace the
+app's sidebar, and **Back to App** at the top returns you to the page you
+came from. **Search settings** finds a setting by its name. On a phone or a
+narrow window, Settings opens as a list of pages. Choose a page:
 
-- **Playback:** quality, spoken and metadata languages, skipping, and what
-  plays next.
-- **Subtitles:** language, when subtitles appear, and how they look.
+- **Playback:** quality, skipping, and what plays next.
+- **Language & Subtitles:** spoken and metadata languages, when subtitles
+  appear, and how they look.
 - **Home Screen:** which rows appear on Home and in what order.
-- **Appearance**, **Navigation & Cards**, and **Accessibility:** how the web
-  app looks. These don't change the native apps.
+- **Title Pages:** title art, [theme music](/docs/media-folders#theme-music), spoilers, and advisory ages on
+  movie and show pages.
+- **Navigation & Cards:** poster size, shortcuts and badges on posters, and
+  the links in your menu. The mobile and TV apps show your
+  [badges](#choose-badges-on-posters) too.
+- **Accessibility:** how the web app looks. It doesn't change the native
+  apps, except **App language**, which
+  [follows your profile](#change-the-app-language).
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
 **Spoken language** for that.
 
+## Change the app language
+
+**App language** sets the language of Silo's menus, buttons, and messages.
+It belongs to your profile, so a language you pick follows you to every
+device. The default, **Match device**, uses the first language in your
+phone's, TV's, or browser's language list that Silo has, or English if Silo
+has none of them.
+
+| App | Where |
+| --- | --- |
+| Web app | **Settings > Accessibility > App language** |
+| iPhone, iPad, Apple TV, and Mac | **Settings > General > App Language** |
+| Android phones and tablets | **Settings > Interface > App language** |
+| Android TV | **Settings > General > App language** |
+
+Before you sign in, the web app's sign-in page has its own language menu in
+the top corner.
+
+Every app offers the same 21 languages besides English: Arabic, Chinese
+(Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish,
+French, German, Italian, Japanese, Korean, Norwegian Bokmål, Polish,
+Portuguese (Brazil), Russian, Spanish, Swedish, Turkish, and Ukrainian. The
+list shows each one in its own language, such as **Deutsch** or **日本語**.
+
+**Match device** reads Norwegian as Norwegian Bokmål, and Chinese for
+Taiwan, Hong Kong, or Macau as Traditional Chinese. Apple devices also read
+Nynorsk as Norwegian Bokmål; the other apps skip it and try your next
+language.
+
+To use a different language on one device, choose it for Silo in the
+device's own settings. It applies to the profile you're using, on that
+device only. iPhone, iPad, Mac, and Android phones and tablets running
+Android 13 or later have this setting; Apple TV and Android TV don't. If you
+later pick a language inside Silo, it's saved for your profile and clears
+this device's choice. Other devices keep their own.
+
+App language doesn't change titles, descriptions, audio, or subtitles. Those
+follow **Metadata language**, **Spoken language**, and your subtitle
+settings.
+
+### Help translate Silo
+
+Most of Silo's translations were written by AI and haven't been checked by
+people who speak the language, so some wording may be wrong or awkward. To
+fix a phrase, follow the
+[contribution guide](https://github.com/Silo-Server/silo-translations/blob/main/CONTRIBUTING.md)
+and open a pull request in the
+[silo-translations](https://github.com/Silo-Server/silo-translations)
+repository on GitHub. A merged fix shows up in a later app update.
+
+## Set playback quality
+
+**Resolution** and **Maximum bitrate** set the quality Silo plays at:
+
+- **Resolution** sets the largest picture size. With **Auto**, the default,
+  Silo plays the original file whenever your device can play it and your
+  connection is fast enough, and converts it only when it can't. A size such
+  as **1080p** plays files up to 1080p as they are, however fast your
+  connection is, and converts larger files down to 1080p.
+- **Maximum bitrate** caps how much data playback uses, from 200 Mbps down
+  to 1.5 Mbps. Silo converts a file above it to fit. The default is
+  **No limit**.
+
+In the web app, they're under **Quality** in **Settings > Playback**, where
+**Resolution** is called **Preferred quality**. On iPhone, iPad, Apple TV,
+and Mac, open **Settings > Playback** and look under **Quality**. On Android
+phones, tablets, and TVs, look under **Streaming** in **Settings > Playback**.
+
+Choosing a quality in the player doesn't change these settings. See
+[Controls while you watch](/docs/watch-movies-and-series#controls-while-you-watch).
+
+### Quality on mobile data
+
+On iPhone, iPad, and Android phones and tablets, **Cellular Quality** in
+**Settings > Playback** replaces both settings while you're on mobile data or
+a network the device treats as metered, such as a phone hotspot, Low Data
+Mode on iPhone, or a Wi-Fi network marked as metered on Android. It's one
+list, from **Auto** to **480p**. The default, **720p**, plays up to 720p at
+2 Mbps. If your connection changes during playback, the app switches to the
+other setting.
+
+The web app does the same when the browser reports a cellular connection or
+has Data Saver on. To change it for one browser, open that browser in
+**Settings > Your Devices** and set **Cellular quality** and **Cellular
+maximum bitrate** under **Picture**.
+
+### Lower quality when buffering
+
+**Lower quality when buffering** sits with **Resolution** and **Maximum
+bitrate**. It decides what Silo does on **Auto** when playback keeps
+stopping to buffer:
+
+- **Automatically**, the default, lowers the quality at once and offers
+  **Restore quality**.
+- **Ask first** asks before lowering.
+- **Never** leaves the quality as it is.
+
+Silo always asks before lowering a quality you picked in the player. See
+[If playback keeps buffering](/docs/watch-movies-and-series#if-playback-keeps-buffering)
+for what appears while you watch.
+
+Once Silo lowers the quality, it plays **Auto** under that lower speed on
+this device and network for 24 hours after playback last buffered. A line
+such as "Limited to 12 Mbps after buffering on Oct 17" then appears under
+the setting. Select **Reset** to clear the limit; your measured connection
+speed stays. **Restore quality** in the player and a **Test speed** result
+faster than the limit also clear it. With **Never**, Silo ignores the limit
+and hides the line. **Maximum bitrate** still applies on top of the limit.
+
+### Test your connection speed
+
+The **Connection** group in **Settings > Playback** shows **Connection
+speed**, the latest speed measured for this device on this network. A line
+under it, such as "Auto plays videos up to 35 Mbps without converting them",
+gives the highest bitrate **Auto** plays as it is at that speed.
+
+Select **Test speed** to measure again. The test takes up to 10 seconds, and
+nothing can be playing while it runs. If the server is busy with other tests,
+Silo says how long to wait. The apps also run a short test on their own when
+the server has no recent speed for the device and network. A speed that
+starts with "Faster than" is the least the connection has managed, from a
+short test or from playback, rather than a full measurement.
+
+Speed tests don't run on mobile data or a metered network. There the group
+says that tests are skipped, and **Test speed** is hidden.
+
+## Choose badges on posters
+
+Badges are the small labels on posters, such as `4K` or a rating. To choose
+them, open **Settings > Navigation & Cards** and go to **Badges**:
+
+1. Turn on **Show badges on posters**, and pick a look under **Style**.
+2. Open a group such as **Media Info** or **Ratings & Certifications**, and
+   turn on the badges you want.
+3. To move or recolor a badge that's on, select **Adjust** beside it and
+   choose a **Position** and **Color**.
+
+The preview beside the settings, or above them in a narrow window, updates as
+you go. Badges belong to your profile, so the mobile and TV apps show them
+too. Until you change anything, you see your server's defaults; **Reset
+badges** takes you back to them.
+
+### Combine resolution, HDR, and audio in one badge
+
+**Resolution**, **HDR / Dolby Vision**, and **Audio Codec** under **Media
+Info** are on by default, so a 4K Dolby Vision movie with DTS-HD audio gets
+three badges: `4K`, `DV HDR10`, and `DTS-HD`. To use less of the poster, turn
+on a combined badge. Both are off by default:
+
+- **Resolution + HDR (combined)** shows one badge such as `4K DV` in place of
+  **Resolution** and **HDR / Dolby Vision**. Audio keeps its own badge.
+- **Resolution + HDR + Audio (combined)** shows one badge such as
+  `4K DV DTS-HD` in the web app, the iPhone, iPad, Apple TV, and Mac apps, and
+  the Android phone, tablet, and TV apps, in place of **Resolution**, **HDR / Dolby Vision**, **Audio Codec**, and
+  **Resolution + HDR (combined)**. A file
+  without HDR shows only its resolution and audio, such as `4K DTS-HD`.
+
+While a combined badge is on, the badges it replaces stay hidden, and their
+rows say so, for example "Hidden while the combined Resolution + HDR + Audio
+badge is on." They keep their own setting, so turning the combined badge off
+brings them back.
+
 ## Change one device
 
-1. Open **Settings > Your Devices** and choose the device.
+1. Open **Settings > Your Devices** and choose the device. The one you're
+   using says **This device**.
 2. Change any setting it lists, such as quality, subtitle language, playing
    the next episode, HDR, or the audio sync offset. Each setting says where its value comes
-   from: **Changed here**, **From your profile**, or **App default**. A
+   from: **Changed here**, **From your profile**, or **App default**.
+   **Show title art** says **Server default** instead of **App default**,
+   because your server's administrator can change its default. A
    changed setting shows **Use your setting**; select it to go back to your
    profile's value. **Use profile settings** removes every change on the
    device.
@@ -51,10 +227,21 @@ Profile Settings** at the bottom of the page removes every change on the
 device.
 
 A setting changed on a device wins over your profile's value on that device,
-except **Show title art** while **Apply to all devices** is on. If a single
+except **Show title art** while **Apply to all devices** is on. In the web
+app, **Use server default** appears under **Show title art** on **Settings >
+Title Pages** once you've chosen your own setting. It returns this browser to
+your server's default; other devices keep their own choice. If a single
 title plays differently from others, look at the audio and subtitle tracks
 chosen for it during playback before you change the whole profile.
 
-**Forget** removes a device's saved settings and hides it until it's used
-again. It doesn't sign the device out; for a lost device, see
+To tell apart devices that show the same name, such as two TVs that both say
+"Apple TV", choose one, select **Rename**, type a name such as "Living Room",
+and select **Save**. The device keeps that name when it's used again, and its
+heading shows "Reports itself as Apple TV" under the new name. To go back to
+the reported name, select **Rename**, clear the name, and select **Save**.
+Names belong to your profile, so a TV that two profiles use can have a
+different name in each.
+
+**Forget** removes a device's saved settings and its name, and hides it until
+it's used again. It doesn't sign the device out; for a lost device, see
 [Accounts and signed-in devices](/docs/accounts).

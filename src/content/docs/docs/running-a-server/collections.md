@@ -1,14 +1,16 @@
 ---
 slug: docs/manage-collections
+keywords: ["box set", "boxset", "dynamic collection", "auto-updating list", "holiday movies", "group movies together", "genre collections"]
+questions: ["How do I make a holiday movie shelf for everyone?", "Can I follow an MDBList list in my library?", "Why does my synced list show fewer movies than the original?", "Why can't one profile see a collection?", "Why is a collection's poster a grid of other posters?"]
 title: Create server collections
 description: Build a server collection by hand, from rules, or from a list, arrange shelves, and add starter packs.
 ---
 
-Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab, for example a set of short films or a seasonal selection. You can also show one as a row on Home or a library page.
+Server collections belong to one or more libraries and appear for everyone who can use them, on each library's **Collections** tab, for example a set of short films or a seasonal selection. You can also show one as a row on Home or a library page. In the web app, manual collections and synced lists appear on the [pages of the movies and series they hold](#collections-on-movie-and-series-pages).
 
 ## Create a collection
 
-1. Open **Admin > Collections** and choose **New collection**.
+1. Open **Admin > Libraries > Collections** and choose **New collection**.
 2. Choose **Manual** to pick the titles, **Smart** to fill it from rules, or **Synced list** to follow a list from MDBList or TMDB.
 3. Enter a **Name** and choose the libraries it belongs to: under **Titles from** for a manual collection, in the **Rules** sentence for a smart collection, or under **Match into** for a synced list.
 4. Fill it in: titles for a manual collection, rules for a smart collection, or the list a synced list follows. For a smart collection, check **Live preview** for the titles that match.
@@ -18,9 +20,9 @@ The editor works as it does for [personal collections](/docs/collections#make-a-
 
 - **Libraries**: **Change** takes you to where you pick them. If unticking a library would drop titles from a manual collection that are only in that library, the editor names them before you save.
 - **Shelf**: the heading the collection sits under on the library's **Collections** tab. Choose **Arrange** to move it.
-- **Show on the Collections tab**: turn it off to hide the collection from the tab. A hidden collection cannot be added as a row.
+- **Show on the Collections tab**: turn it off to hide the collection from the tab and from movie and series pages. A hidden collection cannot be added as a row.
 - **Rows that show it**: the Home and library page rows that show this collection. **Add as a row** adds one to Home or a library page.
-- **Look**: a poster and a backdrop. Without a poster, a manual collection or synced list shows a collage of its titles.
+- **Look**: a poster and a backdrop. Without a poster of its own, a collection shows a collage of up to four posters from its first titles, or from a smart collection's first matches in the collection's order. Each profile's collage uses only titles that profile can open. A poster you add replaces the collage for everyone. To bring the collage back, open the pencil button on the poster, choose **Use the collage**, then **Save**. A new or edited smart collection's collage can take a moment to appear, and it can take about 15 minutes to catch up with titles that match later.
 
 To change a collection later, select it in the list, edit it, and choose **Save**.
 
@@ -28,7 +30,7 @@ To change a collection later, select it in the list, edit it, and choose **Save*
 
 A synced list reads a published list again on a schedule. Under **The list it follows**, choose:
 
-- **MDBList**: pick from **Popular picks** or paste any public MDBList link. With an MDBList API key under **Admin > Settings > Subtitles & Metadata**, you can also search MDBList.
+- **MDBList**: pick from **Popular picks** or paste any public MDBList link. With an MDBList API key under **Lists** on **Admin > Integrations > Providers**, you can also search MDBList.
 - **TMDB chart**: trending, popular, top rated, now playing, upcoming, airing today, or on the air, for movies, TV shows, or both. These work without setup, because Silo includes a TMDB key.
 - **TMDB list**: paste a public TMDB list's link, such as `https://www.themoviedb.org/list/310-my-movie-list`. TMDB has no list search, so find the list on themoviedb.org first.
 
@@ -40,7 +42,7 @@ Genre shelves and TMDB franchise collections come from [starter packs](#add-a-st
 
 ## Find and change collections
 
-**Admin > Collections** opens on **List**, which shows every collection. Choose a library at the top, search, or filter by **Type**. A row's switch shows or hides the collection on its libraries' **Collections** tabs. Select a row to edit the collection, or open its action menu to **Sync now**, add it to Home or a library page, or delete it.
+**Admin > Libraries > Collections** opens on **List**, which shows every collection. Choose a library at the top, search, or filter by **Type**. A row's switch shows or hides the collection on its libraries' **Collections** tabs. Select a row to edit the collection, or open its action menu to **Sync now**, add it to Home or a library page, or delete it.
 
 To change several at once, open **More**, choose **Select collections**, and tick up to 100. The bar at the bottom syncs the selected lists, or has **Show on tabs**, **Hide from tabs**, and **Delete…**. Syncing skips manual and smart collections.
 
@@ -54,11 +56,22 @@ Choose a library, then **Arrange**. Shelves are the headings on that library's *
 - **No heading** holds collections that are not on a shelf.
 - **My collections** is where each viewer's own collections appear when they turn on **Show on the Collections tab**. You can rename or move it, and its contents are different for each viewer.
 
+## Collections on movie and series pages
+
+In the web app, a movie or series page lists the manual collections and synced lists that hold it and that the profile can see:
+
+- When one collection appears, the page lists up to six of its other titles under the collection's name, and **Explore all** opens it.
+- When more than one appears, or the only one has no other titles to show, an **Also in** row shows a card for each.
+
+Smart collections are not listed. Viewers also see their own and shared collections there, as described in [Browse and organize collections](/docs/collections#collections-on-movie-and-series-pages).
+
+A server collection appears only with **Show on the Collections tab** turned on. When a movie's page already has a row for its franchise, a server synced list that follows the same TMDB collection is left out, so the franchise does not appear twice.
+
 ## Add a starter pack
 
 A starter pack adds a ready-made set of synced lists to your libraries, such as trending and top-rated lists or a shelf for each genre.
 
-1. Open **Admin > Collections**, then **More > Starter packs…**.
+1. Open **Admin > Libraries > Collections**, then **More > Starter packs…**.
 2. Choose a pack. **All Defaults** adds every pack.
 3. Under **Add to these libraries**, choose the libraries to fill. Each library gets only the lists that fit its type.
 4. Check **What will happen**. For each library it counts the lists that are new, already there, and not for that library.
@@ -71,9 +84,13 @@ New lists land under **No heading** on each library's **Collections** tab, ready
 
 Open the collection's action menu and choose **Delete…**. If Home or library page rows show it, the dialog lists them, and a button such as **Delete it and its 2 rows** removes both. To keep a row, open it from the dialog and point it at another collection first.
 
-## If a collection looks empty
+## If a collection looks empty or is missing
 
 Check its rules or list, and its libraries. Each viewer sees only the items their libraries and profile restrictions allow.
+
+If a collection is missing for one profile, check that profile's [parental controls](/docs/profiles#set-parental-controls): **Maximum content rating**, **Maximum advisory age**, **Hide titles without an advisory age**, and **Restrict libraries**. Then check the account's [library access](/docs/manage-access) under **Access & limits** in **Admin > Users**. For a collection missing from a movie or series page in the web app, also check [Collections on movie and series pages](#collections-on-movie-and-series-pages).
+
+A collection does not appear for a profile that can open none of its titles, in the web app, the mobile and TV apps, or Jellyfin-compatible apps. One with no titles yet still appears. A restricted profile's count on each card includes only the titles it can open, so it can be lower than the count in **Admin > Libraries > Collections**.
 
 ## If a synced list does not sync
 

@@ -1,5 +1,7 @@
 ---
 slug: docs/catalog-seeds
+keywords: ["migrate", "move to a new server", "new hardware", "transfer library", "library export", "clone library", "path mapping", "copy metadata"]
+questions: ["How do I move my library to a new Silo server?", "Can I copy library records from one server to another?", "Media folders have different paths on the new server, what now?"]
 beta: true
 title: Catalog import and export (Beta)
 description: Transfer catalog records between Silo installations with catalog seeds.
@@ -15,7 +17,7 @@ A seed holds catalog records, file paths, and references to stored artwork and m
 
 ## Export a catalog
 
-1. Open **Admin > Maintenance**.
+1. Open **Admin > Server > Maintenance**.
 2. Under **Catalog Import & Export**, select **Start Export**.
 3. When the export job finishes, select **Download** to save the seed.
 
@@ -23,7 +25,7 @@ If export storage supports signed URLs, you can instead select **Create seven-da
 
 ## Import a seed
 
-1. On the destination server, open **Admin > Maintenance > Import Catalog**.
+1. On the destination server, open **Admin > Server > Maintenance** and select **Import Catalog**.
 2. Select **Local File**, **Local Export Job**, **Bucket Artifact**, or **Remote URL**, then choose the source. A local file must be a path on the server, not on your computer.
 3. Choose what happens to matching records: **Skip Existing** keeps them, and **Overwrite Existing** replaces them.
 4. If the destination mounts media at different paths, add **Path Rewrites**. Each rewrite replaces a path prefix.

@@ -1,5 +1,7 @@
 ---
 slug: docs/build-a-plugin
+keywords: ["plugin development", "develop a plugin", "Golang", "cross-compile", "GOOS", "GOARCH", "exec format error", "submit a plugin"]
+questions: ["How do I write my own Silo plugin?", "How do I test a plugin safely?", "Why won't my plugin binary run on the server?", "How do I get my plugin into the community catalog?"]
 title: Build your first plugin
 description: Start from a small SDK example, inspect its manifest, and test it on a disposable server.
 ---
@@ -33,7 +35,7 @@ of any plugin you didn't write before uploading it.
    binary built for your Mac won't run in a Linux container.
 2. Follow **Manual Install** in [Install plugins](/docs/plugins) and upload
    the binary.
-3. Open **Admin > Scheduled Tasks**, find **Hello Task**, and select
+3. Open **Admin > Server > Scheduled Tasks**, find **Hello Task**, and select
    **Run Now**. The example doesn't change any media; a completed run shows
    that Silo can call the plugin.
 

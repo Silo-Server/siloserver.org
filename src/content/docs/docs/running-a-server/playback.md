@@ -1,5 +1,7 @@
 ---
 slug: docs/playback
+keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping", "FEL", "DV7"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -10,22 +12,30 @@ Transcoding converts media when a client cannot play the original file or needs 
 
 These steps are for the default Linux Docker installation. Install the host driver first. For NVIDIA, also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
 
-For Intel or AMD devices exposed through `/dev/dri`, download the VA-API overlay beside your Compose file. The checks stop the download if a file with that name already exists, so a customized overlay is kept:
+For Intel or AMD devices exposed through `/dev/dri`, add these lines to the `silo` service in your Compose file. The repository's Compose files have them commented out, so you can uncomment them instead:
 
-```sh
-test ! -e docker-compose.vaapi.yml && test ! -L docker-compose.vaapi.yml &&
-  curl -fSL https://raw.githubusercontent.com/Silo-Server/silo-server/main/docker-compose.vaapi.yml -o docker-compose.vaapi.yml
+```yaml
+    devices:
+      - /dev/dri:/dev/dri
 ```
 
-Then add it in `.env`:
+For NVIDIA, add or uncomment these instead. `video` gives FFmpeg the NVIDIA encoding libraries; without it, FFmpeg sees the GPU but encodes on the CPU:
 
-```dotenv
-COMPOSE_FILE=docker-compose.yml:docker-compose.vaapi.yml
+```yaml
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${NVIDIA_GPU_COUNT:-1}
+              capabilities: [gpu, compute, utility, video]
 ```
 
-For NVIDIA, use the same checks and download URL with `docker-compose.nvidia.yml` instead, and list that file. Use only the overlay that matches the host.
+Use only the lines that match the host. They give Silo one NVIDIA GPU. To give it more, set `NVIDIA_GPU_COUNT` in `.env`, for example `NVIDIA_GPU_COUNT=2`. With `docker run`, pass an Intel or AMD device with `--device /dev/dri:/dev/dri`.
 
-If you already set `COMPOSE_FILE`, add the GPU overlay to that list instead of replacing it. Include any `docker-compose.override.yml` you use: with an explicit file list, Compose no longer loads that override on its own.
+Silo runs as the `PUID` account, and the container adds that account to the groups that own the devices you pass in. A device owned by group `0` (root) is skipped, so Silo can't open it. Unprivileged LXC containers show passed-through devices that way unless the host gives them a group, such as `gid=` on the `devN` entry in Proxmox.
+
+Older setups add the GPU with a separate overlay file, such as `docker-compose.vaapi.yml`, listed in `COMPOSE_FILE`. Those keep working. The server repository no longer has them, so if you switch to its current Compose file, use the lines above and remove the overlay from `COMPOSE_FILE`.
 
 During a quiet period, check and apply the configuration. Recreating Silo interrupts active playback.
 
@@ -36,7 +46,7 @@ docker compose up -d
 
 ## Choose and test acceleration
 
-1. Open **Admin > Settings > Playback**.
+1. Open **Admin > Playback > Settings**.
 2. Leave **Video transcoding** on and set **Hardware acceleration** to **Auto**. Save and follow any restart notice. With **Video transcoding** off, Silo never re-encodes video, but it still repackages files and converts audio for devices that need it.
 3. Check the line under **Hardware acceleration**. It names the detected hardware, such as **Detected VA-API on /dev/dri/renderD128**, or shows **No supported graphics hardware found**.
 4. Start a video on a client, then choose a lower quality that makes Silo convert the video.
@@ -45,13 +55,13 @@ docker compose up -d
 
 If Silo finds no hardware or the session shows **SW**, check the host driver, the device mount, and the Silo logs. Test HDR files separately from ordinary video.
 
-With separate [transcode nodes](/docs/transcode-nodes), the detected hardware comes from a node and the line ends with **(transcode node)**. Check each node's **Acceleration** block in **Admin > Nodes**.
+With separate [transcode nodes](/docs/transcode-nodes), the detected hardware comes from a node and the line ends with **(transcode node)**. Check each node's **Acceleration** block in **Admin > Playback > Nodes**.
 
 ## After a driver or device change
 
 A single server checks its hardware again when it restarts: run `docker compose restart silo`.
 
-For a node in **Admin > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
+For a node in **Admin > Playback > Nodes**, use its re-probe button instead: the magnifier icon in the node's header, just left of the pencil. A node keeps reporting an encoder that passed its test until it re-probes or restarts, even after the hardware stops working. Re-probe a node after you:
 
 - upgrade, downgrade, or reinstall its GPU driver
 - change [which GPU devices its container can open](#give-the-container-access-to-your-gpu)
@@ -66,7 +76,7 @@ After you fix a GPU, you don't need to re-probe: the node notices on its own wit
 
 ## Allow 4K and HEVC output
 
-Both settings are in **Admin > Settings > Playback**. On a new server, **Allow 4K transcoding** is on and **Allow HEVC encoding** is off. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
+Both settings are under **Transcoding** on **Admin > Playback > Settings**. On a new server, **Allow 4K transcoding** is on and **Allow HEVC encoding** is off. Each applies to streaming and to converted [downloads](/docs/downloads#choose-a-quality).
 
 - **Allow 4K transcoding** lets Silo convert 4K video, which is heavy work for most hardware and especially for a server without a GPU. Turn it off if 4K conversions can't keep up. While it's off, a 4K title streams only to clients that can play its video as it is, and downloads of it use **Original**. Converted downloads of other titles stop at 1080p.
 - **Allow HEVC encoding** converts video to HEVC for devices that can play HEVC streams. HEVC gives a sharper picture at the same bitrate, so the smallest download quality can reach 540p instead of 480p. Other devices keep H.264. The setting only covers converted video: a device that plays an HEVC file as it is, or after Silo repackages it, plays it the same way with the setting off.
@@ -75,9 +85,17 @@ After turning on **Allow HEVC encoding**, play something that needs conversion o
 
 With [transcode nodes](/docs/transcode-nodes#convert-to-hevc-on-nodes), Silo checks each node's HEVC support separately.
 
+## Convert Dolby Vision profile 7 to profile 8.1
+
+Silo can stream a Dolby Vision profile 7 file, common among UHD Blu-ray rips, as profile 8.1 to an app and device that play profile 8.1 but not profile 7. It repackages the file and converts the Dolby Vision metadata as it streams, so the TV still shows Dolby Vision. There's no setting to turn on.
+
+Silo doesn't re-encode the video, so the conversion uses little CPU and works with **Video transcoding** off. It keeps the HDR10 base layer and drops the enhancement layer, the second video layer in a profile 7 file. A file with a full enhancement layer loses the extra picture detail that layer adds.
+
+If the app can play the original file and convert profile 7 itself, Silo sends the original file instead. The Silo apps for Apple and Android devices can do this on supported devices. When profile 8.1 isn't an option, Silo can still play the HDR10 base layer, without Dolby Vision, on a device that supports HDR10. [Jellyfin-compatible apps](/docs/jellyfin-apps) don't get the profile 8.1 conversion.
+
 ## Convert HDR for SDR screens
 
-When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Advanced** in **Admin > Settings > Playback** allow it, and both are on by default:
+When a device can't show HDR, Silo converts HDR video to SDR while transcoding. This is called tone mapping. Two settings under **Transcoding** on **Admin > Playback > Settings** allow it, and both are on by default:
 
 - **Enable Hardware HDR Tone Mapping** uses a GPU on the main server or a transcode node, once Silo has tested that it can tone-map.
 - **Enable Software HDR Tone Mapping** uses the CPU. It works without a GPU, but it's a heavy task for the CPU.
@@ -86,7 +104,18 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 ## Limit how far ahead Silo converts
 
-**Throttle transcoding**, under **Advanced** in **Admin > Settings > Playback**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead** sets how far ahead Silo converts, 300 seconds by default and at least 60.
+**Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
+
+## Limit connection speed tests
+
+The Silo apps test each device's connection so that **Auto** can choose a quality that fits before playback starts. Both settings are under **Connection speed tests** on **Admin > Playback > Settings**:
+
+- **Automatic speed tests**, on by default, lets apps run a short test when the server has no current reading for a device on its network. Each automatic test downloads up to 100 MB. Turn it off to save bandwidth. Viewers can still run **Test speed** in their [settings](/docs/preferences#test-your-connection-speed), which downloads up to 1 GB.
+- **Keep a reading for** sets how long a reading lasts, from 1 to 30 days, 7 by default. Apps test again once their reading is older.
+
+Silo limits how many tests run at once and how much each account downloads in tests, and asks apps to try again later beyond that. Apps don't test on mobile data or metered networks, or while something plays.
+
+Speed tests take the same route as playback. If media goes through [proxy nodes](/docs/transcode-nodes), update them along with the main server: an older proxy node can't run speed tests.
 
 ## Generate chapter thumbnails
 
@@ -102,12 +131,12 @@ A chapter image comes from near the start of that chapter; a marker image comes 
 
 Turn the library switch off to stop generating previews for that library. Images already generated can still appear; turning the switch off does not delete them. Chapter navigation and skip buttons remain available without images.
 
-Thumbnail extraction follows the server's **Hardware acceleration** setting. In **Admin > Settings > Playback**, **Generate chapter thumbnails on** chooses local extraction or [transcode nodes](/docs/transcode-nodes), when nodes are available. A working hardware backend is required to use the GPU; choosing hardware acceleration alone does not prove an extraction used it.
+Thumbnail extraction follows the server's **Hardware acceleration** setting. Under **Preview images** on **Admin > Playback > Settings**, **Generate chapter thumbnails on** chooses local extraction or [transcode nodes](/docs/transcode-nodes), when nodes are available. A working hardware backend is required to use the GPU; choosing hardware acceleration alone does not prove an extraction used it.
 
 See [Watch movies and series](/docs/watch-movies-and-series#chapters-intros-and-the-next-episode) for client controls and the 1.0 preview limits.
 
 ### If previews don't appear
 
-Check that the file has chapters or skip markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**, the chapter thumbnail setting under **Advanced** in **Admin > Settings > Playback**. It's separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
+Check that the file has chapters or skip markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**. Both settings are under **Advanced** in **Preview images** on **Admin > Playback > Settings**. **Software HDR tone mapping** is separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
-Previews can be absent while generation is pending or after an extraction, worker, or storage failure. The web player keeps chapter navigation, skip controls, and playback usable without an image. Silo retries failed previews on its own, so a file that failed once can fill in later. To investigate, filter **Admin > Logs** by the `chapterthumbs` component.
+Previews can be absent while generation is pending or after an extraction, worker, or storage failure. The web player keeps chapter navigation, skip controls, and playback usable without an image. Silo retries failed previews on its own, so a file that failed once can fill in later. To investigate, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.

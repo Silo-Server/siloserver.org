@@ -1,5 +1,7 @@
 ---
 slug: docs/requests
+keywords: ["request a movie", "ask for a movie", "missing movie", "Seerr", "Overseerr", "Jellyseerr", "delete a request", "request failed"]
+questions: ["How can I ask for a show that isn't on the server?", "What does pending mean on my request?", "Why don't I see a Requests option?", "Can I get an alert when a show someone else asked for arrives?", "How do I get rid of a request that failed?"]
 title: Request a movie or series
 description: Request a missing title and follow its progress.
 ---
@@ -11,17 +13,28 @@ account is allowed to use them. The person who runs the server sets this up in
 
 ## Make a request
 
-1. Open **Requests**. In the web app it's in the sidebar. In the mobile and
-   TV apps, open your profile menu and choose **Requests**.
+1. Open **Requests**. In the web app it's in the sidebar. In the phone,
+   tablet, and TV apps, open your profile menu and choose **Requests**.
+   Search results also offer titles you can request.
 2. Search for the title. Open the result with the right year and type.
-3. Select **Request movie** or **Request series** (**Request Movie** or
-   **Request Series** in the Apple apps, **Request** in the Android apps).
-4. Follow its progress under **Yours** in the web app or **My Requests** in
-   the apps.
+3. Select **Request movie** or **Request series** (**Request** in the Apple
+   and Android apps).
+4. Follow its progress under **Yours** in the web app, or in the **Your
+   requests** row on the Requests page in the other apps.
 
-If a title is already requested or in the library, its page shows that
-instead of the request button. If you can't request it, the page says why,
-for example **Request limit reached**.
+If a title is already in the library, its page shows **Open in library**
+(**Open in Library** in the Apple and Android apps) instead of the request
+button. If it's already requested, the page shows the request's progress. If
+you can't request it, the page says why, for example **Request limit
+reached**.
+
+## Get notified about someone else's request
+
+If someone else already requested a title, you can't request it again, but
+you can ask to be told when it arrives. On the title's page, choose **Notify
+me when available** (**Notify Me** in the Apple apps). Choose **Stop notifying
+me** (**Stop Notifying Me** in the Apple apps) to undo it. When the title
+arrives, you're notified the same way as for your own requests.
 
 ## Request from your watchlist
 
@@ -32,9 +45,10 @@ Request limits and approval work the same as for the request button. When the
 title arrives, you're notified as for any request you made.
 
 To keep watchlist titles without requesting them, open **Settings > Requests**
-in the web app and turn off **Request titles I add to my watchlist**. If the
-page says that adding a title doesn't request it on this server, the person
-who runs the server has turned watchlist requests off.
+in the web app and turn off **Request titles I add to my watchlist**. You're
+still notified when the title arrives. If the page says that adding a title
+doesn't request it on this server, the person who runs the server has turned
+watchlist requests off.
 
 Removing a title from your watchlist cancels the request the watchlist made,
 as long as the request hasn't been sent to a download server yet.
@@ -53,9 +67,27 @@ The Apple apps group these into five labels:
 | **Pending** | Waiting for approval. You can cancel it from **My Requests** with **Cancel Request**. |
 | **On the way** | Approved, queued, or downloading. |
 | **In library** | Ready to watch. |
-| **Needs attention** | Declined or failed, with the reason when there is one. |
+| **Needs attention** | Declined or failed, with the reason when there is one. You can [remove a failed request](#remove-a-failed-request) if none of it arrived. |
 | **Unavailable** | Can't be requested right now, or the request was cancelled. |
 
 When a request is complete, the title shows up in the library. You can also
 get an alert when it arrives through your
 [notification preferences](/docs/notification-inbox).
+
+### Remove a failed request
+
+You can remove your failed request if none of it arrived, then request the
+title again.
+
+- In the web app, select **Remove request** next to it under **Yours**.
+- In the phone and tablet apps, select **See all** next to **Your requests**
+  to open **My Requests**. Press and hold the request and choose **Remove
+  Request**.
+- In the TV apps, press and hold the request's card on the Requests page and
+  choose **Remove Request** (**Remove request** on Android TV).
+
+Confirm with **Remove request**.
+
+If part of the request arrived before it failed, for example the HD copy but
+not the 4K one, you can't remove it. It stays so the person who runs the
+server can retry it.

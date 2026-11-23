@@ -1,22 +1,28 @@
 ---
 slug: docs/home-sections
+keywords: ["homepage", "front page", "carousel", "featured banner", "spotlight", "hubs", "home layout", "rearrange rows"]
+questions: ["How do I change the rows on the main page?", "How do I add a trending row for everyone?", "Why is the critically acclaimed row empty?", "Can next episodes get their own row?"]
 title: Curate the home screen
 description: Add and arrange the rows everyone sees on Home and library pages.
 ---
 
-Sections are the rows people browse on Home and above each library's grid. Use **Admin > Sections** to choose them and their order for everyone.
+Sections are the rows people browse on Home and above each library's grid. Use **Admin > Libraries > Home Sections** to choose them and their order for everyone.
 
 ## Add a row
 
-1. Open **Admin > Sections** and choose the page: **Home** or a library.
+1. Open **Admin > Libraries > Home Sections** and choose the page: **Home** or a library.
 2. Choose **Add row**.
 3. Pick a kind of row from the tabs, or search for one, for example `trending` or `Christmas`. Under **Collections & rules**, **A collection** shows a collection and **Titles matching rules** builds a row from rules.
 4. Check the preview, then change the **Row name** if you want. **More options** sets the **Number of titles** and whether the row is the **Hero banner**.
 5. Choose **Add row**. New rows go to the bottom of the page.
 
+The rows Silo starts with, such as **Continue Watching** or **Recently Added in Movies**, show their names in each viewer's [app language](/docs/preferences#change-the-app-language) until you rename them. A row you add shows its **Row name** as you saved it.
+
 On a library page, **Add to these library pages** also adds the row to other libraries' pages in the same step. The add button then counts the pages, for example **Add to 3 pages**. Each page gets its own copy, so you can change or remove it there later. For a row that's already on a page, open its action menu and choose **Add to other libraries…**.
 
 To show a collection as a row, you can also start from the collection: see **Rows that show it** in [Create server collections](/docs/manage-collections#create-a-collection).
+
+**Trending worldwide** shows what's trending on TMDB, but only titles already in your libraries. Use **Period** to choose **Today** or **This week**, and **Show** to choose **Both**, **Movies**, or **TV shows**. **Both** is the default. A **Movies** or **TV shows** row picks from the same trending list as a **Both** row, so it can show fewer titles than a [TMDB chart](/docs/manage-collections#follow-a-list-with-a-synced-list) synced list set to movies or TV shows.
 
 ## Change the order or turn a row off
 
@@ -30,9 +36,20 @@ To change several rows at once, open **More** and choose **Select rows**. You ca
 
 Open **More** and choose **Restore defaults…** to put back the rows Silo starts with on that page. Rows that show a collection are removed, but the collections stay. Turn on **Also reset every profile's Home**, or the same switch for a library page, to also clear what each profile hid, renamed, moved, or added there.
 
+## Set Next Up for every profile
+
+Below the rows, **Next Up defaults for every profile** sets two Home preferences for each profile that hasn't chosen its own:
+
+- **Next up episodes**: **With Continue Watching** keeps the next episode of each show someone is watching in **Continue Watching**. **Separate row** gives those episodes their own **Next Up** row.
+- **Show new episodes first** moves a show someone has caught up on to the front of **Continue Watching** and **Next Up** when a new episode or season arrives.
+
+Each control saves as soon as you change it. The defaults apply on Home and library pages, and **Show new episodes first** also orders **Next Up** in [Jellyfin-compatible apps](/docs/jellyfin-apps). Until you change them, profiles get **With Continue Watching** with **Show new episodes first** off.
+
 ## What profiles can change
 
-Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
+Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). They can also choose their own **Next up episodes** and **Show new episodes first**, and Silo uses those instead of the defaults above. If a change shows for one profile but not another, that profile has changed the row, its page's order, or one of those settings itself.
+
+To fix one profile's rows yourself, open **Admin > Users**, select the person, choose **Preferences** and then the profile, and use its **Home sections** card, as in [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen). The card covers Home only, not library pages. **Reset to default** asks you to confirm, then puts that profile's Home back to the order and visibility set here and removes rows the profile added. Other profiles keep their changes.
 
 ## A row is missing or empty
 

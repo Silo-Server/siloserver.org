@@ -1,7 +1,9 @@
 ---
 slug: docs/accounts
+keywords: ["forgot password", "reset password", "log out", "logged out", "signed-in devices", "change server"]
+questions: ["My phone was stolen, how do I log it out?", "How do I kick a device I don't recognize off my account?", "Why can't I log in even with the right password?", "Why didn't I get a password reset email?"]
 title: Accounts and signed-in devices
-description: Change your password, sign out, and get help with a lost device.
+description: Change your password, see where you're signed in, sign out, and get help with a lost device.
 ---
 
 Everyone in a household shares one account and password. Profiles separate
@@ -11,6 +13,39 @@ each person's watching; see [Profiles, PINs, and shared devices](/docs/profiles)
 
 Open the profile menu (your profile picture) and choose **Sign Out**. In the
 web app it's **Logout**.
+
+## See where you're signed in
+
+In the web app, open **Settings > Signed-in sessions**, under **Account**, to
+see every browser and app signed in to your account. Only the primary profile
+or an admin can open it.
+
+**This browser** is the one you're using, and **Other signed-in sessions**
+lists the rest. Each row names the device, such as "Chrome on Windows" or the
+name a TV gave itself, and shows when it was last seen and when it signed in.
+**Last seen** updates at most once a minute. **Details** adds the IP address
+it signed in from, when the session expires, and its User-Agent.
+
+To sign out one you don't recognize:
+
+1. Choose **Sign out** on its row.
+2. Confirm with **Sign out**.
+
+That browser or app loses access the next time it contacts your server; a
+browser shows **Your session ended** on its sign-in page. A video already
+playing there may not stop right away. Your password, profiles, and saved
+device settings don't change, and your other sessions stay signed in.
+
+**Sign out this browser** on the **This browser** row signs you out where
+you are.
+
+[Jellyfin-compatible apps](/docs/jellyfin-apps) appear in the list too, and
+signing one out ends only that app.
+[Audiobookshelf-compatible apps](/docs/audiobookshelf) don't appear. To sign
+them out, [change your password](#change-your-password) with **Sign out of
+other devices** ticked, or use a reset link (see
+[Forgot your password?](#forgot-your-password)).
+API keys aren't sessions.
 
 ## Switch to another server
 
@@ -25,14 +60,19 @@ Only the [primary profile](/docs/profiles) can change the account password.
 
 1. In the web app, switch to the primary profile.
 2. Open **Settings > Account**.
-3. Enter your current password and the new one twice, then select
-   **Change password**.
+3. Enter your current password and the new one twice.
+4. To sign out everywhere else at the same time, tick **Sign out of other
+   devices**. Leave it unticked to keep your other devices signed in.
+5. Select **Change password**.
 
 If **Local password changes are unavailable** appears, your account signs in
 through another provider; change the password there.
 
-Changing the password here keeps your other devices signed in. To sign every
-device out, use a reset link instead (below).
+Ticking **Sign out of other devices** signs out every other browser and app on
+your account, including [Jellyfin-compatible apps](/docs/jellyfin-apps) and
+[Audiobookshelf-compatible apps](/docs/audiobookshelf), and they sign in again
+with the new password. The browser you're using stays signed in, and
+[API keys](/docs/api-keys) keep working.
 
 If you were given a temporary password, sign in through the web app first and
 choose a new password when asked. Then use it in your other apps.
@@ -77,18 +117,49 @@ new password.
 If your account signs in through another provider, use that provider's
 recovery process.
 
+## After too many failed sign-ins
+
+After 10 failed sign-ins with the same username or email address within 15
+minutes, Silo locks that name for 15 minutes in every app. Until then,
+sign-in fails even with the right password. The web app shows
+`Too many failed sign-ins for this name. Try again later.`, and the Silo apps
+say there were too many attempts. Wait 15 minutes, then sign in again.
+
+While the name is locked:
+
+- Devices that are already signed in keep working.
+- A phone or browser that's already signed in can still sign in a TV by
+  [scanning its code](/docs/tv-sign-in#scan-the-tvs-code).
+- A [reset link](#forgot-your-password) still works and signs you in where
+  you use it. It also signs your other devices out, as usual.
+
+Even the person who runs your server can't end the lock early. If it keeps
+happening when you haven't been signing in, someone else may be trying your
+name; tell the person who runs your server.
+
 ## Lost or stolen device
 
-Silo can't sign out a single device, but you can sign out all of them. The
-quickest way is to request a reset link with **Forgot password?** (see above)
-and choose a new password; a private browser window works if you're signed in
-on that computer. Every device, including the lost one, is signed out.
+In the web app, open **Settings > Signed-in sessions** and choose **Sign out**
+on the lost device's row (see
+[See where you're signed in](#see-where-youre-signed-in)). Your other devices
+stay signed in, and the password stays the same.
 
-Your server administrator can do the same by setting a new password for your
-account or disabling it for a while. Then sign back in on the devices you
-still have.
+To sign out every other device and change the password, tick **Sign out of
+other devices** when you [change your password](#change-your-password). The
+browser you're using stays signed in, and every other device, including the
+lost one, is signed out.
+
+If you can't sign in, or don't know the current password, request a reset link
+with **Forgot password?** (see above) and choose a new password. A private
+browser window works if you're signed in on that computer. Every device,
+including the lost one, is signed out.
+
+Your server administrator can also sign the device out, or sign your account
+out everywhere, from your account in **Admin > Users**. After a reset or
+signing out everywhere, sign back in on the devices you still have.
 
 **Forget** in **Settings > Your Devices** only removes that device's saved
-settings; it doesn't sign the device out.
+settings; it doesn't sign the device out. Use **Settings > Signed-in
+sessions** for that.
 
 Before you give a device to someone outside the household, sign out.

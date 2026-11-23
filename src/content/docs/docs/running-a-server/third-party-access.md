@@ -1,14 +1,18 @@
 ---
 slug: docs/third-party-access
+keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests"]
+questions: ["Can I watch Silo through a Jellyfin app?", "Why does the connection info show 127.0.0.1:8096?", "Does Jellyseerr work with Silo?", "Which port do Jellyfin clients connect to?", "Why won't Findroid play or download anything?"]
 title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.
 ---
 
 Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the default Docker setup. Jellyfin compatibility is on by default, but until you set an address people can reach, Silo's connection instructions show them `http://127.0.0.1:8096`. Audiobookshelf setup is in the [Beta section](/docs/audiobookshelf), including its profile-PIN warning.
 
-## Set the address for Jellyfin apps
+## Jellyfin apps
 
-1. Open **Admin > Settings > Compatibility**.
+### Set the address
+
+1. Open **Admin > Integrations > Compatibility**.
 2. Check that **Allow Jellyfin apps to connect** is on. Changing this switch needs a server restart.
 3. In **Address Jellyfin apps should use**, enter the address people should type into their Jellyfin app, for example `http://192.168.1.20:8096` on your home network or `https://jellyfin.example.com` from outside it.
 4. Save.
@@ -18,17 +22,33 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 
 The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish.
 
-## Access from outside your network
+### Access from outside your network
 
 Give each service its own HTTPS address, for example separate hostnames for Silo and for Jellyfin apps, and point each one at the right port. See the [reverse proxy guide](/docs/reverse-proxy).
 
 Test from outside your home network with the same address you give people. A working Silo web page doesn't mean the Jellyfin port is reachable.
 
-## Accounts and profiles
+### Accounts and profiles
 
-Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Jellyfin apps can sign in with a combined username and profile, and protected profiles use a combined password and PIN.
+Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Apps that offer Quick Connect sign in with a code the person approves on Silo's `/activate` page, where they choose the profile. Other apps sign in with a combined username and profile, and protected profiles use a combined password and PIN.
 
 Apps differ in which Jellyfin features they use, so note the app and server versions when you report a problem.
+
+### Let apps play without sign-in from the same address
+
+Turn this on if people use Findroid. Findroid opens videos and downloads without signing in, so while this is off it can't play a file as it is or download it. Its player stays at 00:00 and shows no error.
+
+1. Open **Admin > Integrations > Compatibility**.
+2. In the **Jellyfin** group, expand **Advanced** and turn on **Play without sign-in from the same address**. It's off by default.
+3. Save. The change applies without a restart.
+
+With this on, Silo plays a video for an app that didn't sign in when an app that did sign in, at the same network address, asked to play that file in the last two hours. While that play continues, the window stays open. Anyone who shares the address, such as people on the same home network, mobile carrier, or VPN, can then play that file too, so leave it off if nobody needs it.
+
+Jellyfin for Android TV 0.19 and later plays with this off. Silo's own apps, the web app, and Jellyfin apps that sign in for every video don't use it.
+
+## Seerr
+
+Seerr (formerly Jellyseerr) connects to Silo as a Jellyfin server, but its setup can't finish with a Silo account, because Silo doesn't report any account as a Jellyfin administrator. If your Seerr already connects to Silo, people sign in to it with their Silo accounts, the same way they [sign in to Jellyfin apps with a profile](/docs/jellyfin-apps#sign-in-with-your-profile).
 
 ## Legacy Autoscan
 

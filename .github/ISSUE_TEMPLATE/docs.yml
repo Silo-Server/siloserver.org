@@ -1,0 +1,33 @@
+# The docs pages' "Suggest a change" link opens this form with the title and
+# the page field filled in (src/components/starlight/EditLink.astro). Keep the
+# `page` id in step with that link.
+name: Suggest a docs change
+description: Report a wrong step, a missing detail, or a confusing part of the Silo docs.
+title: "Docs: "
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the docs page.
+      placeholder: https://siloserver.org/docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong or confusing
+      description: Describe what's wrong or missing. If a step didn't work, quote it and say what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording
+      description: How you'd write it instead, if you know. Use the labels exactly as Silo shows them.
+  - type: textarea
+    id: versions
+    attributes:
+      label: App and server versions
+      description: Only if Silo behaved differently from the docs. Name the app (for example, iPhone or Android TV) and its version, and the server version.

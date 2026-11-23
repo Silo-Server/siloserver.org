@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-access
+keywords: ["permissions", "user groups", "restrict libraries", "hide library", "parental restrictions"]
+questions: ["How do I let guests see only some libraries?", "How do I limit how many people stream at once?", "Why did changing someone's group do nothing?", "How do I cap download speed for my users?"]
 title: Set access and limits
 description: Give people the right libraries and permissions without editing every account separately.
 ---
@@ -10,10 +12,10 @@ Administrator accounts cannot belong to access groups. Group policies apply only
 
 ## Create an access group
 
-1. Open **Admin > Access Groups** and choose **New group**.
+1. Open **Admin > Users > Access Groups** and choose **New group**.
 2. Name the group, for example `Guests`, and create it.
 3. Open the group. Under **Libraries & playback**, choose the libraries and playback quality it can use.
-4. Review **Downloads & requests** and **Concurrent streams**. Under **Permissions**, choose which permissions member accounts may receive.
+4. Review **Downloads**, **Requests**, **Concurrent streams**, and **Profiles**. Under **Permissions**, choose which permissions member accounts may receive.
 5. Choose **Save changes**.
 
 Use **Default for new users** only if this should become the starting group for future accounts. Check its library access before making it the default.
@@ -22,14 +24,13 @@ A group permission only makes the permission available. Turn on **Marker Editing
 
 ## Assign a person to the group
 
-1. Open **Admin > Users**, choose the person, then **Edit**.
-2. In **Access**, select the group. Leave inherited values alone unless this account needs a different setting.
-3. Check **Limits** and save.
-4. Reopen the user's **Overview** to review the permissions and limits it shows.
+1. Open **Admin > Users**, open the person, then choose **Access & limits**. The pencil on their row opens this tab directly.
+2. Choose **Edit** under **Library access**, select the group in **Access group**, then choose **Save**.
+3. Check the limits on the **Playback & streaming** and **Downloads** cards.
 
-An account can override its group. If a group change seems to have no effect, look for an override on the account.
+An account can override its group. If a group change seems to have no effect, look for values tagged **CUSTOM**.
 
-**Inherited** means the value comes from the access group. An account without a group shows **Server default** instead; an administrator account shows **Admin default**.
+Each value on **Access & limits** is tagged with where it comes from. **GROUP** means the access group, and **CUSTOM** means a value set on this account. **DEFAULT** means Silo's built-in default: full access for an administrator, and the server's defaults for an account without a group.
 
 ## Choose limits that fit the task
 
@@ -39,37 +40,42 @@ The bitrate limit caps the stream's bitrate, not the speed of the network connec
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
+**Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and you can set any whole number from 1 up. Accounts without a group, and administrator accounts, can have 5 unless you give them their own limit. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Sign-in & role**, and set **Profiles allowed** to **Custom**. **Default** uses the group's limit again. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
+
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
 
 **Marker Editing** and **Metadata Curation** let a trusted user correct media in the libraries they can access, without making them a server administrator.
 
 ## Limit downloads
 
-Set download limits in **Admin > Settings > Downloads**. They apply to downloads from the Silo web and mobile apps. Download counts apply only to downloads saved in the mobile apps.
+Set download limits in **Admin > Downloads > Settings**. They apply to downloads from the Silo web and mobile apps and from [Jellyfin-compatible apps](/docs/jellyfin-apps). Download counts apply only to downloads saved in the mobile apps.
 
 1. Turn on **Allow downloads**.
-2. Set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles.
-3. Expand **Advanced**. Under **Per user**, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
-4. Under **Whole server**, set **Server bandwidth** to cap all downloads combined. When both bandwidth limits are set, the lower one wins.
+2. Set **Server bandwidth** in Mbps to cap all downloads combined.
+3. Expand **Advanced**. Under **Per user**, set **Per-user bandwidth** in Mbps. Each account gets this much, shared by all of its downloads and profiles. When both bandwidth limits are set, the lower one wins.
+4. In the same place, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
 5. Save. New limits apply within about 30 seconds. A download that's already running keeps the speed it started with.
 
-If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them.
+If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
+
+**Downloads at once per user** counts the downloads Silo is still [preparing a copy](/docs/download-storage) for, which it does when someone picks a smaller quality or a file their device can't play. A download at original quality doesn't count, and neither does one whose copy is ready or one an app is already transferring. To limit how fast downloads run, set the bandwidth limits.
 
 **Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
 ## Check household restrictions
 
-Account access determines which libraries the household can use. Profile
-restrictions narrow that access for one person; they cannot grant access to
-libraries the account cannot use.
+Account access determines which libraries the household can use. The primary
+profile can use all of them, and **Restrict libraries** can narrow that for the
+other profiles. Profile restrictions cannot grant access to libraries the
+account cannot use.
 
 The household's primary profile can configure **Maximum content rating**,
 **Maximum advisory age**, and **Restrict libraries** in the web profile editor.
 See [Set parental controls](/docs/profiles#set-parental-controls) for the steps.
 When both rating limits are set, titles must pass both.
 
-**Titles with no age rating**, in **Admin > Settings > Library & Metadata**
-under **Browsing**, decides whether profiles with a content-rating limit see
+**Titles with no age rating**, in **Admin > Libraries > Settings**
+under **Maturity limits**, decides whether profiles with a content-rating limit see
 titles that have no rating or are marked Not Rated (`NR`). **Hide from profiles
 with a ceiling** is the default; **Show to every profile** lets them through.
 A rating Silo can't read stays hidden from those profiles either way.
