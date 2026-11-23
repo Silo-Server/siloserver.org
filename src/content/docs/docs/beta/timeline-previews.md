@@ -43,10 +43,11 @@ These settings are in **Admin > Playback > Settings**, under **Preview images**.
    isn't [**Healthy**](/docs/node-status).
 3. Under **Advanced**, set **Seek previews per transcode node**, the number of
    files one node makes previews for at once. It appears once step 2 is set,
-   takes 1 to 64, and defaults to 1. A node gets only the files Silo sends it,
-   so keep **Seek preview workers** at least this high. Each preview a node
-   makes counts toward its **Max Transcodes**, so leave room there for
-   playback.
+   takes 1 to 64, and defaults to 1. Nodes get only as many files as **Seek
+   preview workers** allows, so set that to at least this number times your
+   node count. Each preview a node makes counts toward its **Max Transcodes**,
+   so leave room there for playback.
+4. Select **Save**.
 
 ## Preview a position
 
