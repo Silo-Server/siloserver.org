@@ -1,5 +1,7 @@
 ---
 slug: docs/playback-problems
+keywords: ["won't play", "movie won't play", "video won't play", "not playing", "video won't load", "buffering", "stuttering", "choppy", "freezes", "black screen", "no sound", "audio out of sync", "playback error"]
+questions: ["Why is my video quality stuck low?", "Why does it say this file can't be played?", "Why is the server converting 4K movies in my Linux browser?", "Why isn't Atmos coming through my receiver?"]
 title: Fix playback problems
 description: Narrow down a title that won't play, or picture, sound, or subtitle problems on a TV or receiver.
 ---
@@ -102,6 +104,13 @@ Open the audio options during playback and try another track. Check that the
 TV or receiver is set to the input and sound output you expect. For Dolby Atmos,
 check what the receiver displays; a track labeled Atmos may still play as
 ordinary surround if part of the chain doesn't support it.
+
+In the Android apps, when the TV or receiver can't take a surround track's
+format as it is, such as TrueHD or DTS, Silo converts the track to 5.1 Dolby
+Digital Plus, or to Dolby Digital if that's all the receiver takes. Without
+that, many TVs mix the app's sound down to stereo. The receiver shows a 5.1
+Dolby format instead of the file's own. The picture doesn't change, and a track
+the receiver takes as it is still plays unchanged.
 
 ## Subtitle problems
 

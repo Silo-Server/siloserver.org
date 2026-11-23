@@ -1,5 +1,7 @@
 ---
 slug: docs/home-and-calendar
+keywords: ["front page", "main screen", "release schedule", "air date", "coming soon", "what to watch next", "rearrange rows", "personalized picks"]
+questions: ["When does the next episode of my show come out?", "Why are my recommendations empty?", "How do I hide rows on my home screen?", "How do I make new episodes show up first in Continue Watching?"]
 title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
@@ -53,6 +55,13 @@ from your own history join them as you watch and rate. Those rows need the
 your server sets them up, For You shows only the shared rows. If For You is
 empty, the libraries you can see don't have any movies or series yet. You can
 still browse libraries and search.
+
+In the web app, a profile with no favorites sees **Pick what you love** the
+first time it opens Home. Choose **Done** to open For You, or **Skip** to go
+to Home. Until you favorite a title, the **Personalize your home** banner on
+Home opens the picker again. After you watch or rate something on any device,
+Silo updates your personal rows in the background. Reload For You to see
+them, or pull down to refresh it on a phone or tablet.
 
 On Home, the recommendations row leaves out titles that the rows above it
 already show. In a small library, those rows can hold every title, so Home

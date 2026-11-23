@@ -1,5 +1,7 @@
 ---
 slug: docs/third-party-access
+keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests"]
+questions: ["Can I watch Silo through a Jellyfin app?", "Why does the connection info show 127.0.0.1:8096?", "Does Jellyseerr work with Silo?", "Which port do Jellyfin clients connect to?", "Why won't Findroid play or download anything?"]
 title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.
 ---
@@ -31,6 +33,18 @@ Test from outside your home network with the same address you give people. A wor
 Give people their Silo credentials and the [Jellyfin sign-in instructions](/docs/jellyfin-apps). Apps that offer Quick Connect sign in with a code the person approves on Silo's `/activate` page, where they choose the profile. Other apps sign in with a combined username and profile, and protected profiles use a combined password and PIN.
 
 Apps differ in which Jellyfin features they use, so note the app and server versions when you report a problem.
+
+### Let apps play without sign-in from the same address
+
+Turn this on if people use Findroid. Findroid opens videos and downloads without signing in, so while this is off it can't play a file as it is or download it. Its player stays at 00:00 and shows no error.
+
+1. Open **Admin > Integrations > Compatibility**.
+2. In the **Jellyfin** group, expand **Advanced** and turn on **Play without sign-in from the same address**. It's off by default.
+3. Save. The change applies without a restart.
+
+With this on, Silo plays a video for an app that didn't sign in when an app that did sign in, at the same network address, asked to play that file in the last two hours. While that play continues, the window stays open. Anyone who shares the address, such as people on the same home network, mobile carrier, or VPN, can then play that file too, so leave it off if nobody needs it.
+
+Jellyfin for Android TV 0.19 and later plays with this off. Silo's own apps, the web app, and Jellyfin apps that sign in for every video don't use it.
 
 ## Seerr
 

@@ -1,5 +1,7 @@
 ---
 slug: docs/preferences
+keywords: ["lip sync", "audio out of sync", "per-device settings", "data usage", "save data", "blurry picture", "bandwidth", "transcoding", "internet speed", "rename TV", "interface language", "menu language", "wrong translation"]
+questions: ["How do I fix audio delay on just one TV?", "Why is video quality low on mobile data?", "How do I stop Silo from lowering the quality?", "Two of my TVs have the same name, how do I tell them apart?", "How do I switch the menus to Spanish?", "Can I fix a bad translation in the app?"]
 title: Preferences and device overrides
 description: Know which choices follow your profile and which apply to one device.
 ---
@@ -22,14 +24,68 @@ narrow window, Settings opens as a list of pages. Choose a page:
 - **Language & Subtitles:** spoken and metadata languages, when subtitles
   appear, and how they look.
 - **Home Screen:** which rows appear on Home and in what order.
-- **Title Pages:** title art, theme music, spoilers, and advisory ages on
+- **Title Pages:** title art, [theme music](/docs/media-folders#theme-music), spoilers, and advisory ages on
   movie and show pages.
-- **Navigation & Cards** and **Accessibility:** how the web app looks. These
-  don't change the native apps.
+- **Navigation & Cards:** poster size, shortcuts and badges on posters, and
+  the links in your menu. The mobile and TV apps show your
+  [badges](#choose-badges-on-posters) too.
+- **Accessibility:** how the web app looks. It doesn't change the native
+  apps, except **App language**, which
+  [follows your profile](#change-the-app-language).
 
 **Metadata language** sets the language for titles and descriptions where
 Silo has them. It doesn't change a movie's spoken audio; use
 **Spoken language** for that.
+
+## Change the app language
+
+**App language** sets the language of Silo's menus, buttons, and messages.
+It belongs to your profile, so a language you pick follows you to every
+device. The default, **Match device**, uses the first language in your
+phone's, TV's, or browser's language list that Silo has, or English if Silo
+has none of them.
+
+| App | Where |
+| --- | --- |
+| Web app | **Settings > Accessibility > App language** |
+| iPhone, iPad, Apple TV, and Mac | **Settings > General > App Language** |
+| Android phones and tablets | **Settings > Interface > App language** |
+| Android TV | **Settings > General > App language** |
+
+Before you sign in, the web app's sign-in page has its own language menu in
+the top corner.
+
+Every app offers the same 21 languages besides English: Arabic, Chinese
+(Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish,
+French, German, Italian, Japanese, Korean, Norwegian Bokmål, Polish,
+Portuguese (Brazil), Russian, Spanish, Swedish, Turkish, and Ukrainian. The
+list shows each one in its own language, such as **Deutsch** or **日本語**.
+
+**Match device** reads Norwegian as Norwegian Bokmål, and Chinese for
+Taiwan, Hong Kong, or Macau as Traditional Chinese. Apple devices also read
+Nynorsk as Norwegian Bokmål; the other apps skip it and try your next
+language.
+
+To use a different language on one device, choose it for Silo in the
+device's own settings. It applies to the profile you're using, on that
+device only. iPhone, iPad, Mac, and Android phones and tablets running
+Android 13 or later have this setting; Apple TV and Android TV don't. If you
+later pick a language inside Silo, it's saved for your profile and clears
+this device's choice. Other devices keep their own.
+
+App language doesn't change titles, descriptions, audio, or subtitles. Those
+follow **Metadata language**, **Spoken language**, and your subtitle
+settings.
+
+### Help translate Silo
+
+Most of Silo's translations were written by AI and haven't been checked by
+people who speak the language, so some wording may be wrong or awkward. To
+fix a phrase, follow the
+[contribution guide](https://github.com/Silo-Server/silo-translations/blob/main/CONTRIBUTING.md)
+and open a pull request in the
+[silo-translations](https://github.com/Silo-Server/silo-translations)
+repository on GitHub. A merged fix shows up in a later app update.
 
 ## Set playback quality
 
@@ -106,6 +162,42 @@ short test or from playback, rather than a full measurement.
 
 Speed tests don't run on mobile data or a metered network. There the group
 says that tests are skipped, and **Test speed** is hidden.
+
+## Choose badges on posters
+
+Badges are the small labels on posters, such as `4K` or a rating. To choose
+them, open **Settings > Navigation & Cards** and go to **Badges**:
+
+1. Turn on **Show badges on posters**, and pick a look under **Style**.
+2. Open a group such as **Media Info** or **Ratings & Certifications**, and
+   turn on the badges you want.
+3. To move or recolor a badge that's on, select **Adjust** beside it and
+   choose a **Position** and **Color**.
+
+The preview beside the settings, or above them in a narrow window, updates as
+you go. Badges belong to your profile, so the mobile and TV apps show them
+too. Until you change anything, you see your server's defaults; **Reset
+badges** takes you back to them.
+
+### Combine resolution, HDR, and audio in one badge
+
+**Resolution**, **HDR / Dolby Vision**, and **Audio Codec** under **Media
+Info** are on by default, so a 4K Dolby Vision movie with DTS-HD audio gets
+three badges: `4K`, `DV HDR10`, and `DTS-HD`. To use less of the poster, turn
+on a combined badge. Both are off by default:
+
+- **Resolution + HDR (combined)** shows one badge such as `4K DV` in place of
+  **Resolution** and **HDR / Dolby Vision**. Audio keeps its own badge.
+- **Resolution + HDR + Audio (combined)** shows one badge such as
+  `4K DV DTS-HD` in the web app, the iPhone, iPad, Apple TV, and Mac apps, and
+  the Android phone, tablet, and TV apps, in place of **Resolution**, **HDR / Dolby Vision**, **Audio Codec**, and
+  **Resolution + HDR (combined)**. A file
+  without HDR shows only its resolution and audio, such as `4K DTS-HD`.
+
+While a combined badge is on, the badges it replaces stay hidden, and their
+rows say so, for example "Hidden while the combined Resolution + HDR + Audio
+badge is on." They keep their own setting, so turning the combined badge off
+brings them back.
 
 ## Change one device
 
