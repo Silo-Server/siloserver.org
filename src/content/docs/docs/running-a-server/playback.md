@@ -95,7 +95,7 @@ Turn on **Complete playlists for copied video**, under **Advanced** in **Transco
 Silo uses the complete playlist only when all of these are true:
 
 - The file is an MKV or WebM whose keyframe index lists the video's keyframes.
-- Silo copies the video and packages it as fMP4. MPEG-2 video and Dolby Vision in the Jellyfin app on LG TVs are packaged as MPEG-TS, so they keep the growing playlist.
+- Silo copies the video and packages it as fMP4. Streams packaged as MPEG-TS instead, which Silo uses for MPEG-2 video and for some devices, keep the growing playlist.
 - Silo knows the file's length.
 
 Every other stream gets the growing playlist, as it does with the setting off. If Silo finds that a file's index doesn't match where the video is actually cut, later plays of that file get the growing playlist until the file changes.
