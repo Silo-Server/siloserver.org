@@ -75,4 +75,4 @@ A saved change applies to everyone who plays that file. Players that are already
 
 A manual marker takes priority over online and detected markers, so later lookups and detection don't replace it. Only another manual edit does.
 
-Chapter images are configured separately in [playback settings](/docs/playback).
+To show an image for each marker on the web player's seek bar, turn on [**Generate chapter thumbnails**](/docs/playback#generate-chapter-thumbnails) for the library. Where a video's [seek previews](/docs/timeline-previews) have loaded, the seek bar shows those instead.

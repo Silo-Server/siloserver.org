@@ -1,7 +1,7 @@
 ---
 slug: docs/playback
 keywords: ["hardware transcoding", "hardware acceleration", "GPU", "NVIDIA", "NVENC", "Intel Quick Sync", "QuickSync", "QSV", "VAAPI", "AMD", "4K", "HDR tone mapping", "FEL", "DV7"]
-questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
+questions: ["How do I make Silo use my graphics card?", "Why does Activity show SW instead of hardware?", "Why is my CPU maxed out when converting 4K?", "Why don't my chapters show preview pictures?", "Why is there no picture when I hover over a skip marker?", "Do I need transcoding on to play Dolby Vision profile 7 rips?"]
 title: Set up transcoding and chapter previews
 description: Give Silo access to a GPU and check whether it is used during playback.
 ---
@@ -119,17 +119,20 @@ Speed tests take the same route as playback. If media goes through [proxy nodes]
 
 ## Generate chapter thumbnails
 
-Chapter menus work without thumbnails. Silo stores chapter preview images in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
+**Generate chapter thumbnails** makes an image for each chapter and each [skip marker](/docs/markers) in a file. The web player shows chapter images in its **Chapters** menu, and both kinds on the seek bar. A chapter image is taken a few seconds into the chapter and a marker image at the marker's start, so a file without chapters still gets marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
 1. Edit the library under **Admin > Libraries**.
-2. In its advanced settings, turn on **Generate chapter thumbnails** and save.
-3. Let background generation run. Silo also queues a title's previews when someone opens or plays it, and checks for missing previews every six hours.
-4. Open a title with chapters in the web player and check its chapter previews.
+2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each video library has its own switch, and it stays unavailable until artwork storage is set up.
+3. Let background generation run. Silo also queues a title's images when someone plays it, and checks for missing images every six hours. If online markers are set to **Fetch when needed** in [marker settings](/docs/markers#choose-how-markers-are-found), Silo makes their images once it looks the markers up, usually when someone plays the title.
+4. Play a title with chapters or skip markers in the web player. If it has chapters, open **Chapters** to see their images. On a touch screen or in a narrow window, **Chapters** is under **More player options**.
+5. Hover over or drag along the seek bar to see the image for the chapter or marker there. If the library also makes [seek previews](/docs/timeline-previews), the seek bar shows those once they've loaded.
 
-For conversion on another machine, see [Transcode nodes](/docs/transcode-nodes).
+Turning the switch off stops Silo making new images for that library. Unlike seek previews, it doesn't delete the images already made, so the player keeps showing them.
+
+With [**Hardware acceleration**](#choose-and-test-acceleration) set up, Silo can extract the images on the GPU. To make them on a [transcode node](/docs/transcode-nodes) instead, set **Generate chapter thumbnails on** under **Preview images** on **Admin > Playback > Settings**. Until an enabled, healthy transcode node is connected, that setting sits under **Advanced** and its node options are unavailable.
 
 ### If previews don't appear
 
-Check that the file has chapter markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**. Both settings are under **Advanced** in **Preview images** on **Admin > Playback > Settings**. **Software HDR tone mapping** is separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
+Check that the file has chapters or skip markers and that **Generate chapter thumbnails** is on for its library. HDR files are skipped when **HDR handling** is set to **Skip HDR and Dolby Vision**. Without a GPU that can tone-map, HDR previews also need **Software HDR tone mapping**. Both settings are under **Advanced** in **Preview images** on **Admin > Playback > Settings**. **Software HDR tone mapping** is separate from the transcoding setting above and is on by default. If artwork can't be saved, check free space and permissions for local artwork storage, or the bucket credentials and endpoint for S3.
 
-Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.
+Chapter menus and skip buttons work while previews are missing. Silo retries failed previews on its own, so a file that failed once can fill in later. To see why a file was skipped, filter **Admin > Logs > Server Log** by the `chapterthumbs` component.
