@@ -108,19 +108,9 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 ## Use complete playlists for copied video
 
-Turn on **Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, to send the player every segment of a video as soon as playback starts. It's experimental and off by default. Without it, when Silo repackages a file without converting its video, the player gets a playlist that grows as Silo copies the video. Some players handle that badly: Safari, for example, can stop partway through a video. With the setting on, Silo plans the segments from the file's own keyframes before it starts copying. A resumed title's playlist runs from where it resumes to the end.
+**Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, is experimental and off by default. When Silo repackages a file without converting its video, the player normally gets a playlist that grows as Silo copies the video, and some players handle that badly: Safari, for example, can stop partway through. With the setting on, Silo lists every segment when playback starts, using the file's keyframes.
 
-Silo uses the complete playlist only when all of these are true:
-
-- The file is an MKV or WebM whose keyframe index lists the video's keyframes.
-- Silo copies the video and packages it as fMP4. Streams packaged as MPEG-TS instead, which Silo uses for MPEG-2 video and for some devices, keep the growing playlist.
-- Silo knows the file's length.
-
-Other copied streams get the growing playlist, as they do with the setting off. If Silo finds that a file's index doesn't match where the video is actually cut, playback of that title can stall. Start it again. Later plays of that file get the growing playlist until the file changes or Silo restarts.
-
-Once a stream has the complete playlist, segments Silo has already copied play at once. A seek a little past what Silo has copied waits a moment for the copy to catch up, because copying runs much faster than playback. For a seek further ahead, or back to a segment that **Transcode back buffer** has already cleaned up, Silo restarts the copy at that point and the new segments still match the playlist. Switching the audio track also restarts the copy and discards the segments made with the old track, so Silo copies any of them again if the player asks for them.
-
-If Silo has to rebuild a stream, for example after it restarts, and can't plan the same segments again, playback stops and has to be started again on the device. Because the setting is experimental, test playing, seeking, and switching audio on the devices you use before leaving it on, and turn it off if playback stops.
+It applies when Silo copies the video of an MKV or WebM file for most devices. Other streams play as they do with the setting off. Before leaving it on, test playing, seeking, and switching audio on the devices you use. If a title stops partway, start it again, and turn the setting off if that keeps happening.
 
 ## Limit connection speed tests
 
