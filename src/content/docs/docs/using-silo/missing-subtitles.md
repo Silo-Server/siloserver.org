@@ -67,9 +67,10 @@ On iPhone, iPad, and Apple TV, the other languages can't be
 selected.
 
 The new track appears in the subtitle list when it's done, which can take a
-while. On Android, AI tracks are labeled **AI Translation** or
-**AI Transcription**, and Android TV marks them **AI**. AI can mishear or mistranslate lines. There may be a
-limit on how much you can transcribe.
+while. On Android phones and tablets, AI tracks are labeled
+**AI Translation** or **AI Transcription**, and Android TV marks them **AI**.
+AI can mishear or mistranslate lines. There may be a limit on how much you
+can transcribe.
 
 If you ask for a translation that already exists, from the same subtitle
 track into the same language, Silo doesn't make a new one. The saved track is
