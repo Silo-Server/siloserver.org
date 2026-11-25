@@ -65,8 +65,9 @@ your library. It's off by default. To turn it on, open
   `8/10`.
 
 When nothing is missing, the badge says `Complete`. Specials don't count. A
-season with nothing aired and nothing in your library has no badge, and
-neither does a series whose episode list Silo hasn't finished loading.
+season with nothing aired and nothing in your library has no badge. Until
+Silo has loaded a series' whole episode list, neither the series nor its
+seasons show one.
 
 An episode counts only if you can play it. Episodes in libraries you can't
 open don't count, and neither does a 4K-only episode if your account or
