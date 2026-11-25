@@ -77,7 +77,7 @@ already in the subtitle list, and the player selects it for you. For a
 fresh translation, ask the person who runs your server to delete the AI track
 first.
 
-If a job fails, the message says why. When it asks you to contact a server
+If a job fails, the message says why. When it says to ask a server
 administrator, a setting on the server needs fixing, so pass the message on
 to the person who runs your server. Most other messages say what you can do
 yourself, such as
