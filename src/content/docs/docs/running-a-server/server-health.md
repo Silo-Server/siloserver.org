@@ -1,5 +1,7 @@
 ---
 slug: docs/server-health
+keywords: ["server won't start", "not starting", "slow server", "high CPU", "high memory", "scan stuck", "crash"]
+questions: ["Why does docker compose ps show Silo as unhealthy?", "How do I tell if Silo is up and ready?", "Why are streams slow for friends watching remotely?", "Why does the ready check say degraded?"]
 title: Check server health
 description: Find whether a problem comes from startup, storage, scanning, or playback.
 ---
@@ -28,7 +30,7 @@ From another machine, replace `localhost` with the server's address.
 | HTTP 200, `{"status":"ok"}` | Ready |
 | HTTP 200, `"status":"degraded"` | Artwork or S3 storage failed its check. The body shows which: `"s3":false` or `"artwork":false`. Silo keeps serving, but images may be missing. |
 | HTTP 503, `"status":"error"` | Silo cannot reach PostgreSQL |
-| HTTP 503, `"status":"shutting_down"` | Silo is stopping. It keeps serving for `SILO_SHUTDOWN_DELAY`, 5 seconds by default, so a load balancer can send new requests elsewhere first. See [Distributed and external services](/docs/docker#distributed-and-external-services). |
+| HTTP 503, `"status":"shutting_down"` | Silo is stopping. It keeps serving for `SILO_SHUTDOWN_DELAY`, 5 seconds by default, so a load balancer can send new requests elsewhere first. See [Nodes and stop timeouts](/docs/docker#nodes-and-stop-timeouts). |
 
 A degraded answer still returns HTTP 200, so read the body. Readiness doesn't check Redis or playback.
 
@@ -48,9 +50,23 @@ Try one known file and note the client, the time, and the audio and subtitle tra
 
 Make sure the server or node can read the file and has free space for transcodes. If only remote clients fail, check [external access](/docs/reverse-proxy). If only converted streams fail, check [transcoding](/docs/playback).
 
+## If remote playback is slow
+
+If viewers away from home get much less than their connection supports, check what Silo's [TCP tuning](/docs/configuration#tcp-tuning-for-remote-viewers) applied when it started. Open **Admin > Logs > Server Log**, set **Component** to `tcpcongestion`, and look at the entries from the last start:
+
+- `tcp congestion control: listener state` appears once for each port Silo serves viewers on. A warning means the kernel didn't give that port BBR.
+- `tcp buffer limits: kernel state` shows the kernel's send limit. It's always informational, even when the limit is low.
+- `tcp send buffer: listener state` appears once for each port and says whether Silo forced a larger send buffer. A warning means the limit is low and Silo couldn't raise it, usually because it doesn't have the [`NET_ADMIN` capability](/docs/docker#net_admin-capability).
+
+Each warning includes what to change, such as loading `tcp_bbr` on the host or raising `net.ipv4.tcp_wmem`. Set **Component** to `netadmin` to see the `net admin: capability state` entry. It says whether Silo had `NET_ADMIN` at startup, and warns if the helper didn't start or Silo couldn't confirm that it dropped the capability. None of these warnings stops Silo.
+
+If the entries show no warnings, check whether a reverse proxy or other hop sits between viewers and Silo, because the tuning covers only the connection that ends at Silo. If that proxy serves HTTP/3, see [If remote playback is slow over HTTP/3](/docs/reverse-proxy#if-remote-playback-is-slow-over-http3).
+
 ## Background work fails
 
 Open **Admin > Server > Scheduled Tasks** to find the task and **Admin > Logs > Server Log** for its error. Repeated provider failures usually mean a rejected key, a rate limit, or a service that can't be reached. Fix that before retrying tasks; retrying everything at once only adds load.
+
+A run marked **cancelled** with `Stopped after reaching the max runtime of` in its **Execution history** didn't fail: it reached the **Max runtime** set on the task's schedule. If the task never gets through its work, raise or clear the limit with **Edit Schedule**.
 
 ## Disk space
 

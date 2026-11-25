@@ -1,5 +1,7 @@
 ---
 slug: docs/metadata
+keywords: ["wrong poster", "wrong movie", "wrong show", "mismatched", "fix match", "identify", "incorrect title", "artwork", "cover art"]
+questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "How do I undo my changes to an episode?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?"]
 title: Fix metadata and choose artwork
 description: Correct a match, edit a description, and keep intentional changes.
 ---
@@ -10,9 +12,12 @@ Fix titles, descriptions, and artwork in the web app as a server administrator. 
 
 1. Open the item's details and its actions menu.
 2. Select **Match Item**.
-3. Search with the correct title and year. Use the provider filters or identifiers when you know the exact match.
-4. Select the right result and choose **Apply Match**.
-5. Reopen the item and check the title, year, artwork, and files. For a series, also check seasons and episodes.
+3. Check **Title** and **Year**. They start with the title and year in the item's folder and file names, not the current match, which may be the wrong one. Any IMDb, TMDB, or TVDB ID in those names fills its ID field too. Correct what's wrong, add an ID when you know the exact match, or clear **Year** to search all years. If Silo found no title in the names, the fields start with the item's current title and year.
+4. If the item is in more than one library and you didn't open it from one of them, choose a **Library**. The search uses that library's metadata settings.
+5. Select **Search**, then the right result, and choose **Apply Match**.
+6. Reopen the item and check the title, year, artwork, and files. For a series, also check seasons and episodes.
+
+When you choose a different title, Silo removes details from the old match that the new one doesn't have, such as a tagline. Fields you locked by editing them keep your values. For a series, matching a different show also clears your edits to its seasons and episodes, since they described the old show. Applying the match the item already has clears nothing.
 
 Later refreshes keep the match you apply, even if an [NFO file](/docs/local-metadata) beside the media has a `<uniqueid>` for another title.
 
@@ -20,7 +25,7 @@ If one folder holds unrelated titles, fix the [folder layout](/docs/media-folder
 
 ## Ignore an unmatched item
 
-Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has.
+Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has. A movie with no poster still gets [a frame from its video](/docs/local-metadata#if-a-movie-has-no-poster) as one.
 
 1. Open **Admin > Libraries** and expand **Unmatched Items**, below the list of libraries. The section appears only while an item is awaiting a match or ignored.
 2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
@@ -39,9 +44,11 @@ Renaming or moving an ignored item's file brings it back to **Unmatched Items** 
 2. Change the fields you need.
 3. Select **Save Changes**.
 
-Editing a lockable field locks it, so providers leave it alone during a refresh. Unlock the field when you want providers to update it again.
+Editing a lockable field locks it, so refreshes and library scans leave it alone. The field shows **locked**, and the top of the dialog counts the locks, such as **1 locked**. Select **locked** to unlock the field when you want providers to update it again.
 
-**Reset & Refresh** clears every lock and replaces your manual edits with provider data.
+Seasons and episodes lock the same way. On a season, the title, overview, and air date lock; an episode also locks its runtime. Season and episode numbers don't lock.
+
+To undo all your edits at once, select **Reset to Provider** and confirm with **Reset & Refresh**. This clears every lock on that movie, series, season, or episode and replaces your manual edits with provider data. Resetting a series doesn't touch its seasons and episodes, so their locked edits stay. Reset each season or episode on its own.
 
 ## Choose a fallback language
 
@@ -77,9 +84,28 @@ You don't have to translate a library ahead of time. To translate while people b
 
 In **Edit Metadata**, open **Images** for a movie, series, or season. Choose the image type, select an image, and choose **Apply Poster**, **Apply Backdrop**, or **Apply Logo**. The image changes immediately, and **Cancel** doesn't undo it. Look at the item's details page and the library grid afterward. Only administrators can change images.
 
+Applying an image locks the item's images, so refreshes keep your choice. The lock counts toward the number at the top of the movie's or series' **Edit Metadata**, such as **1 locked**. For a season, the lock is on its series, so it counts there, not on the season.
+
 A badge on each image names where it comes from, such as **TMDB**. A movie or series also offers the artwork stored beside its files, marked **LOCAL** and listed first, so a title with no provider match can still use its own [artwork](/docs/local-metadata#add-artwork). When the images come from more than one source, buttons such as **All**, **LOCAL**, and **TMDB** appear under the image types. Select one to show only that source's images.
 
+To use your own image, choose the image type and select **Upload** at the right end of the row of image types. Pick a JPEG, PNG, or WebP file of up to 10 MiB. The upload takes effect immediately, as an applied image does, and refreshes keep it. It then appears in the list marked **LOCAL** and **Current**. Silo doesn't keep an upload after you apply another image in its place, so to go back to it, upload the file again. Silo stores uploads in its artwork storage, not in your media folders. Uploading works whether or not **Save provider artwork to storage** is on.
+
 If images don't appear, check [artwork storage](/docs/s3-storage).
+
+### Season backdrops
+
+A season's backdrop comes from a metadata provider that has backdrops for seasons, or from one you apply. The season page shows it in place of the series backdrop, and so do the Continue Watching and Next Up cards for the season's episodes.
+
+While the series' images aren't locked, a **Quick Refresh** of the series or of that season, or a new match from **Match Item**, replaces each season backdrop with the provider's. When no provider has one, Silo removes it and the season shows the series backdrop. A refresh that only fills in missing details leaves a stored season backdrop alone.
+
+### Remove a season backdrop
+
+Removing a season backdrop resets the whole series. There's no switch that unlocks only the images, so **Reset to Provider** unlocks every field on the series and runs a **Quick Refresh**. Your other manual edits to the series, such as a title or description you changed, are replaced with provider data too. Locked edits to its seasons and episodes stay.
+
+1. Open **Edit Metadata** on the series, not on the season. The season's own **Reset to Provider** keeps the image lock, which is on the series.
+2. Select **Reset to Provider**, then confirm with **Reset & Refresh**.
+
+Afterward the season shows its provider's backdrop if there is one, or the series backdrop. The same steps clear a season backdrop left over from a wrong match.
 
 ## Refresh metadata
 

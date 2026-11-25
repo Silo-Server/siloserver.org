@@ -1,5 +1,7 @@
 ---
 slug: docs/logging
+keywords: ["debug logging", "verbose logging", "access log", "who changed what", "security events", "log rotation", "tracing", "OTLP"]
+questions: ["Where can I see error messages from the server?", "How do I see who changed a user's permissions?", "How do I stop container logs filling my disk?", "What does status 499 mean in the log?"]
 title: Logs and monitoring
 description: Find errors, limit retained logs, and export logs and traces to OpenTelemetry.
 ---

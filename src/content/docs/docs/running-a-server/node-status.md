@@ -1,5 +1,7 @@
 ---
 slug: docs/node-status
+keywords: ["node offline", "node down", "GPU utilization", "Quick Sync", "software encoding", "hwaccel", "worker health", "failover"]
+questions: ["Why does my node say unhealthy?", "Is my node's GPU actually being used?", "What does the amber Drift marker mean?", "When is it safe to shut down a transcode node?"]
 title: Read node status
 description: Understand the state, acceleration, load, and capacity readings in Admin > Playback > Nodes, and the metrics each node exports.
 ---
@@ -22,9 +24,11 @@ The colored rail on the node's left edge, the dot in its header, and the label b
 
 Silo checks every node every 30 seconds. Use the refresh button in the node's header to check it right away. **Checked**, in the **Capacity** block, shows how long ago the last check ran; hover over it for the exact time.
 
-When a node stops answering, playback already running on it can't continue there. A new or restarted stream goes to a healthy node.
+When a node crashes or shuts down mid-stream, playback in the web app and the Silo apps moves to another node or to the main server on its own and carries on from the same position. Streams the main server delivers itself move without a visible pause. Streams through a proxy node move within about 10 seconds in the Silo apps and can freeze for a moment. In the web app, they can keep playing what the browser has already loaded, as much as two minutes of video, then pause, usually for a few seconds, while they move. Seeking past what's loaded starts the move sooner. Until the move, [**Admin > Activity**](/docs/active-playback) shows the session on the node that went away. Silo also moves playback off a transcode node that stops responding without shutting down, though playback through a proxy node can take longer to move. If [**Routing**](/docs/transcode-nodes#route-playback-to-nodes) leaves no other machine for that playback, such as a route ending in "only" with one node of that type, playback stops and the viewer has to start it again.
 
 A disabled node is dimmed and Silo stops checking it, so its readings are from its last check.
+
+Under a transcode node's address, **Key issued** means you've issued the node its key, and **Rotate key** beside it [replaces the key](/docs/transcode-nodes#maintain-a-node). **No key: this node takes no work until a key is issued** means the node can't start work yet; select **Issue key** beside it. A node with a key still shows **Unhealthy** until it's running with that key.
 
 A draining transcode node also has a line under its address that counts the work left, such as **Draining · 2 transcodes left**. Once nothing is left, a node you drained shows **Drained · safe to stop**, and a node that's stopping shows **Drained · no work left** just before it exits. A node you drained shows **Draining · not answering** while it's **Unhealthy**, such as while it's stopped, and **Drain requested** while its switch is off. Turning the switch back on doesn't resume it.
 

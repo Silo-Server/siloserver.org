@@ -1,5 +1,7 @@
 ---
 slug: docs/beta
+keywords: ["experimental", "early access", "preview features", "unreleased features"]
+questions: ["What's still experimental in Silo?", "Which apps have the newer features?", "I saw a feature that isn't in the main guides, where is it?"]
 beta: true
 title: Beta features
 description: Look up a feature you saw in Silo that isn't part of the 1.0 release, and see which apps have it.
@@ -20,9 +22,9 @@ more.
 | Audiobookshelf-compatible apps | Web admin setting, then third-party listening apps | [Audiobookshelf-compatible apps](/docs/audiobookshelf) |
 | Ebooks, comics, and manga | Web, Android phone and tablet | [Ebooks and comics](/docs/ebooks) |
 | Podcasts and music | Web admin library form | [Podcasts and music](/docs/podcasts-and-music) |
-| Watch Party | Web; iPhone, iPad, and Apple TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
+| Watch Party | Web; iPhone, iPad, Apple TV, Android phone and tablet, and Android TV after you turn it on in Settings | [Watch Party](/docs/watch-together) |
 | Simkl and MDBList sync | Web | [Sync with Simkl or MDBList](/docs/watch-sync) |
-| Timeline previews | iPhone, iPad, Apple TV, native Mac app | [Timeline previews on Apple devices](/docs/timeline-previews) |
+| Timeline previews | Web admin setting, then web, iPhone, iPad, Apple TV, native Mac app, Android phone and tablet, and Android TV | [Timeline previews](/docs/timeline-previews) |
 | Catalog import and export | Web admin | [Catalog import and export](/docs/catalog-seeds) |
 | Network Access (Tailscale) | Web admin | [Reach your server with Tailscale](/docs/tailscale) |
 | Tailscale sign-in | Web, mobile, and TV | [Sign in with Tailscale](/docs/tailscale-sign-in) |

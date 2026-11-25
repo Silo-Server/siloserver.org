@@ -1,5 +1,7 @@
 ---
 slug: docs/profiling
+keywords: ["pprof", "memory leak", "high CPU usage", "memory keeps growing", "debug port", "performance issue"]
+questions: ["A maintainer asked for a heap profile, how do I get one?", "How do I record where Silo spends CPU time?", "Why does silo-profile return HTTP 409?", "Why do I get 'profiling requires a local request'?"]
 title: Collect a performance profile
 description: Turn on Silo's private profiling listener, capture the profile a maintainer asks for, and send it privately.
 ---

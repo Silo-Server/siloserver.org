@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-access
+keywords: ["permissions", "user groups", "restrict libraries", "hide library", "parental restrictions", "block 4K"]
+questions: ["How do I let guests see only some libraries?", "How do I limit how many people stream at once?", "Why did changing someone's group do nothing?", "How do I cap download speed for my users?", "How do I stop guests from playing 4K?"]
 title: Set access and limits
 description: Give people the right libraries and permissions without editing every account separately.
 ---
@@ -36,6 +38,12 @@ Stream bitrate limits use **Mbps** in the web forms. Choose **Unlimited**, a pre
 
 The bitrate limit caps the stream's bitrate, not the speed of the network connection. If a file is over the limit, Silo converts it. If it can't, it tries another version that fits, and refuses playback only when neither works.
 
+**Maximum playback quality** sets the highest resolution a person can play. **Standard** hides 4K and higher versions (an account shows this as **1080p**), **4K** allows 4K and lower, and **Any** allows every resolution. Set it for a group in its **Libraries & playback** section.
+
+To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Playback & streaming**, and set **Max quality** to **Custom** with the limit you want. Then choose **Save**. The account's limit replaces the group's, even when it allows more. A profile can also set **Maximum playback quality** under **Access** in the [profile editor](/docs/profiles#in-the-web-app). It takes effect only when it's lower than the account's limit.
+
+When every version of an episode is above the limit, the Silo apps leave the episode out of that person's season lists, Next Up, Continue Watching, and Recently Added. It appears once a version within the limit is added to a library they can use, and Next Up waits for it rather than skipping to a later episode. Jellyfin-compatible apps leave it out of season lists and Next Up. If you keep 4K and 1080p copies in separate libraries that everyone can use, limit accounts that shouldn't stream 4K to **Standard** on their group or **1080p** on the account. A new episode then shows up for them when its 1080p copy arrives.
+
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
 **Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and you can set any whole number from 1 up. Accounts without a group, and administrator accounts, can have 5 unless you give them their own limit. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Sign-in & role**, and set **Profiles allowed** to **Custom**. **Default** uses the group's limit again. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
@@ -56,13 +64,16 @@ Set download limits in **Admin > Downloads > Settings**. They apply to downloads
 
 If you run more than one API server, each one applies the bandwidth limits on its own. Download counts are shared across all of them. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
 
+**Downloads at once per user** counts the downloads Silo is still [preparing a copy](/docs/download-storage) for, which it does when someone picks a smaller quality or a file their device can't play. A download at original quality doesn't count, and neither does one whose copy is ready or one an app is already transferring. To limit how fast downloads run, set the bandwidth limits.
+
 **Downloads per period** counts the downloads an account added within the last **Period length**, such as `24h`. Failed or cancelled downloads don't count, and removing a download frees its place.
 
 ## Check household restrictions
 
-Account access determines which libraries the household can use. Profile
-restrictions narrow that access for one person; they cannot grant access to
-libraries the account cannot use.
+Account access determines which libraries the household can use. The primary
+profile can use all of them, and **Restrict libraries** can narrow that for the
+other profiles. Profile restrictions cannot grant access to libraries the
+account cannot use.
 
 The household's primary profile can configure **Maximum content rating**,
 **Maximum advisory age**, and **Restrict libraries** in the web profile editor.
