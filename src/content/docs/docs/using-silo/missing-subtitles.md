@@ -68,7 +68,7 @@ selected.
 
 The new track appears in the subtitle list when it's done, which can take a
 while. On Android, AI tracks are labeled **AI Translation** or
-**AI Transcription**. AI can mishear or mistranslate lines. There may be a
+**AI Transcription**, and Android TV marks them **AI**. AI can mishear or mistranslate lines. There may be a
 limit on how much you can transcribe.
 
 If you ask for a translation that already exists, from the same subtitle
