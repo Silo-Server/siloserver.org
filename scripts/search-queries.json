@@ -143,6 +143,7 @@
   {"query": "instal with docker compse", "expect": ["docs/install"]},
   {"query": "calender upcoming episodes", "expect": ["docs/home-and-calendar"]},
   {"query": "movie in theaters not on calendar", "expect": ["docs/home-and-calendar"]},
+  {"query": "theatrical release date", "expect": ["docs/home-and-calendar"]},
   {"query": "paretnal controls", "expect": ["docs/profiles"]},
   {"query": "colections", "expect": ["docs/collections", "docs/manage-collections"]},
   {"query": "how do i get it on the big tv", "expect": ["docs/tv-sign-in", "docs/choose-an-app"]},
