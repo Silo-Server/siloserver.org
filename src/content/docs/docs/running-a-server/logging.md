@@ -30,7 +30,7 @@ Early database and migration messages can appear only in the container logs, bec
 The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to your server, including page loads and failed sign-ins: who made each one under **Actor**, when, and the status code. Account and permission changes also show what changed under **Action / changes** and what it applied to under **Target**, such as an account, an API key, or a profile:
 
 - an administrator creating, editing, or deleting accounts and access groups, starting and ending **View as user**, transferring ownership, and creating a password reset link
-- completed password resets and password changes
+- completed password resets, which show no **Actor**, and password changes
 - signing out one session, or every session with **Sign out everywhere**
 - API keys created, changed, or deleted
 - household profiles created, edited, or deleted
