@@ -73,7 +73,7 @@ limit on how much you can transcribe.
 
 If you ask for a translation that already exists, from the same subtitle
 track into the same language, Silo doesn't make a new one. The saved track is
-already in the subtitle list, and the web player selects it for you. For a
+already in the subtitle list, and the player selects it for you. For a
 fresh translation, ask the person who runs your server to delete the AI track
 first.
 
