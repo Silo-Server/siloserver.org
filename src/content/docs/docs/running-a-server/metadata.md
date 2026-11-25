@@ -1,7 +1,7 @@
 ---
 slug: docs/metadata
 keywords: ["wrong poster", "wrong movie", "wrong show", "mismatched", "fix match", "identify", "incorrect title", "artwork", "cover art"]
-questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "How do I undo my changes to an episode?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?", "Why do my sports games show as S2026E296?"]
+questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "How do I undo my changes to an episode?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?", "Why do my sports games show season and episode numbers?"]
 title: Fix metadata and choose artwork
 description: Correct a match, edit a description, and keep intentional changes.
 ---
@@ -118,22 +118,26 @@ Provider order and language belong to **Admin > Libraries**. For metadata stored
 
 ## Sports libraries from Sportarr
 
-The **Sportarr Metadata** plugin turns each league into a series, its seasons into seasons, and its games and events into episodes. To use it, [install it](/docs/plugins) from the **Catalog** tab in **Admin > Integrations > Plugins**, then check it in the library's **Provider Priority**.
+The **Sportarr Metadata** plugin lists each league as a series and its games and events as episodes. To set it up:
 
-Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date instead, such as Nov 20, 2026. The date replaces the code on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and in Watch Party. Games still sort and play next in number order. A game with no date keeps its number.
+1. [Install the plugin](/docs/plugins#install-from-the-catalog) from the **Catalog** tab in **Admin > Integrations > Plugins**.
+2. In **Admin > Libraries**, select the pencil on the sports library's row and open **Metadata**.
+3. Under **Provider Priority**, check `sportarr` for series, seasons, and episodes, then select **Save Changes**.
 
-Each game is dated by the day it aired in its local time zone, so an evening game in the Americas isn't dated a day late.
+Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date in its place, such as Nov 20, 2026: on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and in Watch Party.
 
-Only the plugin switches a library to dates. A sports library that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers.
+Games still sort and play next by number, and a game with no date keeps its number. Each game is dated by its day in Sportarr's broadcast time zone, the date Sportarr also puts in file names, so an evening game in the Americas isn't dated a day late.
 
-### Update an existing sports library
+Only series the plugin matched show dates. A series that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers.
 
-After you update the plugin to 1.0.6 or later, refresh the library. Silo then replaces the dates it stored before the update and labels the episodes by date:
+### After you update the Sportarr plugin
 
-1. In **Admin > Libraries**, select the library's **Rescan Metadata** button.
+After you update the plugin to 1.0.6 or later, refresh the library. This replaces dates stored before the update, which can be a day late, and switches its episodes to dates.
+
+1. In **Admin > Libraries**, open the ⋯ menu on the library's row and choose **Rescan Metadata**.
 2. Choose **Refresh All Metadata**. A large library can take hours.
 
-An episode date you locked in **Edit Metadata** keeps your value.
+An **Air Date** you locked in **Edit Metadata** keeps your value, and so does a date from an NFO file while **Local metadata (NFO + artwork)** is on for the library.
 
 ## Cast and crew details
 
