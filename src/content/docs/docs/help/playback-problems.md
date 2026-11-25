@@ -1,5 +1,7 @@
 ---
 slug: docs/playback-problems
+keywords: ["won't play", "movie won't play", "video won't play", "not playing", "video won't load", "buffering", "stuttering", "choppy", "freezes", "black screen", "no sound", "audio out of sync", "playback error"]
+questions: ["Why is my video quality stuck low?", "Why does it say this file can't be played?", "Why is the server converting 4K movies in my Linux browser?", "Why isn't Atmos coming through my receiver?"]
 title: Fix playback problems
 description: Narrow down a title that won't play, or picture, sound, or subtitle problems on a TV or receiver.
 ---
@@ -14,7 +16,11 @@ clear which change fixed the problem, or which details to report.
 2. If the title has more than one version, try another
    [version](/docs/watch-movies-and-series#choose-a-version-before-playback).
 3. Try the same title in another Silo app, such as the web app.
-4. Choose a lower **Quality** if playback buffers on a slow connection.
+4. If playback keeps buffering on **Auto**, Silo lowers the quality for you
+   or asks first, depending on **Lower quality when buffering**. If it's set
+   to **Never**, or you picked a quality, choose a lower **Quality** in the
+   player. See
+   [If playback keeps buffering](/docs/watch-movies-and-series#if-playback-keeps-buffering).
 
 If the web player says `This file can't be played`, the file itself is empty,
 corrupt, or cut short, and trying again won't help. On a series page, the web
@@ -27,11 +33,56 @@ whether the stream is being converted, and [server health](/docs/server-health)
 for errors at that time. Otherwise, share the details below with the person who
 runs it.
 
+If Silo converts a title your device should play as it is, check the
+viewer's [quality settings](/docs/preferences#set-playback-quality) first. A
+**Resolution** below the file's size or a **Maximum bitrate** below its
+bitrate makes Silo convert it, and so does **Cellular Quality** on mobile data
+or a metered network.
+
+If titles start at a lower quality than your connection should allow, Silo
+may still be holding a limit from earlier buffering on this device and
+network. **Settings > Playback** shows it as a line such as "Limited to
+12 Mbps after buffering on Oct 17". Select **Reset** to clear it, then play
+the title again. See
+[Lower quality when buffering](/docs/preferences#lower-quality-when-buffering).
+
 If a title won't start and isn't marked **Damaged file**, check that Silo can
 still read it. Filter **Admin > Logs > Server Log** by the `scanner` component for
 `ffprobe failed because the file could not be read`. Fix the file's permissions
 or its storage, such as a network mount that dropped, then
 [scan the library](/docs/manage-libraries#scan-or-refresh).
+
+## If the web app converts HEVC files on Linux
+
+Make sure your browser decodes HEVC with your graphics card. Most 4K, HDR,
+and Dolby Vision files use HEVC, and most browsers on Linux can't play it
+without hardware decoding, so Silo converts those files on the server.
+
+To check, start the title in the web app, open **Playback info** in the player,
+and look at **Play method**. **Transcode** means the server is converting the
+file. **Direct Play** or **Direct Streaming** means the browser is decoding the
+original video.
+
+1. Check that your graphics driver can decode HEVC. Run `vainfo`, from the
+   `libva-utils` package, and look for `VAProfileHEVCMain10`. If it isn't
+   listed, install the VA-API driver for your GPU.
+2. Update the browser. Chrome and Chromium use hardware decoding by default
+   from version 143, and Firefox plays HEVC on Linux from version 137.
+3. Quit the browser completely, then start it again.
+4. Check that the browser can decode HEVC. In a Chromium-based browser, open
+   `chrome://gpu` and look for `Decode hevc main 10` under **Video
+   Acceleration Information**. In Firefox, open `about:support`, find HEVC
+   under **Codec Support Information**, and check that **Hardware Decoding**
+   says **Supported**. If that table is empty, play any video and check again.
+   If HEVC isn't listed, follow your Linux distribution's guide to hardware
+   video decoding in your browser.
+5. Start the title again and check **Play method** in **Playback info**.
+
+On a screen without HDR, HDR and Dolby Vision files also need converting to
+standard range. **Decode in the browser (beta)**, under **This browser** in
+**Settings > Playback**, lets the browser do that instead of the server. It's
+on unless you've turned it off. If the browser can't do it, Silo still
+converts these files on the server.
 
 ## Picture problems on a TV
 
@@ -53,6 +104,13 @@ Open the audio options during playback and try another track. Check that the
 TV or receiver is set to the input and sound output you expect. For Dolby Atmos,
 check what the receiver displays; a track labeled Atmos may still play as
 ordinary surround if part of the chain doesn't support it.
+
+In the Android apps, when the TV or receiver can't take a surround track's
+format as it is, such as TrueHD or DTS, Silo converts the track to 5.1 Dolby
+Digital Plus, or to Dolby Digital if that's all the receiver takes. Without
+that, many TVs mix the app's sound down to stereo. The receiver shows a 5.1
+Dolby format instead of the file's own. The picture doesn't change, and a track
+the receiver takes as it is still plays unchanged.
 
 ## Subtitle problems
 

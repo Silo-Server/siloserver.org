@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-state-webhooks
+keywords: ["scrobble", "use both servers", "keep in sync", "played status", "watched not updating", "automatic sync", "live sync"]
+questions: ["Can Plex keep marking things watched in Silo automatically?", "Why don't items I mark played in Jellyfin update in Silo?", "Why are so many Jellyfin events ignored?", "Can I keep using Emby and have Silo stay in sync?"]
 title: Sync watched status from another server
 description: Connect another media server to a Silo account and map incoming events to profiles.
 ---
@@ -17,7 +19,7 @@ differently from these related features:
 - [Importing your history](/docs/import-watch-history) is a one-time copy of
   past viewing into one profile. Use it when you move to Silo; use Webhook
   Sync to keep receiving changes afterward.
-- [Trakt, Simkl, or MDBList sync](/docs/watch-sync) (Beta) connects one
+- [Simkl or MDBList sync](/docs/watch-sync) (Beta) connects one
   profile to an online tracking service instead of another media server.
 
 Webhook Sync only receives changes. It doesn't send Silo's watched status back

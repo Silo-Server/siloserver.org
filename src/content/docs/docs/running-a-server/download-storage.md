@@ -1,5 +1,7 @@
 ---
 slug: docs/download-storage
+keywords: ["disk full", "out of disk space", "download cache", "offline copies", "stolen phone", "remote wipe", "delete downloads", "converted downloads"]
+questions: ["Offline downloads are filling my server disk, how do I clear them?", "How do I remove downloads from a lost phone?", "Why do prepared downloads disappear after updating the container?", "Can I limit how much space downloads take on the server?"]
 title: Manage download storage
 description: See how much space prepared downloads take on the server and transcode nodes, free it, and revoke downloads on a device.
 ---
@@ -20,6 +22,12 @@ A finished download doesn't keep its prepared file. Once the device has its copy
 Silo cleans up on its own every few minutes. To free space at one location straight away, select **Clean up now** on its card. To delete untracked files, select **Review** on the card and confirm. Silo checks the directory again first and deletes only files no prepared-file record accounts for and that nothing has written to for an hour. Other files in the directory are never touched.
 
 Warnings appear above the cards when a disk is near its ceiling, when prepared files are on temporary storage that a restart clears, when an offline node holds prepared files, when a location has untracked files, or when files are kept only for devices nobody has seen in 14 days. Each warning has a button that opens the place to fix it.
+
+## Keep the server's prepared files across updates
+
+The default Compose file keeps the server's prepared files in `download-artifacts` under `SILO_DATA_ROOT`, so they survive image updates. Silo writes them to a `silo-download-artifacts` folder beside its **Transcode directory**, `/tmp/silo-download-artifacts` in the container, and the Compose file mounts that path.
+
+If you change **Transcode directory** in **Admin > Playback > Settings**, the folder moves with it and that mount no longer covers it. Mount the new `silo-download-artifacts` folder from the host, or set **Prepared file directory** in **Admin > Downloads > Settings** to a path that's already mounted. Then restart Silo. Without a mount, every container update loses the prepared files, and Silo has to prepare them again for the devices still waiting. The server's card on the **Storage** tab shows **Temporary storage** while that's the case.
 
 ## Set storage budgets
 

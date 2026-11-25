@@ -1,5 +1,7 @@
 ---
 slug: docs/profiles
+keywords: ["kids profile", "child profile", "parental controls", "PIN lock", "family members"]
+questions: ["How do I stop my kids watching R-rated movies?", "What do I do if I forgot my profile PIN?", "How do I make the app ask who's watching every time?", "Why can't I add a new profile?"]
 title: Profiles, PINs, and shared devices
 description: Set parental controls, protect profiles with PINs, and choose how a shared device opens Silo.
 ---
@@ -68,20 +70,18 @@ Use the web app for that.
 
 ### On Android phones, tablets, and TVs
 
-Only server administrators see profile management in the Android apps. Other
-household managers use the web app.
-
-1. On the profile picker, select **Manage Profiles** (**Manage** on Android
-   TV). If the primary profile has a PIN, enter it.
-2. Select **Add Profile**, or the edit button on a profile to open
-   **Edit Profile**.
+1. On **Who's watching?**, select **Manage**, or **Add profile** to go
+   straight to a new profile. If the primary profile has a PIN, enter it.
+2. Select **Add profile**, or select a profile to open **Edit Profile**. While
+   you manage profiles, each one shows a pencil.
 3. On a phone or tablet, turn on **Require PIN** and enter a 4-digit PIN; turn
    it off to remove the PIN. On Android TV, fill in **PIN (optional)** or
    select **Remove**.
 4. Choose a **Maximum rating**: the profile can watch titles at that rating
    and below, or any rating with **Any**. Under **Libraries**, keep **All
    libraries** or select **Choose libraries** and check at least one library
-   the profile can browse. These limits work on any profile. For a child, turn
+   the profile can browse. The primary profile must keep **All libraries**.
+   For a child, turn
    on **Child Profile** first: it fills in PG and **Choose libraries** for the
    limits you haven't set yet. Turning it off clears both limits.
 5. Select **Create Profile** or **Save Changes**.
@@ -89,16 +89,17 @@ household managers use the web app.
 ### Forgotten PIN
 
 Ask whoever manages the household's profiles to set a new PIN or remove it in
-the web app. Setting a new PIN or removing it also ends a lock after too many
-wrong PINs, so nobody has to wait out the five minutes. Don't delete the
-profile to get around the PIN: deleting it also removes its watch history and
-preferences.
+the web app or an Android app. Setting a new PIN or removing it also ends a
+lock after too many wrong PINs, so nobody has to wait out the five minutes.
+Don't delete the profile to get around the PIN: deleting it also removes its
+watch history and preferences.
 
 ## Set parental controls
 
 The web app has every parental control. The Apple apps can set a content
 rating and library limit when creating a child profile. The Android apps can
-set them on any profile, when creating or editing it.
+set them on any profile, when creating or editing it, except a library limit
+on the primary profile.
 
 In the web app, from the primary profile, open **Settings > Profiles** and
 select **Edit** on the profile you want to restrict. The web app calls it a
@@ -111,9 +112,18 @@ select **Edit** on the profile you want to restrict. The web app calls it a
 3. With an advisory-age limit selected, decide whether to turn on
    **Hide titles without an advisory age**.
 4. Turn on **Restrict libraries** to choose which of the account's libraries
-   this profile can browse. Select at least one library.
+   this profile can browse. Select at least one library. The list includes
+   libraries hidden on the primary profile. The primary profile doesn't have
+   this switch: it can use every library the account can. To keep a library
+   out of its view, open **Settings > Libraries** on the primary profile and
+   turn off **Visible in navigation** for that library.
 5. Select **Save profile**. Switch to that profile and open a title you expect
    to see and one you expect to be hidden.
+
+Older versions of Silo let the primary profile have a library limit. Updating
+the server removes it. To keep those libraries out of the primary profile's
+view, turn off **Visible in navigation** for them in its
+**Settings > Libraries**.
 
 | Control | What it does |
 | --- | --- |
@@ -152,11 +162,13 @@ either way.
 
 ### Keep a child in their profile on a shared device
 
-A PIN stops someone from switching into a profile. By default, though, Silo
-reopens the last profile used on a device without asking for its PIN again.
+A PIN stops someone from switching into a profile, but a device that opens a
+profile automatically reopens it without asking for the PIN. Phones, tablets,
+and the web app do that by default. A TV does it once someone chooses to
+remember a profile there.
 
-- On iPhone, iPad, Apple TV, and Android TV, set **Profile Selection** to
-  **Every Time** (see below) so the device shows **Who's watching?** each time.
+- In the Apple and Android apps, set **Profile Selection** to **Every Time**
+  (see below) so the device shows **Who's watching?** each time.
 - In the web app, set **Profile at launch** to **Ask who's watching** (see
   below) so each new tab or window shows **Who's watching?**.
 - On other devices, switch to the child's profile or sign out before you hand
@@ -164,19 +176,29 @@ reopens the last profile used on a device without asking for its PIN again.
 
 ## Choose what happens when Silo opens
 
-### On Apple devices and Android TV
+### On Apple and Android devices
 
-Open **Settings > General > Profile Selection**. On Apple TV it's under
-**PROFILE AT LAUNCH**, and on Android TV under **Profile at Launch**.
+In the Apple apps and on Android TV, open
+**Settings > General > Profile Selection**. On Apple TV it's under
+**PROFILE AT LAUNCH**, and on Android TV under **Profile at Launch**. On an
+Android phone or tablet, open **Settings** and select **Profile Selection**
+under **Preferences**.
 
 - **Automatic** reopens the last profile used on this device, without asking
-  for its PIN. On Apple TV, it uses the profile paired with the current Apple
-  TV user.
+  for its PIN. This is the default, except on a new TV. On Apple TV, it uses
+  the profile paired with the current Apple TV user.
 - **Every Time** shows **Who's watching?** whenever you return to Silo.
 - **After 1 Hour** and **After 12 Hours** show it after that long away.
 
 When **Who's watching?** appears this way, a profile with a PIN needs it
 again. The setting applies only to that device.
+
+A new Apple TV or Android TV starts at **Every Time**. After you choose the
+first profile on it, the TV asks once whether to open that profile
+automatically. **Remember** sets **Profile Selection** to **Automatic**, and
+**Ask Every Time** (**Ask every time** on Android TV) keeps it at
+**Every Time**. You can change it in Settings later. A TV that already opened
+a profile automatically with an earlier version of Silo keeps doing so.
 
 ### In the web app
 

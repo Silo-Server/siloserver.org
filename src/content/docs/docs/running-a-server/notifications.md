@@ -1,5 +1,7 @@
 ---
 slug: docs/notification-delivery
+keywords: ["SMTP", "email not sending", "outgoing mail", "new episode alerts", "new movie alerts", "phone notifications", "notifications not working"]
+questions: ["How do I get Silo to send emails?", "Why aren't push notifications working in my browser?", "How do I post new movies to a Discord channel?", "Why didn't anyone get told about new episodes?"]
 title: Configure notification delivery
 description: Set up email, browser or mobile push, and server-owned announcement channels.
 ---
@@ -9,6 +11,8 @@ Open **Admin > Integrations > Notifications** to choose how your server sends no
 Two switches run the pipeline for new content: **Notice new content** records new items during scans, and **Work out who wants it** matches them against everyone's preferences. Both are on by default and sit under **Advanced** in **Processing**. Keep them on for new-content notifications. If either is off, a notice at the top of the page says so.
 
 ## Set up email
+
+To set up email from the [server's environment](/docs/configuration#server-settings-from-the-environment), set `SILO_SMTP_ENABLED=true`, `SILO_SMTP_HOST`, and `SILO_SMTP_FROM_ADDRESS` together along with any other `SILO_SMTP_*` variables you want. Those fields are then greyed out on **Admin > Integrations > Email**. Fill in any remaining fields your provider needs, save any changes, and send a test email in step 3.
 
 1. Open **Admin > Integrations > Email** and turn on **Send email from this server**. This switch covers every email Silo sends, including invitations and password resets.
 2. Enter the **From address**, **From name**, **Mail server address**, **Port**, **Encryption**, and the sign-in details from your mail provider.
@@ -38,7 +42,7 @@ If the channel shows **Re-registration required**, choose **Re-register relay** 
 
 ## Discord and personal webhooks
 
-For Discord, open **Setup guide** in the **Discord** channel and follow it to create a Discord application. Enter the **Client ID**, **Client secret**, and **Bot token**, save, then choose **Test bot token**. Each person then links their own Discord account to get direct messages.
+For Discord, open **Setup guide** in the **Discord** channel and follow it to create a Discord application. Enter the **Client ID**, **Client secret**, and **Bot token**, save, then choose **Test bot token**. Each Silo account's primary profile then links a Discord account in **Settings > Notifications**. The linked account receives direct messages covering every profile on that Silo account; the primary profile manages the link and delivery frequency.
 
 Turn on **Personal Webhooks** only if you want people to add their own Discord or generic webhook destinations. A destination receives details of that person's notifications. **Allow webhooks to private addresses**, under **Advanced** in the channel, lets webhooks reach LAN and localhost addresses; it is meant for development, so leave it off.
 
@@ -50,6 +54,6 @@ Server channels post every selected event, whatever each viewer's own preference
 
 ## Missing or delayed notifications
 
-The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together, caps messages per show, and drops items older than **Max content age**. These settings are under **Advanced** in **Processing**. Check them before treating a delay as a failure.
+The first library scan adds existing media without notifying anyone about it. After that, **Grouping and flood control** combines items that finish scanning together and drops items older than **Max content age**. These settings are under **Advanced** in **Processing**. Check them before treating a delay as a failure.
 
 When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. **Retention** only controls how long inbox and sent-history records are kept.
