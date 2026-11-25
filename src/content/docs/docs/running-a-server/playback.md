@@ -119,7 +119,7 @@ Speed tests take the same route as playback. If media goes through [proxy nodes]
 
 ## Generate chapter thumbnails
 
-**Generate chapter thumbnails** makes an image for each chapter and each [skip marker](/docs/markers) in a file. The web player shows them in its **Chapters** menu and on the seek bar. A chapter image is taken a few seconds into the chapter and a marker image at the marker's start, so a file without chapters still gets marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
+**Generate chapter thumbnails** makes an image for each chapter and each [skip marker](/docs/markers) in a file. The web player shows chapter images in its **Chapters** menu, and both kinds on the seek bar. A chapter image is taken a few seconds into the chapter and a marker image at the marker's start, so a file without chapters still gets marker images. Silo stores them in [artwork storage](/docs/s3-storage#choose-artwork-storage), on local disk or in S3.
 
 1. Edit the library under **Admin > Libraries**.
 2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each video library has its own switch, and it stays unavailable until artwork storage is set up.
