@@ -39,18 +39,20 @@ To add people to the group:
 1. Open **Admin > Users > Access Groups** and open the group.
 2. Under **Members**, choose **Add users**. The list shows every regular account outside this group, with its current group or **No group** beside the name. Administrator accounts aren't listed. Search by username or email to find someone.
 3. Select the accounts and choose **Add selected**. The button shows how many you've selected, such as **Add 2 selected**.
-4. Check the confirmation, then choose **Move**.
+4. The confirmation calls this a move, such as **Move 2 users to Guests?**. Check it, then choose **Move**.
 
 To move members to another group:
 
-1. Open the group they're in now.
-2. Under **Members**, select each person to move.
+1. Open **Admin > Users > Access Groups** and open the group they're in now.
+2. Under **Members**, select the checkbox beside each person to move.
 3. Choose the destination in **Move to group...**, then choose **Move selected**. The button shows how many you've selected.
 4. Check the confirmation, then choose **Move**.
 
-The confirmation shows how many accounts will change and, for each group they're leaving, which inherited settings change, such as **Libraries** or **Request limit**. Settings set on a person's own account stay as they are. The new access applies right away, and nobody is signed out. Silo saves the change when you confirm, so you don't need to choose **Save changes**.
+The confirmation groups the accounts by the group they're leaving, or no group, and shows the old and new value of each inherited setting that changes, such as **Libraries** or **Request limit**. Settings set on a person's own account stay as they are. The new access applies right away, and nobody is signed out. Silo saves the change when you confirm, so you don't need to choose **Save changes**.
 
-Silo changes the accounts one at a time. If some fail, the others keep their new group, and a list under **Members** names each account that failed and why. For example, `This account changed after you confirmed. Check the change and try again.` means someone else changed that account, such as its group, while you were working. After a failed move, those members stay selected with the same destination, so choose **Move selected** again to retry. After a failed add, they're already selected the next time you open **Add users**.
+Silo changes the accounts one at a time. If some fail, the others keep their new group, and a list under **Members** names each account that failed and why. For example, `This account changed after you confirmed. Check the change and try again.` means someone else changed that account, such as its group, while you were working. Check the account before you try again.
+
+After a failed move, those members stay selected with the same destination, so choose **Move selected** again to retry. After a failed add, they're already selected the next time you open **Add users**.
 
 ## Choose limits that fit the task
 
