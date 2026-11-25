@@ -1,5 +1,7 @@
 ---
 slug: docs/saved-titles
+keywords: ["watch later", "my list", "wishlist", "to-watch list", "plan to watch", "like a movie", "saved movies"]
+questions: ["How do I save a movie to watch later?", "How do I give a movie a star rating?", "Can I add a movie the server doesn't have to my list?", "Will I get an alert when a movie on my watchlist arrives?", "Can I give a movie half a star?"]
 title: Watchlist, favorites, and ratings
 description: Save titles for later and record what you think of them.
 ---
@@ -22,18 +24,16 @@ In the web app:
 2. Select the heart to add it to your favorites. Select it again to remove it.
 3. To use the watchlist, open the **More** menu (⋮) and choose
    **Add to Watchlist** or **Remove from Watchlist**.
-4. Select a star rating.
+4. Select a star to rate the title. For a rating such as 3.5 stars, press on
+   the stars, drag sideways, and let go on the half you want.
 
-On a narrow screen, series, season, and episode pages move the heart and
-stars into the **More** menu as **Add to favorites** and **Your rating**.
+On a narrow screen, a series page moves the heart and stars into the
+**More** menu as **Add to favorites** and **Your rating**.
 
 Open **Favorites** or **Watchlist** from the main menu to see what you've
 saved. If a change fails to save, check your connection and try again.
 
-Series in your favorites or watchlist can send you
-[new-episode notifications](/docs/notification-inbox), depending on your
-settings. Ratings also shape your [For You](/docs/home-and-calendar)
-suggestions.
+Your ratings shape your [For You](/docs/home-and-calendar) suggestions.
 
 For your own named groups of titles, use [Collections](/docs/collections).
 
@@ -50,8 +50,9 @@ server has it. This works only while the server has
    the title.
 
 Titles on this tab can't be played yet. When one arrives in the library, it
-moves to the **In your library** tab and keeps the date you added it. Adding a
-title also requests it for you, unless you've turned that off; see
+moves to the **In your library** tab and keeps the date you added it, and
+you get a [notification](/docs/notification-inbox#choose-what-notifies-you).
+Adding a title also requests it for you, unless you've turned that off; see
 [Request from your watchlist](/docs/requests#request-from-your-watchlist).
 To remove a title, select the bookmark on its poster again.
 

@@ -1,5 +1,7 @@
 ---
 slug: docs/media-folders
+keywords: ["file naming", "folder structure", "naming convention", "not showing up", "missing episodes", "TV shows", "theme song", "theme.mp3", "duplicate editions"]
+questions: ["How should I name my TV show episodes?", "Why is my movie matched to the wrong film?", "How do I name subtitle files so they're picked up?", "How do I hide a folder from my library?", "Where do I put theme music files?", "Why do two copies of a cut show up separately?"]
 title: Prepare media folders and filenames
 description: Arrange movie and series files so Silo can find and identify them.
 ---
@@ -35,6 +37,8 @@ Silo adds video files with these extensions, in upper or lower case:
 | Ogg | `.ogv`, `.ogm` |
 
 Silo doesn't add video files with any other extension.
+
+In a movie or TV library, Silo also leaves out a file that has one of these extensions but no video, such as a soundtrack saved as `.mkv`. Filter **Admin > Logs > Server Log** by the `scanner` component to see which files a scan left out. If one of these files is already in your library, the next scan treats its title like a deleted file: it disappears from the apps and is removed from the library later. Silo checks the file again whenever it changes, so replacing it with a version that has video brings it back on the next scan.
 
 Remux a DVD or Blu-ray title into a single file, such as an `.mkv`, before you add it. Silo doesn't support DVD `.vob` files, `.iso` disc images, or the `.m2ts` files in a Blu-ray or AVCHD `BDMV/STREAM` folder, and doesn't add them to your library. A disc splits one movie into several files next to its menus and extras, so Silo would show each piece as its own title.
 
@@ -112,11 +116,34 @@ Silo reads these forms as well.
 | Editions | `{edition-Director's Cut}`, or words such as `Extended`, `Theatrical`, or `Director's Cut` in the name |
 | Multipart movies | `Movie Name (2024) cd1.mkv`, `disc2`, `part1`, `pt2` |
 
-A file with several episodes links to its first episode. Editions and multipart files of one movie are grouped under the same title.
+A file named for several episodes, such as `S01E03-E05`, appears under each episode in its range, and each of those episodes plays the file. Finishing the file marks every episode in the range watched. If you stop partway, your place is saved on the first episode. A file covers at most 11 episodes: its first and the 10 after it.
+
+After you upgrade from a version that listed only the first episode, existing files like this stay that way until Silo scans the library again. The [daily library scan](/docs/autoscan) does that on its own. If you've turned it off, [scan the library](/docs/manage-libraries#scan-or-refresh).
+
+[Editions](#other-names-for-the-same-edition) and multipart files of one movie are grouped under the same title.
 
 A season folder named only with a number, such as `01`, works inside a show folder in a Series library. In a Mixed library it counts only when the file names have a code such as `S01E03`.
 
 A folder directly in a library folder named `Series`, `Serie`, `Série`, `Seria`, or `Séria` with a number and then other words, such as `Series 7 Documentary`, is a show, not a season. It's still a season when only a year or release details follow the number (`Series 2 (2019)`, `Series 2 1080p`). It's also a season when its file names start with a different show's title, as in a library folder for one show that holds `Series 5 Matt Smith/Doctor Who S05E03.mkv`. Inside a show folder, `Series 5 Matt Smith` is season 5.
+
+## Other names for the same edition
+
+Add an `{edition-...}` tag to the file name, as in `Movie Name (2024) {edition-Extended Cut}.mkv`, or to a folder for that cut. A folder tag takes precedence over file name tags, so leave a shared folder untagged when it holds several cuts. A 4K copy tagged `{edition-Extended Cut}` and a 1080p copy tagged `{edition-Extended}` then appear as one edition, and **Version** on the title's page chooses between them. Silo groups the names in each row into one edition, whatever their letter case:
+
+| Edition | Names |
+| --- | --- |
+| Theatrical | `Theatrical`, `Theatrical Cut`, `Theatrical Edition`, `Theatrical Version`, `Theatrical Release` |
+| Extended | `Extended`, `Extended Cut`, `Extended Edition`, `Extended Version` |
+| Unrated | `Unrated`, `Unrated Cut`, `Unrated Edition`, `Unrated Version` |
+| Uncut | `Uncut`, `Uncut Edition`, `Uncut Version` |
+| Uncensored | `Uncensored`, `Uncensored Edition`, `Uncensored Version` |
+| Director's Cut | `Director's Cut`, `Directors Cut`, `Director Cut` |
+| Editor's Cut | `Editor's Cut`, `Editors Cut`, `Editor Cut` |
+| Extended Director's Cut | `Extended Director's Cut`, `Extended Directors Cut`, `Extended Director Cut` |
+
+Silo groups different names only when each copy is a single file (not split into parts) and their running times are within five seconds of each other once Silo has read them. Otherwise each name shows as its own edition. To keep copies together anyway, give them the same name.
+
+A file with no edition name stays separate from named cuts, including `Theatrical`; tag it if it belongs with one. To keep two cuts separate, use names from different rows or a custom name such as `{edition-Final Cut}`, and use the same custom name on every copy of that cut.
 
 ## Episode numbers without a season
 
@@ -163,6 +190,30 @@ An extra can also sit beside the movie file with a suffix, as in `Movie Name (20
 Extras appear in the title's **Extras** section and are never offered as versions. A show's extras show up at the next scan after its first episode is in your library. In a series, a file in the show's own `Extras` or `Extra` folder with a name like `S00E01` is a special, and `S01E01` goes to season 1. In any other extras folder, including a season folder's `Extras`, an episode number is part of the extra's name.
 
 An extras folder name doesn't count at the top of a library, or in a folder that holds several shows, such as `Kids/Shorts/`: Silo scans its files as ordinary titles. A folder named like an extras folder that holds episodes in season folders, such as `Shorts/Season 01/Shorts S01E01.mkv`, is a show.
+
+## Theme music
+
+Put a theme song beside a movie or show, and the apps play it while that title's page is open. Name the file `theme`, as in `theme.mp3`, or put one or more audio files in a `theme-music` folder:
+
+| Title | Where the theme goes |
+| --- | --- |
+| Movie | The movie's folder |
+| Show | The show folder |
+| Season | The season folder. A season without its own theme plays the show's. |
+
+The file can end in `.mp3`, `.m4a`, `.m4b`, `.flac`, `.ogg`, `.opus`, `.wav`, or `.aac`, and names match in any letter case. Jellyfin and Emby use the same names, so their theme files work as they are. Silo doesn't play theme videos.
+
+A theme in a folder that holds more than one movie or show applies to none of them, as `poster.jpg` does. Give each title its own folder. Silo skips empty files, files that contain video, and symbolic links, and [ignore files](#leave-files-out-of-a-scan) apply to themes too.
+
+Silo finds a new theme at the next library scan, or within seconds with [real-time monitoring](/docs/autoscan#real-time-monitoring).
+
+Theme music is off until each person turns it on:
+
+- In the web app, turn on **Theme music** in **Settings > Title Pages**.
+- On iPhone, iPad, and Mac, turn on **Play Theme Music** in **Settings > Interface**. On Apple TV, it's under **Theme Music** in **Settings > General**. Either way it changes only that device.
+- On Android phones and tablets, turn on **Theme Music** in **Settings > Interface**. On Android TV, it's in **Settings > General**.
+
+**Loop theme music** repeats the theme until you leave the page.
 
 ## Subtitle file names
 

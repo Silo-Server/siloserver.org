@@ -1,5 +1,7 @@
 ---
 slug: docs/import-household-watch-history
+keywords: ["migrate from Plex", "switch from Jellyfin", "move from Emby", "seen status", "play history", "bulk import", "all users", "transfer history"]
+questions: ["How do I bring my family's Plex watch history over?", "Can I copy watched status from Jellyfin for all users?", "Why didn't some shows come over from Emby?", "Why weren't resume points imported from Plex?"]
 title: Import history for other accounts
 description: Map people from Plex, Jellyfin, or Emby to existing Silo profiles and review an import.
 ---

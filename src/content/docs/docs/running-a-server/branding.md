@@ -1,5 +1,7 @@
 ---
 slug: docs/branding
+keywords: ["white label", "rebrand", "custom theme", "theme color", "background image", "server title", "rename server", "clearlogo"]
+questions: ["How do I put my own logo on the sign-in page?", "Can I change the name shown in the browser tab?", "How do I change the button color of the web app?", "Can I show plain movie names instead of logo images?"]
 title: Customize your server's appearance
 description: Set your server's logos, accent color, poster badges, title art, and login background for the web app and emails.
 ---

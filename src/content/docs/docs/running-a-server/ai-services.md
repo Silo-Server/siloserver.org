@@ -1,7 +1,9 @@
 ---
 slug: docs/ai-services
+keywords: ["LLM", "AI subtitles", "auto-generate subtitles", "captions from audio", "machine translation", "GPT", "translation cost"]
+questions: ["Can Silo translate subtitles into another language?", "How do I make subtitles for a video that has none?", "Can I use my ChatGPT subscription instead of an API key?", "Why does translation say usage is paused?"]
 title: Configure AI services
-description: Connect text and speech models, set limits, and test one subtitle or description job.
+description: Connect AI providers or a ChatGPT plan, choose a model and reasoning level, set limits, and test one subtitle or description job.
 ---
 
 Silo uses a text model to translate subtitles and descriptions, and a speech-to-text model to create subtitles from audio. You can set up either one on its own. Each feature also has its own switch; once it is on, its actions appear in the apps that support it.
@@ -11,10 +13,12 @@ Before using a hosted model, check its charges and data policy. Translation send
 ## Connect a text model
 
 1. Open **Admin > Integrations > AI Services**.
-2. In the text model card, choose a preset or enter **Base URL**, **Model**, and **API key** for a compatible service.
-3. Choose **Test text model**. The test uses the values on screen, even before you save.
-4. Turn on **Translate subtitles**, **Translate descriptions**, or both.
-5. Save, then translate one short item before using it across a library.
+2. Under **Providers**, choose **Add provider**, pick the provider's type, and choose **Continue**. Enter its **API key**, or leave it empty for a model on your network that needs none, then choose **Add provider**. For **OpenAI-compatible**, also enter its **Base URL** and choose what it **Serves**.
+3. Under **Models**, choose **Set up** on **Text model**. Set **Provider** to that provider, or to **ChatGPT plan** as described in [Use your ChatGPT plan](#use-your-chatgpt-plan), and choose a **Model**.
+4. Under **Advanced**, choose a **Reasoning level**. See [Choose a model and reasoning level](#choose-a-model-and-reasoning-level).
+5. Choose **Test text model**. The test uses the values on screen, even before you save.
+6. Turn on **Translate subtitles**, **Translate descriptions**, or both.
+7. Save, then translate one short item before using it across a library.
 
 **Description translation for viewers** controls translation while people browse: **Off**, **Translate button on detail pages**, or **Automatic on view**. Besides detail pages, it covers the episode list on a season or series page and the **Featured** banner on Home and on a library's **Recommended** tab. With **Off**, browsing never starts a translation job, and you can still translate from the metadata editor or [for a whole library](/docs/metadata#translate-library-descriptions).
 
@@ -22,12 +26,39 @@ Home and library rows show descriptions in the viewer's language once a translat
 
 ## Connect speech-to-text
 
-1. In the speech-to-text card, choose a preset or enter its **Base URL**, **Model**, and **API key**.
+1. Under **Models**, choose **Set up** on **Speech-to-text**. Set **Provider** to one that serves speech, adding it under **Providers** first if needed, and choose a **Model**.
 2. Choose **Test speech-to-text**. The endpoint must return timed segments, which Silo turns into subtitles.
 3. Turn on **Create subtitles from audio** and save.
 4. Try one short item in the web player. When the job finishes, select the new subtitle track and check its language and timing.
 
-If the speech **Base URL** is blank, Silo sends audio to the text model's endpoint. Run **Test speech-to-text** to find out whether that endpoint accepts audio.
+With **Translate subtitles** off, or no working text model, viewers can create subtitles from audio only in the spoken language. The players don't offer other languages.
+
+A ChatGPT plan doesn't include speech-to-text, so transcription needs its own provider even when translation uses the plan.
+
+## Use your ChatGPT plan
+
+Instead of an API key, the text model can use a ChatGPT subscription. Translations then count toward that plan's usage limits, with no separate per-request charge.
+
+1. Under **Models**, choose **Set up** on **Text model**, set **Provider** to **ChatGPT plan**, and choose **Continue with ChatGPT**.
+2. Choose **Open ChatGPT sign-in** and allow Silo to use your plan.
+3. After you approve, the ChatGPT tab moves to a local address and may show a "can't connect" error, which is expected. Copy the full URL from that tab's address bar.
+4. Back in Silo, paste it into **Browser URL** and choose **Connect ChatGPT**. If ten minutes have passed since step 1, start again with **Continue with ChatGPT**.
+
+Under **Model**, choose one of the models the account offers, then continue from the **Reasoning level** step in [Connect a text model](#connect-a-text-model).
+
+To add another account, choose **Continue with ChatGPT** again, then pick the one Silo uses under **ChatGPT account**. To sign an account in again after its sign-in expires, use the **Reconnect** button that shows its email address. **Disconnect** signs the active account out and revokes Silo's access in ChatGPT. If Silo shows `Disconnected locally`, open **Manage usage** and check that Silo's access is gone.
+
+When an account reaches its plan's usage limit, Silo pauses translation and shows **ChatGPT plan usage is paused**. Check your usage with **Manage usage**, then choose **Test text model**; a successful test resumes translation. An account marked **plan sharing unavailable** is on a plan that does not let Silo use it, so choose another account or set **Provider** to one with an API key. While the active account is paused or needs sign-in, subtitle and description translation are unavailable, including for viewers. Transcription keeps working if speech-to-text is set up.
+
+## Choose a model and reasoning level
+
+Translation is a short task repeated many times: by default Silo sends a film's subtitles 40 lines at a time, so a feature film takes about 30 requests. A fast, low-cost model usually handles it well, and a larger model mostly adds time and cost. After you translate your first full film, check its cost on your provider's usage page before translating a library.
+
+Before you rely on a model, translate a few items into each language your viewers use and read them. Weaker models can drift into a closely related language, such as Danish in a Norwegian translation, or leave names in the Latin alphabet inside Arabic or Chinese text.
+
+**Reasoning level** sets how much the model thinks before it answers. For models Silo recognizes, it lists only the levels that model supports. Higher levels take longer and use more tokens, which hosted providers bill as output. For translation, start with **None** or **Low**, and raise it only if translations in your languages miss the meaning. **Provider default** lets the model decide, and some models then think on most requests, which makes each one slower.
+
+A model you run on your own hardware costs nothing per request, but the open models that fit in 16 GB of graphics memory translate noticeably worse than low-cost hosted models. Many of them think by default; set **Reasoning level** to **None**, or a single request can run for minutes.
 
 ## Limit cost and server load
 
@@ -41,6 +72,10 @@ Keep the default batch and audio-request sizes unless the provider reports a req
 
 Generated subtitle tracks are saved on the server, and anyone who can play the item can select them. Manage saved files under [Subtitle Files](/docs/subtitle-providers#inspect-saved-tracks).
 
+When anyone asks again to translate the same subtitle track into the same language with the same model, Silo reuses the saved translation and doesn't send the request to the provider. To translate it again, delete the AI track under **Admin > Libraries > Subtitle Files** first. After the subtitle file is edited, or a video with built-in subtitles is replaced, the next request makes a new translation. Creating subtitles from audio always runs again.
+
 ## A test or job fails
 
 Check the model name, base URL, credential, and the provider's response. A full film can still fail after a passing connection test, for example when it reaches the provider's quota. Read generated subtitles before relying on them.
+
+When a viewer's job fails, the player shows the reason. If an administrator has to fix the cause, such as a billing or spending limit, rejected credentials, a model or endpoint the provider doesn't offer, or a request that's too large, the message tells the viewer to ask a server administrator. A request that's too large usually names the setting to lower: **Subtitle lines per request** or **Audio per request**. Other reasons, such as a rate limit or an unavailable provider, tell the viewer to try again later. The provider's error is logged in **Admin > Logs > Server Log**.

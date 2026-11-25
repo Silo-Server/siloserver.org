@@ -1,5 +1,7 @@
 ---
 slug: docs/markers
+keywords: ["skip intro", "skip credits", "intro detection", "wrong intro time"]
+questions: ["Why does skip intro appear at the wrong spot?", "Why is there no skip credits button on movies?", "How do I stop marker detection hogging the CPU?", "Can a regular user fix skip times?", "Can I limit how long marker detection runs each night?"]
 title: Find and correct skip markers
 description: Configure marker detection and fix incorrect intro, recap, credits, or preview times.
 ---
@@ -30,17 +32,19 @@ Finding credits involves scanning each video near the end, which is a heavy task
 
 **Detection workers** sets how many seasons or movies are analyzed at once. It defaults to 1; raise it to finish a large library sooner if your storage and CPU have room.
 
+The **Detect markers on this server** task runs detection across your libraries every day at 03:30 by default. On a large library, the first runs can take many hours. To keep them inside a quiet period, open the task in **Admin > Server > Scheduled Tasks**, choose **Edit Schedule**, and enter a **Max runtime** in minutes on its trigger. A scheduled run then stops when that time is up. It keeps the markers it already found, and the next run picks up where it left off. The field is empty by default, which means no limit. Runs you start with **Run now** never have a limit.
+
 To skip detection for one library, turn off its switch in the library's **Advanced** settings: **Detect intro and credits markers** for series and mixed libraries, or **Detect credits markers (best effort)** for movie libraries. Movie libraries you add start with it off.
 
 ## Manage marker providers
 
 1. Choose **Marker providers** next to **Skip markers**. It opens **Admin > Integrations > Providers**.
-2. Choose **Manage** on a provider.
+2. Choose **Manage** on a provider, or **Set up** if it shows **Needs setup**. TheIntroDB shows **Needs setup** until you save its API key, but it looks up markers without one.
 3. Use **Get markers from this provider** to turn lookups on or off.
-4. If several providers are on, set **Provider priority** under **Advanced**. A lower number wins when two providers return a marker for the same section.
-5. Choose **Save**, then **Test connection**.
+4. If several providers are on, set **Provider priority** under **Advanced**. When two providers return the same kind of marker, Silo uses the one with higher confidence. If they're equally confident, the lower number wins.
+5. Choose **Save**.
 
-Providers come from plugins. To share your server's detected intros with a provider, turn on **Allow sharing with this provider**; it is off by default. TheIntroDB looks up markers without an account, but sharing needs an API key, which you add on the plugin's page.
+Providers come from plugins. To share markers with a provider, turn on **Allow sharing with this provider**; it is off by default. Silo then shares markers edited by hand. To also share the intros and credits your server detects, turn on **Automatically share detected intros and credits**. TheIntroDB needs an API key for sharing, which you add on the plugin's page, linked from the panel. Once the key is saved, the panel shows **Test connection**, which checks the account that sharing uses.
 
 Silo ignores provider credits that don't fall at the end of the file, such as credits placed on top of the intro, because the player opens Up Next where the credits start. An episode's credits must start in the last 7:30 of the file or its last 40%, whichever is shorter. A movie's must start in the last 15 minutes or the last 25%. They must also start after the intro ends and last at least 15 seconds, up to 7:30 for an episode or 15 minutes for a movie. If Silo already saved misplaced credits from a provider, it removes them the next time **Sync online markers** refreshes that file's markers. Manual markers stay as they are until you edit them.
 
@@ -71,4 +75,4 @@ A saved change applies to everyone who plays that file. Players that are already
 
 A manual marker takes priority over online and detected markers, so later lookups and detection don't replace it. Only another manual edit does.
 
-Chapter images are configured separately in [playback settings](/docs/playback).
+To show an image for each marker on the web player's seek bar, turn on [**Generate chapter thumbnails**](/docs/playback#generate-chapter-thumbnails) for the library. Where a video's [seek previews](/docs/timeline-previews) have loaded, the seek bar shows those instead.
