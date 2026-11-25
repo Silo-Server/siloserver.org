@@ -31,7 +31,7 @@ The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to
 
 - an administrator creating, editing, or deleting accounts and access groups, starting and ending **View as user**, transferring ownership, and creating a password reset link
 - completed password resets, which show no **Actor**, and password changes
-- signing out one session, or every session with **Sign out everywhere**
+- ending one session in **Signed-in sessions**, or every session with **Sign out everywhere**
 - API keys created, changed, or deleted
 - household profiles created, edited, or deleted
 
