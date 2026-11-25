@@ -64,7 +64,7 @@ Set download limits in **Admin > Downloads > Settings**. They apply to downloads
 
 If you run more than one API server, download counts are shared across all of them. With [Redis](/docs/configuration#external-postgresql-and-redis), so are the bandwidth limits: an account limited to 2 Mbps gets at most 2 Mbps in total, whichever servers its downloads use. Without Redis, each server applies the bandwidth limits on its own. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
 
-If Redis stops responding for more than 10 seconds, limited downloads stop instead of running without a limit. The Silo apps retry on their own and continue from where they stopped. If a download still shows as failed once Redis is back, start it again.
+If Redis stops responding for more than 10 seconds, limited downloads stop instead of running without a limit. The Silo mobile apps retry on their own and usually continue from where they stopped. If a download still shows as failed once Redis is back, follow the [steps for your device](/docs/downloads#watch-and-manage-downloads). In a web browser or a Jellyfin-compatible app, start the download again.
 
 **Downloads at once per user** counts the downloads Silo is still [preparing a copy](/docs/download-storage) for, which it does when someone picks a smaller quality or a file their device can't play. A download at original quality doesn't count, and neither does one whose copy is ready or one an app is already transferring. To limit how fast downloads run, set the bandwidth limits.
 
