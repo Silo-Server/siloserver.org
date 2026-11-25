@@ -90,13 +90,12 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 ## Use complete playlists for copied video
 
-Turn on **Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, to send the player every segment of a video from the start. It's experimental and off by default. Without it, when Silo repackages a file without converting its video, the player gets a playlist that grows as Silo copies the video. Some players handle that badly: Safari, for example, can stop partway through a video. With the setting on, Silo plans the segments from the file's own keyframes before it starts copying.
+Turn on **Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, to send the player every segment of a video as soon as playback starts. It's experimental and off by default. Without it, when Silo repackages a file without converting its video, the player gets a playlist that grows as Silo copies the video. Some players handle that badly: Safari, for example, can stop partway through a video. With the setting on, Silo plans the segments from the file's own keyframes before it starts copying. A resumed title's playlist runs from where it resumes to the end.
 
 Silo uses the complete playlist only when all of these are true:
 
 - The file is an MKV or WebM whose keyframe index lists the video's keyframes.
 - Silo copies the video and packages it as fMP4. MPEG-2 video and Dolby Vision in the Jellyfin app on LG TVs are packaged as MPEG-TS, so they keep the growing playlist.
-- Playback starts from the beginning. A title resumed partway through gets the growing playlist.
 - Silo knows the file's length.
 
 Every other stream gets the growing playlist, as it does with the setting off. If Silo finds that a file's index doesn't match where the video is actually cut, later plays of that file get the growing playlist until the file changes.
