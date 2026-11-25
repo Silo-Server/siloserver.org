@@ -46,8 +46,8 @@ These settings are in **Admin > Playback > Settings**, under **Preview images**.
    files one node makes previews for at once. It appears once step 2 is set,
    takes 1 to 64, and defaults to 1. Nodes get only as many files as **Seek
    preview workers** allows, so set **Seek preview workers** to at least this
-   number times your node count. Each preview a node makes counts toward its **Max Transcodes**,
-   so leave room there for playback.
+   number times your node count. Each file a node makes previews for counts
+   toward its **Max Transcodes**, so leave room there for playback.
 4. Select **Save**.
 
 ## Preview a position
