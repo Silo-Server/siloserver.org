@@ -31,6 +31,8 @@ Home and library rows show descriptions in the viewer's language once a translat
 3. Turn on **Create subtitles from audio** and save.
 4. Try one short item in the web player. When the job finishes, select the new subtitle track and check its language and timing.
 
+With **Translate subtitles** off, or no working text model, viewers can create subtitles from audio only in the spoken language. The players don't offer other languages.
+
 A ChatGPT plan doesn't include speech-to-text, so transcription needs its own provider even when translation uses the plan.
 
 ## Use your ChatGPT plan
@@ -70,6 +72,10 @@ Keep the default batch and audio-request sizes unless the provider reports a req
 
 Generated subtitle tracks are saved on the server, and anyone who can play the item can select them. Manage saved files under [Subtitle Files](/docs/subtitle-providers#inspect-saved-tracks).
 
+When anyone asks again to translate the same subtitle track into the same language with the same model, Silo reuses the saved translation and doesn't send the request to the provider. To translate it again, delete the AI track under **Admin > Libraries > Subtitle Files** first. After the subtitle file is edited, or a video with built-in subtitles is replaced, the next request makes a new translation. Creating subtitles from audio always runs again.
+
 ## A test or job fails
 
 Check the model name, base URL, credential, and the provider's response. A full film can still fail after a passing connection test, for example when it reaches the provider's quota. Read generated subtitles before relying on them.
+
+When a viewer's job fails, the player shows the reason. If an administrator has to fix the cause, such as a billing or spending limit, rejected credentials, a model or endpoint the provider doesn't offer, or a request that's too large, the message tells the viewer to ask a server administrator. A request that's too large usually names the setting to lower: **Subtitle lines per request** or **Audio per request**. Other reasons, such as a rate limit or an unavailable provider, tell the viewer to try again later. The provider's error is logged in **Admin > Logs > Server Log**.
