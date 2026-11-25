@@ -28,7 +28,7 @@ Everything in this section is on **Admin > Server > Appearance**.
 
 If your accent is too dark to read as text, the web app draws accent-colored text, such as links and the current page in the admin and settings sidebars, in a lighter shade. Buttons and the bar beside the current page keep your exact color. For anyone who sets **Contrast** to **High Contrast** under [**Settings > Accessibility**](/docs/preferences#change-a-profile-preference-in-the-web-app), accent text can be lighter still, and focus outlines are white instead of your accent.
 
-Use artwork you have permission to publish, and check that your logos stand out and the sign-in page stays readable over your login background.
+Use artwork you have permission to publish, and check that your logos stand out and the sign-in page stays readable over your login background. Focus outlines use your exact accent, so if you pick a dark one, press Tab on a page and check that you can still see the outline.
 
 ### Adjust poster badges
 
