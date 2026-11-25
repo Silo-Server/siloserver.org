@@ -104,8 +104,8 @@ To add a title to **Following**, [favorite it or add it to your watchlist](/docs
 Every view respects your library access and profile rating limits.
 
 Badges mark a series premiere, a new season (**NEW SEASON**), or a season
-finale (**FINALE**). In the web app, a movie's badge shows whether its date is
-a digital release (**DIGITAL**) or a disc release (**PHYSICAL**).
+finale (**FINALE**). A movie's badge shows whether its date is a digital
+release (**DIGITAL**) or a disc release (**PHYSICAL**).
 
 ### Dates and empty weeks
 
