@@ -24,7 +24,9 @@ Drag a row to move it. Changes save right away. The switch on each row turns it 
 
 A row's action menu has **Edit row…**, **Use as hero banner**, **Move to top**, **Move to bottom**, and **Delete row…**. The web app shows the hero banner as a banner at the top of Home and of a library's **Recommended** tab. On Home, the [native Mac app](/docs/native-macos) does too, and the other apps show it as a regular row.
 
-To show the hero banner only in the web app, choose **Edit row…**, open **More options**, turn off **Show in the apps** under **Hero banner**, then choose **Save**. The apps then don't get the row at all, and the rows list tags it **Hero banner · Web only**, or **Web-only hero** on a phone. Library pages have the same switch for their hero row. When the row stops being the hero banner, **Show in the apps** turns back on and the apps show it as a regular row again. That happens when you choose **Stop using as hero banner** or turn **Hero banner** off, use another row as the hero banner, or add a [starter pack](/docs/manage-collections#add-a-starter-pack) with **Also use the pack's hero banners** on.
+To show the hero banner only in the web app, choose **Edit row…**, open **More options**, turn off **Show in the apps** under **Hero banner**, then choose **Save**. The apps then don't get the row at all, and the rows list tags it **Hero banner · Web only**, or **Web-only hero** on a phone. Library pages have the same switch for their hero row.
+
+When the row stops being the hero banner, **Show in the apps** turns back on and the apps show it as a regular row again. That happens when you choose **Stop using as hero banner** or turn **Hero banner** off, use another row as the hero banner, or add a [starter pack](/docs/manage-collections#add-a-starter-pack) with **Also use the pack's hero banners** on.
 
 To change several rows at once, open **More** and choose **Select rows**. You can then turn them on or off, or delete them together.
 
