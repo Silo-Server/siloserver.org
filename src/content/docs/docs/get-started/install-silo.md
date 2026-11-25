@@ -132,7 +132,7 @@ Open `http://localhost:8090` on the server, or `http://SERVER-IP:8090` from anot
 4. At **Libraries**, enter a name, choose **Movies** or **Series**, and add the container path. For example, use `/mnt/media/movies`. Select **Add library**, then continue.
 5. Skip subtitle services, app integrations, and other optional features you do not need yet. Finish the wizard.
 
-Open **Admin > Libraries** to check the scan. If it has not started, use that library's **Scan** action. For missing posters or descriptions, check the library's metadata providers using [Add and manage libraries](/docs/manage-libraries).
+Open **Admin > Libraries** to check the scan. If it has not started, select **Scan** on the library's row. For missing posters or descriptions, check the library's metadata providers using [Add and manage libraries](/docs/manage-libraries).
 
 ## 6. Play one item
 

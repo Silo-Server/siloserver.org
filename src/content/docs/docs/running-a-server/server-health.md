@@ -36,7 +36,7 @@ A degraded answer still returns HTTP 200, so read the body. Readiness doesn't ch
 
 ## A scan is stuck or empty
 
-Open **Admin > Libraries** and check the active scan and reported errors. Make sure the media disk is mounted and the container can read the library folder.
+Open the **Scan Activity** tab in **Admin > Libraries** to check the running scan, and look for a warning on the library's row in the **Libraries** tab. Make sure the media disk is mounted and the container can read the library folder.
 
 If a scan finds no files, fix the path before you confirm any cleanup or delete anything. See [library troubleshooting](/docs/manage-libraries#files-are-missing).
 

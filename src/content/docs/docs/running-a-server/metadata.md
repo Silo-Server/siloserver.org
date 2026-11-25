@@ -27,7 +27,7 @@ If one folder holds unrelated titles, fix the [folder layout](/docs/media-folder
 
 Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has. A movie with no poster still gets [a frame from its video](/docs/local-metadata#if-a-movie-has-no-poster) as one.
 
-1. Open **Admin > Libraries** and expand **Unmatched Items**, below the list of libraries. The section appears only while an item is awaiting a match or ignored.
+1. Open **Admin > Libraries**, select the **Catalog Health** tab, then **Unmatched Items**.
 2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
 
 While an item is ignored, scans don't retry it or count it as unmatched, and it drops out of **Metadata Matcher**. **Quick Refresh** finishes without changing it, and refreshing a season or episode of an ignored series fails.
@@ -58,7 +58,7 @@ To use another language for every library, open **Admin > Libraries > Settings**
 
 While the fallback is on, Silo picks posters in this order: the library's language, the fallback language, English, a poster without text, then any other language.
 
-New items use the setting right away. Items already in a library change when you refresh them: choose **Refresh Metadata** from an item's actions menu and then **Quick Refresh**, or select the library's **Rescan Metadata** button in **Admin > Libraries** and then **Refresh All Metadata**.
+New items use the setting right away. Items already in a library change when you refresh them: choose **Refresh Metadata** from an item's actions menu and then **Quick Refresh**, or choose **Rescan Metadata** from the library's **⋯** menu in **Admin > Libraries** and then **Refresh All Metadata**.
 
 ## Translate a description
 
@@ -72,7 +72,7 @@ Descriptions a provider or a person already wrote in that language are kept. Tur
 
 ### Translate library descriptions
 
-1. In **Admin > Libraries**, select the pencil on the library's row and open **Metadata**.
+1. In **Admin > Libraries**, select **Edit** on the library's row and open **Metadata**.
 2. Under **Translate library descriptions**, choose the **Language** and select **Translate**.
 3. Wait for the job to finish. Silo works through one title at a time, so a large library takes a while. Select **Stop** to cancel it.
 
