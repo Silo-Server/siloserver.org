@@ -123,7 +123,7 @@ Speed tests take the same route as playback. If media goes through [proxy nodes]
 
 1. Edit the library under **Admin > Libraries**.
 2. Open **Advanced**, turn on **Generate chapter thumbnails**, and save. Each video library has its own switch, and it stays unavailable until artwork storage is set up.
-3. Let background generation run. Silo also queues a title's images when someone plays it, and checks for missing images every six hours. If online markers are set to **Fetch when needed** in [marker settings](/docs/markers#choose-how-markers-are-found), their images start only after someone plays the title.
+3. Let background generation run. Silo also queues a title's images when someone plays it, and checks for missing images every six hours. If online markers are set to **Fetch when needed** in [marker settings](/docs/markers#choose-how-markers-are-found), Silo makes their images once it looks the markers up, usually when someone plays the title.
 4. Play a title with chapters or skip markers in the web player. If it has chapters, open **Chapters** to see their images. On a touch screen or in a narrow window, **Chapters** is under **More player options**.
 5. Hover over or drag along the seek bar to see the image for the chapter or marker there. If the library also makes [seek previews](/docs/timeline-previews), the seek bar shows those once they've loaded.
 
