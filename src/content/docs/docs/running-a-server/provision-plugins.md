@@ -75,7 +75,7 @@ ai_providers:
 - Give `api_key` as `fromFile` or `fromEnv`, like a plugin secret. The document can't hold the key itself. The `openai`, `gemini`, `openrouter`, and `groq` types need a key.
 - A `custom` provider needs `capabilities`: one or more of `chat`, `embeddings`, and `speech`. The other types serve a fixed set, so Silo doesn't start if you give one `capabilities`.
 - Each provider needs a name no other provider uses. If the type's default name, such as `OpenAI`, belongs to a provider an administrator connected, Silo doesn't start, and the error names that provider and its id. Give your provider a `name` of its own. If the existing provider has the same type, you can instead use its id as your key, and the document takes it over.
-- If an id matches a provider that's already connected, the document replaces it whole, key included, so an entry without `api_key` leaves it without one. The document can't change the provider's type: Silo doesn't start, because the old provider stays connected under its name. Declare the new type under a new id, with a name of its own.
+- If an id matches a provider that's already connected, the document replaces it whole, key included, so an entry without `api_key` leaves it without one. The document can't change a provider's type: if `type` differs from the connected provider's, Silo doesn't start. Declare the new type under a new id, with a name of its own, because the old provider stays connected under its name.
 
 If an entry is wrong, Silo doesn't start and logs the variable and the entry, such as `SILO_CONFIG_FILE: ai_providers.local-embed: choose at least one thing the provider serves`.
 
