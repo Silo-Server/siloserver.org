@@ -76,6 +76,8 @@ Everything changed since the backup is replaced, and every account goes back to 
 
 The **Replace the whole server** section of **Admin > Server > Backups** shows the command for the backup you select in the list, or for the newest one, with a button to copy it.
 
+With artwork on local disk, check free space first. The restore needs room for the restored files and a copy of each file they replace, above Silo's [free-space reserve](/docs/s3-storage#if-local-storage-is-almost-full). If a file would cut into the reserve, the restore stops and puts everything back as it was. Free space, then run it again.
+
 1. Stop Silo on every server, and turn off automatic restarts until the restore finishes. With the standard Compose setup, stop Silo inside its container. PostgreSQL keeps running:
 
    ```sh
@@ -94,7 +96,7 @@ The **Replace the whole server** section of **Admin > Server > Backups** shows t
 
 3. Start Silo again with `docker compose restart silo`.
 
-The command checks the whole backup and loads it into a new database before it touches the live one. If a check fails or the load stops, the live database is left as it was. It refuses a backup from a newer version of Silo. Afterwards it keeps the previous database and every file it replaced, and prints how to remove them once the restored server works, or how to go back. With artwork on local disk, leave room for the restored files and a copy of each file the restore replaces. The restore stops if a file would cut into Silo's [free-space reserve](/docs/s3-storage#if-local-storage-is-almost-full). To remove the previous database with the standard Compose setup, run the `DROP DATABASE` line it printed like this:
+The command checks the whole backup and loads it into a new database before it touches the live one. If a check fails or the load stops, the live database is left as it was. It refuses a backup from a newer version of Silo. Afterwards it keeps the previous database and every file it replaced, and prints how to remove them once the restored server works, or how to go back. To remove the previous database with the standard Compose setup, run the `DROP DATABASE` line it printed like this:
 
 ```sh
 docker compose exec -u silo silo psql -h /run/postgresql -d postgres -c 'DROP DATABASE "silo_before_restore_<time>"'
