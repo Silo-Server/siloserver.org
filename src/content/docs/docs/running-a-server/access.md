@@ -62,7 +62,9 @@ Set download limits in **Admin > Downloads > Settings**. They apply to downloads
 4. In the same place, set **Downloads at once per user**, **Downloads per period**, and **Period length**.
 5. Save. New limits apply within about 30 seconds, including to downloads that are already limited. When Redis is configured, bandwidth changes take about 5 seconds. A download that started with both bandwidth limits off keeps running without a limit.
 
-With Redis configured, the bandwidth limits and download counts hold for all your API servers combined. An account limited to 2 Mbps gets 2 Mbps in total, whichever servers its downloads use. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies. If Redis stops responding for more than 10 seconds, limited downloads stop instead of running without a limit. Start them again once Redis is back; the Silo apps continue from where they stopped.
+If you run more than one API server, download counts are shared across all of them. With Redis, so are the bandwidth limits: an account limited to 2 Mbps gets 2 Mbps in total, whichever servers its downloads use. Without Redis, each server applies the bandwidth limits on its own. While either bandwidth limit is set, [proxy nodes](/docs/transcode-nodes) don't deliver downloads. The API server sends them itself, so the limit holds whatever the number of proxies.
+
+If Redis stops responding for more than 10 seconds, limited downloads stop instead of running without a limit. Start them again once Redis is back; the Silo apps continue from where they stopped.
 
 **Downloads at once per user** counts the downloads Silo is still [preparing a copy](/docs/download-storage) for, which it does when someone picks a smaller quality or a file their device can't play. A download at original quality doesn't count, and neither does one whose copy is ready or one an app is already transferring. To limit how fast downloads run, set the bandwidth limits.
 
