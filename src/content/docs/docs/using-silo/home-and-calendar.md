@@ -124,8 +124,9 @@ If a release you expect is missing from **All**, look at the active profile,
 library filter, and week. A movie isn't listed until its metadata has a digital
 or disc release date, even if it's already in cinemas. If a release date is
 missing or wrong, ask the person who runs your server to
-[update the TMDB plugin](/docs/plugins#update-or-turn-off-a-plugin) and
-[refresh the title's metadata](/docs/metadata#refresh-metadata).
+[refresh the title's metadata](/docs/metadata#refresh-metadata). For a movie,
+they should [update the TMDB plugin](/docs/plugins#update-or-turn-off-a-plugin)
+first, since it supplies the digital and disc dates.
 
 ## Change your home rows
 
