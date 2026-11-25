@@ -33,7 +33,7 @@ The **Audit** tab in **Admin > Logs > Server Log** lists nearly every request to
 - completed password resets, which show no **Actor**, and password changes
 - ending one session in **Signed-in sessions**, or every session with **Sign out everywhere**
 - API keys created, changed, or deleted
-- household profiles created, edited, or deleted
+- household profiles created or deleted, and changes to a profile's name, PIN, or access rules
 
 Other requests show **HTTP request**.
 
