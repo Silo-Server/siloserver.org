@@ -50,7 +50,7 @@ To move members to another group:
 
 The confirmation shows how many accounts will change and, for each group they're leaving, which inherited settings change, such as **Libraries** or **Request limit**. Settings set on a person's own account stay as they are. The new access applies right away, and nobody is signed out. Silo saves the change when you confirm, so you don't need to choose **Save changes**.
 
-Silo changes the accounts one at a time. If some fail, the others keep their new group, and a list under **Members** names each account that failed and why. For example, `This user's group changed. Reload and try again.` means someone changed that account's group while you were working. After a failed move, those members stay selected with the same destination, so choose **Move selected** again to retry. After a failed add, they're already selected the next time you open **Add users**.
+Silo changes the accounts one at a time. If some fail, the others keep their new group, and a list under **Members** names each account that failed and why. For example, `This account changed after you confirmed. Check the change and try again.` means someone else changed that account, such as its group, while you were working. After a failed move, those members stay selected with the same destination, so choose **Move selected** again to retry. After a failed add, they're already selected the next time you open **Add users**.
 
 ## Choose limits that fit the task
 
