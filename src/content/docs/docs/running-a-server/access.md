@@ -46,6 +46,8 @@ When every version of an episode is above the limit, the Silo apps leave the epi
 
 **Max streams** limits simultaneous playback. **Max transcodes** limits sessions that need conversion. With video transcoding off, a device that can't play the original file can't play it at all.
 
+If you run more than one API server, each one counts **Max streams** and **Max transcodes** on its own. With two API servers, an account limited to 1 stream can play 2 at once.
+
 **Max profiles** sets how many household profiles each member account can have. A new group starts at 5, and you can set any whole number from 1 up. Accounts without a group, and administrator accounts, can have 5 unless you give them their own limit. To give one account its own limit, open its **Access & limits** tab, choose **Edit** on **Sign-in & role**, and set **Profiles allowed** to **Custom**. **Default** uses the group's limit again. Lowering a limit doesn't remove profiles: an account over the new limit keeps them but can't add another until it has fewer than the limit.
 
 Download permission and permission to create transcoded downloads are separate controls. Request access is also separate from the request quota and approval rules in [Requests](/docs/manage-requests).
