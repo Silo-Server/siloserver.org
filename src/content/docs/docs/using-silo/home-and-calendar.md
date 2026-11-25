@@ -71,11 +71,11 @@ those titles.
 ## Check upcoming releases
 
 Calendar lists episode airings, season premieres, and movie releases from
-your server's metadata, for your active [profile](/docs/profiles). A movie
-appears on its first home release: the earliest day, in any country, that it
-can be streamed or bought digitally or comes out on disc. Calendar doesn't use
-cinema release dates. A listed release may not be on your server yet. Open the
-title to see whether you can watch it.
+your server's metadata, for your active [profile](/docs/profiles). A movie is
+listed on the date of its first home release: the earliest day, in any
+country, that it can be streamed or bought digitally or comes out on disc.
+Calendar doesn't use cinema release dates. A listed release may not be on
+your server yet. Open the title to see whether you can watch it.
 
 ### Open Calendar
 
