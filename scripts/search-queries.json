@@ -107,7 +107,7 @@
   {"query": "opentelemetry", "expect": ["docs/logging"]},
   {"query": "api key", "expect": ["docs/api-keys", "docs/api"]},
   {"query": "subtitles show up before the actors say anything", "expect": ["docs/subtitles"]},
-  {"query": "movie keeps stopping to load every few minutes", "expect": ["docs/watch-movies-and-series", "docs/playback-problems"], "knownMiss": "Paraphrase with no words in common with the expected page (describes buffering)"},
+  {"query": "movie keeps stopping to load every few minutes", "expect": ["docs/watch-movies-and-series", "docs/playback-problems"]},
   {"query": "want to get rid of the trending row for everyone on my server", "expect": ["docs/home-sections"]},
   {"query": "my phone can't see the tv", "expect": ["docs/tv-remote", "docs/help"]},
   {"query": "bars above and below the movie look grey on android tv", "expect": ["docs/playback-problems"]},
