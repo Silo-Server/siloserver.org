@@ -15,7 +15,8 @@ profile can add, edit, and delete profiles, set parental controls, and change
 the account password. That applies to a server administrator's account too:
 its other profiles, including a kids profile, can't manage profiles. If the
 primary profile has a PIN, Silo asks for it before you manage profiles. The
-primary profile can't be deleted.
+primary profile can't be deleted. A server administrator can also manage an
+account's profiles from **Admin > Users**, on the account's **Profiles** tab.
 
 ## Switch profiles
 
@@ -57,8 +58,8 @@ settings. You can't delete the primary profile or the profile you're using.
 
 ### On iPhone, iPad, and Apple TV
 
-1. On **Who's watching?**, select **Add Profile**. If the primary profile has
-   a PIN, enter it.
+1. On **Who's watching?**, select **Add**. If the primary profile has a PIN,
+   enter it.
 2. On **New Profile**, enter a name and, if you want one, a PIN under
    **PIN (optional)**.
 3. For a child, turn on **Child Profile**. Choose a **Maximum content rating**
@@ -89,8 +90,10 @@ Use the web app for that.
 ### Forgotten PIN
 
 Ask whoever manages the household's profiles to set a new PIN or remove it in
-the web app or an Android app. Setting a new PIN or removing it also ends a
-lock after too many wrong PINs, so nobody has to wait out the five minutes.
+the web app or an Android app. If that's the primary profile's PIN, ask the
+server administrator: they can change or remove it from **Admin > Users**.
+Setting a new PIN or removing it also ends a lock after too many wrong PINs,
+so nobody has to wait out the five minutes.
 Don't delete the profile to get around the PIN: deleting it also removes its
 watch history and preferences.
 
@@ -119,6 +122,11 @@ select **Edit** on the profile you want to restrict. The web app calls it a
    turn off **Visible in navigation** for that library.
 5. Select **Save profile**. Switch to that profile and open a title you expect
    to see and one you expect to be hidden.
+
+On a restricted profile, a link to a hidden title, such as one someone shared
+or saved earlier, opens as not found. A person's biography comes from the
+metadata provider and can name titles hidden from the profile. Those names
+are plain text, so they don't lead to the titles.
 
 Older versions of Silo let the primary profile have a library limit. Updating
 the server removes it. To keep those libraries out of the primary profile's
@@ -196,9 +204,10 @@ again. The setting applies only to that device.
 A new Apple TV or Android TV starts at **Every Time**. After you choose the
 first profile on it, the TV asks once whether to open that profile
 automatically. **Remember** sets **Profile Selection** to **Automatic**, and
-**Ask Every Time** (**Ask every time** on Android TV) keeps it at
-**Every Time**. You can change it in Settings later. A TV that already opened
-a profile automatically with an earlier version of Silo keeps doing so.
+**Ask Every Time** keeps it at **Every Time**. Pressing Menu on Apple TV or
+Back on Android TV also answers **Ask Every Time**, so the TV keeps showing
+**Who's watching?**. You can change it in Settings later. A TV that already
+opened a profile automatically with an earlier version of Silo keeps doing so.
 
 ### In the web app
 
