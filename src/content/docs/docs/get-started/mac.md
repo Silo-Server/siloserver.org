@@ -50,7 +50,7 @@ The node installer won't continue without `ffmpeg-full`. Homebrew's plain `ffmpe
 7. Copy the **Node key** with the button beside it. The key isn't shown again. The installer doesn't use **Server address for the node** or **Node settings** from this dialog.
 8. Select **I saved the key**.
 
-If you closed the dialog without issuing a key, select **Issue key** under the node's address.
+If you selected **Not now** instead, select **Issue key** under the node's address.
 
 ### Install the node
 
