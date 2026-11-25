@@ -1,6 +1,6 @@
 ---
 slug: docs/transcode-nodes
-keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding", "node key", "GPU box", "no shared storage", "friend's GPU", "share a GPU", "Tailscale"]
+keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding", "node key", "GPU box", "no shared storage", "share a GPU", "friend's computer"]
 questions: ["How do I use a second computer's GPU for converting?", "Can another machine handle streaming to take load off my server?", "Why isn't my extra machine getting any transcodes?", "How do I update a node without stopping playback?", "Does a transcode node need my database password?", "Can a node convert video without mounting my library?"]
 title: Add and check transcode nodes
 description: Add proxy and transcode nodes on other machines and check that playback uses them.
