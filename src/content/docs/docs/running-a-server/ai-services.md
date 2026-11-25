@@ -39,7 +39,7 @@ Keep the default batch and audio-request sizes unless the provider reports a req
 
 Generated subtitle tracks are saved on the server, and anyone who can play the item can select them. Manage saved files under [Subtitle Files](/docs/subtitle-providers#inspect-saved-tracks).
 
-When anyone asks again to translate the same subtitle track into the same language with the same model, Silo reuses the saved translation and doesn't send the request to the provider. To translate it again, delete the AI track under **Subtitle Files** first. After the subtitle file is edited, or a video with built-in subtitles is replaced, the next request makes a new translation. Creating subtitles from audio always runs again.
+When anyone asks again to translate the same subtitle track into the same language with the same model, Silo reuses the saved translation and doesn't send the request to the provider. To translate it again, delete the AI track under **Admin > Libraries > Subtitle Files** first. After the subtitle file is edited, or a video with built-in subtitles is replaced, the next request makes a new translation. Creating subtitles from audio always runs again.
 
 ## A test or job fails
 
