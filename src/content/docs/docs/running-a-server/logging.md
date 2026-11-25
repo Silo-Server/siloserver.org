@@ -41,7 +41,7 @@ Other requests show **HTTP request**.
 - Choose **Browse log history** to page through older entries with **Older** and **Newer**.
 - If the live list disconnects, choose **Reconnect**, then check history for anything that arrived in between.
 
-Changed fields show their old and new values, and permission changes list the permissions before and after. An API key shows its label, rate tier, and scopes. A password change shows only that the password changed, and a profile PIN only whether it was set, changed, or cleared. The audit log never shows or stores a password, PIN, reset link, or API key.
+Changed fields show their old and new values, and permission changes list the permissions before and after. A new or deleted API key shows its label, rate tier, and scopes. A password change shows only that the password changed, and a profile PIN only whether it was set, changed, or cleared. The audit log never shows or stores a password, PIN, reset link, or API key.
 
 If an administrator acted as another account, **Actor** shows both, for example `#1 (as #7)`, where #1 is the administrator. Filtering by actor finds the administrator, not the account they acted as. The filters are kept in the page address, so a shared link shows the account IDs you filtered by.
 
