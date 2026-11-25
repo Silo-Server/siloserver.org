@@ -122,7 +122,7 @@ With the default **Silo Defaults** routing, your server sends remuxes and transc
 
 Your friend stays in charge of their hardware. They set `SILO_NODE_MAX_TRANSCODES` in the node's `.env`, the node refuses work past that number, and **Max Transcodes** is then read-only in your node editor. Your viewers never connect to your friend's machine: the node sends the converted video back to your server or a proxy node, which streams it to them.
 
-Each file travels to the node and the converted video travels back, so this needs a fast connection at both ends. Do it only with people you trust: the node sees every video it converts, and it runs the jobs your server sends it.
+Each file travels to the node and the converted video travels back, so this needs a fast connection at both ends. Do it only with someone you trust who also trusts you: their node sees every video it converts, and it runs the jobs your server sends it.
 
 ## If work does not reach the node
 
