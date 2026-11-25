@@ -55,6 +55,6 @@ To fix one profile's rows yourself, open **Admin > Users**, select the person, c
 
 Check that the row is on the page you're looking at and that its switch is on. Then check the collection or rules it uses, and the viewer's library access and profile restrictions.
 
-Rows that pick titles by rating, such as **Critically Acclaimed**, show only titles that enough people have rated on TMDB. Silo gets those vote counts from the TMDB plugin, version 1.2.25 or later, when a title's metadata refreshes, so these rows can be short or empty until then. To fill in every count at once, choose [**Rescan Metadata**](/docs/manage-libraries#scan-or-refresh) on each library, then **Refresh All Metadata**. When nothing matches a row, its preview in **Add row** or **Edit row** says what it looks for.
+Rows that pick titles by rating, such as **Critically Acclaimed**, show only titles that enough people have rated on TMDB. Silo gets those vote counts from the TMDB plugin, version 1.2.25 or later, when a title's metadata refreshes, so these rows can be short or empty until then. To fill in every count at once, choose [**Rescan Metadata**](/docs/manage-libraries#scan-or-refresh) from each library's **⋯** menu in **Admin > Libraries**, then **Refresh All Metadata**. When nothing matches a row, its preview in **Add row** or **Edit row** says what it looks for.
 
 Recommendation rows show results from the [recommendation jobs](/docs/recommendations).

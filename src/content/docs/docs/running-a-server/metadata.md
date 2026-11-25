@@ -27,7 +27,7 @@ If one folder holds unrelated titles, fix the [folder layout](/docs/media-folder
 
 Ignore a movie or series that no metadata provider lists, such as a home video or a disc extra, so Silo stops trying to match it. The item stays in its library and still plays, with the title and artwork it already has. A movie with no poster still gets [a frame from its video](/docs/local-metadata#if-a-movie-has-no-poster) as one.
 
-1. Open **Admin > Libraries > Catalog Health** and select **Unmatched Items**.
+1. Open **Admin > Libraries**, select the **Catalog Health** tab, then **Unmatched Items**.
 2. Select **Ignore** on the item's row. Only movies and series have it. The item leaves the list, and the message that confirms it offers **Undo**.
 
 While an item is ignored, scans don't retry it or count it as unmatched, and it drops out of **Metadata Matcher**. **Quick Refresh** finishes without changing it, and refreshing a season or episode of an ignored series fails.

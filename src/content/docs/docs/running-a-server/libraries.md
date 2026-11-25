@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-libraries
-keywords: ["TV shows", "add media", "empty library", "no media found", "rescan", "VIDEO_TS", "BDMV", "movie shows as episode"]
-questions: ["How do I add my movies folder?", "Why is my library empty after scanning?", "Can I put movies and shows in one library?", "Can Silo play ISO files or DVD folders?"]
+keywords: ["TV shows", "add media", "empty library", "no media found", "rescan", "VIDEO_TS", "BDMV", "movie shows as episode", "scan queue"]
+questions: ["How do I add my movies folder?", "Why is my library empty after scanning?", "Can I put movies and shows in one library?", "Can Silo play ISO files or DVD folders?", "How do I stop a scan that's running?"]
 title: Add and manage libraries
 description: Choose a library type, add media folders, and check their scans.
 ---
@@ -14,13 +14,15 @@ A library is a set of media folders with its own metadata settings. Manage libra
 - **Scan Activity** shows the scans and metadata refreshes that are running or queued.
 - **Catalog Health** lists items and folders that need your attention, such as **Unmatched Items** and **Ambiguous Roots**.
 
+On a narrow screen, each library is a card. Its scan button reads **Scan Library**, and **Edit** is in its **⋯** menu.
+
 ## Add a library
 
 1. [Prepare your folders](/docs/media-folders). In Docker, find the path inside the container, for example `/mnt/media/movies`.
 2. Open **Admin > Libraries** and select **Add Library**.
 3. Enter a name and choose **Movies**, **Series**, or **Mixed**. Add the folder under **Folders**. You can add more than one folder for the same type.
 4. Review **Metadata Language** and **Provider Priority**. Where providers have no text in that language, Silo uses the [fallback language](/docs/metadata#choose-a-fallback-language). [Local metadata](/docs/local-metadata) is on by default and always comes first. TMDB and TVDB are installed by default. Keep the providers you want checked, most preferred first. To add another provider, [install its plugin](/docs/plugins).
-5. Save the library, then select **Scan** on its row. Its status shows the scan while it runs.
+5. Select **Create Library**. Silo starts the first scan on its own, and the library's status shows it while it runs.
 
 When the scan finishes, open the library and play one title.
 
@@ -60,9 +62,9 @@ Audiobook, ebook, and comic libraries are Beta. See the
 
 Make sure the host disk or network mount is available before scanning again. A folder that exists but is empty often means a disconnected drive.
 
-To check that Silo can reach every folder in a library, choose **Verify Mounts** from the library's **⋯** menu.
+To check that Silo can reach every folder in a library, choose **Verify Mounts** from the library's **⋯** menu. The result appears under it in the menu.
 
-For Docker, compare `MEDIA_ROOT` with the folder entered in Silo. Select the library's path or folder count to see its folders. If the host's `/srv/media/movies` is mounted at `/mnt/media/movies`, enter `/mnt/media/movies` in Silo. Silo also needs read permission on the files and permission to open their parent folders.
+For Docker, compare `MEDIA_ROOT` with the library's folders. Select the library's path or folder count to open them. If the host's `/srv/media/movies` is mounted at `/mnt/media/movies`, enter `/mnt/media/movies` in Silo. Silo also needs read permission on the files and permission to open their parent folders.
 
 Silo adds only the [video file types](/docs/media-folders#file-types) it supports. Remux DVD and Blu-ray folders and `.iso` images into a single file first.
 
@@ -72,7 +74,7 @@ If files are found but identified incorrectly, rename them using the [naming gui
 
 Set the type and title of a folder Silo can't classify on its own under **Ambiguous Roots**. Silo lists a folder there when its names don't settle what it holds, for example episode files that don't name their show, or a folder and file that name different titles, as in `On Fire (2024)/Soul on Fire (2025) [WEBDL-1080p].mkv`. For a title conflict like that one, you can instead add a [provider ID](/docs/media-folders#provider-ids) to the folder name.
 
-1. Open **Admin > Libraries > Catalog Health** and select **Ambiguous Roots**.
+1. Open **Admin > Libraries**, select the **Catalog Health** tab, then **Ambiguous Roots**.
 2. Choose the library. Each folder is listed under **Root** with the **Type** Silo guessed, its **Confidence**, and the number of **Files**. To find a folder, filter by path, title, or sample file.
 3. Select **Override** beside the folder. If its files already belong to several items, saving an override requires splitting them first: select **Resolve** to open the item, then choose **Split Versions** from the item's **More** menu (⋮). In **Split Versions**, the title search uses the library of the files you select. If they're in more than one library, choose a **Library** first.
 4. Set **Type** to **Movie** or **Series**. Fill in **Title** and **Year**, or a **TMDB ID**, **IMDb ID**, or **TVDB ID** if you know it. **Note** is for your own record of why.
@@ -84,17 +86,17 @@ Set the type and title of a folder Silo can't classify on its own under **Ambigu
 
 **Scan** finds new and changed files in the library folders. **Rescan Metadata** asks metadata providers again about items already in the library. Scan for a new file or an edited [NFO file](/docs/local-metadata); refresh for an updated description or poster from an online provider.
 
+After the first scan, Silo watches library folders on local disks and scans a new or changed file within seconds, so you rarely need **Scan**. For a library on a network share, set up an [autoscan source](/docs/autoscan#autoscan-sources) after a normal scan succeeds. [Keep libraries up to date](/docs/autoscan) covers both.
+
 To refresh, choose **Rescan Metadata** from the library's **⋯** menu, then one of:
 
 - **Refresh Missing Metadata** for matched items that are missing an overview or artwork, failed a refresh, or were never refreshed.
-- **Refresh All Metadata** to fetch every item again. A large library can take hours. Locked fields and artwork stay as they are.
+- **Refresh All Metadata** to fetch every item again, except items you've [ignored](/docs/metadata#ignore-an-unmatched-item). A large library can take hours. Locked fields and artwork stay as they are.
 
-While a scan or refresh runs, a bar above the list shows it, for example **1 running**. Select **View queue**, or the library's status, to open **Scan Activity**, where **Stop** cancels a scan or refresh.
-
-After the first scan, Silo watches library folders on local disks and scans a new or changed file within seconds, so you rarely need **Scan**. For a library on a network share, set up an [autoscan source](/docs/autoscan#autoscan-sources) after a normal scan succeeds. [Keep libraries up to date](/docs/autoscan) covers both.
+While a scan or refresh runs, a bar above the list shows it, for example **1 running**. To stop every running and queued scan in the library, select **Stop** on its row. To stop a refresh, choose **Stop Metadata Refresh** from its **⋯** menu. To see everything that's running or queued, select **View queue**, or the status on the library's row, to open **Scan Activity**.
 
 ## Hide or remove a library
 
-To hide a library from browsing and skip its scans, for example while a media disk is offline, select **Edit** on its row and turn off **Enabled**.
+To hide a library from browsing and skip its scans, for example while a media disk is offline, select **Edit** on its row, turn off **Enabled**, and select **Save Changes**.
 
-To remove a library from Silo, choose **Delete** from its **⋯** menu and confirm. This can't be undone. [Back up](/docs/backup-restore) first if you might want it back. Deleting and recreating a library doesn't fix a failed scan.
+To remove a library from Silo, choose its delete item from the **⋯** menu, such as **Delete Movies**, then confirm with **Delete**. This can't be undone. [Back up](/docs/backup-restore) first if you might want it back. Deleting and recreating a library doesn't fix a failed scan.
