@@ -101,8 +101,8 @@ email notifications.
 To stop a profile's notification emails, open **Unsubscribe** at the bottom
 of one of them, then select **Unsubscribe** on the confirmation page. Opening
 the page leaves your preferences unchanged. You don't need to sign in to
-confirm. If your mail app shows its own unsubscribe button next to the
-sender, it can stop the emails straight away, without the confirmation page.
+confirm. If your mail app offers its own unsubscribe button, it can stop the
+emails straight away, without the confirmation page.
 
 To turn email off or back on yourself, switch to that profile and use
 **Email this profile's notifications** in **Settings > Notifications**. Do
