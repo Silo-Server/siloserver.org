@@ -1,5 +1,7 @@
 ---
 slug: docs/single-sign-on
+keywords: ["SSO", "OIDC", "Authentik", "Authelia", "Keycloak", "LDAP", "Active Directory"]
+questions: ["Can people log in with their company account?", "How do I disable normal Silo passwords?", "I turned off passwords and got locked out, how do I get in?", "Why does SSO create a second account for existing users?"]
 title: Set up single sign-on
 description: Let people sign in with your OpenID Connect provider or LDAP directory, and decide whether Silo passwords still work.
 ---
@@ -27,7 +29,7 @@ Set the **Silo public URL** in **Admin > Server > General** first. The provider 
 2. Under **Client**, enter the **Issuer URL**, **Client ID**, and **Client secret** from the provider. Enter the issuer exactly as the provider shows it, including any trailing slash; authentik's has one.
 3. Under **Sign-in request**, turn on **Request the groups scope** if your provider needs it to send groups. The field's description lists which ones do. To let Silo [re-check people](#re-check-access-at-the-provider), turn on **Request offline access** too.
 4. Under **Access rules**, enter **Allowed groups** to limit who can sign in, and **Admin groups** for people who should be Silo admins. Enter one group per line. Leave **Admin groups** empty to manage roles in Silo instead. Below them, choose whether to keep **Create accounts on first sign-in** on (see [Choose who gets an account](#choose-who-gets-an-account)), then save.
-5. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them.
+5. Under **Test the connection**, select **Test connection**. It checks the saved settings and any unsaved changes without saving them. If any setting under **Client**, **Sign-in request**, or **Advanced** differs from what you saved, type the **Client secret** again first. Otherwise the test runs without it, and your provider may reject the client credentials.
 6. Under **Login button**, enter the **Provider name** people know, such as `authentik` or `Company SSO`. The preview shows the button as **Sign in with** and that name. Save.
 7. Select **Turn on**. The provider's card shows **On**.
 
@@ -43,11 +45,13 @@ In the iPhone, iPad, Mac, and Android apps, signing in with the provider opens t
 2. Enter the **Directory URLs** (`ldap://` or `ldaps://`, one per line). Enter a **Service account DN** and **Service account password** for the account Silo searches the directory with, or leave them blank to search anonymously.
 3. Under **Users**, enter the **User base DN**: the part of the directory to search for people. Leave the other user settings blank unless your directory differs from the type you chose.
 4. Under **Groups and access**, enter **Allowed groups** and **Admin groups**, one per line. Each field's description says when a group needs its full DN. Below them, choose whether to keep **Create accounts on first sign-in** on, then save.
-5. Under **Test the connection**, select **Test connection**. To check one person's groups and the role they'd get, enter them as **Test username** under **Users** first. No password is used.
+5. Under **Test the connection**, select **Test connection**. If you use a service account and any setting under **Directory connection** differs from what you saved, type the **Service account password** again first. Otherwise the **Settings are complete** check fails. To check one person's groups and the role they'd get, enter their username as **Test username** under **Users** first. The test doesn't need their password.
 6. Under **Login button**, enter a **Directory name** such as `Company directory`, then save.
 7. Select **Turn on**.
 
 People then sign in with their directory username and password in the usual sign-in form. An account that still has its own Silo password keeps signing in with that password until it's [connected to the directory](#choose-who-gets-an-account).
+
+Silo counts failed sign-ins for each directory username too. After 10 within 15 minutes, Silo [locks the name](/docs/configuration#failed-sign-ins-per-name) and stops sending its passwords to the directory for 15 minutes. If your directory locks an account after fewer wrong passwords, it can still lock the account first.
 
 ## Choose who gets an account
 
@@ -93,16 +97,18 @@ A break-glass admin signs in with their Silo password in the web app:
 
 The Silo apps don't show the password form while password sign-in is off. To sign in on a TV, scan its code and approve it in the browser where you signed in.
 
-If no admin can sign in, turn password sign-in back on from the server's command line. With the standard Docker setup, run this in the folder with your `docker-compose.yml`:
+If no admin can sign in, turn password sign-in back on from the server's command line. With the standard Docker setup, run this in the folder with your `docker-compose.yml`. The first part loads the settings Silo runs with and runs the command as Silo's account:
 
 ```sh
-docker compose exec silo silo auth local-login enable
+docker compose exec silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo auth local-login enable
 ```
 
 Connecting a provider also turns off each connected account's own password. To turn it back on for one account, add its username or email. An account created through the provider never had a Silo password, so also add `-temporary-password`:
 
 ```sh
-docker compose exec silo silo auth local-login enable -user alex -temporary-password
+docker compose exec silo /command/s6-envdir /run/s6/container_environment \
+  /command/s6-setuidgid silo silo auth local-login enable -user alex -temporary-password
 ```
 
 The command prints the temporary password once and signs the account out everywhere. The person must change the password at their next sign-in.

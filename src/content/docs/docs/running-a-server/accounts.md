@@ -1,5 +1,7 @@
 ---
 slug: docs/manage-accounts
+keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password"]
+questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?", "Does changing a username rename the main profile too?"]
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---
@@ -38,11 +40,19 @@ For a group of people with the same access, [configure an access group](/docs/ma
 
 ## Change access or reset a password
 
-Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**. **Sign-in & role** has the username, email, role, and how many profiles the account can have. **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
+Open the person's name in **Admin > Users** and choose **Access & limits**. The pencil on their row in the list opens this tab directly. Each card on the tab saves on its own: choose **Edit** on the card, make the change, then choose **Save**.
+
+**Sign-in & role** has the username, email, role, and how many profiles the account can have. Changing **Username** also renames the account's [primary profile](/docs/profiles) if its name still matches the old username. The primary profile keeps its name if another profile on the account already has the new username.
+
+**Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
+
+To change the access group for several people at once, use the group's [**Members** section](/docs/manage-access#add-or-move-several-members-at-once) instead.
 
 To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
 The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
+
+To fix the rows one profile sees on Home, see [Fix a profile's home screen](/docs/help-a-user#fix-a-profiles-home-screen).
 
 To see the web app as that person does, use [View as user](/docs/help-a-user#see-the-users-view). Actions in that session affect their account.
 

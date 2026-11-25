@@ -15,7 +15,9 @@ export interface AppEntry {
   status: string;
   body: string;
   links: StoreLink[];
+  /** Footer note; `noteLink` goes on its own line after the text. */
   note?: string;
+  noteLink?: { label: string; href: string };
 }
 
 export const apps: AppEntry[] = [
@@ -23,10 +25,11 @@ export const apps: AppEntry[] = [
     id: "apple",
     devices: "Apple TV · iPhone · iPad",
     name: "Silo for Apple devices",
-    status: "Beta on TestFlight",
-    body: "One app for Apple TV, iPhone, and iPad. Accept the invitation on your iPhone or iPad, then install Silo from TestFlight on your Apple TV with the same Apple Account.",
-    links: [{ label: "Join the TestFlight", href: "https://testflight.apple.com/join/XZy8cu5q", primary: true }],
-    note: "Macs with Apple silicon can run the iPhone and iPad app. A native Mac app is also in beta.",
+    status: "On the App Store",
+    body: "One app for Apple TV, iPhone, and iPad. Install Silo Media Player from the App Store on each device.",
+    links: [{ label: "App Store", href: "https://apps.apple.com/us/app/silo-media-player/id6784878771", primary: true }],
+    note: "Want to test the latest before release? The TestFlight beta also has the native Mac app.",
+    noteLink: { label: "Join the TestFlight beta", href: "https://testflight.apple.com/join/XZy8cu5q" },
   },
   {
     id: "android",
@@ -37,9 +40,9 @@ export const apps: AppEntry[] = [
     links: [
       { label: "Join the beta", href: "https://play.google.com/apps/testing/org.siloserver.silo", primary: true },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=org.siloserver.silo" },
-      { label: "APK downloads", href: "https://github.com/Silo-Server/silo-android/releases/latest" },
+      { label: "APK downloads", href: "https://github.com/Silo-Server/silo-android/releases/tag/beta-latest" },
     ],
-    note: "No Google Play? Use the Downloader app with code 1141108 for phones and tablets, or 2249835 for Android TV.",
+    note: "No Google Play? Use the Downloader app with code 2988950 for phones and tablets, or 6033910 for Android TV.",
   },
   {
     id: "web",

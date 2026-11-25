@@ -1,5 +1,7 @@
 ---
 slug: docs/s3-storage
+keywords: ["object storage", "cloud storage", "image cache", "poster cache", "presigned URLs", "migrate artwork", "metadata images", "bucket permissions"]
+questions: ["Can my movie files live in an S3 bucket?", "Where are posters saved on my server?", "How do I move artwork to Cloudflare R2 or a new disk?", "What does private storage identity mismatch mean?"]
 title: Storage, artwork, and capacity
 description: Choose local or S3 artwork storage, change it later, and know which data must persist.
 ---
@@ -10,13 +12,13 @@ Your media files stay on mounted filesystems. Artwork and other generated files 
 
 Before the first library scan, open **Admin > Server > Storage** and set **Backend** in the **Storage** group:
 
-- **Local disk** keeps files on the server at **Local storage path**. The default Compose stack mounts `/var/lib/silo/artwork` from your data directory.
+- **Local disk** keeps files on the server at **Local storage path**. With the default Compose file, `/var/lib/silo/artwork` is `config/silo/artwork` in your data directory.
 - **S3** uses the public storage bucket. Choose it when several hosts need the same artwork.
 - **Automatic** uses the public bucket when one is configured, and local disk otherwise.
 
-Save and follow the restart notice. For a single host, local disk is enough.
+Save and follow the restart notice. For a single host, local disk is enough. You can also set storage from the [server's environment](/docs/configuration#storage-from-the-environment).
 
-**Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops from metadata providers into artwork storage, on local disk or in S3. When it's off, clients load artwork straight from the providers.
+**Save provider artwork to storage**, in the same group, is on by default. It copies posters and backdrops into artwork storage, on local disk or in S3, including [images you keep beside your media files](/docs/local-metadata#add-artwork). When it's off, clients load artwork straight from the providers and Silo ignores local images. Artwork saved earlier switches back to the providers' images, except on titles whose artwork you chose in **Edit Metadata**. A title with only local artwork keeps it until a refresh finds a provider image.
 
 Silo records the location the first time it stores a file. From then on, a change goes through a [storage transition](#change-storage-later).
 
@@ -130,6 +132,8 @@ Set up a private bucket the same way.
 ## Change storage later
 
 Use a storage transition to move from local disk to S3 (for example, before adding a second host), switch buckets or providers, move to a new local path, go back from S3 to local disk, or add or remove a private bucket. Silo checks the new location, copies what you choose, switches the settings, and restarts.
+
+If you set storage with `SILO_ARTWORK_*` or `SILO_S3_*` [variables](/docs/configuration#storage-from-the-environment), remove them from every API server's environment first, and recreate the containers. Silo refuses to start a transition while any of them is set.
 
 1. Make a [backup](/docs/backup-restore) first.
 2. For a new local path, mount it into the container before you start.

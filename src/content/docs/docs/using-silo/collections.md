@@ -1,5 +1,7 @@
 ---
 slug: docs/collections
+keywords: ["playlist", "smart playlist", "custom list", "group movies together", "auto-updating list", "share with family", "share with kids"]
+questions: ["How do I group a bunch of movies together?", "Can a collection add new movies on its own?", "Why does my trending list only show a few movies?", "How do I share my collection with my kids' profiles?", "What collections is this movie in?"]
 title: Browse and organize collections
 description: Open collections, make your own, and share them with the other profiles on your account.
 ---
@@ -18,8 +20,10 @@ In the web app, **Collections** has three parts:
 - **Server collections**: collections the person who runs your server made for
   each library.
 
-A collection only shows the titles your profile can access. Sharing a
-collection with you doesn't give you access to a restricted library.
+A collection only shows the titles your profile can access, and the count on
+its card includes only those titles. A server collection whose titles are all
+hidden from your profile isn't listed for you. Sharing a collection with you
+doesn't give you access to a restricted library.
 
 ## Make a collection in the web app
 
@@ -45,7 +49,8 @@ For a smart collection, choose under **Rules** which kind of titles it shows
 and from which libraries. Select **Add rule**, then pick a field, a condition,
 and a value from your libraries. **Live preview** shows the titles that match
 as you go. Under **Order**, choose how it's sorted and, if you want a cap,
-**Max titles**.
+**Max titles**. When it shows **episodes**, **Title** becomes **Episode title**,
+and **Show title** matches each episode's show.
 
 A smart collection keeps itself up to date: titles added to your libraries
 later join it when they match. You can create it even if nothing matches yet.
@@ -94,6 +99,20 @@ On a title's page, open **More actions** and select **Add to Collection**.
 Tick a collection to add the title; ticking saves right away. Only your own
 manual collections are listed. To start a new one, enter a name under **New
 manual collection** and select **Create and add**.
+
+## Collections on movie and series pages
+
+In the web app, a movie or series page lists the collections your profile can
+see that hold it: your own, ones shared with you, and
+[server collections](/docs/manage-collections#collections-on-movie-and-series-pages).
+
+- When one collection appears, the page lists up to six of its other titles
+  under the collection's name, and **Explore all** opens it.
+- When more than one appears, or the only one has no other titles to show, an
+  **Also in** row shows a card for each.
+
+Smart collections don't appear there. A collection shared with you appears
+only on titles that both you and the profile that shared it can access.
 
 ## Show a collection on your Home
 

@@ -1,5 +1,7 @@
 ---
 slug: docs/home-and-calendar
+keywords: ["front page", "main screen", "release schedule", "air date", "coming soon", "what to watch next", "rearrange rows", "personalized picks", "theatrical release"]
+questions: ["When does the next episode of my show come out?", "Why are my recommendations empty?", "How do I hide rows on my home screen?", "How do I make new episodes show up first in Continue Watching?", "Why isn't a movie that's in theaters on my calendar?"]
 title: Home, For You, and Calendar
 description: Find something to watch now, see recommendations, and check upcoming releases.
 ---
@@ -21,29 +23,59 @@ web app and turn on **Show new episodes first**. Shows you haven't caught up
 on keep their place. A separate **Next Up** row, if you've chosen one, uses
 the same order, and so does **Next Up** in
 [Jellyfin-compatible apps](/docs/jellyfin-apps). The setting follows your
-profile to every device.
+profile to every device. Until you change it, it follows your server's
+default, which the person who runs your server can turn on.
 
 Only episodes newly added to your server count as new, not the episodes in a
 library you add or re-add, or an older file once it's matched to its show.
 
+To take a title off **Continue Watching** or **Next Up**,
+[remove it from the card's menu](/docs/watch-history#remove-a-title-from-continue-watching-or-next-up).
+
 For You picks titles from your profile's viewing history and ratings, so
 [rating what you watch](/docs/saved-titles) improves it. In the web app, you
 can also open **Settings > Personalize**, select **Open the picker**, and
-choose titles you love. They're saved to your favorites. Once there's enough
-to go on, the web page shows **Your Taste Profile** with your top genres and
-favorite directors.
+choose at least three titles you love. They're saved to your favorites. The
+picker shows only movies and series that have a poster, so to add a title
+that isn't there, [favorite it](/docs/saved-titles) from its page. Once
+there's enough to go on, the web page shows **Your Taste Profile** with your
+top genres and favorite directors.
 
-A new profile sees **Not enough data yet** until it has watched and rated a
-few titles. If For You stays empty, ask the person who runs your server; the
-[recommendation services](/docs/recommendations) may need setting up. You can
+| Client | Where to find For You |
+| --- | --- |
+| Web | Choose **For You** in the sidebar. On a small screen, open the navigation menu first. |
+| Mobile | Select **For You** in the bottom navigation. On an iPad in the wide layout, choose it in the sidebar instead. |
+| TV | Choose **For You** in the top navigation with your remote. |
+
+A new profile starts with rows every profile gets, such as **Highly Rated in
+Your Library** and **Recently Added**, plus **Popular on This Server** once
+people on more than one account have watched the same titles. Rows picked
+from your own history join them as you watch and rate. Those rows need the
+[recommendation services](/docs/recommendations). Until the person who runs
+your server sets them up, For You shows only the shared rows. If For You is
+empty, the libraries you can see don't have any movies or series yet. You can
 still browse libraries and search.
+
+In the web app, a profile with no favorites sees **Pick what you love** the
+first time it opens Home. Choose **Done** to open For You, or **Skip** to go
+to Home. Until you favorite a title, the **Personalize your home** banner on
+Home opens the picker again. After you watch or rate something on any device,
+Silo updates your personal rows in the background. Reload For You to see
+them, or pull down to refresh it on a phone or tablet.
+
+On Home, the recommendations row leaves out titles that the rows above it
+already show. In a small library, those rows can hold every title, so Home
+may not show the recommendations row at all. The For You page still lists
+those titles.
 
 ## Check upcoming releases
 
-Calendar lists movie releases, episode airings, and season premieres from
-your server's metadata, for your active [profile](/docs/profiles). A listed
-release may not be on your server yet. Open the title to see whether you can
-watch it.
+Calendar lists episode airings, season premieres, and movie releases from
+your server's metadata, for your active [profile](/docs/profiles). A movie is
+listed on the date of its first home release: the earliest day, in any
+country, that it can be streamed or bought digitally or comes out on disc.
+Calendar doesn't use cinema release dates. A listed release may not be on
+your server yet. Open the title to see whether you can watch it.
 
 ### Open Calendar
 
@@ -72,14 +104,15 @@ To add a title to **Following**, [favorite it or add it to your watchlist](/docs
 Every view respects your library access and profile rating limits.
 
 Badges mark a series premiere, a new season (**NEW SEASON**), or a season
-finale (**FINALE**).
+finale (**FINALE**). A movie's badge shows whether its date is a digital
+release (**DIGITAL**) or a disc release (**PHYSICAL**).
 
 ### Dates and empty weeks
 
 When the metadata includes an air time and its timezone, Calendar converts it
 to your device or browser's timezone, so a release can land on a different
-day on devices in different timezones. Date-only releases keep their listed
-date everywhere.
+day on devices in different timezones. Date-only releases, including every
+movie, keep their listed date everywhere.
 
 If a week has nothing for the view you chose, Calendar says so and offers
 buttons for the other two views. Select one, change the week, or select
@@ -88,8 +121,12 @@ buttons for the other two views. Select one, change the week, or select
 has no trending data or none of the trending titles have a release that week.
 
 If a release you expect is missing from **All**, look at the active profile,
-library filter, and week. If its release date is missing or wrong, ask the
-person who runs your server to [refresh its metadata](/docs/metadata#refresh-metadata).
+library filter, and week. A movie isn't listed until its metadata has a digital
+or disc release date, even if it's already in cinemas. If a release date is
+missing or wrong, ask the person who runs your server to
+[refresh the title's metadata](/docs/metadata#refresh-metadata). For a movie,
+they should [update the TMDB plugin](/docs/plugins#update-or-turn-off-a-plugin)
+first, since it supplies the digital and disc dates.
 
 ## Change your home rows
 

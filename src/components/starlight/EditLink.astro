@@ -1,0 +1,38 @@
+---
+// Replaces Starlight's "Edit page" link. Only collaborators can open pull
+// requests here, so readers suggest changes in an issue instead. The link
+// opens the docs issue form with the page's title and address filled in.
+// Pages with `editUrl: false`, such as Starlight's 404 page, get no link, as
+// with Starlight's own.
+import { Icon } from '@astrojs/starlight/components';
+
+const { entry } = Astro.locals.starlightRoute;
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const issueUrl = new URL('https://github.com/Silo-Server/siloserver.org/issues/new');
+issueUrl.searchParams.set('template', 'docs.yml');
+issueUrl.searchParams.set('title', `Docs: ${entry.data.title}`);
+issueUrl.searchParams.set('page', pageUrl);
+---
+
+{
+  entry.data.editUrl !== false && (
+    <a href={issueUrl.href} class="sl-flex print:hidden">
+      <Icon name="comment-alt" size="1.2em" />
+      Suggest a change
+    </a>
+  )
+}
+
+<style>
+  @layer starlight.core {
+    a {
+      gap: 0.5rem;
+      align-items: center;
+      text-decoration: none;
+      color: var(--sl-color-gray-3);
+    }
+    a:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

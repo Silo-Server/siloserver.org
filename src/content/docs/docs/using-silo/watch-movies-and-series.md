@@ -1,5 +1,7 @@
 ---
 slug: docs/watch-movies-and-series
+keywords: ["2x speed", "fast forward", "keeps pausing", "random episode", "binge", "language track", "extended cut", "skip opening", "autoplay limit"]
+questions: ["Why does the video keep stopping to load?", "How do I speed up playback?", "How do I skip the intro?", "How do I play random episodes of a show?", "Why didn't the next episode start by itself?"]
 title: Watch movies and series
 description: Start or resume playback, choose a version and tracks, and move through an episode.
 ---
@@ -27,10 +29,35 @@ you start.
 
 ## Choose a version before playback
 
-Some titles have more than one file, such as a 4K and an HD copy, or a
-director's cut. The title's page then shows **Version** to pick the file,
-and **Edition** to pick the cut when there's more than one. On Apple TV,
-open **Versions**. On iPhone and iPad, **Auto** lets Silo choose.
+On a title's page, **Edition** picks the cut, such as a director's cut, and
+**Version** picks the file, such as a 4K or an HD copy.
+
+**Edition** appears when the title has more than one cut. It opens on the cut
+you watched last. If you haven't played the title, it opens on the standard
+cut, then the theatrical cut, then the cut with the best file for your
+quality settings.
+
+**Version** lists the chosen cut's files when it has more than one. On
+**Auto**, the default, Silo picks the best file that fits your
+[**Resolution** setting](/docs/preferences#set-playback-quality). With
+**1080p**, for example, it picks a 1080p file rather than a 4K one. If every
+file's resolution is higher, it picks the lowest. On mobile data, Auto
+follows your [mobile data quality](/docs/preferences#quality-on-mobile-data)
+instead. Auto never switches to another cut, and choosing an edition sets
+**Version** back to **Auto**.
+
+Leave **Version** and the player's **Quality** on **Auto** to let Silo switch
+to a lower-bandwidth copy of the same cut when your connection is slow, such as
+an HD copy of a 4K movie. If Silo detects a slow connection at startup or
+[lowers quality after buffering](#if-playback-keeps-buffering), it first looks
+for a copy that can play without converting the video. Files with
+[other names for the same edition](/docs/media-folders#other-names-for-the-same-edition)
+count as the same cut. If no copy fits, or you chose a specific file in
+**Version**, Silo keeps playing that file and can lower its quality instead.
+
+**Play** and **Download** start with the file the page shows. The
+**Continue Watching** row on Home resumes the file you last played, even if
+the page now shows a different one.
 
 Audio tracks, subtitles, and running time can differ between versions. After
 switching to a different cut, check where playback resumes.
@@ -41,23 +68,48 @@ switching to a different cut, check where playback resumes.
 pause and seek, you can change the audio track, [subtitles](/docs/subtitles),
 and **Chapters**. On a narrow screen, some of these move under
 **More player options**. The gear button holds **Speed**, from 0.5× to 3×,
-and **Quality**. A lower **Quality** can help on a slow connection.
-When the speed isn't 1×, the gear button shows it. The speed lasts until you
-close the player, and a Watch Party always plays at normal speed.
+and **Quality**. When the speed isn't 1×, the gear button shows it. The
+speed lasts until you close the player, and a Watch Party always plays at
+normal speed.
 
 **iPhone and iPad:** tap the picture. **Audio & Subtitles** picks tracks,
 **Chapters** appears when the file has chapters, and **Playback Settings**
 has **Quality** and more.
 
-**Android phones and tablets:** tap the picture. **Audio and subtitles**
-picks tracks, and **Chapters** appears when the file has chapters.
-**Quality** switches between versions and only appears when the title has
-more than one. On a small screen, these are under **More playback controls**.
+**Android phones and tablets:** tap the picture. **Audio & Subtitles**
+picks tracks, **Chapters** appears when the file has chapters, and
+**Quality** changes the quality. The button with three dots opens playback
+settings, which also have **Quality**, and **Version** when the title has
+more than one.
 
 **Apple TV and Android TV:** use the remote to show the controls and open
 the options panel (**Info and options** on Apple TV). It has tabs for
 **Video**, **Audio**, **Subtitles**, and **Chapters** when the file has
 them.
+
+**Quality** lists **Auto** and lower qualities for the title. Choose **Auto**
+to let Silo pick, which plays the original file when your device and
+connection can. Your choice applies to what you're watching and doesn't
+change your [quality settings](/docs/preferences#set-playback-quality).
+
+## If playback keeps buffering
+
+On **Auto**, Silo lowers the quality when playback keeps stopping to buffer.
+**Quality lowered to stop buffering** then appears with **Restore quality**
+for 15 seconds. If you picked a quality yourself, or set Silo to ask, it
+asks first: **Playback keeps buffering** offers **Lower quality** and **Keep
+quality**.
+If the title has nothing lower to play, Silo shows **Can't lower quality for
+this video**.
+
+After lowering, Silo remembers the slower speed for this device and network
+for 24 hours, so the next title starts at the lower quality too. While that limit holds a title
+down, the **Quality** menu shows **Auto · limited after buffering**.
+**Restore quality** goes back to the quality you had and clears the limit.
+To clear it later, or to have Silo ask before lowering, see
+[Lower quality when buffering](/docs/preferences#lower-quality-when-buffering).
+
+Silo doesn't lower the quality on its own during a Watch Party.
 
 ## Chapters, intros, and the next episode
 
@@ -66,8 +118,24 @@ buttons appear when Silo knows where that part starts and ends. If one skips
 the wrong part, send a [problem report](/docs/report-a-problem) with the
 title, episode, and times.
 
+In the web player, the **Chapters** menu can show an image for each
+chapter. Hover over or drag along the seek bar to see the image for the
+chapter there; inside a skip marker, it shows the marker's image. Once a
+video has [timeline previews](/docs/timeline-previews), the seek bar shows
+those instead. Your administrator turns
+[these images](/docs/playback#generate-chapter-thumbnails) on for each
+library. Without them, you can still jump to chapters and skip.
+
 In **Settings > Playback**, choose whether to skip intros, credits, and
 recaps automatically and whether to play the next episode.
+
+Use **Still watching prompt** in the same settings to choose how many
+episodes can start on their own in a row, or to turn the limit off. The
+default is 3. When the limit is reached, the next-up screen waits for you to
+choose **Play Now** instead of starting the next episode, so playback stops
+if you've fallen asleep. Pausing, seeking, or starting an episode yourself
+starts the count again. On the web, each browser keeps its own setting; in
+the apps, each profile on each device does.
 
 ## Shuffle a library, series, or collection
 
@@ -95,10 +163,11 @@ and what you're shuffling:
 - **Stop shuffling** ends the shuffle and returns you to the page where you
   started it.
 
-If auto-play is on, the next pick starts on its own after a countdown. Select
-**Auto-play is on** on that screen to turn it off, or change it in
-**Settings > Playback**. During a shuffle, the player has no next episode
-control.
+If auto-play is on, the next pick starts on its own after a countdown, up to
+your [still-watching limit](#chapters-intros-and-the-next-episode). To turn
+auto-play off, select **Auto-play** on that screen (**Auto-play is On** in
+the apps), or change it in **Settings > Playback**. During a shuffle, the
+player has no next episode control.
 
 ## If playback fails
 

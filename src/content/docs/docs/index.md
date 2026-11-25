@@ -1,5 +1,6 @@
 ---
 slug: docs
+questions: ["Where do I start with Silo?", "Someone invited me to their server, what do I need?", "How do I set up my own media server?", "Does Silo do more than movies and TV shows?"]
 title: Start using Silo
 description: Join a server, watch your first title, or set up a server of your own.
 ---
@@ -34,7 +35,7 @@ extra playback hardware, and integrations can come later.
 ## Get help or contribute
 
 [Find help](/docs/help) for connection and playback problems. You can also
-[correct these instructions](/docs/improve-the-docs) or
+[suggest a change to these instructions](/docs/improve-the-docs) or
 [build an integration](/docs/developers).
 
 ## Project status
