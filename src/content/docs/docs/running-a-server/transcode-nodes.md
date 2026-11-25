@@ -110,6 +110,16 @@ Changing the directory doesn't move files. Files that devices are still waiting 
 
 If **Prepared file directory** is set in **Admin > Downloads > Settings**, a node with a blank directory uses that path, so it must exist on the node too. A card that reads **Shares disk with transcode scratch** still has its prepared files on the transcode disk.
 
+## Borrow a friend's GPU
+
+A transcode node doesn't have to be in your house. It needs only your server's address and a key, and with **Source access** set to **Through the API servers** it doesn't mount your library, so it can run on someone else's machine.
+
+If a friend has a spare GPU and a fast connection, their machine can convert video for your Silo server. Share your server and their machine with each other in Tailscale, then [add the node](#add-the-node) with the Tailscale addresses as its **URL** and **Server address for the node**. Do the same in the other direction and you each have somewhere to send transcodes when your own machine is busy, much like backing up to each other's NAS.
+
+Your friend stays in charge of their hardware. They set `SILO_NODE_MAX_TRANSCODES` in the node's `.env`, the node refuses work past that number, and **Max Transcodes** is then read-only in your node editor. Your viewers never connect to your friend's machine, because the node sends the converted video back to your server. While the node is busy, switched off, or unreachable, Silo converts on your server instead, as long as **Routing** allows it.
+
+Each file travels to the node and the converted video travels back, so this needs a fast connection at both ends. Do it only with people you trust: the node sees every video it converts, and it runs the jobs your server sends it.
+
 ## If work does not reach the node
 
 Check that the node is enabled, **Healthy**, and below its limit. A transcode node also needs its key: check that it shows **Key issued**. With **Library mount on the node**, check that it can read the file at the same path. For a grouped node, check that every enabled node in its [group](/docs/node-status#groups) is **Healthy**.
@@ -146,13 +156,3 @@ To make a node re-read its configuration straight away, use force reload in the 
 Update all nodes together with the main server when the release notes say so. The [1.0 update](/docs/updates#moving-from-alpha-to-10) is one of those: don't mix alpha and 1.0 nodes. Stop the transcode nodes first, and start them again only once the main server and proxy nodes run 1.0 and you've issued each transcode node its key. For other updates, if you update one machine at a time, update the transcode nodes first, then the proxy nodes, then the main server. Some releases change how the main server and proxy nodes talk to other nodes, and a node that hasn't been updated yet can't answer the new requests.
 
 A transcode node on an older version than the main server can't send subtitles from inside a video file along with the converted video. Silo then converts that playback on the main server or an updated node instead. Only if **Routing** leaves no such machine does an older node convert it, and the apps then download the subtitle separately, which can take minutes on network storage.
-
-## Borrow a friend's GPU
-
-A transcode node doesn't have to be in your house. It needs only your server's address and a key, and with **Source access** set to **Through the API servers** it doesn't mount your library, so it can run on someone else's machine.
-
-If a friend has a spare GPU and a fast connection, their machine can convert video for your Silo server. Share your server and their machine with each other in Tailscale, then [add the node](#add-the-node) with the Tailscale addresses as its **URL** and **Server address for the node**. Do the same in the other direction and you each have somewhere to send transcodes when your own machine is busy, much like backing up to each other's NAS.
-
-Your friend stays in charge of their hardware. They set `SILO_NODE_MAX_TRANSCODES` in the node's `.env`, the node refuses work past that number, and **Max Transcodes** is then read-only in your node editor. Your viewers never connect to your friend's machine, because the node sends the converted video back to your server. While the node is busy, switched off, or unreachable, Silo converts on your server instead, as long as **Routing** allows it.
-
-Each file travels to the node and the converted video travels back, so this needs a fast connection at both ends. Do it only with people you trust: the node sees every video it converts, and it runs the jobs your server sends it.
