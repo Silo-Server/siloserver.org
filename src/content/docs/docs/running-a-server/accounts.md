@@ -46,6 +46,8 @@ Open the person's name in **Admin > Users** and choose **Access & limits**. The 
 
 **Library access**, **Downloads**, **Playback & streaming**, and **Requests** have the access and limits described in [Set access and limits](/docs/manage-access).
 
+To change the access group for several people at once, use the group's [**Members** section](/docs/manage-access#add-or-move-several-members-at-once) instead.
+
 To suspend an account without deleting it, open the **⋯** menu at the top of the account page and choose **Disable account**. The person can't sign in until you choose **Enable account**, and their profiles, history, and downloads are kept.
 
 The **Profiles** card on **Overview** lists the account's household profiles. Missing media or unexpected restrictions can come from the profile as well as the account.
