@@ -1,7 +1,7 @@
 ---
 slug: docs/manage-accounts
-keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password"]
-questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?", "Does changing a username rename the main profile too?"]
+keywords: ["add a friend", "add family", "share my server", "share library", "invite link", "new user", "add user", "reset someone's password", "password complexity", "password strength"]
+questions: ["How do I give a friend their own login?", "My invite link expired, how do I send another?", "How do I sign out a stolen phone?", "Can I block someone without deleting their account?", "Does changing a username rename the main profile too?", "Can I make people use stronger passwords?"]
 title: Invite people and manage accounts
 description: Give someone access to your server, change their account, or help them sign in.
 ---
@@ -73,6 +73,18 @@ Completing a reset link or setting a temporary password signs the account out on
 Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-up-email), then turn on **Self-service password reset** under **Silo passwords** in **Admin > Sign-in & Security > Sign-in** and save. It is off by default. The web sign-in page then shows **Forgot password?**.
 
 People can request a link using their username or email address. These links expire after one hour. See [Forgot your password?](/docs/accounts#forgot-your-password) for the steps to share with them.
+
+### Set password requirements
+
+Set the rules for new passwords under **Silo passwords** in **Admin > Sign-in & Security > Sign-in**, then save:
+
+- **Minimum password length**: from 8 to 72 characters. The default is 8.
+- **Require a capital letter**: off by default.
+- **Require a special character**: any punctuation mark or symbol, such as `!` or `#`. Letters, digits, and spaces don't count. Off by default.
+
+The rules take effect when you save. Silo checks them whenever someone chooses a password: signing up, accepting an invitation, changing their password, or using a reset link. They also apply when you create an account or set a password for someone. In the web app, password fields show the current rules, such as `At least 12 characters. Include at least one capital letter.`, and say which rule a password breaks.
+
+Passwords that are already set keep working, even if they don't meet the new rules. To have someone choose a new one, [reset their password](#help-someone-reset-their-password).
 
 ## Sign-in and break-glass accounts
 
