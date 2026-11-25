@@ -74,7 +74,7 @@ Set the **Silo public URL** and [set up email](/docs/notification-delivery#set-u
 
 People can request a link using their username or email address. These links expire after one hour. See [Forgot your password?](/docs/accounts#forgot-your-password) for the steps to share with them.
 
-### Set password requirements
+## Set password requirements
 
 Set the rules for new passwords under **Silo passwords** in **Admin > Sign-in & Security > Sign-in**, then save:
 
@@ -82,7 +82,9 @@ Set the rules for new passwords under **Silo passwords** in **Admin > Sign-in & 
 - **Require a capital letter**: off by default.
 - **Require a special character**: any punctuation mark or symbol, such as `!` or `#`. Letters, digits, and spaces don't count. Off by default.
 
-The rules take effect when you save. Silo checks them whenever someone chooses a password: signing up, accepting an invitation, changing their password, or using a reset link. They also apply when you create an account or set a password for someone. In the web app, password fields show the current rules, such as `At least 12 characters. Include at least one capital letter.`, and say which rule a password breaks.
+The rules apply to every new password from then on: when someone signs up, accepts an invitation, changes their password, or uses a reset link, and when you create an account or set a password for someone.
+
+In the web app, password fields show the current rules, such as `At least 12 characters. Include at least one capital letter.`
 
 Passwords that are already set keep working, even if they don't meet the new rules. To have someone choose a new one, [reset their password](#help-someone-reset-their-password).
 
