@@ -39,8 +39,8 @@ These settings are in **Admin > Playback > Settings**, under **Preview images**.
    only**. With **Transcode nodes when available**, Silo makes the previews
    itself when no node is free. With **Transcode nodes only**, files wait for
    a node. If both options are unavailable and **No connected transcode node
-   supports seek previews** appears, the node is older than the main server or
-   isn't [**Healthy**](/docs/node-status).
+   supports seek previews** appears, the node is disabled, isn't
+   [**Healthy**](/docs/node-status), or is older than the main server.
 3. Under **Advanced**, set **Seek previews per transcode node**, the number of
    files one node makes previews for at once. It appears once step 2 is set,
    takes 1 to 64, and defaults to 1. Nodes get only as many files as **Seek
