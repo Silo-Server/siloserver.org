@@ -54,11 +54,10 @@ a party** to pick the title yourself or **Start a party and let everyone
 vote**.
 
 To start with a title already picked, open its page first. In the web app,
-open the **More actions** menu, select **Start a Watch Party**, then select
-**Create party & copy invite**. For a series, you can change the episode
-before you create it. **Allow guests to pause** starts at the choice you
-last made as host. In the apps, choose **Watch Party** from the title's
-**More** menu.
+open the **More actions** menu and select **Start a Watch Party**. For a
+series, you can change the episode. **Allow guests to pause** starts at the
+choice you last made as host. Then select **Create party & copy invite**. In
+the apps, choose **Watch Party** from the title's **More** menu.
 
 ## Invite people
 
