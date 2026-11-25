@@ -106,6 +106,12 @@ With both on, Silo uses the GPU when it can and the CPU otherwise. With both off
 
 **Throttle transcoding**, under **Transcoding** on **Admin > Playback > Settings**, pauses a conversion once it is far enough ahead of the client and resumes it as the client catches up. This saves CPU, GPU, and disk space when someone pauses or stops watching. It's on by default. **Buffer ahead**, which appears while throttling is on, sets how far ahead Silo converts, 300 seconds by default and at least 60.
 
+## Use complete playlists for copied video
+
+**Complete playlists for copied video**, under **Advanced** in **Transcoding** on **Admin > Playback > Settings**, is experimental and off by default. When Silo repackages a file without converting its video, the player normally gets a playlist that grows as Silo copies the video, and some players handle that badly: Safari, for example, can stop partway through. With the setting on, Silo lists every segment when playback starts, using the file's keyframes.
+
+It applies when Silo copies the video of an MKV or WebM file for most devices. Other streams play as they do with the setting off. Before leaving it on, test playing, seeking, and switching audio on the devices you use. If a title stops partway, start it again, and turn the setting off if that keeps happening.
+
 ## Limit connection speed tests
 
 The Silo apps test each device's connection so that **Auto** can choose a quality that fits before playback starts. Both settings are under **Connection speed tests** on **Admin > Playback > Settings**:
