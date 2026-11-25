@@ -25,7 +25,7 @@ Before using a hosted model, check its charges and data policy. Translation send
 3. Turn on **Create subtitles from audio** and save.
 4. Try one short item in the web player. When the job finishes, select the new subtitle track and check its language and timing.
 
-With **Translate subtitles** off, or no text model set up, viewers can create subtitles from audio only in the spoken language. The players don't offer other languages.
+With **Translate subtitles** off, or no working text model, viewers can create subtitles from audio only in the spoken language. The players don't offer other languages.
 
 If the speech **Base URL** is blank, Silo sends audio to the text model's endpoint. Run **Test speech-to-text** to find out whether that endpoint accepts audio.
 
