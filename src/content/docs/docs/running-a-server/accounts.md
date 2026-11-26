@@ -82,7 +82,7 @@ Set the rules for new passwords under **Silo passwords** in **Admin > Sign-in & 
 - **Require a capital letter**: off by default.
 - **Require a special character**: any punctuation mark or symbol, such as `!` or `#`. Letters, digits, and spaces don't count. Off by default.
 
-The rules apply to every new password from then on: when someone signs up, accepts an invitation, changes their password, or uses a reset link, and when you create an account or set a password for someone.
+The rules apply to every password chosen from then on: when someone signs up, accepts an invitation, changes their password, or uses a reset link, and when you create an account or set a password for someone.
 
 In the web app, password fields show the current rules, such as `At least 12 characters. Include at least one capital letter.`
 
