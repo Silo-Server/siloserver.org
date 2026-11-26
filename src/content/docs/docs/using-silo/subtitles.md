@@ -19,6 +19,20 @@ While a title is playing, open the subtitle list and choose a track:
 Choose **Off** to hide subtitles. The same language can appear more than
 once when the title has several subtitle tracks in that language.
 
+Silo remembers the track or **Off** you pick for the whole show, so later
+episodes start with it on every device that uses your profile. A pick on a
+movie applies to that movie. You can also pick before you play, with the
+subtitles button on an episode's or movie's page. Choose **Auto** there to go
+back to your usual settings. When an episode or movie starts with **Off**,
+forced subtitles still appear for foreign-language lines, unless you've turned
+forced subtitles off in your settings.
+
+On Apple devices with **Use Device Settings** turned on under
+**Settings > Subtitles**, a track you picked still plays whenever the file has
+one in that language. Otherwise the device's caption settings choose, even for
+a title where you picked **Off**. Silo uses that **Off** again once you turn
+**Use Device Settings** off.
+
 When Silo converts the video for your device, the mobile and TV apps get a
 text subtitle from inside the video file along with the video, so it appears
 as soon as playback starts. Turning on a subtitle from inside the file, or
@@ -39,14 +53,27 @@ apps have a **Subtitles** page under **Settings**. There you can choose:
   on-screen text
 - the size, font, color, background, and position of the text
 
+The look you choose is saved for your profile, so your other devices use it
+too.
+
 You can also change the look while you watch: choose **Appearance…** in the
 web subtitle menu, **Appearance** in **Playback Settings** on iPhone and
 iPad, or **Subtitle style** under **Playback settings** >
 **Playback Options** on Android phones and tablets.
 
 Some subtitles are pictures or carry their own styling, so not every setting
-changes them. To use a different look on one device, see
-[Preferences](/docs/preferences).
+changes them.
+
+To use the device's own caption style instead, turn on
+**Use Device Settings** on the **Subtitles** settings page in the mobile and
+TV apps.
+
+To keep a different look on one device, turn off **Use Device Settings** if
+it's on, then turn on **Only on This Device** on that page in the iPhone,
+iPad, and Android apps, or **Only on This Apple TV** on Apple TV. While that
+switch is on, changes stay on that device. Turning it off goes back to your
+profile's look. For one browser, use **Settings > Your Devices** in the web
+app; see [Preferences](/docs/preferences#change-one-device).
 
 ## Fix subtitles that are out of sync
 
@@ -109,14 +136,16 @@ its name:
   Silo can read, or the server was busy. If the subtitle changed or the
   server was busy, try **Sync to audio** again.
 
-### Change the delay on one device
+### Change the subtitle delay
 
 If subtitles still show up too early or too late, change the subtitle delay.
-The delay applies only on the device you're using, on top of the synced
-timing:
+The delay is added on top of the synced timing and follows your profile to
+every device:
 
 - **Web:** in the subtitle menu, use **-** and **+** next to **Delay**.
-  **Reset** sets it back to zero.
+  **Reset** sets it back to zero. You can also set it with
+  **Subtitle offset** under **Timing** in
+  **Settings > Language & Subtitles**.
 - **iPhone and iPad:** open **Playback Settings** and choose
   **Subtitle Delay**.
 - **Android phones and tablets:** open **Playback settings** >
@@ -125,3 +154,8 @@ timing:
   **Delay**.
 
 Change it a little at a time and replay a line to check.
+
+On a device with **Only on This Device** or **Only on This Apple TV** turned
+on, the delay stays on that device. For one browser, set
+**Subtitle sync offset** for it in **Settings > Your Devices**. The delay also
+stays on one device when your server runs an older version of Silo.
