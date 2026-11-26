@@ -84,7 +84,7 @@ Set the rules for new passwords under **Silo passwords** in **Admin > Sign-in & 
 
 The rules apply to every password chosen from then on: when someone signs up, accepts an invitation, changes their password, or uses a reset link, and when you create an account or set a password for someone.
 
-In the web app, password fields show the current rules, such as `At least 12 characters. Include at least one capital letter.`
+In the web app, the hint under a new password field shows the current rules, such as `At least 12 characters. Include at least one capital letter.`
 
 Passwords that are already set keep working, even if they don't meet the new rules. To have someone choose a new one, [reset their password](#help-someone-reset-their-password).
 
