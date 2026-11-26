@@ -11,7 +11,9 @@ one screen or sound system needs something different, such as an audio delay
 for the bedroom TV, change that device only.
 
 The mobile and TV apps have their own **Playback** and **Subtitles**
-pages under **Settings**. The pages below are in the web app.
+pages under **Settings**, and their own editor for your
+[Home rows](/docs/home-and-calendar#change-your-home-rows). The pages below
+are in the web app.
 
 ## Change a profile preference in the web app
 
