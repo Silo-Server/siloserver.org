@@ -77,6 +77,8 @@ Everything changed since the backup is replaced, and every account goes back to 
 
 The **Replace the whole server** section of **Admin > Server > Backups** shows the command for the backup you select in the list, or for the newest one, with a button to copy it.
 
+With artwork on local disk, check free space first. The restore needs room for the restored files and a copy of each file they replace, above Silo's [free-space reserve](/docs/s3-storage#if-local-storage-is-almost-full). If a file would cut into the reserve, the restore stops and puts everything back as it was. Free space, then run it again.
+
 1. Stop Silo on every server, and turn off automatic restarts until the restore finishes. With the standard Compose setup, stop Silo inside its container. PostgreSQL keeps running:
 
    ```sh

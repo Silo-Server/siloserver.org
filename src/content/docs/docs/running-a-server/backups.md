@@ -51,7 +51,7 @@ If you run more than one API server, one of them takes each night's backup and t
 
 Under **Where backups are kept**, choose one:
 
-- **On this server** keeps backups in Silo's data folder, on the same disk as the database. That covers a bad update or a mistake, not a failed disk. With the standard Compose setup, they're in `config/silo/artwork/backups` under `SILO_DATA_ROOT`. Each backup needs free space of 1.5 times the previous backup plus 1 GB.
+- **On this server** keeps backups in Silo's data folder, on the same disk as the database. That covers a bad update or a mistake, not a failed disk. With the standard Compose setup, they're in `config/silo/artwork/backups` under `SILO_DATA_ROOT`. Each backup needs free space of 1.5 times the previous backup plus 1 GB, or plus Silo's [free-space reserve](/docs/s3-storage#if-local-storage-is-almost-full) if that's larger. A backup can still stop partway at the reserve, for example if it's much larger than the previous one.
 - **In the private bucket** replaces **On this server** when Silo has a [private S3 bucket](/docs/s3-storage). Backups go to that bucket, encrypted with your `SECRET_KEY`.
 - **In an S3 bucket** keeps backups off this server, in a bucket used only for backups, encrypted with your `SECRET_KEY`. See [Keep backups in an S3 bucket](#keep-backups-in-an-s3-bucket).
 
