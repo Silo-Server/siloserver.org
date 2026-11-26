@@ -55,11 +55,16 @@ In the web app, the **Availability** badge shows how much of a series is in
 your library. It's off by default. To turn it on, open
 **Settings > Navigation & Cards**. Under **Badges**, with
 **Show badges on posters** on, open **Status & Awards** and turn on
-**Availability**. The badge appears in the poster's top-left corner:
+**Availability**.
 
-- On a series poster, it shows complete seasons out of seasons that have
-  aired, such as `2/3`. A season is complete once every one of its episodes
-  is in your library, so a season that's still airing isn't complete yet.
+The badge appears in the poster's top-left corner on Home and when you browse
+or search a library. Posters in your favorites, watchlist, collections, and
+history don't show it.
+
+- On a series poster, the badge shows complete seasons out of seasons that
+  have aired, such as `2/3`. A season is complete once every one of its
+  episodes is in your library, so a season that's still airing isn't complete
+  yet.
 - On a season poster on the series page, it shows the episodes in your
   library out of the whole season, including episodes still to air, such as
   `8/10`.

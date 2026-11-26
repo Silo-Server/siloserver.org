@@ -32,7 +32,7 @@ Use artwork you have permission to publish, and make sure text and controls stay
 
 Under **Card overlays**, use **Show badges on poster art** and choose the **Badge style** and where each badge appears. These are defaults; people who have chosen their own badge style keep it. Save and look at a library.
 
-**Availability**, under **Status & Awards**, is off by default. When it's on, each series and season poster shows how much of it is in the library. See [Show availability on series posters](/docs/find-something#show-availability-on-series-posters) for what it counts.
+**Availability**, under **Status & Awards**, is off by default. When it's on, series and season posters show how much of each is in the library. See [Show availability on series posters](/docs/find-something#show-availability-on-series-posters) for what it counts.
 
 ### Choose title art or plain titles
 
