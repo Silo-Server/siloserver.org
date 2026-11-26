@@ -49,6 +49,41 @@ Some results, such as upcoming releases or a person's other work, may not be
 on your server. If your server allows it, you can [request](/docs/requests)
 them.
 
+## Show availability on series posters
+
+In the web app, the **Availability** badge shows how much of a series is in
+your library. It's off by default. To turn it on, open
+**Settings > Navigation & Cards**. Under **Badges**, with
+**Show badges on posters** on, open **Status & Awards** and turn on
+**Availability**.
+
+The badge appears in the poster's top-left corner on Home and when you browse
+or search a library. Posters in your favorites, watchlist, collections, and
+history don't show it.
+
+- On a series poster, the badge shows complete seasons out of seasons that
+  have aired, such as `2/3`. A season is complete once every one of its
+  episodes is in your library, so a season with episodes still to air isn't
+  complete yet.
+- On a season poster on the series page, it shows the episodes in your
+  library out of the whole season, including episodes still to air, such as
+  `8/10`.
+
+When nothing is missing, the badge says `Complete`. Specials don't count. A
+season with nothing aired and nothing in your library has no badge. If Silo
+is missing part of a series' episode list, neither the series nor its seasons
+show one.
+
+A corner holds three badges, and **Resolution**, **HDR / Dolby Vision**, and
+**Audio Codec** under **Media Info** come first, so a series with HDR may have
+no room for **Availability**. Select **Adjust** beside **Availability** to choose
+another **Position**, or
+[combine those badges](/docs/preferences#combine-resolution-hdr-and-audio-in-one-badge).
+
+An episode counts only if you can play it. Episodes in libraries you can't
+open don't count, and neither does a 4K-only episode if your account or
+profile is limited to 1080p.
+
 ## When something is missing
 
 Look at the selected server, profile, library, and filters first. If the
