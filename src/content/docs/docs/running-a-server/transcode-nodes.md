@@ -116,7 +116,9 @@ A transcode node doesn't have to be in your house. It needs only your server's a
 
 If a friend has a spare GPU and a fast connection, their machine can convert video for your Silo server. Install Tailscale on your server's host and on their machine. The [Tailscale plugin](/docs/tailscale) isn't enough here: it only lets devices reach Silo, and your server also has to call the node.
 
-Share your server with your friend in Tailscale, and have them share their machine with you. Both shares are needed, because a shared machine can answer connections but not start them. Sign both hosts in to Tailscale as yourselves, not with a tag: a tagged machine can't reach a machine shared from another tailnet. If you run proxy nodes, they call the node too, so their hosts need the same access. Then [add the node](#add-the-node) with the Tailscale addresses as its **URL** and **Server address for the node**.
+If your friend has their own tailnet, share your server with them in Tailscale and have them share their machine with you. Both shares are needed, because a shared machine can answer connections but not start them. Sign both hosts in to Tailscale as yourselves, not with a tag: a tagged machine can't reach a machine shared from another tailnet. If you run proxy nodes, they call the node too, so their hosts need the same access.
+
+Then [add the node](#add-the-node). Enter the node's Tailscale address and port as its **URL**, such as `http://100.101.102.103:8082`. In the key dialog, **Server address for the node** starts as your public URL if you've set one; replace it with your server's Tailscale address and port.
 
 With the default **Silo Defaults** routing, your server sends remuxes and transcodes to the node whenever it's healthy and below its limit, not only when your own machine is busy. While the node is full, switched off, or unreachable, Silo converts on your server or another node instead. To keep remuxing on your server and send the node only video transcodes, choose **GPU offload** under [Route playback to nodes](#route-playback-to-nodes).
 
