@@ -108,27 +108,56 @@ library page. Changes save as you go.
 These changes apply only to you. They don't change the shared layout or
 anyone else's library access.
 
-In the mobile and TV apps, you can hide Home rows and change their order in
-**Home Sections**:
+The mobile and TV apps save your changes to the same layout as you go, so
+they follow your profile to every device.
 
-| Client | Where to find it |
-| --- | --- |
-| iPhone, iPad, and Mac | **Settings > Interface**, under **Home** |
-| Apple TV | **Settings > General** |
-| Android phone and tablet | **Settings > Interface**, under **Home** |
-| Android TV | **Settings > General** |
+### iPhone, iPad, and Mac
 
-- Select a row's eye button to hide or show it. Hidden rows stay in the
-  list, so you can show them again later.
-- To move a row on iPhone or iPad, choose **Edit** and drag it. On a Mac,
-  drag it. On an Android phone or tablet, drag it by its handle.
-- On Apple TV and Android TV, choose **Edit** and use a row's arrow buttons to
-  move it. **Done Editing** puts the arrows away, and **Done** closes the
-  list.
-- On iPhone, iPad, and Mac, a row's context menu also has **Move Up** and
-  **Move Down**, and VoiceOver offers the same actions. TalkBack on an
-  Android phone offers **Move up** and **Move down**.
+Choose **Customize Home** at the bottom of Home or in your profile menu. On a
+library's **Recommended** tab, choose **Customize Rows** at the bottom, or
+**Customize** followed by the library's name in your profile menu. You can
+also open **Settings > Interface**, choose **Home Screen** under **Home**,
+and pick Home or a library at the top.
 
-Changes save as you go, to the same Home layout you edit in the web app, so
-they follow your profile to every device. To add or rename rows, or to change
-a library page's rows, use the web app.
+- Drag a row by its handle to move it. Select its eye to hide it. Hidden rows
+  collect under **Hidden Rows** at the bottom, where you select one to show
+  it again.
+- Touch and hold a row, or right-click it on a Mac, for **Move to Top**,
+  **Move to Bottom**, and **Hide Row**. A row you added also has
+  **Delete Row**.
+- **Add Row** adds one of Silo's row kinds or one of your
+  [collections](/docs/collections). You can also
+  [pin a collection](/docs/collections#show-a-collection-on-your-home) from
+  its page.
+- The **⋯** button opens **Options**. **Reset to Server Default** puts the
+  page back to your server's rows and order and removes the rows you added.
+  On Home, **Options** also has **Next Up Mode**, **New Releases First**, and
+  **Hide Watched Items**.
+- Choose **Done** when you've finished.
+
+### Apple TV
+
+Open **Settings > General** and choose **Home** or one of your libraries.
+
+- Select a row to pick it up, press Up or Down to move it, then press Select
+  to put it down. Press Menu instead to put it back where it was.
+- Press Play/Pause or Right on a row for **Hide Row**, **Move to Top**, and
+  **Move to Bottom**. A row you added also has **Delete Row**.
+- Below the rows are **Add Row**, **Hidden Rows**, **Home Options** (or
+  **Options** on a library page), and **Done**.
+
+### Android
+
+On a phone or tablet, open **Settings > Interface** and choose
+**Home Sections** under **Home**. Select a row's eye button to hide or show
+it, and drag a row by its handle to move it. TalkBack offers actions to move
+a row earlier or later.
+
+On Android TV, open **Settings > General** and choose **Home Sections**.
+Select a row's eye button to hide or show it. To move rows, choose **Edit**
+and use a row's arrow buttons. **Done Editing** puts the arrows away, and
+**Done** closes the list.
+
+The Android apps only hide and move Home rows. Add rows and change library
+pages in the web app instead. Renaming rows and exporting your layout are
+also only in the web app.

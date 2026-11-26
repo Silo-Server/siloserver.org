@@ -103,6 +103,15 @@ on your Home or a library page. Either way, **Settings > Home Screen** opens
 with the row ready to add. For a collection someone shared with you, open it
 and select **Add to my Home**.
 
+In the iPhone, iPad, Mac, and Apple TV apps, open the collection and choose
+**Pin to Home**. The button changes to **On Home**; choose it again to take
+the row off. To pin it to a library page instead, or as well, choose the
+**⋯** button next to it and pick the library under **Where It Shows**. A
+server collection lists the libraries it belongs to, and your own collection
+lists every library of movies or shows. A pinned collection is a row you
+added, so you can move or remove it as in
+[Change your home rows](/docs/home-and-calendar#change-your-home-rows).
+
 ## Order or delete your collections
 
 Drag a poster under **Your collections** to change the order. To delete a
