@@ -1,7 +1,7 @@
 ---
 slug: docs/timeline-previews
 keywords: ["trickplay", "preview thumbnails", "scrubbing", "scrub bar", "seek bar thumbnails"]
-questions: ["How do I see thumbnails when scrubbing through a video?", "Why don't I see a picture when I drag the progress bar?", "How do I turn on preview images for skipping ahead?"]
+questions: ["How do I see thumbnails when scrubbing through a video?", "Why don't I see a picture when I drag the progress bar?", "How do I turn on preview images for skipping ahead?", "Why are seek previews taking so long to finish?"]
 beta: true
 title: Timeline previews (Beta)
 description: Preview a position while seeking, in the web app and on Apple and Android devices.
@@ -27,6 +27,28 @@ previews for the libraries an administrator turns them on for.
 Silo stores the previews in [artwork storage](/docs/s3-storage#choose-artwork-storage).
 Turning the setting off deletes the library's previews. Until a file has
 previews, each app falls back as described below.
+
+## Make previews faster
+
+These settings are in **Admin > Playback > Settings**, under **Preview images**.
+
+1. Under **Advanced**, raise **Seek preview workers**, the number of files
+   Silo makes previews for at once. The default is 1.
+2. If you have a [transcode node](/docs/transcode-nodes), set **Generate seek
+   previews on** to **Transcode nodes when available** or **Transcode nodes
+   only**. With **Transcode nodes when available**, Silo makes the previews
+   itself when no node is free. With **Transcode nodes only**, files wait for
+   a node. While no node is enabled and [**Healthy**](/docs/node-status), the
+   field sits under **Advanced** and shows **No connected transcode node
+   supports seek previews**. The message also appears when the node is older
+   than the main server.
+3. Under **Advanced**, set **Seek previews per transcode node**, the number of
+   files one node makes previews for at once. It appears once step 2 is set,
+   takes 1 to 64, and defaults to 1. Nodes get only as many files as **Seek
+   preview workers** allows, so set **Seek preview workers** to at least this
+   number times your node count. Each file a node makes previews for counts
+   toward its **Max Transcodes**, so leave room there for playback.
+4. Select **Save**.
 
 ## Preview a position
 
