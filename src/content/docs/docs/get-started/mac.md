@@ -86,7 +86,7 @@ docker compose cp silo:/usr/share/silo/nodes/silo-darwin-arm64 ./silo
 ./silo node install
 ```
 
-The installer keeps the server address, key, and port from the first install and replaces the running node. If the node is converting video, it waits for those streams to finish first, for up to 10 minutes.
+The installer keeps the node's server address, key, and port, and replaces the running node. If the node is converting video, it waits for those streams to finish first, for up to 10 minutes.
 
 ## Remove the node
 
