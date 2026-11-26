@@ -35,6 +35,12 @@ With **Translate subtitles** off, or no working text model, viewers can create s
 
 A ChatGPT plan doesn't include speech-to-text, so transcription needs its own provider even when translation uses the plan.
 
+## Connect providers from your deployment
+
+To connect providers from a Compose file, Kubernetes manifest, or NixOS configuration instead, list them under `ai_providers` in the [deployment document](/docs/provision-plugins#connect-ai-providers) and restart Silo. Then choose a declared provider under **Models**, as in step 3 of [Connect a text model](#connect-a-text-model) or step 1 of [Connect speech-to-text](#connect-speech-to-text).
+
+Under **Providers**, **Manage** on a declared provider shows its settings read-only, with a note such as **Set by SILO_CONFIG_FILE in the server’s environment.** It has no **Save** or **Remove**, and **Test** still works. To change it, or [hand it back to administrators](/docs/provision-plugins#change-settings-or-hand-control-back-to-an-administrator), edit the document and restart Silo.
+
 ## Use your ChatGPT plan
 
 Instead of an API key, the text model can use a ChatGPT subscription. Translations then count toward that plan's usage limits, with no separate per-request charge.

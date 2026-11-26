@@ -18,6 +18,15 @@ Pick the embedding model carefully: Silo locks it after the first successful emb
 4. Choose **Check Connection**. It must report the model's dimensions; a chat-only model won't work.
 5. Under **General**, turn on **Enable Recommendations**, then restart the server. Silo applies the recommendation settings only after a restart.
 
+To set these from your deployment instead:
+
+1. Declare a provider that serves embeddings in your [deployment document](/docs/provision-plugins#connect-ai-providers). That way you choose its id: a provider added in the admin pages gets a generated id that the admin pages don't show.
+2. Add three variables to the [server's environment](/docs/configuration#server-settings-from-the-environment): `SILO_RECOMMENDATIONS_ENABLED=true`, `SILO_RECOMMENDATIONS_PROVIDER` set to that provider's id, and `SILO_RECOMMENDATIONS_MODEL` set to the model.
+3. Restart Silo. The variables take effect on this start, with no second restart. **Enable Recommendations**, **Embedding provider**, and **Model** now show read-only on this page.
+4. Choose **Check Connection** and confirm it reports the model's dimensions before you run **Embeddings**.
+
+If the provider isn't connected or doesn't serve embeddings, Silo doesn't start and logs an error such as `the recommendation embeddings provider "local-embed" is not connected`. When only one API server reads the document, as in the Kubernetes example, start it first: the others stop with this error until it has connected the provider. Give every API server the same values, because the last one to start wins.
+
 A hosted embedding model receives catalog text from Silo, so review the provider's charges and data policy first. Leave the advanced ranking settings at their defaults until you have results to judge.
 
 With **Enable Recommendations** off, no profile gets personal rows. **For You** still shows rows every profile gets, such as **Highly Rated in Your Library** and **Recently Added**. On Home, the **Recommended for You** shelf shows shared picks under their own row name, or is left out when there are none.
@@ -36,9 +45,9 @@ The **Schedule** section sets when jobs run again. Change it after a manual run 
 
 The **Embedding Lock** card shows the model Silo is locked to. To move to a different model:
 
-1. Choose an **Embedding provider** that serves the new model, and enter the new **Model**.
+1. Choose an **Embedding provider** that serves the new model, and enter the new **Model**. If a variable sets either field, change that variable instead.
 2. Restart the server.
 3. Choose **Reset embeddings** and confirm. This deletes every embedding and personal recommendation row and clears taste profiles. Personal recommendations and semantic search stay unavailable until the embeddings are rebuilt. If an embedding job is running, Silo refuses the reset until it finishes.
 4. Run **Embeddings** again. Taste profiles rebuild as their titles are embedded.
 
-To keep your embeddings, switch only the provider: choose another **Embedding provider** that serves the same model with the same dimensions, choose **Check Connection**, and restart once it passes. If the provider is only down for a while, wait for it to come back rather than resetting.
+To keep your embeddings, switch only the provider: choose another **Embedding provider** that serves the same model with the same dimensions, choose **Check Connection**, and restart once it passes. When `SILO_RECOMMENDATIONS_PROVIDER` sets the provider, change that variable instead, restart, and then choose **Check Connection**. If the provider is only down for a while, wait for it to come back rather than resetting.

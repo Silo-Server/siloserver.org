@@ -41,7 +41,7 @@ Set these variables on each API server to configure Silo from its environment in
 
 With Compose, add them to `.env` and recreate the container with `docker compose up -d`. The repository's Compose files pass `.env` to the `silo` service with `env_file`. In a Compose file of your own, add `env_file: .env` to the `silo` service or list each variable under `environment`, such as `SILO_PUBLIC_URL: ${SILO_PUBLIC_URL}`.
 
-`.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. To install and configure plugins the same way, see [Provision plugins from deployment configuration](/docs/provision-plugins).
+`.env.example` in the [server repository](https://github.com/Silo-Server/silo-server/blob/main/.env.example) lists them, commented out. To install plugins and connect AI providers the same way, see [Configure Silo from a deployment document](/docs/provision-plugins).
 
 While a variable is set, its field is greyed out on its admin page, and in the setup wizard if the wizard asks for it, with a note such as **Set by SILO_PUBLIC_URL in the server's environment.** To change the setting, change the variable and recreate the container. A blank value counts as unset: it doesn't clear the setting or grey out the field.
 
@@ -73,6 +73,7 @@ Each variable sets the setting beside it. Switches take `true` or `false`.
 | `SILO_JELLYFIN_SERVER_NAME` | **Name shown to Jellyfin apps**, under **Advanced** in the **Jellyfin** group of **Admin > Integrations > Compatibility** |
 | `SILO_AUDIOBOOKSHELF_ENABLED` | **Allow Audiobookshelf apps to connect** on **Admin > Integrations > Compatibility**. See [Audiobookshelf-compatible apps (Beta)](/docs/audiobookshelf#turn-on-the-endpoint). |
 | `SILO_SEARCH_PROVIDER`, `SILO_MEILISEARCH_URL`, `SILO_MEILISEARCH_API_KEY` | **Search engine**, **Meilisearch URL**, and **Meilisearch API key** on **Admin > Server > Search**. See [Connect Meilisearch in `.env`](/docs/docker#connect-meilisearch-in-env). |
+| `SILO_RECOMMENDATIONS_ENABLED`, `SILO_RECOMMENDATIONS_PROVIDER`, `SILO_RECOMMENDATIONS_MODEL` | **Enable Recommendations**, **Embedding provider**, and **Model** on **Admin > Integrations > Recommendations**. `SILO_RECOMMENDATIONS_PROVIDER` takes a connected provider's id; [declare the provider in your deployment document](/docs/provision-plugins#connect-ai-providers) to choose its id. See [Set up recommendations](/docs/recommendations#configure-the-model). |
 | `SILO_SMTP_ENABLED` | **Send email from this server** on **Admin > Integrations > Email** |
 | `SILO_SMTP_HOST`, `SILO_SMTP_PORT` | **Mail server address** and **Port** on **Admin > Integrations > Email** |
 | `SILO_SMTP_SECURITY` | **Encryption** on **Admin > Integrations > Email**: `starttls`, `tls`, or `none` |
