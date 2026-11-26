@@ -128,7 +128,7 @@ Sportarr numbers a league's games like a TV season, so a game's code reads like 
 
 Games still sort and play next by number, and a game with no date keeps its number. Each game is dated by its day in Sportarr's broadcast time zone, the date Sportarr also puts in file names, so an evening game in the Americas isn't dated a day late.
 
-Only series the plugin matched show dates. A series that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers.
+Only series the plugin matched show dates. A series that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers. If a league matched another provider, [correct its match](#correct-a-wrong-match) and choose the result marked `sportarr`.
 
 ### After you update the Sportarr plugin
 
