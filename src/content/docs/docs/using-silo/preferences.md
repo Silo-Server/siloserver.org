@@ -124,7 +124,7 @@ adds the same cap on mobile data and metered networks, unless you've let Silo
 ignore Data Saver. Any stricter limit you chose, such as **480p**, stays in
 place. If your connection, Low Data Mode, or Data Saver changes during
 playback, the app switches to the matching settings, unless you picked a
-fixed quality in the player.
+fixed quality in the player or you're in a Watch Party.
 
 The web app uses the cellular settings when the browser reports a cellular
 connection or has Data Saver on. With Data Saver, it also caps playback at
