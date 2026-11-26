@@ -74,6 +74,12 @@ season with nothing aired and nothing in your library has no badge. Until
 Silo has loaded a series' whole episode list, neither the series nor its
 seasons show one.
 
+A corner holds three badges, and **Resolution**, **HDR / Dolby Vision**, and
+**Audio Codec** under **Media Info** come first, so a series with HDR may have
+no room for **Availability**. Select **Adjust** beside **Availability** to choose
+another **Position**, or
+[combine those badges](/docs/preferences#combine-resolution-hdr-and-audio-in-one-badge).
+
 An episode counts only if you can play it. Episodes in libraries you can't
 open don't count, and neither does a 4K-only episode if your account or
 profile is limited to 1080p.
