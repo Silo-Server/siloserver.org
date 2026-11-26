@@ -54,6 +54,6 @@ Server channels post every selected event, whatever each viewer's own preference
 
 The first library scan adds existing media without notifying anyone about it. After that, Silo waits 30 seconds after a scan records a new episode, then notifies the people who want it. If a notification can't go out within 72 hours of that scan, for example because the server stopped, Silo drops it.
 
-Phone and browser push is limited per show. A profile gets a push for a new episode only if it had no other new-episode notification for that show in the past 12 hours. When a whole season arrives at once, only its first new episode is pushed. Every episode still appears in the inbox and goes to email and webhooks.
+When several episodes of a series arrive together, each person is notified only about their next one, on every channel. See [Choose what notifies you](/docs/notification-inbox#choose-what-notifies-you).
 
 When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. Silo deletes read notifications from the inbox 90 days after they're read, and unread ones 180 days after they arrive.
