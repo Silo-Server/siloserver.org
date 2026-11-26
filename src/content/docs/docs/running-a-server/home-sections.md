@@ -34,7 +34,7 @@ Open **More** and choose **Restore defaults…** to put back the rows Silo start
 
 Profiles can still hide, rename, or reorder these rows, and add their own, in [**Settings > Home Screen**](/docs/home-and-calendar#change-your-home-rows). If a change shows for one profile but not another, that profile has changed the row or its page's order itself.
 
-Profiles can also change their rows from the mobile and TV apps, as in [Change your home rows](/docs/home-and-calendar#change-your-home-rows). The Apple apps cover Home and library pages, and the Android apps cover Home only.
+Profiles can also [change their rows in the apps](/docs/home-and-calendar#change-your-home-rows): Home and library pages in the Apple apps, and Home only in the Android apps.
 
 ## A row is missing or empty
 

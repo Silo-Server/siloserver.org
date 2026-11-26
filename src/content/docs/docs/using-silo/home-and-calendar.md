@@ -105,46 +105,49 @@ library page. Changes save as you go.
   and **Import layout…** loads one. The reset option there brings back hidden
   rows and original names, and removes rows you added.
 
-These changes apply only to you. They don't change the shared layout or
-anyone else's library access.
-
-The mobile and TV apps save your changes to the same layout as you go, so
-they follow your profile to every device.
+These changes apply only to you and follow your profile to every device,
+including changes you make in the mobile and TV apps. They don't change the
+shared layout or anyone else's library access. Renaming rows and exporting
+your layout are only in the web app.
 
 ### iPhone, iPad, and Mac
 
-Choose **Customize Home** at the bottom of Home or in your profile menu. On a
-library's **Recommended** tab, choose **Customize Rows** at the bottom, or
-**Customize** followed by the library's name in your profile menu. You can
-also open **Settings > Interface**, choose **Home Screen** under **Home**,
-and pick Home or a library at the top.
+Choose **Customize Home** at the bottom of Home, or **Customize Rows** at the
+bottom of a library's **Recommended** tab. Your profile menu has the same
+choice, for example **Customize Movies**. **Settings > Interface > Home
+Screen** opens the editor too, with Home and each library at the top.
 
-- Drag a row by its handle to move it. Select its eye to hide it. Hidden rows
-  collect under **Hidden Rows** at the bottom, where you select one to show
-  it again.
+- Drag a row by its handle to move it. Select its eye to hide it.
+- Hidden rows collect under **Hidden Rows** at the bottom. Select it to open
+  the list, then select a row to show it again.
 - Touch and hold a row, or right-click it on a Mac, for **Move to Top**,
   **Move to Bottom**, and **Hide Row**. A row you added also has
   **Delete Row**.
-- **Add Row** adds one of Silo's row kinds or one of your
-  [collections](/docs/collections). You can also
+- The bar at the bottom has **Add Row**, a **⋯** button that opens
+  **Options**, and **Done**.
+- **Add Row** lists Silo's kinds of row and your own and your server's
+  collections. Pick one, then choose **Add**. You can also
   [pin a collection](/docs/collections#show-a-collection-on-your-home) from
   its page.
-- The **⋯** button opens **Options**. **Reset to Server Default** puts the
-  page back to your server's rows and order and removes the rows you added.
-  On Home, **Options** also has **Next Up Mode**, **New Releases First**, and
-  **Hide Watched Items**.
-- Choose **Done** when you've finished.
+- In **Options**, **Reset to Server Default** puts the page back to your
+  server's rows and order and removes the rows you added. On Home,
+  **Options** also has **Next Up Mode** and **New Releases First**, the
+  apps' names for the [Next Up settings](#find-your-next-title) above, and
+  **Hide Watched Items**, which leaves titles you've watched out of most Home
+  rows.
 
 ### Apple TV
 
-Open **Settings > General** and choose **Home** or one of your libraries.
+Open **Settings > General** and choose **Customize Rows** next to **Home** or
+one of your libraries.
 
 - Select a row to pick it up, press Up or Down to move it, then press Select
   to put it down. Press Menu instead to put it back where it was.
 - Press Play/Pause or Right on a row for **Hide Row**, **Move to Top**, and
   **Move to Bottom**. A row you added also has **Delete Row**.
-- Below the rows are **Add Row**, **Hidden Rows**, **Home Options** (or
-  **Options** on a library page), and **Done**.
+- Below the rows, **Add Row**, **Hidden Rows**, **Home Options** (**Options**
+  on a library page), and **Done** work as on iPhone. **Hidden Rows** appears
+  only when a row is hidden.
 
 ### Android
 
@@ -158,6 +161,5 @@ Select a row's eye button to hide or show it. To move rows, choose **Edit**
 and use a row's arrow buttons. **Done Editing** puts the arrows away, and
 **Done** closes the list.
 
-The Android apps only hide and move Home rows. Add rows and change library
-pages in the web app instead. Renaming rows and exporting your layout are
-also only in the web app.
+The Android apps only hide and move Home rows. To add rows or change library
+pages, use the web app.
