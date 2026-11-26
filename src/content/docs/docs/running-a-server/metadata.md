@@ -130,9 +130,9 @@ Games still sort and play next by number, and a game with no date keeps its numb
 
 Only series the plugin matched show dates. A series that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers. If a league matched another provider, [correct its match](#correct-a-wrong-match) and choose the result marked `sportarr`.
 
-### After you update the Sportarr plugin
+### After the Sportarr plugin updates
 
-After you update the plugin to 1.0.6 or later, refresh the library. This replaces dates stored before the update, which can be a day late, and switches its episodes to dates.
+Once the plugin is at 1.0.6 or later, whether it [updated itself](/docs/plugins#update-or-turn-off-a-plugin) or you updated it, refresh the library. This replaces dates stored before the update, which can be a day late, and switches its episodes to dates.
 
 1. In **Admin > Libraries**, open the ⋯ menu on the library's row and choose **Rescan Metadata**.
 2. Choose **Refresh All Metadata**. A large library can take hours.
