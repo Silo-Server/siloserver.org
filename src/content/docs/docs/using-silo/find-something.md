@@ -63,8 +63,8 @@ history don't show it.
 
 - On a series poster, the badge shows complete seasons out of seasons that
   have aired, such as `2/3`. A season is complete once every one of its
-  episodes is in your library, so a season that's still airing isn't complete
-  yet.
+  episodes is in your library, so a season with episodes still to air isn't
+  complete yet.
 - On a season poster on the series page, it shows the episodes in your
   library out of the whole season, including episodes still to air, such as
   `8/10`.
