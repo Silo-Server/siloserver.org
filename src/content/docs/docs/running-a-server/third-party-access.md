@@ -1,7 +1,7 @@
 ---
 slug: docs/third-party-access
-keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests"]
-questions: ["Can I watch Silo through a Jellyfin app?", "Why does the connection info show 127.0.0.1:8096?", "Does Jellyseerr work with Silo?", "Which port do Jellyfin clients connect to?", "Why won't Findroid play or download anything?"]
+keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests", "Jellyfin Web OOM"]
+questions: ["Can I watch Silo through a Jellyfin app?", "Why does the connection info show 127.0.0.1:8096?", "Does Jellyseerr work with Silo?", "Which port do Jellyfin clients connect to?", "Why won't Findroid play or download anything?", "Why does the Jellyfin web player install run out of memory?"]
 title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.
 ---
@@ -20,7 +20,9 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 
 `localhost` or `127.0.0.1` on a phone, tablet, or TV refers to that device, not your server. If you changed the Docker port mappings, use your own port. The [Docker guide](/docs/docker) lists the default ports.
 
-The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish.
+The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish. Silo downloads the player and builds it on the server. The build needs about 4.5 GB of free memory on top of what Silo and the other services already use. It takes a few minutes on a fast server and longer on a slower one, and **Jellyfin web player** shows the installed version when it's done.
+
+If an error above **Jellyfin web player** says `the system ran out of memory during the build`, free that much memory on the server. If Silo's container has a memory limit, raise it to leave that much room too. Then select **Install Web UI** again, or **Update Web UI** if that's the button shown. You can lower the limit after the install finishes, but updating the player later needs the same room.
 
 ### Access from outside your network
 
