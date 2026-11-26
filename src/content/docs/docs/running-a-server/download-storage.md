@@ -71,4 +71,4 @@ The **History** tab lists what clean-up and administrators removed in the last 9
 
 ## Check download preparation
 
-The **Preparation** tab shows the downloads Silo is preparing or has queued, with their progress and the machine doing the work. Pause, resume, or cancel jobs there. **Admin > Activity** shows streams only.
+The **Preparation** tab shows the downloads Silo is preparing or has queued, with their progress and the machine doing the work. Pause, resume, or cancel jobs there. The **Activity** tab of **Admin > Insights** shows streams only.

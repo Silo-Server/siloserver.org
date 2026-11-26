@@ -74,7 +74,7 @@ A transcode node takes no work until it has a key. If you chose **Not now**, the
 
 Silo checks a new node as soon as you save it, then every 30 seconds. A node you start after saving shows **Unhealthy** until the next check. Its state changes to **Healthy** once Silo can reach it, and for a transcode node, once the node is running with its key. A transcode node's **Acceleration** block shows the verified encoder, such as **VAAPI** or **SW**. Use the refresh button to check it right away. [Read node status](/docs/node-status) explains each reading.
 
-Then play something that needs conversion, or from a client that uses the proxy. **Admin > Activity** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
+Then play something that needs conversion, or from a client that uses the proxy. The **Activity** tab of **Admin > Insights** shows the session, and the node's **Capacity** block shows the job. Test seeking and stopping as well.
 
 ## Choose a node's source access
 
@@ -97,7 +97,7 @@ A node set to **Through the API servers** can't burn in some text subtitles, suc
 
 With **Allow HEVC encoding** on (see [Allow 4K and HEVC output](/docs/playback#allow-4k-and-hevc-output)), Silo checks each machine's encoders separately, so HEVC support on the main server doesn't mean a node has it. HEVC is used only when a machine that may convert video under **Routing** can encode it, and HEVC jobs go only to nodes that can. When none can, devices get H.264.
 
-A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session in **Admin > Activity**: **SW** means that node's CPU is encoding.
+A node whose GPU can't encode HEVC encodes it on the CPU, even though its **Acceleration** block shows the GPU. After an HEVC stream starts on a node, check the session on the **Activity** tab of **Admin > Insights**: **SW** means that node's CPU is encoding.
 
 ## Store prepared downloads on a node
 
