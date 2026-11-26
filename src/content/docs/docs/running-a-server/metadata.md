@@ -121,7 +121,7 @@ Provider order and language belong to **Admin > Libraries**. For metadata stored
 The **Sportarr Metadata** plugin lists each league as a series and its games and events as episodes. To set it up:
 
 1. [Install the plugin](/docs/plugins#install-from-the-catalog) from the **Catalog** tab in **Admin > Integrations > Plugins**.
-2. In **Admin > Libraries**, select the pencil on the sports library's row and open **Metadata**.
+2. In **Admin > Libraries**, select **Edit** on the sports library's row and open **Metadata**.
 3. Under **Provider Priority**, check `sportarr` for series, seasons, and episodes, then select **Save Changes**.
 
 Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date in its place, such as Nov 20, 2026: on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and in Watch Party.
