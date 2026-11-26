@@ -112,19 +112,15 @@ If **Prepared file directory** is set in **Admin > Downloads > Settings**, a nod
 
 ## Borrow a friend's GPU
 
-A transcode node doesn't have to be in your house. It needs only your server's address and a key, and with **Source access** set to **Through the API servers** it doesn't mount your library, so it can run on someone else's machine. Two friends can each run one for the other's server.
+A transcode node can run on a friend's machine. It needs only your server's address and a key, and with **Source access** set to **Through the API servers** it doesn't mount your library.
 
-If a friend has a spare GPU and a fast connection, their machine can convert video for your Silo server. Install Tailscale on your server's host and on their machine. The [Tailscale plugin](/docs/tailscale) isn't enough here: it only lets devices reach Silo, and your server also has to call the node.
+Install Tailscale on your server's host and on their machine. The [Tailscale plugin](/docs/tailscale) isn't enough, because it only lets devices reach Silo and your server also calls the node. If your friend has their own tailnet, share each machine with the other, since a shared machine can't start connections. Sign both hosts in as yourselves, not with a tag. Any proxy nodes call the node too, so they need the same access.
 
-If your friend has their own tailnet, share your server with them in Tailscale and have them share their machine with you. Both shares are needed, because a shared machine can answer connections but not start them. Sign both hosts in to Tailscale as yourselves, not with a tag: a tagged machine can't reach a machine shared from another tailnet. If you run proxy nodes, they call the node too, so their hosts need the same access.
+[Add the node](#add-the-node) with its Tailscale address and port as its **URL**, such as `http://100.101.102.103:8082`. In the key dialog, set **Server address for the node** to your server's Tailscale address; it starts as your public URL if you've set one.
 
-Then [add the node](#add-the-node). Enter the node's Tailscale address and port as its **URL**, such as `http://100.101.102.103:8082`. In the key dialog, **Server address for the node** starts as your public URL if you've set one; replace it with your server's Tailscale address and port.
+**Silo Defaults** prefers transcode nodes, so your friend's node gets work even while your server is idle. When the node is full or offline, new playback goes to your server or another node. **GPU offload** prefers your server for remuxes. Your friend can cap the node's jobs with `SILO_NODE_MAX_TRANSCODES` in its `.env`.
 
-With the default **Silo Defaults** routing, Silo prefers transcode nodes for remuxes and transcodes, so the node gets work even while your own machine is idle. While it's full, switched off, or unreachable, Silo starts new playback on your server or another node instead. To prefer your server for remuxes and nodes for video transcodes, choose **GPU offload** under [Route playback to nodes](#route-playback-to-nodes).
-
-Your friend stays in charge of their hardware. They set `SILO_NODE_MAX_TRANSCODES` in the node's `.env`, the node refuses new jobs past that number, and **Max Transcodes** is then read-only in your node editor.
-
-The node reads each video from your server while it converts it, so the original uses your server's upload and the converted video uses your friend's. Your viewers never connect to your friend's machine: the node sends the converted video to your server or a proxy node, which streams it to them. Do it only with someone you trust who also trusts you: their node sees every video it converts, and it runs the jobs your server sends it.
+The original video uses your upload and the converted video uses theirs. Viewers still connect only to your server or a proxy node. Do this only with someone you trust who also trusts you: their node sees every video it converts and runs the jobs your server sends it.
 
 ## If work does not reach the node
 
