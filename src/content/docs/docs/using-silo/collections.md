@@ -110,8 +110,8 @@ the collection off your Home. You can move the row like any other, as in
 
 To pin it to a library page as well or instead, choose the **⋯** button next
 to **Pin to Home** and pick the library under **Where It Shows**. A server
-collection lists the libraries it belongs to, and your own collection lists
-every library of movies or shows.
+collection lists the libraries it belongs to. A collection you made, or one
+shared with you, lists every library of movies or shows.
 
 ## Order or delete your collections
 

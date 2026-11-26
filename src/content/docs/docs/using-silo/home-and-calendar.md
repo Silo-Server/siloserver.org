@@ -162,4 +162,4 @@ and use a row's arrow buttons. **Done Editing** puts the arrows away, and
 **Done** closes the list.
 
 The Android apps only hide and move Home rows. To add rows or change library
-pages, use the web app.
+pages, use the web app or an Apple app.
