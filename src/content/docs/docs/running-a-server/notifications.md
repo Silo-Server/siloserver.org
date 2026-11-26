@@ -56,4 +56,6 @@ The first library scan adds existing media without notifying anyone about it. Af
 
 When several episodes of a series arrive together, each person hears only about their next one, on every channel they use. See [Choose what notifies you](/docs/notification-inbox#choose-what-notifies-you). Server channels still announce the new episodes, grouped by series.
 
-When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings. Silo deletes read notifications from the inbox 90 days after they're read, and unread ones 180 days after they arrive.
+When one person is missing notifications, check their notification preferences, channel subscriptions, and device permissions before changing server-wide settings.
+
+Silo deletes read notifications from the inbox 90 days after they're read, and unread ones 180 days after they arrive.
