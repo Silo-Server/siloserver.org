@@ -112,16 +112,25 @@ Choosing a quality in the player doesn't change these settings. See
 
 On iPhone, iPad, and Android phones and tablets, **Cellular Quality** in
 **Settings > Playback** replaces both settings while you're on mobile data or
-a network the device treats as metered, such as a phone hotspot, Low Data
-Mode on iPhone, or a Wi-Fi network marked as metered on Android. It's one
-list, from **Auto** to **480p**. The default, **720p**, plays up to 720p at
-2 Mbps. If your connection changes during playback, the app switches to the
-other setting.
+a network the device treats as metered, such as a phone hotspot or a Wi-Fi
+network marked as metered on Android. It's one list, from two **Auto**
+choices down to **480p**. The default, **Auto, up to 10 Mbps**, plays the
+original file up to 10 Mbps and converts larger files to fit.
+**Auto, no limit** drops that cap.
 
-The web app does the same when the browser reports a cellular connection or
-has Data Saver on. To change it for one browser, open that browser in
-**Settings > Your Devices** and set **Cellular quality** and **Cellular
-maximum bitrate** under **Picture**.
+On iPhone and iPad, Low Data Mode switches playback to **Cellular Quality**
+on any network, Wi-Fi included, and caps it at 2 Mbps. On Android, Data Saver
+adds the same cap on mobile data and metered networks, unless you've let Silo
+ignore Data Saver. Any stricter limit you chose, such as **480p**, stays in
+place. If your connection, Low Data Mode, or Data Saver changes during
+playback, the app switches to the matching settings, unless you picked a
+fixed quality in the player or you're in a Watch Party.
+
+The web app uses the cellular settings when the browser reports a cellular
+connection or has Data Saver on, and switches when that changes during
+playback. With Data Saver, it also caps playback at 2 Mbps. To change them
+for one browser, choose that browser in **Settings > Your Devices** and set
+**Cellular quality** and **Cellular maximum bitrate** under **Picture**.
 
 ### Lower quality when buffering
 
