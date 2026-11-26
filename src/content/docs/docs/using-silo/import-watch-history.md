@@ -20,7 +20,9 @@ Open **Settings > History Import** and choose the service.
 - **Jellyfin:** enter the **Jellyfin Server URL**, your
   **Jellyfin Username**, and your **Jellyfin Password**.
 - **Emby:** under **Emby Connect**, enter your Emby Connect email or username
-  and password, select **Find Servers**, and choose a server. Or, under
+  and password, select **Find Servers**, and choose a server. Under
+  **Server URL**, enter the **Emby Server URL**, your **Emby Username**, and
+  your **Emby Password** (leave it blank if the account has none). Under
   **Saved Server**, choose a server added by the person who runs Silo and
   enter your **Emby Username** and **Emby Password**.
 
