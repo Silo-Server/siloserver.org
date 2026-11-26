@@ -70,9 +70,9 @@ history don't show it.
   `8/10`.
 
 When nothing is missing, the badge says `Complete`. Specials don't count. A
-season with nothing aired and nothing in your library has no badge. Until
-Silo has loaded a series' whole episode list, neither the series nor its
-seasons show one.
+season with nothing aired and nothing in your library has no badge. If Silo
+is missing part of a series' episode list, neither the series nor its seasons
+show one.
 
 A corner holds three badges, and **Resolution**, **HDR / Dolby Vision**, and
 **Audio Codec** under **Media Info** come first, so a series with HDR may have
