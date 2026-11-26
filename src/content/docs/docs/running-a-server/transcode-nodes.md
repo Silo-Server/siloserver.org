@@ -1,6 +1,6 @@
 ---
 slug: docs/transcode-nodes
-keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding", "node key", "GPU box", "no shared storage"]
+keywords: ["distributed transcoding", "remote transcoding", "load balancing", "worker node", "second machine", "multiple servers", "cluster", "scale out", "offload transcoding", "node key", "GPU box", "no shared storage", "share a GPU", "friend's computer"]
 questions: ["How do I use a second computer's GPU for converting?", "Can another machine handle streaming to take load off my server?", "Why isn't my extra machine getting any transcodes?", "How do I update a node without stopping playback?", "Does a transcode node need my database password?", "Can a node convert video without mounting my library?"]
 title: Add and check transcode nodes
 description: Add proxy and transcode nodes on other machines and check that playback uses them.
@@ -146,6 +146,18 @@ With `SILO_NODE_MAX_TRANSCODES` set, the node refuses new work past that number,
 A proxy node that sets any variable in the table needs an entry in Silo matching its URL or name, or it refuses to start. To have a proxy with no entry add its own at its URL, set `SILO_NODE_REGISTER=true`. Leave that off if the proxy's entry in Silo uses a different **URL** (such as its public hostname) and doesn't match by **Name**, or Silo can add a second entry for it.
 
 Update the main server before updating proxy nodes; a proxy that starts while the main server is migrating starts without its environment settings and applies them once the migration finishes. A transcode node can update first, enforces its own settings as soon as it starts, and syncs them once the main server updates.
+
+## Borrow a friend's GPU
+
+A transcode node can run on a friend's machine. It needs only your server's address and a key, and with **Source access** set to **Through the API servers** it doesn't mount your library.
+
+Install Tailscale on your server's host and on their machine. The [Tailscale plugin](/docs/tailscale) isn't enough, because it only lets devices reach Silo and your server also calls the node. If your friend has their own tailnet, share each machine with the other, since a shared machine can't start connections. Sign both hosts in as yourselves, not with a tag. Any proxy nodes call the node too, so they need the same access.
+
+[Add the node](#add-the-node) with its Tailscale address and port as its **URL**, such as `http://100.101.102.103:8082`. In the key dialog, set **Server address for the node** to your server's Tailscale address; it starts as your public URL if you've set one.
+
+**Silo Defaults** prefers transcode nodes, so your friend's node gets work even while your server is idle. When the node is full or offline, new playback goes to your server or another node. **GPU offload** prefers your server for remuxes. Your friend can cap the node's jobs with `SILO_NODE_MAX_TRANSCODES` in its `.env`.
+
+The original video uses your upload and the converted video uses theirs. Viewers still connect only to your server or a proxy node. Do this only with someone you trust who also trusts you: their node sees every video it converts and runs the jobs your server sends it.
 
 ## If work does not reach the node
 
