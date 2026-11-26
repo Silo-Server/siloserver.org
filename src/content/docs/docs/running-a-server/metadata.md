@@ -124,7 +124,7 @@ The **Sportarr Metadata** plugin lists each league as a series and its games and
 2. In **Admin > Libraries**, select **Edit** on the sports library's row and open **Metadata**.
 3. Under **Provider Priority**, check `sportarr` for series, seasons, and episodes, then select **Save Changes**.
 
-Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date in its place, such as Nov 20, 2026: on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and in Watch Party.
+Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date in its place, such as Nov 20, 2026: on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and when you pick a game in Watch Party.
 
 Games still sort and play next by number, and a game with no date keeps its number. Each game is dated by its day in Sportarr's broadcast time zone, the date Sportarr also puts in file names, so an evening game in the Americas isn't dated a day late.
 
