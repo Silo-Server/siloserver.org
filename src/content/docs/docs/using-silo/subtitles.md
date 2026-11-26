@@ -25,6 +25,11 @@ back to your usual settings. With **Off**, forced subtitles still appear for
 foreign-language lines, unless you've turned forced subtitles off in your
 settings.
 
+On iPhone, iPad, and Apple TV with **Use Device Settings** turned on under
+**Settings > Subtitles**, a track you picked still plays whenever the file has
+one in that language. Otherwise the device's caption settings choose, and a
+pick of **Off** isn't remembered.
+
 When Silo converts the video for your device, the mobile and TV apps get a
 text subtitle from inside the video file along with the video, so it appears
 as soon as playback starts. Turning on a subtitle from inside the file, or
@@ -62,6 +67,10 @@ the **Subtitles** settings page in the iPhone, iPad, and Android apps, or
 device. Turning it off goes back to your profile's look. For one browser, use
 **Settings > Your Devices** in the web app; see
 [Preferences](/docs/preferences#change-one-device).
+
+To use the device's own caption style instead, turn on
+**Use Device Settings** on the **Subtitles** settings page in the mobile and
+TV apps.
 
 ## Fix subtitles that are out of sync
 
