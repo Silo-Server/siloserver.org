@@ -75,7 +75,7 @@ In **Admin > Playback > Nodes**, check that the node shows **Healthy**. Its **Ac
 
 With **Hardware acceleration** in **Admin > Playback > Settings** on **Auto**, its default, the node finds VideoToolbox by itself. If you've set it to another option for your other machines, the Mac node uses that option too, and **Acceleration** shows it. To pin the Mac node to VideoToolbox, select the pencil icon in its header, set **Hardware Acceleration** to **VideoToolbox**, and select **Save**. New conversions use it within a minute. To update **Acceleration** now, select the re-probe button just before the pencil. Silo refuses a re-probe while the node is converting, so wait until it's idle.
 
-The default [**Routing preset**](/docs/transcode-nodes#route-playback-to-nodes), **Silo Defaults**, sends conversions to the node and uses the server only when the node can't take a stream. To test it, play a video in the web app, select **Playback settings** in the player, and choose a **Quality** below the video's own resolution. While it plays, the **Transcodes** count in the node's **Capacity** block goes up.
+The default [**Routing preset**](/docs/transcode-nodes#route-playback-to-nodes), **Silo Defaults**, sends conversions to the node and uses the server only when the node can't take a stream. To test it, play a video in the web app, select **Playback settings** in the player, and under **Streaming quality**, choose an option below the video's own resolution. While it plays, the **Transcodes** count in the node's **Capacity** block goes up.
 
 ## Update the node
 
