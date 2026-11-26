@@ -145,5 +145,7 @@ A webhook can send fewer events than your profile's choices, but not more.
 If your browser says notifications aren't supported, make sure you're using
 the HTTPS address before trying another browser.
 
-A first library scan won't alert you about every old episode. The server
-limits alerts for stale events and large batches.
+A first library scan won't alert you about every old episode. When several
+episodes of a series arrive together, you hear only about your next one: the
+first you haven't watched after the one you finished most recently. See
+[Choose what notifies you](#choose-what-notifies-you).
