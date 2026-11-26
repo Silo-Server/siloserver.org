@@ -1,7 +1,7 @@
 ---
 slug: docs/metadata
 keywords: ["wrong poster", "wrong movie", "wrong show", "mismatched", "fix match", "identify", "incorrect title", "artwork", "cover art"]
-questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "How do I undo my changes to an episode?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?"]
+questions: ["How do I use my own poster image for a movie?", "Why do my edited titles keep changing back?", "How do I undo my changes to an episode?", "Why are descriptions showing in English instead of my language?", "How do I stop Silo trying to match my home videos?", "Why do my sports games show season and episode numbers?"]
 title: Fix metadata and choose artwork
 description: Correct a match, edit a description, and keep intentional changes.
 ---
@@ -115,6 +115,29 @@ Choose **Refresh Metadata** from the item's actions menu:
 - **Complete Refresh** clears the match and rebuilds the item from disk, which can give it a new ID or type. Use it only to repair an item.
 
 Provider order and language belong to **Admin > Libraries**. For metadata stored beside your own files, use [NFO sidecars](/docs/local-metadata).
+
+## Sports libraries from Sportarr
+
+The **Sportarr Metadata** plugin lists each league as a series and its games and events as episodes. To set it up:
+
+1. [Install the plugin](/docs/plugins#install-from-the-catalog) from the **Catalog** tab in **Admin > Integrations > Plugins**.
+2. In **Admin > Libraries**, select **Edit** on the sports library's row and open **Metadata**.
+3. Under **Provider Priority**, check `sportarr` for series, seasons, and episodes, then select **Save Changes**.
+
+Sportarr numbers a league's games like a TV season, so a game's code reads like `S2026E296`. With version 1.0.6 or later of the plugin, the web, Apple, and Android apps show the game's date in its place, such as Nov 20, 2026: on Home and Continue Watching cards, in the season's episode list, on the episode page, in the player, and when you pick a game in Watch Party.
+
+Games still sort and play next by number, and a game with no date keeps its number. Each game is dated by its day in Sportarr's broadcast time zone, the date Sportarr also puts in file names, so an evening game in the Americas isn't dated a day late.
+
+Only series the plugin matched show dates. A series that takes its details from [NFO files](/docs/local-metadata) without the plugin keeps its season and episode numbers. If a league matched another provider, [correct its match](#correct-a-wrong-match) and choose the result marked `sportarr`.
+
+### After the Sportarr plugin updates
+
+Once the plugin is at 1.0.6 or later, whether it [updated itself](/docs/plugins#update-or-turn-off-a-plugin) or you updated it, refresh the library. This replaces dates stored before the update, which can be a day late, and switches its episodes to dates.
+
+1. In **Admin > Libraries**, open the ⋯ menu on the library's row and choose **Rescan Metadata**.
+2. Choose **Refresh All Metadata**. A large library can take hours.
+
+An **Air Date** you locked in **Edit Metadata** keeps your value, and so does a date from an NFO file while **Local metadata (NFO + artwork)** is on for the library.
 
 ## Cast and crew details
 

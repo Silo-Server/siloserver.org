@@ -170,5 +170,6 @@
   {"query": "change app language", "expect": ["docs/preferences"]},
   {"query": "menus in spanish", "expect": ["docs/preferences"]},
   {"query": "help translate silo", "expect": ["docs/preferences"]},
-  {"query": "how do I set up theme music", "expect": ["docs/media-folders"]}
+  {"query": "how do I set up theme music", "expect": ["docs/media-folders"]},
+  {"query": "sports games show as season and episode numbers", "expect": ["docs/metadata"]}
 ]
