@@ -1,7 +1,7 @@
 ---
 slug: docs/branding
 keywords: ["white label", "rebrand", "custom theme", "theme color", "background image", "server title", "rename server", "clearlogo"]
-questions: ["How do I put my own logo on the sign-in page?", "Can I change the name shown in the browser tab?", "How do I change the button color of the web app?", "Can I show plain movie names instead of logo images?"]
+questions: ["How do I put my own logo on the sign-in page?", "Can I change the name shown in the browser tab?", "How do I change the button color of the web app?", "Can I show plain movie names instead of logo images?", "Why is text lighter than the accent color I picked?"]
 title: Customize your server's appearance
 description: Set your server's logos, accent color, poster badges, title art, and login background for the web app and emails.
 ---
@@ -26,7 +26,9 @@ Everything in this section is on **Admin > Server > Appearance**.
 2. Under **Colors**, choose an **Accent color** for buttons, focus outlines, and the sidebar. Emails use it for their main button, such as the one in an invitation.
 3. Save, then look at a normal page and the signed-out sign-in page. To see the logo in an email, [send a test email](/docs/notification-delivery#set-up-email).
 
-Use artwork you have permission to publish, and make sure text and controls stay readable against your colors and background.
+If your accent is too dark to read as text, the web app draws accent-colored text, such as links and the current page in the admin and settings sidebars, in a lighter shade. Buttons and the bar beside the current page keep your exact color. For anyone who sets **Contrast** to **High Contrast** under [**Settings > Accessibility**](/docs/preferences#change-a-profile-preference-in-the-web-app), accent text can be lighter still, and focus outlines are white instead of your accent.
+
+Use artwork you have permission to publish, and check that your logos stand out and the sign-in page stays readable over your login background. Focus outlines use your exact accent, so if you pick a dark one, press Tab on a page and check that you can still see the outline.
 
 ### Adjust poster badges
 
