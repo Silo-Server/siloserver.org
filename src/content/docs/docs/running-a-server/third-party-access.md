@@ -1,6 +1,6 @@
 ---
 slug: docs/third-party-access
-keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests", "out of memory"]
+keywords: ["Jellyfin client", "Jellyfin emulation", "Jellyfin API", "Jellyfin server address", "Jellyfin app can't connect", "media requests", "Jellyfin Web OOM"]
 questions: ["Can I watch Silo through a Jellyfin app?", "Why does the connection info show 127.0.0.1:8096?", "Does Jellyseerr work with Silo?", "Which port do Jellyfin clients connect to?", "Why won't Findroid play or download anything?", "Why does the Jellyfin web player install run out of memory?"]
 title: Enable third-party client access
 description: Turn on Jellyfin compatibility and give other apps the correct server address.

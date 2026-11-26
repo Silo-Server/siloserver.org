@@ -70,6 +70,7 @@
   {"query": "android apk", "expect": ["docs/choose-an-app"]},
   {"query": "ask for a movie to be added", "expect": ["docs/requests", "docs/manage-requests"]},
   {"query": "overseerr", "expect": ["docs/third-party-access", "docs/manage-requests"]},
+  {"query": "jellyfin web player install ran out of memory", "expect": ["docs/third-party-access"]},
   {"query": "sonarr", "expect": ["docs/autoscan"]},
   {"query": "no sound from my receiver", "expect": ["docs/playback-problems"]},
   {"query": "hdr looks washed out", "expect": ["docs/playback-problems", "docs/playback"]},
