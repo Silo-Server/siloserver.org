@@ -1,7 +1,7 @@
 ---
 slug: docs/watch-history
-keywords: ["mark as seen", "already seen", "clear history", "lost my place", "jumps back", "sync between devices", "hide from continue watching"]
-questions: ["How do I mark an episode as watched?", "How do I get rid of something stuck in Continue Watching?", "Why does my spot in a movie keep jumping back?", "How do I pick up on my phone where I stopped on the TV?"]
+keywords: ["mark as seen", "already seen", "clear history", "lost my place", "jumps back", "sync between devices", "hide from continue watching", "marked watched automatically", "watched before the end"]
+questions: ["How do I mark an episode as watched?", "How do I get rid of something stuck in Continue Watching?", "Why does my spot in a movie keep jumping back?", "How do I pick up on my phone where I stopped on the TV?", "Why did an episode count as watched before it finished?"]
 title: Watched status and resume progress
 description: Resume a title, correct watched status, or continue on another device.
 ---
@@ -65,6 +65,15 @@ they are, and the change applies to your profile on every device.
 In the web app, a message confirms the removal. Select **Undo** in it to put
 the title back. The Apple and Android apps don't have an undo, so play the
 title again to bring it back.
+
+## Automatic watched status
+
+Silo marks a movie or episode watched on its own when you play past 90% of
+it. The person who runs your server can change the 90%. If the version you're
+playing has a [credits marker](/docs/markers), reaching the end credits counts
+too. A watched title leaves **Continue Watching**. For a series, the next
+episode takes its place if there is one, or appears in **Next Up** if you use
+that row.
 
 ## Change watched status
 
