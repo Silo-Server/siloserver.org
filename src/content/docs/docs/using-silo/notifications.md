@@ -1,7 +1,7 @@
 ---
 slug: docs/notification-inbox
 keywords: ["push notifications", "web push", "not getting notified", "new episode alert", "stop emails", "Discord DM", "remind me", "notify me", "mute a series"]
-questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I get emails about new episodes?", "Can I get alerts as a Discord message?", "Why did browser notifications stop after I signed out?", "Why did I get one alert when a whole season arrived?"]
+questions: ["How do I get told when a new episode comes out?", "Why does my browser say notifications aren't supported?", "How do I start or stop emails about new episodes?", "Can I get alerts as a Discord message?", "Why did browser notifications stop after I signed out?", "Why did I get one alert when a whole season arrived?"]
 title: Manage your notifications
 description: Choose which events reach you and check browser, mobile, email, or Discord delivery.
 ---
@@ -97,6 +97,18 @@ the account's sign-in email.
 
 Your server may only offer the daily digest. Child profiles can't receive
 email notifications.
+
+To stop a profile's notification emails, open **Unsubscribe** at the bottom
+of one of them, then select **Unsubscribe** on the confirmation page. Opening
+the page leaves your preferences unchanged. You don't need to sign in to
+confirm. If your mail app offers its own unsubscribe button, it can stop the
+emails straight away, without the confirmation page.
+
+To turn email off or back on yourself, switch to that profile and use
+**Email this profile's notifications** in **Settings > Notifications**. Do
+this if an email has no **Unsubscribe** link or the page says **Link
+invalid**. Email turns back on as **Daily digest**, so change **Frequency**
+if you used another option.
 
 ### Discord direct messages
 
