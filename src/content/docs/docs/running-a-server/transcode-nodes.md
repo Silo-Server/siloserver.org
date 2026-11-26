@@ -120,7 +120,7 @@ If your friend has their own tailnet, share your server with them in Tailscale a
 
 Then [add the node](#add-the-node). Enter the node's Tailscale address and port as its **URL**, such as `http://100.101.102.103:8082`. In the key dialog, **Server address for the node** starts as your public URL if you've set one; replace it with your server's Tailscale address and port.
 
-With the default **Silo Defaults** routing, your server sends remuxes and transcodes to the node whenever it's healthy and below its limit, not only when your own machine is busy. While the node is full, switched off, or unreachable, Silo converts on your server or another node instead. To keep remuxing on your server and send the node only video transcodes, choose **GPU offload** under [Route playback to nodes](#route-playback-to-nodes).
+With the default **Silo Defaults** routing, Silo prefers transcode nodes for remuxes and transcodes, so the node gets work even while your own machine is idle. While it's full, switched off, or unreachable, Silo starts new playback on your server or another node instead. To prefer your server for remuxes and nodes for video transcodes, choose **GPU offload** under [Route playback to nodes](#route-playback-to-nodes).
 
 Your friend stays in charge of their hardware. They set `SILO_NODE_MAX_TRANSCODES` in the node's `.env`, the node refuses work past that number, and **Max Transcodes** is then read-only in your node editor. Your viewers never connect to your friend's machine: the node sends the converted video back to your server or a proxy node, which streams it to them.
 
