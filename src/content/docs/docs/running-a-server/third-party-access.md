@@ -22,7 +22,7 @@ Apps built for Jellyfin can connect to Silo on a separate port, 8096 in the defa
 
 The **Jellyfin web player** controls install or remove the Jellyfin web player, which Jellyfin mobile and TV apps expect to find on the server. Save the compatibility settings first, then wait for the install to finish. Silo downloads the player and builds it on the server. The build needs about 4.5 GB of free memory on top of what Silo and the other services already use. It takes a few minutes on a fast server and longer on a slower one, and **Jellyfin web player** shows the installed version when it's done.
 
-If an error above **Jellyfin web player** says `the system ran out of memory during the build`, free that much memory on the server, or raise the memory limit on Silo's container if it has one. Then select **Install Web UI** again. You can lower the limit once the install finishes.
+If an error above **Jellyfin web player** says `the system ran out of memory during the build`, free that much memory on the server. If Silo's container has a memory limit, raise it to leave that much room too. Then select **Install Web UI** again, or **Update Web UI** if that's the button shown. You can lower the limit after the install finishes, but updating the player later needs the same room.
 
 ### Access from outside your network
 
